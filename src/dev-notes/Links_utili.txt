@@ -1,0 +1,6 @@
+#### elenco di liks utili per lo sviluppo, divisi in categorie ####
+(fine riga stile windows/DOS)
+
+1) Game design
+    http://www.redblobgames.com/grids/hexagons/
+      algoritmi / strutture dati per griglie esagonali
