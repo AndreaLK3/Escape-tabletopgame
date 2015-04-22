@@ -15,9 +15,45 @@ public final class PositionCubic {
 	public static final Pattern PATTERN = Pattern.compile("([A-Z]+)([0-9]+)");
 	
 	public PositionCubic(Integer x, Integer y, Integer z) {
+		// costruttore (1): usa direttamente le coord cubiche
 		this.x = x;
 		this.y = y;
 		this.z = z;
+	}
+	
+	public PositionCubic(String coordstring, Position2D center) throws BadCoordinatesException {
+		// costruttore (2): usa le coordinate del gioco (lettera-numero)
+		Position2D coord = AlphaToOddq(coordstring);
+		Integer col = coord.getX() - center.getX();
+		Integer row = coord.getY() - center.getY();
+		
+		x = col;
+		y = row - ((col + (col&1)) / 2);
+		z = -x - y;
+	}
+	
+	public PositionCubic(Position2D coord, Position2D center) {
+		/* costruttore (3): usa le coordinate odd-q (come quelle del gioco, ma 
+		 * puramente numeriche)
+		 */
+		Integer col = coord.getX() - center.getX();
+		Integer row = coord.getY() - center.getY();
+		
+		x = col;
+		y = row - ((col + (col&1)) / 2);
+		z = -x - y;
+	}
+	
+	private Position2D AlphaToOddq(String coord) throws BadCoordinatesException {
+		Matcher m = PATTERN.matcher(coord);
+		if (m.matches()) {
+			Integer row = new Integer(m.group(2));
+			Integer col = (new AlphaToIntHelper(m.group(1))).convert();
+			System.out.println(col + ":" + row);
+			
+			return new Position2D(col, row);
+		}
+		else throw new BadCoordinatesException();
 	}
 	
 	public Integer getX() {
@@ -49,32 +85,8 @@ public final class PositionCubic {
 		return new String(col.toString() + mypos.getY().toString());
 	}
 	
-	private static PositionCubic fromOddqCoord(Position2D coord, Position2D center) {
-		Integer col = coord.getX() - center.getX();
-		Integer row = coord.getY() - center.getY();
-		Integer x,y,z;
-		
-		x = col;
-		y = row - ((col + (col&1)) / 2);
-		z = -x - y;
-		
-		return new PositionCubic(x, y, z);
-	}
-	
-	public static PositionCubic fromAlphaNumCoord(String coord, Position2D center) 
-			throws BadCoordinatesException {
-		Matcher m = PATTERN.matcher(coord);
-		if (m.matches()) {
-			Integer row = new Integer(m.group(2));
-			Integer col = (new AlphaToIntHelper(m.group(1))).convert();
-			System.out.println(col + ":" + row);
-			
-			return fromOddqCoord(new Position2D(col, row), center);
-		}
-		else throw new BadCoordinatesException();
-	}
-	
 	public boolean equals(PositionCubic other) {
+		// per verificare se due coordinate sono uguali
 		if (x.equals(other.getX()) && y.equals(other.getY()) && z.equals(other.getZ())) {
 			return true;
 		}
