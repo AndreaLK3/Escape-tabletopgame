@@ -57,15 +57,15 @@ public final class PositionCubic {
 	}
 	
 	public Integer getX() {
-		return new Integer(x);
+		return x;
 	}
 
 	public Integer getY() {
-		return new Integer(y);
+		return y;
 	}
 
 	public Integer getZ() {
-		return new Integer(z);
+		return z;
 	}
 
 	private Position2D getOddQCoord(Position2D center) {

@@ -1,6 +1,6 @@
 package it.escape.server.model.game.gamemap;
 
-public final class Position2D {
+public final class Position2D implements Cloneable {
 	
 	private final Integer x;
 	
@@ -11,17 +11,18 @@ public final class Position2D {
 		this.y = y;
 	}
 	
-	public Position2D getCopy() {
+	@Override
+	public Position2D clone() {
 		// l'ho messo solo perchè, essendo la classe immutabile, può servirci
 		return new Position2D(x, y);
 	}
 
 	public Integer getX() {
-		return new Integer(x);
+		return x;
 	}
 
 	public Integer getY() {
-		return new Integer(y);
+		return y;
 	}
 	
 	@Override
