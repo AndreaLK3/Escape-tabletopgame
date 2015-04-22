@@ -52,8 +52,8 @@ public final class PositionCubic {
 	private static PositionCubic fromOddqCoord(Position2D coord, Position2D center) {
 		Integer col = coord.getX() - center.getX();
 		Integer row = coord.getY() - center.getY();
-		
 		Integer x,y,z;
+		
 		x = col;
 		y = row - ((col + (col&1)) / 2);
 		z = -x - y;
