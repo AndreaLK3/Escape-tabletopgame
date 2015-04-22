@@ -55,7 +55,7 @@ public final class PositionCubic {
 		
 		Integer x,y,z;
 		x = col;
-		y = row - (col - (col&1)) / 2;
+		y = row - ((col + (col&1)) / 2);
 		z = -x - y;
 		
 		return new PositionCubic(x, y, z);
