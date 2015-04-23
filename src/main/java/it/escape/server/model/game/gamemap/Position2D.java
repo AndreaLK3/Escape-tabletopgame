@@ -1,5 +1,10 @@
 package it.escape.server.model.game.gamemap;
 
+/*
+ * classe (immutabile) usata internamente dalle altre classi per raccogliere
+ * coordinate cartesiane
+ */
+
 public final class Position2D implements Cloneable {
 	
 	private final Integer x;
@@ -17,11 +22,11 @@ public final class Position2D implements Cloneable {
 		return new Position2D(x, y);
 	}
 
-	public Integer getX() {
+	public int getX() {
 		return x;
 	}
 
-	public Integer getY() {
+	public int getY() {
 		return y;
 	}
 	

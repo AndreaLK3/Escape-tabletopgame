@@ -1,5 +1,10 @@
 package it.escape.server.model.game.gamemap;
 
+/*
+ * converte una stringa di lettere ascii maiuscole ad un intero.
+ * la lettera meno significativa è l'ultima
+ */
+
 public final class AlphaToIntHelper {
 	
 	private final String rawValue;
@@ -22,7 +27,7 @@ public final class AlphaToIntHelper {
 		
 		for (int i = 0; i < rawValue.length(); i++) {
 			int curr = asciiToInt(rawValue.charAt(i));
-			// TODO check curr belongs to the specified range
+			// we won't check if curr belongs to our rage, as is guaranteed by the caller
 			total += curr * Math.pow(range, rawValue.length() - i -1);
 		}
 		return total;

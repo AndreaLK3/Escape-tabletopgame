@@ -2,6 +2,17 @@ package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.gamemap.exceptions.BadCoordinatesException;
 
+/*
+ * tipo immutabile usato per rappresentare la posizione di una cella esagonale
+ * il sistema di coordinate usato fa riferimento a:
+ * http://www.redblobgames.com/grids/hexagons/
+ * nota che questa classe non fa nessun controllo che le coordinate appartengano
+ * ad un certo "intervallo ammesso", dato che essa non ha conoscenza della mappa
+ * complessiva.
+ * L'unica informazione extra da definire sono le coordinate odd-q del centro della
+ * mappa, che sarà lo zero nel sistema di coordinate cubic 
+ */
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,15 +67,16 @@ public final class PositionCubic {
 		else throw new BadCoordinatesException();
 	}
 	
-	public Integer getX() {
+	// qui sfrutto l'auto-unboxing del tipo Integer
+	public int getX() {
 		return x;
 	}
 
-	public Integer getY() {
+	public int getY() {
 		return y;
 	}
 
-	public Integer getZ() {
+	public int getZ() {
 		return z;
 	}
 
@@ -82,7 +94,7 @@ public final class PositionCubic {
 		Position2D mypos = getOddQCoord(center);
 		Character col = new Character((char) ('A' + mypos.getX()));
 		
-		return new String(col.toString() + mypos.getY().toString());
+		return new String(col.toString() + mypos.getY());
 	}
 	
 	public boolean equals(PositionCubic other) {
