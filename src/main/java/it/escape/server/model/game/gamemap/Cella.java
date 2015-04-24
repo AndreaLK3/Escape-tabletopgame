@@ -1,8 +1,9 @@
 package it.escape.server.model.game.gamemap;
 
+import it.escape.server.model.game.character.Action;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
-public class Cella {
+public abstract class Cella {
 	
 	private PositionCubic position;
 	
@@ -13,5 +14,7 @@ public class Cella {
 	public Cella(PositionCubic position) {
 		this.position = position;
 	}
+	
+	public abstract void eseguiAzione(Action esecutore);
 	
 }
