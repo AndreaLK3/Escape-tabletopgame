@@ -1,26 +1,35 @@
 package it.escape.server.model.game.gamemap;
 
-/*
- * converte una stringa di lettere ascii maiuscole ad un intero.
- * la lettera meno significativa è l'ultima
+/**
+ * 
+ * @author michele
+ * La classe viene utilizzata per convertire una string di caratteri A-Z
+ * nella corrispondente rappresentazione come valore intero
  */
-
 public final class AlphaToIntHelper {
 	
 	private final String rawValue;
 	
+	// range usato solo per la conversione dei simboli, non ha relazione con la
+	// dimensione della mappa
 	private final char RANGE_START = 'A';
 	private final char RANGE_END = 'Z';
-	
 
 	public AlphaToIntHelper(String rawValue) {
 		this.rawValue = rawValue;
 	}
-	
-	private int asciiToInt(char coso) {
-		return (int) coso - RANGE_START;
+	/**
+	 * 
+	 * @param lettera carattere da convertire
+	 * @return intero corrispondente nell'alfabeto A-Z
+	 */
+	private int asciiToInt(char lettera) {
+		return (int) lettera - RANGE_START;
 	}
-	
+	/**
+	 * 
+	 * @return restituisce la rappresentazione numerica della stringa
+	 */
 	public int convert() {
 		int total = 0;
 		int range = RANGE_END - RANGE_START;

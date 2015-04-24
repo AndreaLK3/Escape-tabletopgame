@@ -60,7 +60,6 @@ public final class PositionCubic {
 		if (m.matches()) {
 			Integer row = new Integer(m.group(2));
 			Integer col = (new AlphaToIntHelper(m.group(1))).convert();
-			System.out.println(col + ":" + row);
 			
 			return new Position2D(col, row);
 		}
