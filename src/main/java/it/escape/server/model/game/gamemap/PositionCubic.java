@@ -21,59 +21,18 @@ public final class PositionCubic {
 	private final Integer y;
 	private final Integer z;
 	
-	// regex che corrisponde a una stringa costruita così: <lettere maiuscole><numeri>
-	public static final Pattern PATTERN = Pattern.compile("([A-Z]+)([0-9]+)");
-	
 	/**
 	 * costruttore di base (coordinate cubiche)
 	 * @param x
 	 * @param y
 	 * @param z
 	 */
-	public PositionCubic(Integer x, Integer y, Integer z) {
+	public PositionCubic(int x, int y, int z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 	
-	/**
-	 * costruttore avanzato (usa le coordinate del gioco)
-	 * @param coordstring stringa del tipo "AAA000"
-	 * @throws BadCoordinatesException
-	 */
-	public PositionCubic(String coordstring) throws BadCoordinatesException {
-		Position2D coord = AlphaToOddq(coordstring);
-		Integer col = coord.getX();
-		Integer row = coord.getY();
-		
-		x = col;
-		y = row - ((col + (col&1)) / 2);
-		z = -x - y;
-	}
-	
-	/**
-	 * costruttore avanzato (usa le coordinate odd-q)
-	 * @param coord coordinate cartesiane
-	 */
-	public PositionCubic(Position2D coord) {
-		Integer col = coord.getX();
-		Integer row = coord.getY();
-		
-		x = col;
-		y = row - ((col + (col&1)) / 2);
-		z = -x - y;
-	}
-	
-	private Position2D AlphaToOddq(String coord) throws BadCoordinatesException {
-		Matcher m = PATTERN.matcher(coord);
-		if (m.matches()) {
-			Integer row = new Integer(m.group(2));
-			Integer col = (new AlphaToIntHelper(m.group(1))).convert();
-			
-			return new Position2D(col, row);
-		}
-		else throw new BadCoordinatesException();
-	}
 	
 	// qui sfrutto l'auto-unboxing del tipo Integer
 	public int getX() {
@@ -88,21 +47,14 @@ public final class PositionCubic {
 		return z;
 	}
 
-	private Position2D getOddQCoord() {
-		Integer col;
-		Integer row;
-		
-		col = x;
-		row = ( z + (x - (x&1)) / 2 );
-		
-		return new Position2D(col, row);
+	public Position2D getOddQCoord() {
+				
+		return CoordinatesConverter.fromCubicToOddQ(this);
 	}
 	
-	public String getAphaNumCoord() {
-		Position2D mypos = getOddQCoord();
-		Character col = new Character((char) ('A' + mypos.getX()));
+	public String getAlphaNumCoord() {
 		
-		return new String(col.toString() + mypos.getY());
+		return CoordinatesConverter.fromCubicToAlphaNum(this);
 	}
 	
 	public boolean equals(PositionCubic other) {
