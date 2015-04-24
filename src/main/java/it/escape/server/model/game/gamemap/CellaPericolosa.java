@@ -1,6 +1,7 @@
 package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.character.Action;
+import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
 public class CellaPericolosa extends Cella implements Settore {
 

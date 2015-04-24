@@ -1,4 +1,4 @@
-package it.escape.server.model.game.gamemap;
+package it.escape.server.model.game.gamemap.positioning;
 
 import it.escape.server.model.game.gamemap.exceptions.BadCoordinatesException;
 

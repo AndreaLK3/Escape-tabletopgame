@@ -1,4 +1,4 @@
-package it.escape.server.model.game.gamemap;
+package it.escape.server.model.game.gamemap.positioning;
 
 /**
  * Classe (immutabile) usata internamente dalle altre classi per raccogliere

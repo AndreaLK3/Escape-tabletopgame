@@ -1,4 +1,5 @@
-package it.escape.server.model.game.gamemap;
+package it.escape.server.model.game.gamemap.positioning;
+
 
 
 /**

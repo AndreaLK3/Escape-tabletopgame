@@ -1,5 +1,7 @@
 package it.escape.server.model.game.gamemap;
 
+import it.escape.server.model.game.gamemap.positioning.PositionCubic;
+
 public class Cella {
 	
 	private PositionCubic position;
