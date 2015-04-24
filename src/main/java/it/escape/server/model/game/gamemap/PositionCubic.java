@@ -1,9 +1,5 @@
 package it.escape.server.model.game.gamemap;
 
-import it.escape.server.model.game.gamemap.exceptions.BadCoordinatesException;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Classe immutabile usata per rappresentare la posizione di una cella esagonale.

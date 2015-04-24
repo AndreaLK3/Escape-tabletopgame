@@ -1,10 +1,9 @@
 package it.escape.server.model.game.gamemap;
 
-/*
- * classe (immutabile) usata internamente dalle altre classi per raccogliere
+/**
+ * Classe (immutabile) usata internamente dalle altre classi per raccogliere
  * coordinate cartesiane
  */
-
 public final class Position2D implements Cloneable {
 	
 	private final Integer x;
