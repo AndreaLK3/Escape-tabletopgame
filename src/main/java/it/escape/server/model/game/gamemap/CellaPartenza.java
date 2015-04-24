@@ -3,10 +3,13 @@ package it.escape.server.model.game.gamemap;
 import it.escape.server.model.game.character.Action;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
-public class CellaSicura extends Cella {
+public class CellaPartenza extends Cella {
+	
+	private SpawnType tipo;
 
-	public CellaSicura(PositionCubic position) {
+	private CellaPartenza(PositionCubic position, SpawnType tipo) {
 		super(position);
+		this.tipo = tipo;
 	}
 
 	@Override
@@ -16,7 +19,7 @@ public class CellaSicura extends Cella {
 
 	@Override
 	public boolean isWalkable() {
-		return true;
+		return false;
 	}
 
 }

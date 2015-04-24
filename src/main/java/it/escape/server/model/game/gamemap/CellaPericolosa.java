@@ -9,8 +9,14 @@ public class CellaPericolosa extends Cella {
 		super(position);
 	}
 
+	@Override
 	public void eseguiAzione(Action esecutore) {
 		esecutore.drawCard();
+	}
+
+	@Override
+	public boolean isWalkable() {
+		return true;
 	}
 
 }
