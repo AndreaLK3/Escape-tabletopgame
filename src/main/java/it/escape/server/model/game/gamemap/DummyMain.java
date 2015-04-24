@@ -6,7 +6,7 @@ public class DummyMain {
 
 	public static void main(String[] args) {
 		try {
-			PositionCubic coso = new PositionCubic("A0");
+			PositionCubic coso = new PositionCubic(0,0,0);
 			System.out.println(coso.toString());
 		} catch (BadCoordinatesException e) {
 			System.out.println("bad coord!");
