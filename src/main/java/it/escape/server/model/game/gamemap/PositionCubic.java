@@ -5,17 +5,16 @@ import it.escape.server.model.game.gamemap.exceptions.BadCoordinatesException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/*
- * tipo immutabile usato per rappresentare la posizione di una cella esagonale
- * il sistema di coordinate usato fa riferimento a:
+/**
+ * Classe immutabile usata per rappresentare la posizione di una cella esagonale.
+ * Il sistema di coordinate usato fa riferimento a:
  * http://www.redblobgames.com/grids/hexagons/
  * nota che questa classe non fa nessun controllo che le coordinate appartengano
  * ad un certo "intervallo ammesso", dato che essa non ha conoscenza della mappa
  * complessiva.
- * L'unica informazione extra da definire sono le coordinate odd-q del centro della
- * mappa, che sarà lo zero nel sistema di coordinate cubic 
+ * @author michele
+ *
  */
-
 public final class PositionCubic {
 	
 	private final Integer x;
