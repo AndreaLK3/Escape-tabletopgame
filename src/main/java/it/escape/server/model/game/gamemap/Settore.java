@@ -1,5 +1,9 @@
 package it.escape.server.model.game.gamemap;
 
-public class Settore {
+import it.escape.server.model.game.character.Action;
 
+public interface Settore {
+	
+	public void eseguiAzione(Action esecutore);
+	
 }
