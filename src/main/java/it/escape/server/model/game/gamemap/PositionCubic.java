@@ -25,30 +25,40 @@ public final class PositionCubic {
 	// regex che corrisponde a una stringa costruita così: <lettere maiuscole><numeri>
 	public static final Pattern PATTERN = Pattern.compile("([A-Z]+)([0-9]+)");
 	
+	/**
+	 * costruttore di base (coordinate cubiche)
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
 	public PositionCubic(Integer x, Integer y, Integer z) {
-		// costruttore (1): usa direttamente le coord cubiche
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 	
-	public PositionCubic(String coordstring, Position2D center) throws BadCoordinatesException {
-		// costruttore (2): usa le coordinate del gioco (lettera-numero)
+	/**
+	 * costruttore avanzato (usa le coordinate del gioco)
+	 * @param coordstring stringa del tipo "AAA000"
+	 * @throws BadCoordinatesException
+	 */
+	public PositionCubic(String coordstring) throws BadCoordinatesException {
 		Position2D coord = AlphaToOddq(coordstring);
-		Integer col = coord.getX() - center.getX();
-		Integer row = coord.getY() - center.getY();
+		Integer col = coord.getX();
+		Integer row = coord.getY();
 		
 		x = col;
 		y = row - ((col + (col&1)) / 2);
 		z = -x - y;
 	}
 	
-	public PositionCubic(Position2D coord, Position2D center) {
-		/* costruttore (3): usa le coordinate odd-q (come quelle del gioco, ma 
-		 * puramente numeriche)
-		 */
-		Integer col = coord.getX() - center.getX();
-		Integer row = coord.getY() - center.getY();
+	/**
+	 * costruttore avanzato (usa le coordinate odd-q)
+	 * @param coord coordinate cartesiane
+	 */
+	public PositionCubic(Position2D coord) {
+		Integer col = coord.getX();
+		Integer row = coord.getY();
 		
 		x = col;
 		y = row - ((col + (col&1)) / 2);
@@ -79,18 +89,18 @@ public final class PositionCubic {
 		return z;
 	}
 
-	private Position2D getOddQCoord(Position2D center) {
+	private Position2D getOddQCoord() {
 		Integer col;
 		Integer row;
 		
-		col = x + center.getX();
-		row = ( z + (x - (x&1)) / 2 ) + center.getY();
+		col = x;
+		row = ( z + (x - (x&1)) / 2 );
 		
 		return new Position2D(col, row);
 	}
 	
-	public String getAphaNumCoord(Position2D center) {
-		Position2D mypos = getOddQCoord(center);
+	public String getAphaNumCoord() {
+		Position2D mypos = getOddQCoord();
 		Character col = new Character((char) ('A' + mypos.getX()));
 		
 		return new String(col.toString() + mypos.getY());
