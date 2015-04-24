@@ -2,6 +2,9 @@ package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.gamemap.exceptions.BadCoordinatesException;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /*
  * tipo immutabile usato per rappresentare la posizione di una cella esagonale
  * il sistema di coordinate usato fa riferimento a:
@@ -12,9 +15,6 @@ import it.escape.server.model.game.gamemap.exceptions.BadCoordinatesException;
  * L'unica informazione extra da definire sono le coordinate odd-q del centro della
  * mappa, che sarà lo zero nel sistema di coordinate cubic 
  */
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public final class PositionCubic {
 	
