@@ -15,7 +15,7 @@ public class CellaPericolosa extends Cella {
 	}
 
 	@Override
-	public boolean isWalkable() {
+	public boolean isWalkable(Action esecutore) {
 		return true;
 	}
 

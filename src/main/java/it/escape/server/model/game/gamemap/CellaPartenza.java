@@ -13,15 +13,15 @@ public class CellaPartenza extends Cella {
 		
 		private static ArrayList<CellaPartenza> cellePartenza = new ArrayList<CellaPartenza>();
 		
-		SpawnType tipo;
+		PlayerTypes tipo;
 
-		private CellaPartenza(PositionCubic position, SpawnType tipo) {
+		private CellaPartenza(PositionCubic position, PlayerTypes tipo) {
 			super(position);
 			this.tipo = tipo;
 		}
 		
 		
-		public CellaPartenza getPartenza(PositionCubic position, SpawnType tipo) {
+		public CellaPartenza getPartenza(PositionCubic position, PlayerTypes tipo) {
 			
 			CellaPartenza nuovaPartenza;
 			
@@ -36,13 +36,13 @@ public class CellaPartenza extends Cella {
 		}
 
 		
-			@Override
+		@Override
 		public void eseguiAzione(Action esecutore) {
 			esecutore.noAction();
 		}
 
 		@Override
-		public boolean isWalkable() {
+		public boolean isWalkable(Action esecutore) {
 			return false;
 	}
 	

@@ -1,6 +1,6 @@
 package it.escape.server.model.game.gamemap;
 
-public enum SpawnType {
+public enum PlayerTypes {
 	ALIENS, HUMANS;
 
 }

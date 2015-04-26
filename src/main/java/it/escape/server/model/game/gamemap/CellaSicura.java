@@ -15,7 +15,7 @@ public class CellaSicura extends Cella {
 	}
 
 	@Override
-	public boolean isWalkable() {
+	public boolean isWalkable(Action esecutore) {
 		return true;
 	}
 

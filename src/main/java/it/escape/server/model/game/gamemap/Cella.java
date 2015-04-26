@@ -17,6 +17,6 @@ public abstract class Cella {
 	
 	public abstract void eseguiAzione(Action esecutore);
 	
-	public abstract boolean isWalkable();
+	public abstract boolean isWalkable(Action esecutore);
 	
 }
