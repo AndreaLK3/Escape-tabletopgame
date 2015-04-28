@@ -12,7 +12,7 @@ package it.escape.server.model.game.gamemap.positioning;
  * @author michele
  *
  */
-public final class PositionCubic {
+public final class PositionCubic{
 	
 	private final Integer x;
 	private final Integer y;
@@ -54,12 +54,29 @@ public final class PositionCubic {
 		return CoordinatesConverter.fromCubicToAlphaNum(this);
 	}
 	
-	public boolean equals(PositionCubic other) {
+	@Override
+	public int hashCode() {
+		// genera un hash, accodando i 10 bit meno significativi di x,y,z
+		// avanzano 2 bit in testa all'hash
+		int a = x & 1023;
+		int b = y & 1023;
+		int c = z & 1023;
+		return (a << 20) + (b << 10) + c;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
 		// per verificare se due coordinate sono uguali
-		if (x.equals(other.getX()) && y.equals(other.getY()) && z.equals(other.getZ())) {
-			return true;
+		if (o == null || !(o instanceof PositionCubic)) {
+			return false;
 		}
-		else return false;
+		else {
+			PositionCubic other = (PositionCubic) o;
+			if (x.equals(other.getX()) && y.equals(other.getY()) && z.equals(other.getZ())) {
+				return true;
+			}
+			else return false;
+		}
 	}
 	
 	@Override
