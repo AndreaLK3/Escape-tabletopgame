@@ -23,7 +23,7 @@ public class StartingCell extends Cell {
 		}
 		
 		
-		public StartingCell getStart(PositionCubic position, PlayerTeams type) {
+		public static StartingCell getStart(PositionCubic position, PlayerTeams type) {
 			
 			StartingCell newStart;
 			

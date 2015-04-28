@@ -1,6 +1,6 @@
 package it.escape.server.model.game.gamemap.loader;
 
-import it.escape.server.model.game.gamemap.Cella;
+import it.escape.server.model.game.gamemap.Cell;
 import it.escape.server.model.game.gamemap.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
 import it.escape.strings.StringRes;
@@ -23,7 +23,7 @@ import org.json.JSONObject;
  * @author michele
  *
  */
-public class MapLoader implements Iterable<Cella> {
+public class MapLoader implements Iterable<Cell> {
 	
 	private final String rawData;
 	
@@ -31,7 +31,7 @@ public class MapLoader implements Iterable<Cella> {
 	
 	private Position2D mapSize;
 	
-	private final List<Cella> listaCelle;
+	private final List<Cell> listaCelle;
 	
 	/**
 	 * 
@@ -61,9 +61,9 @@ public class MapLoader implements Iterable<Cella> {
 			mapSize = new Position2D(mapInfo.getInt(StringRes.getString("mapfile.json.info.width"))
 					, mapInfo.getInt(StringRes.getString("mapfile.json.info.height")));
 			
-			JSONArray cellArr = root.getJSONArray(StringRes.getString("mapfile.json.cells.arrname"));
-			for (int i = 0; i < cellArr.length(); i++) {
-				listaCelle.add( (new CellGenerator( cellArr.getJSONObject(i) )).convert() );
+			JSONArray Cellrr = root.getJSONArray(StringRes.getString("mapfile.json.cells.arrname"));
+			for (int i = 0; i < Cellrr.length(); i++) {
+				listaCelle.add( (new CellGenerator( Cellrr.getJSONObject(i) )).convert() );
 			}
 			
 		} catch (JSONException e) {
@@ -91,7 +91,7 @@ public class MapLoader implements Iterable<Cella> {
 	}
 
 	public MapLoader(InputStream ingresso) throws BadJsonFileException, IOException {
-		listaCelle = new ArrayList<Cella>();
+		listaCelle = new ArrayList<Cell>();
 		rawData = streamToString(ingresso);
 		decode();
 	}

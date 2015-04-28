@@ -17,7 +17,7 @@ public class DummyMain {
 			System.out.println("map name: " + loader.getMapName());
 			System.out.println("map range: " + loader.getMapSize().toString());
 			System.out.println("Celle:");
-			for (Cella c : loader) {
+			for (Cell c : loader) {
 				System.out.println(c.toString());
 			}
 			
