@@ -1,6 +1,6 @@
 package it.escape.server.model.game.character;
 
-import it.escape.server.model.game.gamemap.PlayerTypes;
+import it.escape.server.model.game.PlayerTeams;
 
 public interface Action {
 		

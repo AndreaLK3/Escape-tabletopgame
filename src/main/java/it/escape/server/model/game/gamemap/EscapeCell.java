@@ -1,5 +1,6 @@
 package it.escape.server.model.game.gamemap;
 
+import it.escape.server.model.game.GameMode;
 import it.escape.server.model.game.character.Action;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
@@ -12,12 +13,14 @@ public class EscapeCell extends Cell {
 	
 	private ShuttleState state;
 	
-	public EscapeCell(PositionCubic position) {
+	public EscapeCell(PositionCubic position, GameMode mode) {
 		super(position);
+		state = ShuttleState.shuttleFactory(mode);
 	}
 	
 	@Override
 	public void doAction(Action esecutore) {
+		if (state.tryHatch()==true)	
 			esecutore.escape();
 	}
 
@@ -25,7 +28,7 @@ public class EscapeCell extends Cell {
 		/*if (esecutore.tipo==HUMANS)
 			return true
 			else
-			{*/	System.out.println("Un alieno non puo' accedere a una scialuppa!");
+			{*/	System.out.println("An alien can't use an escape shuttle!");
 				return false;//}
 	}
 	
