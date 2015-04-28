@@ -6,7 +6,7 @@ import it.escape.server.model.game.GameTypes;
 abstract class ShuttleState {
 
 	public static ShuttleState shuttleFactory(GameMode mode) {
-		if (mode.getType()==GameTypes.BASE)
+		if (mode.getType()==GameTypes.BASE) 
 			return new AlwaysOpenShuttle();
 		else
 			return new UnknownShuttle();
