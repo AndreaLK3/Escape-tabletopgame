@@ -16,6 +16,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * MapLoader reads a JSON-encoded map from an InputStream.
+ * It implements getters for the main map parameters as well as
+ * an iterator over the loaded map cells.
+ * @author michele
+ *
+ */
 public class MapLoader implements Iterable<Cella> {
 	
 	private final String rawData;

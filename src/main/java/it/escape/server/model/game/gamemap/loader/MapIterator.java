@@ -5,11 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * <IN COSTRUZIONE>
- * Oggetto con lo scopo di caricare in memoria un file "mappa", l'oggetto funge da:
- * 1) iteratore sulle celle lette da file
- * 2) restituisce il nome e il range della mappa
- * La codifica è ancora da stabilire, consiglio JSON
+ * iterator over the "Cella" classes stored in the MapLoader class
  * @author michele
  *
  */
