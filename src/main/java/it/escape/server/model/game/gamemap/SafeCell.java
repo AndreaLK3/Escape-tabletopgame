@@ -3,15 +3,15 @@ package it.escape.server.model.game.gamemap;
 import it.escape.server.model.game.character.Action;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
-public class CellaPericolosa extends Cella {
+public class SafeCell extends Cell {
 
-	public CellaPericolosa(PositionCubic position) {
+	public SafeCell(PositionCubic position) {
 		super(position);
 	}
 
 	@Override
-	public void eseguiAzione(Action esecutore) {
-		esecutore.drawCard();
+	public void doAction(Action esecutore) {
+		esecutore.noAction();
 	}
 
 	@Override
