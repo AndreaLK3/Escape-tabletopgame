@@ -5,7 +5,7 @@ import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
 public abstract class Cella {
 	
-	private PositionCubic position;
+	protected PositionCubic position;
 	
 	public PositionCubic getPosition() {
 		return position;

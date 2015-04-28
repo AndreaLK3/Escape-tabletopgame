@@ -19,4 +19,8 @@ public class CellaSicura extends Cella {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "CellaSicura(coord=" + position.toString() + ")";
+	}
 }

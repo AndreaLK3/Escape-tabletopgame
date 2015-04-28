@@ -2,6 +2,7 @@ package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.character.Action;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
+
 import java.util.ArrayList;
 
 /**Questa classe definisce le Caselle di Partenza, una per tipo (Umani, Alieni)
@@ -21,7 +22,7 @@ public class CellaPartenza extends Cella {
 		}
 		
 		
-		public CellaPartenza getPartenza(PositionCubic position, PlayerTypes tipo) {
+		public static CellaPartenza getPartenza(PositionCubic position, PlayerTypes tipo) {
 			
 			CellaPartenza nuovaPartenza;
 			
@@ -46,5 +47,8 @@ public class CellaPartenza extends Cella {
 			return false;
 	}
 	
-
+	@Override
+	public String toString() {
+		return "CellaPartenza(coord=" + position.toString() + ", tipo=" + tipo.toString() + ")";
+	}
 }

@@ -19,4 +19,8 @@ public class CellaPericolosa extends Cella {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "CellaPericolosa(coord=" + position.toString() + ")";
+	}
 }

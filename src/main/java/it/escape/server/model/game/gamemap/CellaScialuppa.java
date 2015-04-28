@@ -69,4 +69,8 @@ public class CellaScialuppa extends Cella {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "CellaScialuppa(coord=" + position.toString() + ", state=" + state.toString() + ")";
+	}
 }
