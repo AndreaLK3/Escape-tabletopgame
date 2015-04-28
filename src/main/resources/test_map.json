@@ -1,0 +1,28 @@
+{
+    "mapInfo" : {
+    "name" : "prova",
+    "width" : "25",
+    "height" : "14"
+    },
+    "cells" : [
+      {
+        "position_x" : "0",
+        "position_y" : "0",
+        "posizion_z" :  "0",
+        "tipo" : "pericolosa"
+      },
+      {
+        "position_x" : "0",
+        "position_y" : "1",
+        "posizion_z" :  "-1",
+        "tipo" : "partenzaAlieni"
+      },
+      {
+        "position_x" : "0",
+        "position_y" : "-1",
+        "posizion_z" :  "1",
+        "tipo" : "partenzaUmani"
+      }
+      
+    ]
+}
