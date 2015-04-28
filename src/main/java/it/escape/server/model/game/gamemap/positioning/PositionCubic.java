@@ -54,6 +54,16 @@ public final class PositionCubic {
 		return CoordinatesConverter.fromCubicToAlphaNum(this);
 	}
 	
+	@Override
+	public int hashCode() {
+		// genera un hash, accodando i 10 bit meno significativi di x,y,z
+		// avanzano 2 bit in testa all'hash
+		int a = x & 1023;
+		int b = y & 1023;
+		int c = z & 1023;
+		return (a << 20) + (b << 10) + c;
+	}
+	
 	public boolean equals(PositionCubic other) {
 		// per verificare se due coordinate sono uguali
 		if (x.equals(other.getX()) && y.equals(other.getY()) && z.equals(other.getZ())) {
