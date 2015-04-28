@@ -19,4 +19,8 @@ public class DangerousCell extends Cell {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "DangerousCell(coord=" + position.toString() + ")";
+	}
 }

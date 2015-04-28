@@ -18,5 +18,10 @@ public class SafeCell extends Cell {
 	public boolean isWalkable(Action esecutore) {
 		return true;
 	}
+	
+	@Override
+	public String toString() {
+		return "CellaSicura(coord=" + position.toString() + ")";
+	}
 
 }

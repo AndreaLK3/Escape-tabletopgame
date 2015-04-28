@@ -47,6 +47,11 @@ public class StartingCell extends Cell {
 		public boolean isWalkable(Action esecutore) {
 			return false;
 	}
+		
+	@Override
+	public String toString() {
+		return "StartingPosition(coord=" + position.toString() + ", type=" + type.toString() + ")";
+	}
 	
 
 }
