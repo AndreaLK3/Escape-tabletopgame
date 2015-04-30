@@ -6,7 +6,7 @@ import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
 /**
  * This is the cell that contains the EscapeShuttle. It can be reached only by humans.
- * During Complete Mode, its state is defined at run-time, depending on the EscapeShuttleCard that is drawn.
+ * Its state is defined at run-time, depending on the GameMode, and possibly on EscapeShuttleCard that is drawn.
  * @author andrea
  */
 public class EscapeCell extends Cell {
