@@ -1,0 +1,8 @@
+it.escape.server.model.game
+it.escape.server.model.game.cards
+it.escape.server.model.game.character
+it.escape.server.model.game.gamemap
+it.escape.server.model.game.gamemap.exceptions
+it.escape.server.model.game.gamemap.loader
+it.escape.server.model.game.gamemap.positioning
+it.escape.strings
