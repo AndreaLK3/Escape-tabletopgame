@@ -1,5 +1,5 @@
 package it.escape.server.model.game.cards;
 
-public class ObjectCard {
+public class SilenceCard implements Card {
 
 }

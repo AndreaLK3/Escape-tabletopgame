@@ -4,21 +4,9 @@ import java.util.ArrayList;
 
 public class Deck {
 	
-	private List<Card> theDeck = new ArrayList<Card>();
-	
-	public Deck(DeckType type) {
-		if (type == DeckType.SECTOR)
-		{
-		}
-		if (type == DeckType.ESCAPE)
-		{
-			
-		}
-		if (type == DeckType.OBJECT)
-		{
-			
-		}
-	}
+
+	protected List<Card> theDeck = new ArrayList<Card>();
+	private Card aCard;
 	
 	public void shuffleDeck(){
 		

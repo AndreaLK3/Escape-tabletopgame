@@ -1,5 +1,5 @@
 package it.escape.server.model.game.cards;
 
-public interface SectorCard {
+public class NoiseHereCard implements Card {
 
 }
