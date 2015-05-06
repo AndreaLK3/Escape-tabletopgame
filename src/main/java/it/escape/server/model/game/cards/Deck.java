@@ -37,9 +37,15 @@ public class Deck {
 	 * @return theDeck.get(counter-1)
 	 */
 	public Card drawCard() {
-		temp= theDeck.get(counter-1);
-		counter--;
-		return temp;
+		if (!theDeck.isEmpty())
+			{temp= theDeck.get(counter-1);
+			counter--;
+			return temp;}
+		else 
+		{	System.out.println ("This deck of cards is empty! It must be reshuffled anew");
+			this.shuffleDeck();
+			return this.drawCard();
+		}
 	}
 	
 	

@@ -14,6 +14,12 @@ public class EscapeCard implements Card {
 		this.color = color;
 	} 
 	
+	@Override
+	public String toString() {
+		return ("Escape card: its color is " + getColor().toString() );
+		
+	}
+	
 	
 
 }
