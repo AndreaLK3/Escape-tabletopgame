@@ -2,7 +2,7 @@ package it.escape.server.model.game.cards;
 
 public class TempMain {
 	
-	public void main (String args[]) {
+	public static void main (String args[]) {
 		
 		Deck sectorDeck, escapeDeck;
 		Card temp;
@@ -14,9 +14,12 @@ public class TempMain {
 		
 		System.out.println("Performing operations on EscapeDeck:");
 		System.out.println("Drawing several cards");
-		for (int i = 0; i<5 ; i++)
+		for (int i = 0; i<11 ; i++)
 		{	temp = escapeDeck.drawCard();
-			System.out.println (temp.toString());}
+			System.out.println (temp.toString());
+			System.out.print ("Determining the number of remaining cards in the deck:");
+			System.out.println (escapeDeck.size());}
+		
 		
 		
 	}

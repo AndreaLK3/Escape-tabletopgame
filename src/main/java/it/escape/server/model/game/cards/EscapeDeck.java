@@ -7,15 +7,15 @@ public class EscapeDeck extends Deck {
 	
 	public EscapeDeck() {
 		int i;
-		counter = 0;
+		
 		
 		for (i=0; i<REDSHUTTLE; i++)
 		{	theDeck.add(new EscapeCard(EscapeCardColor.RED));
-			counter++;
+			
 		}
 		for (i=0; i<GREENSHUTTLE; i++)
 		{	theDeck.add(new EscapeCard(EscapeCardColor.GREEN));
-			counter++;
+			
 		}
 	
 		this.shuffleDeck();

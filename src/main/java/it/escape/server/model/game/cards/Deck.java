@@ -37,11 +37,11 @@ public class Deck {
 	 * @return theDeck.get(counter-1)
 	 */
 	public Card drawCard() {
-		if (!theDeck.isEmpty())
+		try
 			{temp= theDeck.get(counter-1);
 			counter--;
 			return temp;}
-		else 
+		catch (ArrayIndexOutOfBoundsException var1)
 		{	System.out.println ("This deck of cards is empty! It must be reshuffled anew");
 			this.shuffleDeck();
 			return this.drawCard();
