@@ -1,6 +1,6 @@
 package it.escape.server.model.game.cards;
 
-public class TempMain {
+public class CardsMain {
 	
 	public static void main (String args[]) {
 		

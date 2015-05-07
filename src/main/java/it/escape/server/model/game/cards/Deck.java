@@ -1,5 +1,4 @@
 package it.escape.server.model.game.cards;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,7 +15,7 @@ public class Deck {
 	
 
 	protected List<Card> theDeck = new ArrayList<Card>();
-	protected int counter;
+	private int counter;
 	private Card temp;
 	protected static Random randGen = new Random();
 	
@@ -34,7 +33,8 @@ public class Deck {
 
 	/**
 	 * The function removes the first card from the ArrayList theDeck, and returns it
-	 * @return theDeck.get(counter-1)
+	 * If the deck is empty, it @throws ArrayIndexOutfBoundsException and catches it, calling the function once again
+	 * @return theDeck.get(counter-1), and then counter--
 	 */
 	public Card drawCard() {
 		try

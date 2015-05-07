@@ -2,8 +2,8 @@ package it.escape.server.model.game.cards;
 
 public class EscapeDeck extends Deck {
 	/** Symbolic constants define the number of cards of each kind in this deck*/
-	private final static int REDSHUTTLE = 5;
-	private final static int GREENSHUTTLE = 5;
+	private final static int REDSHUTTLE = 3;
+	private final static int GREENSHUTTLE = 3;
 	
 	public EscapeDeck() {
 		int i;
