@@ -1,7 +1,8 @@
 package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.GameMode;
-import it.escape.server.model.game.character.Action;
+import it.escape.server.model.game.PlayerTeams;
+import it.escape.server.model.game.character.Character;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
 /**
@@ -34,19 +35,19 @@ public class EscapeCell extends Cell {
 	 * every type of shuttle will respond accordingly.
 	 */
 	@Override
-	public void doAction(Action character) {
+	public void doAction(Character character) {
 		if (state instanceof UnknownShuttle)
-			state = ShuttleState.decideState();
+			state = state.decideState(null);	//aggiungere una carta
 		if (state.tryHatch()==true)	
 			character.escape();
 	}
 
-		public boolean isWalkable(Action character) {
-		/*if (character.team==HUMANS)
-			return true
+		public boolean isWalkable(Character character) {
+		if (character.getTeam()==PlayerTeams.HUMANS)
+			return true;
 			else
-			{*/	System.out.println("An alien can't use an escape shuttle!");
-				return false;//}
+			{	System.out.println("An alien can't use an escape shuttle!");
+				return false;}
 	}
 		
 	@Override

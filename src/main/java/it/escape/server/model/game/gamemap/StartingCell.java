@@ -1,14 +1,14 @@
 package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.PlayerTeams;
-import it.escape.server.model.game.character.Action;
+import it.escape.server.model.game.character.Character;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
 import java.util.ArrayList;
 
-/**Questa classe definisce le Caselle di start, una per type (Umani, Alieni)
- * Le caselle di start sono implementate come dei singleton: 
- * Se una è già presente, non ne viene creata un'altra.
+/**This class defines the starting cells, one for each player type (Humans, Aliens)
+ * The starting cell are implemented as singletons: 
+ *For each kind, if one is already present on the map, another is not created.
  * @author andrea
  */
 public class StartingCell extends Cell {
@@ -39,12 +39,12 @@ public class StartingCell extends Cell {
 
 		
 		@Override
-		public void doAction(Action esecutore) {
-			esecutore.noAction();
+		public void doAction(Character character) {
+			character.noAction();
 		}
 
 		@Override
-		public boolean isWalkable(Action esecutore) {
+		public boolean isWalkable(Character character) {
 			return false;
 	}
 		

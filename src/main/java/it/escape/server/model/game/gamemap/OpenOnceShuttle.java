@@ -1,5 +1,7 @@
 package it.escape.server.model.game.gamemap;
 
+import it.escape.server.model.game.cards.Card;
+
 public class OpenOnceShuttle extends ShuttleState {
 
 	private boolean alreadyUsed = false;
@@ -18,6 +20,12 @@ public class OpenOnceShuttle extends ShuttleState {
 		{	System.out.println("Someone has already used this escape shuttle! You have to find another one!");
 			return false;
 		}
+	}
+
+	@Override
+	ShuttleState decideState(Card aCard) {
+		
+		return this;
 	}
 
 }

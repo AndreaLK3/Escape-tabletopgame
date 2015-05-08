@@ -1,6 +1,6 @@
 package it.escape.server.model.game.gamemap;
 
-import it.escape.server.model.game.character.Action;
+import it.escape.server.model.game.character.Character;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
 public class SafeCell extends Cell {
@@ -10,12 +10,12 @@ public class SafeCell extends Cell {
 	}
 
 	@Override
-	public void doAction(Action esecutore) {
+	public void doAction(Character esecutore) {
 		esecutore.noAction();
 	}
 
 	@Override
-	public boolean isWalkable(Action esecutore) {
+	public boolean isWalkable(Character esecutore) {
 		return true;
 	}
 	

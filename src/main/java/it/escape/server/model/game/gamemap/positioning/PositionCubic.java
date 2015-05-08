@@ -19,7 +19,7 @@ public final class PositionCubic{
 	private final Integer z;
 	
 	/**
-	 * costruttore di base (coordinate cubiche)
+	 * basic constructor (cubic coordinates)
 	 * @param x
 	 * @param y
 	 * @param z
@@ -64,9 +64,11 @@ public final class PositionCubic{
 		return (a << 20) + (b << 10) + c;
 	}
 	
+	/** This function verifies if 2 cubic positions/ sets of coordinates are equal
+	 */
 	@Override
 	public boolean equals(Object o) {
-		// per verificare se due coordinate sono uguali
+		
 		if (o == null || !(o instanceof PositionCubic)) {
 			return false;
 		}
@@ -77,6 +79,11 @@ public final class PositionCubic{
 			}
 			else return false;
 		}
+	}
+	
+	
+	public int distanceFrom(PositionCubic other) {
+		return (Math.abs(this.x - other.x) + Math.abs(this.y - other.y) + Math.abs(this.z - other.z)) / 2;
 	}
 	
 	@Override
