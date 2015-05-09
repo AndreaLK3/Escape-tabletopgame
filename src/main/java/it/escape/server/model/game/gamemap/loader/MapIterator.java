@@ -32,7 +32,6 @@ public class MapIterator implements Iterator<Cell> {
 	}
 
 	public void remove() {
-		// TODO Auto-generated method stub
 		
 	}
 	
