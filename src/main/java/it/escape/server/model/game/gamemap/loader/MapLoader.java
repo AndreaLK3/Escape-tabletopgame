@@ -62,7 +62,6 @@ public class MapLoader implements Iterable<Cell> {
 					, mapInfo.getInt(StringRes.getString("mapfile.json.info.height")));
 			
 			JSONArray Cellrr = root.getJSONArray(StringRes.getString("mapfile.json.cells.arrname"));
-			System.out.println(Cellrr);
 			for (int i = 0; i < Cellrr.length(); i++) {
 				listaCelle.add( (new CellGenerator( Cellrr.getJSONObject(i) )).convert() );
 			}
