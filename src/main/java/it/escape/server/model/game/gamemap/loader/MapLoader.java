@@ -1,7 +1,7 @@
 package it.escape.server.model.game.gamemap.loader;
 
+import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.Cell;
-import it.escape.server.model.game.gamemap.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
 import it.escape.strings.StringRes;
 

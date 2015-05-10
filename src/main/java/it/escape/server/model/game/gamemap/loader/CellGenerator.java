@@ -1,5 +1,6 @@
 package it.escape.server.model.game.gamemap.loader;
 
+import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.Cell;
 import it.escape.server.model.game.gamemap.StartingCell;
 import it.escape.server.model.game.gamemap.DangerousCell;
@@ -8,7 +9,6 @@ import it.escape.server.model.game.gamemap.SafeCell;
 import it.escape.server.model.game.GameMode;
 import it.escape.server.model.game.GameTypes;
 import it.escape.server.model.game.PlayerTeams;
-import it.escape.server.model.game.gamemap.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.strings.StringRes;
 

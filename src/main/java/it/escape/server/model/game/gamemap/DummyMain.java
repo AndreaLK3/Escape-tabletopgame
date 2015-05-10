@@ -1,6 +1,6 @@
 package it.escape.server.model.game.gamemap;
 
-import it.escape.server.model.game.gamemap.exceptions.BadJsonFileException;
+import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.loader.MapLoader;
 
 import java.io.FileNotFoundException;

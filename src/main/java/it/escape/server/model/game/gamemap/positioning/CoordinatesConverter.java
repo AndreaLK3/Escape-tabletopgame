@@ -1,6 +1,6 @@
 package it.escape.server.model.game.gamemap.positioning;
 
-import it.escape.server.model.game.gamemap.exceptions.BadCoordinatesException;
+import it.escape.server.model.game.exceptions.BadCoordinatesException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
