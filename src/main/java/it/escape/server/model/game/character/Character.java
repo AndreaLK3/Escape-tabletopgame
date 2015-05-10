@@ -11,7 +11,8 @@ import it.escape.server.model.game.gamemap.Cell;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
 /**This class defines the behaviour for a generic Character; 
- * it encompasses the functions that are used by both Aliens and Humans
+ * it encompasses the functions that are used by both Aliens and Humans.
+ * The constructors are in the subclasses.
  * @author andrea
  */
 public class Character {
@@ -77,7 +78,4 @@ public class Character {
 		this.maxDistance = maxDistance;
 	}
 
-	public PlayerTeams getTeam() {
-		return team;
-	}
 }
