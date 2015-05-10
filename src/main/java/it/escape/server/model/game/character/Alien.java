@@ -12,8 +12,8 @@ public class Alien extends Character {
 	public Alien(StartingCell start) {
 		myCell = start;
 		maxDistance = 2;
-		this.team = PlayerTeams.ALIENS;
 	}
+	
 
 
 	public void attack() {

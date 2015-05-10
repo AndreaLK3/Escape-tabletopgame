@@ -16,7 +16,6 @@ import it.escape.server.model.game.gamemap.positioning.PositionCubic;
  */
 public class Character {
 	
-	protected PlayerTeams team;
 	protected Cell myCell;
 	protected int maxDistance;
 	protected Card aCard;

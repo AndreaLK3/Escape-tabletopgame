@@ -17,7 +17,6 @@ public class Human extends Character {
 	public Human(StartingCell start) {
 		myCell = start;
 		maxDistance = 1;
-		this.team = PlayerTeams.HUMANS;
 	}
 	
 	public void attack() {
