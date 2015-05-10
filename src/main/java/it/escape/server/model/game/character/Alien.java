@@ -15,25 +15,12 @@ public class Alien extends Character {
 		this.team = PlayerTeams.ALIENS;
 	}
 
-	public void move() {
-	
-		
-	}
 
 	public void attack() {
 
 		
 	}
 	
-public Card drawCard() {
-		
-		return null;
-	}
-
-	public void escape() {
-		
-	}
-
 	
 	
 

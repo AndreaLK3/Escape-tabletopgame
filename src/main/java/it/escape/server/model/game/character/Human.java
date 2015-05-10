@@ -20,15 +20,11 @@ public class Human extends Character {
 		this.team = PlayerTeams.HUMANS;
 	}
 	
-	public void move() {
-	
-		
-	}
-
 	public void attack() {
-	
+
 		
 	}
+	
 	
 	public void escape() {
 		
