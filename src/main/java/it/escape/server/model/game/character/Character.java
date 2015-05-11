@@ -20,6 +20,7 @@ public class Character {
 	protected Cell myCell;
 	protected int maxDistance;
 	protected Card aCard;
+	protected PlayerTeams team;
 	
 	public void drawCard(Deck aDeck) {
 		aCard = aDeck.drawCard();
@@ -76,6 +77,10 @@ public class Character {
 
 	public void setMaxDistance(int maxDistance) {
 		this.maxDistance = maxDistance;
+	}
+	
+	public PlayerTeams getTeam() {
+		return team;
 	}
 
 }
