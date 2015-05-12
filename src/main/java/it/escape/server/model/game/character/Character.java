@@ -16,7 +16,7 @@ import it.escape.server.model.game.gamemap.positioning.PositionCubic;
  * The constructors are in the subclasses.
  * @author andrea
  */
-public class Character implements AzioneCella, AzioneCarta {
+public class Character implements CellAction, CardAction {
 	
 	protected Cell myCell;
 	protected int maxDistance;
@@ -79,8 +79,8 @@ public class Character implements AzioneCella, AzioneCarta {
 	 * @return true, if movement is allowed; otherwise, false 
 	 */
 	public boolean canMove(Cell proposedCell) {
-		if (proposedCell==null)	//la cella è passata dall'utente... questo in verità significa che la cella non esiste sulla mappa
-				try {			//(forse è meglio che il controllo sull'esistenza della cella lo faccia la mappa?)
+		if (proposedCell==null)	
+				try {			
 					throw new CellNotExistsException();
 				}
 				catch (CellNotExistsException var1) {

@@ -1,6 +1,6 @@
 package it.escape.server.model.game.character;
 
-public interface AzioneCella {
+public interface CellAction {
 	
 	public void escape();
 	

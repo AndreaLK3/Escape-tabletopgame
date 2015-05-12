@@ -1,12 +1,12 @@
 package it.escape.server.model.game.cards;
 
-import it.escape.server.model.game.character.AzioneCarta;
+import it.escape.server.model.game.character.CardAction;
 
 public class NoiseHereCard implements Card {
 
 	
-	public void effect(AzioneCarta esecutore) {
-		esecutore.noiseInMySector();
+	public void effect(CardAction character) {
+		character.noiseInMySector();
 	}
 
 }
