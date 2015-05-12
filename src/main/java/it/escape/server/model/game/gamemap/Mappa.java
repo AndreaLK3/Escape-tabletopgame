@@ -1,5 +1,6 @@
 package it.escape.server.model.game.gamemap;
 
+import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.cards.DecksHandler;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.loader.MapLoader;
@@ -18,6 +19,10 @@ public class Mappa {
 	private List characters;
 	
 	private HashMap<String, Cell> cells;
+	
+	private Cell startAliens = null;
+	
+	private Cell startHumans = null;
 	
 	private DecksHandler decks;
 	
@@ -39,6 +44,20 @@ public class Mappa {
 		for (Cell c : loader) {
 			String alphaNumName = CoordinatesConverter.fromCubicToAlphaNum(c.getPosition());
 			cells.put(alphaNumName, c);
+			attemptAssignStartingCells(c);
+		}
+		// TODO : no starting cell exception
+	}
+	
+	private void attemptAssignStartingCells(Cell c) {
+		if (c instanceof StartingCell) {
+			StartingCell partenza = (StartingCell) c;
+			if (partenza.type == PlayerTeams.ALIENS) {
+				startAliens = c;
+			}
+			else if (partenza.type == PlayerTeams.HUMANS) {
+				startHumans = c;
+			}
 		}
 	}
 	
