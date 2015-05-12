@@ -1,5 +1,6 @@
 package it.escape.server.model.game.gamemap;
 
+import it.escape.server.model.game.character.AzioneCarta;
 import it.escape.server.model.game.character.Character;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
@@ -10,7 +11,7 @@ public class DangerousCell extends Cell {
 	}
 
 	@Override
-	public void doAction(Character character) {
+	public void doAction(AzioneCarta character) {
 		//character.drawCard();
 	}
 

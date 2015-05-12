@@ -21,18 +21,38 @@ public class Character implements AzioneCarta {
 	protected int maxDistance;
 	protected Card aCard;
 	protected PlayerTeams team;
+	protected DecksHandler decksRef;
 	
 	public void drawCard(Deck aDeck) {
 		aCard = aDeck.drawCard();
 	}
 	
-	public void move(Cell proposedCell){
-		if (!canMove(proposedCell))	
-			return;
-		else
-		{	myCell = proposedCell;
-			return;
+	/**
+	 * perform a (possibly multi-step) movement to a destination
+	 * returns true on success
+	 * @param proposedCell
+	 */
+	public boolean move(Cell proposedCell){
+		if (!canMove(proposedCell)) {
+			return false;
 		}
+		else {
+			myCell = proposedCell;
+			return true;
+		}
+	}
+	
+	/**
+	 * moves to a cell and triggers whatever action the cell implements
+	 * @param proposedCell
+	 * @return
+	 */
+	public boolean moveAndLand(Cell proposedCell) {
+		if (!move(proposedCell)) {
+			return false;
+		}
+		myCell.doAction(this);
+		return true;
 	}
 	
 	/**
@@ -79,6 +99,7 @@ public class Character implements AzioneCarta {
 		return team;
 	}
 
+	// AzioneCarta methods
 	@Override
 	public void escape() {
 		// override me!
@@ -91,7 +112,7 @@ public class Character implements AzioneCarta {
 
 	@Override
 	public void drawSectorCard() {
-		// override me!
+		drawCard(decksRef.getsDeck());
 	}
 
 }
