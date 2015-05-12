@@ -72,16 +72,12 @@ public class Character implements CellAction, CardAction {
 	}
 	
 	/**
-	 * In case the movement to the proposed cell is not allowed, this method throws (and catches) 2 exceptions:
-	 * -CellNotExistsException, if the proposed cell does not exist in the game map
-	 * -MovementOutOfRangeException, if the character can not move to that cell because it is too distant
 	 * @param proposedCell
-	 * @return true, if movement is allowed; otherwise, false 
+	 * @return true, if movement is in range; otherwise, false 
 	 */
 	public boolean canMove(Cell proposedCell) {
-
-		if ((myCell.getPosition().distanceFrom(proposedCell.getPosition()) > maxDistance))
-		{		return false;
+		if ((myCell.getPosition().distanceFrom(proposedCell.getPosition()) > maxDistance)){
+			return false;
 			}
 		else
 			return true;
@@ -123,15 +119,15 @@ public class Character implements CellAction, CardAction {
 	// AzioneCarta methods
 	
 	public void noiseInMySector() {
-		// TODO Auto-generated method stub
+	
 	}
 
 	public void noiseInOtherSector() {
-		// TODO Auto-generated method stub
+		
 	}
 
 	public void declareSilence() {
-		// TODO Auto-generated method stub
+	
 		
 	}
 

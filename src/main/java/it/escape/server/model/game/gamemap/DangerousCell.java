@@ -12,7 +12,7 @@ public class DangerousCell extends Cell {
 
 	@Override
 	public void doAction(CellAction character) {
-		//character.drawCard();
+		character.drawSectorCard();
 	}
 
 	@Override
