@@ -116,30 +116,30 @@ public class Character implements AzioneCella, AzioneCarta {
 	}
 
 	// AzioneCella methods
-	@Override
+	
 	public void escape() {
-		// override me!
+		
 	}
-	@Override
+
 	public void noAction() {
-		// override me!
+	
 	}
-	@Override
+	
 	public void drawSectorCard() {
 		drawCard(decksRef.getsDeck());
 		aCard.effect(this);
 	}
 
 	// AzioneCarta methods
-	@Override
+	
 	public void noiseInMySector() {
 		// TODO Auto-generated method stub
 	}
-	@Override
+
 	public void noiseInOtherSector() {
 		// TODO Auto-generated method stub
 	}
-	@Override
+
 	public void declareSilence() {
 		// TODO Auto-generated method stub
 		
