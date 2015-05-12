@@ -25,13 +25,21 @@ public class Character implements AzioneCella, AzioneCarta {
 	protected DecksHandler decksRef;
 	
 	
-	
+	/**
+	 * constructor implementing the operations which are common among all characters
+	 * @param start
+	 * @param decksRef
+	 */
 	public Character(StartingCell start, DecksHandler decksRef) {
 		this.myCell = start;
 		this.decksRef = decksRef;
 	}
-
-	public void drawCard(Deck aDeck) {
+	
+	/**
+	 * draw a card from a deck passed as parameter
+	 * @param aDeck
+	 */
+	private void drawCard(Deck aDeck) {
 		aCard = aDeck.drawCard();
 	}
 	
