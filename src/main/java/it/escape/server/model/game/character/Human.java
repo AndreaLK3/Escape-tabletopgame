@@ -14,18 +14,15 @@ public class Human extends Character {
 	
 	private List<ObjectCard> handOfObjects;
 	private final static int MAXOBJECTS = 3;
+	private final static int HUMANRANGE=1;
 	
 	public Human(StartingCell start, DecksHandler decksRef) {
 		super(start, decksRef);
-		maxDistance = 1;
+		maxDistance = HUMANRANGE;
 		team = PlayerTeams.HUMANS;
 	}
 	
-	public void attack() {
-
 		
-	}
-	
 	
 	public void escape() {
 		

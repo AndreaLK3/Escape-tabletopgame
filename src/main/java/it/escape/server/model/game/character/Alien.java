@@ -8,20 +8,15 @@ import it.escape.server.model.game.gamemap.StartingCell;
 
 public class Alien extends Character {
 
-	
+	private final static int ALIENRANGE=2;
 	
 	public Alien(StartingCell start, DecksHandler decksRef) {
 		super(start, decksRef);
-		maxDistance = 2;
+		maxDistance = ALIENRANGE;
 		team = PlayerTeams.ALIENS;
 	}
 	
 
-
-	public void attack() {
-
-		
-	}
 	
 	
 	

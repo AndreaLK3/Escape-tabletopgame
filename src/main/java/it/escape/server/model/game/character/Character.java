@@ -35,16 +35,36 @@ public class Character implements CellAction, CardAction {
 		this.decksRef = decksRef;
 	}
 	
-	/**
-	 * draw a card from a deck passed as parameter
+	
+	public void drawSectorCard() {
+		drawCard(decksRef.getsDeck());
+		aCard.effect(this);
+	}
+	public void drawObjectCard() {
+		drawCard(decksRef.getoDeck());
+		aCard.effect(this);
+	}
+	
+	/** draw a card from a deck passed as parameter
 	 * @param aDeck
 	 */
 	private void drawCard(Deck aDeck) {
 		aCard = aDeck.drawCard();
 	}
 	
-	/**
-	 * perform a (possibly multi-step) movement to a destination
+	/**Checks if the proposed movement does not exceeds maximum range
+	 * @param proposedCell
+	 * @return true, if movement is in range; otherwise, false 
+	 */
+	public boolean canMove(Cell proposedCell) {
+		if ((myCell.getPosition().distanceFrom(proposedCell.getPosition()) > maxDistance)){
+			return false;
+			}
+		else
+			return true;
+	}
+	
+	/**Performs a (possibly multi-step) movement to a destination
 	 * returns true on success
 	 * @param proposedCell
 	 */
@@ -63,7 +83,7 @@ public class Character implements CellAction, CardAction {
 	 * @param proposedCell
 	 * @return
 	 */
-	public boolean moveAndLand(Cell proposedCell) {
+	public boolean actionAfterMove(Cell proposedCell) {
 		if (!move(proposedCell)) {
 			return false;
 		}
@@ -71,17 +91,7 @@ public class Character implements CellAction, CardAction {
 		return true;
 	}
 	
-	/**
-	 * @param proposedCell
-	 * @return true, if movement is in range; otherwise, false 
-	 */
-	public boolean canMove(Cell proposedCell) {
-		if ((myCell.getPosition().distanceFrom(proposedCell.getPosition()) > maxDistance)){
-			return false;
-			}
-		else
-			return true;
-	}
+	
 	
 	public void attack(){}
 	
@@ -111,15 +121,12 @@ public class Character implements CellAction, CardAction {
 	
 	}
 	
-	public void drawSectorCard() {
-		drawCard(decksRef.getsDeck());
-		aCard.effect(this);
-	}
+	
 
-	// AzioneCarta methods
+	// CardAction methods
 	
 	public void noiseInMySector() {
-	
+		
 	}
 
 	public void noiseInOtherSector() {
