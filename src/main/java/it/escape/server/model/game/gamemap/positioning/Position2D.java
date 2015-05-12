@@ -28,10 +28,23 @@ public final class Position2D implements Cloneable {
 	public int getY() {
 		return y;
 	}
+
+	@Override
+	public int hashCode() {
+		int a = x & 65535;
+		int b = y & 65535;
+		return (a<<16) + (b);
+	}
 	
-	public boolean equals(Position2D other) {
-		if (x == other.getX() && y == other.getY()) {
-			return true;
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Position2D && o!=null) {
+			Position2D other = (Position2D)o;
+			if (x == other.getX() && y == other.getY()) {
+				return true;
+				}
+			else
+				return false;
 		}
 		else {
 			return false;
