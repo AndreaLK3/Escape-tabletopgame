@@ -29,6 +29,15 @@ public final class Position2D implements Cloneable {
 		return y;
 	}
 	
+	public boolean equals(Position2D other) {
+		if (x == other.getX() && y == other.getY()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return "Position2D=[" + x.toString() + "," + y.toString() + "]";
