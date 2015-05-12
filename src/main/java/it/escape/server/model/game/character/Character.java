@@ -15,7 +15,7 @@ import it.escape.server.model.game.gamemap.positioning.PositionCubic;
  * The constructors are in the subclasses.
  * @author andrea
  */
-public class Character {
+public class Character implements AzioneCarta {
 	
 	protected Cell myCell;
 	protected int maxDistance;
@@ -63,10 +63,6 @@ public class Character {
 	
 	public void attack(){}
 	
-	public void escape(){}
-	
-	public void noAction(){}
-	
 	public Cell getMyCell() {
 		return myCell;
 	}
@@ -81,6 +77,21 @@ public class Character {
 	
 	public PlayerTeams getTeam() {
 		return team;
+	}
+
+	@Override
+	public void escape() {
+		// override me!
+	}
+
+	@Override
+	public void noAction() {
+		// override me!
+	}
+
+	@Override
+	public void drawSectorCard() {
+		// override me!
 	}
 
 }
