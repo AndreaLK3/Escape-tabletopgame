@@ -115,7 +115,7 @@ public class Character implements CellAction, CardAction {
 		return team;
 	}
 
-	// AzioneCella methods
+	// CellAction methods
 	
 	public void escape() {
 		
