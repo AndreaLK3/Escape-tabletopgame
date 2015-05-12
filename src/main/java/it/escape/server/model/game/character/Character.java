@@ -8,6 +8,7 @@ import it.escape.server.model.game.cards.SectorDeck;
 import it.escape.server.model.game.exceptions.CellNotExistsException;
 import it.escape.server.model.game.exceptions.MovementOutOfRangeException;
 import it.escape.server.model.game.gamemap.Cell;
+import it.escape.server.model.game.gamemap.StartingCell;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
 /**This class defines the behaviour for a generic Character; 
@@ -23,6 +24,13 @@ public class Character implements AzioneCella, AzioneCarta {
 	protected PlayerTeams team;
 	protected DecksHandler decksRef;
 	
+	
+	
+	public Character(StartingCell start, DecksHandler decksRef) {
+		this.myCell = start;
+		this.decksRef = decksRef;
+	}
+
 	public void drawCard(Deck aDeck) {
 		aCard = aDeck.drawCard();
 	}
@@ -99,25 +107,34 @@ public class Character implements AzioneCella, AzioneCarta {
 		return team;
 	}
 
-	// AzioneCarta methods
+	// AzioneCella methods
 	@Override
 	public void escape() {
 		// override me!
 	}
-
 	@Override
 	public void noAction() {
 		// override me!
 	}
-
 	@Override
 	public void drawSectorCard() {
 		drawCard(decksRef.getsDeck());
 		aCard.effetc(this);
 	}
 
+	// AzioneCarta methods
 	@Override
 	public void noiseInMySector() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void noiseInOtherSector() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void declareSilence() {
 		// TODO Auto-generated method stub
 		
 	}
