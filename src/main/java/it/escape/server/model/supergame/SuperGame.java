@@ -9,12 +9,11 @@ public class SuperGame {
 	
 	private List<Player> listOfPlayers;
 	
-	
 	public SuperGame () {
 		listOfPlayers = new ArrayList<Player>();
 	}
 
-	public void notifyNoise(PositionCubic p){
+	public void notifyNoise(PositionCubic pos){
 		for (Player p : listOfPlayers)
 			p.notifyNoise();
 	};

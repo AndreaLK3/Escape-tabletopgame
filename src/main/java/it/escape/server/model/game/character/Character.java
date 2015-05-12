@@ -70,30 +70,14 @@ public class Character implements CellAction, CardAction {
 	 * returns true on success
 	 * @param proposedCell
 	 */
-	public boolean move(Cell proposedCell){
-		if (!canMove(proposedCell)) {
-			return false;
-		}
-		else {
+	public void move(Cell proposedCell){
 			myCell = proposedCell;
-			return true;
-		}
+			myCell.doAction(this);
+			return;
+
 	}
 	
-	/**
-	 * moves to a cell and triggers whatever action the cell implements
-	 * @param proposedCell
-	 * @return
-	 */
-	public boolean actionAfterMove(Cell proposedCell) {
-		if (!move(proposedCell)) {
-			return false;
-		}
-		myCell.doAction(this);
-		return true;
-	}
-	
-	
+		
 	
 	public void attack(){}
 	
