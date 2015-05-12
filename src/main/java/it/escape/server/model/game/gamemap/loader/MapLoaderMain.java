@@ -2,6 +2,7 @@ package it.escape.server.model.game.gamemap.loader;
 
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.Cell;
+import it.escape.utils.FilesHelper;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,7 +14,7 @@ public class MapLoaderMain {
 	public static void main(String[] args) {
 	
 		try {
-			InputStream file = Thread.currentThread().getContextClassLoader().getResourceAsStream("test_map.json");
+			InputStream file = FilesHelper.getResourceFile("test_map.json");
 			MapLoader loader = new MapLoader(file);
 			
 			for (Cell c : loader) {

@@ -4,6 +4,7 @@ import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.Cell;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
 import it.escape.strings.StringRes;
+import it.escape.utils.FilesHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -78,21 +79,10 @@ public class MapLoader implements Iterable<Cell> {
 	 * @return
 	 * @throws IOException
 	 */
-	private String streamToString(InputStream ingresso) throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(ingresso));
-		StringBuilder ret = new StringBuilder();
-		String line;
-		
-		while ((line = reader.readLine()) != null) {
-	        ret.append(line);
-	    }
-		
-		return ret.toString();
-	}
 
 	public MapLoader(InputStream ingresso) throws BadJsonFileException, IOException {
 		listaCelle = new ArrayList<Cell>();
-		rawData = streamToString(ingresso);
+		rawData = FilesHelper.streamToString(ingresso);
 		decode();
 	}
 	/**
