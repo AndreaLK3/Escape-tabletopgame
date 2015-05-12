@@ -4,6 +4,6 @@ import it.escape.server.model.game.character.AzioneCarta;
 
 public interface Card {
 	
-	public void effetc(AzioneCarta esecutore);
+	public void effect(AzioneCarta esecutore);
 	
 }

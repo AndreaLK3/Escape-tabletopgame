@@ -23,7 +23,7 @@ public class EscapeCard implements Card {
 	}
 
 	@Override
-	public void effetc(AzioneCarta esecutore) {
+	public void effect(AzioneCarta esecutore) {
 		// TODO Auto-generated method stub
 		
 	}
