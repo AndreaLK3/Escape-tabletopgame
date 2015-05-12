@@ -8,6 +8,7 @@ import it.escape.server.model.game.cards.SectorDeck;
 import it.escape.server.model.game.exceptions.CellNotExistsException;
 import it.escape.server.model.game.exceptions.MovementOutOfRangeException;
 import it.escape.server.model.game.gamemap.Cell;
+import it.escape.server.model.game.gamemap.StartingCell;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
 /**This class defines the behaviour for a generic Character; 
@@ -15,24 +16,59 @@ import it.escape.server.model.game.gamemap.positioning.PositionCubic;
  * The constructors are in the subclasses.
  * @author andrea
  */
-public class Character {
+public class Character implements AzioneCella, AzioneCarta {
 	
 	protected Cell myCell;
 	protected int maxDistance;
 	protected Card aCard;
 	protected PlayerTeams team;
+	protected DecksHandler decksRef;
 	
-	public void drawCard(Deck aDeck) {
+	
+	/**
+	 * constructor implementing the operations which are common among all characters
+	 * @param start
+	 * @param decksRef
+	 */
+	public Character(StartingCell start, DecksHandler decksRef) {
+		this.myCell = start;
+		this.decksRef = decksRef;
+	}
+	
+	/**
+	 * draw a card from a deck passed as parameter
+	 * @param aDeck
+	 */
+	private void drawCard(Deck aDeck) {
 		aCard = aDeck.drawCard();
 	}
 	
-	public void move(Cell proposedCell){
-		if (!canMove(proposedCell))	
-			return;
-		else
-		{	myCell = proposedCell;
-			return;
+	/**
+	 * perform a (possibly multi-step) movement to a destination
+	 * returns true on success
+	 * @param proposedCell
+	 */
+	public boolean move(Cell proposedCell){
+		if (!canMove(proposedCell)) {
+			return false;
 		}
+		else {
+			myCell = proposedCell;
+			return true;
+		}
+	}
+	
+	/**
+	 * moves to a cell and triggers whatever action the cell implements
+	 * @param proposedCell
+	 * @return
+	 */
+	public boolean moveAndLand(Cell proposedCell) {
+		if (!move(proposedCell)) {
+			return false;
+		}
+		myCell.doAction(this);
+		return true;
 	}
 	
 	/**
@@ -63,10 +99,6 @@ public class Character {
 	
 	public void attack(){}
 	
-	public void escape(){}
-	
-	public void noAction(){}
-	
 	public Cell getMyCell() {
 		return myCell;
 	}
@@ -81,6 +113,36 @@ public class Character {
 	
 	public PlayerTeams getTeam() {
 		return team;
+	}
+
+	// AzioneCella methods
+	@Override
+	public void escape() {
+		// override me!
+	}
+	@Override
+	public void noAction() {
+		// override me!
+	}
+	@Override
+	public void drawSectorCard() {
+		drawCard(decksRef.getsDeck());
+		aCard.effect(this);
+	}
+
+	// AzioneCarta methods
+	@Override
+	public void noiseInMySector() {
+		// TODO Auto-generated method stub
+	}
+	@Override
+	public void noiseInOtherSector() {
+		// TODO Auto-generated method stub
+	}
+	@Override
+	public void declareSilence() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,5 +1,7 @@
 package it.escape.server.model.game.cards;
 
+import it.escape.server.model.game.character.AzioneCarta;
+
 public class EscapeCard implements Card {
 	
 	private EscapeCardColor color;
@@ -17,6 +19,12 @@ public class EscapeCard implements Card {
 	@Override
 	public String toString() {
 		return ("Escape card: its color is " + getColor().toString() );
+		
+	}
+
+	@Override
+	public void effect(AzioneCarta esecutore) {
+		// TODO Auto-generated method stub
 		
 	}
 	

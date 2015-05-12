@@ -1,5 +1,9 @@
 package it.escape.server.model.game.cards;
 
-public interface Card {
+import it.escape.server.model.game.character.AzioneCarta;
 
+public interface Card {
+	
+	public void effect(AzioneCarta esecutore);
+	
 }
