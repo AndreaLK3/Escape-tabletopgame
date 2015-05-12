@@ -79,19 +79,9 @@ public class Character implements CellAction, CardAction {
 	 * @return true, if movement is allowed; otherwise, false 
 	 */
 	public boolean canMove(Cell proposedCell) {
-		if (proposedCell==null)	
-				try {			
-					throw new CellNotExistsException();
-				}
-				catch (CellNotExistsException var1) {
-					return false;
-				}
-		if ((myCell.getPosition().distanceFrom(proposedCell.getPosition()) > maxDistance)) 
-			try {
-				throw new MovementOutOfRangeException();
-			}
-			catch (MovementOutOfRangeException var1) {
-				return false;
+
+		if ((myCell.getPosition().distanceFrom(proposedCell.getPosition()) > maxDistance))
+		{		return false;
 			}
 		else
 			return true;
