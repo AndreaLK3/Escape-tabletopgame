@@ -1,0 +1,18 @@
+Mandare email  << Andrea
+
+testing Positioning  << Andrea
+
+modifica (coord alfanumeriche nel JSON) + test Maploader  <<  Michele
+
+(testing celle) (low prio)
+
+continuare Mappa  <<  Michele
+   collegare Mappa - Maploader
+
+Creatore file mappa  << Michele
+
+Implementare funzioni character (funzioni base)  << Andrea
+
+Creare classi (package metagame):  << Andrea
+   Player
+   TurnsHandler
