@@ -1,7 +1,7 @@
 package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.PlayerTeams;
-import it.escape.server.model.game.character.AzioneCarta;
+import it.escape.server.model.game.character.AzioneCella;
 import it.escape.server.model.game.character.Character;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
@@ -40,7 +40,7 @@ public class StartingCell extends Cell {
 
 		
 		@Override
-		public void doAction(AzioneCarta character) {
+		public void doAction(AzioneCella character) {
 			character.noAction();
 		}
 
