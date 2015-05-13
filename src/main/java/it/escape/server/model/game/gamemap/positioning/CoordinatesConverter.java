@@ -14,7 +14,9 @@ import java.util.regex.Pattern;
 public class CoordinatesConverter {
 	
 	// regex che corrisponde a una stringa costruita così: <lettere maiuscole><numeri>
-	public static final Pattern PATTERN = Pattern.compile("([A-Z]+)([0-9]+)");
+	public static final Pattern PATTERN_MATCH = Pattern.compile("([A-Z]+)([0-9]+)");
+	
+	public static final Pattern PATTERN_DOPRETTIFY = Pattern.compile("([A-Z]+)([0-9])");
 	
 	/**
 	 * 
@@ -32,6 +34,21 @@ public class CoordinatesConverter {
 	}
 	
 	/**
+	 * convert "A1" -> "A01", and so on
+	 * @param coord alphanumeric coordinates string
+	 * @return
+	 */
+	public static String prettifyAlphaNum(String coord) {
+		Matcher m = PATTERN_DOPRETTIFY.matcher(coord);
+		if (m.matches()) {
+			return m.group(1) + "0" + m.group(2);
+		}
+		else {
+			return coord;
+		}
+	}
+	
+	/**
 	 * @param posC, posizione in coordinate cubiche, es. (1,3,4)
 	 * @return Stringa contenente riga e colonna, es: B12
 	 */
@@ -41,7 +58,7 @@ public class CoordinatesConverter {
 		
 		Character col = new Character((char) ('A' + mypos.getX()));
 		
-		return new String(col.toString() + mypos.getY());
+		return prettifyAlphaNum(new String(col.toString() + mypos.getY()));
 	}
 	
 	/**
@@ -70,7 +87,7 @@ public class CoordinatesConverter {
 	 * @throws BadCoordinatesException
 	 */
 	public static Position2D fromAlphaNumToOddq(String coord) throws BadCoordinatesException {
-		Matcher m = PATTERN.matcher(coord);
+		Matcher m = PATTERN_MATCH.matcher(coord);
 		if (m.matches()) {
 			Integer row = new Integer(m.group(2));
 			Integer col = (new AlphaToIntHelper(m.group(1))).convert();
