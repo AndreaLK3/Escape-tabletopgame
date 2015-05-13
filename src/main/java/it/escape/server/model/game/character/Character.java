@@ -1,5 +1,6 @@
 package it.escape.server.model.game.character;
 
+import it.escape.server.controller.TurnHandler;
 import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.cards.Card;
 import it.escape.server.model.game.cards.Deck;
@@ -10,7 +11,6 @@ import it.escape.server.model.game.exceptions.MovementOutOfRangeException;
 import it.escape.server.model.game.gamemap.Cell;
 import it.escape.server.model.game.gamemap.StartingCell;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
-import it.escape.server.model.supergame.SuperGame;
 
 /**This class defines the behaviour for a generic Character; 
  * it encompasses the functions that are used by both Aliens and Humans.
@@ -19,7 +19,7 @@ import it.escape.server.model.supergame.SuperGame;
  */
 public class Character implements CellAction, CardAction {
 	
-	private SuperGame supervisor;
+	private TurnHandler supervisor;
 	protected Cell myCell;
 	protected int maxDistance;
 	protected Card aCard;

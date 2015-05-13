@@ -1,4 +1,4 @@
-package it.escape.server.model.supergame;
+package it.escape.server.controller;
 
 public class Player {
 
