@@ -13,9 +13,5 @@ public class TurnHandler {
 		listOfPlayers = new ArrayList<Player>();
 	}
 
-	public void notifyNoise(PositionCubic pos){
-		for (Player p : listOfPlayers)
-			p.notifyNoise();
-	};
 	
 }

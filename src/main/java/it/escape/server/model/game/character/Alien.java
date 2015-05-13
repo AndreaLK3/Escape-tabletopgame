@@ -11,7 +11,7 @@ public class Alien extends Character {
 	private final static int ALIENRANGE=2;
 	
 	public Alien(StartingCell start, DecksHandler decksRef) {
-		super(start, decksRef);
+		super(start);
 		maxDistance = ALIENRANGE;
 		team = PlayerTeams.ALIENS;
 	}

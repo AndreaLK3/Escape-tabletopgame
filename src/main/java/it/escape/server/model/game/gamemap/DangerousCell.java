@@ -16,7 +16,7 @@ public class DangerousCell extends Cell {
 	}
 
 	@Override
-	public boolean isWalkable(Character chraracter) {
+	public boolean isWalkable(Character character) {
 		return true;
 	}
 

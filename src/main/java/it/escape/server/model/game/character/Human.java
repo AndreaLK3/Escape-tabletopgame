@@ -17,7 +17,7 @@ public class Human extends Character {
 	private final static int HUMANRANGE=1;
 	
 	public Human(StartingCell start, DecksHandler decksRef) {
-		super(start, decksRef);
+		super(start);
 		maxDistance = HUMANRANGE;
 		team = PlayerTeams.HUMANS;
 	}

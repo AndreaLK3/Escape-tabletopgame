@@ -1,30 +1,19 @@
 package it.escape.server.model.game.character;
 
-import it.escape.server.controller.TurnHandler;
 import it.escape.server.model.game.PlayerTeams;
-import it.escape.server.model.game.cards.Card;
-import it.escape.server.model.game.cards.Deck;
-import it.escape.server.model.game.cards.DecksHandler;
-import it.escape.server.model.game.cards.SectorDeck;
-import it.escape.server.model.game.exceptions.CellNotExistsException;
-import it.escape.server.model.game.exceptions.MovementOutOfRangeException;
 import it.escape.server.model.game.gamemap.Cell;
 import it.escape.server.model.game.gamemap.StartingCell;
-import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
 /**This class defines the behaviour for a generic Character; 
  * it encompasses the functions that are used by both Aliens and Humans.
  * The constructors are in the subclasses.
  * @author andrea
  */
-public class Character implements CellAction, CardAction {
+public class Character implements CardAction {
 	
-	private TurnHandler supervisor;
 	protected Cell myCell;
 	protected int maxDistance;
-	protected Card aCard;
 	protected PlayerTeams team;
-	protected DecksHandler decksRef;
 	
 	
 	/**
@@ -32,26 +21,8 @@ public class Character implements CellAction, CardAction {
 	 * @param start
 	 * @param decksRef
 	 */
-	public Character(StartingCell start, DecksHandler decksRef) {
+	public Character(StartingCell start) {
 		this.myCell = start;
-		this.decksRef = decksRef;
-	}
-	
-	
-	public void drawSectorCard() {
-		drawCard(decksRef.getsDeck());
-		aCard.effect(this);
-	}
-	public void drawObjectCard() {
-		drawCard(decksRef.getoDeck());
-		aCard.effect(this);
-	}
-	
-	/** draw a card from a deck passed as parameter
-	 * @param aDeck
-	 */
-	private void drawCard(Deck aDeck) {
-		aCard = aDeck.drawCard();
 	}
 	
 	/**Checks if the proposed movement does not exceeds maximum range
@@ -72,7 +43,6 @@ public class Character implements CellAction, CardAction {
 	 */
 	public void move(Cell proposedCell){
 			myCell = proposedCell;
-			myCell.doAction(this);
 			return;
 
 	}
@@ -96,18 +66,6 @@ public class Character implements CellAction, CardAction {
 	public PlayerTeams getTeam() {
 		return team;
 	}
-
-	// CellAction methods
-	
-	public void escape() {
-		
-	}
-
-	public void noAction() {
-	
-	}
-	
-	
 
 	// CardAction methods
 	
