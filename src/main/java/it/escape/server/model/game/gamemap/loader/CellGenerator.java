@@ -1,5 +1,6 @@
 package it.escape.server.model.game.gamemap.loader;
 
+import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.Cell;
 import it.escape.server.model.game.gamemap.StartingCell;
@@ -9,6 +10,7 @@ import it.escape.server.model.game.gamemap.SafeCell;
 import it.escape.server.model.game.GameMode;
 import it.escape.server.model.game.GameTypes;
 import it.escape.server.model.game.PlayerTeams;
+import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.strings.StringRes;
 
@@ -57,10 +59,13 @@ public class CellGenerator {
 	}
 	
 	Cell convert() throws JSONException, BadJsonFileException {
-		PositionCubic pos = new PositionCubic(
-				entry.getInt(StringRes.getString("mapfile.json.cells.x")), 
-				entry.getInt(StringRes.getString("mapfile.json.cells.y")),
-				entry.getInt(StringRes.getString("mapfile.json.cells.z")) );
+		PositionCubic pos;
+		try {
+			pos = CoordinatesConverter.fromAlphaNumToCubic(
+					entry.getString(StringRes.getString("mapfile.json.cells.alphanum")));
+		} catch (BadCoordinatesException e) {
+			throw new BadJsonFileException();
+		}
 		String tipo = entry.getString(StringRes.getString("mapfile.json.cells.tipo"));
 		return mapper(pos, tipo);
 	}

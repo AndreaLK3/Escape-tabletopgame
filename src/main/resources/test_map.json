@@ -6,21 +6,15 @@
     },
     "cells" : [
       {
-        "position_x" : 0,
-        "position_y" : 0,
-        "position_z" : 0,
+        "position" : "A02",
         "tipo" : "pericolosa"
       },
       {
-        "position_x" : 0,
-        "position_y" : 1,
-        "position_z" : -1,
+        "position" : "L06",
         "tipo" : "partenzaAlieni"
       },
       {
-        "position_x" : 0,
-        "position_y" : -1,
-        "position_z" : 1,
+        "position" : "L08",
         "tipo" : "partenzaUmani"
       }
       
