@@ -12,8 +12,8 @@ import it.escape.server.model.game.gamemap.StartingCell;
 public class Human extends Character {
 
 	
-	private List<ObjectCard> handOfObjects;
-	private final static int MAXOBJECTS = 3;
+	//private List<ObjectCard> handOfObjects; //SPOSTARE IN PLAYER
+	//private final static int MAXOBJECTS = 3;
 	private final static int HUMANRANGE=1;
 	
 	public Human(StartingCell start, DecksHandler decksRef) {

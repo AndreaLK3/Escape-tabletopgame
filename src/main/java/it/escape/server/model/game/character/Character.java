@@ -25,16 +25,18 @@ public class Character implements CardAction {
 		this.myCell = start;
 	}
 	
-	/**Checks if the proposed movement does not exceeds maximum range
+	/**Checks if the intended destination does not exceeds maximum range, 
+	 * and if it is walkable by the Character
 	 * @param proposedCell
 	 * @return true, if movement is in range; otherwise, false 
 	 */
 	public boolean canMove(Cell proposedCell) {
-		if ((myCell.getPosition().distanceFrom(proposedCell.getPosition()) > maxDistance)){
+		if ((myCell.getPosition().distanceFrom(proposedCell.getPosition()) > maxDistance))
 			return false;
-			}
-		else
-			return true;
+		if (!proposedCell.isWalkable(this))
+				return false;
+		
+				return true;
 	}
 	
 	/**Performs a (possibly multi-step) movement to a destination
