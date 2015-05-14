@@ -12,7 +12,7 @@ public class ExecutiveController implements Runnable {
 	
 	private boolean runGame;
 	
-	public void startTurn(Player currentPlayer) {
+	public synchronized void startTurn(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
 		notify();
 	}
@@ -21,7 +21,7 @@ public class ExecutiveController implements Runnable {
 		gameLoop();
 	}
 	
-	private void gameLoop() {
+	private synchronized void gameLoop() {
 		while (runGame) {
 			try {
 				wait();  // wait to be awakened by startTurn()

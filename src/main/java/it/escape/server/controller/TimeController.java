@@ -13,13 +13,13 @@ public class TimeController implements Runnable {
 	// lista ordinata dei player
 	// indice player corrente
 	
-	public void endTurn() {
+	public synchronized void endTurn() {
 		turnCompleted = true;
 		notify();
 	}
 
 	public void run() {
-		MainLoop();
+		mainLoop();
 	}
 
 	public TimeController() {
@@ -30,7 +30,7 @@ public class TimeController implements Runnable {
 		this.executorRef = executorRef;
 	}
 	
-	private void MainLoop() {
+	private void mainLoop() {
 		while (runGame) {
 			turnCompleted = false;
 			// get player corrente

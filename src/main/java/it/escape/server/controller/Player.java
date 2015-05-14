@@ -1,6 +1,6 @@
 package it.escape.server.controller;
 
-import it.escape.server.model.game.Actions.PlayerAction;
+import it.escape.server.model.game.actions.PlayerAction;
 import it.escape.server.model.game.cards.Card;
 import it.escape.server.model.game.cards.Deck;
 import it.escape.server.model.game.cards.DecksHandler;

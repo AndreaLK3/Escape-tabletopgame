@@ -1,6 +1,6 @@
 package it.escape.server.model.game.gamemap;
 
-import it.escape.server.model.game.Actions.PlayerAction;
+import it.escape.server.model.game.actions.PlayerAction;
 import it.escape.server.model.game.character.GameCharacter;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 

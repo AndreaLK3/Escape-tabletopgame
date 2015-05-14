@@ -1,4 +1,4 @@
-package it.escape.server.model.game.Actions;
+package it.escape.server.model.game.actions;
 
 import it.escape.server.controller.Player;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
