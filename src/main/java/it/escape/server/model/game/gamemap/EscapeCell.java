@@ -40,7 +40,7 @@ public class EscapeCell extends Cell {
 		if (state instanceof UnknownShuttle)
 			state = state.decideState(null);	//aggiungere una carta
 		if (state.tryHatch()==true)	
-			character.escape();
+		{}
 	}
 
 		public boolean isWalkable(GameCharacter character) {

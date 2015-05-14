@@ -12,7 +12,7 @@ public class SafeCell extends Cell {
 
 	@Override
 	public void doAction(CellAction esecutore) {
-		esecutore.noAction();
+		
 	}
 
 	@Override

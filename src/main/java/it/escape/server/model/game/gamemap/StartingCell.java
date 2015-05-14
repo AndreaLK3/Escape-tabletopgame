@@ -41,7 +41,7 @@ public class StartingCell extends Cell {
 		
 		@Override
 		public void doAction(CellAction character) {
-			character.noAction();
+			
 		}
 
 		@Override

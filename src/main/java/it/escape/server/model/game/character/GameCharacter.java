@@ -69,19 +69,5 @@ public class GameCharacter implements CardAction {
 		return team;
 	}
 
-	// CardAction methods
-	
-	public void noiseInMySector() {
-		
-	}
-
-	public void noiseInOtherSector() {
-		
-	}
-
-	public void declareSilence() {
-	
-		
-	}
 
 }
