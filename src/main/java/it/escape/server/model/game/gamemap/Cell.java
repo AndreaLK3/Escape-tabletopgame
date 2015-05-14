@@ -1,7 +1,7 @@
 package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.character.CellAction;
-import it.escape.server.model.game.character.Character;
+import it.escape.server.model.game.character.GameCharacter;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
 public abstract class Cell {
@@ -18,6 +18,6 @@ public abstract class Cell {
 	
 	public abstract void doAction(CellAction esecutore);
 	
-	public abstract boolean isWalkable(Character esecutore);
+	public abstract boolean isWalkable(GameCharacter esecutore);
 	
 }

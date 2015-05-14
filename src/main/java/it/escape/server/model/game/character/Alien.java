@@ -6,7 +6,7 @@ import it.escape.server.model.game.cards.DecksHandler;
 import it.escape.server.model.game.gamemap.Cell;
 import it.escape.server.model.game.gamemap.StartingCell;
 
-public class Alien extends Character {
+public class Alien extends GameCharacter {
 
 	private final static int ALIENRANGE=2;
 	

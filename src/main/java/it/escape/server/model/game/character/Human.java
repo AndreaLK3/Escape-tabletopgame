@@ -9,7 +9,7 @@ import it.escape.server.model.game.cards.ObjectCard;
 import it.escape.server.model.game.gamemap.Cell;
 import it.escape.server.model.game.gamemap.StartingCell;
 
-public class Human extends Character {
+public class Human extends GameCharacter {
 
 	
 	//private List<ObjectCard> handOfObjects; //SPOSTARE IN PLAYER

@@ -3,7 +3,7 @@ package it.escape.server.model.game.gamemap;
 import it.escape.server.model.game.GameMode;
 import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.character.CellAction;
-import it.escape.server.model.game.character.Character;
+import it.escape.server.model.game.character.GameCharacter;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
 /**
@@ -43,7 +43,7 @@ public class EscapeCell extends Cell {
 			character.escape();
 	}
 
-		public boolean isWalkable(Character character) {
+		public boolean isWalkable(GameCharacter character) {
 		if (character.getTeam()==PlayerTeams.HUMANS)
 			return true;
 			else
