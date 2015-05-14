@@ -1,19 +1,23 @@
 package it.escape.server.controller;
 
+import it.escape.server.model.game.Actions.PlayerAction;
 import it.escape.server.model.game.cards.Card;
 import it.escape.server.model.game.cards.Deck;
 import it.escape.server.model.game.cards.DecksHandler;
-import it.escape.server.model.game.character.CardAction;
 import it.escape.server.model.game.character.GameCharacter;
+import it.escape.server.model.game.gamemap.Mappa;
 
 public class Player {
 
 	private GameCharacter myChar;
+	private Mappa theMap;
 	private DecksHandler decksRef;
 	protected Card aCard;
+	private UserInputReceiver myInterface;
 	
-	public Player (DecksHandler decksRef) {
+	public Player (DecksHandler decksRef, Mappa theMap) {
 		this.decksRef = decksRef;
+		this.theMap = theMap;
 	}
 	
 	/*
@@ -33,9 +37,14 @@ public class Player {
 		aCard = aDeck.drawCard();
 	}
 
-	public GameCharacter getCharacter() {
+	public GameCharacter getMyCharacter() {
 		return myChar;
 	}
+
+	public Mappa getTheMap() {
+		return theMap;
+	}
+
 
 
 

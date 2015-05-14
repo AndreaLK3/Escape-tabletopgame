@@ -1,6 +1,6 @@
 package it.escape.server.model.game.cards;
 
-import it.escape.server.model.game.character.CardAction;
+import it.escape.server.model.game.Actions.PlayerAction;
 
 public class EscapeCard implements Card {
 	
@@ -22,7 +22,7 @@ public class EscapeCard implements Card {
 		
 	}
 
-	public void effect(CardAction character) {
+	public void effect() {
 		
 	}
 	

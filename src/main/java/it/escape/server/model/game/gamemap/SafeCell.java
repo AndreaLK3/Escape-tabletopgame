@@ -1,6 +1,6 @@
 package it.escape.server.model.game.gamemap;
 
-import it.escape.server.model.game.character.CellAction;
+import it.escape.server.model.game.Actions.PlayerAction;
 import it.escape.server.model.game.character.GameCharacter;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
@@ -11,7 +11,7 @@ public class SafeCell extends Cell {
 	}
 
 	@Override
-	public void doAction(CellAction esecutore) {
+	public void doAction() {
 		
 	}
 

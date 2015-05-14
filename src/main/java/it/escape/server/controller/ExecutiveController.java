@@ -8,6 +8,8 @@ public class ExecutiveController implements Runnable {
 	
 	private TimeController timeControllerRef;
 	
+	private TurnHandler turnHandler;
+	
 	private boolean runGame;
 	
 	public void startTurn(Player currentPlayer) {
@@ -33,17 +35,17 @@ public class ExecutiveController implements Runnable {
 	private void gameTurn() {
 		PlayerTeams team = currentPlayer.getCharacter().getTeam();
 		if (team == PlayerTeams.HUMANS) {
-			// lancia il gestore turni umano
+			turnHandler = new HumanTurnHandler(currentPlayer);
 		}
 		else {
-			// lancia il gestore turni alieno
+			turnHandler = new AlienTurnHandler(currentPlayer);
 		}
+		turnHandler.beginTurn();
 	}
 
 	public ExecutiveController(TimeController timeControllerRef) {
 		this.timeControllerRef = timeControllerRef;
-		runGame = true;
-		// istanzia gestri turni
+		runGame = true;		
 	}
 	
 	public void fillInDefaultChoices() {

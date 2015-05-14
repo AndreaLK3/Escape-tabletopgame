@@ -68,16 +68,22 @@ public class CoordinatesConverter {
 	 * @return Una nuova posizione con coordinate cubiche
 	 */
 	public static PositionCubic fromAlphaNumToCubic(String coordstring) throws BadCoordinatesException {
+		Position2D coord = fromAlphaNumToOddq(coordstring);
+		PositionCubic cubic = fromOddqToCubic (coord);
+		return cubic;
+	}
+	
+	public static PositionCubic fromOddqToCubic (Position2D Pos2D) {
 		int x, y, z;
 		
-		Position2D coord = fromAlphaNumToOddq(coordstring);
-		Integer col = coord.getX();
-		Integer row = coord.getY();
+		Integer col = Pos2D.getX();
+		Integer row = Pos2D.getY();
 		
 		x = col;
 		y = row - ((col - (col&1)) / 2);
 		z = -x - y;
 		return new PositionCubic (x, y, z);
+		
 	}
 	
 	

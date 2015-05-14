@@ -7,11 +7,12 @@ import java.util.List;
 
 public class TurnHandler {
 	
-	private Player currentPlayer;
+	protected Player currentPlayer;
 	
-	public TurnHandler () {
-		
+	public TurnHandler (Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
 	}
-
+	
+	public void beginTurn() {} ;
 	
 }

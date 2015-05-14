@@ -2,7 +2,7 @@ package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.GameMode;
 import it.escape.server.model.game.PlayerTeams;
-import it.escape.server.model.game.character.CellAction;
+import it.escape.server.model.game.Actions.PlayerAction;
 import it.escape.server.model.game.character.GameCharacter;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
@@ -36,7 +36,7 @@ public class EscapeCell extends Cell {
 	 * every type of shuttle will respond accordingly.
 	 */
 	@Override
-	public void doAction(CellAction character) {
+	public void doAction() {
 		if (state instanceof UnknownShuttle)
 			state = state.decideState(null);	//aggiungere una carta
 		if (state.tryHatch()==true)	
