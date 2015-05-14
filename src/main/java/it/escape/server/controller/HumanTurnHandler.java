@@ -6,5 +6,12 @@ public class HumanTurnHandler extends TurnHandler {
 		super(currentPlayer);
 	}
 
-	public void beginTurn() {};
+	public void turnSequence() {
+		/* theUser.getPlayerAction().execute
+		 * 
+		 * 
+		 * 
+		 * 
+		 */
+		};
 }

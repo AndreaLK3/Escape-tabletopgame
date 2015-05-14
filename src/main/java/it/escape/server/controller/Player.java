@@ -13,7 +13,7 @@ public class Player {
 	private Mappa theMap;
 	private DecksHandler decksRef;
 	protected Card aCard;
-	private UserInputReceiver myInterface;
+	private PlayerAction currentAction;
 	
 	public Player (DecksHandler decksRef, Mappa theMap) {
 		this.decksRef = decksRef;
@@ -44,6 +44,7 @@ public class Player {
 	public Mappa getTheMap() {
 		return theMap;
 	}
+
 
 
 

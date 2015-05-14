@@ -29,12 +29,13 @@ public class GameCharacter {
 	 * and if it is walkable by the Character
 	 * @param proposedCell
 	 * @return true, if movement is in range; otherwise, false 
+	 * @throws Exception 
 	 */
-	public boolean canMove(Cell proposedCell) {
+	public boolean canMove(Cell proposedCell) throws Exception {
 		if ((myCell.getPosition().distanceFrom(proposedCell.getPosition()) > maxDistance))
-			return false;
+			throw new Exception();
 		if (!proposedCell.isWalkable(this))
-				return false;
+				throw new Exception();
 		
 				return true;
 	}

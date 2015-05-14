@@ -2,6 +2,7 @@ package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.cards.DecksHandler;
+import it.escape.server.model.game.character.GameCharacter;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.loader.MapLoader;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
@@ -61,11 +62,20 @@ public class Mappa {
 		}
 	}
 	
-	public void moveCharacter(Character character, PositionCubic dest) {
-		// To be implemented
+	public void moveCharacter(GameCharacter character, PositionCubic dest) throws Exception {
+		Cell destCell;
+		if (!destinationExisting())
+			throw new Exception();
+		destCell = getDestinationCell(dest);	
+		character.canMove(destCell);
+		//updateCharPosition(character, dest)
 	}
 	
-	public void noiseInSector(Cell sector) {
-		// To be implemented
+	public boolean destinationExisting() {
+		return false;
+	}
+	
+	private Cell getDestinationCell(PositionCubic destination) {
+		return new SafeCell(new PositionCubic(1,1,1));
 	}
 }

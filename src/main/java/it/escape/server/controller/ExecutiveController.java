@@ -33,14 +33,14 @@ public class ExecutiveController implements Runnable {
 	}
 
 	private void gameTurn() {
-		PlayerTeams team = currentPlayer.getCharacter().getTeam();
+		PlayerTeams team = currentPlayer.getMyCharacter().getTeam();
 		if (team == PlayerTeams.HUMANS) {
 			turnHandler = new HumanTurnHandler(currentPlayer);
 		}
 		else {
 			turnHandler = new AlienTurnHandler(currentPlayer);
 		}
-		turnHandler.beginTurn();
+		turnHandler.turnSequence();
 	}
 
 	public ExecutiveController(TimeController timeControllerRef) {

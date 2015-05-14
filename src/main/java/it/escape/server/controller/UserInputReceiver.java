@@ -8,12 +8,7 @@ public class UserInputReceiver {
 	
 	Position2D destination;
 	
-	public PlayerAction getInitialPlayerAction () {
-		/*if command == Move
-		 * 		askforDestination
-		 * if command == playObjectCard
-		 * 
-		 */
+	public PlayerAction getMovement() {
 		return new Move(destination);
 	}
 

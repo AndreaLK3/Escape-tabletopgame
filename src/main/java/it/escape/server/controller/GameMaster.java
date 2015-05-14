@@ -9,12 +9,14 @@ public class GameMaster {
 	private Thread executorThread;
 	
 	private Thread timerThread;
+	
+	private UserInputReceiver theUser;
 
 	public GameMaster() {
 		timeController =  new TimeController();
 		executor = new ExecutiveController(timeController);
 		timeController.bindExecutor(executor);
-		
+		theUser = new UserInputReceiver();
 		executorThread = new Thread(executor);
 		timerThread = new Thread(timeController);
 	}
