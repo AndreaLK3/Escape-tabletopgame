@@ -32,7 +32,7 @@ public class ExecutiveController implements Runnable {
 			// lancia il gestore turni alieno
 		}
 		
-		
+		timeControllerRef.endTurn();
 	}
 
 	public ExecutiveController(TimeController timeControllerRef) {
