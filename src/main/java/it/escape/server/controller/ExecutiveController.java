@@ -35,10 +35,10 @@ public class ExecutiveController implements Runnable {
 	private void gameTurn() {
 		PlayerTeams team = currentPlayer.getMyCharacter().getTeam();
 		if (team == PlayerTeams.HUMANS) {
-			turnHandler = new HumanTurnHandler(currentPlayer);
+			turnHandler = new TurnHandlerHuman(currentPlayer);
 		}
 		else {
-			turnHandler = new AlienTurnHandler(currentPlayer);
+			turnHandler = new TurnHandlerAlien(currentPlayer);
 		}
 		turnHandler.turnSequence();
 	}

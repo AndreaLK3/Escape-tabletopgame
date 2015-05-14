@@ -1,8 +1,8 @@
 package it.escape.server.controller;
 
-public class HumanTurnHandler extends TurnHandler {
+public class TurnHandlerHuman extends TurnHandler {
 
-	public HumanTurnHandler(Player currentPlayer) {
+	public TurnHandlerHuman(Player currentPlayer) {
 		super(currentPlayer);
 	}
 
