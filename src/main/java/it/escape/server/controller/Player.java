@@ -4,10 +4,11 @@ import it.escape.server.model.game.cards.Card;
 import it.escape.server.model.game.cards.Deck;
 import it.escape.server.model.game.cards.DecksHandler;
 import it.escape.server.model.game.character.CardAction;
+import it.escape.server.model.game.character.GameCharacter;
 
 public class Player {
 
-	private Character myChar;
+	private GameCharacter myChar;
 	private DecksHandler decksRef;
 	protected Card aCard;
 	
@@ -30,6 +31,10 @@ public class Player {
 	 */
 	private void drawCard(Deck aDeck) {
 		aCard = aDeck.drawCard();
+	}
+
+	public GameCharacter getCharacter() {
+		return myChar;
 	}
 
 

@@ -7,10 +7,10 @@ import java.util.List;
 
 public class TurnHandler {
 	
-	private List<Player> listOfPlayers;
+	private Player currentPlayer;
 	
 	public TurnHandler () {
-		listOfPlayers = new ArrayList<Player>();
+		
 	}
 
 	
