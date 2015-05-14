@@ -9,7 +9,7 @@ import it.escape.server.model.game.gamemap.StartingCell;
  * The constructors are in the subclasses.
  * @author andrea
  */
-public class Character implements CardAction {
+public class GameCharacter implements CardAction {
 	
 	protected Cell myCell;
 	protected int maxDistance;
@@ -21,7 +21,7 @@ public class Character implements CardAction {
 	 * @param start
 	 * @param decksRef
 	 */
-	public Character(StartingCell start) {
+	public GameCharacter(StartingCell start) {
 		this.myCell = start;
 	}
 	
