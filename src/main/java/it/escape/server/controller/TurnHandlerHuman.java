@@ -7,7 +7,7 @@ public class TurnHandlerHuman extends TurnHandler {
 	}
 
 	public void turnSequence() {
-		/* theUser.getPlayerAction().execute
+		/* 
 		 * 
 		 * 
 		 * 

@@ -21,6 +21,7 @@ public class ExecutiveController implements Runnable {
 		gameLoop();
 	}
 	
+	/** Note: adding "synchronize" in a code block where there is a wait() or notify() function is mandatory*/
 	private synchronized void gameLoop() {
 		while (runGame) {
 			try {
