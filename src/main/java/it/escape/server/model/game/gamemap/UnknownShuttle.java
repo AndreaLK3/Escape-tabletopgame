@@ -16,4 +16,8 @@ public class UnknownShuttle extends ShuttleState {
 		return this;
 	}
 
+	@Override
+	public String toString() {
+		return "Unknown shuttle";
+	}
 }

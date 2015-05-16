@@ -6,6 +6,7 @@ import it.escape.server.model.game.character.GameCharacter;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**This class defines the starting cells, one for each player type (Humans, Aliens)
  * The starting cell are implemented as singletons: 
@@ -30,7 +31,7 @@ public class StartingCell extends Cell {
 			
 			for (StartingCell start : startCells)
 				if (start!=null)
-					if (start.type==type)
+					if (start.getType()==type)
 						return start;	
 			
 			 newStart= new StartingCell(position, type);
@@ -42,6 +43,10 @@ public class StartingCell extends Cell {
 		@Override
 		public void doAction() {
 			
+		}
+		
+		public PlayerTeams getType() {
+			return type;
 		}
 
 		@Override

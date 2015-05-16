@@ -15,5 +15,10 @@ public class AlwaysOpenShuttle extends ShuttleState {
 		
 		return this;
 	}
+	
+	@Override
+	public String toString() {
+		return "Always open shuttle";
+	}
 
 }

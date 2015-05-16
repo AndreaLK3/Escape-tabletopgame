@@ -27,5 +27,10 @@ public class OpenOnceShuttle extends ShuttleState {
 		
 		return this;
 	}
+	
+	@Override
+	public String toString() {
+		return "Open once shuttle";
+	}
 
 }
