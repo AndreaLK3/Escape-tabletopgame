@@ -16,6 +16,14 @@
       {
         "position" : "L08",
         "tipo" : "partenzaUmani"
+      },
+      {
+      	"position" : "C01",
+      	"tipo" : "sicura"
+      },
+      {
+      	"position" : "B02",
+      	"tipo" : "scialuppa"
       }
       
     ]

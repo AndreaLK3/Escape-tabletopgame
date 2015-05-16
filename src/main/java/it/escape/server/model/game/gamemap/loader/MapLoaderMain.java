@@ -14,7 +14,7 @@ public class MapLoaderMain {
 	public static void main(String[] args) {
 	
 		try {
-			InputStream file = FilesHelper.getResourceFile("test_map.json");
+			InputStream file = FilesHelper.getResourceFile("resources/test_map.json");
 			MapLoader loader = new MapLoader(file);
 			
 			for (Cell c : loader) {

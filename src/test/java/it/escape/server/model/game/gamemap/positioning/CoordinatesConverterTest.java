@@ -9,7 +9,7 @@ import it.escape.server.model.game.gamemap.positioning.Position2DMatcher;
 public class CoordinatesConverterTest {
 
 	@Test
-	public void test() {
+	public void testCubicToOddQ() {
 		PositionCubic p = new PositionCubic(0, 0, 0);
 		assertThat(CoordinatesConverter.fromCubicToOddQ(p), is(new Position2D(0, 0)));
 	}
