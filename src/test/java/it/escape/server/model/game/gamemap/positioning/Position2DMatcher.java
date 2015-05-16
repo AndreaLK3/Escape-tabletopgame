@@ -2,7 +2,6 @@ package it.escape.server.model.game.gamemap.positioning;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 
 public class Position2DMatcher extends BaseMatcher<Object> {
 

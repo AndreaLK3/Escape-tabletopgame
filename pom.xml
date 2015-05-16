@@ -1,6 +1,6 @@
 ﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   	<modelVersion>4.0.0</modelVersion>
-  	<groupId>escape</groupId>
+  	<groupId>it.escape</groupId>
   	<artifactId>software-eng-escape</artifactId>
   	<version>0.0.2-SNAPSHOT</version>
   	
@@ -18,19 +18,16 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>json</groupId>
-		    <artifactId>org.json</artifactId>
-		    <version>1.0</version>
-		    <scope>system</scope>
-		    <systemPath>${project.basedir}/src/main/resources/java-json.jar</systemPath>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20090211</version>
+			<scope>compile</scope>
 		</dependency>
+
 	</dependencies>
-	
 
 	<build>
-
 		<plugins>
-
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -55,6 +52,19 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+		      <artifactId>maven-assembly-plugin</artifactId>
+		      <configuration>
+		        <archive>
+		          <manifest>
+		            <mainClass>fully.qualified.MainClass</mainClass>
+		          </manifest>
+		        </archive>
+		        <descriptorRefs>
+		          <descriptorRef>jar-with-dependencies</descriptorRef>
+		        </descriptorRefs>
+		      </configuration>
+		    </plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
