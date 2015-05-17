@@ -4,8 +4,10 @@ import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.cards.DecksHandler;
 import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
+import it.escape.server.model.game.exceptions.CellNotExistsException;
 import it.escape.server.model.game.gamemap.loader.MapLoader;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
+import it.escape.server.model.game.gamemap.positioning.CubicDeltas;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.utils.FilesHelper;
@@ -48,6 +50,22 @@ public class GameMap {
 			attemptAssignStartingCells(c);
 		}
 		// TODO : no starting cell exception
+	}
+	
+	private List<Cell> getNeighbors(PositionCubic center) throws CellNotExistsException {
+		if (cells.containsKey(CoordinatesConverter.fromCubicToAlphaNum(center))) {
+			List<Cell> vicini = new ArrayList<Cell>();
+			for (PositionCubic pos : CubicDeltas.getDeltas()) {
+				PositionCubic candidate = center.cubeAdd(pos);
+				if (cells.containsKey(CoordinatesConverter.fromCubicToAlphaNum(candidate))) {
+					vicini.add(cells.get(CoordinatesConverter.fromCubicToAlphaNum(candidate)));
+				}
+			}
+			return vicini;
+		}
+		else {
+			throw new CellNotExistsException();  // a bit of defensive programming here
+		}
 	}
 	
 	private void attemptAssignStartingCells(Cell c) {

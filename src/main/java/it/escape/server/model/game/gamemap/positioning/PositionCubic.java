@@ -81,6 +81,12 @@ public final class PositionCubic{
 		}
 	}
 	
+	public PositionCubic cubeAdd(PositionCubic addend) {
+		return new PositionCubic(
+				x + addend.getX(),
+				y + addend.getY(),
+				z + addend.getZ());
+	}
 	
 	public int distanceFrom(PositionCubic other) {
 		return (Math.abs(this.x - other.x) + Math.abs(this.y - other.y) + Math.abs(this.z - other.z)) / 2;
