@@ -1,7 +1,5 @@
 package it.escape.utils;
 
-import it.escape.strings.StringRes;
-
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Formatter;
 import java.util.logging.Handler;
@@ -22,9 +20,7 @@ public class LogHelper {
 		
 		if (!consoleOutput.getFormatter().equals(simpleFormatter)) {
 			consoleOutput.setFormatter(simpleFormatter);
-			logger.config(StringRes.getString("logger.simple_formatter_applied"));
 		}
-		logger.config(StringRes.getString("logger.default_config_done"));
 	}
 	
 }
