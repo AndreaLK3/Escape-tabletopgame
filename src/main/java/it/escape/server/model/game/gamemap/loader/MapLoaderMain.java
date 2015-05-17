@@ -7,9 +7,11 @@ import it.escape.utils.FilesHelper;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Logger;
 
 public class MapLoaderMain {
 
+	protected static final Logger log = Logger.getLogger( MapLoaderMain.class.getName() );
 	
 	public static void main(String[] args) {
 	
@@ -18,15 +20,15 @@ public class MapLoaderMain {
 			MapLoader loader = new MapLoader(file);
 			
 			for (Cell c : loader) {
-				System.out.println(c.toString());
+				log.fine(c.toString());
 			}
 			
 		} catch (FileNotFoundException e) {
-			System.out.println("file not found");
+			log.severe("file not found");
 		} catch (BadJsonFileException e) {
-			System.out.println("bad json file");
+			log.severe("bad json file");
 		} catch (IOException e) {
-			System.out.println("file not readable");
+			log.severe("file not readable");
 		}
 	}
 }
