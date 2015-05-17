@@ -43,9 +43,13 @@ public class GameMap {
 		loadMapFromResourceFile(filename);
 	}
 	
-	public GameMap getMapInstance(String filename) throws BadJsonFileException, IOException {
+	public GameMap createMapInstance(String filename) throws BadJsonFileException, IOException {
 		if (mapInstance==null)
 			mapInstance = new GameMap(filename);
+		return mapInstance;
+	}
+	
+	public GameMap getMapInstance() {
 		return mapInstance;
 	}
 	
