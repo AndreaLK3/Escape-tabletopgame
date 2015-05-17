@@ -2,6 +2,8 @@ package it.escape.server.model.game.exceptions;
 
 public class BadCoordinatesException extends Exception {
 
+	private static final long serialVersionUID = 1L;
+
 	public BadCoordinatesException() {
 		super();
 	}
