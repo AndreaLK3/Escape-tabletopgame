@@ -2,6 +2,7 @@ package it.escape.server.model.game.cards;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Logger;
 
 /** This class defines the behaviour of a deck of cards; 
  * The data structure is an ArrayList of Card objects;
@@ -12,7 +13,7 @@ import java.util.Random;
  * @author andrea
  */
 public class Deck {
-	
+	protected static final Logger log = Logger.getLogger( Deck.class.getName() );
 
 	protected List<Card> theDeck = new ArrayList<Card>();
 	private int counter;
@@ -41,8 +42,8 @@ public class Deck {
 			{temp= theDeck.get(counter-1);
 			counter--;
 			return temp;}
-		catch (ArrayIndexOutOfBoundsException var1)
-		{	System.out.println ("This deck of cards is empty! It must be reshuffled anew");
+		catch (ArrayIndexOutOfBoundsException var1) {
+			log.fine("This deck of cards is empty! It must be reshuffled anew");
 			this.shuffleDeck();
 			return this.drawCard();
 		}
