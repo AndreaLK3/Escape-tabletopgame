@@ -21,7 +21,7 @@ public class GameMap {
 	
 	private List characters;
 	
-	private HashMap<String, Cell> cells;		//this hasmap stores pairs such as: <A3,Cell(2,3,5)>
+	private HashMap<String, Cell> cells;		//this hashmap stores pairs such as: <A3,Cell(2,3,5)>
 	
 	private Cell startAliens = null;
 	
