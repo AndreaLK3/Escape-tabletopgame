@@ -22,7 +22,7 @@ public class EscapeCard implements Card {
 		
 	}
 
-	public void effect() {
+	public void play() {
 		
 	}
 	

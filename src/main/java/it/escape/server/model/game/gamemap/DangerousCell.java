@@ -1,7 +1,7 @@
 package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.actions.PlayerAction;
-import it.escape.server.model.game.character.GameCharacter;
+import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
 public class DangerousCell extends Cell {
@@ -16,7 +16,7 @@ public class DangerousCell extends Cell {
 	}
 
 	@Override
-	public boolean isWalkable(GameCharacter character) {
+	public boolean canEnter(Player curPlayer) {
 		return true;
 	}
 

@@ -3,7 +3,8 @@ package it.escape.server.model.game.gamemap;
 import it.escape.server.model.game.GameMode;
 import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.actions.PlayerAction;
-import it.escape.server.model.game.character.GameCharacter;
+import it.escape.server.model.game.character.Human;
+import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
 /**
@@ -43,8 +44,8 @@ public class EscapeCell extends Cell {
 		{}
 	}
 
-		public boolean isWalkable(GameCharacter character) {
-		if (character.getTeam()==PlayerTeams.HUMANS)
+		public boolean canEnter(Player player) {
+		if (player instanceof Human )
 			return true;
 			else
 			{	System.out.println("An alien can't use an escape shuttle!");

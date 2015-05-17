@@ -4,6 +4,6 @@ import it.escape.server.model.game.actions.PlayerAction;
 
 public interface Card {
 	
-	public void effect();
+	public void play();
 	
 }

@@ -1,6 +1,7 @@
 package it.escape.server.controller;
 
 import it.escape.server.model.game.PlayerTeams;
+import it.escape.server.model.game.character.Player;
 
 public class ExecutiveController implements Runnable {
 	
@@ -34,7 +35,7 @@ public class ExecutiveController implements Runnable {
 	}
 
 	private void gameTurn() {
-		PlayerTeams team = currentPlayer.getMyCharacter().getTeam();
+		PlayerTeams team = currentPlayer.getTeam();
 		if (team == PlayerTeams.HUMANS) {
 			turnHandler = new TurnHandlerHuman(currentPlayer);
 		}

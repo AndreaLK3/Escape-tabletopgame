@@ -5,7 +5,7 @@ import it.escape.server.model.game.actions.PlayerAction;
 public class SilenceCard implements Card {
 
 	
-	public void effect() {
+	public void play() {
 	
 		
 	}

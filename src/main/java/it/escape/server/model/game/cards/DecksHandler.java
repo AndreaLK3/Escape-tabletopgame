@@ -6,22 +6,30 @@ public class DecksHandler {
 	private SectorDeck sDeck;
 	private ObjectDeck oDeck;
 	
-	public DecksHandler() {
+	private static DecksHandler decksHandlerInstance;
+	
+	public static DecksHandler getDecksHandler() {
+		if (decksHandlerInstance == null)
+			decksHandlerInstance = new DecksHandler();
+		return decksHandlerInstance;
+	}
+	
+	private DecksHandler() {
 		eDeck = new EscapeDeck();
 		sDeck = new SectorDeck();
 		oDeck = new ObjectDeck();
 	}
 
-	public EscapeDeck geteDeck() {
-		return eDeck;
+	public Card drawSectorCard() {
+		return sDeck.drawCard();
 	}
 
-	public SectorDeck getsDeck() {
-		return sDeck;
+	public Card drawObjectCard() {
+		return oDeck.drawCard();
 	}
 
-	public ObjectDeck getoDeck() {
-		return oDeck;
+	public Card drawEscapeCard() {
+		return eDeck.drawCard();
 	}
 
 }

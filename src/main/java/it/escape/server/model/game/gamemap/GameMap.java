@@ -2,7 +2,7 @@ package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.cards.DecksHandler;
-import it.escape.server.model.game.character.GameCharacter;
+import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.loader.MapLoader;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
@@ -15,11 +15,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Mappa {
+public class GameMap {
 	
 	private List characters;
 	
-	private HashMap<String, Cell> cells;
+	private HashMap<String, Cell> cells;		//this hasmap stores pairs such as: <A3,Cell(2,3,5)>
 	
 	private Cell startAliens = null;
 	
@@ -31,10 +31,10 @@ public class Mappa {
 	
 	private Position2D maxSize;
 
-	public Mappa(String filename) throws BadJsonFileException, IOException {
+	public GameMap(String filename) throws BadJsonFileException, IOException {
 		characters = new ArrayList<Character>();
 		cells = new HashMap<String,Cell>();
-		decks = new DecksHandler();
+		decks = DecksHandler.getDecksHandler();
 		loadMapFromResourceFile(filename);
 	}
 	
@@ -62,13 +62,8 @@ public class Mappa {
 		}
 	}
 	
-	public void moveCharacter(GameCharacter character, PositionCubic dest) throws Exception {
-		Cell destCell;
-		if (!destinationExisting())
-			throw new Exception();
-		destCell = getDestinationCell(dest);	
-		character.canMove(destCell);
-		//updateCharPosition(character, dest)
+	public void move(Player curPlayer , Position2D pos) {
+		
 	}
 	
 	public boolean destinationExisting() {

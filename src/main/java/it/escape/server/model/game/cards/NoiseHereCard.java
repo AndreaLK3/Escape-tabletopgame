@@ -5,7 +5,7 @@ import it.escape.server.model.game.actions.PlayerAction;
 public class NoiseHereCard implements Card {
 
 	
-	public void effect() {
+	public void play() {
 	}
 
 }

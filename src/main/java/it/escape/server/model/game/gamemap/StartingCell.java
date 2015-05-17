@@ -2,7 +2,7 @@ package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.actions.PlayerAction;
-import it.escape.server.model.game.character.GameCharacter;
+import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class StartingCell extends Cell {
 		}
 
 		@Override
-		public boolean isWalkable(GameCharacter character) {
+		public boolean canEnter(Player curPlayer) {
 			return false;
 	}
 		
