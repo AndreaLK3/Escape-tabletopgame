@@ -1,5 +1,7 @@
 package it.escape.server.model.game.gamemap;
 
+import java.util.logging.Logger;
+
 import it.escape.server.model.game.GameMode;
 import it.escape.server.model.game.GameTypes;
 import it.escape.server.model.game.cards.Card;
@@ -14,6 +16,8 @@ import it.escape.server.model.game.cards.Card;
  * @author andrea
  */
 abstract class ShuttleState {
+	
+	protected static final Logger log = Logger.getLogger( Cell.class.getName() );
 
 	static ShuttleState shuttleFactory(GameMode mode) {
 		if (mode.getType()==GameTypes.BASE) 

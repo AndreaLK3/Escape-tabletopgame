@@ -36,7 +36,7 @@ public class EscapeCell extends Cell {
 		if (player instanceof Human )
 			return true;
 			else
-			{	System.out.println("An alien can't use an escape shuttle!");
+			{	log.info("An alien can't use an escape shuttle!");
 				return false;}
 	}
 		

@@ -6,7 +6,7 @@ public class ClosedShuttle extends ShuttleState {
 
 	@Override
 	public boolean tryHatch() {
-		System.out.println("Oh no!, this escape hatch is broken! You can't use it.");
+		log.info("Oh no!, this escape hatch is broken! You can't use it.");
 		return false;
 	}
 

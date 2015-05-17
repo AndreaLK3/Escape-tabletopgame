@@ -12,12 +12,12 @@ public class OpenOnceShuttle extends ShuttleState {
 	@Override
 	public boolean tryHatch() {
 		
-		if (alreadyUsed == false)
-		{	System.out.println("You managed to find an active escape shuttle!");
+		if (alreadyUsed == false) {
+			log.info("You managed to find an active escape shuttle!");
 			alreadyUsed = true;
 			return true;}
-		else
-		{	System.out.println("Someone has already used this escape shuttle! You have to find another one!");
+		else {
+			log.info("Someone has already used this escape shuttle! You have to find another one!");
 			return false;
 		}
 	}
