@@ -1,4 +1,6 @@
 package it.escape.server.model.game.cards;
+import it.escape.utils.LogHelper;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
@@ -58,7 +60,8 @@ public class Deck {
 		return (counter==0);
 	}
 
-	
-		
+	public Deck() {
+		LogHelper.setDefaultOptions(log);
+	}	
 
 }

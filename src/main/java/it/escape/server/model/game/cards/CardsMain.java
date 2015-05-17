@@ -1,5 +1,7 @@
 package it.escape.server.model.game.cards;
 
+import it.escape.utils.LogHelper;
+
 import java.util.logging.Logger;
 
 public class CardsMain {
@@ -7,13 +9,12 @@ public class CardsMain {
 	protected static final Logger log = Logger.getLogger( CardsMain.class.getName() );
 	
 	public static void main (String args[]) {
-		
-		Deck sectorDeck, escapeDeck;
+		LogHelper.setDefaultOptions(log);
+		Deck escapeDeck;
 		Card temp;
 		
 		log.fine("Test main for the decks of cards");
 		log.fine("Creating a new SectorDeck and a new EscapeDeck");
-		sectorDeck = new SectorDeck();
 		escapeDeck = new EscapeDeck();
 		
 		log.fine("Performing operations on EscapeDeck:");

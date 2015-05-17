@@ -6,6 +6,7 @@ public class EscapeDeck extends Deck {
 	private final static int GREENSHUTTLE = 3;
 	
 	public EscapeDeck() {
+		super();
 		int i;
 		
 		

@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import it.escape.server.model.game.GameMode;
 import it.escape.server.model.game.GameTypes;
 import it.escape.server.model.game.cards.Card;
+import it.escape.utils.LogHelper;
 
 /**This is an abstract class, we can not create objects of this type.
  * It contains:
@@ -31,5 +32,9 @@ abstract class ShuttleState {
 	
 	public abstract boolean tryHatch();
 
-		
+
+	public ShuttleState() {
+		LogHelper.setDefaultOptions(log);
+	}
+
 }
