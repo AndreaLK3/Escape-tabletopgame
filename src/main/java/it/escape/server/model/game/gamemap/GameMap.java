@@ -19,6 +19,8 @@ import java.util.List;
 
 public class GameMap {
 	
+	public static GameMap mapInstance;
+	
 	private List characters;
 	
 	private HashMap<String, Cell> cells;		//this hashmap stores pairs such as: <A3,Cell(2,3,5)>
@@ -33,13 +35,26 @@ public class GameMap {
 	
 	private Position2D maxSize;
 
-	public GameMap(String filename) throws BadJsonFileException, IOException {
+	/** Private constructor for this singleton*/
+	private GameMap(String filename) throws BadJsonFileException, IOException {
 		characters = new ArrayList<Character>();
 		cells = new HashMap<String,Cell>();
 		decks = DecksHandler.getDecksHandler();
 		loadMapFromResourceFile(filename);
 	}
 	
+	public GameMap getMapInstance(String filename) throws BadJsonFileException, IOException {
+		if (mapInstance==null)
+			mapInstance = new GameMap(filename);
+		return mapInstance;
+	}
+	
+	
+	/**
+	 * @param filename
+	 * @throws BadJsonFileException
+	 * @throws IOException
+	 */	
 	private void loadMapFromResourceFile(String filename) throws BadJsonFileException, IOException {
 		MapLoader loader = new MapLoader(FilesHelper.getResourceFile(filename));
 		name = loader.getMapName();
