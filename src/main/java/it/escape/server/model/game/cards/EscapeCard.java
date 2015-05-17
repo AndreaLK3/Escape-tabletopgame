@@ -1,6 +1,7 @@
 package it.escape.server.model.game.cards;
 
-import it.escape.server.model.game.actions.PlayerAction;
+import it.escape.server.model.game.actions.CardAction;
+import it.escape.server.model.game.actions.DrawEscapeCard;
 
 public class EscapeCard implements Card {
 	
@@ -22,8 +23,8 @@ public class EscapeCard implements Card {
 		
 	}
 
-	public void play() {
-		
+	public CardAction getCardAction() {
+		return null;
 	}
 	
 	

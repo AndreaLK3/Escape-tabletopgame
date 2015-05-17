@@ -1,9 +1,9 @@
 package it.escape.server.model.game.cards;
 
-import it.escape.server.model.game.actions.PlayerAction;
+import it.escape.server.model.game.actions.CardAction;
 
 public interface Card {
 	
-	public void play();
+	public CardAction getCardAction();
 	
 }

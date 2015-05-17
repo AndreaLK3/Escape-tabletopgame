@@ -1,7 +1,8 @@
 package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.PlayerTeams;
-import it.escape.server.model.game.actions.PlayerAction;
+import it.escape.server.model.game.actions.CellAction;
+import it.escape.server.model.game.actions.NoAction;
 import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
@@ -40,9 +41,10 @@ public class StartingCell extends Cell {
 		}
 
 		
+
 		@Override
-		public void doAction() {
-			
+		public CellAction getCellAction() {
+			return new NoAction();
 		}
 		
 		public PlayerTeams getType() {
@@ -58,6 +60,8 @@ public class StartingCell extends Cell {
 	public String toString() {
 		return "StartingPosition(coord=" + position.toString() + ", type=" + type.toString() + ")";
 	}
+
+
 	
 
 }

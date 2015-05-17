@@ -2,12 +2,10 @@ package it.escape.server.model.game.actions;
 
 import it.escape.server.model.game.character.Player;
 
-public class NoiseAnywhere implements CardAction{
+public class DrawEscapeCard implements CellAction {
 
 	public void execute(Player currentPlayer) {
 
 	}
-
-
 
 }

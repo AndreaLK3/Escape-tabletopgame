@@ -2,7 +2,8 @@ package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.GameMode;
 import it.escape.server.model.game.PlayerTeams;
-import it.escape.server.model.game.actions.PlayerAction;
+import it.escape.server.model.game.actions.CellAction;
+import it.escape.server.model.game.actions.DrawEscapeCard;
 import it.escape.server.model.game.character.Human;
 import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
@@ -29,21 +30,8 @@ public class EscapeCell extends Cell {
 		state = ShuttleState.shuttleFactory(mode);
 	}
 	
-	/**
-	 * 
-	 * If the current state of the Escape Cell is unknown, 
-	 * invoke the static method to decide it, depending on the drawn ShuttleCard.
-	 * Then, proceed to invoke the method tryHatch() defined in the abstract class;
-	 * every type of shuttle will respond accordingly.
-	 */
+	
 	@Override
-	public void doAction() {
-		if (state instanceof UnknownShuttle)
-			state = state.decideState(null);	//aggiungere una carta
-		if (state.tryHatch()==true)	
-		{}
-	}
-
 		public boolean canEnter(Player player) {
 		if (player instanceof Human )
 			return true;
@@ -55,6 +43,11 @@ public class EscapeCell extends Cell {
 	@Override
 	public String toString() {
 		return "EscapeShuttleCell(coord=" + position.toString() + ", state=" + state.toString() + ")";
+	}
+
+	@Override
+	public CellAction getCellAction() {
+		return new DrawEscapeCard();
 	}
 	
 
