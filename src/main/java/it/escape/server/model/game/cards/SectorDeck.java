@@ -8,6 +8,7 @@ public class SectorDeck extends Deck {
 	private final static int SILENCE = 5;
 	
 	public SectorDeck() {
+		super();
 		int i;
 		
 		for (i=0; i<NOISEHERE; i++)

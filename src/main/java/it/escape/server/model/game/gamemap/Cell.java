@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import it.escape.server.model.game.actions.CellAction;
 import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
+import it.escape.utils.LogHelper;
 
 public abstract class Cell {
 	
@@ -17,6 +18,7 @@ public abstract class Cell {
 	}
 	
 	public Cell(PositionCubic position) {
+		LogHelper.setDefaultOptions(log);
 		this.position = position;
 	}
 	

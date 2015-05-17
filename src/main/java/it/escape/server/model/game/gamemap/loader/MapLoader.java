@@ -6,10 +6,8 @@ import it.escape.server.model.game.gamemap.positioning.Position2D;
 import it.escape.strings.StringRes;
 import it.escape.utils.FilesHelper;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
