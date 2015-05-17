@@ -4,8 +4,8 @@ import it.escape.server.model.game.character.Player;
 
 public class DrawSectorCard implements CellAction {
 
-	public void execute(Player currentPlayer) {
-				
+	public CardAction execute(Player currentPlayer) {
+			return new NoiseHere();	
 	}
 
 }

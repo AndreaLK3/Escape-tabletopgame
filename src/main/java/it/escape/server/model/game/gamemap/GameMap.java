@@ -1,6 +1,7 @@
 package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.PlayerTeams;
+import it.escape.server.model.game.actions.CellAction;
 import it.escape.server.model.game.cards.DecksHandler;
 import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
@@ -25,11 +26,11 @@ public class GameMap {
 	
 	private HashMap<String, Cell> cells;		//this hashmap stores pairs such as: <A3,Cell(2,3,5)>
 	
+	private HashMap<Cell, Player> playersPositions;
+	
 	private Cell startAliens = null;
 	
 	private Cell startHumans = null;
-	
-	private DecksHandler decks;
 	
 	private String name;
 	
@@ -39,7 +40,6 @@ public class GameMap {
 	private GameMap(String filename) throws BadJsonFileException, IOException {
 		characters = new ArrayList<Character>();
 		cells = new HashMap<String,Cell>();
-		decks = DecksHandler.getDecksHandler();
 		loadMapFromResourceFile(filename);
 	}
 	
@@ -99,15 +99,46 @@ public class GameMap {
 		}
 	}
 	
-	public void move(Player curPlayer , Position2D pos) {
+	/** This is the function that is invoked by the TurnHandler; it calls several subfunctions*/
+	public CellAction move(Player curPlayer , Position2D dest2D) throws Exception {
+		PositionCubic dest3D = CoordinatesConverter.fromOddqToCubic(dest2D);
 		
+		if (!destinationInRange(curPlayer, dest3D))
+			throw new Exception();
+		if (!cellExists(dest3D))
+			throw new Exception();
+		
+		return getCell(dest3D).getCellAction(); 
 	}
 	
-	public boolean destinationExisting() {
+	
+	private boolean destinationInRange(Player curPlayer, PositionCubic dest) {
+		
+		if (dest.distanceFrom(getPlayerPosition(curPlayer)) > curPlayer.getMaxRange())
+			return false;
+		else
+			return true;
+	}
+	
+	private PositionCubic getPlayerPosition(Player player) {
+		return new PositionCubic(1,1,1);
+	}
+	
+	/** To be implemented: gets a Cell given the position.
+	 * (Nota1: Forse non è necessario creare una nuova cella, si 
+	 * può restituire il riferimento a quella già presente)
+	 * (Nota2: Forse non è necessario fare le conversioni da AlphaNum a 2D e poi nella mappa da 
+	 * 2D a 3D, se hai messo già la lista con <Cell, String>)
+	 * @param pos3D
+	 * @return Cell
+	 */
+	private Cell getCell(PositionCubic pos3D) {
+		return new DangerousCell(pos3D);
+	}
+	
+
+	
+	public boolean cellExists(PositionCubic destination) {
 		return false;
-	}
-	
-	private Cell getDestinationCell(PositionCubic destination) {
-		return new SafeCell(new PositionCubic(1,1,1));
 	}
 }

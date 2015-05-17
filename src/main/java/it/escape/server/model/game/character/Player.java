@@ -9,6 +9,7 @@ import it.escape.server.model.game.gamemap.GameMap;
 public class Player {
 
 	protected Card aCard;
+	protected int maxRange;
 	
 	public Player () {
 	}
@@ -17,6 +18,15 @@ public class Player {
 	/**This method is overridden by the Human and Alien subclasses*/
 	public PlayerTeams getTeam(){
 		return null;
+	}
+
+
+	public int getMaxRange() {
+		return maxRange;
+	};
+
+	public void setMaxRange(int newRange) {
+		maxRange = newRange;
 	};
 
 

@@ -14,8 +14,12 @@ public class MoveCommand implements PlayerCommand {
 		this.destination = destination;
 	}
 
-	public void execute(Player currentPlayer) {
-		GameMap.getMapInstance();
+	public CellAction execute(Player currentPlayer) throws Exception {
+		
+		CellAction actionFromCell;
+		
+		actionFromCell = GameMap.getMapInstance().move(currentPlayer, destination);
+		return actionFromCell;
 	}
 
 }

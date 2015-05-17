@@ -4,6 +4,13 @@ import it.escape.server.model.game.PlayerTeams;
 
 public class Alien extends Player {
 	
+public final static int ALIENSMAXRANGE = 2;
+	
+	public Alien () {
+		super();
+		maxRange = ALIENSMAXRANGE;
+	}
+	
 	public PlayerTeams getTeam(){
 		return PlayerTeams.ALIENS;
 	};

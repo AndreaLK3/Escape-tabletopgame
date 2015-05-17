@@ -1,7 +1,7 @@
 package it.escape.server.controller;
 
 import it.escape.server.model.game.actions.MoveCommand;
-import it.escape.server.model.game.actions.NoAction;
+import it.escape.server.model.game.actions.NoCellAction;
 import it.escape.server.model.game.actions.PlayerCommand;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
 
@@ -33,7 +33,7 @@ public class UserMessagesReporter {
 	 */
 	public PlayerCommand askForObjectCard(String s) {
 		//to be implemented
-		return new NoAction();
+		return new NoCommandAction();
 	}
 
 	public PlayerCommand askForPosition(String string) {

@@ -4,6 +4,6 @@ import it.escape.server.model.game.character.Player;
 
 public interface CellAction {
 
-	public void execute (Player currentPlayer);
+	public CardAction execute (Player currentPlayer);
 	
 }

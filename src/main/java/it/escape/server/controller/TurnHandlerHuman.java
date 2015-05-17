@@ -18,11 +18,19 @@ public class TurnHandlerHuman extends TurnHandler {
 		
 		playerCommand = reporter.askForObjectCard("Do you wish to play an object card before moving?");
 
-		playerCommand.execute(currentPlayer);
+		try {
+			playerCommand.execute(currentPlayer);
+		} catch (Exception e) {
+		}
 		
 		playerCommand = reporter.askForPosition("Now you have to move. Where do you want to go?");
 		
-		playerCommand.execute(currentPlayer);
+		try {
+			cellAction = playerCommand.execute(currentPlayer);
+		} catch (Exception e) {
+		}
+		
+		
 		}
 
 

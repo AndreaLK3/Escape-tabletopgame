@@ -4,5 +4,6 @@ import it.escape.server.model.game.character.Player;
 
 public interface PlayerCommand {
 
-	public void execute (Player curPlayer);
+	public CellAction execute(Player currentPlayer) throws Exception;
+
 }
