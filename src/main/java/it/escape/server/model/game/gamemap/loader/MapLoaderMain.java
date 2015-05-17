@@ -20,7 +20,7 @@ public class MapLoaderMain {
 			MapLoader loader = new MapLoader(file);
 			
 			for (Cell c : loader) {
-				System.out.println(c.toString());
+				log.fine(c.toString());
 			}
 			
 		} catch (FileNotFoundException e) {
