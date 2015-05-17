@@ -46,7 +46,7 @@ public class UserMessagesReporter {
 
 	public Position2D askForNoise(String string) {
 		Position2D location;
-		//to be implemented
+		//to be implemented 
 		location = askForPosition();
 		return location;
 	}
