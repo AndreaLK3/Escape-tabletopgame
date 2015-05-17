@@ -14,7 +14,7 @@ public class MoveCommand implements PlayerCommand {
 	}
 
 	public void execute(Player currentPlayer) {
-		
+		//
 	}
 
 }
