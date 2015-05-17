@@ -1,7 +1,7 @@
 package it.escape.server.controller;
 
-import it.escape.server.model.game.actions.CellAction;
-import it.escape.server.model.game.actions.PlayerCommand;
+import it.escape.server.model.game.actions.cellActions.CellAction;
+import it.escape.server.model.game.actions.playerCommands.PlayerCommand;
 import it.escape.server.model.game.character.Player;
 
 public class NoCommandAction implements PlayerCommand {

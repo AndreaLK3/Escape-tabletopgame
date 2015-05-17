@@ -1,8 +1,8 @@
 package it.escape.server.controller;
 
-import it.escape.server.model.game.actions.CardAction;
-import it.escape.server.model.game.actions.CellAction;
-import it.escape.server.model.game.actions.PlayerCommand;
+import it.escape.server.model.game.actions.cardActions.CardAction;
+import it.escape.server.model.game.actions.cellActions.CellAction;
+import it.escape.server.model.game.actions.playerCommands.PlayerCommand;
 
 /** This class defines the order of execution of the various
  * methods that are invoked during a turn.

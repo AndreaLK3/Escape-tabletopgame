@@ -1,4 +1,4 @@
-package it.escape.server.model.game.actions;
+package it.escape.server.model.game.actions.cardActions;
 
 import it.escape.server.controller.UserMessagesReporter;
 import it.escape.server.model.game.character.Player;

@@ -1,8 +1,8 @@
 package it.escape.server.controller;
 
-import it.escape.server.model.game.actions.MoveCommand;
-import it.escape.server.model.game.actions.NoCellAction;
-import it.escape.server.model.game.actions.PlayerCommand;
+import it.escape.server.model.game.actions.cellActions.NoCellAction;
+import it.escape.server.model.game.actions.playerCommands.MoveCommand;
+import it.escape.server.model.game.actions.playerCommands.PlayerCommand;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
 
 /** This class is located at the border of the controller package;
@@ -47,7 +47,7 @@ public class UserMessagesReporter {
 	public Position2D askForNoise(String string) {
 		Position2D location;
 		//to be implemented
-		location = askForPosition();;
+		location = askForPosition();
 		return location;
 	}
 
