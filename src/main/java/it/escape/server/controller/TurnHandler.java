@@ -3,7 +3,6 @@ package it.escape.server.controller;
 import it.escape.server.model.game.actions.CardAction;
 import it.escape.server.model.game.actions.CellAction;
 import it.escape.server.model.game.actions.PlayerCommand;
-import it.escape.server.model.game.character.Player;
 
 /** This class defines the order of execution of the various
  * methods that are invoked during a turn.

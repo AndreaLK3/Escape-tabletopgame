@@ -1,7 +1,6 @@
 package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.GameMode;
-import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.actions.CellAction;
 import it.escape.server.model.game.actions.DrawEscapeCard;
 import it.escape.server.model.game.character.Human;

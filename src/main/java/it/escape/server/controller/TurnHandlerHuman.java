@@ -11,8 +11,8 @@ public class TurnHandlerHuman extends TurnHandler {
 	UserMessagesReporter reporter;
 	
 	
-	public TurnHandlerHuman(Human currentPlayer) {
-		this.currentPlayer=currentPlayer;
+	public TurnHandlerHuman(Player currentPlayer) {
+		this.currentPlayer=(Human)currentPlayer;
 	}
 
 	public void executeTurnSequence() {
@@ -26,7 +26,7 @@ public class TurnHandlerHuman extends TurnHandler {
 			playerCommand.execute(currentPlayer);
 		} catch (Exception e) {	//DestinationNotInRangeException, DestinationNotExistingException
 		}
-		
+		 
 		if(currentPlayer.sedatives == false)
 			cardAction = cellAction.execute(currentPlayer);
 		
