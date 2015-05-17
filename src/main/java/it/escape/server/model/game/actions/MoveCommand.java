@@ -5,11 +5,11 @@ import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
-public class Move implements PlayerAction {
+public class MoveCommand implements PlayerCommand {
 	
 	PositionCubic destination;
 	
-	public Move(Position2D destination) {
+	public MoveCommand(Position2D destination) {
 		this.destination = CoordinatesConverter.fromOddqToCubic(destination);
 	}
 
