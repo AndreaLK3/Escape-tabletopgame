@@ -41,7 +41,6 @@ public class GameCharacter {
 	}
 	
 	/**Performs a (possibly multi-step) movement to a destination
-	 * returns true on success
 	 * @param proposedCell
 	 */
 	public void move(Cell proposedCell){
@@ -51,8 +50,6 @@ public class GameCharacter {
 	}
 	
 		
-	
-	public void attack(){}
 	
 	public Cell getMyCell() {
 		return myCell;
