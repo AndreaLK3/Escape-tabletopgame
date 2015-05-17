@@ -42,7 +42,7 @@ public class ExecutiveController implements Runnable {
 		else {
 			turnHandler = new TurnHandlerAlien(currentPlayer);
 		}
-		turnHandler.turnSequence();
+		turnHandler.executeTurnSequence();
 	}
 
 	public ExecutiveController(TimeController timeControllerRef) {

@@ -7,10 +7,10 @@ import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 
 public class MoveCommand implements PlayerCommand {
 	
-	PositionCubic destination;
+	Position2D destination;
 	
 	public MoveCommand(Position2D destination) {
-		this.destination = CoordinatesConverter.fromOddqToCubic(destination);
+		this.destination = destination;
 	}
 
 	public void execute(Player currentPlayer) {
