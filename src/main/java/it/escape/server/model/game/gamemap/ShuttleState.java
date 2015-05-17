@@ -17,7 +17,7 @@ import it.escape.server.model.game.cards.Card;
  */
 abstract class ShuttleState {
 	
-	protected static final Logger log = Logger.getLogger( Cell.class.getName() );
+	protected static final Logger log = Logger.getLogger( ShuttleState.class.getName() );
 
 	static ShuttleState shuttleFactory(GameMode mode) {
 		if (mode.getType()==GameTypes.BASE) 
