@@ -10,15 +10,12 @@ public class Player {
 
 	protected Card aCard;
 	protected int maxRange;
+
 	
 	public Player () {
 	}
 	
 
-	/**This method is overridden by the Human and Alien subclasses*/
-	public PlayerTeams getTeam(){
-		return null;
-	}
 
 
 	public int getMaxRange() {

@@ -15,15 +15,15 @@ import it.escape.server.model.game.character.Player;
  */
 public class TurnHandler {
 	
-	protected Player currentPlayer;
+	
 	UserMessagesReporter reporter;
 	CardAction cardAction;
 	CellAction cellAction;
 	PlayerCommand playerCommand;
 	
 	
-	public TurnHandler (Player currentPlayer) {
-		this.currentPlayer = currentPlayer;
+	public TurnHandler () {
+		
 	}
 	
 	public void executeTurnSequence() {} ;

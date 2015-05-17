@@ -31,16 +31,27 @@ public class UserMessagesReporter {
 	 * @param String : a message that the controller can send to the user
 	 * @return PlayerCommand object, either playObjectCard or NoAction
 	 */
-	public PlayerCommand askForObjectCard(String s) {
+	public boolean askIfObjectCard(String s) {
 		//to be implemented
-		return new NoCommandAction();
+		return false;
 	}
 
-	public PlayerCommand askForPosition(String string) {
+	
+	public MoveCommand askForMovement(String string) {
 		Position2D destination;
-		//to be implemented
-		destination = new Position2D(2,3);
+		destination = askForPosition();
 		return new MoveCommand(destination);
 	}
+	
 
+	public Position2D askForNoise(String string) {
+		Position2D location;
+		//to be implemented
+		location = askForPosition();;
+		return location;
+	}
+
+	private Position2D askForPosition() {
+		return new Position2D(2,3);
+	}
 }

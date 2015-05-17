@@ -6,6 +6,10 @@ public class Human extends Player {
 	
 	public final static int HUMANSMAXRANGE = 1;
 	
+	public boolean sedatives;
+	public boolean adrenaline;
+	
+	
 	public Human () {
 		super();
 		maxRange = HUMANSMAXRANGE;
