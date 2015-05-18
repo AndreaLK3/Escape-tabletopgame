@@ -10,13 +10,13 @@ public class GameMaster {
 	
 	private Thread timerThread;
 	
-	private UserInputReceiver theUser;
+	private UserMessagesReporter theUser;
 
 	public GameMaster() {
 		timeController =  new TimeController();
 		executor = new ExecutiveController(timeController);
 		timeController.bindExecutor(executor);
-		theUser = new UserInputReceiver();
+		theUser = UserMessagesReporter.getReporterInstance();
 		executorThread = new Thread(executor);
 		timerThread = new Thread(timeController);
 	}

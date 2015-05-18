@@ -2,7 +2,7 @@ package it.escape.server.model.game.gamemap;
 
 import java.util.logging.Logger;
 
-import it.escape.server.model.game.actions.CellAction;
+import it.escape.server.model.game.actions.cellActions.CellAction;
 import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.utils.LogHelper;

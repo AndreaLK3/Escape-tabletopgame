@@ -1,6 +1,6 @@
 package it.escape.server.controller;
 
-import it.escape.server.model.game.PlayerTeams;
+import it.escape.server.model.game.character.Human;
 import it.escape.server.model.game.character.Player;
 
 public class ExecutiveController implements Runnable {
@@ -35,15 +35,17 @@ public class ExecutiveController implements Runnable {
 	}
 
 	private void gameTurn() {
-		PlayerTeams team = currentPlayer.getTeam();
-		if (team == PlayerTeams.HUMANS) {
+
+		if (currentPlayer instanceof Human) {
 			turnHandler = new TurnHandlerHuman(currentPlayer);
 		}
 		else {
 			turnHandler = new TurnHandlerAlien(currentPlayer);
 		}
-		turnHandler.turnSequence();
-	}
+		turnHandler.executeTurnSequence();
+}
+
+	
 
 	public ExecutiveController(TimeController timeControllerRef) {
 		this.timeControllerRef = timeControllerRef;
