@@ -72,11 +72,11 @@ public class GameMap {
 	}
 	
 	private List<Cell> getNeighbors(PositionCubic center) throws CellNotExistsException {
-		if (cells.containsKey(CoordinatesConverter.fromCubicToAlphaNum(center))) {
+		if (cellExists(center)) {
 			List<Cell> vicini = new ArrayList<Cell>();
 			for (PositionCubic pos : CubicDeltas.getDeltas()) {
 				PositionCubic candidate = center.cubeAdd(pos);
-				if (cells.containsKey(CoordinatesConverter.fromCubicToAlphaNum(candidate))) {
+				if (cellExists(candidate)) {
 					vicini.add(cells.get(CoordinatesConverter.fromCubicToAlphaNum(candidate)));
 				}
 			}
@@ -139,6 +139,6 @@ public class GameMap {
 
 	
 	public boolean cellExists(PositionCubic destination) {
-		return false;
+		return cells.containsKey(CoordinatesConverter.fromCubicToAlphaNum(destination));
 	}
 }
