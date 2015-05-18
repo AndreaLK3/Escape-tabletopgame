@@ -9,6 +9,10 @@ public class NoiseAnywhere implements CardAction{
 			UserMessagesReporter.getReporterInstance().askForNoise("Where do you want to make a noise?");
 	}
 
+	public boolean hasObjectCard() {
+		return false;
+	}
+
 
 
 }

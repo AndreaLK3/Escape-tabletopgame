@@ -9,4 +9,8 @@ public class NoiseHere implements CardAction{
 
 	}
 
+	public boolean hasObjectCard() {
+		return false;
+	}
+
 }

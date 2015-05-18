@@ -107,7 +107,7 @@ public class GameMap {
 			throw new Exception();
 		if (!cellExists(dest3D))
 			throw new Exception();
-		
+		//UpdatePlayerPosition(...)
 		return getCell(dest3D).getCellAction(); 
 	}
 	

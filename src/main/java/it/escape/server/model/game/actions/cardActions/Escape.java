@@ -8,4 +8,8 @@ public class Escape implements CardAction {
 
 	}
 
+	public boolean hasObjectCard() {
+		return false;
+	}
+
 }

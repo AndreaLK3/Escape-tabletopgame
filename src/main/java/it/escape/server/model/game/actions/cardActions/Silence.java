@@ -9,4 +9,8 @@ public class Silence implements CardAction {
 		
 	}
 
+	public boolean hasObjectCard() {
+		return false;
+	}
+
 }

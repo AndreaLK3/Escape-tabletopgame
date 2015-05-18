@@ -8,4 +8,8 @@ public class NoCardAction implements CardAction {
 		
 	}
 
+	public boolean hasObjectCard() {
+		return false;
+	}
+
 }
