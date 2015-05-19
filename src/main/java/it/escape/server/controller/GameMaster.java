@@ -1,7 +1,8 @@
 package it.escape.server.controller;
 
 import it.escape.server.model.game.PlayerTeams;
-import it.escape.server.model.game.character.Player;
+import it.escape.server.model.game.players.Human;
+import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingInterface;
 
 import java.util.ArrayList;
@@ -35,9 +36,14 @@ public class GameMaster {
 	
 	/* The interface is used to find the right UMR.*/
 	public void newPlayerHasConnected(MessagingInterface interfaceWithUser) {
-		
+		Player newP = createPlayer();
+		listOfPlayers.add(newP);
+		UserMessagesReporter.bindPlayer(newP, interfaceWithUser);
 	}
 	
+	private Player createPlayer() {
+		return null;
+	}
 	
 	private void launchThreads() {
 		executorThread.start();

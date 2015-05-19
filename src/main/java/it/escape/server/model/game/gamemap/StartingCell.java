@@ -3,8 +3,8 @@ package it.escape.server.model.game.gamemap;
 import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.actions.cellActions.CellAction;
 import it.escape.server.model.game.actions.cellActions.NoCellAction;
-import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
+import it.escape.server.model.game.players.Player;
 
 import java.util.ArrayList;
 import java.util.List;

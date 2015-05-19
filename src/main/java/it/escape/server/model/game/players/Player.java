@@ -1,4 +1,4 @@
-package it.escape.server.model.game.character;
+package it.escape.server.model.game.players;
 
 
 public class Player {

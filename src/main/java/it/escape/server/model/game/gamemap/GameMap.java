@@ -2,7 +2,6 @@ package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.actions.cellActions.CellAction;
-import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.exceptions.CellNotExistsException;
 import it.escape.server.model.game.gamemap.loader.MapLoader;
@@ -10,6 +9,7 @@ import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.server.model.game.gamemap.positioning.CubicDeltas;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
+import it.escape.server.model.game.players.Player;
 import it.escape.utils.FilesHelper;
 
 import java.io.IOException;

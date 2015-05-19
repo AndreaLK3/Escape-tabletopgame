@@ -5,9 +5,9 @@ import java.util.List;
 import it.escape.server.model.game.actions.cellActions.NoCellAction;
 import it.escape.server.model.game.actions.playerCommands.MoveCommand;
 import it.escape.server.model.game.actions.playerCommands.PlayerCommand;
-import it.escape.server.model.game.character.Human;
-import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
+import it.escape.server.model.game.players.Human;
+import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingInterface;
 
 /** This class is located at the border of the controller package;
@@ -24,7 +24,7 @@ public class UserMessagesReporter {
 	private Player thePlayer;
 	private MessagingInterface interfaceWithUser;
 	
-public static UserMessagesReporter getReporterInstance(Player currentPlayer) {
+	public static UserMessagesReporter getReporterInstance(Player currentPlayer) {
 		for (UserMessagesReporter r : reportersList)
 		{	if (r.getThePlayer()==currentPlayer)
 			return r;
@@ -32,13 +32,22 @@ public static UserMessagesReporter getReporterInstance(Player currentPlayer) {
 		return null;
 	}
 	
-private UserMessagesReporter(MessagingInterface interfaceWithUser) {
-	this.interfaceWithUser = interfaceWithUser;
-}
+	private UserMessagesReporter(MessagingInterface interfaceWithUser) {
+		this.interfaceWithUser = interfaceWithUser;
+	}
 
-public static void createUMR(MessagingInterface interfaceWithUser) {
-	reportersList.add(new UserMessagesReporter(interfaceWithUser));
-}
+	public static void createUMR(MessagingInterface interfaceWithUser) {
+		reportersList.add(new UserMessagesReporter(interfaceWithUser));
+	}
+	
+	public static void bindPlayer(Player newP,
+			MessagingInterface interfaceWithUser2) {
+		for (UserMessagesReporter r : reportersList) {	
+			if (r.getInterfaceWithUser() == interfaceWithUser2) {
+				r.setThePlayer(newP);
+			}
+		}
+	}
 	
 	/** This function, depending on the input given by the user, 
 	 * returns a PlayerCommand object to the turn controller TurnHandler

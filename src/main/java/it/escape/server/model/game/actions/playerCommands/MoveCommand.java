@@ -1,9 +1,9 @@
 package it.escape.server.model.game.actions.playerCommands;
 
 import it.escape.server.model.game.actions.cellActions.CellAction;
-import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.gamemap.GameMap;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
+import it.escape.server.model.game.players.Player;
 
 public class MoveCommand implements PlayerCommand {
 	
