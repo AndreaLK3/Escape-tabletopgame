@@ -3,8 +3,8 @@ package it.escape.server.model.game.gamemap;
 import java.util.logging.Logger;
 
 import it.escape.server.model.game.actions.cellActions.CellAction;
-import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
+import it.escape.server.model.game.players.Player;
 import it.escape.utils.LogHelper;
 
 public abstract class Cell {

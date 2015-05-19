@@ -2,14 +2,16 @@ package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.actions.cellActions.CellAction;
-import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.exceptions.CellNotExistsException;
+import it.escape.server.model.game.exceptions.MalformedStartingCells;
 import it.escape.server.model.game.gamemap.loader.MapLoader;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.server.model.game.gamemap.positioning.CubicDeltas;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
+import it.escape.server.model.game.players.Player;
+import it.escape.strings.StringRes;
 import it.escape.utils.FilesHelper;
 
 import java.io.IOException;
@@ -35,15 +37,16 @@ public class GameMap {
 	
 	private Position2D maxSize;
 
-	/** Private constructor for this singleton*/
-	private GameMap(String filename) throws BadJsonFileException, IOException {
+	/** Private constructor for this singleton
+	 * @throws MalformedStartingCells */
+	private GameMap(String filename) throws BadJsonFileException, IOException, MalformedStartingCells {
 		characters = new ArrayList<Player>();
 		cells = new HashMap<String,Cell>();
 		playersPositions = new HashMap<Player, Cell>();
 		loadMapFromResourceFile(filename);
 	}
 	
-	public static GameMap createMapInstance(String filename) throws BadJsonFileException, IOException {
+	public static GameMap createMapInstance(String filename) throws BadJsonFileException, IOException, MalformedStartingCells {
 		if (mapInstance==null)
 			mapInstance = new GameMap(filename);
 		return mapInstance;
@@ -58,8 +61,9 @@ public class GameMap {
 	 * @param filename
 	 * @throws BadJsonFileException
 	 * @throws IOException
+	 * @throws MalformedStartingCells 
 	 */	
-	private void loadMapFromResourceFile(String filename) throws BadJsonFileException, IOException {
+	private void loadMapFromResourceFile(String filename) throws BadJsonFileException, IOException, MalformedStartingCells {
 		MapLoader loader = new MapLoader(FilesHelper.getResourceFile(filename));
 		name = loader.getMapName();
 		maxSize = loader.getMapSize();
@@ -68,7 +72,9 @@ public class GameMap {
 			cells.put(alphaNumName, c);
 			attemptAssignStartingCells(c);
 		}
-		// TODO : no starting cell exception
+		if (!verifyStartingCells()) {
+			throw new MalformedStartingCells(StringRes.getString("gamemap.missingStartingCells"));
+		}
 	}
 	
 	private List<Cell> getNeighbors(PositionCubic center) throws CellNotExistsException {
@@ -87,23 +93,37 @@ public class GameMap {
 		}
 	}
 	
-	private void attemptAssignStartingCells(Cell c) {
+	private void attemptAssignStartingCells(Cell c) throws MalformedStartingCells {
 		if (c instanceof StartingCell) {
 			StartingCell partenza = (StartingCell) c;
-			if (partenza.type == PlayerTeams.ALIENS) {
+			if (partenza.getType() == PlayerTeams.ALIENS) {
+				if (startAliens != null) {
+					throw new MalformedStartingCells(StringRes.getString("gamemap.multipleAlienStartingCells"));
+				}
 				startAliens = c;
 			}
-			else if (partenza.type == PlayerTeams.HUMANS) {
+			else if (partenza.getType() == PlayerTeams.HUMANS) {
+				if (startHumans != null) {
+					throw new MalformedStartingCells(StringRes.getString("gamemap.multipleHumanStartingCells"));
+				}
 				startHumans = c;
 			}
 		}
 	}
 	
+	private boolean verifyStartingCells() {
+		if (startAliens == null || startHumans == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	/** This is the function that is invoked by the TurnHandler; it calls several subfunctions*/
-	public CellAction move(Player curPlayer , Position2D dest2D) throws Exception {
-		PositionCubic dest3D = CoordinatesConverter.fromOddqToCubic(dest2D);
+	public CellAction move(Player curPlayer , String destination) throws Exception {
+		PositionCubic dest3D = CoordinatesConverter.fromAlphaNumToCubic(destination);
 		
-		if (!destinationInRange(curPlayer, dest3D))
+		if (!destinationReachable(curPlayer, dest3D))
 			throw new Exception();
 		if (!cellExists(dest3D))
 			throw new Exception();
@@ -111,17 +131,49 @@ public class GameMap {
 		return getCell(dest3D).getCellAction(); 
 	}
 	
-	
-	private boolean destinationInRange(Player curPlayer, PositionCubic dest) {
-		
-		if (dest.distanceFrom(getPlayerPosition(curPlayer)) > curPlayer.getMaxRange())
-			return false;
-		else
-			return true;
+	private void UpdatePlayerPosition(Player curPlayer, PositionCubic dest) {
+		playersPositions.remove(curPlayer);
+		playersPositions.put(curPlayer,getCell(dest));
 	}
 	
-	private PositionCubic getPlayerPosition(Player player) {
-		return new PositionCubic(1,1,1);
+	private boolean destinationReachable(Player curPlayer, PositionCubic dest) throws CellNotExistsException {
+		
+		if (dest.distanceFrom(getPlayerPosition(curPlayer).getPosition()) > curPlayer.getMaxRange()) {
+			return false;
+		} else {
+			// algoritmo di raggiunngibilità (ricerca breadth first sulle celle)
+			List<Cell> visited = new ArrayList<Cell>();
+			Cell start = getPlayerPosition(curPlayer);
+			visited.add(start);
+			List<List> fringes = new ArrayList<List>();
+			fringes.add( (new ArrayList<Cell>()) );
+			fringes.get(0).add(start);
+			
+			for (int i = 1; i <= curPlayer.getMaxRange(); i++) {
+				fringes.add( (new ArrayList<Cell>()) );
+				List<Cell> previous = fringes.get(i - 1);
+				List<Cell> current = fringes.get(i);
+				for (Cell cube : previous) {
+					List<Cell> neighbors = getNeighbors(cube.getPosition());
+					for (Cell neighbor : neighbors) {
+						if (!visited.contains(neighbor) && neighbor.canEnter(curPlayer)) {
+							visited.add(neighbor);
+							current.add(neighbor);
+						}
+					}
+					
+				}
+			}
+			if (fringes.get(curPlayer.getMaxRange()).contains(getCell(dest))) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+	
+	private Cell getPlayerPosition(Player player) {
+		return playersPositions.get(player);
 	}
 	
 	/** To be implemented: gets a Cell given the position.
@@ -133,9 +185,11 @@ public class GameMap {
 	 * @return Cell
 	 */
 	private Cell getCell(PositionCubic pos3D) {
-		return new DangerousCell(pos3D);
+		return cells.get(CoordinatesConverter.fromCubicToAlphaNum(pos3D));
 	}
-	
+	private Cell getCell(String posAlphaNum) {
+		return cells.get(posAlphaNum);
+	}
 
 	
 	public boolean cellExists(PositionCubic destination) {

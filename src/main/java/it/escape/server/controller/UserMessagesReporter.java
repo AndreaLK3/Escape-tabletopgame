@@ -5,10 +5,13 @@ import java.util.List;
 import it.escape.server.model.game.actions.cellActions.NoCellAction;
 import it.escape.server.model.game.actions.playerCommands.MoveCommand;
 import it.escape.server.model.game.actions.playerCommands.PlayerCommand;
+<<<<<<< HEAD
 import it.escape.server.model.game.character.Human;
 import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
 import it.escape.server.view.MessagingInterface;
+=======
+>>>>>>> refs/remotes/RemoteEscape/Prototype-Updated
 
 /** This class is located at the border of the controller package;
  * it communicates with the classes inside the View; 
@@ -51,15 +54,25 @@ public static void createUMR(MessagingInterface interfaceWithUser) {
 	}
 
 	
+<<<<<<< HEAD
 	public MoveCommand askForMovement() {
 		Position2D destination;
+=======
+	public MoveCommand askForMovement(String string) {
+		String destination;
+>>>>>>> refs/remotes/RemoteEscape/Prototype-Updated
 		destination = askForPosition();
 		return new MoveCommand(destination);
 	}
 	
 
+<<<<<<< HEAD
 	public Position2D askForNoise() {
 		Position2D location;
+=======
+	public String askForNoise(String string) {
+		String location;
+>>>>>>> refs/remotes/RemoteEscape/Prototype-Updated
 		//to be implemented 
 		location = askForPosition();
 		return location;
@@ -70,8 +83,8 @@ public static void createUMR(MessagingInterface interfaceWithUser) {
 		return new String ("adrenaline");
 	}
 
-	private Position2D askForPosition() {
-		return new Position2D(2,3);
+	private String askForPosition() {
+		return new String("B03");
 	}
 
 
