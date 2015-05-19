@@ -2,8 +2,8 @@ package it.escape.server.controller;
 
 
 import it.escape.server.model.game.actions.playerCommands.PlayerCommand;
-import it.escape.server.model.game.character.Human;
-import it.escape.server.model.game.character.Player;
+import it.escape.server.model.game.players.Human;
+import it.escape.server.model.game.players.Player;
 
 public class TurnHandlerHuman extends TurnHandler {
 

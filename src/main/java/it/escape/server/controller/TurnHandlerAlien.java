@@ -1,7 +1,7 @@
 package it.escape.server.controller;
 
-import it.escape.server.model.game.character.Alien;
-import it.escape.server.model.game.character.Player;
+import it.escape.server.model.game.players.Alien;
+import it.escape.server.model.game.players.Player;
 
 public class TurnHandlerAlien extends TurnHandler{
 

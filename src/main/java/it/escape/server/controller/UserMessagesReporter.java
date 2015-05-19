@@ -3,7 +3,6 @@ package it.escape.server.controller;
 import it.escape.server.model.game.actions.cellActions.NoCellAction;
 import it.escape.server.model.game.actions.playerCommands.MoveCommand;
 import it.escape.server.model.game.actions.playerCommands.PlayerCommand;
-import it.escape.server.model.game.gamemap.positioning.Position2D;
 
 /** This class is located at the border of the controller package;
  * it communicates with the classes inside the View, to ask the user for input,
@@ -38,20 +37,20 @@ public class UserMessagesReporter {
 
 	
 	public MoveCommand askForMovement(String string) {
-		Position2D destination;
+		String destination;
 		destination = askForPosition();
 		return new MoveCommand(destination);
 	}
 	
 
-	public Position2D askForNoise(String string) {
-		Position2D location;
+	public String askForNoise(String string) {
+		String location;
 		//to be implemented 
 		location = askForPosition();
 		return location;
 	}
 
-	private Position2D askForPosition() {
-		return new Position2D(2,3);
+	private String askForPosition() {
+		return new String("B03");
 	}
 }

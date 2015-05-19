@@ -1,10 +1,9 @@
-package it.escape.server.model.game.character;
+package it.escape.server.model.game.players;
 
 import it.escape.server.model.game.cards.Card;
 
 public class Player {
 
-	protected Card aCard;
 	protected int maxRange;
 
 	

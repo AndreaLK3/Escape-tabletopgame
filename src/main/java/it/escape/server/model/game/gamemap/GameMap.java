@@ -2,7 +2,6 @@ package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.actions.cellActions.CellAction;
-import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.exceptions.CellNotExistsException;
 import it.escape.server.model.game.exceptions.MalformedStartingCells;
@@ -11,6 +10,7 @@ import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.server.model.game.gamemap.positioning.CubicDeltas;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
+import it.escape.server.model.game.players.Player;
 import it.escape.strings.StringRes;
 import it.escape.utils.FilesHelper;
 
@@ -127,17 +127,21 @@ public class GameMap {
 			throw new Exception();
 		if (!cellExists(dest3D))
 			throw new Exception();
-		// controllo ostacoli
 		//UpdatePlayerPosition(...)
 		return getCell(dest3D).getCellAction(); 
 	}
 	
+	private void UpdatePlayerPosition(Player curPlayer, PositionCubic dest) {
+		playersPositions.remove(curPlayer);
+		playersPositions.put(curPlayer,getCell(dest));
+	}
 	
 	private boolean destinationReachable(Player curPlayer, PositionCubic dest) throws CellNotExistsException {
 		
-		if (dest.distanceFrom(getPlayerPosition(curPlayer)) > curPlayer.getMaxRange()) {
+		if (dest.distanceFrom(getPlayerPosition(curPlayer).getPosition()) > curPlayer.getMaxRange()) {
 			return false;
 		} else {
+			// algoritmo di raggiunngibilità (ricerca breadth first sulle celle)
 			List<Cell> visited = new ArrayList<Cell>();
 			Cell start = getPlayerPosition(curPlayer);
 			visited.add(start);
@@ -160,7 +164,6 @@ public class GameMap {
 					
 				}
 			}
-			
 			if (fringes.get(curPlayer.getMaxRange()).contains(getCell(dest))) {
 				return true;
 			} else {
