@@ -14,15 +14,13 @@ import it.escape.server.model.game.actions.playerCommands.PlayerCommand;
  */
 public class TurnHandler {
 	
-	
-	UserMessagesReporter reporter;
-	CardAction cardAction;
-	CellAction cellAction;
-	PlayerCommand playerCommand;
-	
+	protected CardAction cardAction;
+	protected CellAction cellAction;
+	protected PlayerCommand playerCommand;
+	protected boolean correctInput;
 	
 	public TurnHandler () {
-		
+		correctInput = false;
 	}
 	
 	public void executeTurnSequence() {} ;

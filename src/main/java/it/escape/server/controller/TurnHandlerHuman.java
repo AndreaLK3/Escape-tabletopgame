@@ -23,10 +23,14 @@ public class TurnHandlerHuman extends TurnHandler {
 			//asks if the user wants to play an Object Card. The Player has the hand...
 		
 		playerCommand = reporter.askForMovement();
+		
+		while (!correctInput) {
 		try {
 			playerCommand.execute(currentPlayer);
+			correctInput = true;
 		} catch (Exception e) {	//DestinationNotInRangeException, DestinationNotExistingException
-		}
+			correctInput = false;
+		}}
 		 
 		if(currentPlayer.sedatives == false)
 			cardAction = cellAction.execute(currentPlayer);
