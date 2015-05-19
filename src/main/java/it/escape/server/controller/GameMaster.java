@@ -1,6 +1,7 @@
 package it.escape.server.controller;
 
 import it.escape.server.model.game.PlayerTeams;
+import it.escape.server.model.game.players.Alien;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingInterface;
@@ -42,7 +43,16 @@ public class GameMaster {
 	}
 	
 	private Player createPlayer() {
-		return null;
+		Player newP= null;
+		if (currentTeam == PlayerTeams.ALIENS)
+		{	newP = new Alien();
+			currentTeam = PlayerTeams.HUMANS;
+		}
+		else if (currentTeam == PlayerTeams.HUMANS)
+		{	newP = new Human();
+			currentTeam = PlayerTeams.ALIENS;
+		}	
+		return newP;
 	}
 	
 	private void launchThreads() {

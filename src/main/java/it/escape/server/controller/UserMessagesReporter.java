@@ -40,8 +40,12 @@ public class UserMessagesReporter {
 		reportersList.add(new UserMessagesReporter(interfaceWithUser));
 	}
 	
-	public static void bindPlayer(Player newP,
-			MessagingInterface interfaceWithUser2) {
+	/**This method assigns a player (already initialized) to an existing
+	 * userMessagesReporter connected to an existing interface.
+	 * @param newP
+	 * @param interfaceWithUser2
+	 */
+	public static void bindPlayer(Player newP,MessagingInterface interfaceWithUser2) {
 		for (UserMessagesReporter r : reportersList) {	
 			if (r.getInterfaceWithUser() == interfaceWithUser2) {
 				r.setThePlayer(newP);
