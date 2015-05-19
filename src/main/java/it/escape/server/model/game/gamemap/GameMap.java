@@ -2,7 +2,6 @@ package it.escape.server.model.game.gamemap;
 
 import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.actions.cellActions.CellAction;
-import it.escape.server.model.game.cards.DecksHandler;
 import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.exceptions.CellNotExistsException;
@@ -22,11 +21,11 @@ public class GameMap {
 	
 	public static GameMap mapInstance;
 	
-	private List characters;
+	private List<Player> characters;	//this one nust be initialized by the GameMaster
 	
 	private HashMap<String, Cell> cells;		//this hashmap stores pairs such as: <A3,Cell(2,3,5)>
 	
-	private HashMap<Cell, Player> playersPositions;
+	private HashMap<Player, Cell> playersPositions;
 	
 	private Cell startAliens = null;
 	
@@ -38,8 +37,9 @@ public class GameMap {
 
 	/** Private constructor for this singleton*/
 	private GameMap(String filename) throws BadJsonFileException, IOException {
-		characters = new ArrayList<Character>();
+		characters = new ArrayList<Player>();
 		cells = new HashMap<String,Cell>();
+		playersPositions = new HashMap<Player, Cell>();
 		loadMapFromResourceFile(filename);
 	}
 	
