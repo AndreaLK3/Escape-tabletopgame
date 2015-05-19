@@ -1,30 +1,44 @@
 package it.escape.server.controller;
 
+import java.util.List;
+
 import it.escape.server.model.game.actions.cellActions.NoCellAction;
 import it.escape.server.model.game.actions.playerCommands.MoveCommand;
 import it.escape.server.model.game.actions.playerCommands.PlayerCommand;
+import it.escape.server.model.game.character.Human;
+import it.escape.server.model.game.character.Player;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
+import it.escape.server.view.MessagingInterface;
 
 /** This class is located at the border of the controller package;
- * it communicates with the classes inside the View, to ask the user for input,
+ * it communicates with the classes inside the View; 
+ * depending on the strings returned by UserMessagesReporter,
+ * it creates different actions.
  * whenever a certain kind of input is required by the TurnHandler.
- * It is a Singleton.
  * @author andrea
  */
 public class UserMessagesReporter {
-	
-	public static UserMessagesReporter reporter;
-	
-	private UserMessagesReporter() {
 		
+	private static List<UserMessagesReporter> reportersList;
+	
+	private Player thePlayer;
+	private MessagingInterface interfaceWithUser;
+	
+public static UserMessagesReporter getReporterInstance(Player currentPlayer) {
+		for (UserMessagesReporter r : reportersList)
+		{	if (r.getThePlayer()==currentPlayer)
+			return r;
+		}
+		return null;
 	}
 	
-	public static UserMessagesReporter getReporterInstance () {
-		if (reporter==null)
-			reporter = new UserMessagesReporter();
-		return reporter;
-	}
-	
+private UserMessagesReporter(MessagingInterface interfaceWithUser) {
+	this.interfaceWithUser = interfaceWithUser;
+}
+
+public static void createUMR(MessagingInterface interfaceWithUser) {
+	reportersList.add(new UserMessagesReporter(interfaceWithUser));
+}
 	
 	/** This function, depending on the input given by the user, 
 	 * returns a PlayerCommand object to the turn controller TurnHandler
@@ -33,25 +47,61 @@ public class UserMessagesReporter {
 	 */
 	public boolean askIfObjectCard(String s) {
 		//to be implemented
-		return false;
+		return true;
 	}
 
 	
-	public MoveCommand askForMovement(String string) {
+	public MoveCommand askForMovement() {
 		Position2D destination;
 		destination = askForPosition();
 		return new MoveCommand(destination);
 	}
 	
 
-	public Position2D askForNoise(String string) {
+	public Position2D askForNoise() {
 		Position2D location;
 		//to be implemented 
 		location = askForPosition();
 		return location;
 	}
+	
+	public String getCardKey() {
+		//to be implemented
+		return new String ("adrenaline");
+	}
 
 	private Position2D askForPosition() {
 		return new Position2D(2,3);
 	}
+
+
+	public Player getThePlayer() {
+		return thePlayer;
+	}
+
+
+	public void setThePlayer(Player thePlayer) {
+		this.thePlayer = thePlayer;
+	}
+
+
+	public MessagingInterface getInterfaceWithUser() {
+		return interfaceWithUser;
+	}
+
+
+	public void setInterfaceWithUser(MessagingInterface interfaceWithUser) {
+		this.interfaceWithUser = interfaceWithUser;
+	}
+
+	public static List<UserMessagesReporter> getReportersList() {
+		return reportersList;
+	}
+
+	public static void setReportersList(List<UserMessagesReporter> reportersList) {
+		UserMessagesReporter.reportersList = reportersList;
+	}
+
+
+	
 }

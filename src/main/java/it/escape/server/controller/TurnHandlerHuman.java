@@ -16,12 +16,13 @@ public class TurnHandlerHuman extends TurnHandler {
 	}
 
 	public void executeTurnSequence() {
-		reporter = UserMessagesReporter.getReporterInstance();
+		reporter = UserMessagesReporter. getReporterInstance(currentPlayer);
+		currentPlayer.startTurn();
 		
 		if (reporter.askIfObjectCard("Do you want to play an object card before moving?"));
 			//asks if the user wants to play an Object Card. The Player has the hand...
 		
-		playerCommand = reporter.askForMovement("Now you have to move. Where do you want to go?");
+		playerCommand = reporter.askForMovement();
 		try {
 			playerCommand.execute(currentPlayer);
 		} catch (Exception e) {	//DestinationNotInRangeException, DestinationNotExistingException

@@ -1,17 +1,20 @@
 package it.escape.server.model.game.character;
 
-import it.escape.server.model.game.cards.Card;
 
 public class Player {
 
-	protected Card aCard;
 	protected int maxRange;
+	protected boolean hasMoved;
+	
 
 	
 	public Player () {
 	}
 	
 
+	public void startTurn() {
+		hasMoved = false;
+	}
 
 
 	public int getMaxRange() {
