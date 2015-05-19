@@ -100,8 +100,8 @@ public class GameMap {
 	}
 	
 	/** This is the function that is invoked by the TurnHandler; it calls several subfunctions*/
-	public CellAction move(Player curPlayer , Position2D dest2D) throws Exception {
-		PositionCubic dest3D = CoordinatesConverter.fromOddqToCubic(dest2D);
+	public CellAction move(Player curPlayer , String destination) throws Exception {
+		PositionCubic dest3D = CoordinatesConverter.fromOddqToCubic(destination);
 		
 		if (!destinationInRange(curPlayer, dest3D))
 			throw new Exception();

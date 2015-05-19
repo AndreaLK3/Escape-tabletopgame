@@ -7,9 +7,9 @@ import it.escape.server.model.game.players.Player;
 
 public class MoveCommand implements PlayerCommand {
 	
-	Position2D destination;
+	String destination;
 	
-	public MoveCommand(Position2D destination) {
+	public MoveCommand(String destination) {
 		this.destination = destination;
 	}
 

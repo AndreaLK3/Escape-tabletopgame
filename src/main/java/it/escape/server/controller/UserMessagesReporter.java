@@ -10,11 +10,12 @@ import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingInterface;
 
-/** This class is located at the border of the controller package;
- * it communicates with the classes inside the View; 
- * depending on the strings returned by UserMessagesReporter,
- * it creates different actions.
- * whenever a certain kind of input is required by the TurnHandler.
+/** This class is located at the border of the controller package, it communicates with the classes inside the View; 
+ * The TurnHandler issues requests to this class;
+ * depending on the strings returned by MessagingInterface,
+ * this class creates different actions, and returns them to the TurnHandler.
+ * N: The check on the syntax is not performed by this class, it is done by the interface.
+ * The check on the semantics is performed by TurnHandler.
  * @author andrea
  */
 public class UserMessagesReporter {
@@ -23,6 +24,8 @@ public class UserMessagesReporter {
 	
 	private Player thePlayer;
 	private MessagingInterface interfaceWithUser;
+	
+	//creation and access methods
 	
 	public static UserMessagesReporter getReporterInstance(Player currentPlayer) {
 		for (UserMessagesReporter r : reportersList)
@@ -53,26 +56,32 @@ public class UserMessagesReporter {
 		}
 	}
 	
-	/** This function, depending on the input given by the user, 
-	 * returns a PlayerCommand object to the turn controller TurnHandler
+	//methods to answer to TurnHandler's requests
+	
+	/** This function returns the user's answer to the question:
+	 * do you wish to use any Object cards?
 	 * @param String : a message that the controller can send to the user
-	 * @return PlayerCommand object, either playObjectCard or NoAction
+	 * @return boolean
 	 */
 	public boolean askIfObjectCard(String s) {
-		//to be implemented
+		/*if string returned == yes
+		 * return true
+		 * else 
+		 * return false
+		 */
 		return true;
 	}
 
 	
 	public MoveCommand askForMovement() {
-		Position2D destination;
+		String destination;
 		destination = askForPosition();
 		return new MoveCommand(destination);
 	}
 	
 
 	public Position2D askForNoise() {
-		Position2D location;
+		String location;
 		//to be implemented 
 		location = askForPosition();
 		return location;
@@ -83,8 +92,8 @@ public class UserMessagesReporter {
 		return new String ("adrenaline");
 	}
 
-	private Position2D askForPosition() {
-		return new Position2D(2,3);
+	private String askForPosition() {
+		return "B03";
 	}
 
 
