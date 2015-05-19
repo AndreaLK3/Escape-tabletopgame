@@ -80,7 +80,7 @@ public class UserMessagesReporter {
 	}
 	
 
-	public Position2D askForNoise() {
+	public String askForNoise() {
 		String location;
 		//to be implemented 
 		location = askForPosition();
@@ -127,3 +127,5 @@ public class UserMessagesReporter {
 
 	
 }
+
+
