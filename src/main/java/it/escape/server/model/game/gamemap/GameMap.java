@@ -90,10 +90,10 @@ public class GameMap {
 	private void attemptAssignStartingCells(Cell c) {
 		if (c instanceof StartingCell) {
 			StartingCell partenza = (StartingCell) c;
-			if (partenza.type == PlayerTeams.ALIENS) {
+			if (partenza.getType() == PlayerTeams.ALIENS) {
 				startAliens = c;
 			}
-			else if (partenza.type == PlayerTeams.HUMANS) {
+			else if (partenza.getType() == PlayerTeams.HUMANS) {
 				startHumans = c;
 			}
 		}
