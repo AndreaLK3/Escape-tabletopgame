@@ -13,7 +13,7 @@ public class Human extends Player {
 		maxRange = HUMANSMAXRANGE;
 	}
 	
-	public PlayerTeams getTeam(){
+	public PlayerTeams getTeam() {
 		return PlayerTeams.HUMANS;
 	}
 

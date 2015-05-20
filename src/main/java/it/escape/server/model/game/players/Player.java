@@ -38,5 +38,7 @@ public abstract class Player {
 	 * clean up sedatives / adrenaline effect (in the human)
 	 */
 	public abstract void endOfTurn();
+	
+	public abstract PlayerTeams getTeam();
 
 }

@@ -14,6 +14,8 @@ import java.util.List;
 public class GameMaster {
 	
 	private final static int MAXPLAYERS = 8;
+	private int numPlayers = 0;
+	
 	private PlayerTeams currentTeam;
 	
 	private ExecutiveController executor;
@@ -41,19 +43,32 @@ public class GameMaster {
 	
 	/* The interface is used to find the right UMR.*/
 	public void newPlayerHasConnected(MessagingInterface interfaceWithUser) {
-		Player newP = createPlayer();
-		listOfPlayers.add(newP);
-		UserMessagesReporter.bindPlayer(newP, interfaceWithUser);
+		Player newP = createPlayer();  // create the player
+		listOfPlayers.add(newP);  // add him to our players list
+		map.addNewPlayer(newP, newP.getTeam());  // tell the map to place our player
+		UserMessagesReporter.bindPlayer(newP, interfaceWithUser);  // bind him to its command interface
+		numPlayers++;  // update the player counter
+	}
+	
+	/**
+	 * used by the external program logic to check if there are
+	 * places avaible for new players
+	 */
+	public boolean hasFreeSlots() {
+		if (numPlayers < MAXPLAYERS) {
+			return true;
+		}
+		return false;
 	}
 	
 	private Player createPlayer() {
 		Player newP= null;
-		if (currentTeam == PlayerTeams.ALIENS)
-		{	newP = new Alien();
+		if (currentTeam == PlayerTeams.ALIENS) {	
+			newP = new Alien();
 			currentTeam = PlayerTeams.HUMANS;
-		}
-		else if (currentTeam == PlayerTeams.HUMANS)
-		{	newP = new Human();
+			
+		} else if (currentTeam == PlayerTeams.HUMANS) {
+			newP = new Human();
 			currentTeam = PlayerTeams.ALIENS;
 		}	
 		return newP;

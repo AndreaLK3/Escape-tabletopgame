@@ -24,8 +24,6 @@ import java.util.Map;
 
 public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	
-	private List<Player> characters;	//this one nust be initialized by the GameMaster
-	
 	private Map<String, Cell> cells;		//this hashmap stores pairs such as: <A3,Cell(2,3,5)>
 	
 	private Map<Player, Cell> playersPositions;
@@ -41,7 +39,6 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	/** Private constructor for this singleton
 	 * @throws MalformedStartingCells */
 	public GameMap(String filename) throws BadJsonFileException, IOException, MalformedStartingCells {
-		characters = new ArrayList<Player>();
 		cells = new HashMap<String,Cell>();
 		playersPositions = new HashMap<Player, Cell>();
 		loadMapFromResourceFile(filename);
@@ -120,7 +117,7 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 		return getCell(dest3D).getCellAction(); 
 	}
 	
-	private void UpdatePlayerPosition(Player curPlayer, PositionCubic dest) {
+	public void UpdatePlayerPosition(Player curPlayer, PositionCubic dest) {
 		playersPositions.remove(curPlayer);
 		playersPositions.put(curPlayer,getCell(dest));
 	}
@@ -141,6 +138,22 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	
 	public PositionCubic getPlayerPosition(Player player) {
 		return playersPositions.get(player).getPosition();
+	}
+	
+	/**
+	 * invoked by GameMaster, add a player (human or alien)
+	 * to the game, setting its position to the respective starting cell
+	 * @param player
+	 * @param team
+	 */
+	public void addNewPlayer(Player player, PlayerTeams team) {
+		Cell startIn = null;
+		if (team == PlayerTeams.HUMANS) {
+			startIn = startHumans;
+		} else {
+			startIn = startAliens;
+		}
+		playersPositions.put(player, startIn);
 	}
 	
 	/**
