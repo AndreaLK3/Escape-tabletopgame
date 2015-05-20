@@ -10,7 +10,7 @@ public interface MapActionInterface {
 
 	public CellAction move(Player curPlayer , String destination) throws Exception;
 	
-	public void UpdatePlayerPosition(Player curPlayer, PositionCubic dest);
+	public void updatePlayerPosition(Player curPlayer, PositionCubic dest);
 	
 	public List<Player> getPlayersByPosition(PositionCubic pos);
 	

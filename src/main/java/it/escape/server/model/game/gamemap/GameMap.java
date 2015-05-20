@@ -36,7 +36,7 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	
 	private Position2D maxSize;
 
-	/** Private constructor for this singleton
+	/** Constructor
 	 * @throws MalformedStartingCells */
 	public GameMap(String filename) throws BadJsonFileException, IOException, MalformedStartingCells {
 		cells = new HashMap<String,Cell>();
@@ -113,11 +113,13 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 		if (!cellExists(dest3D)) {
 			throw new Exception();
 		}
-		//UpdatePlayerPosition(...)
+		
+		updatePlayerPosition(curPlayer, dest3D);
+		
 		return getCell(dest3D).getCellAction(); 
 	}
 	
-	public void UpdatePlayerPosition(Player curPlayer, PositionCubic dest) {
+	public void updatePlayerPosition(Player curPlayer, PositionCubic dest) {
 		playersPositions.remove(curPlayer);
 		playersPositions.put(curPlayer,getCell(dest));
 	}
@@ -179,16 +181,13 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	}
 	
 	/** To be implemented: gets a Cell given the position.
-	 * (Nota1: Forse non è necessario creare una nuova cella, si 
-	 * può restituire il riferimento a quella già presente)
-	 * (Nota2: Forse non è necessario fare le conversioni da AlphaNum a 2D e poi nella mappa da 
-	 * 2D a 3D, se hai messo già la lista con <Cell, String>)
 	 * @param pos3D
 	 * @return Cell
 	 */
 	public Cell getCell(PositionCubic pos3D) {
 		return cells.get(CoordinatesConverter.fromCubicToAlphaNum(pos3D));
 	}
+	
 	private Cell getCell(String posAlphaNum) {
 		return cells.get(posAlphaNum);
 	}
