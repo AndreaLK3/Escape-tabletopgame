@@ -10,19 +10,28 @@ import java.io.PrintWriter;
 public class FilesHelper {
 	
 	public static String streamToString(InputStream ingresso) throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(ingresso));
-		StringBuilder ret = new StringBuilder();
-		String line;
-		
-		while ((line = reader.readLine()) != null) {
-	        ret.append(line);
-	    }
-		
-		return ret.toString();
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(ingresso));
+			StringBuilder ret = new StringBuilder();
+			String line;
+			
+			while ((line = reader.readLine()) != null) {
+		        ret.append(line);
+		    }
+			
+			return ret.toString();
+		} catch (NullPointerException e) {
+			throw new IOException();
+		}
 	}
 	
-	public static InputStream getResourceFile(String filename) {
-		return Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
+	public static InputStream getResourceFile(String filename) throws IOException {
+		try {
+			return Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
+		} catch(NullPointerException e) {
+			throw new IOException();
+		}
+		
 	}
 	
 	public static void saveToFile(String filename, String data) throws FileNotFoundException {
