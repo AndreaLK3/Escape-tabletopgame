@@ -1,6 +1,7 @@
 package it.escape.server.model.game.gamemap;
 
-import it.escape.server.controller.game.actions.cellActions.CellAction;
+import it.escape.server.controller.game.actions.CellAction;
+import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.exceptions.CellNotExistsException;
 import it.escape.server.model.game.exceptions.MalformedStartingCells;
@@ -21,9 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class GameMap {
-	
-	private static GameMap mapInstance;
+public class GameMap implements MapActionInterface {
 	
 	private List<Player> characters;	//this one nust be initialized by the GameMaster
 	
@@ -41,22 +40,11 @@ public class GameMap {
 
 	/** Private constructor for this singleton
 	 * @throws MalformedStartingCells */
-	private GameMap(String filename) throws BadJsonFileException, IOException, MalformedStartingCells {
+	public GameMap(String filename) throws BadJsonFileException, IOException, MalformedStartingCells {
 		characters = new ArrayList<Player>();
 		cells = new HashMap<String,Cell>();
 		playersPositions = new HashMap<Player, Cell>();
 		loadMapFromResourceFile(filename);
-	}
-	
-	public static GameMap createMapInstance(String filename) throws BadJsonFileException, IOException, MalformedStartingCells {
-		if (mapInstance==null) {
-			mapInstance = new GameMap(filename);
-		}
-		return mapInstance;
-	}
-	
-	public static GameMap getMapInstance() {
-		return mapInstance;
 	}
 	
 	/**

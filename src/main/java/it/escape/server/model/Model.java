@@ -28,7 +28,7 @@ public class Model {
 		LogHelper.setDefaultOptions(log);
 		
 		try {
-			theMap = GameMap.createMapInstance(mapname);
+			theMap = new GameMap(mapname);
 			theAnnouncer = Announcer.createAnnouncerInstance();
 			
 		} catch (BadJsonFileException e) {

@@ -1,8 +1,9 @@
 package it.escape.server.controller;
 
-import it.escape.server.controller.game.actions.cardActions.CardAction;
-import it.escape.server.controller.game.actions.cellActions.CellAction;
-import it.escape.server.controller.game.actions.playerCommands.PlayerCommand;
+import it.escape.server.controller.game.actions.CardAction;
+import it.escape.server.controller.game.actions.CellAction;
+import it.escape.server.controller.game.actions.MapActionInterface;
+import it.escape.server.controller.game.actions.PlayerCommand;
 import it.escape.server.model.Model;
 
 /** This class defines the order of execution of the various
@@ -20,7 +21,10 @@ public class TurnHandler {
 	protected PlayerCommand playerCommand;
 	protected boolean correctInput;
 	
-	public TurnHandler () {
+	protected MapActionInterface map;
+	
+	public TurnHandler (MapActionInterface map) {
+		this.map = map;
 		correctInput = false;
 	}
 	

@@ -1,6 +1,6 @@
 package it.escape.server.model.game.gamemap;
 
-import it.escape.server.controller.game.actions.cellActions.CellAction;
+import it.escape.server.controller.game.actions.CellAction;
 import it.escape.server.controller.game.actions.cellActions.NoCellAction;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.server.model.game.players.Player;

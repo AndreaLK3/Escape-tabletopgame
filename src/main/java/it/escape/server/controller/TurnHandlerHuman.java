@@ -1,7 +1,7 @@
 package it.escape.server.controller;
 
 
-import it.escape.server.model.Model;
+import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 
@@ -11,7 +11,8 @@ public class TurnHandlerHuman extends TurnHandler {
 	
 	private UserMessagesReporter reporter;
 	
-	public TurnHandlerHuman(Player currentPlayer) {
+	public TurnHandlerHuman(Player currentPlayer, MapActionInterface map) {
+		super(map);
 		this.currentPlayer=(Human)currentPlayer;
 	}
 
@@ -26,20 +27,20 @@ public class TurnHandlerHuman extends TurnHandler {
 		
 		while (!correctInput) {
 		try {
-			playerCommand.execute(currentPlayer);
+			playerCommand.execute(currentPlayer, map);
 			correctInput = true;
 		} catch (Exception e) {	//DestinationNotInRangeException, DestinationNotExistingException
 			correctInput = false;
 		}}
 		 
 		if(!currentPlayer.hasSedatives())
-			cardAction = cellAction.execute(currentPlayer);
+			cardAction = cellAction.execute(currentPlayer, map);
 		
 		if (reporter.askIfObjectCard("Do you wish to play an object card after moving?"));
 		//ask for an Object Card. The Player has the hand...
 		
 	
-		cardAction.execute(currentPlayer);
+		cardAction.execute(currentPlayer, map);
 		
 		}
 

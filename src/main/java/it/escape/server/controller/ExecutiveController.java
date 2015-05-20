@@ -2,6 +2,7 @@ package it.escape.server.controller;
 
 import java.util.logging.Logger;
 
+import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.model.Model;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
@@ -19,6 +20,8 @@ public class ExecutiveController implements Runnable {
 	private TurnHandler turnHandler;
 	
 	private boolean runGame;
+	
+	private MapActionInterface map;
 	
 	public synchronized void startTurn(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
@@ -46,18 +49,19 @@ public class ExecutiveController implements Runnable {
 	private void gameTurn() {
 
 		if (currentPlayer instanceof Human) {
-			turnHandler = new TurnHandlerHuman(currentPlayer);
+			turnHandler = new TurnHandlerHuman(currentPlayer, map);
 		}
 		else {
-			turnHandler = new TurnHandlerAlien(currentPlayer);
+			turnHandler = new TurnHandlerAlien(currentPlayer, map);
 		}
 		turnHandler.executeTurnSequence();
 }
 
 	
 
-	public ExecutiveController(TimeController timeControllerRef) {
+	public ExecutiveController(TimeController timeControllerRef, MapActionInterface map) {
 		LogHelper.setDefaultOptions(log);
+		this.map = map;
 		this.timeControllerRef = timeControllerRef;
 		runGame = true;		
 	}

@@ -1,6 +1,6 @@
 package it.escape.server.controller;
 
-import it.escape.server.model.Model;
+import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.model.game.players.Alien;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
@@ -26,10 +26,12 @@ public class GameMaster {
 	
 	private List<Player> listOfPlayers;
 	
+	private MapActionInterface map;
 
-	public GameMaster() {
+	public GameMaster(MapActionInterface map) {
+		this.map = map;
 		timeController =  new TimeController();
-		executor = new ExecutiveController(timeController);
+		executor = new ExecutiveController(timeController, map);
 		timeController.bindExecutor(executor);
 		executorThread = new Thread(executor);
 		timerThread = new Thread(timeController);
