@@ -4,11 +4,13 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import it.escape.server.model.game.GameMode;
 import it.escape.server.model.game.GameTypes;
+import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.Cell;
 import it.escape.server.model.game.gamemap.DangerousCell;
 import it.escape.server.model.game.gamemap.EscapeCell;
 import it.escape.server.model.game.gamemap.SafeCell;
+import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.server.model.game.players.PlayerTeams;
@@ -45,6 +47,8 @@ public class MapLoaderTest {
 			fail("invalid json in test map");
 		} catch (IOException e) {
 			fail("cannot open test map");
+		} catch (BadCoordinatesException e) {
+			fail("bad coordinate in test set");
 		}
 	}
 	
@@ -64,11 +68,11 @@ public class MapLoaderTest {
 		return new MapLoaderStartingCellsMatcher(location,PlayerTeams.ALIENS);
 	}
 	
-	private List<Cell> assignTestCells() {  // fill up the testing cells' array (note: do not include starting cells here)
+	private List<Cell> assignTestCells() throws BadCoordinatesException {  // fill up the testing cells' array (note: do not include starting cells here)
 		List<Cell> ret = new ArrayList<Cell>();
-		ret.add(new DangerousCell(new PositionCubic(0, 2, -2)));
-		ret.add(new SafeCell(new PositionCubic(0, 2, -2)));
-		ret.add(new EscapeCell(new PositionCubic(0, 2, -2), new GameMode(GameTypes.BASE)));
+		ret.add(new DangerousCell(CoordinatesConverter.fromAlphaNumToCubic("A02")));
+		ret.add(new SafeCell(CoordinatesConverter.fromAlphaNumToCubic("C01")));
+		ret.add(new EscapeCell(CoordinatesConverter.fromAlphaNumToCubic("B02"), new GameMode(GameTypes.BASE)));
 		
 		return ret;
 	}
