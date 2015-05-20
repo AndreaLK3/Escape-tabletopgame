@@ -1,6 +1,6 @@
 package it.escape.server.model.game.cards;
 
-import it.escape.server.model.game.actions.cardActions.CardAction;
+import it.escape.server.controller.game.actions.cardActions.CardAction;
 
 public class EscapeCard implements Card {
 	

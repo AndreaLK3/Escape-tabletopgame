@@ -1,7 +1,7 @@
 package it.escape.server.model.game.gamemap;
 
+import it.escape.server.controller.game.actions.cellActions.CellAction;
 import it.escape.server.model.game.PlayerTeams;
-import it.escape.server.model.game.actions.cellActions.CellAction;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.exceptions.CellNotExistsException;
 import it.escape.server.model.game.exceptions.MalformedStartingCells;
@@ -58,7 +58,6 @@ public class GameMap {
 	public static GameMap getMapInstance() {
 		return mapInstance;
 	}
-	
 	
 	/**
 	 * @param filename

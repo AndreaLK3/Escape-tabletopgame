@@ -1,6 +1,6 @@
-package it.escape.server.model.game.actions.cellActions;
+package it.escape.server.controller.game.actions.cellActions;
 
-import it.escape.server.model.game.actions.cardActions.CardAction;
+import it.escape.server.controller.game.actions.cardActions.CardAction;
 import it.escape.server.model.game.players.Player;
 
 public interface CellAction {
