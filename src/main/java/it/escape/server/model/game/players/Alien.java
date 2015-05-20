@@ -13,6 +13,15 @@ public final static int ALIENSMAXRANGE = 2;
 	
 	public PlayerTeams getTeam(){
 		return PlayerTeams.ALIENS;
+	}
+
+	@Override
+	public void endOfTurn() {
+	}
+
+	@Override
+	public void die() {
+		alive = false;
 	};
 }
 	

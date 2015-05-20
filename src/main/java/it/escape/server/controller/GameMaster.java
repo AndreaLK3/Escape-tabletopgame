@@ -26,10 +26,8 @@ public class GameMaster {
 	
 	private List<Player> listOfPlayers;
 	
-	private Model model;
 
-	public GameMaster(Model model) {
-		this.model = model;
+	public GameMaster() {
 		timeController =  new TimeController();
 		executor = new ExecutiveController(timeController);
 		timeController.bindExecutor(executor);

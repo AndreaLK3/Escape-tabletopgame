@@ -17,6 +17,7 @@ import it.escape.utils.FilesHelper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -173,8 +174,30 @@ public class GameMap {
 		}
 	}
 	
-	private Cell getPlayerPosition(Player player) {
+	public Cell getPlayerPosition(Player player) {
 		return playersPositions.get(player);
+	}
+	
+	/**
+	 * Returns a list of all player standing in a certain position.
+	 * It is assumed that a cell does exist in said position.
+	 * @param pos
+	 * @return
+	 */
+	public List<Player> getPlayersByPosition(PositionCubic pos) {
+		List<Player> ret = new ArrayList<Player>();
+		Cell current = getCell(pos);
+		Iterator mapIterator = playersPositions.entrySet().iterator();
+		while (mapIterator.hasNext()) {
+			Map.Entry pair = (Map.Entry)mapIterator.next();
+			Cell candidateCell = (Cell)pair.getValue();
+			Player candidatePlayer = (Player)pair.getKey();
+			if (pos.equals(candidateCell)) {
+				ret.add(candidatePlayer);
+			}
+			mapIterator.remove();
+		}
+		return ret;
 	}
 	
 	/** To be implemented: gets a Cell given the position.

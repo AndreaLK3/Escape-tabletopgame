@@ -1,14 +1,10 @@
 package it.escape.server.controller;
 
-import java.util.List;
-
-import it.escape.server.model.game.actions.cellActions.NoCellAction;
 import it.escape.server.model.game.actions.playerCommands.MoveCommand;
-import it.escape.server.model.game.actions.playerCommands.PlayerCommand;
-import it.escape.server.model.game.gamemap.positioning.Position2D;
-import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingInterface;
+
+import java.util.List;
 
 /** This class is located at the border of the controller package, it communicates with the classes inside the View; 
  * The TurnHandler issues requests to this class;

@@ -2,6 +2,7 @@ package it.escape.server.controller;
 
 import java.util.logging.Logger;
 
+import it.escape.server.model.Model;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 import it.escape.strings.StringRes;

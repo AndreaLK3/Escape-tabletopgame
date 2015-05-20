@@ -1,5 +1,8 @@
 package it.escape.server.model.game;
 
+import it.escape.server.model.game.gamemap.positioning.PositionCubic;
+import it.escape.server.model.game.players.Player;
+
 import java.util.Observable;
 
 /**
@@ -12,6 +15,28 @@ import java.util.Observable;
 public class Announcer extends Observable {
 	
 	private String message;
+	
+	private static Announcer instance = null;
+	
+	public static Announcer createAnnouncerInstance() {
+		if (instance == null) {
+			instance = new Announcer();
+		}
+		return instance;
+	}
+	
+	public static Announcer getAnnouncerInstance() {
+		return instance;
+	}
+	
+	private Announcer() {
+		
+	}
+	
+	public void announceAttack(Player player, PositionCubic position) {
+		// encode player and position to a string
+		// use announce to send that string
+	}
 	
 	public void announce(String message) {
 		this.message = message;

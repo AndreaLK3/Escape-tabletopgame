@@ -29,7 +29,7 @@ public class Model {
 		
 		try {
 			theMap = GameMap.createMapInstance(mapname);
-			theAnnouncer = new Announcer();
+			theAnnouncer = Announcer.createAnnouncerInstance();
 			
 		} catch (BadJsonFileException e) {
 			crash(StringRes.getString("model.error.json") + " (" + e.getMessage() + ")");

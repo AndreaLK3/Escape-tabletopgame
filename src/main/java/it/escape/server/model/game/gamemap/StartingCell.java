@@ -7,7 +7,6 @@ import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.server.model.game.players.Player;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**This class defines the starting cells, one for each player type (Humans, Aliens)
  * The starting cell are implemented as singletons: 

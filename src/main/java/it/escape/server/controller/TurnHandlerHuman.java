@@ -1,15 +1,15 @@
 package it.escape.server.controller;
 
 
-import it.escape.server.model.game.actions.playerCommands.PlayerCommand;
+import it.escape.server.model.Model;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 
 public class TurnHandlerHuman extends TurnHandler {
 
-	Human currentPlayer;
-	UserMessagesReporter reporter;
+	private Human currentPlayer;
 	
+	private UserMessagesReporter reporter;
 	
 	public TurnHandlerHuman(Player currentPlayer) {
 		this.currentPlayer=(Human)currentPlayer;
@@ -32,7 +32,7 @@ public class TurnHandlerHuman extends TurnHandler {
 			correctInput = false;
 		}}
 		 
-		if(currentPlayer.sedatives == false)
+		if(!currentPlayer.hasSedatives())
 			cardAction = cellAction.execute(currentPlayer);
 		
 		if (reporter.askIfObjectCard("Do you wish to play an object card after moving?"));

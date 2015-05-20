@@ -1,5 +1,6 @@
 package it.escape.server.controller;
 
+import it.escape.server.model.Model;
 import it.escape.server.model.game.actions.cardActions.CardAction;
 import it.escape.server.model.game.actions.cellActions.CellAction;
 import it.escape.server.model.game.actions.playerCommands.PlayerCommand;
@@ -7,7 +8,7 @@ import it.escape.server.model.game.actions.playerCommands.PlayerCommand;
 /** This class defines the order of execution of the various
  * methods that are invoked during a turn.
  * Since the order of execution may vary depending on user input,
- * it will contain a reference to an UserMessagesReporter object (n: UserMessagesReporter is a Singleton).
+ * it will contain a reference to an UserMessagesReporter object.
  * The 2 subclasses, HumanTurnHandler and AlienTurnHandler,
  * implement the function turnSequence() in different ways.
  * @author andrea
