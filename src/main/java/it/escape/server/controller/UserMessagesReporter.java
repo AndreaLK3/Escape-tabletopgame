@@ -89,38 +89,21 @@ public class UserMessagesReporter {
 	}
 
 	private String askForPosition() {
+		// to be implemented
 		return "B03";
 	}
-
 
 	public Player getThePlayer() {
 		return thePlayer;
 	}
 
-
-	public void setThePlayer(Player thePlayer) {
-		this.thePlayer = thePlayer;
-	}
-
-
 	public MessagingInterface getInterfaceWithUser() {
 		return interfaceWithUser;
 	}
 
-
-	public void setInterfaceWithUser(MessagingInterface interfaceWithUser) {
-		this.interfaceWithUser = interfaceWithUser;
+	private void setThePlayer(Player thePlayer) {
+		this.thePlayer = thePlayer;
 	}
-
-	public static List<UserMessagesReporter> getReportersList() {
-		return reportersList;
-	}
-
-	public static void setReportersList(List<UserMessagesReporter> reportersList) {
-		UserMessagesReporter.reportersList = reportersList;
-	}
-
-
 	
 }
 

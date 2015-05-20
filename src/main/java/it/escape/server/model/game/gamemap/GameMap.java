@@ -140,12 +140,12 @@ public class GameMap {
 	
 	private boolean destinationReachable(Player curPlayer, PositionCubic dest) throws CellNotExistsException {
 		
-		if (dest.distanceFrom(getPlayerPosition(curPlayer).getPosition()) > curPlayer.getMaxRange()) {
+		if (dest.distanceFrom(getPlayerCell(curPlayer).getPosition()) > curPlayer.getMaxRange()) {
 			return false;
 		} else {
 			// algoritmo di raggiunngibilità (ricerca breadth first sulle celle)
 			List<Cell> visited = new ArrayList<Cell>();
-			Cell start = getPlayerPosition(curPlayer);
+			Cell start = getPlayerCell(curPlayer);
 			visited.add(start);
 			List<List> fringes = new ArrayList<List>();
 			fringes.add( new ArrayList<Cell>() );
@@ -174,8 +174,12 @@ public class GameMap {
 		}
 	}
 	
-	public Cell getPlayerPosition(Player player) {
+	public Cell getPlayerCell(Player player) {
 		return playersPositions.get(player);
+	}
+	
+	public PositionCubic getPlayerPosition(Player player) {
+		return playersPositions.get(player).getPosition();
 	}
 	
 	/**

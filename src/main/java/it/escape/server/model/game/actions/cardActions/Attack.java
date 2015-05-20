@@ -10,7 +10,7 @@ import it.escape.server.model.game.players.Player;
 public class Attack implements CardAction {
 
 	public void execute(Player currentPlayer) {
-		PositionCubic myPos = GameMap.getMapInstance().getPlayerPosition(currentPlayer).getPosition();
+		PositionCubic myPos = GameMap.getMapInstance().getPlayerPosition(currentPlayer);
 		Announcer.getAnnouncerInstance().announceAttack(currentPlayer, myPos);
 		List<Player> targets = GameMap.getMapInstance().getPlayersByPosition(myPos);
 		for (Player p : targets) {
