@@ -6,11 +6,10 @@ import it.escape.server.model.game.players.Player;
 import java.util.Observable;
 
 /**
- * Announcer class: simple observable, relays a message to the observers,
- * located in the view (our net-communication threads).
- * Each running game will instance only one announcer
+ * Announcer class: simple observable, relays a message to the observers;
+ * those are located in the server view (our net-communication threads).
+ * Each running game will instance only one announcer (it is a singleton)
  * @author michele
- *
  */
 public class Announcer extends Observable {
 	

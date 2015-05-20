@@ -1,14 +1,14 @@
-package it.escape.server.controller.game.actions.cardActions;
+package it.escape.server.controller.game.actions.objectCardActions;
 
 import java.util.List;
 
-import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.MapActionInterface;
+import it.escape.server.controller.game.actions.ObjectCardAction;
 import it.escape.server.model.game.Announcer;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.server.model.game.players.Player;
 
-public class Attack implements CardAction {
+public class Attack implements ObjectCardAction {
 
 	public void execute(Player currentPlayer, MapActionInterface map) {
 		PositionCubic myPos = map.getPlayerPosition(currentPlayer);
@@ -19,8 +19,5 @@ public class Attack implements CardAction {
 		}
 	}
 
-	public boolean hasObjectCard() {
-		return false;
-	}
 
 }
