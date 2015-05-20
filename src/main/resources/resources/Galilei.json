@@ -1,0 +1,1105 @@
+{
+  "mapInfo": {
+    "name": "Galilei",
+    "width": 22,
+    "height": 14
+  },
+  "cells": [
+    {
+      "tipo": "sicura",
+      "position": "A04"
+    },
+    {
+      "tipo": "sicura",
+      "position": "A05"
+    },
+    {
+      "tipo": "sicura",
+      "position": "A06"
+    },
+    {
+      "tipo": "sicura",
+      "position": "A09"
+    },
+    {
+      "tipo": "sicura",
+      "position": "A10"
+    },
+    {
+      "tipo": "sicura",
+      "position": "A11"
+    },
+    {
+      "tipo": "sicura",
+      "position": "A12"
+    },
+    {
+      "tipo": "sicura",
+      "position": "A13"
+    },
+    {
+      "tipo": "sicura",
+      "position": "B05"
+    },
+    {
+      "tipo": "sicura",
+      "position": "B10"
+    },
+    {
+      "tipo": "sicura",
+      "position": "C01"
+    },
+    {
+      "tipo": "sicura",
+      "position": "C14"
+    },
+    {
+      "tipo": "sicura",
+      "position": "D10"
+    },
+    {
+      "tipo": "sicura",
+      "position": "D14"
+    },
+    {
+      "tipo": "sicura",
+      "position": "E02"
+    },
+    {
+      "tipo": "sicura",
+      "position": "E12"
+    },
+    {
+      "tipo": "sicura",
+      "position": "F01"
+    },
+    {
+      "tipo": "sicura",
+      "position": "F10"
+    },
+    {
+      "tipo": "sicura",
+      "position": "G12"
+    },
+    {
+      "tipo": "sicura",
+      "position": "G14"
+    },
+    {
+      "tipo": "sicura",
+      "position": "H01"
+    },
+    {
+      "tipo": "sicura",
+      "position": "H02"
+    },
+    {
+      "tipo": "sicura",
+      "position": "H03"
+    },
+    {
+      "tipo": "sicura",
+      "position": "H07"
+    },
+    {
+      "tipo": "sicura",
+      "position": "H14"
+    },
+    {
+      "tipo": "sicura",
+      "position": "G07"
+    },
+    {
+      "tipo": "sicura",
+      "position": "I01"
+    },
+    {
+      "tipo": "sicura",
+      "position": "I09"
+    },
+    {
+      "tipo": "sicura",
+      "position": "I14"
+    },
+    {
+      "tipo": "sicura",
+      "position": "J01"
+    },
+    {
+      "tipo": "sicura",
+      "position": "J14"
+    },
+    {
+      "tipo": "sicura",
+      "position": "K02"
+    },
+    {
+      "tipo": "sicura",
+      "position": "K05"
+    },
+    {
+      "tipo": "sicura",
+      "position": "K09"
+    },
+    {
+      "tipo": "sicura",
+      "position": "K11"
+    },
+    {
+      "tipo": "sicura",
+      "position": "L02"
+    },
+    {
+      "tipo": "sicura",
+      "position": "L04"
+    },
+    {
+      "tipo": "sicura",
+      "position": "L09"
+    },
+    {
+      "tipo": "sicura",
+      "position": "L11"
+    },
+    {
+      "tipo": "sicura",
+      "position": "L14"
+    },
+    {
+      "tipo": "sicura",
+      "position": "M02"
+    },
+    {
+      "tipo": "sicura",
+      "position": "M05"
+    },
+    {
+      "tipo": "sicura",
+      "position": "M09"
+    },
+    {
+      "tipo": "sicura",
+      "position": "M11"
+    },
+    {
+      "tipo": "sicura",
+      "position": "N03"
+    },
+    {
+      "tipo": "sicura",
+      "position": "N14"
+    },
+    {
+      "tipo": "sicura",
+      "position": "O05"
+    },
+    {
+      "tipo": "sicura",
+      "position": "O09"
+    },
+    {
+      "tipo": "sicura",
+      "position": "O14"
+    },
+    {
+      "tipo": "sicura",
+      "position": "P01"
+    },
+    {
+      "tipo": "sicura",
+      "position": "P03"
+    },
+    {
+      "tipo": "sicura",
+      "position": "P04"
+    },
+    {
+      "tipo": "sicura",
+      "position": "P12"
+    },
+    {
+      "tipo": "sicura",
+      "position": "Q01"
+    },
+    {
+      "tipo": "sicura",
+      "position": "Q04"
+    },
+    {
+      "tipo": "sicura",
+      "position": "Q06"
+    },
+    {
+      "tipo": "sicura",
+      "position": "Q11"
+    },
+    {
+      "tipo": "sicura",
+      "position": "Q14"
+    },
+    {
+      "tipo": "sicura",
+      "position": "R04"
+    },
+    {
+      "tipo": "sicura",
+      "position": "R06"
+    },
+    {
+      "tipo": "sicura",
+      "position": "R07"
+    },
+    {
+      "tipo": "sicura",
+      "position": "R08"
+    },
+    {
+      "tipo": "sicura",
+      "position": "R12"
+    },
+    {
+      "tipo": "sicura",
+      "position": "T07"
+    },
+    {
+      "tipo": "sicura",
+      "position": "T08"
+    },
+    {
+      "tipo": "sicura",
+      "position": "T14"
+    },
+    {
+      "tipo": "sicura",
+      "position": "U01"
+    },
+    {
+      "tipo": "sicura",
+      "position": "U05"
+    },
+    {
+      "tipo": "sicura",
+      "position": "U12"
+    },
+    {
+      "tipo": "sicura",
+      "position": "V01"
+    },
+    {
+      "tipo": "sicura",
+      "position": "V08"
+    },
+    {
+      "tipo": "sicura",
+      "position": "W03"
+    },
+    {
+      "tipo": "sicura",
+      "position": "W04"
+    },
+    {
+      "tipo": "sicura",
+      "position": "W05"
+    },
+    {
+      "tipo": "sicura",
+      "position": "W06"
+    },
+    {
+      "tipo": "sicura",
+      "position": "W10"
+    },
+    {
+      "tipo": "sicura",
+      "position": "W11"
+    },
+    {
+      "tipo": "sicura",
+      "position": "W12"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "A02"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "A03"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "A14"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "B01"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "B03"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "B04"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "B06"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "B08"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "B09"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "B11"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "B12"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "B14"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "C02"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "C03"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "C04"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "C05"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "C06"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "C07"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "C08"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "C09"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "C10"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "C11"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "C12"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "C13"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "D02"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "D03"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "D05"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "D08"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "D09"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "D11"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "D12"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "D13"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "E03"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "E04"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "E05"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "E06"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "E08"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "E09"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "E10"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "E11"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "E13"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "F02"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "F03"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "F04"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "F05"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "F06"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "F07"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "F08"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "F09"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "F11"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "G01"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "G02"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "G03"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "G04"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "G05"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "G06"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "G08"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "G09"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "G10"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "G11"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "G13"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "H04"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "H05"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "H08"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "H09"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "H12"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "H13"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "I02"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "I03"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "I04"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "I05"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "I07"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "I08"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "I10"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "I11"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "I13"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "J02"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "J03"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "J04"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "J05"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "J06"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "J08"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "J09"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "J10"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "J11"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "J13"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "K01"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "K03"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "K04"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "K06"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "K08"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "K10"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "K12"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "K14"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "L01"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "L03"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "L05"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "L10"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "L12"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "L13"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "M01"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "M03"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "M04"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "M06"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "M08"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "M10"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "M12"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "M13"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "M14"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "N01"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "N02"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "N04"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "N05"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "N06"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "N08"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "N09"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "N10"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "N11"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "N12"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "N13"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "O02"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "O06"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "O07"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "O08"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "O10"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "O11"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "O12"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "O13"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "P02"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "P05"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "P06"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "P07"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "P08"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "P09"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "P10"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "P11"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "P13"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "Q02"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "Q03"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "Q05"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "Q07"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "Q08"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "Q09"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "Q10"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "Q12"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "Q13"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "R02"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "R03"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "R05"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "R09"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "R13"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "S02"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "S04"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "S05"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "S06"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "S07"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "S08"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "S09"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "S12"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "S13"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "T02"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "T05"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "T06"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "T11"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "T12"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "T13"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "U02"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "U03"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "U04"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "U06"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "U07"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "U08"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "U09"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "U10"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "U11"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "U13"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "U14"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "V03"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "V04"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "V05"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "V06"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "V09"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "V10"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "V11"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "V12"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "V14"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "W02"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "W09"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "W13"
+    },
+    {
+      "tipo": "pericolosa",
+      "position": "W14"
+    },
+    {
+      "tipo": "partenzaUmani",
+      "position": "L06"
+    },
+    {
+      "tipo": "partenzaAlieni",
+      "position": "L08"
+    },
+    {
+      "tipo": "scialuppa",
+      "position": "B02"
+    },
+    {
+      "tipo": "scialuppa",
+      "position": "B13"
+    },
+    {
+      "tipo": "scialuppa",
+      "position": "V02"
+    },
+    {
+      "tipo": "scialuppa",
+      "position": "V13"
+    }
+  ]
+}
