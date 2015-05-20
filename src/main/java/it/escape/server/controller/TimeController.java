@@ -1,6 +1,13 @@
 package it.escape.server.controller;
 
+import it.escape.strings.StringRes;
+import it.escape.utils.LogHelper;
+
+import java.util.logging.Logger;
+
 public class TimeController implements Runnable {
+	
+	protected static final Logger log = Logger.getLogger( TimeController.class.getName() );
 	
 	private final Integer TIMEOUT = 60000;  // milliseconds
 	
@@ -19,10 +26,12 @@ public class TimeController implements Runnable {
 	}
 
 	public void run() {
+		log.fine(StringRes.getString("controller.time.start"));
 		mainLoop();
 	}
 
 	public TimeController() {
+		LogHelper.setDefaultOptions(log);
 		this.runGame = true;
 	}
 

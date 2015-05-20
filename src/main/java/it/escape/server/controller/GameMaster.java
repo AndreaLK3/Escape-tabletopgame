@@ -1,5 +1,6 @@
 package it.escape.server.controller;
 
+import it.escape.server.model.Model;
 import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.players.Alien;
 import it.escape.server.model.game.players.Human;
@@ -24,8 +25,11 @@ public class GameMaster {
 	private Thread timerThread;
 	
 	private List<Player> listOfPlayers;
+	
+	private Model model;
 
-	public GameMaster() {
+	public GameMaster(Model model) {
+		this.model = model;
 		timeController =  new TimeController();
 		executor = new ExecutiveController(timeController);
 		timeController.bindExecutor(executor);

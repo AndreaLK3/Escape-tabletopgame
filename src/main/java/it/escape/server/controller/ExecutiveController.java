@@ -1,9 +1,15 @@
 package it.escape.server.controller;
 
+import java.util.logging.Logger;
+
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
+import it.escape.strings.StringRes;
+import it.escape.utils.LogHelper;
 
 public class ExecutiveController implements Runnable {
+	
+	protected static final Logger log = Logger.getLogger( ExecutiveController.class.getName() );
 	
 	private Player currentPlayer;
 	
@@ -19,6 +25,7 @@ public class ExecutiveController implements Runnable {
 	}
 
 	public void run() {
+		log.fine(StringRes.getString("controller.executor.start"));
 		gameLoop();
 	}
 	
@@ -48,6 +55,7 @@ public class ExecutiveController implements Runnable {
 	
 
 	public ExecutiveController(TimeController timeControllerRef) {
+		LogHelper.setDefaultOptions(log);
 		this.timeControllerRef = timeControllerRef;
 		runGame = true;		
 	}
