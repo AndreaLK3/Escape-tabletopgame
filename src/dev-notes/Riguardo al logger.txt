@@ -1,0 +1,11 @@
+(Questo verrà in futuro incluso in dev-notebook)
+
+Livelli di logging, dal più importante al meno:
+
+    SEVERE
+    WARNING
+    INFO
+    CONFIG
+    FINE
+    FINER
+    FINEST

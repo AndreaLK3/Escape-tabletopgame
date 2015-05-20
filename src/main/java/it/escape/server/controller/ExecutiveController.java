@@ -35,6 +35,7 @@ public class ExecutiveController implements Runnable {
 			try {
 				wait();  // wait to be awakened by startTurn()
 			} catch (InterruptedException e) {
+				log.finer(StringRes.getString("controller.executor.awaken"));
 			}
 			gameTurn();
 			timeControllerRef.endTurn();  // wake up timeController, prevents timeout
