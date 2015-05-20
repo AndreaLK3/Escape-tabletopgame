@@ -2,9 +2,9 @@ package it.escape.server.model.game.gamemap;
 
 import it.escape.server.controller.game.actions.cellActions.CellAction;
 import it.escape.server.controller.game.actions.cellActions.NoCellAction;
-import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.server.model.game.players.Player;
+import it.escape.server.model.game.players.PlayerTeams;
 
 import java.util.ArrayList;
 

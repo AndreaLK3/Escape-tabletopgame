@@ -1,6 +1,5 @@
 package it.escape.server.model.game.players;
 
-import it.escape.server.model.game.PlayerTeams;
 
 public class Human extends Player {
 	

@@ -1,7 +1,6 @@
 package it.escape.server.model.game.gamemap;
 
 import it.escape.server.controller.game.actions.cellActions.CellAction;
-import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.exceptions.CellNotExistsException;
 import it.escape.server.model.game.exceptions.MalformedStartingCells;
@@ -11,6 +10,7 @@ import it.escape.server.model.game.gamemap.positioning.CubicDeltas;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.server.model.game.players.Player;
+import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.strings.StringRes;
 import it.escape.utils.FilesHelper;
 

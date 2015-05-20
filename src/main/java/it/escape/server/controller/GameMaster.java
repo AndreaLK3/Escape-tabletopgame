@@ -1,10 +1,10 @@
 package it.escape.server.controller;
 
 import it.escape.server.model.Model;
-import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.players.Alien;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
+import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.server.view.MessagingInterface;
 
 import java.util.ArrayList;

@@ -4,7 +4,6 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import it.escape.server.model.game.GameMode;
 import it.escape.server.model.game.GameTypes;
-import it.escape.server.model.game.PlayerTeams;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.Cell;
 import it.escape.server.model.game.gamemap.DangerousCell;
@@ -12,6 +11,7 @@ import it.escape.server.model.game.gamemap.EscapeCell;
 import it.escape.server.model.game.gamemap.SafeCell;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
+import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.utils.FilesHelper;
 
 import java.io.IOException;
