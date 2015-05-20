@@ -71,7 +71,7 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 				PositionCubic candidate = center.cubeAdd(pos);
 				if (cellExists(candidate)) {
 					vicini.add(cells.get(CoordinatesConverter.fromCubicToAlphaNum(candidate)));
-				}
+				} 
 			}
 			return vicini;
 		} else {
