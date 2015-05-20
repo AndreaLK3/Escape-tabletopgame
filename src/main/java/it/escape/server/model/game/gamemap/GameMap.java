@@ -22,7 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class GameMap implements MapActionInterface {
+public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	
 	private List<Player> characters;	//this one nust be initialized by the GameMaster
 	
@@ -67,7 +67,7 @@ public class GameMap implements MapActionInterface {
 		}
 	}
 	
-	private List<Cell> getNeighbors(PositionCubic center) throws CellNotExistsException {
+	public List<Cell> getNeighbors(PositionCubic center) throws CellNotExistsException {
 		if (cellExists(center)) {
 			List<Cell> vicini = new ArrayList<Cell>();
 			for (PositionCubic pos : CubicDeltas.getDeltas()) {
@@ -126,38 +126,12 @@ public class GameMap implements MapActionInterface {
 	}
 	
 	private boolean destinationReachable(Player curPlayer, PositionCubic dest) throws CellNotExistsException {
-		
 		if (dest.distanceFrom(getPlayerCell(curPlayer).getPosition()) > curPlayer.getMaxRange()) {
 			return false;
 		} else {
-			// algoritmo di raggiunngibilità (ricerca breadth first sulle celle)
-			List<Cell> visited = new ArrayList<Cell>();
-			Cell start = getPlayerCell(curPlayer);
-			visited.add(start);
-			List<List> fringes = new ArrayList<List>();
-			fringes.add( new ArrayList<Cell>() );
-			fringes.get(0).add(start);
-			
-			for (int i = 1; i <= curPlayer.getMaxRange(); i++) {
-				fringes.add( (new ArrayList<Cell>()) );
-				List<Cell> previous = fringes.get(i - 1);
-				List<Cell> current = fringes.get(i);
-				for (Cell cube : previous) {
-					List<Cell> neighbors = getNeighbors(cube.getPosition());
-					for (Cell neighbor : neighbors) {
-						if (!visited.contains(neighbor) && neighbor.canEnter(curPlayer)) {
-							visited.add(neighbor);
-							current.add(neighbor);
-						}
-					}
-					
-				}
-			}
-			if (fringes.get(curPlayer.getMaxRange()).contains(getCell(dest))) {
-				return true;
-			} else {
-				return false;
-			}
+			PathFinder finder = new PathFinder(this, curPlayer, dest);
+			finder.calculateRoute();
+			return finder.isReachable();
 		}
 	}
 	
@@ -199,7 +173,7 @@ public class GameMap implements MapActionInterface {
 	 * @param pos3D
 	 * @return Cell
 	 */
-	private Cell getCell(PositionCubic pos3D) {
+	public Cell getCell(PositionCubic pos3D) {
 		return cells.get(CoordinatesConverter.fromCubicToAlphaNum(pos3D));
 	}
 	private Cell getCell(String posAlphaNum) {

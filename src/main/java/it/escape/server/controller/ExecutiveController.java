@@ -1,13 +1,12 @@
 package it.escape.server.controller;
 
-import java.util.logging.Logger;
-
 import it.escape.server.controller.game.actions.MapActionInterface;
-import it.escape.server.model.Model;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
+
+import java.util.logging.Logger;
 
 public class ExecutiveController implements Runnable {
 	
