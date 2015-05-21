@@ -32,6 +32,12 @@ public class Human extends Player {
 	public void setSedatives() {
 		sedatives = true;
 	}
+	
+	public boolean hasCard(String cardName) {
+		
+		return false;
+	}
+
 
 	@Override
 	public void die() {

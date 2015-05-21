@@ -3,7 +3,8 @@ package it.escape.server.controller;
 import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.CellAction;
 import it.escape.server.controller.game.actions.MapActionInterface;
-import it.escape.server.controller.game.actions.PlayerCommand;
+import it.escape.server.controller.game.actions.ObjectCardAction;
+import it.escape.server.controller.game.actions.playerCommands.MoveCommand;
 
 /** This class defines the order of execution of the various
  * methods that are invoked during a turn.
@@ -17,7 +18,7 @@ public class TurnHandler {
 	
 	protected CardAction cardAction;
 	protected CellAction cellAction;
-	protected PlayerCommand playerCommand;
+	protected MoveCommand moveCommand;
 	protected boolean correctInput;
 	
 	protected MapActionInterface map;

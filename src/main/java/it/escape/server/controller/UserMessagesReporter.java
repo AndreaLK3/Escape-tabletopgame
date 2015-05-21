@@ -68,6 +68,12 @@ public class UserMessagesReporter {
 		return true;
 	}
 
+	public String askWhichObjectCard() {
+		/* To be implemented
+		 * returns a validated string from the Client
+		 */
+		return "Adrenaline";
+	}
 	
 	public MoveCommand askForMovement() {
 		String destination;
@@ -93,6 +99,8 @@ public class UserMessagesReporter {
 		return "B03";
 	}
 
+	
+	/* E' utile? TurnHandler ha già un riferimento al Player*/
 	public Player getThePlayer() {
 		return thePlayer;
 	}

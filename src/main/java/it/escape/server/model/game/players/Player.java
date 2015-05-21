@@ -1,11 +1,17 @@
 package it.escape.server.model.game.players;
 
+import it.escape.server.model.game.cards.objectCards.ObjectCard;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public abstract class Player {
-
+	
 	protected int maxRange;
 	protected boolean hasMoved;
 	protected boolean alive;
+
 	
 	public Player () {
 		alive = true;
@@ -39,6 +45,9 @@ public abstract class Player {
 	 */
 	public abstract void endOfTurn();
 	
+	
 	public abstract PlayerTeams getTeam();
 
+
+	
 }

@@ -2,14 +2,16 @@ package it.escape.server.controller;
 
 
 import it.escape.server.controller.game.actions.MapActionInterface;
+import it.escape.server.controller.game.actions.ObjectCardAction;
+import it.escape.server.controller.game.actions.playerCommands.ChooseObjectCard;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 
 public class TurnHandlerHuman extends TurnHandler {
 
 	private Human currentPlayer;
-	
 	private UserMessagesReporter reporter;
+	private ObjectCardAction objectCardAction;
 	
 	public TurnHandlerHuman(Player currentPlayer, MapActionInterface map) {
 		super(map);
@@ -21,17 +23,24 @@ public class TurnHandlerHuman extends TurnHandler {
 		currentPlayer.startTurn();
 		
 		if (reporter.askIfObjectCard("Do you want to play an object card before moving?"));
-			//asks if the user wants to play an Object Card. The Player has the hand...
+		do {
+			try {
+				objectCardAction = ChooseObjectCard.execute(currentPlayer);
+				correctInput = true;
+			} catch (Exception e) {	//DestinationNotInRangeException, DestinationNotExistingException
+				correctInput = false;
+			}} while (!correctInput);
+			
 		
-		playerCommand = reporter.askForMovement();
+		moveCommand = reporter.askForMovement();
 		
-		while (!correctInput) {
+		do {
 		try {
-			playerCommand.execute(currentPlayer, map);
+			cellAction = moveCommand.execute(currentPlayer, map);
 			correctInput = true;
 		} catch (Exception e) {	//DestinationNotInRangeException, DestinationNotExistingException
 			correctInput = false;
-		}}
+		}} while (!correctInput);
 		 
 		if(!currentPlayer.hasSedatives())
 			cardAction = cellAction.execute(currentPlayer, map);
