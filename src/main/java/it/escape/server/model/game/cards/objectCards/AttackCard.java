@@ -1,7 +1,7 @@
 package it.escape.server.model.game.cards.objectCards;
 
 import it.escape.server.controller.game.actions.ObjectCardAction;
-import it.escape.server.controller.game.actions.objectCardActions.Attack;
+import it.escape.server.controller.game.actions.objectcard.actions.Attack;
 
 public class AttackCard implements ObjectCard {
 

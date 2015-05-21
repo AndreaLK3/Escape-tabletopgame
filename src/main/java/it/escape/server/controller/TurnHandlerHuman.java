@@ -3,7 +3,7 @@ package it.escape.server.controller;
 
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.ObjectCardAction;
-import it.escape.server.controller.game.actions.playerCommands.ChooseObjectCard;
+import it.escape.server.controller.game.actions.playercommands.ChooseObjectCard;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 

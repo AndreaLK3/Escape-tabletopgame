@@ -1,4 +1,4 @@
-package it.escape.server.controller.game.actions.cardActions;
+package it.escape.server.controller.game.actions.card.actions;
 
 public class SilenceWithObject extends Silence {
 

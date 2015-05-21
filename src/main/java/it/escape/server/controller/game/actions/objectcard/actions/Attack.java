@@ -1,4 +1,4 @@
-package it.escape.server.controller.game.actions.objectCardActions;
+package it.escape.server.controller.game.actions.objectcard.actions;
 
 import java.util.List;
 

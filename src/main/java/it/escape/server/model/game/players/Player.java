@@ -1,9 +1,5 @@
 package it.escape.server.model.game.players;
 
-import it.escape.server.model.game.cards.objectCards.ObjectCard;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public abstract class Player {
