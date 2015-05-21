@@ -37,6 +37,11 @@ public class Announcer extends Observable {
 		// use announce to send that string
 	}
 	
+	public void announceNoise(PositionCubic position) {
+		// encode position to a string
+		// use announce to send that string
+	}
+	
 	public void announce(String message) {
 		this.message = message;
 		setChanged();
