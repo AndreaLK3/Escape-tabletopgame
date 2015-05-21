@@ -19,5 +19,4 @@ public class Attack implements ObjectCardAction {
 		}
 	}
 
-
 }
