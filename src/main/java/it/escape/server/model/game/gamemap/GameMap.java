@@ -113,7 +113,10 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 		if (!cellExists(dest3D)) {
 			throw new Exception();
 		}
-		
+		if (!getCell(dest3D).canEnter(curPlayer)) {
+				throw new Exception();
+		}
+			
 		updatePlayerPosition(curPlayer, dest3D);
 		
 		return getCell(dest3D).getCellAction(); 
@@ -193,7 +196,11 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	}
 
 	
-	public boolean cellExists(PositionCubic destination) {
-		return cells.containsKey(CoordinatesConverter.fromCubicToAlphaNum(destination));
+	public boolean cellExists(PositionCubic position) {
+		return cells.containsKey(CoordinatesConverter.fromCubicToAlphaNum(position));
+	}
+	
+	public boolean cellExists(String position) {
+		return cells.containsKey(position);
 	}
 }

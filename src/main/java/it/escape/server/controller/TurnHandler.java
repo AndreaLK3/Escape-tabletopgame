@@ -10,7 +10,7 @@ import it.escape.server.controller.game.actions.PlayerCommand;
  * Since the order of execution may vary depending on user input,
  * it will contain a reference to an UserMessagesReporter object.
  * The 2 subclasses, HumanTurnHandler and AlienTurnHandler,
- * implement the function turnSequence() in different ways.
+ * implement the function executeTurnSequence() in different ways.
  * @author andrea
  */
 public class TurnHandler {

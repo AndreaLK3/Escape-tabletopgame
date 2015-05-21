@@ -76,7 +76,7 @@ public class UserMessagesReporter {
 	}
 	
 
-	public String askForNoise() {
+	public String askForNoisePosition() {
 		String location;
 		//to be implemented 
 		location = askForPosition();
