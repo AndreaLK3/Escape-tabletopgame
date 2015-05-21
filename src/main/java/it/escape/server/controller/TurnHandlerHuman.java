@@ -23,13 +23,16 @@ public class TurnHandlerHuman extends TurnHandler {
 		currentPlayer.startTurn();
 		
 		if (reporter.askIfObjectCard("Do you want to play an object card before moving?"));
-		do {
-			try {
-				objectCardAction = ChooseObjectCard.execute(currentPlayer);
-				correctInput = true;
-			} catch (Exception e) {	//DestinationNotInRangeException, DestinationNotExistingException
-				correctInput = false;
-			}} while (!correctInput);
+		{	do {
+				try {
+					objectCardAction = ChooseObjectCard.execute(currentPlayer);
+					correctInput = true;
+				} catch (Exception e) {	//DestinationNotInRangeException, DestinationNotExistingException
+					correctInput = false;
+				}
+				} while (!correctInput);
+		objectCardAction.execute(currentPlayer, map);
+		}
 			
 		
 		moveCommand = reporter.askForMovement();

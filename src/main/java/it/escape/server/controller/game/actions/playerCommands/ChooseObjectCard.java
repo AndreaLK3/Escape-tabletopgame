@@ -14,6 +14,7 @@ public class ChooseObjectCard implements PlayerCommand {
 	public static ObjectCardAction execute(Human currentPlayer) {
 		String cardName = UserMessagesReporter.getReporterInstance(currentPlayer).askWhichObjectCard();
 		//to implement : check the Player's Hand, and see if he has the required Card
+		// to implement : check if the Player has moved or not, and check what kind of card he wants to play
 		// for now, 
 		return new Sedatives();
 		
