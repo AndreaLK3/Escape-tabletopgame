@@ -3,7 +3,6 @@ package it.escape.server.controller;
 
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.ObjectCardAction;
-import it.escape.server.controller.game.actions.playercommands.ChooseObjectCard;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 
@@ -22,7 +21,7 @@ public class TurnHandlerHuman extends TurnHandler {
 		reporter = UserMessagesReporter. getReporterInstance(currentPlayer);
 		currentPlayer.startTurn();
 		
-		if (reporter.askIfObjectCard("Do you want to play an object card before moving?"));
+		/*if (reporter.askIfObjectCard("Do you want to play an object card before moving?"));
 		{	do {
 				try {
 					objectCardAction = ChooseObjectCard.execute(currentPlayer);
@@ -32,7 +31,7 @@ public class TurnHandlerHuman extends TurnHandler {
 				}
 				} while (!correctInput);
 		objectCardAction.execute(currentPlayer, map);
-		}
+		}*/
 			
 		
 		moveCommand = reporter.askForMovement();
