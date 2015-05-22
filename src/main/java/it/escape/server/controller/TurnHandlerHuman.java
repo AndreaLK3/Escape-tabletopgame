@@ -46,9 +46,13 @@ public class TurnHandlerHuman extends TurnHandler {
 		
 		if (reporter.askIfObjectCard("Do you wish to play an object card after moving?"));
 		//ask for an Object Card. The Player has the hand...
+		objectCardAction.execute(currentPlayer, map);
 		
+		while (currentPlayer.getMyHand().isFull())
+		{	//print : You have to flush an object card
+			reporter.askWhichObjectCard();}
+			
 	
-		cardAction.execute(currentPlayer, map);
 		
 		}
 

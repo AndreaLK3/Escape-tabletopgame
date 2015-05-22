@@ -24,6 +24,16 @@ public class Hand {
 		return handOfCards.isEmpty();
 	}
 	
+	public boolean isFull() {
+		return handOfCards.size() == MAXOBJECTS;
+	}
 	
+	public void addCard(ObjectCard c) {
+		handOfCards.add(c);
+		
+	}
 
+	public void removeCard(int i) {
+		handOfCards.remove(i);
+	}
 }
