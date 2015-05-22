@@ -31,7 +31,7 @@ public class TurnHandlerHuman extends TurnHandler {
 				if (objectCard != null) {  // the key matches a card
 					/*
 					 * check restrictions based on whether the player has already moved
-					 * during this turn (i.e. no can't use sedatives after a move)
+					 * during this turn (i.e. can't use sedatives after a move)
 					 */
 					if (currentPlayer.HasMoved()) {
 						restrictions = false;  // control logic goes here
