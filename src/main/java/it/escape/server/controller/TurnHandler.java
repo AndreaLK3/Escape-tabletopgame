@@ -4,7 +4,6 @@ import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.CellAction;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
-import it.escape.server.model.game.players.Player;
 
 /** This class defines the order of execution of the various
  * methods that are invoked during a turn.
