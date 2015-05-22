@@ -38,7 +38,7 @@ public class TurnHandlerHuman extends TurnHandler {
 						 * check restrictions based on whether the player has already moved
 						 * during this turn (i.e. no can't use sedatives after a move)
 						 */
-						if (currentPlayer.getHasMoved()) {
+						if (currentPlayer.HasMoved()) {
 							restrictions = false;  // control logic goes here
 						}
 						else {
@@ -88,8 +88,8 @@ public class TurnHandlerHuman extends TurnHandler {
 			cardAction = cellAction.execute(currentPlayer, map);
 			if (cardAction.hasObjectCard()) {
 				objectCard = (ObjectCard) DecksHandler.getDecksHandler().drawObjectCard();
-				if (!currentPlayer.acquireCard(objectCard)) {
-					// ask the player to discard one of the four cards
+				if (currentPlayer.acquireCard(objectCard)) {
+					
 				}
 			}
 		}

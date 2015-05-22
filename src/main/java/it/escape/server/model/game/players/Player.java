@@ -1,8 +1,7 @@
 package it.escape.server.model.game.players;
 
 import it.escape.server.model.game.cards.objectCards.ObjectCard;
-
-import java.util.List;
+import it.escape.server.model.game.cards.Hand;
 
 
 
@@ -11,18 +10,18 @@ public abstract class Player {
 	protected int maxRange;
 	protected boolean hasMoved;
 	protected boolean alive;
+	protected Hand myHand;
 	
-	protected final static int MAX_CARDS = 3;
-
-	protected List<ObjectCard> handOfCards;
 	
 	public Player () {
 		alive = true;
 	}
 	
+
 	public void startTurn() {
 		hasMoved = false;
 	}
+
 
 	public int getMaxRange() {
 		return maxRange;
@@ -36,10 +35,36 @@ public abstract class Player {
 		return alive;
 	}
 	
-	public boolean getHasMoved() {
+	/**
+	 * differently implemented in aliens and humans (humans can defend)
+	 */
+	public abstract void die();
+
+	/**
+	 * It is implemented in the Human class, to clean up effects of Sedatives/Adrenaline
+	 */
+	public abstract void endOfTurn();
+	
+	
+	public boolean HasMoved() {
 		return hasMoved;
 	}
+
+
+	public void setHasMoved(boolean hasMoved) {
+		this.hasMoved = hasMoved;
+	}
+
+	public void setAlive(boolean alive) {
+		this.alive = alive;
+	}
 	
+	public abstract PlayerTeams getTeam();
+
+	public Hand getMyHand() {
+		return myHand;
+	}
+
 	/**
 	 * Add an object card to the player's hand, return false if the player
 	 * cannot take any more cards
@@ -47,11 +72,11 @@ public abstract class Player {
 	 * @return
 	 */
 	public boolean acquireCard(ObjectCard card) {
-		if (handOfCards.size() > MAX_CARDS) {
+		if (myHand.isEmpty()) {
 			return false;
 		}
 		else {
-			handOfCards.add(card);
+			myHand.addCard(card);
 			return true;
 		}
 	}
@@ -69,20 +94,5 @@ public abstract class Player {
 		// return the card, null if not found
 		return null;
 	}
-	
-	/**
-	 * differently implemented in aliens and humans (humans can defend)
-	 */
-	public abstract void die();
-
-	/**
-	 * clean up sedatives / adrenaline effect (in the human)
-	 */
-	public abstract void endOfTurn();
-	
-	
-	public abstract PlayerTeams getTeam();
-
-
 	
 }

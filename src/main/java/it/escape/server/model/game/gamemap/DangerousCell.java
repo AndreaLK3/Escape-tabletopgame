@@ -1,7 +1,7 @@
 package it.escape.server.model.game.gamemap;
 
 import it.escape.server.controller.game.actions.CellAction;
-import it.escape.server.controller.game.actions.cell.actions.DrawSectorCard;
+import it.escape.server.controller.game.actions.cell.actions.GetSectorCardAction;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.server.model.game.players.Player;
 
@@ -19,7 +19,7 @@ public class DangerousCell extends Cell {
 
 	@Override
 	public CellAction getCellAction() {
-		return new DrawSectorCard();
+		return new GetSectorCardAction();
 	}
 
 	@Override
