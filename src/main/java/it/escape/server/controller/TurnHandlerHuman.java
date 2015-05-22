@@ -60,6 +60,7 @@ public class TurnHandlerHuman extends TurnHandler {
 					correctInput = false;
 				}
 			} while (!correctInput);
+			// TODO: broadcast (via Announcer) that the user will now use an object card 
 			objectCardAction.execute(currentPlayer, map);
 		}
 	}

@@ -39,6 +39,8 @@ public class GameMaster {
 		timerThread = new Thread(timeController);
 		listOfPlayers = new ArrayList<Player>();
 		currentTeam = PlayerTeams.ALIENS;
+		
+		launchThreads();
 	}
 	
 	/* The interface is used to find the right UMR.*/

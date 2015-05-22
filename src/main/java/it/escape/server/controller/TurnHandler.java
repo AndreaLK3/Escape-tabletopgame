@@ -27,12 +27,16 @@ public abstract class TurnHandler {
 		correctInput = false;
 	}
 	
+	/**
+	 * standard turn sequence, Human and Alien may implement the various steps
+	 * differently, but they remain the same nonetheless.
+	 */
 	public void executeTurnSequence() {
-		initialize();
-		turnBeforeMove();
-		turnMove();
-		turnLand();
-		turnAfterMove();
+		initialize();  // step 0
+		turnBeforeMove();  // step 1
+		turnMove();  // step 2
+		turnLand();  // also step 2
+		turnAfterMove();  // step 3
 		}
 	
 	/**

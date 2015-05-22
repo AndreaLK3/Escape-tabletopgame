@@ -68,6 +68,12 @@ public class UserMessagesReporter {
 		return true;
 	}
 
+	/**
+	 * Queries the user for an object card to play
+	 * It is assumed that the user / client program already knows
+	 * the cards in her possession.
+	 * @return string representing the chosen card
+	 */
 	public String askWhichObjectCard() {
 		/* To be implemented
 		 * returns a validated string from the Client
