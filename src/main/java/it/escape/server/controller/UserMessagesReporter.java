@@ -67,9 +67,19 @@ public class UserMessagesReporter {
 		 */
 		return true;
 	}
+	
+	/**
+	 * Ask the user (who has too much cards in his hand) if he wants to play
+	 * or discard the extra card
+	 * @return true for play, false for discard
+	 */
+	public boolean askPlayCardOrDiscard() {
+		// to be implemented
+		return false;
+	}
 
 	/**
-	 * Queries the user for an object card to play
+	 * Queries the user for an object card to play / discard
 	 * It is assumed that the user / client program already knows
 	 * the cards in her possession.
 	 * @return string representing the chosen card
@@ -81,6 +91,10 @@ public class UserMessagesReporter {
 		return "Adrenaline";
 	}
 	
+	/**
+	 * Queries the user for a position to move to
+	 * @return
+	 */
 	public MoveCommand askForMovement() {
 		String destination;
 		destination = askForPosition();

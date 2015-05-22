@@ -25,7 +25,11 @@ public class Hand {
 	}
 	
 	public boolean isFull() {
-		return handOfCards.size() == MAXOBJECTS;
+		return handOfCards.size() >= MAXOBJECTS;
+	}
+	
+	public boolean isOverFull() {
+		return handOfCards.size() > MAXOBJECTS;
 	}
 	
 	public void addCard(ObjectCard c) {

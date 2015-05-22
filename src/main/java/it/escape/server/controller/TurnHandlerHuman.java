@@ -1,9 +1,10 @@
 package it.escape.server.controller;
 
 
+import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.ObjectCardAction;
-import it.escape.server.model.game.cards.DecksHandler;
+import it.escape.server.controller.game.actions.card.actions.DrawObjectCard;
 import it.escape.server.model.game.cards.objectCards.ObjectCard;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
@@ -20,54 +21,73 @@ public class TurnHandlerHuman extends TurnHandler {
 		this.currentPlayer=(Human)currentPlayer;
 	}
 	
-	public void initialize() {
-		reporter = UserMessagesReporter.getReporterInstance(currentPlayer);
-		currentPlayer.startTurn();
-	}
-	
-	private void playObjectCard(String message) {
-		if (reporter.askIfObjectCard(message)) {
-			do {
-				try {
-					boolean restrictions;
-					String key = reporter.askWhichObjectCard();
-					objectCard = currentPlayer.drawCard(key);
+	private void playObjectCard() {
+		do {
+			try {
+				boolean restrictions;
+				String key = reporter.askWhichObjectCard();
+				objectCard = currentPlayer.drawCard(key);  // this card is removed from the player's hand
+				
+				if (objectCard != null) {  // the key matches a card
+					/*
+					 * check restrictions based on whether the player has already moved
+					 * during this turn (i.e. no can't use sedatives after a move)
+					 */
+					if (currentPlayer.HasMoved()) {
+						restrictions = false;  // control logic goes here
+					}
+					else {
+						restrictions = false;  // control logic goes here
+					}
 					
-					if (objectCard != null) {  // the key matches a card
-						/*
-						 * check restrictions based on whether the player has already moved
-						 * during this turn (i.e. no can't use sedatives after a move)
-						 */
-						if (currentPlayer.HasMoved()) {
-							restrictions = false;  // control logic goes here
-						}
-						else {
-							restrictions = false;  // control logic goes here
-						}
-						
-						if (!restrictions) {
-							objectCardAction = objectCard.getObjectAction();
-							correctInput = true;
-						}
-						else {
-							correctInput = false;
-						}
+					if (!restrictions) {
+						objectCardAction = objectCard.getObjectAction();
+						// TODO: broadcast (via Announcer) that the user will now use an object card 
+						objectCardAction.execute(currentPlayer, map);
+						correctInput = true;
 					}
 					else {
 						correctInput = false;
 					}
-				} catch (Exception e) {	//DestinationNotInRangeException, DestinationNotExistingException
+				}
+				else {
 					correctInput = false;
 				}
-			} while (!correctInput);
-			// TODO: broadcast (via Announcer) that the user will now use an object card 
-			objectCardAction.execute(currentPlayer, map);
-		}
+			} catch (Exception e) {	//DestinationNotInRangeException, DestinationNotExistingException
+				correctInput = false;
+			}
+		} while (!correctInput);
+	}
+	
+	private void discardObjectCard() {
+		do {
+			try {
+				String key = reporter.askWhichObjectCard();
+				objectCard = currentPlayer.drawCard(key);  // card is removed from the player's hand
+				
+				if (objectCard != null) {  // the key matches a card
+					correctInput = true;
+				}
+				else {
+					correctInput = false;
+				}
+			} catch (Exception e) {	//DestinationNotInRangeException, DestinationNotExistingException
+				correctInput = false;
+			}
+		} while (!correctInput);
+	}
+	
+	@Override
+	public void initialize() {
+		reporter = UserMessagesReporter.getReporterInstance(currentPlayer);
+		currentPlayer.startTurn();
 	}
 
 	@Override
 	public void turnBeforeMove() {
-		playObjectCard("Do you want to play an object card before moving?");
+		if (reporter.askIfObjectCard("Do you want to play an object card before moving?")) {
+			playObjectCard();
+		}
 	}
 
 	@Override
@@ -88,18 +108,28 @@ public class TurnHandlerHuman extends TurnHandler {
 		if(!currentPlayer.hasSedatives()) {
 			cardAction = cellAction.execute(currentPlayer, map);
 			if (cardAction.hasObjectCard()) {
-				objectCard = (ObjectCard) DecksHandler.getDecksHandler().drawObjectCard();
-				if (!currentPlayer.acquireCard(objectCard)) {
-					// hand of card is full, ask which card to discard
-					// (out of 4 possible cards)
-				}
+				CardAction drawcard = new DrawObjectCard();
+				drawcard.execute(currentPlayer, map);
 			}
 		}
 	}
 
 	@Override
 	public void turnAfterMove() {
-		playObjectCard("Do you wish to play an object card after moving?");
+		if (currentPlayer.getMyHand().isOverFull()) {  // too many cards in my hand
+			if (reporter.askPlayCardOrDiscard()) {  // user chose "play"
+				playObjectCard();
+			}
+			else {  // user chose "discard"
+				discardObjectCard();
+			}
+		}
+		else {  // normal circumstances
+			if (reporter.askIfObjectCard("Do you want to play an object card after moving?")) {
+				playObjectCard();
+			}
+		}
+		
 	}
 
 

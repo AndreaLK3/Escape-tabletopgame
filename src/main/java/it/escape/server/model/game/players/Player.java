@@ -65,20 +65,8 @@ public abstract class Player {
 		return myHand;
 	}
 
-	/**
-	 * Add an object card to the player's hand, return false if the player
-	 * cannot take any more cards
-	 * @param card
-	 * @return
-	 */
-	public boolean acquireCard(ObjectCard card) {
-		if (myHand.isEmpty()) {
-			return false;
-		}
-		else {
-			myHand.addCard(card);
-			return true;
-		}
+	public void addCard(ObjectCard card) {
+		myHand.addCard(card);
 	}
 	
 	/**
