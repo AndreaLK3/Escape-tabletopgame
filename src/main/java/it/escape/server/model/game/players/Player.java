@@ -37,7 +37,7 @@ public abstract class Player {
 	public abstract void die();
 
 	/**
-	 * clean up sedatives / adrenaline effect (in the human)
+	 * It is overridden in the Human class, to clean up effects of Sedatives/Adrenaline
 	 */
 	public abstract void endOfTurn();
 	

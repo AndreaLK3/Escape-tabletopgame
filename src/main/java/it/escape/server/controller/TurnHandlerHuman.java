@@ -22,15 +22,7 @@ public class TurnHandlerHuman extends TurnHandler {
 		currentPlayer.startTurn();
 		
 		/*if (reporter.askIfObjectCard("Do you want to play an object card before moving?"));
-		{	do {
-				try {
-					objectCardAction = ChooseObjectCard.execute(currentPlayer);
-					correctInput = true;
-				} catch (Exception e) {	//DestinationNotInRangeException, DestinationNotExistingException
-					correctInput = false;
-				}
-				} while (!correctInput);
-		objectCardAction.execute(currentPlayer, map);
+		
 		}*/
 			
 		
@@ -44,8 +36,13 @@ public class TurnHandlerHuman extends TurnHandler {
 			correctInput = false;
 		}} while (!correctInput);
 		 
-		if(!currentPlayer.hasSedatives())
-			cardAction = cellAction.execute(currentPlayer, map);
+		if(currentPlayer.hasSedatives())
+			{}
+		else
+		{	cardAction = cellAction.execute(currentPlayer, map);
+			cardAction.execute(currentPlayer, map);
+		}
+		
 		
 		if (reporter.askIfObjectCard("Do you wish to play an object card after moving?"));
 		//ask for an Object Card. The Player has the hand...

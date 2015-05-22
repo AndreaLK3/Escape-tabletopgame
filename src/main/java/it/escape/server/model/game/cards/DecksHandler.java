@@ -1,5 +1,9 @@
 package it.escape.server.model.game.cards;
 
+/**This class initializes the decks, which contain different kinds of cards, and makes them visible.
+ * n: It is a singleton.
+ * @author andrea
+ */
 public class DecksHandler {
 	
 	private EscapeDeck eDeck;
