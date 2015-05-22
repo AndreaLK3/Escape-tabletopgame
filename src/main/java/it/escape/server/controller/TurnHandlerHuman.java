@@ -88,8 +88,9 @@ public class TurnHandlerHuman extends TurnHandler {
 			cardAction = cellAction.execute(currentPlayer, map);
 			if (cardAction.hasObjectCard()) {
 				objectCard = (ObjectCard) DecksHandler.getDecksHandler().drawObjectCard();
-				if (currentPlayer.acquireCard(objectCard)) {
-					
+				if (!currentPlayer.acquireCard(objectCard)) {
+					// hand of card is full, ask which card to discard
+					// (out of 4 possible cards)
 				}
 			}
 		}
