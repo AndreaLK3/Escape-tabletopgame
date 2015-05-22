@@ -3,8 +3,8 @@ package it.escape.server.controller;
 import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.CellAction;
 import it.escape.server.controller.game.actions.MapActionInterface;
-import it.escape.server.controller.game.actions.ObjectCardAction;
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
+import it.escape.server.model.game.players.Player;
 
 /** This class defines the order of execution of the various
  * methods that are invoked during a turn.
@@ -14,7 +14,7 @@ import it.escape.server.controller.game.actions.playercommands.MoveCommand;
  * implement the function executeTurnSequence() in different ways.
  * @author andrea
  */
-public class TurnHandler {
+public abstract class TurnHandler {
 	
 	protected CardAction cardAction;
 	protected CellAction cellAction;
@@ -28,6 +28,38 @@ public class TurnHandler {
 		correctInput = false;
 	}
 	
-	public void executeTurnSequence() {} ;
+	public void executeTurnSequence() {
+		initialize();
+		turnBeforeMove();
+		turnMove();
+		turnLand();
+		turnAfterMove();
+		}
+	
+	/**
+	 * prepare the turn-handler (setup Reporter, prepare currentPlayer)
+	 */
+	public abstract void initialize();
+	
+	/**
+	 * actions performed before moving (in the human: playing an object cards)
+	 */
+	public abstract void turnBeforeMove();
+	
+	/**
+	 * only the movement itself
+	 */
+	public abstract void turnMove();
+	
+	/**
+	 * actions performed upon landing on a new cell
+	 * (picking up sector card and maybe an object card too)
+	 */
+	public abstract void turnLand();
+	
+	/**
+	 * actions performed after moving (in the human: playing an object card)
+	 */
+	public abstract void turnAfterMove();
 	
 }
