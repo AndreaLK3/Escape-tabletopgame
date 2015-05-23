@@ -80,7 +80,7 @@ public class TurnHandlerHuman extends TurnHandler {
 	@Override
 	public void initialize() {
 		reporter = UserMessagesReporter.getReporterInstance(currentPlayer);
-		currentPlayer.startTurn();
+		currentPlayer.startTurn();	//calls this function to reset the state of the Player
 	}
 
 	@Override
@@ -108,8 +108,8 @@ public class TurnHandlerHuman extends TurnHandler {
 		if(!currentPlayer.hasSedatives()) {
 			cardAction = cellAction.execute(currentPlayer, map);
 			if (cardAction.hasObjectCard()) {
-				CardAction drawcard = new DrawObjectCard();
-				drawcard.execute(currentPlayer, map);
+				cardAction = new DrawObjectCard();
+				cardAction.execute(currentPlayer, map);
 			}
 		}
 	}

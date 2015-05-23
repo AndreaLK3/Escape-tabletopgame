@@ -37,7 +37,10 @@ public class Hand {
 		
 	}
 
+	/** 
+	 * Removes the card that is located at the i-th position in the list	 */
 	public void removeCard(int i) {
-		handOfCards.remove(i);
+		if (!isEmpty())
+			handOfCards.remove(i);
 	}
 }

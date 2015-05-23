@@ -11,7 +11,7 @@ import it.escape.server.controller.game.actions.playercommands.MoveCommand;
  * it will contain a reference to an UserMessagesReporter object.
  * The 2 subclasses, HumanTurnHandler and AlienTurnHandler,
  * implement the function executeTurnSequence() in different ways.
- * @author andrea
+ * @author andrea, michele
  */
 public abstract class TurnHandler {
 	
@@ -45,7 +45,7 @@ public abstract class TurnHandler {
 	public abstract void initialize();
 	
 	/**
-	 * actions performed before moving (in the human: playing an object cards)
+	 * actions performed before moving (in the human: playing an object card)
 	 */
 	public abstract void turnBeforeMove();
 	

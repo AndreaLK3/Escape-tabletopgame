@@ -17,42 +17,42 @@ public class TurnHandlerAlien extends TurnHandler{
 
 	@Override
 	public void executeTurnSequence() {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 
 	@Override
 	public void turnBeforeMove() {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 
 	@Override
 	public void turnMove() {
-		// TODO Auto-generated method stub
+	
 		
 	}
 
 
 	@Override
 	public void turnLand() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 
 	@Override
 	public void turnAfterMove() {
-		// TODO Auto-generated method stub
+	
 		
 	}
 
 
 	@Override
 	public void initialize() {
-		// TODO Auto-generated method stub
+	
 		
 	}
 }
