@@ -53,7 +53,7 @@ public class TurnHandlerHuman extends TurnHandler {
 				else {
 					correctInput = false;
 				}
-			} catch (Exception e) {	//CardNotExistingException
+			} catch (Exception e) {	//CardNotFoundException
 				correctInput = false;
 			}
 		} while (!correctInput);

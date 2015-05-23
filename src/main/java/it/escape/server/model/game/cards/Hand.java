@@ -1,6 +1,9 @@
 package it.escape.server.model.game.cards;
 
+import it.escape.server.model.game.cards.objectCards.AttackCard;
 import it.escape.server.model.game.cards.objectCards.ObjectCard;
+import it.escape.server.model.game.cards.objectCards.SedativesCard;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -29,23 +32,32 @@ public class Hand {
 	
 	/** 
 	 * Removes the card of the specified kind	n:we have to see if it works */
-	private void removeCard(ObjectCard card) {
+	public void removeCard(ObjectCard card) {
 		if (!isEmpty())
 			handOfCards.remove(card);
 	}
 	
 	/** 
 	 * Removes the card that is located at the i-th position in the list	 */
-	private void removeCard(int i) {
+	public void removeCard(int i) {
 		if (!isEmpty())
 			handOfCards.remove(i);
 	}
 	
 
-	private boolean containsCard(ObjectCard card) {
+	public boolean containsCard(ObjectCard card) {
 		return handOfCards.contains(card);
 	}
 
+	public ObjectCard getCardFromString(String s) {
+		if (s.equalsIgnoreCase("attack"))
+			return new AttackCard();
+		if (s.equalsIgnoreCase("sedatives"))
+			return new SedativesCard();
+		else 
+			return null;
+		
+	}
 	
 	public boolean isEmpty() {
 		return handOfCards.isEmpty();

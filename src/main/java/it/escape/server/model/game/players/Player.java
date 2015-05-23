@@ -77,10 +77,17 @@ public abstract class Player {
 	 * @return
 	 */
 	public ObjectCard drawCard(String key) {
+		ObjectCard theCard;
+		
 		// match key with one or none of the cards in the player's hand
+		theCard = myHand.getCardFromString(key);
+		if (!myHand.containsCard(theCard))
+			return null;
+		
 		// remove said card from the hand
-		// return the card, null if not found
-		return null;
+		myHand.removeCard(theCard);
+		return theCard;
+		
 	}
 	
 }
