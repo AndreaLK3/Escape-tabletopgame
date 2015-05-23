@@ -80,7 +80,7 @@ public class TurnHandlerHuman extends TurnHandler {
 	@Override
 	public void initialize() {
 		reporter = UserMessagesReporter.getReporterInstance(currentPlayer);
-		currentPlayer.startTurn();	//calls this function to reset the state of the Player
+		currentPlayer.startTurn();	//sets Player.hasMoved to false and resets past states
 	}
 
 	@Override
