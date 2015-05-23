@@ -24,16 +24,28 @@ public class Hand {
 		
 	}
 
+	
+	
+	
+	/** 
+	 * Removes the card of the specified kind	n:we have to see if it works */
+	private void removeCard(ObjectCard card) {
+		if (!isEmpty())
+			handOfCards.remove(card);
+	}
+	
 	/** 
 	 * Removes the card that is located at the i-th position in the list	 */
 	private void removeCard(int i) {
 		if (!isEmpty())
 			handOfCards.remove(i);
 	}
+	
 
-	public boolean containsCard(String cardName) {
-		return false;
+	private boolean containsCard(ObjectCard card) {
+		return handOfCards.contains(card);
 	}
+
 	
 	public boolean isEmpty() {
 		return handOfCards.isEmpty();

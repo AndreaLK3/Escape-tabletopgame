@@ -77,7 +77,7 @@ public abstract class Player {
 	 * @return
 	 */
 	public ObjectCard drawCard(String key) {
-		// match key with one or none of the card in the player's hand
+		// match key with one or none of the cards in the player's hand
 		// remove said card from the hand
 		// return the card, null if not found
 		return null;
