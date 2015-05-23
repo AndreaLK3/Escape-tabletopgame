@@ -14,11 +14,26 @@ public class Hand {
 	
 	List<ObjectCard> handOfCards;
 	
+	/**Constructor**/
 	public Hand() {
 		handOfCards = new ArrayList<ObjectCard>();
 	}
 	
-	
+	public void addCard(ObjectCard c) {
+		handOfCards.add(c);
+		
+	}
+
+	/** 
+	 * Removes the card that is located at the i-th position in the list	 */
+	private void removeCard(int i) {
+		if (!isEmpty())
+			handOfCards.remove(i);
+	}
+
+	public boolean containsCard(String cardName) {
+		return false;
+	}
 	
 	public boolean isEmpty() {
 		return handOfCards.isEmpty();
@@ -30,17 +45,5 @@ public class Hand {
 	
 	public boolean isOverFull() {
 		return handOfCards.size() > MAXOBJECTS;
-	}
-	
-	public void addCard(ObjectCard c) {
-		handOfCards.add(c);
-		
-	}
-
-	/** 
-	 * Removes the card that is located at the i-th position in the list	 */
-	public void removeCard(int i) {
-		if (!isEmpty())
-			handOfCards.remove(i);
 	}
 }
