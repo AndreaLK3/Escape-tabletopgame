@@ -4,7 +4,7 @@ package it.escape.server.controller;
 import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.ObjectCardAction;
-import it.escape.server.controller.game.actions.card.actions.DrawObjectCard;
+import it.escape.server.controller.game.actions.cardactions.DrawObjectCard;
 import it.escape.server.model.game.cards.objectCards.ObjectCard;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;

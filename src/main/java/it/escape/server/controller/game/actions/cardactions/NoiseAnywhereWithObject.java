@@ -1,4 +1,4 @@
-package it.escape.server.controller.game.actions.card.actions;
+package it.escape.server.controller.game.actions.cardactions;
 
 public class NoiseAnywhereWithObject extends NoiseAnywhere {
 

@@ -1,4 +1,4 @@
-package it.escape.server.controller.game.actions.card.actions;
+package it.escape.server.controller.game.actions.cardactions;
 
 import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.MapActionInterface;
