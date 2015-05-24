@@ -134,7 +134,7 @@ public class TurnHandlerHuman extends TurnHandler {
 
 	@Override
 	public void fillInDefaultChoices() {
-		// TODO Auto-generated method stub
+		
 	}
 
 }
