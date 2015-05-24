@@ -14,9 +14,6 @@ public class Alien extends Player {
 		return PlayerTeams.ALIENS;
 	}
 
-	@Override
-	public void endOfTurn() {
-	}
 
 	@Override
 	public void die() {

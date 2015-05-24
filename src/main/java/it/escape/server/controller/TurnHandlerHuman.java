@@ -1,7 +1,6 @@
 package it.escape.server.controller;
 
 
-import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.ObjectCardAction;
 import it.escape.server.controller.game.actions.cardactions.DrawObjectCard;
@@ -125,6 +124,7 @@ public class TurnHandlerHuman extends TurnHandler {
 
 	@Override
 	public void turnAfterMove() {
+	
 		if (currentPlayer.getMyHand().isOverFull()) {  // too many cards in my hand
 			if (reporter.askPlayCardOrDiscard()) {  // user chose "play"
 				playObjectCard();
@@ -138,6 +138,7 @@ public class TurnHandlerHuman extends TurnHandler {
 				playObjectCard();
 			}
 		}
+		
 		
 	}
 
