@@ -13,10 +13,10 @@ import it.escape.server.controller.MessagingHead;
  */
 public class MessagingInterface implements MessagingHead, MessagingTail {
 	
-	private Queue<String> transmitQueue;
-	private Queue<String> reciveQueue;
+	protected Queue<String> transmitQueue;
+	protected Queue<String> reciveQueue;
 	
-	private List<String> context;
+	private List<String> context = null;
 	
 	private String defaultOption;
 	
@@ -27,10 +27,12 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 	public MessagingInterface() {
 		transmitQueue = new ConcurrentLinkedQueue<String>();
 		reciveQueue = new ConcurrentLinkedQueue<String>();
+		override = new AtomicBoolean();
+		connetctionAlive = new AtomicBoolean();
 		override.set(false);
 	}
 	
-	protected void afterTailWrite() {
+	protected synchronized void afterTailWrite() {
 		notify();
 	}
 
@@ -38,7 +40,7 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 		// to be overridden
 	}
 
-	public void tailWrite(String message) {
+	public void tailWrite() {
 		// to be overridden
 		// must call afterTailWrite()
 		afterTailWrite();
@@ -57,7 +59,7 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 		tailRead();
 	}
 
-	public String headRead() {
+	public synchronized String headRead() {
 		try {
 			wait();
 		} catch (InterruptedException e) {
@@ -69,7 +71,10 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 		else {
 			while (!reciveQueue.isEmpty()) {
 				String next = reciveQueue.poll();
-				if (context.contains(next)) {
+				if (context == null || context.isEmpty()) {
+					return next;
+				}
+				else if (context.contains(next) && next!=null) {
 					return next;
 				}
 			}
@@ -86,7 +91,7 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 		this.defaultOption = defaultOption;
 	}
 
-	public void overrideDefaultOption() {
+	public synchronized void overrideDefaultOption() {
 		override.set(true);
 		notify();
 	}

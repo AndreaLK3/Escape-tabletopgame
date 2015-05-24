@@ -4,7 +4,7 @@ public interface MessagingTail {
 
 	public void tailRead();
 	
-	public void tailWrite(String message);
+	public void tailWrite();
 	
 	public void setConnectionAlive();
 	
