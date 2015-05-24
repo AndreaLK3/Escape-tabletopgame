@@ -54,7 +54,9 @@ public class ExecutiveController implements Runnable {
 			turnHandler = new TurnHandlerAlien(currentPlayer, map);
 		}
 		turnHandler.executeTurnSequence();
-}
+		
+		//TODO: check win/lose conditions
+	}
 
 	
 
@@ -65,8 +67,12 @@ public class ExecutiveController implements Runnable {
 		runGame = true;		
 	}
 	
+	/**
+	 * invoked by TimeController;
+	 * automatically complete the actions for this turn
+	 * at this point gameTurn() will return on its own
+	 */
 	public void fillInDefaultChoices() {
-		// automatically complete the actions for this turn
-		// at this point gameTurn() will return on its own
+		turnHandler.fillInDefaultChoices();  // propagate the call
 	}
 }

@@ -39,6 +39,13 @@ public abstract class TurnHandler {
 		turnAfterMove();  // step 3
 		}
 	
+	
+	/**
+	 * invoked by turnhandler; it will conclude the turn by automatically
+	 * choosing the default answers in any pending user-interaction(s)
+	 */
+	public abstract void fillInDefaultChoices();
+	
 	/**
 	 * prepare the turn-handler (setup Reporter, prepare currentPlayer)
 	 */

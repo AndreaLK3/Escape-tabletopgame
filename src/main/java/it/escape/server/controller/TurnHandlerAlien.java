@@ -55,4 +55,11 @@ public class TurnHandlerAlien extends TurnHandler{
 	
 		
 	}
+
+
+	@Override
+	public void fillInDefaultChoices() {
+		// TODO Auto-generated method stub
+		
+	}
 }

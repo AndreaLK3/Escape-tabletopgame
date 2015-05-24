@@ -55,6 +55,7 @@ public class TimeController implements Runnable {
 			}
 			
 			if (!turnCompleted) {  // didn't end in time? End it for him
+				log.fine(StringRes.getString("controller.time.forcingDefaults"));
 				executorRef.fillInDefaultChoices();
 				
 				try {
