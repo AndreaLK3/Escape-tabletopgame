@@ -10,8 +10,10 @@ public class DummyMain {
 		Scanner in = new Scanner(System.in);
 		MessagingInterface iface = new TerminalInterface(in);
 		DummyBackend controller = new DummyBackend(iface);
+		DummyTimer timer = new DummyTimer(iface);
 		
 		(new Thread(controller)).start();
+		(new Thread(timer)).start();
 		
 		while (true) {
 			iface.tailWrite();

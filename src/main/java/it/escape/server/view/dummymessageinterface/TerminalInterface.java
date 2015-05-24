@@ -17,7 +17,6 @@ public class TerminalInterface extends MessagingInterface {
 
 	@Override
 	public void tailRead() {
-		System.out.println("tailread");
 		while (!transmitQueue.isEmpty()) {
 			String next = transmitQueue.poll();
 			System.out.println(next);

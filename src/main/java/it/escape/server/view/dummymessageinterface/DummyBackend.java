@@ -12,13 +12,13 @@ public class DummyBackend implements Runnable{
 
 	public void run() {
 		while (true) {
-			System.out.println("beginning test sequence");
 			testSquence();
 		}
 		
 	}
 	
 	private void testSquence() {
+		iface.setDefaultOption("default option thing");
 		iface.headWrite("Scrivi qualcosa");
 		System.out.println("now we wait");
 		String ans = iface.headRead();
