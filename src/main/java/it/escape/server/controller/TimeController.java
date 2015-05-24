@@ -1,8 +1,10 @@
 package it.escape.server.controller;
 
+import it.escape.server.model.game.players.Player;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 public class TimeController implements Runnable {
@@ -17,8 +19,8 @@ public class TimeController implements Runnable {
 	
 	private boolean turnCompleted;
 	
-	// lista ordinata dei player
-	// indice player corrente
+	private List<Player> turnOrder; // reference to the ordered list of players
+	private int nowPlaying;
 	
 	public synchronized void endTurn() {
 		turnCompleted = true;
@@ -30,8 +32,10 @@ public class TimeController implements Runnable {
 		mainLoop();
 	}
 
-	public TimeController() {
+	public TimeController(List<Player> turnOrder) {
 		LogHelper.setDefaultOptions(log);
+		this.turnOrder = turnOrder;
+		nowPlaying = 0;
 		this.runGame = true;
 	}
 
@@ -39,16 +43,35 @@ public class TimeController implements Runnable {
 		this.executorRef = executorRef;
 	}
 	
-	private void mainLoop() {
+	private synchronized void mainLoop() {
 		while (runGame) {
 			turnCompleted = false;
-			// get player corrente
-			// risveglia executor
-			// wait timeout
+			Player current = turnOrder.get(nowPlaying);
+			executorRef.startTurn(current);  // run current player's turn
 			
-			// turno finito male? dico all'executor: completa le opzioni default
+			try {
+				wait(TIMEOUT);  // wait for it to end
+			} catch (InterruptedException e) {
+			}
 			
-			// passa al player successivo
+			if (!turnCompleted) {  // didn't end in time? End it for him
+				executorRef.fillInDefaultChoices();
+				
+				try {
+					/*
+					 * the executiveController will now conclude the turn
+					 * properly, and notify our timeController; we catch the
+					 * notify and go on as usual.
+					 */
+					wait();
+				} catch (InterruptedException e) {
+				}
+			}
+			
+			nowPlaying++;  // update current player
+			if (nowPlaying >= turnOrder.size()) {
+				nowPlaying = 0;
+			}
 		}
 	}
 }

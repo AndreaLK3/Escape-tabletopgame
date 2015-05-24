@@ -32,13 +32,14 @@ public class GameMaster {
 
 	public GameMaster(MapActionInterface map) {
 		this.map = map;
-		timeController =  new TimeController();
+		timeController =  new TimeController(listOfPlayers);
 		executor = new ExecutiveController(timeController, map);
 		timeController.bindExecutor(executor);
 		executorThread = new Thread(executor);
 		timerThread = new Thread(timeController);
 		listOfPlayers = new ArrayList<Player>();
 		currentTeam = PlayerTeams.ALIENS;
+		
 	}
 	
 	/**
