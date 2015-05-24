@@ -1,11 +1,9 @@
 package it.escape.server.model.game.cards;
 
-import it.escape.server.model.game.cards.objectCards.AttackCard;
 import it.escape.server.model.game.cards.objectCards.ObjectCard;
-import it.escape.server.model.game.cards.objectCards.SedativesCard;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**This class handles a Hand of Cards (in this case, it contains ObjectCards)
  * It has a maximum number of cards it can hold (here, 3)
@@ -44,11 +42,20 @@ public class Hand {
 	public boolean containsCard(ObjectCard card) {
 		return handOfCards.contains(card);
 	}
-
+	
+	/**
+	 * attempt to retrieve a card from the player's hand, if no card is found,
+	 * null is returned.
+	 * The provided key will be matched against the objectcards' actual
+	 * dynamic class name (i.e. "AttackCard"). The match is case-insensitive,
+	 * and keys matching only the beginning of the class name are also accepted.
+	 * @param s
+	 * @return
+	 */
 	public ObjectCard getCardFromString(String s) {
 		for (ObjectCard card : handOfCards) {
 			String name = card.getClass().getSimpleName(); // dynamic class name (i.e. "SedativesCard")
-			if (name.toLowerCase().startsWith(s.toLowerCase())) {
+			if (name.toLowerCase().startsWith(s.toLowerCase())) {  // use startswith, to accept partial matches
 				return card;
 			}
 		}

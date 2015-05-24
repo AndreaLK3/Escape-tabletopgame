@@ -39,7 +39,13 @@ public class GameMaster {
 		timerThread = new Thread(timeController);
 		listOfPlayers = new ArrayList<Player>();
 		currentTeam = PlayerTeams.ALIENS;
-		
+	}
+	
+	/**
+	 * start the actual game, once ready.
+	 * this function does not decide herself when we are ready
+	 */
+	public void startGame() {
 		launchThreads();
 	}
 	

@@ -1,6 +1,5 @@
 package it.escape.server.model.game.cards;
 
-import it.escape.server.model.game.cards.objectCards.ObjectCard;
 
 /**This class initializes the decks, which contain different kinds of cards, and makes them visible.
  * n: It is a singleton.
