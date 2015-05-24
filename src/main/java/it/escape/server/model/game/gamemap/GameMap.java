@@ -187,7 +187,8 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 		return startHumans;
 	}
 	
-	/**Given the position, returns a Cell)*/
+	/**Given the position, returns a Cell)
+	 * n: REQUIRES : cellExists returns true*/
 	public Cell getCell(PositionCubic pos3D) {
 		return cells.get(CoordinatesConverter.fromCubicToAlphaNum(pos3D));
 	}

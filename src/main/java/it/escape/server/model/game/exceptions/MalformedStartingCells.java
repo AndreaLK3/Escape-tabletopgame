@@ -2,6 +2,8 @@ package it.escape.server.model.game.exceptions;
 
 public class MalformedStartingCells extends Exception {
 
+	private static final long serialVersionUID = 1L;
+
 	public MalformedStartingCells() {
 		
 	}

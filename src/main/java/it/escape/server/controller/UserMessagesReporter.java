@@ -109,6 +109,13 @@ public class UserMessagesReporter {
 		return location;
 	}
 	
+	public String askForLightsPosition() {
+		String location;
+		//to be implemented 
+		location = askForPosition();
+		return location;
+	}
+	
 	public String getCardKey() {
 		//to be implemented
 		return new String ("adrenaline");
@@ -118,6 +125,7 @@ public class UserMessagesReporter {
 		// to be implemented
 		return "B03";
 	}
+	
 
 	
 	/* E' utile? TurnHandler ha già un riferimento al Player*/

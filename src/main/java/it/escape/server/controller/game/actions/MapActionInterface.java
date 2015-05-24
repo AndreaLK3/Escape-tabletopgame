@@ -2,6 +2,7 @@ package it.escape.server.controller.game.actions;
 
 import java.util.List;
 
+import it.escape.server.model.game.exceptions.CellNotExistsException;
 import it.escape.server.model.game.gamemap.Cell;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.server.model.game.players.Player;
@@ -20,4 +21,8 @@ public interface MapActionInterface {
 	public void addNewPlayer(Player player, PlayerTeams team);
 	
 	public Cell getStartHumans();
+
+	public boolean cellExists(String posAlphaNum);
+
+	public List<Cell> getNeighbors(PositionCubic fromAlphaNumToCubic) throws CellNotExistsException;
 }
