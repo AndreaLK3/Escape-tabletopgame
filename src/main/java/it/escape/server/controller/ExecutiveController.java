@@ -58,7 +58,6 @@ public class ExecutiveController implements Runnable {
 		//TODO: check win/lose conditions
 	}
 
-	
 
 	public ExecutiveController(TimeController timeControllerRef, MapActionInterface map) {
 		LogHelper.setDefaultOptions(log);

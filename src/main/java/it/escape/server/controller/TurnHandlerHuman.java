@@ -141,8 +141,14 @@ public class TurnHandlerHuman extends TurnHandler {
 		
 	}
 
+	/**This function is called by the thread that runs inside the TimeController class.
+	 * Meanwhile, the thread of ExecutiveController&TurnHandler is stagnating somewhere... 
+	 */
 	@Override
 	public void fillInDefaultChoices() {
+		if (!currentPlayer.HasMoved()) {
+			
+		}
 		
 	}
 
