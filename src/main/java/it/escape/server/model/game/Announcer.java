@@ -1,5 +1,6 @@
 package it.escape.server.model.game;
 
+import it.escape.server.model.game.cards.objectCards.ObjectCard;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.server.model.game.players.Player;
 
@@ -40,6 +41,11 @@ public class Announcer extends Observable {
 	public void announceNoise(String location) {
 		// encode position to a string
 		// use announce to send that string
+	}
+	
+	public void announceObjectCard(Player player, ObjectCard theCard) {
+		
+		
 	}
 	
 	public void announce(String message) {

@@ -2,6 +2,7 @@ package it.escape.server.model.game.players;
 
 import it.escape.server.model.game.cards.Hand;
 import it.escape.server.model.game.cards.objectCards.ObjectCard;
+import it.escape.server.model.game.exceptions.CardNotPresentException;
 import it.escape.utils.LogHelper;
 
 import java.util.logging.Logger;
@@ -82,14 +83,15 @@ public abstract class Player {
 	 * If no valid card is found, the method will return null.
 	 * @param key
 	 * @return
+	 * @throws CardNotPresentException 
 	 */
-	public ObjectCard drawCard(String key) {
+	public ObjectCard drawCard(String key) throws CardNotPresentException {
 		ObjectCard theCard;
 		
 		// match key with one or none of the cards in the player's hand
 		theCard = myHand.getCardFromString(key);
 		if (theCard == null) {  // not found
-			return null;
+			throw new CardNotPresentException();
 		}
 		
 		// remove said card from the hand

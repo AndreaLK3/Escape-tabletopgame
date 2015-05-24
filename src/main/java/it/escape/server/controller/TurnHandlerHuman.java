@@ -5,7 +5,15 @@ import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.ObjectCardAction;
 import it.escape.server.controller.game.actions.cardactions.DrawObjectCard;
+import it.escape.server.model.game.Announcer;
+import it.escape.server.model.game.cards.objectCards.AdrenalineCard;
+import it.escape.server.model.game.cards.objectCards.AttackCard;
+import it.escape.server.model.game.cards.objectCards.LightsCard;
 import it.escape.server.model.game.cards.objectCards.ObjectCard;
+import it.escape.server.model.game.cards.objectCards.SedativesCard;
+import it.escape.server.model.game.cards.objectCards.TeleportCard;
+import it.escape.server.model.game.exceptions.CardNotPresentException;
+import it.escape.server.model.game.exceptions.WrongCardException;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 
@@ -24,57 +32,58 @@ public class TurnHandlerHuman extends TurnHandler {
 	private void playObjectCard() {
 		do {
 			try {
-				boolean restrictions;
+				boolean restrictions = true;
 				String key = reporter.askWhichObjectCard();
 				objectCard = currentPlayer.drawCard(key);  // this card is removed from the player's hand
-				
-				if (objectCard != null) {  // the key matches a card
-					/*
-					 * check restrictions based on whether the player has already moved
-					 * during this turn (i.e. can't use sedatives after a move)
-					 */
-					if (currentPlayer.HasMoved()) {
-						restrictions = false;  // control logic goes here
+														   			
+					
+					if (currentPlayer.HasMoved()) {		//after the move
+						if (objectCard instanceof TeleportCard || objectCard instanceof LightsCard)
+							restrictions = false;
 					}
-					else {
-						restrictions = false;  // control logic goes here
+					else {	//before the move
+						if (objectCard instanceof AttackCard || objectCard instanceof SedativesCard
+							|| objectCard instanceof AdrenalineCard || objectCard instanceof TeleportCard
+							|| objectCard instanceof LightsCard)
+							restrictions = false;
 					}
 					
 					if (!restrictions) {
 						objectCardAction = objectCard.getObjectAction();
-						// TODO: broadcast (via Announcer) that the user will now use an object card 
+						Announcer.getAnnouncerInstance().announceObjectCard(currentPlayer, objectCard); 
 						objectCardAction.execute(currentPlayer, map);
-						correctInput = true;
+						endObjectCard = true;
 					}
 					else {
-						correctInput = false;
+						throw new WrongCardException();
 					}
 				}
-				else {
-					correctInput = false;
-				}
-			} catch (Exception e) {	//CardNotFoundException
-				correctInput = false;
+			catch (WrongCardException e) {	
+				if (reporter.askIfObjectCard("Do you want to play an object card?"))
+					endObjectCard = false;
+				else 
+					endObjectCard = true;
 			}
-		} while (!correctInput);
+			catch (CardNotPresentException e) {	
+				if (reporter.askIfObjectCard("Do you want to play an object card?"))
+					endObjectCard = false;
+				else
+					endObjectCard = true;
+			}
+		} while (!endObjectCard);
 	}
 	
 	private void discardObjectCard() {
 		do {
 			try {
 				String key = reporter.askWhichObjectCard();
-				objectCard = currentPlayer.drawCard(key);  // card is removed from the player's hand
+				objectCard = currentPlayer.drawCard(key);  // card is removed from the player's hand	
+				endObjectCard = true;
 				
-				if (objectCard != null) {  // the key matches a card
-					correctInput = true;
-				}
-				else {
-					correctInput = false;
-				}
-			} catch (Exception e) {	//CardNotExistingException
-				correctInput = false;
+			} catch (CardNotPresentException e) {	//CardNotExistingException
+				endObjectCard = false;
 			}
-		} while (!correctInput);
+		} while (!endObjectCard);
 	}
 	
 	@Override
@@ -96,11 +105,11 @@ public class TurnHandlerHuman extends TurnHandler {
 			try {
 				moveCommand = reporter.askForMovement();
 				cellAction = moveCommand.execute(currentPlayer, map);
-				correctInput = true;
+				endObjectCard = true;
 			} catch (Exception e) {	//DestinationNotInRangeException, DestinationNotExistingException
-				correctInput = false;
+				endObjectCard = false;
 				}
-			} while (!correctInput);
+			} while (!endObjectCard);
 	}
 	
 	@Override

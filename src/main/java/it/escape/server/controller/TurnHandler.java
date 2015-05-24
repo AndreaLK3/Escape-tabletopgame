@@ -18,13 +18,12 @@ public abstract class TurnHandler {
 	protected CardAction cardAction;
 	protected CellAction cellAction;
 	protected MoveCommand moveCommand;
-	protected boolean correctInput;
+	protected boolean endObjectCard;
 	
 	protected MapActionInterface map;
 	
 	public TurnHandler (MapActionInterface map) {
 		this.map = map;
-		correctInput = false;
 	}
 	
 	/**
