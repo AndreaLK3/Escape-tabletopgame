@@ -27,9 +27,6 @@ public class Hand {
 		
 	}
 
-	
-	
-	
 	/** 
 	 * Removes the card of the specified kind	n:we have to see if it works */
 	public void removeCard(ObjectCard card) {
@@ -44,19 +41,18 @@ public class Hand {
 			handOfCards.remove(i);
 	}
 	
-
 	public boolean containsCard(ObjectCard card) {
 		return handOfCards.contains(card);
 	}
 
 	public ObjectCard getCardFromString(String s) {
-		if (s.equalsIgnoreCase("attack"))
-			return new AttackCard();
-		if (s.equalsIgnoreCase("sedatives"))
-			return new SedativesCard();
-		else 
-			return null;
-		
+		for (ObjectCard card : handOfCards) {
+			String name = card.getClass().getSimpleName(); // dynamic class name (i.e. "SedativesCard")
+			if (name.toLowerCase().startsWith(s.toLowerCase())) {
+				return card;
+			}
+		}
+		return null;
 	}
 	
 	public boolean isEmpty() {
@@ -70,4 +66,5 @@ public class Hand {
 	public boolean isOverFull() {
 		return handOfCards.size() > MAXOBJECTS;
 	}
+
 }
