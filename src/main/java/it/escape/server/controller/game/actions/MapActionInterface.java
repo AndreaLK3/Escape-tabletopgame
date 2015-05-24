@@ -25,4 +25,6 @@ public interface MapActionInterface {
 	public boolean cellExists(String posAlphaNum);
 
 	public List<Cell> getNeighbors(PositionCubic fromAlphaNumToCubic) throws CellNotExistsException;
+
+	public Cell getCell(PositionCubic pos3d);
 }
