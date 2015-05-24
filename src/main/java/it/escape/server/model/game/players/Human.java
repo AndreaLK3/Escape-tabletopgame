@@ -1,5 +1,6 @@
 package it.escape.server.model.game.players;
 
+import it.escape.server.model.game.exceptions.CardNotPresentException;
 import it.escape.strings.StringRes;
 
 
@@ -43,11 +44,12 @@ public class Human extends Player {
 
 	@Override
 	public void die() {
-		if (drawCard(StringRes.getString("cardKeys.defense")) != null) {
+		try {
+			drawCard(StringRes.getString("cardKeys.defense"));
 			log.fine(StringRes.getString("logging.misc.defendedMyself"));
-		}
-		else {
+		} catch (CardNotPresentException e) {
 			setAlive(false);
 		}
+		
 	}
 }
