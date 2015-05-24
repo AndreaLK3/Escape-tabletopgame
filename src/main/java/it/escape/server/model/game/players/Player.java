@@ -1,11 +1,16 @@
 package it.escape.server.model.game.players;
 
-import it.escape.server.model.game.cards.objectCards.ObjectCard;
 import it.escape.server.model.game.cards.Hand;
+import it.escape.server.model.game.cards.objectCards.ObjectCard;
+import it.escape.utils.LogHelper;
+
+import java.util.logging.Logger;
 
 
 
 public abstract class Player {
+	
+	protected static final Logger log = Logger.getLogger( Player.class.getName() );
 	
 	protected int maxRange;
 	protected boolean hasMoved;
@@ -14,6 +19,7 @@ public abstract class Player {
 	
 	
 	public Player () {
+		LogHelper.setDefaultOptions(log);
 		alive = true;
 	}
 	
@@ -70,9 +76,10 @@ public abstract class Player {
 	}
 	
 	/**
-	 * extract and return a card from the player's hand.
-	 * a card matching "key" is selected
-	 * If no valid card is found, the method will return null
+	 * extract and return a card from the player's hand
+	 * a card matching "key" is selected.
+	 * The card is removed from the player's hand
+	 * If no valid card is found, the method will return null.
 	 * @param key
 	 * @return
 	 */
@@ -81,8 +88,9 @@ public abstract class Player {
 		
 		// match key with one or none of the cards in the player's hand
 		theCard = myHand.getCardFromString(key);
-		if (!myHand.containsCard(theCard))
+		if (theCard == null) {  // not found
 			return null;
+		}
 		
 		// remove said card from the hand
 		myHand.removeCard(theCard);

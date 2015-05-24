@@ -1,5 +1,7 @@
 package it.escape.server.model.game.players;
 
+import it.escape.strings.StringRes;
+
 
 public class Human extends Player {
 	
@@ -41,6 +43,11 @@ public class Human extends Player {
 
 	@Override
 	public void die() {
-		// check defense
+		if (drawCard(StringRes.getString("cardKeys.defense")) != null) {
+			log.fine("human player has succesfully defended himself");
+		}
+		else {
+			setAlive(false);
+		}
 	}
 }
