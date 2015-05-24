@@ -44,7 +44,7 @@ public class Human extends Player {
 	@Override
 	public void die() {
 		if (drawCard(StringRes.getString("cardKeys.defense")) != null) {
-			log.fine("human player has succesfully defended himself");
+			log.fine(StringRes.getString("logging.misc.defendedMyself"));
 		}
 		else {
 			setAlive(false);
