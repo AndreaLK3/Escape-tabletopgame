@@ -139,7 +139,7 @@ public class TurnHandlerHuman extends TurnHandler {
 				playObjectCard();
 			}
 		}
-		currentPlayer.endOfTurn();	//resets states (Sedatives, Adrenaline)
+		
 		
 	}
 

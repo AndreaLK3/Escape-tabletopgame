@@ -47,12 +47,7 @@ public abstract class Player {
 	 */
 	public abstract void die();
 
-	/**
-	 * It is implemented in the Human class, to clean up effects of Sedatives/Adrenaline
-	 */
-	public abstract void endOfTurn();
-	
-	
+		
 	public boolean HasMoved() {
 		return hasMoved;
 	}

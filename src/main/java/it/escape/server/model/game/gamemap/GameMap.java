@@ -183,10 +183,11 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 		return ret;
 	}
 	
-	/** To be implemented: gets a Cell given the position.
-	 * @param pos3D
-	 * @return Cell
-	 */
+	public Cell getStartHumans() {
+		return startHumans;
+	}
+	
+	/**Given the position, returns a Cell)*/
 	public Cell getCell(PositionCubic pos3D) {
 		return cells.get(CoordinatesConverter.fromCubicToAlphaNum(pos3D));
 	}
@@ -195,7 +196,7 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 		return cells.get(posAlphaNum);
 	}
 
-	
+	/**Check if a Cell exists on the map; returns boolean)*/
 	public boolean cellExists(PositionCubic position) {
 		return cells.containsKey(CoordinatesConverter.fromCubicToAlphaNum(position));
 	}
