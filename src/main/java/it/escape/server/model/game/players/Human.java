@@ -7,6 +7,7 @@ import it.escape.strings.StringRes;
 public class Human extends Player {
 	
 	private final static int HUMANSMAXRANGE = 1;
+	private final static int ADRENALINERANGE = 2;
 	
 	private boolean sedatives;
 	
@@ -25,7 +26,7 @@ public class Human extends Player {
 		if (sedatives) {
 			sedatives = false;
 		}
-		// to be implemented: clean up adrenaline
+		setMaxRange(HUMANSMAXRANGE);	//cleans up adrenaline
 	};
 	
 	public boolean hasSedatives() {
@@ -41,6 +42,9 @@ public class Human extends Player {
 		return false;
 	}
 
+	public void setAdrenaline() {
+		setMaxRange(ADRENALINERANGE);
+	}
 
 	@Override
 	public void die() {

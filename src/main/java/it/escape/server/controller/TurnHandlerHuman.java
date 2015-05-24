@@ -125,6 +125,7 @@ public class TurnHandlerHuman extends TurnHandler {
 
 	@Override
 	public void turnAfterMove() {
+	
 		if (currentPlayer.getMyHand().isOverFull()) {  // too many cards in my hand
 			if (reporter.askPlayCardOrDiscard()) {  // user chose "play"
 				playObjectCard();
@@ -138,6 +139,7 @@ public class TurnHandlerHuman extends TurnHandler {
 				playObjectCard();
 			}
 		}
+		currentPlayer.endOfTurn();	//resets states (Sedatives, Adrenaline)
 		
 	}
 
