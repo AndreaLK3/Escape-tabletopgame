@@ -36,6 +36,7 @@ public abstract class TurnHandler {
 		turnMove();  // step 2
 		turnLand();  // also step 2
 		turnAfterMove();  // step 3
+		deInitialize();  // cleanup (stop filling default options)
 		}
 	
 	
