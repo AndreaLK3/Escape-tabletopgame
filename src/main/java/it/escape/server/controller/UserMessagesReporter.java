@@ -167,7 +167,10 @@ public class UserMessagesReporter {
 	}
 	
 	private String ioGetBinaryChoice(String defaultOption, String yes, String no) {
-		interfaceWithUser.headWrite(StringRes.getString("messaging.askYesNo"));
+		interfaceWithUser.headWrite(String.format(
+				StringRes.getString("messaging.askBinaryChoice"),
+				yes,
+				no));
 		interfaceWithUser.setDefaultOption(defaultOption);
 		interfaceWithUser.setContext(Arrays.asList(yes,no));
 		return interfaceWithUser.headRead();
