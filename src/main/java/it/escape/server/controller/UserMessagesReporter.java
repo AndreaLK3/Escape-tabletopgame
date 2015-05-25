@@ -88,7 +88,7 @@ public class UserMessagesReporter {
 			return false;
 		}
 		else {
-			interfaceWithUser.headWrite(StringRes.getString("messaging.askPlayObjectCard"));
+			interfaceWithUser.writeToClient(StringRes.getString("messaging.askPlayObjectCard"));
 			String ans = ioGetBinaryChoice(defaultChoice,"yes","no").toLowerCase();
 			if (ans.equals("yes")) {
 				return true;
@@ -108,7 +108,7 @@ public class UserMessagesReporter {
 			return false;
 		}
 		else {
-			interfaceWithUser.headWrite(StringRes.getString("messaging.askPlayObjectCard"));
+			interfaceWithUser.writeToClient(StringRes.getString("messaging.askPlayObjectCard"));
 			String ans = ioGetBinaryChoice(defaultChoice,"play","discard").toLowerCase();
 			if (ans.equals("yes")) {
 				return true;
@@ -167,13 +167,13 @@ public class UserMessagesReporter {
 	}
 	
 	private String ioGetBinaryChoice(String defaultOption, String yes, String no) {
-		interfaceWithUser.headWrite(String.format(
+		interfaceWithUser.writeToClient(String.format(
 				StringRes.getString("messaging.askBinaryChoice"),
 				yes,
 				no));
 		interfaceWithUser.setDefaultOption(defaultOption);
 		interfaceWithUser.setContext(Arrays.asList(yes,no));
-		return interfaceWithUser.headRead();
+		return interfaceWithUser.readFromClient();
 	}
 	
 	/* E' utile? TurnHandler ha già un riferimento al Player*/

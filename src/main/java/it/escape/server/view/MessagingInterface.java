@@ -15,8 +15,8 @@ import it.escape.server.controller.MessagingHead;
  */
 public class MessagingInterface implements MessagingHead, MessagingTail {
 	
-	protected Queue<String> transmitQueue;
-	protected Queue<String> reciveQueue;
+	protected Queue<String> serverToClientQueue;
+	protected Queue<String> clientToServerQueue;
 	
 	private List<String> context = null;
 	
@@ -27,8 +27,8 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 	private AtomicBoolean override;
 	
 	public MessagingInterface() {
-		transmitQueue = new ConcurrentLinkedQueue<String>();
-		reciveQueue = new ConcurrentLinkedQueue<String>();
+		serverToClientQueue = new ConcurrentLinkedQueue<String>();
+		clientToServerQueue = new ConcurrentLinkedQueue<String>();
 		override = new AtomicBoolean();
 		connetctionAlive = new AtomicBoolean();
 		override.set(false);
@@ -40,9 +40,9 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 	
 	private void tailReadDriver() {
 		if (connetctionAlive.get()) {
-			while (!transmitQueue.isEmpty()) {
-				String next = transmitQueue.poll();
-				tailRead(next);
+			while (!serverToClientQueue.isEmpty()) {
+				String next = serverToClientQueue.poll();
+				sendToClient(next);
 			}
 		}
 	}
@@ -54,7 +54,7 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 	 * This function is actually driven by the Head-side, which
 	 * decides when to transmit
 	 */
-	public void tailRead(String singleMessage) {
+	public void sendToClient(String singleMessage) {
 		// to be overridden
 	}
 	
@@ -64,7 +64,7 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 	 * receiveQueue, and finally call afterTailWrite()
 	 * Calling said function is MANDATORY
 	 */
-	public void tailWrite() {
+	public void receiveFromClient() {
 		// to be overridden
 		// must call afterTailWrite()
 		afterTailWrite();
@@ -78,8 +78,8 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 		connetctionAlive.set(false);
 	}
 
-	public void headWrite(String message) {
-		transmitQueue.offer(message);
+	public void writeToClient(String message) {
+		serverToClientQueue.offer(message);
 		tailReadDriver();
 	}
 	
@@ -87,7 +87,7 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 	 * in this setup, headRead() won't return at all until
 	 * a valid input is received
 	 */
-	public synchronized String headRead() {
+	public synchronized String readFromClient() {
 		while (true) {
 			try {
 				wait();
@@ -98,8 +98,8 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 				return defaultOption;
 			}
 			else {
-				while (!reciveQueue.isEmpty()) {
-					String next = reciveQueue.poll();
+				while (!clientToServerQueue.isEmpty()) {
+					String next = clientToServerQueue.poll();
 					if (context == null || context.isEmpty()) {
 						return next;
 					}

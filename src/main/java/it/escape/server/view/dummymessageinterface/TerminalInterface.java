@@ -16,14 +16,14 @@ public class TerminalInterface extends MessagingInterface {
 	}
 
 	@Override
-	public void tailRead(String singleMessage) {
+	public void sendToClient(String singleMessage) {
 		System.out.println(singleMessage);
 	}
 	
 	@Override
-	public void tailWrite() {
+	public void receiveFromClient() {
 		String in = cliInput.next().toLowerCase();
-		reciveQueue.offer(in);
+		clientToServerQueue.offer(in);
 		afterTailWrite();
 	}
 }

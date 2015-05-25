@@ -23,9 +23,9 @@ public class DummyBackend implements Runnable{
 	
 	private void testSquence() {
 		System.out.println("controller: -- doing stuff");
-		iface.headWrite("Scrivi qualcosa");
+		iface.writeToClient("Scrivi qualcosa");
 		System.out.println("controller: -- now we wait");
-		String ans = iface.headRead();
+		String ans = iface.readFromClient();
 		System.out.println("Controller: ho ricevuto \"" + ans + "\"");
 	}
 
