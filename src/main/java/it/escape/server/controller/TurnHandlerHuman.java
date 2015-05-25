@@ -21,6 +21,7 @@ public class TurnHandlerHuman extends TurnHandler {
 	private UserMessagesReporter reporter;
 	private ObjectCardAction objectCardAction;
 	private ObjectCard objectCard;
+	private boolean correctInput;
 	
 	public TurnHandlerHuman(Player currentPlayer, MapActionInterface map) {
 		super(map);
@@ -99,15 +100,16 @@ public class TurnHandlerHuman extends TurnHandler {
 
 	@Override
 	public void turnMove() {
+		
 		do {
 			try {
 				moveCommand = reporter.askForMovement();
 				cellAction = moveCommand.execute(currentPlayer, map);
-				endObjectCard = true;
-			} catch (Exception e) {	//DestinationNotInRangeException, DestinationNotExistingException
-				endObjectCard = false;
+				correctInput = true;
+			} catch (Exception e) {	//DestinationUnreachableException, PlayerCanNotEnterException, CellNotExisting
+				correctInput = false;
 				}
-			} while (!endObjectCard);
+			} while (!correctInput);
 	}
 	
 	@Override

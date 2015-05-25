@@ -1,7 +1,9 @@
 package it.escape.server.model.game.gamemap;
 
 import it.escape.server.controller.game.actions.CellAction;
+import it.escape.server.controller.game.actions.cardactions.NoCardAction;
 import it.escape.server.controller.game.actions.cellactions.DrawEscapeCard;
+import it.escape.server.controller.game.actions.cellactions.NoCellAction;
 import it.escape.server.model.game.GameMode;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.server.model.game.players.Human;
@@ -14,19 +16,15 @@ import it.escape.server.model.game.players.Player;
  */
 public class EscapeCell extends Cell {
 	
-	/**
-	 * This is the variable that contains the object with the actual behavior of the escape hatch
-	 */
-	private ShuttleState state;
+	private boolean alreadyUsed;
 	
-	/**This constructor calls the factory method in ShuttleState, that builds the 
-	 * needed type of EscapeCell (AlwaysOpen, Unknown, OpenOnce, Closed) 
+	
+	/**Constructor:
 	 * @param position - Remember that EscapeCell extends Cell, therefore it knows its own position
-	 * @param mode - the GameMode, so that the factory knows which kind of EscapeCell to build
 	 */
 	public EscapeCell(PositionCubic position, GameMode mode) {
 		super(position);
-		state = ShuttleState.shuttleFactory(mode);
+		alreadyUsed = false;
 	}
 	
 	
@@ -38,15 +36,27 @@ public class EscapeCell extends Cell {
 			{	log.info("An alien can't use an escape shuttle!");
 				return false;}
 	}
-		
-	@Override
-	public String toString() {
-		return "EscapeShuttleCell(coord=" + position.toString() + ", state=" + state.toString() + ")";
-	}
 
+	/**Since this is the EscapeCell that is used playing the Complete Mode,
+	 * if the player is the first to get here, it causes him to draw an Escape Card.
+	 * (The Escape Card might allow the Player to Escape).
+	 * If the Player is not the first to get here, this EscapeCell can not be 
+	 * used, and it returns NoCellAction.
+	 */
 	@Override
 	public CellAction getCellAction() {
-		return new DrawEscapeCard();
+		if (!alreadyUsed) {
+			alreadyUsed = true;
+			return new DrawEscapeCard();
+		}
+		else 
+			return new NoCellAction();
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "EscapeShuttleCell(coord=" + position.toString() + ")";
 	}
 	
 
