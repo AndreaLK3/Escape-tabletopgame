@@ -60,6 +60,7 @@ public class UserMessagesReporter {
 	 * @return boolean
 	 */
 	public boolean askIfObjectCard(String s) {
+		String defaultChoice = "no";
 		/*if string returned == yes
 		 * return true
 		 * else 
@@ -74,6 +75,7 @@ public class UserMessagesReporter {
 	 * @return true for play, false for discard
 	 */
 	public boolean askPlayCardOrDiscard() {
+		String defaultChoice = "discard";
 		// to be implemented
 		return false;
 	}
@@ -85,10 +87,11 @@ public class UserMessagesReporter {
 	 * @return string representing the chosen card
 	 */
 	public String askWhichObjectCard() {
+		String defaultChoice = "adrenaline";
 		/* To be implemented
 		 * returns a validated string from the Client
 		 */
-		return "Adrenaline";
+		return "adrenaline";
 	}
 	
 	/**
