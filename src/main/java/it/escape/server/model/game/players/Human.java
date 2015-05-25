@@ -30,7 +30,7 @@ public class Human extends Player {
 			sedatives = false;
 		}
 		setMaxRange(HUMANSMAXRANGE);	//cleans up adrenaline
-	};
+	}
 	
 	public boolean hasSedatives() {
 		return sedatives;
