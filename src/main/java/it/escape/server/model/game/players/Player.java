@@ -15,6 +15,7 @@ public abstract class Player {
 	
 	protected int maxRange;
 	protected boolean hasMoved;
+	protected boolean hasAttacked;
 	protected boolean alive;
 	protected Hand myHand;
 	
@@ -27,6 +28,7 @@ public abstract class Player {
 
 	public void startTurn() {
 		hasMoved = false;
+		hasAttacked = false;
 	}
 
 
@@ -83,18 +85,33 @@ public abstract class Player {
 	public ObjectCard drawCard(String key) throws CardNotPresentException {
 		ObjectCard theCard;
 		
-		// match key with one or none of the cards in the player's hand
-		theCard = myHand.getCardFromString(key);
-		if (theCard == null) {  // not found
-			throw new CardNotPresentException();
-		}
+		theCard = searchForCard(key);
 		
 		// remove said card from the hand
 		myHand.removeCard(theCard);
 		return theCard;
 		
 	}
-
-	public void setEscaped(){};
 	
+	public ObjectCard searchForCard(String key) throws CardNotPresentException{
+		ObjectCard theCard;
+		// match key with one or none of the cards in the player's hand
+		theCard = myHand.getCardFromString(key);
+		if (theCard == null) {  // not found
+			throw new CardNotPresentException();
+		}
+		return theCard;
+		
+	}
+
+	public void setEscaped(){}
+
+
+	public void setHasAttacked() {
+		hasAttacked = true;
+	};
+	
+	public boolean hasAttacked() {
+		return hasAttacked;
+	};
 }

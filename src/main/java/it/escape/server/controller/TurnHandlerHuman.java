@@ -15,6 +15,7 @@ import it.escape.server.model.game.exceptions.CardNotPresentException;
 import it.escape.server.model.game.exceptions.WrongCardException;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
+import it.escape.strings.StringRes;
 
 public class TurnHandlerHuman extends TurnHandler {
 	
@@ -41,9 +42,8 @@ public class TurnHandlerHuman extends TurnHandler {
 							restrictions = false;
 					}
 					else {	//before the move
-						if (objectCard instanceof AttackCard || objectCard instanceof SedativesCard
-							|| objectCard instanceof AdrenalineCard || objectCard instanceof TeleportCard
-							|| objectCard instanceof LightsCard)
+						if ( objectCard instanceof SedativesCard || objectCard instanceof AdrenalineCard 
+							|| objectCard instanceof TeleportCard || objectCard instanceof LightsCard)
 							restrictions = false;
 					}
 					
@@ -114,8 +114,24 @@ public class TurnHandlerHuman extends TurnHandler {
 	
 	@Override
 	public void turnLand() {
-		if(!((Human)currentPlayer).hasSedatives()) {
+		try {
+			currentPlayer.searchForCard(StringRes.getString("cardKeys.attack"));
+			if (reporter.askIfAttack()) {
+				objectCard = currentPlayer.drawCard(StringRes.getString("cardKeys.attack"));  // the Attack card is removed from the player's hand
+				objectCardAction = objectCard.getObjectAction();
+				objectCardAction.execute((Human)currentPlayer, map);
+				currentPlayer.setHasAttacked();
+			}
+		}
+		catch (CardNotPresentException e) {
+			//do nothing, do not ask the Human Player if he wants to attack, since he doesn't have an Attack Card
+		}
+		
+		if(((Human)currentPlayer).hasSedatives() || currentPlayer.hasAttacked())
+		{}
+		else{
 			cardAction = cellAction.execute(currentPlayer, map);
+		
 			if (cardAction.hasObjectCard()) {
 				cardAction = new DrawObjectCard();
 				cardAction.execute(currentPlayer, map);

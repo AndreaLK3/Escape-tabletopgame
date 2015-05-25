@@ -97,6 +97,14 @@ public class UserMessagesReporter {
 		}
 	}
 	
+
+	public boolean askIfAttack() {
+		//to be implemented
+		return false;
+		
+	}
+	
+	
 	/**
 	 * Ask the user (who has too much cards in his hand) if he wants to play
 	 * or discard the extra card
@@ -194,6 +202,7 @@ public class UserMessagesReporter {
 	private void setThePlayer(Player thePlayer) {
 		this.thePlayer = thePlayer;
 	}
+
 
 	
 }
