@@ -16,7 +16,12 @@ public class Attack implements ObjectCardAction {
 		Announcer.getAnnouncerInstance().announceAttack(currentPlayer, myPos);
 		List<Player> targets = map.getPlayersByPosition(myPos);
 		for (Player p : targets) {
-			p.die();
+			if (p.isAlive()) {
+				p.die();
+				if (!p.isAlive()) {
+					Announcer.getAnnouncerInstance().announceDeath(p);
+				}
+			}
 		}
 	}
 

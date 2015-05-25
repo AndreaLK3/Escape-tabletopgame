@@ -48,6 +48,11 @@ public class Announcer extends Observable {
 		
 	}
 	
+	public void announceDeath(Player victim) {
+		
+		
+	}
+	
 	public void announce(String message) {
 		this.message = message;
 		setChanged();

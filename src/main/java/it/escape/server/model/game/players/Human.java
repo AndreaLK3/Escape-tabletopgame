@@ -11,9 +11,11 @@ public class Human extends Player {
 	
 	private boolean sedatives;
 	
+	private boolean escaped;
 	
 	public Human () {
 		super();
+		escaped = false;
 		maxRange = HUMANSMAXRANGE;
 	}
 	
@@ -36,6 +38,10 @@ public class Human extends Player {
 	
 	public void setSedatives() {
 		sedatives = true;
+	}
+	
+	public void setEscaped() {
+		escaped = true;
 	}
 	
 	public boolean hasCard(String cardName) {

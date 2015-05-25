@@ -11,7 +11,9 @@ public class TimeController implements Runnable {
 	
 	protected static final Logger log = Logger.getLogger( TimeController.class.getName() );
 	
-	private final Integer TIMEOUT = 60000;  // milliseconds
+	private final static Integer TIMEOUT = 60000;  // milliseconds
+	
+	private final static int MAX_TURNS = 39;
 	
 	private ExecutiveController executorRef;
 	
@@ -77,7 +79,15 @@ public class TimeController implements Runnable {
 			if (nowPlaying >= turnOrder.size()) {
 				nowPlaying = 0;
 				turnNumber++;
+				if (turnNumber > MAX_TURNS) {
+					finalVictoryCheck();
+					// conclude game / program
+				}
 			}
 		}
+	}
+	
+	private void finalVictoryCheck() {
+		
 	}
 }
