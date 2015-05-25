@@ -71,4 +71,8 @@ public abstract class TurnHandler {
 	 */
 	public abstract void turnAfterMove();
 	
+	/**
+	 * "service" actions that do not directly affect the player
+	 */
+	public abstract void deInitialize();
 }

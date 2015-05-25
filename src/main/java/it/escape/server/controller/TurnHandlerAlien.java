@@ -62,4 +62,11 @@ public class TurnHandlerAlien extends TurnHandler{
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	@Override
+	public void deInitialize() {
+		// TODO Auto-generated method stub
+		
+	}
 }

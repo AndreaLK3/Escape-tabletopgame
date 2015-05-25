@@ -18,11 +18,12 @@ public class DummyBackend implements Runnable{
 	}
 	
 	private void testSquence() {
+		System.out.println("controller: -- doing stuff");
 		iface.setDefaultOption("default option thing");
 		iface.headWrite("Scrivi qualcosa");
-		System.out.println("now we wait");
+		System.out.println("controller: -- now we wait");
 		String ans = iface.headRead();
-		System.out.println("Controller: ho ricevuto " + ans);
+		System.out.println("Controller: ho ricevuto \"" + ans + "\"");
 	}
 
 }

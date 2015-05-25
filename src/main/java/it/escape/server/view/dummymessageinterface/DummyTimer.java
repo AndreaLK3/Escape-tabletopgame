@@ -16,7 +16,7 @@ public class DummyTimer implements Runnable {
 				Thread.sleep(1000*20);
 			} catch (InterruptedException e) {
 			}
-			System.out.println("timeout hit!");
+			System.out.println("timer: -- timeout hit!");
 			iface.overrideDefaultOption();
 		}
 	}

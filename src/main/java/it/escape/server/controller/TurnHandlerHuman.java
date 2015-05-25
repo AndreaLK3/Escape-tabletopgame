@@ -138,8 +138,12 @@ public class TurnHandlerHuman extends TurnHandler {
 				playObjectCard();
 			}
 		}
-		
-		
+	}
+	
+	@Override
+	public void deInitialize() {
+		// if we didn't enable it first, this won't do anything
+		reporter.stopFillingDefault();
 	}
 
 	/**This function is called by the thread that runs inside the TimeController class.
@@ -147,10 +151,8 @@ public class TurnHandlerHuman extends TurnHandler {
 	 */
 	@Override
 	public void fillInDefaultChoices() {
-		if (!currentPlayer.HasMoved()) {
-			
-		}
-		
+		reporter.fillinDefaultOnce();  // free us from the block we're currently stuck in
+		reporter.fillinDefaultAlways();  // free us from future blocks
 	}
 
 }

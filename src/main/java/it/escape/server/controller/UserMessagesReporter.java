@@ -3,7 +3,9 @@ package it.escape.server.controller;
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingInterface;
+import it.escape.strings.StringRes;
 
+import java.util.Arrays;
 import java.util.List;
 
 /** This class is located at the border of the controller package, it communicates with the classes inside the View; 
@@ -20,6 +22,8 @@ public class UserMessagesReporter {
 	
 	private Player thePlayer;
 	private MessagingInterface interfaceWithUser;
+	
+	private boolean overrideDefault = false;
 	
 	//creation and access methods
 	
@@ -52,6 +56,25 @@ public class UserMessagesReporter {
 		}
 	}
 	
+	public void fillinDefaultOnce() {
+		interfaceWithUser.overrideDefaultOption();
+	}
+	
+	/**
+	 * if this is set, the message reporter will always choose
+	 * the default option, without bothering to interact
+	 * with the user
+	 */
+	public void fillinDefaultAlways() {
+		overrideDefault = true;
+	}
+	
+	public void stopFillingDefault() {
+		if (overrideDefault) {
+			overrideDefault = false;
+		}
+	}
+	
 	//methods to answer to TurnHandler's requests
 	
 	/** This function returns the user's answer to the question:
@@ -61,12 +84,17 @@ public class UserMessagesReporter {
 	 */
 	public boolean askIfObjectCard(String s) {
 		String defaultChoice = "no";
-		/*if string returned == yes
-		 * return true
-		 * else 
-		 * return false
-		 */
-		return true;
+		if (overrideDefault) {
+			return false;
+		}
+		else {
+			interfaceWithUser.headWrite(StringRes.getString("messaging.askPlayObjectCard"));
+			String ans = ioGetBinaryChoice(defaultChoice,"yes","no").toLowerCase();
+			if (ans.equals("yes")) {
+				return true;
+			}
+			return false;
+		}
 	}
 	
 	/**
@@ -76,8 +104,17 @@ public class UserMessagesReporter {
 	 */
 	public boolean askPlayCardOrDiscard() {
 		String defaultChoice = "discard";
-		// to be implemented
-		return false;
+		if (overrideDefault) {
+			return false;
+		}
+		else {
+			interfaceWithUser.headWrite(StringRes.getString("messaging.askPlayObjectCard"));
+			String ans = ioGetBinaryChoice(defaultChoice,"play","discard").toLowerCase();
+			if (ans.equals("yes")) {
+				return true;
+			}
+			return false;
+		}
 	}
 
 	/**
@@ -100,7 +137,7 @@ public class UserMessagesReporter {
 	 */
 	public MoveCommand askForMovement() {
 		String destination;
-		destination = askForPosition();
+		destination = ioGetPosition();
 		return new MoveCommand(destination);
 	}
 	
@@ -108,28 +145,33 @@ public class UserMessagesReporter {
 	public String askForNoisePosition() {
 		String location;
 		//to be implemented 
-		location = askForPosition();
+		location = ioGetPosition();
 		return location;
 	}
 	
 	public String askForLightsPosition() {
 		String location;
 		//to be implemented 
-		location = askForPosition();
+		location = ioGetPosition();
 		return location;
 	}
 	
-	public String getCardKey() {
+	public String ioGetCardKey() {
 		//to be implemented
 		return new String ("adrenaline");
 	}
 
-	private String askForPosition() {
+	private String ioGetPosition() {
 		// to be implemented
 		return "B03";
 	}
 	
-
+	private String ioGetBinaryChoice(String defaultOption, String yes, String no) {
+		interfaceWithUser.headWrite(StringRes.getString("messaging.askYesNo"));
+		interfaceWithUser.setDefaultOption(defaultOption);
+		interfaceWithUser.setContext(Arrays.asList(yes,no));
+		return interfaceWithUser.headRead();
+	}
 	
 	/* E' utile? TurnHandler ha già un riferimento al Player*/
 	public Player getThePlayer() {
@@ -143,7 +185,7 @@ public class UserMessagesReporter {
 	private void setThePlayer(Player thePlayer) {
 		this.thePlayer = thePlayer;
 	}
-	
+
 }
 
 
