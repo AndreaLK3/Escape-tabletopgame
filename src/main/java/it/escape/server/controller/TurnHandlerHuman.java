@@ -17,8 +17,7 @@ import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 
 public class TurnHandlerHuman extends TurnHandler {
-
-	private Human currentPlayer;
+	
 	private UserMessagesReporter reporter;
 	private ObjectCardAction objectCardAction;
 	private ObjectCard objectCard;
@@ -50,7 +49,7 @@ public class TurnHandlerHuman extends TurnHandler {
 					if (!restrictions) {
 						objectCardAction = objectCard.getObjectAction();
 						Announcer.getAnnouncerInstance().announceObjectCard(currentPlayer, objectCard); 
-						objectCardAction.execute(currentPlayer, map);
+						objectCardAction.execute((Human)currentPlayer, map);
 						endObjectCard = true;
 					}
 					else {
@@ -113,7 +112,7 @@ public class TurnHandlerHuman extends TurnHandler {
 	
 	@Override
 	public void turnLand() {
-		if(!currentPlayer.hasSedatives()) {
+		if(!((Human)currentPlayer).hasSedatives()) {
 			cardAction = cellAction.execute(currentPlayer, map);
 			if (cardAction.hasObjectCard()) {
 				cardAction = new DrawObjectCard();

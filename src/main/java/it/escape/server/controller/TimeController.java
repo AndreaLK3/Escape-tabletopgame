@@ -22,6 +22,8 @@ public class TimeController implements Runnable {
 	private List<Player> turnOrder; // reference to the ordered list of players
 	private int nowPlaying;
 	
+	private int turnNumber;
+	
 	public synchronized void endTurn() {
 		turnCompleted = true;
 		notify();
@@ -29,13 +31,14 @@ public class TimeController implements Runnable {
 
 	public void run() {
 		log.fine(StringRes.getString("controller.time.start"));
+		turnNumber = 0;
 		mainLoop();
 	}
 
 	public TimeController(List<Player> turnOrder) {
 		LogHelper.setDefaultOptions(log);
 		this.turnOrder = turnOrder;
-		nowPlaying = 0;
+		nowPlaying = 1;
 		this.runGame = true;
 	}
 
@@ -68,10 +71,12 @@ public class TimeController implements Runnable {
 				} catch (InterruptedException e) {
 				}
 			}
+			// If we were to check win conditions, here's where we'd do it
 			
 			nowPlaying++;  // update current player
 			if (nowPlaying >= turnOrder.size()) {
 				nowPlaying = 0;
+				turnNumber++;
 			}
 		}
 	}

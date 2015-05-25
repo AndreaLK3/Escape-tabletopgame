@@ -4,6 +4,8 @@ import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.CellAction;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
+import it.escape.server.model.game.players.Human;
+import it.escape.server.model.game.players.Player;
 
 /** This class defines the order of execution of the various
  * methods that are invoked during a turn.
@@ -20,6 +22,8 @@ public abstract class TurnHandler {
 	protected MoveCommand moveCommand;
 	protected boolean endObjectCard;
 	
+	protected Player currentPlayer;
+	
 	protected MapActionInterface map;
 	
 	public TurnHandler (MapActionInterface map) {
@@ -31,13 +35,15 @@ public abstract class TurnHandler {
 	 * differently, but they remain the same nonetheless.
 	 */
 	public void executeTurnSequence() {
-		initialize();  // step 0
-		turnBeforeMove();  // step 1
-		turnMove();  // step 2
-		turnLand();  // also step 2
-		turnAfterMove();  // step 3
-		deInitialize();  // cleanup (stop filling default options)
+		if (currentPlayer.isAlive()) {
+			initialize();  // step 0
+			turnBeforeMove();  // step 1
+			turnMove();  // step 2
+			turnLand();  // also step 2
+			turnAfterMove();  // step 3
+			deInitialize();  // cleanup (stop filling default options)
 		}
+	}
 	
 	
 	/**

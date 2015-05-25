@@ -95,6 +95,7 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 			}
 			
 			if (override.get()) {
+				override.set(false);
 				return defaultOption;
 			}
 			else {
