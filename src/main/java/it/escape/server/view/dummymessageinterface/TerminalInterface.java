@@ -16,16 +16,13 @@ public class TerminalInterface extends MessagingInterface {
 	}
 
 	@Override
-	public void tailRead() {
-		while (!transmitQueue.isEmpty()) {
-			String next = transmitQueue.poll();
-			System.out.println(next);
-		}
+	public void tailRead(String singleMessage) {
+		System.out.println(singleMessage);
 	}
 	
 	@Override
 	public void tailWrite() {
-		String in = cliInput.next();
+		String in = cliInput.next().toLowerCase();
 		reciveQueue.offer(in);
 		afterTailWrite();
 	}

@@ -2,7 +2,7 @@ package it.escape.server.view;
 
 public interface MessagingTail {
 
-	public void tailRead();
+	public void tailRead(String singleMessage);
 	
 	public void tailWrite();
 	

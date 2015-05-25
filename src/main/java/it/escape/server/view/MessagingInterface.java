@@ -5,6 +5,8 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.sun.jndi.cosnaming.CNNameParser;
+
 import it.escape.server.controller.MessagingHead;
 
 /**
@@ -35,8 +37,17 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 	protected synchronized void afterTailWrite() {
 		notify();
 	}
+	
+	private void tailReadDriver() {
+		if (connetctionAlive.get()) {
+			while (!transmitQueue.isEmpty()) {
+				String next = transmitQueue.poll();
+				tailRead(next);
+			}
+		}
+	}
 
-	public void tailRead() {
+	public void tailRead(String singleMessage) {
 		// to be overridden
 	}
 
@@ -56,31 +67,35 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 
 	public void headWrite(String message) {
 		transmitQueue.offer(message);
-		tailRead();
+		tailReadDriver();
 	}
-
+	
+	/**
+	 * in this setup, headRead() won't return at all until
+	 * a valid input is received
+	 */
 	public synchronized String headRead() {
-		try {
-			wait();
-		} catch (InterruptedException e) {
-		}
-		
-		if (override.get()) {
-			return defaultOption;
-		}
-		else {
-			while (!reciveQueue.isEmpty()) {
-				String next = reciveQueue.poll();
-				if (context == null || context.isEmpty()) {
-					return next;
-				}
-				else if (context.contains(next) && next!=null) {
-					return next;
+		while (true) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+			}
+			
+			if (override.get()) {
+				return defaultOption;
+			}
+			else {
+				while (!reciveQueue.isEmpty()) {
+					String next = reciveQueue.poll();
+					if (context == null || context.isEmpty()) {
+						return next;
+					}
+					else if (context.contains(next) && next!=null) {
+						return next;
+					}
 				}
 			}
 		}
-
-		return "nothing";
 	}
 
 	public void setContext(List<String> context) {
