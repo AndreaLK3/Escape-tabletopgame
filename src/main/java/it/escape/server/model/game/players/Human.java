@@ -40,6 +40,7 @@ public class Human extends Player {
 		sedatives = true;
 	}
 	
+	@Override
 	public void setEscaped() {
 		escaped = true;
 	}

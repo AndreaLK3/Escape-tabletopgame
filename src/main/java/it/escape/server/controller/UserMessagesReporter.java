@@ -176,6 +176,12 @@ public class UserMessagesReporter {
 		return interfaceWithUser.readFromClient();
 	}
 	
+	public void sendMessage(String string) {
+	
+		
+	}
+
+	
 	/* E' utile? TurnHandler ha già un riferimento al Player*/
 	public Player getThePlayer() {
 		return thePlayer;
@@ -189,6 +195,7 @@ public class UserMessagesReporter {
 		this.thePlayer = thePlayer;
 	}
 
+	
 }
 
 

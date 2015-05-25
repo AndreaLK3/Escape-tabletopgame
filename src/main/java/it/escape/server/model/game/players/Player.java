@@ -94,5 +94,7 @@ public abstract class Player {
 		return theCard;
 		
 	}
+
+	public void setEscaped(){};
 	
 }

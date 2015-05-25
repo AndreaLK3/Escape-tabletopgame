@@ -66,4 +66,9 @@ public class Announcer extends Observable {
 	public void announcePlayerPosition(Player p, PositionCubic position) {
 		
 	}
+
+	public void announceEscape(Player currentPlayer) {
+		
+		
+	}
 }

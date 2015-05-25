@@ -1,6 +1,7 @@
 package it.escape.server.model.game.cards;
 
 import it.escape.server.controller.game.actions.CardAction;
+import it.escape.server.controller.game.actions.cardactions.CanNotEscape;
 import it.escape.server.controller.game.actions.cardactions.NoCardAction;
 import it.escape.server.controller.game.actions.cardactions.Escape;
 
@@ -28,7 +29,7 @@ public class EscapeCard implements Card {
 		if (color.equals(EscapeCardColor.GREEN))
 			return new Escape();
 		else
-			return new NoCardAction();
+			return new CanNotEscape();
 	}
 	
 	
