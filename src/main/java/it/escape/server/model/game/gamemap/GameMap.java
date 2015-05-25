@@ -4,7 +4,9 @@ import it.escape.server.controller.game.actions.CellAction;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.exceptions.CellNotExistsException;
+import it.escape.server.model.game.exceptions.DestinationUnreachableException;
 import it.escape.server.model.game.exceptions.MalformedStartingCells;
+import it.escape.server.model.game.exceptions.PlayerCanNotEnterException;
 import it.escape.server.model.game.gamemap.loader.MapLoader;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.server.model.game.gamemap.positioning.CubicDeltas;
@@ -108,13 +110,13 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 		PositionCubic dest3D = CoordinatesConverter.fromAlphaNumToCubic(destination);
 		
 		if (!destinationReachable(curPlayer, dest3D)) {
-			throw new Exception();
+			throw new DestinationUnreachableException();
 		}
 		if (!cellExists(dest3D)) {
-			throw new Exception();
+			throw new CellNotExistsException();
 		}
 		if (!getCell(dest3D).canEnter(curPlayer)) {
-				throw new Exception();
+				throw new PlayerCanNotEnterException();
 		}
 			
 		updatePlayerPosition(curPlayer, dest3D);
