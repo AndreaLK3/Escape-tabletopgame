@@ -1,7 +1,7 @@
 package it.escape.server.model.game.players;
 
 import it.escape.server.model.game.cards.Hand;
-import it.escape.server.model.game.cards.objectCards.ObjectCard;
+import it.escape.server.model.game.cards.ObjectCard;
 import it.escape.server.model.game.exceptions.CardNotPresentException;
 import it.escape.utils.LogHelper;
 

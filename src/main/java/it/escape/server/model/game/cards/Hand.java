@@ -1,7 +1,5 @@
 package it.escape.server.model.game.cards;
 
-import it.escape.server.model.game.cards.objectCards.ObjectCard;
-
 import java.util.ArrayList;
 import java.util.List;
 
