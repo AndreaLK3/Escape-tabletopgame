@@ -64,7 +64,6 @@ public class CoordinatesConverter {
 	/**
 	 * 
 	 * @param coordstring stringa del tipo "AAA000"
-	 * @throws BadCoordinatesException
 	 * @return Una nuova posizione con coordinate cubiche
 	 */
 	public static PositionCubic fromAlphaNumToCubic(String coordstring) throws BadCoordinatesException {

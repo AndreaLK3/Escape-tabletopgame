@@ -57,4 +57,8 @@ public class Announcer extends Observable {
 	public String getMessage() {
 		return message;
 	}
+
+	public void announcePlayerPosition(Player p, PositionCubic position) {
+		
+	}
 }
