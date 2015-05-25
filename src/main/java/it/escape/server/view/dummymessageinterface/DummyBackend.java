@@ -1,5 +1,7 @@
 package it.escape.server.view.dummymessageinterface;
 
+import java.util.Arrays;
+
 import it.escape.server.view.MessagingInterface;
 
 public class DummyBackend implements Runnable{
@@ -11,6 +13,8 @@ public class DummyBackend implements Runnable{
 	}
 
 	public void run() {
+		iface.setDefaultOption("rei ayanami");  // :P the default option is not bound by the context
+		iface.setContext(Arrays.asList("eren","mikasa","armin","levi"));
 		while (true) {
 			testSquence();
 		}
@@ -19,7 +23,6 @@ public class DummyBackend implements Runnable{
 	
 	private void testSquence() {
 		System.out.println("controller: -- doing stuff");
-		iface.setDefaultOption("default option thing");
 		iface.headWrite("Scrivi qualcosa");
 		System.out.println("controller: -- now we wait");
 		String ans = iface.headRead();
