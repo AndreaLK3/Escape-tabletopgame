@@ -8,3 +8,6 @@
 2) JSON and Java (org.json)
 	Documentation: http://www.json.org/java/index.html
 	Download jar file: http://www.java2s.com/Code/JarDownload/java/java-json.jar.zip
+	
+3) Miscellaneous java networking
+	http://tutorials.jenkov.com/java-multithreaded-servers/multithreaded-server.html
