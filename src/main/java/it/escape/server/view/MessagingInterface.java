@@ -46,11 +46,24 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 			}
 		}
 	}
-
+	
+	/**
+	 * to be overridden by the class extending MessagingInterface
+	 * this function must process an atomic message string (i.e.
+	 * writing it to a socket)
+	 * This function is actually driven by the Head-side, which
+	 * decides when to transmit
+	 */
 	public void tailRead(String singleMessage) {
 		// to be overridden
 	}
-
+	
+	/**
+	 * to be overridden by the class extending MessagingInterface
+	 * this function must append one or more message strings to
+	 * receiveQueue, and finally call afterTailWrite()
+	 * Calling said function is MANDATORY
+	 */
 	public void tailWrite() {
 		// to be overridden
 		// must call afterTailWrite()
