@@ -83,9 +83,23 @@ public abstract class TurnHandler {
 	public abstract void turnBeforeMove();
 	
 	/**
-	 * only the movement itself
+	 *The movement itself. Since the sequence of invoked methods is the same for Humans and Aliens, 
+	 *as Sonar suggests, it is inside the superclass. 
 	 */
-	public abstract void turnMove();
+	public void turnMove() {
+		do {
+				moveCommand = reporter.askForMovement();
+				try {
+					cellAction = moveCommand.execute(currentPlayer, map);
+					correctInput = true;
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			
+			} while (!correctInput);
+
+		
+	}
 	
 	/**
 	 * actions performed upon landing on a new cell

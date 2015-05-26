@@ -86,19 +86,6 @@ public class TurnHandlerHuman extends TurnHandler {
 		}
 	}
 
-	@Override
-	public void turnMove() {
-		
-		do {
-			try {
-				moveCommand = reporter.askForMovement();
-				cellAction = moveCommand.execute(currentPlayer, map);
-				correctInput = true;
-			} catch (Exception e) {	//DestinationUnreachableException, PlayerCanNotEnterException, CellNotExisting
-				correctInput = false;
-				}
-			} while (!correctInput);
-	}
 	
 	@Override
 	public void turnLand() {

@@ -2,6 +2,7 @@ package it.escape.server.model.game.gamemap;
 
 import it.escape.server.controller.game.actions.CellAction;
 import it.escape.server.controller.game.actions.MapActionInterface;
+import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.exceptions.CellNotExistsException;
 import it.escape.server.model.game.exceptions.DestinationUnreachableException;
@@ -105,8 +106,12 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 		return true;
 	}
 	
-	/** This is the function that is invoked by the TurnHandler; it calls several subfunctions*/
-	public CellAction move(Player curPlayer , String destination) throws Exception {
+	/** This is the function that is invoked by the TurnHandler; it calls several subfunctions
+	 * @throws BadCoordinatesException 
+	 * @throws DestinationUnreachableException 
+	 * @throws CellNotExistsException 
+	 * @throws PlayerCanNotEnterException */
+	public CellAction move(Player curPlayer , String destination) throws BadCoordinatesException, DestinationUnreachableException, CellNotExistsException, PlayerCanNotEnterException {
 		PositionCubic dest3D = CoordinatesConverter.fromAlphaNumToCubic(destination);
 		
 		if (!destinationReachable(curPlayer, dest3D)) {
