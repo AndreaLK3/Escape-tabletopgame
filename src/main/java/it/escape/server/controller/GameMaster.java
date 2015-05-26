@@ -36,10 +36,17 @@ public class GameMaster {
 	
 	private MapActionInterface map;
 	
-	public static void newPlayerHasConnected(MessagingInterface interfaceWithUse) {
+	public static void newPlayerHasConnected(MessagingInterface interfaceWithUser) {
 		if (currentGameMaster == null) {
 			currentGameMaster = new GameMaster(mapCreator.getMap());
-			//
+			gameMasters.add(currentGameMaster);
+		}
+		if (currentGameMaster.hasFreeSlots()) {
+			currentGameMaster.addNewPlayer(interfaceWithUser);
+		} else {
+			currentGameMaster = new GameMaster(mapCreator.getMap());
+			gameMasters.add(currentGameMaster);
+			currentGameMaster.addNewPlayer(interfaceWithUser);
 		}
 	}
 	
