@@ -170,7 +170,8 @@ public class UserMessagesReporter {
 	}
 
 	private String ioGetPosition() {
-		// to be implemented
+		interfaceWithUser.writeToClient(String.format(
+				StringRes.getString("messaging.askForPosition")));
 		return "B03";
 	}
 	
