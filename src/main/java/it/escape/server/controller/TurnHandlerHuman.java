@@ -5,9 +5,7 @@ import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.ObjectCardAction;
 import it.escape.server.controller.game.actions.cardactions.DrawObjectCard;
 import it.escape.server.model.game.Announcer;
-import it.escape.server.model.game.cards.ObjectCard;
 import it.escape.server.model.game.cards.objectCards.AdrenalineCard;
-import it.escape.server.model.game.cards.objectCards.AttackCard;
 import it.escape.server.model.game.cards.objectCards.LightsCard;
 import it.escape.server.model.game.cards.objectCards.SedativesCard;
 import it.escape.server.model.game.cards.objectCards.TeleportCard;
@@ -19,10 +17,10 @@ import it.escape.strings.StringRes;
 
 public class TurnHandlerHuman extends TurnHandler {
 	
-	private UserMessagesReporter reporter;
+	
 	private ObjectCardAction objectCardAction;
-	private ObjectCard objectCard;
-	private boolean correctInput;
+
+	
 	
 	public TurnHandlerHuman(Player currentPlayer, MapActionInterface map) {
 		super(map);
@@ -72,18 +70,8 @@ public class TurnHandlerHuman extends TurnHandler {
 		} while (!endObjectCard);
 	}
 	
-	private void discardObjectCard() {
-		do {
-			try {
-				String key = reporter.askWhichObjectCard();
-				objectCard = currentPlayer.drawCard(key);  // card is removed from the player's hand	
-				endObjectCard = true;
-				
-			} catch (CardNotPresentException e) {	//CardNotExistingException
-				endObjectCard = false;
-			}
-		} while (!endObjectCard);
-	}
+	//discardObjectCard is defined inside the superclass TurnHandler, since it is the same for Humans and Aliens;
+	
 	
 	@Override
 	public void initialize() {
@@ -117,7 +105,7 @@ public class TurnHandlerHuman extends TurnHandler {
 		try {
 			currentPlayer.searchForCard(StringRes.getString("cardKeys.attack"));
 			if (reporter.askIfAttack()) {
-				objectCard = currentPlayer.drawCard(StringRes.getString("cardKeys.attack"));  // the Attack card is removed from the player's hand
+				objectCard = currentPlayer.drawCard(StringRes.getString("cardKeys.attackOrder"));  // the AttackOrder card is removed from the player's hand
 				objectCardAction = objectCard.getObjectAction();
 				objectCardAction.execute((Human)currentPlayer, map);
 				currentPlayer.setHasAttacked();
@@ -163,13 +151,6 @@ public class TurnHandlerHuman extends TurnHandler {
 		reporter.stopFillingDefault();
 	}
 
-	/**This function is called by the thread that runs inside the TimeController class.
-	 * Meanwhile, the thread of ExecutiveController&TurnHandler is stagnating somewhere... 
-	 */
-	@Override
-	public void fillInDefaultChoices() {
-		reporter.fillinDefaultOnce();  // free us from the block we're currently stuck in
-		reporter.fillinDefaultAlways();  // free us from future blocks
-	}
+	
 
 }

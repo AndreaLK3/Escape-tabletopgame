@@ -26,6 +26,7 @@ public class Human extends Player {
 	@Override
 	public void startTurn() {
 		hasMoved = false;
+		hasAttacked = false;
 		if (sedatives) {
 			sedatives = false;
 		}

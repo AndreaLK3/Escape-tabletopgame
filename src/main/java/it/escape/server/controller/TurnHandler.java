@@ -4,6 +4,8 @@ import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.CellAction;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
+import it.escape.server.model.game.cards.ObjectCard;
+import it.escape.server.model.game.exceptions.CardNotPresentException;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 
@@ -17,9 +19,12 @@ import it.escape.server.model.game.players.Player;
  */
 public abstract class TurnHandler {
 	
+	protected UserMessagesReporter reporter;
 	protected CardAction cardAction;
 	protected CellAction cellAction;
 	protected MoveCommand moveCommand;
+	protected ObjectCard objectCard;
+	protected boolean correctInput;
 	protected boolean endObjectCard;
 	
 	protected Player currentPlayer;
@@ -45,12 +50,27 @@ public abstract class TurnHandler {
 		}
 	}
 	
+	protected void discardObjectCard() {
+		do {
+			try {
+				String key = reporter.askWhichObjectCard();
+				objectCard = currentPlayer.drawCard(key);  // card is removed from the player's hand	
+				endObjectCard = true;
+				
+			} catch (CardNotPresentException e) {	//CardNotExistingException
+				endObjectCard = false;
+			}
+		} while (!endObjectCard);
+	}
 	
-	/**
-	 * invoked by turnhandler; it will conclude the turn by automatically
-	 * choosing the default answers in any pending user-interaction(s)
+	
+	/**This function is called by the thread that runs inside the TimeController class.
+	 * Meanwhile, the thread of ExecutiveController&TurnHandler is stagnating somewhere... 
 	 */
-	public abstract void fillInDefaultChoices();
+	public void fillInDefaultChoices() {
+		reporter.fillinDefaultOnce();  // free us from the block we're currently stuck in
+		reporter.fillinDefaultAlways();  // free us from future blocks
+	}
 	
 	/**
 	 * prepare the turn-handler (setup Reporter, prepare currentPlayer)
