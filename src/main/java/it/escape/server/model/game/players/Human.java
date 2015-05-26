@@ -45,6 +45,10 @@ public class Human extends Player {
 		escaped = true;
 	}
 	
+	public boolean getEscaped() {
+		return escaped;
+	}
+	
 	public boolean hasCard(String cardName) {
 		
 		return false;
