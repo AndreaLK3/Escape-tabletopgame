@@ -17,13 +17,6 @@ public class TurnHandlerAlien extends TurnHandler{
 
 
 	@Override
-	public void executeTurnSequence() {
-
-		
-	}
-
-
-	@Override
 	public void initialize() {
 		reporter = UserMessagesReporter.getReporterInstance(currentPlayer);
 		currentPlayer.startTurn();	//sets Player.hasMoved and Player.hasAttacked to false and resets past states
