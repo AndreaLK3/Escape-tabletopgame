@@ -18,6 +18,7 @@ public class FilesHelper {
 			while ((line = reader.readLine()) != null) {
 		        ret.append(line);
 		    }
+			// TODO: save newlines
 			
 			return ret.toString();
 		} catch (NullPointerException e) {

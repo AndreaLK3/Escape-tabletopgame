@@ -5,6 +5,7 @@ import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingInterface;
 import it.escape.strings.StringRes;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public class UserMessagesReporter {
 		
-	private static List<UserMessagesReporter> reportersList;
+	private static List<UserMessagesReporter> reportersList = new ArrayList<UserMessagesReporter>();
 	
 	private Player thePlayer;
 	private MessagingInterface interfaceWithUser;
@@ -50,6 +51,7 @@ public class UserMessagesReporter {
 		for (UserMessagesReporter r : reportersList) {	
 			if (r.getInterfaceWithUser() == interfaceWithUser) {
 				r.setThePlayer(newP);
+				break;
 			}
 		}
 	}

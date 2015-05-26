@@ -2,9 +2,11 @@ package it.escape.server.view;
 
 import it.escape.server.controller.GameMaster;
 import it.escape.server.controller.UserMessagesReporter;
+import it.escape.utils.FilesHelper;
 import it.escape.utils.LogHelper;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Observable;
 import java.util.Observer;
@@ -25,6 +27,7 @@ public class Connection implements Observer, Runnable {
 	
 	public void run() {
 		try {
+			sendWelcomeMessage();
 			messagingInterface = new SocketInterface(clientSocket);
 			UserMessagesReporter.createUMR(messagingInterface);
 			GameMaster.newPlayerHasConnected(messagingInterface);
@@ -32,11 +35,25 @@ public class Connection implements Observer, Runnable {
 			
 			// ultima cosa da fare
 			// loop continuo: riempire la coda di ricezione
+			while (true) {
+				messagingInterface.receiveFromClient();
+			}
 			
 		} catch (IOException e) {
 			log.severe("Cannot establish connection");
 		}
 		
+	}
+	
+	private void sendWelcomeMessage() {
+		PrintStream out;
+		try {
+			out = new PrintStream(clientSocket.getOutputStream());
+			out.println(FilesHelper.streamToString(
+					FilesHelper.getResourceFile("resources/MOTD.txt")));
+		} catch (IOException e) {
+			log.warning("Couldn't send welcome message.");
+		}
 	}
 
 	public void update(Observable arg0, Object arg1) {
