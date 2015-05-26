@@ -12,7 +12,7 @@ public class Escape implements CardAction {
 	public void execute(Player currentPlayer, MapActionInterface map) {
 			currentPlayer.setEscaped();
 			UserMessagesReporter.getReporterInstance(currentPlayer).
-				sendMessage(StringRes.getString("messaging.EscapedSuccessfully"));
+				relayMessage(StringRes.getString("messaging.EscapedSuccessfully"));
 			Announcer.getAnnouncerInstance().announceEscape(currentPlayer);
 	}
 

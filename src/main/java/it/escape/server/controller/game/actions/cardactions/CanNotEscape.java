@@ -11,7 +11,7 @@ public class CanNotEscape  implements CardAction{
 
 	public void execute(Player currentPlayer, MapActionInterface map) {
 		UserMessagesReporter.getReporterInstance(currentPlayer).
-			sendMessage(StringRes.getString("messaging.EscapeHatchDoesNotWork"));
+			relayMessage(StringRes.getString("messaging.EscapeHatchDoesNotWork"));
 		
 	}
 
