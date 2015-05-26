@@ -13,6 +13,9 @@ import java.util.List;
 
 public class GameMaster {
 	
+	private static List<GameMaster> gameMasters = new ArrayList<GameMaster>();
+	private static GameMaster currentGameMaster = null;
+	
 	private final static int MAXPLAYERS = 8;
 	private int numPlayers = 0;
 	
@@ -29,8 +32,14 @@ public class GameMaster {
 	private List<Player> listOfPlayers;
 	
 	private MapActionInterface map;
+	
+	public static void newPlayerHasConnected(MessagingInterface interfaceWithUse) {
+		if (currentGameMaster == null) {
+			currentGameMaster = new GameMaster(map);
+		}
+	}
 
-	public GameMaster(MapActionInterface map) {
+	private GameMaster(MapActionInterface map) {
 		this.map = map;
 		timeController =  new TimeController(listOfPlayers);
 		executor = new ExecutiveController(timeController, map);
@@ -51,7 +60,7 @@ public class GameMaster {
 	}
 	
 	/* The interface is used to find the right UMR.*/
-	public void newPlayerHasConnected(MessagingInterface interfaceWithUser) {
+	public void addNewPlayer(MessagingInterface interfaceWithUser) {
 		Player newP = createPlayer();  // create the player
 		listOfPlayers.add(newP);  // add him to our players list
 		map.addNewPlayer(newP, newP.getTeam());  // tell the map to place our player
