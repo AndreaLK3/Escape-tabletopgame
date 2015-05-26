@@ -18,14 +18,10 @@ public class Announcer extends Observable {
 	
 	private static Announcer instance = null;
 	
-	public static Announcer createAnnouncerInstance() {
+	public static Announcer getAnnouncerInstance() {
 		if (instance == null) {
 			instance = new Announcer();
 		}
-		return instance;
-	}
-	
-	public static Announcer getAnnouncerInstance() {
 		return instance;
 	}
 	

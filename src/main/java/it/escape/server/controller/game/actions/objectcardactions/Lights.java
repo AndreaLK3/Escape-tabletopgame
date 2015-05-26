@@ -14,6 +14,7 @@ import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
+import it.escape.strings.StringRes;
 
 public class Lights implements ObjectCardAction {
 
@@ -32,12 +33,14 @@ public class Lights implements ObjectCardAction {
 				correctInput = true;
 			}
 			catch (BadCoordinatesException e) {
-				//send a message to the UMR : ask for correct Input
+				UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(
+						StringRes.getString("messaging.badCoordinatesFormat"));
 				//NOTE: It would be better to transfer the format check either to the client or to the UMR 
 				correctInput = false;
 			}
 			catch (CellNotExistsException e) {
-				//send a message to the UMR : ask for correct Input
+				UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(
+						StringRes.getString("messaging.cellNotExists"));
 				correctInput=false;
 			}
 		} while (!correctInput);	

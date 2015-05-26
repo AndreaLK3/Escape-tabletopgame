@@ -185,11 +185,9 @@ public class UserMessagesReporter {
 		return interfaceWithUser.readFromClient();
 	}
 	
-	public void sendMessage(String string) {
-	
-		
+	public void relayMessage(String string) {
+		interfaceWithUser.writeToClient(string);
 	}
-
 	
 	/* E' utile? TurnHandler ha già un riferimento al Player*/
 	public Player getThePlayer() {

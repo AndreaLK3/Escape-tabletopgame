@@ -2,6 +2,7 @@ package it.escape.server.view;
 
 import it.escape.server.controller.GameMaster;
 import it.escape.server.controller.UserMessagesReporter;
+import it.escape.server.model.game.Announcer;
 import it.escape.utils.FilesHelper;
 import it.escape.utils.LogHelper;
 
@@ -31,6 +32,8 @@ public class Connection implements Observer, Runnable {
 			messagingInterface = new SocketInterface(clientSocket);
 			UserMessagesReporter.createUMR(messagingInterface);
 			GameMaster.newPlayerHasConnected(messagingInterface);
+			
+			Announcer.getAnnouncerInstance().addObserver(this);
 			// a questo punto abbiamo un nuovo player
 			
 			// ultima cosa da fare
@@ -51,14 +54,24 @@ public class Connection implements Observer, Runnable {
 			out = new PrintStream(clientSocket.getOutputStream());
 			out.println(FilesHelper.streamToString(
 					FilesHelper.getResourceFile("resources/MOTD.txt")));
+			out.close();
 		} catch (IOException e) {
 			log.warning("Couldn't send welcome message.");
-		}
+		} 
 	}
 
 	public void update(Observable arg0, Object arg1) {
-		// leggi il messaggio da announcer
-		// scrivi il messaggio sulla socket
+		if (arg0 instanceof Announcer) {
+			Announcer a = (Announcer) arg0;
+			PrintStream out;
+			try {
+				out = new PrintStream(clientSocket.getOutputStream());
+				out.println(a.getMessage());
+				out.close();
+			} catch (IOException e) {
+				log.warning("Couldn't Announce message.");
+			}
+		}
 	}
 
 }
