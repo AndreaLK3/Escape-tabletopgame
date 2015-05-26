@@ -25,16 +25,16 @@ public class DecksHandler {
 		oDeck = new ObjectDeck();
 	}
 
-	public Card drawSectorCard() {
-		return sDeck.drawCard();
+	public SectorCard drawSectorCard() {
+		return (SectorCard)sDeck.drawCard();
 	}
 
-	public Card drawObjectCard() {
-		return oDeck.drawCard();
+	public ObjectCard drawObjectCard() {
+		return (ObjectCard)oDeck.drawCard();
 	}
 
-	public Card drawEscapeCard() {
-		return eDeck.drawCard();
+	public SectorCard drawEscapeCard() {
+		return (SectorCard)eDeck.drawCard();
 	}
 
 }

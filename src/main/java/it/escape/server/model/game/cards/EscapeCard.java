@@ -4,8 +4,9 @@ import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.cardactions.CanNotEscape;
 import it.escape.server.controller.game.actions.cardactions.NoCardAction;
 import it.escape.server.controller.game.actions.cardactions.Escape;
+import it.escape.server.model.game.cards.Card;
 
-public class EscapeCard implements Card {
+public class EscapeCard implements SectorCard,Card {
 	
 	private EscapeCardColor color;
 
