@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class ExecutiveController implements Runnable {
 	
-	protected static final Logger log = Logger.getLogger( ExecutiveController.class.getName() );
+	protected static final Logger LOG = Logger.getLogger( ExecutiveController.class.getName() );
 	
 	private Player currentPlayer;
 	
@@ -28,7 +28,7 @@ public class ExecutiveController implements Runnable {
 	}
 
 	public void run() {
-		log.fine(StringRes.getString("controller.executor.start"));
+		LOG.fine(StringRes.getString("controller.executor.start"));
 		gameLoop();
 	}
 	
@@ -38,7 +38,7 @@ public class ExecutiveController implements Runnable {
 			try {
 				wait();  // wait to be awakened by startTurn()
 			} catch (InterruptedException e) {
-				log.finer(StringRes.getString("controller.executor.awaken"));
+				LOG.finer(StringRes.getString("controller.executor.awaken"));
 			}
 			gameTurn();
 			timeControllerRef.endTurn();  // wake up timeController, prevents timeout
@@ -60,7 +60,7 @@ public class ExecutiveController implements Runnable {
 
 
 	public ExecutiveController(TimeController timeControllerRef, MapActionInterface map) {
-		LogHelper.setDefaultOptions(log);
+		LogHelper.setDefaultOptions(LOG);
 		this.map = map;
 		this.timeControllerRef = timeControllerRef;
 		runGame = true;		

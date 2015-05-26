@@ -1,7 +1,7 @@
 package it.escape.server.model.game.cards;
 
-import it.escape.server.model.game.cards.objectCards.AttackCard;
-import it.escape.server.model.game.cards.objectCards.SedativesCard;
+import it.escape.server.model.game.cards.objectcards.AttackCard;
+import it.escape.server.model.game.cards.objectcards.SedativesCard;
 
 public class ObjectDeck extends Deck {
 	

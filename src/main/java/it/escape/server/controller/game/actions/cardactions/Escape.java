@@ -8,7 +8,7 @@ import it.escape.server.model.game.players.Player;
 import it.escape.strings.StringRes;
 
 public class Escape implements CardAction {
-
+	
 	public void execute(Player currentPlayer, MapActionInterface map) {
 			currentPlayer.setEscaped();
 			UserMessagesReporter.getReporterInstance(currentPlayer).
