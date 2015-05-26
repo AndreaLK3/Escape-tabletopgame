@@ -9,10 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /** This class is located at the border of the controller package, it communicates with the classes inside the View; 
- * The TurnHandler issues requests to this class;
- * depending on the strings returned by MessagingInterface,
- * this class creates different actions, and returns them to the TurnHandler.
- * N: The check on the syntax is not performed by this class, it is done by the interface.
+ * The TurnHandler issues requests to this class.
+ * N: The check on the syntax is not performed by this class, it is done by the interface
  * The check on the semantics is performed by TurnHandler.
  * @author andrea
  */
@@ -46,11 +44,11 @@ public class UserMessagesReporter {
 	/**This method assigns a player (already initialized) to an existing
 	 * userMessagesReporter connected to an existing interface.
 	 * @param newP
-	 * @param interfaceWithUser2
+	 * @param interfaceWithUser
 	 */
-	public static void bindPlayer(Player newP,MessagingInterface interfaceWithUser2) {
+	public static void bindPlayer(Player newP,MessagingInterface interfaceWithUser) {
 		for (UserMessagesReporter r : reportersList) {	
-			if (r.getInterfaceWithUser() == interfaceWithUser2) {
+			if (r.getInterfaceWithUser() == interfaceWithUser) {
 				r.setThePlayer(newP);
 			}
 		}

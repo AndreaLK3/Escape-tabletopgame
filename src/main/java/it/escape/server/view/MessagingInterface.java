@@ -22,7 +22,7 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 	
 	private String defaultOption;
 	
-	private AtomicBoolean connetctionAlive;
+	private AtomicBoolean connectionAlive;
 	
 	private AtomicBoolean override;
 	
@@ -30,7 +30,7 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 		serverToClientQueue = new ConcurrentLinkedQueue<String>();
 		clientToServerQueue = new ConcurrentLinkedQueue<String>();
 		override = new AtomicBoolean();
-		connetctionAlive = new AtomicBoolean();
+		connectionAlive = new AtomicBoolean();
 		override.set(false);
 	}
 	
@@ -39,7 +39,7 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 	}
 	
 	private void tailReadDriver() {
-		if (connetctionAlive.get()) {
+		if (connectionAlive.get()) {
 			while (!serverToClientQueue.isEmpty()) {
 				String next = serverToClientQueue.poll();
 				sendToClient(next);
@@ -71,11 +71,11 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 	}
 
 	public void setConnectionAlive() {
-		connetctionAlive.set(true);
+		connectionAlive.set(true);
 	}
 
 	public void setConnectionDead() {
-		connetctionAlive.set(false);
+		connectionAlive.set(false);
 	}
 
 	public void writeToClient(String message) {
