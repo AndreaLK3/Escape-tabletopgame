@@ -1,5 +1,8 @@
 package it.escape.server.model.game.cards;
 
+import it.escape.server.model.game.cards.escapecard.EscapeCard;
+import it.escape.server.model.game.cards.escapecard.EscapeCardColor;
+
 public class EscapeDeck extends Deck {
 	/** Symbolic constants define the number of cards of each kind in this deck*/
 	private final static int REDSHUTTLE = 3;
