@@ -1,5 +1,6 @@
 package it.escape.server.controller;
 
+import it.escape.server.MapCreator;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.model.game.players.Alien;
 import it.escape.server.model.game.players.Human;
@@ -15,6 +16,8 @@ public class GameMaster {
 	
 	private static List<GameMaster> gameMasters = new ArrayList<GameMaster>();
 	private static GameMaster currentGameMaster = null;
+	
+	private static MapCreator mapCreator;
 	
 	private final static int MAXPLAYERS = 8;
 	private int numPlayers = 0;
@@ -35,8 +38,13 @@ public class GameMaster {
 	
 	public static void newPlayerHasConnected(MessagingInterface interfaceWithUse) {
 		if (currentGameMaster == null) {
-			currentGameMaster = new GameMaster(map);
+			currentGameMaster = new GameMaster(mapCreator.getMap());
+			//
 		}
+	}
+	
+	public static void setMapCreator(MapCreator creator) {
+		mapCreator = creator;
 	}
 
 	private GameMaster(MapActionInterface map) {

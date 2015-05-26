@@ -21,7 +21,7 @@ public class Server {
 	private ServerSocket serverSocket;
 	
 	public static Server createServerInstance() throws IOException {
-		if (serverInstance != null) {
+		if (serverInstance == null) {
 			serverInstance = new Server();
 		}
 		return serverInstance;
@@ -45,6 +45,7 @@ public class Server {
 			try {
 				Socket newSocket = serverSocket.accept();
 				Connection c = new Connection(newSocket);
+				log.info("A new user connected from " + newSocket.getInetAddress().toString());
 				//registerConnection(c);
 				new Thread(c).start();
 			} catch (IOException e) {

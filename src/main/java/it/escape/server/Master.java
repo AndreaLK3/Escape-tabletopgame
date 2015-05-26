@@ -1,5 +1,6 @@
 package it.escape.server;
 
+import it.escape.server.controller.GameMaster;
 import it.escape.server.view.Server;
 
 import java.io.IOException;
@@ -13,7 +14,10 @@ public class Master {
 
 	public Master() {
 		try {
+			MapCreator mapCreator = new MapCreator("resources/Galilei.json");
+			GameMaster.setMapCreator(mapCreator);
 			server = Server.createServerInstance();
+			server.run();
 			
 		} catch (IOException e) {
 			crash(e.getMessage());
@@ -29,4 +33,7 @@ public class Master {
 		throw new AssertionError();
 	}
 
+	public static void main(String[] args) {
+		new Master();
+	}
 }
