@@ -5,6 +5,8 @@ import it.escape.utils.LogHelper;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 
@@ -16,7 +18,7 @@ public class Server {
 	protected static final Logger log = Logger.getLogger( Server.class.getName() );
 	
 	private static Server serverInstance = null;
-	
+	private static List<Connection> connections = new ArrayList<Connection>();
 	private static final int PORT = 1337;
 	private ServerSocket serverSocket;
 	
@@ -45,6 +47,7 @@ public class Server {
 			try {
 				Socket newSocket = serverSocket.accept();
 				Connection c = new Connection(newSocket);
+				registerConnection(c);
 				log.info("A new user connected from " + newSocket.getInetAddress().toString());
 				//registerConnection(c);
 				new Thread(c).start();
@@ -54,7 +57,8 @@ public class Server {
 		}
 	}
 	
-	/*private synchronized void registerConnection(Connection c){
-		connections.add(c);*/
+	private synchronized void registerConnection(Connection c){
+		connections.add(c);
 	}
+}
 
