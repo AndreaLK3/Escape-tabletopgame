@@ -50,7 +50,6 @@ public class Server implements ConnectionUnregisterInterface{
 				Connection c = new Connection(newSocket, this);
 				registerConnection(c);
 				log.info("A new user connected from " + newSocket.getInetAddress().toString());
-				registerConnection(c);
 				new Thread(c).start();
 			} catch (IOException e) {
 				log.severe("Connection error!");

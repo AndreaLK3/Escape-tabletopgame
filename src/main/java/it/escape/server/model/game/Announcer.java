@@ -47,7 +47,7 @@ public class Announcer extends Observable {
 	}
 	
 	public void announcePlayerDisconnected(Player player) {
-		String newmsg = String.format(StringRes.getString("messaging.playerDisonnected"),
+		String newmsg = String.format(StringRes.getString("messaging.playerDisconnected"),
 				player.getName());
 		announce(newmsg);
 	}
