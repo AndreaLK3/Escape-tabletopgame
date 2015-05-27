@@ -25,23 +25,26 @@ public class Connection implements Observer, Runnable {
 	private boolean running;
 	
 	private MessagingInterface messagingInterface;
+	
+	private ConnectionUnregisterInterface server;
 
-	public Connection(Socket clientSocket) {
+	public Connection(Socket clientSocket, ConnectionUnregisterInterface server) {
 		LogHelper.setDefaultOptions(log);
 		this.clientSocket = clientSocket;
 		this.running = true;
+		this.server = server;
 	}
 	
 	public void run() {
 		try {
-			sendWelcomeMessage();
+			sendWelcomeMessage();  // welcomes new player
+			// setup required objects for a player to work properly
 			messagingInterface = new SocketInterface(clientSocket);
 			UserMessagesReporter.createUMR(messagingInterface);
 			GameMaster.newPlayerHasConnected(messagingInterface);
 			
 			Announcer.getAnnouncerInstance().addObserver(this);
 			
-			// ultima cosa da fare
 			// loop continuo: riempire la coda di ricezione
 			while (running) {
 				try {
@@ -59,6 +62,7 @@ public class Connection implements Observer, Runnable {
 				log.severe("Cannot close the connection");
 			}
 			
+			server.unregisterConnection(this);  // unregister from the connections list
 		} catch (IOException e) {
 			log.severe("Cannot establish connection");
 		}

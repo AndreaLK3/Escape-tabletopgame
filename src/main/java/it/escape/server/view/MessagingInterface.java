@@ -12,7 +12,8 @@ import com.sun.jndi.cosnaming.CNNameParser;
 import it.escape.server.controller.MessagingHead;
 
 /**
- * MessagingInterface manages a single per-player communication channel.
+ * MessagingInterface manages a single per-user communication channel.
+ * All communications to and from a specific user pass through his MessagingInterface.
  * The "Head" side is the server, the "Tail" side is a socket connection
  * to the client (the user).
  * Server-to-client messages are instantly submitted,
@@ -23,8 +24,8 @@ import it.escape.server.controller.MessagingHead;
  *     if the server is not reading, the incoming message is stored
  *     if the server is reading, the queue is parsed, and the first valid
  *       message is returned
- *   The reading operation is blocking, but can be un-stuck by overrideDefaultOption()
- * (2) The second one, a simple Observable implementation, in which the Observers
+ *   The reading operation is blocking, but can be un-stuck by overrideDefaultOption().
+ * (2) The second mechanism, is a simple Observable implementation, in which the Observers
  * are instantly and *asynchronusly* notified whenever a new message arrives.
  * The new message does not undergo any validations, and remains in the queue, so
  * that the (1) mechanism can still access it.

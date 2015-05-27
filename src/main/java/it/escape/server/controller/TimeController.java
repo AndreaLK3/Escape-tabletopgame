@@ -76,14 +76,13 @@ public class TimeController implements Runnable {
 				} catch (InterruptedException e) {
 				}
 			}
-			// If we were to check win conditions, here's where we'd do it
-			intermediateVictoryCheck();
+			intermediateVictoryCheck();  // game might terminate here
 			nowPlaying++;  // update current player
 			if (nowPlaying >= turnOrder.size()) {
 				nowPlaying = 0;
 				turnNumber++;
 				if (turnNumber > MAX_TURNS) {
-					finalVictoryCheck();
+					endGame();  // ran out of turns
 				}
 			}
 		}
@@ -91,39 +90,8 @@ public class TimeController implements Runnable {
 	
 	private void intermediateVictoryCheck() {
 		if (new VictoryChecker(turnOrder).isVictoryCondition()) {
-			finalVictoryCheck();
+			endGame();
 		}
-	}
-	
-	/**
-	 * announce the winners, then end the game
-	 */
-	private void finalVictoryCheck() {
-		VictoryChecker conditions = new VictoryChecker(turnOrder);
-		Announcer.getAnnouncerInstance().announceGameEnd();
-		
-		if (conditions.allHumansWin()) {
-			Announcer.getAnnouncerInstance().announceTeamVictory(
-					PlayerTeams.HUMANS,
-					conditions.getHumanWinners());
-			Announcer.getAnnouncerInstance().announceTeamDefeat(
-					PlayerTeams.ALIENS);
-		} else if (conditions.areThereHumanWinners()) {
-			Announcer.getAnnouncerInstance().announceTeamVictory(
-					PlayerTeams.HUMANS,
-					conditions.getHumanWinners());
-			Announcer.getAnnouncerInstance().announceTeamVictory(
-					PlayerTeams.ALIENS,
-					conditions.getAlienWinners());
-		} else {
-			Announcer.getAnnouncerInstance().announceTeamDefeat(
-					PlayerTeams.HUMANS);
-			Announcer.getAnnouncerInstance().announceTeamVictory(
-					PlayerTeams.ALIENS,
-					conditions.getAlienWinners());
-		}
-		
-		endGame();
 	}
 	
 	private void endGame() {

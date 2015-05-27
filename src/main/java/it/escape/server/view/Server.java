@@ -1,5 +1,6 @@
 package it.escape.server.view;
 
+import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
 
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.util.logging.Logger;
 /**This class handles the creation of the TCP connections when the clients connect.
  * (n: We could make it a Singleton...)
  */
-public class Server {
+public class Server implements ConnectionUnregisterInterface{
 	
 	protected static final Logger log = Logger.getLogger( Server.class.getName() );
 	
@@ -46,10 +47,10 @@ public class Server {
 		while(true){
 			try {
 				Socket newSocket = serverSocket.accept();
-				Connection c = new Connection(newSocket);
+				Connection c = new Connection(newSocket, this);
 				registerConnection(c);
 				log.info("A new user connected from " + newSocket.getInetAddress().toString());
-				//registerConnection(c);
+				registerConnection(c);
 				new Thread(c).start();
 			} catch (IOException e) {
 				log.severe("Connection error!");
@@ -59,6 +60,12 @@ public class Server {
 	
 	private synchronized void registerConnection(Connection c){
 		connections.add(c);
+		log.finer(StringRes.getString("view.server.connectionRegistered"));
+	}
+
+	public void unregisterConnection(Connection connection) {
+		connections.remove(connection);
+		log.finer(StringRes.getString("view.server.connectionUnregistered"));
 	}
 }
 

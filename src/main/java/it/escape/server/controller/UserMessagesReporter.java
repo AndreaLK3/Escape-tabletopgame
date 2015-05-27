@@ -9,10 +9,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/** This class is located at the border of the controller package, it communicates with the classes inside the View; 
+/** 
+ * This class is located at the border of the controller package,
+ * it communicates with the classes inside the View;
+ * This class statically links a player in the game to a MessagingInterface,
+ * thus automatically routing any user-specific communications.
  * The TurnHandler issues requests to this class.
  * N: The check on the syntax is not performed by this class, it is done by the interface
  * The check on the semantics is performed by TurnHandler.
+ * This class makes use of the Synchronous-communication facilities offered by MessagingInterface
  * @author andrea
  */
 public class UserMessagesReporter {

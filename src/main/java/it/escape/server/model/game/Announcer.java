@@ -33,9 +33,16 @@ public class Announcer extends Observable {
 		
 	}
 	
-	public void announcePlayerConnected(Player player) {
+	/**
+	 * Announce that a new player has connected, and shows the number
+	 * of players currently connected (over the maximum allowed)
+	 * @param connected
+	 * @param maximum
+	 */
+	public void announcePlayerConnected(int connected, int maximum) {
 		String newmsg = String.format(StringRes.getString("messaging.playerConnected"),
-				player.getName());
+				connected,
+				maximum);
 		announce(newmsg);
 	}
 	

@@ -8,12 +8,17 @@ import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.server.view.MessagingInterface;
+import it.escape.strings.StringRes;
+import it.escape.utils.LogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 public class GameMaster {
+	
+	protected static final Logger log = Logger.getLogger( GameMaster.class.getName() );
 	
 	private static List<GameMaster> gameMasters = new ArrayList<GameMaster>();
 	private static GameMaster currentGameMaster = null;
@@ -39,6 +44,7 @@ public class GameMaster {
 	
 	public static void newPlayerHasConnected(MessagingInterface interfaceWithUser) {
 		if (currentGameMaster == null) {
+			LogHelper.setDefaultOptions(log);
 			currentGameMaster = new GameMaster(mapCreator.getMap());
 			gameMasters.add(currentGameMaster);
 		}
@@ -82,7 +88,11 @@ public class GameMaster {
 	 * this function does not decide herself when we are ready
 	 */
 	public void startGame() {
+		log.info(StringRes.getString("controller.gamemaster.startingGame"));
 		launchThreads();
+		waitForFinish();
+		finalVictoryCheck();
+		// final cleanup: close connections / update scoreboard / say goodbye
 	}
 	
 	/* The interface is used to find the right UMR.*/
@@ -92,6 +102,7 @@ public class GameMaster {
 		map.addNewPlayer(newP, newP.getTeam());  // tell the map to place our player
 		UserMessagesReporter.bindPlayer(newP, interfaceWithUser);  // bind him to its command interface
 		numPlayers++;  // update the player counter
+		Announcer.getAnnouncerInstance().announcePlayerConnected(numPlayers,MAXPLAYERS);
 	}
 	
 	private void handlePlayerDisconnect(Player player) {
@@ -100,13 +111,13 @@ public class GameMaster {
 		 * do some things:
 		 * if the game has not yet started, simply remove him from the list
 		 * if the game is already running, we may want to wait for him
-		 * 		or maybe kill him off
+		 * 		or maybe kill him off, or set him as idle/penalized
+		 * what if an entire team disconnects a la MOBA?
 		 */
 	}
 	
 	/**
-	 * used by the external program logic to check if there are
-	 * places avaible for new players
+	 * used to check if there are places avaible for new players
 	 */
 	public boolean hasFreeSlots() {
 		if (numPlayers < MAXPLAYERS) {
@@ -138,5 +149,47 @@ public class GameMaster {
 	private void launchThreads() {
 		executorThread.start();
 		timerThread.start();
+	}
+	
+	private void waitForFinish() {
+		try {
+			timerThread.join();
+		} catch (InterruptedException e) {
+		}
+		try {
+			executorThread.join();
+		} catch (InterruptedException e) {
+		}
+		log.info(StringRes.getString("controller.gamemaster.gameFinished"));
+	}
+	
+	/**
+	 * announce the winners
+	 */
+	private void finalVictoryCheck() {
+		VictoryChecker conditions = new VictoryChecker(listOfPlayers);
+		Announcer.getAnnouncerInstance().announceGameEnd();
+		
+		if (conditions.allHumansWin()) {
+			Announcer.getAnnouncerInstance().announceTeamVictory(
+					PlayerTeams.HUMANS,
+					conditions.getHumanWinners());
+			Announcer.getAnnouncerInstance().announceTeamDefeat(
+					PlayerTeams.ALIENS);
+		} else if (conditions.areThereHumanWinners()) {
+			Announcer.getAnnouncerInstance().announceTeamVictory(
+					PlayerTeams.HUMANS,
+					conditions.getHumanWinners());
+			Announcer.getAnnouncerInstance().announceTeamVictory(
+					PlayerTeams.ALIENS,
+					conditions.getAlienWinners());
+		} else {
+			Announcer.getAnnouncerInstance().announceTeamDefeat(
+					PlayerTeams.HUMANS);
+			Announcer.getAnnouncerInstance().announceTeamVictory(
+					PlayerTeams.ALIENS,
+					conditions.getAlienWinners());
+		}
+		
 	}
 }
