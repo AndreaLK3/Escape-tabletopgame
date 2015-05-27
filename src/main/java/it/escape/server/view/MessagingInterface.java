@@ -36,8 +36,8 @@ import it.escape.server.controller.MessagingHead;
  */
 public class MessagingInterface extends Observable implements MessagingHead, MessagingTail {
 	
-	protected Queue<String> serverToClientQueue;
-	protected Queue<String> clientToServerQueue;
+	private Queue<String> serverToClientQueue;
+	private Queue<String> clientToServerQueue;
 	
 	private List<String> context = null;
 	
@@ -57,10 +57,10 @@ public class MessagingInterface extends Observable implements MessagingHead, Mes
 		connectionAlive = new AtomicBoolean();
 		asyncInterface = new AsyncMessagingObservable();
 		override.set(false);
+		connectionAlive.set(true);
 	}
 	
 	protected synchronized void afterTailWrite() {
-		asyncInterface.newMessage(clientToServerQueue.peek());
 		notify();
 	}
 	
@@ -85,13 +85,24 @@ public class MessagingInterface extends Observable implements MessagingHead, Mes
 	}
 	
 	/**
-	 * to be overridden by the class extending MessagingInterface
-	 * this function must append one or more message strings to
-	 * receiveQueue, and finally call afterTailWrite()
+	 * Feed the string to both the synchronous and
+	 * the asynchronous systems
+	 * @param message
+	 */
+	protected void enqueueFacility(String message) {
+		clientToServerQueue.offer(message);
+		asyncInterface.newMessage(message);
+	}
+	
+	/**
+	 * To be overridden by the class extending MessagingInterface.
+	 * This function must append one or more message strings by calling
+	 * the method enqueueFacility(String), then finally call afterTailWrite()
 	 * Calling said function is MANDATORY
 	 */
 	public void receiveFromClient() {
 		// to be overridden
+		// enqueueFacility("something");
 		// must call afterTailWrite()
 		afterTailWrite();
 	}

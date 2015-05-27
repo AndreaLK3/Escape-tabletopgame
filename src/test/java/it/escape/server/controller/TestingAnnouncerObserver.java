@@ -8,11 +8,11 @@ import java.io.PrintStream;
 import java.util.Observable;
 import java.util.Observer;
 
-public class TestingObserver implements Observer {
+public class TestingAnnouncerObserver implements Observer {
 	
 	private String last_message;
 
-	public TestingObserver() {
+	public TestingAnnouncerObserver() {
 	}
 
 	public void update(Observable o, Object arg) {

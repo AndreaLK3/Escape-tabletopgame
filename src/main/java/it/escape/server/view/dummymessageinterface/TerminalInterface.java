@@ -23,7 +23,7 @@ public class TerminalInterface extends MessagingInterface {
 	@Override
 	public void receiveFromClient() {
 		String in = cliInput.next().toLowerCase();
-		clientToServerQueue.offer(in);
+		enqueueFacility(in);
 		afterTailWrite();
 	}
 }
