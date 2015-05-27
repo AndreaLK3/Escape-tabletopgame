@@ -9,20 +9,23 @@ import java.io.PrintWriter;
 
 public class FilesHelper {
 	
+	private final static int BEFORE_FIRSTLINE = -1;
+	
 	public static String streamToString(InputStream ingresso) throws IOException {
 		try {
 			LineNumberReader reader = new LineNumberReader(new InputStreamReader(ingresso));
 			StringBuilder ret = new StringBuilder();
 			String line;
+			int prev = BEFORE_FIRSTLINE;
 			
 			while ((line = reader.readLine()) != null) {
-				int prev = reader.getLineNumber();
-				
-		        ret.append(line);
-		        
-		        if (prev != reader.getLineNumber()) {
-		        	ret.append("\n");
+				if (prev != reader.getLineNumber()) {
+		        	if (prev!=BEFORE_FIRSTLINE) {
+		        		ret.append("\n");
+		        	}
+		        	prev = reader.getLineNumber();
 		        }
+		        ret.append(line);
 		    }
 			// TODO: save newlines
 			
