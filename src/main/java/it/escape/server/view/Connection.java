@@ -3,6 +3,7 @@ package it.escape.server.view;
 import it.escape.server.controller.GameMaster;
 import it.escape.server.controller.UserMessagesReporter;
 import it.escape.server.model.game.Announcer;
+import it.escape.strings.StringRes;
 import it.escape.utils.FilesHelper;
 import it.escape.utils.LogHelper;
 
@@ -79,9 +80,8 @@ public class Connection implements Observer, Runnable {
 			out = new PrintStream(clientSocket.getOutputStream());
 			out.println(FilesHelper.streamToString(
 					FilesHelper.getResourceFile("resources/MOTD.txt")));
-			//out.close();
 		} catch (IOException e) {
-			log.warning("Couldn't send welcome message.");
+			log.warning(StringRes.getString("view.connection.cantWelcome"));
 		} 
 	}
 
@@ -92,9 +92,8 @@ public class Connection implements Observer, Runnable {
 			try {
 				out = new PrintStream(clientSocket.getOutputStream());
 				out.println(a.getMessage());
-				//out.close();
 			} catch (IOException e) {
-				log.warning("Couldn't Announce message.");
+				log.warning(StringRes.getString("view.connection.cantAnnounce"));
 			}
 		}
 	}
