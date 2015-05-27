@@ -17,6 +17,8 @@ public class VictoryChecker {
 
 	public VictoryChecker(List<Player> players) {
 		this.players = players;
+		humans = new ArrayList<Human>();
+		aliens = new ArrayList<Alien>();
 		for (Player p : players) {
 			if (p instanceof Human) {
 				humans.add((Human)p);

@@ -113,6 +113,7 @@ public class GameMaster {
 		 * if the game is already running, we may want to wait for him
 		 * 		or maybe kill him off, or set him as idle/penalized
 		 * what if an entire team disconnects a la MOBA?
+		 * if the game has already ended, do nothing
 		 */
 	}
 	
