@@ -57,6 +57,10 @@ public class GameMaster {
 		}
 	}
 	
+	public static GameMaster getInstanceByIndex(int index) {
+		return gameMasters.get(index);
+	}
+	
 	public static void playerHasDisconnected(MessagingInterface interfaceWithUser) {
 		for (GameMaster gm : gameMasters) {
 			Player offender = UserMessagesReporter.getReporterInstance(interfaceWithUser).getThePlayer();
@@ -191,6 +195,9 @@ public class GameMaster {
 					PlayerTeams.ALIENS,
 					conditions.getAlienWinners());
 		}
-		
+	}
+	
+	public List<Player> getPlayersList() {
+		return listOfPlayers;
 	}
 }
