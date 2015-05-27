@@ -3,6 +3,7 @@ package it.escape.server.view;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class SocketInterface extends MessagingInterface {
@@ -25,7 +26,7 @@ public class SocketInterface extends MessagingInterface {
 	}
 	
 	@Override
-	public void receiveFromClient() {
+	public void receiveFromClient() throws NoSuchElementException {
 		String read = in.nextLine().toLowerCase();
 		clientToServerQueue.offer(read);
 		afterTailWrite();

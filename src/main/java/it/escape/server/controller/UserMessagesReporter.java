@@ -27,8 +27,16 @@ public class UserMessagesReporter {
 	//creation and access methods
 	
 	public static UserMessagesReporter getReporterInstance(Player currentPlayer) {
-		for (UserMessagesReporter r : reportersList)
-		{	if (r.getThePlayer()==currentPlayer)
+		for (UserMessagesReporter r : reportersList) {	
+			if (r.getThePlayer()==currentPlayer)
+			return r;
+		}
+		return null;
+	}
+	
+	public static UserMessagesReporter getReporterInstance(MessagingInterface interfaceWithUser) {
+		for (UserMessagesReporter r : reportersList) {	
+			if (r.getInterfaceWithUser()==interfaceWithUser)
 			return r;
 		}
 		return null;

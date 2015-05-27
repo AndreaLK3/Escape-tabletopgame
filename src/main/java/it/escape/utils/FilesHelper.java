@@ -1,22 +1,28 @@
 package it.escape.utils;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.io.PrintWriter;
 
 public class FilesHelper {
 	
 	public static String streamToString(InputStream ingresso) throws IOException {
 		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(ingresso));
+			LineNumberReader reader = new LineNumberReader(new InputStreamReader(ingresso));
 			StringBuilder ret = new StringBuilder();
 			String line;
 			
 			while ((line = reader.readLine()) != null) {
+				int prev = reader.getLineNumber();
+				
 		        ret.append(line);
+		        
+		        if (prev != reader.getLineNumber()) {
+		        	ret.append("\n");
+		        }
 		    }
 			// TODO: save newlines
 			

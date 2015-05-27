@@ -9,6 +9,8 @@ import it.escape.utils.LogHelper;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.nio.channels.SocketChannel;
+import java.util.NoSuchElementException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Logger;
@@ -19,11 +21,14 @@ public class Connection implements Observer, Runnable {
 	
 	private Socket clientSocket;
 	
+	private boolean running;
+	
 	private MessagingInterface messagingInterface;
 
 	public Connection(Socket clientSocket) {
 		LogHelper.setDefaultOptions(log);
 		this.clientSocket = clientSocket;
+		this.running = true;
 	}
 	
 	public void run() {
@@ -34,18 +39,38 @@ public class Connection implements Observer, Runnable {
 			GameMaster.newPlayerHasConnected(messagingInterface);
 			
 			Announcer.getAnnouncerInstance().addObserver(this);
-			// a questo punto abbiamo un nuovo player
 			
 			// ultima cosa da fare
 			// loop continuo: riempire la coda di ricezione
-			while (true) {
-				messagingInterface.receiveFromClient();
+			while (running) {
+				try {
+					messagingInterface.receiveFromClient();
+				} catch (NoSuchElementException e) {  // detect disconnection
+					hasDisconnected();
+				}
+			}
+			
+			// natural end of the connection's life-cycle: close the socket
+			try {
+				clientSocket.close();
+				log.info("Closed connection to " + clientSocket.getInetAddress().toString());
+			} catch (IOException e) {
+				log.severe("Cannot close the connection");
 			}
 			
 		} catch (IOException e) {
 			log.severe("Cannot establish connection");
 		}
+	}
+	
+	private void hasDisconnected() {
+		messagingInterface.setConnectionDead();
+		Announcer.getAnnouncerInstance().deleteObserver(this);
+		GameMaster.playerHasDisconnected(messagingInterface);
 		
+		running = false;
+		log.warning("Lost connection to " + clientSocket.getInetAddress().toString());
+		// the connection thread will now terminate
 	}
 	
 	private void sendWelcomeMessage() {
@@ -54,7 +79,7 @@ public class Connection implements Observer, Runnable {
 			out = new PrintStream(clientSocket.getOutputStream());
 			out.println(FilesHelper.streamToString(
 					FilesHelper.getResourceFile("resources/MOTD.txt")));
-			out.close();
+			//out.close();
 		} catch (IOException e) {
 			log.warning("Couldn't send welcome message.");
 		} 
@@ -67,11 +92,15 @@ public class Connection implements Observer, Runnable {
 			try {
 				out = new PrintStream(clientSocket.getOutputStream());
 				out.println(a.getMessage());
-				out.close();
+				//out.close();
 			} catch (IOException e) {
 				log.warning("Couldn't Announce message.");
 			}
 		}
+	}
+	
+	public Socket getSocket() {
+		return clientSocket;
 	}
 
 }

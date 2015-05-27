@@ -19,9 +19,12 @@ public abstract class Player {
 	protected boolean alive;
 	protected Hand myHand;
 	
+	protected String name;
 	
-	public Player () {
+	
+	public Player (String name) {
 		LogHelper.setDefaultOptions(log);
+		this.name = name;
 		alive = true;
 	}
 	
@@ -31,6 +34,9 @@ public abstract class Player {
 		hasAttacked = false;
 	}
 
+	public String getName() {
+		return name;
+	}
 
 	public int getMaxRange() {
 		return maxRange;

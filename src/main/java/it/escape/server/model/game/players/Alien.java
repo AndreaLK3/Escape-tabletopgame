@@ -5,8 +5,8 @@ public class Alien extends Player {
 	
 	private final static int ALIENSMAXRANGE = 2;
 	
-	public Alien () {
-		super();
+	public Alien (String name) {
+		super(name);
 		maxRange = ALIENSMAXRANGE;
 	}
 	

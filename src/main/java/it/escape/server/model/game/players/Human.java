@@ -13,8 +13,8 @@ public class Human extends Player {
 	
 	private boolean escaped;
 	
-	public Human () {
-		super();
+	public Human (String name) {
+		super(name);
 		escaped = false;
 		maxRange = HUMANSMAXRANGE;
 	}

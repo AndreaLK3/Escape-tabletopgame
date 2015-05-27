@@ -1,6 +1,8 @@
 package it.escape.server.controller;
 
+import it.escape.server.model.game.Announcer;
 import it.escape.server.model.game.players.Player;
+import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
 
@@ -35,6 +37,7 @@ public class TimeController implements Runnable {
 		log.fine(StringRes.getString("controller.time.start"));
 		turnNumber = 0;
 		mainLoop();
+		log.fine(StringRes.getString("controller.time.finish"));
 	}
 
 	public TimeController(List<Player> turnOrder) {
@@ -74,20 +77,57 @@ public class TimeController implements Runnable {
 				}
 			}
 			// If we were to check win conditions, here's where we'd do it
-			
+			intermediateVictoryCheck();
 			nowPlaying++;  // update current player
 			if (nowPlaying >= turnOrder.size()) {
 				nowPlaying = 0;
 				turnNumber++;
 				if (turnNumber > MAX_TURNS) {
 					finalVictoryCheck();
-					// conclude game / program
 				}
 			}
 		}
 	}
 	
+	private void intermediateVictoryCheck() {
+		if (new VictoryChecker(turnOrder).isVictoryCondition()) {
+			finalVictoryCheck();
+		}
+	}
+	
+	/**
+	 * announce the winners, then end the game
+	 */
 	private void finalVictoryCheck() {
+		VictoryChecker conditions = new VictoryChecker(turnOrder);
+		Announcer.getAnnouncerInstance().announceGameEnd();
 		
+		if (conditions.allHumansWin()) {
+			Announcer.getAnnouncerInstance().announceTeamVictory(
+					PlayerTeams.HUMANS,
+					conditions.getHumanWinners());
+			Announcer.getAnnouncerInstance().announceTeamDefeat(
+					PlayerTeams.ALIENS);
+		} else if (conditions.areThereHumanWinners()) {
+			Announcer.getAnnouncerInstance().announceTeamVictory(
+					PlayerTeams.HUMANS,
+					conditions.getHumanWinners());
+			Announcer.getAnnouncerInstance().announceTeamVictory(
+					PlayerTeams.ALIENS,
+					conditions.getAlienWinners());
+		} else {
+			Announcer.getAnnouncerInstance().announceTeamDefeat(
+					PlayerTeams.HUMANS);
+			Announcer.getAnnouncerInstance().announceTeamVictory(
+					PlayerTeams.ALIENS,
+					conditions.getAlienWinners());
+		}
+		
+		endGame();
+	}
+	
+	private void endGame() {
+		runGame = false;
+		executorRef.endGame();
 	}
 }

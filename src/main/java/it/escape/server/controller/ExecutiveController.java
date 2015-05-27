@@ -26,22 +26,30 @@ public class ExecutiveController implements Runnable {
 		this.currentPlayer = currentPlayer;
 		notify();
 	}
+	
+	public synchronized void endGame() {
+		runGame = false;
+		notify();
+	}
 
 	public void run() {
 		LOG.fine(StringRes.getString("controller.executor.start"));
 		gameLoop();
+		LOG.fine(StringRes.getString("controller.executor.finish"));
 	}
 	
 	/** Note: adding "synchronize" in a code block where there is a wait() or notify() function is mandatory*/
 	private synchronized void gameLoop() {
 		while (runGame) {
 			try {
-				wait();  // wait to be awakened by startTurn()
+				wait();  // wait to be awakened by startTurn() or endGame()
 			} catch (InterruptedException e) {
 				LOG.finer(StringRes.getString("controller.executor.awaken"));
 			}
-			gameTurn();
-			timeControllerRef.endTurn();  // wake up timeController, prevents timeout
+			if (!runGame) {  // was awaken by startTurn()
+				gameTurn();
+				timeControllerRef.endTurn();  // wake up timeController, prevents timeout
+			}
 		}
 	}
 
@@ -54,8 +62,6 @@ public class ExecutiveController implements Runnable {
 			turnHandler = new TurnHandlerAlien(currentPlayer, map);
 		}
 		turnHandler.executeTurnSequence();
-		
-		//TODO: check win/lose conditions
 	}
 
 

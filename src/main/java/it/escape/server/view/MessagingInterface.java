@@ -77,6 +77,10 @@ public class MessagingInterface implements MessagingHead, MessagingTail {
 	public void setConnectionDead() {
 		connectionAlive.set(false);
 	}
+	
+	public boolean isConnectionAlive() {
+		return connectionAlive.get();
+	}
 
 	public void writeToClient(String message) {
 		serverToClientQueue.offer(message);
