@@ -64,10 +64,21 @@ public class CoordinatesConverterTest {
 		s = "C01";
 		p = new PositionCubic(2,-2,0);
 		assertTrue(s.equals(CoordinatesConverter.fromCubicToAlphaNum(p)));
+		
 	}
 
 	@Test
 	public void testFromOddqToCubic() {
+		Position2D pos2D = new Position2D(0,0);
+		assertThat(CoordinatesConverter.fromOddqToCubic(pos2D), is(new PositionCubic(0,0,0)));
+		
+		pos2D = new Position2D(2,4);
+		assertThat(CoordinatesConverter.fromOddqToCubic(pos2D), is(new PositionCubic(0,0,0)));
 		
 	}
+
+	private Matcher<? super PositionCubic> is(PositionCubic positionCubic) {
+		return new MatcherPos3D(positionCubic);
+	}
+	
 }
