@@ -100,6 +100,10 @@ public class CoordinatesConverterTest {
 		assertThat(CoordinatesConverter.fromAlphaNumToOddq("B01"), is(new Position2D(1,1)));
 	}
 	
+	/**
+	 * check if, after repeated conversions, the coordinates are preserved
+	 * @throws BadCoordinatesException
+	 */
 	@Test
 	public void testConversionLoop() throws BadCoordinatesException {
 		String start = "E15";
