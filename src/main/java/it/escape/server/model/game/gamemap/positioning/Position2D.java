@@ -10,14 +10,13 @@ public final class Position2D implements Cloneable {
 	
 	private final Integer row;
 
-	public Position2D(Integer x, Integer y) {
-		this.col = x;
-		this.row = y;
+	public Position2D(Integer column, Integer row) {
+		this.col = column;
+		this.row = row;
 	}
 	
 	@Override
 	public Position2D clone() {
-		// l'ho messo solo perchè, essendo la classe immutabile, può servirci
 		return new Position2D(col, row);
 	}
 

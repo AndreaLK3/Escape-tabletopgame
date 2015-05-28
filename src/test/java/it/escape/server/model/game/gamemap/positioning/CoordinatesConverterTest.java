@@ -8,6 +8,7 @@ import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 
+import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.gamemap.positioning.Position2DMatcher;
 import it.escape.utils.LogHelper;
 
@@ -22,8 +23,13 @@ public class CoordinatesConverterTest {
 	
 	@Test
 	public void testCubicToOddQ() {
-		PositionCubic p = new PositionCubic(2,2,3);
-		assertThat(CoordinatesConverter.fromCubicToOddQ(p), is(new Position2D(2, 4)));
+		PositionCubic p = new PositionCubic(1,-1,0);
+		assertThat(CoordinatesConverter.fromCubicToOddQ(p), is(new Position2D(1,0)));
+		p = new PositionCubic(1,-2,1);
+		assertThat(CoordinatesConverter.fromCubicToOddQ(p), is(new Position2D(1,1)));
+		p = new PositionCubic(2,-3,1);
+		assertThat(CoordinatesConverter.fromCubicToOddQ(p), is(new Position2D(2,2)));
+	
 	}
 
 	private Matcher<? super Position2D> is(Position2D riferimento) {
@@ -64,21 +70,34 @@ public class CoordinatesConverterTest {
 		s = "C01";
 		p = new PositionCubic(2,-2,0);
 		assertTrue(s.equals(CoordinatesConverter.fromCubicToAlphaNum(p)));
-		
+	
 	}
 
+	
 	@Test
 	public void testFromOddqToCubic() {
-		Position2D pos2D = new Position2D(0,0);
-		assertThat(CoordinatesConverter.fromOddqToCubic(pos2D), is(new PositionCubic(0,0,0)));
+		Position2D pos2D = new Position2D(1,0);
+		assertThat(CoordinatesConverter.fromOddqToCubic(pos2D), is(new PositionCubic(1,-1, 0)));
 		
-		pos2D = new Position2D(2,4);
-		assertThat(CoordinatesConverter.fromOddqToCubic(pos2D), is(new PositionCubic(0,0,0)));
+		pos2D = new Position2D(2,1);
+		assertThat(CoordinatesConverter.fromOddqToCubic(pos2D), is(new PositionCubic(2,-2,0)));
+		
+		pos2D = new Position2D(1,1);
+		assertThat(CoordinatesConverter.fromOddqToCubic(pos2D), is(new PositionCubic(1,-2,1)));
 		
 	}
 
 	private Matcher<? super PositionCubic> is(PositionCubic positionCubic) {
 		return new MatcherPos3D(positionCubic);
+	}
+	
+	
+	@Test
+	public void testFromAlphaNumToOddq() throws BadCoordinatesException {
+		
+		assertThat(CoordinatesConverter.fromAlphaNumToOddq("C01"), is(new Position2D(2,1)));	
+		assertThat(CoordinatesConverter.fromAlphaNumToOddq("A02"), is(new Position2D(0,2)));
+		assertThat(CoordinatesConverter.fromAlphaNumToOddq("B01"), is(new Position2D(1,1)));
 	}
 	
 }

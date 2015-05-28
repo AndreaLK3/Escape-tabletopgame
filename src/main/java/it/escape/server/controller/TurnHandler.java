@@ -93,7 +93,7 @@ public abstract class TurnHandler {
 					cellAction = moveCommand.execute(currentPlayer, map);
 					correctInput = true;
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.getMessage();
 				}
 			
 			} while (!correctInput);

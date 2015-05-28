@@ -79,8 +79,8 @@ public class CoordinatesConverter {
 		Integer row = Pos2D.getRow();
 		
 		x = col;
-		y = row - ((col - (col&1)) / 2);
-		z = -x - y;
+		z = row - ((col - (col&1)) / 2);
+		y = -x - z;
 		return new PositionCubic (x, y, z);
 		
 	}
