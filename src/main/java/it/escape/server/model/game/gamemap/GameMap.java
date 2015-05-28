@@ -114,14 +114,14 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	public CellAction move(Player curPlayer , String destination) throws BadCoordinatesException, DestinationUnreachableException, CellNotExistsException, PlayerCanNotEnterException {
 		PositionCubic dest3D = CoordinatesConverter.fromAlphaNumToCubic(destination);
 		
+		if (!getCell(dest3D).canEnter(curPlayer)) {
+			throw new PlayerCanNotEnterException();
+		}
 		if (!destinationReachable(curPlayer, dest3D)) {
 			throw new DestinationUnreachableException();
 		}
 		if (!cellExists(dest3D)) {
 			throw new CellNotExistsException();
-		}
-		if (!getCell(dest3D).canEnter(curPlayer)) {
-				throw new PlayerCanNotEnterException();
 		}
 			
 		updatePlayerPosition(curPlayer, dest3D);
@@ -135,7 +135,7 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	}
 	
 	private boolean destinationReachable(Player curPlayer, PositionCubic dest) throws CellNotExistsException {
-		if (dest.distanceFrom(getPlayerCell(curPlayer).getPosition()) > curPlayer.getMaxRange()) {
+		if (dest.distanceFrom(getPlayerPosition(curPlayer)) > curPlayer.getMaxRange()) {
 			return false;
 		} else {
 			PathFinder finder = new PathFinder(this, curPlayer, dest);
@@ -185,11 +185,10 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 			if (pos.equals(candidateCell)) {
 				ret.add(candidatePlayer);
 			}
-			mapIterator.remove();
 		}
 		return ret;
 	}
-	
+
 	public Cell getStartHumans() {
 		return startHumans;
 	}
@@ -212,4 +211,5 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	public boolean cellExists(String position) {
 		return cells.containsKey(position);
 	}
+	
 }

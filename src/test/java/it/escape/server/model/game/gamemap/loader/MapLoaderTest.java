@@ -39,8 +39,8 @@ public class MapLoaderTest {
 			for (Cell tc : testCells) {
 				assertThat(tc, isContainedIn(loadedCells)); // check if all the testing cells are included
 			}
-			assertThat(loadedCells, hasHumanStartingCell(new PositionCubic(11, 3, -14))); // check if the starting cells are included
-			assertThat(loadedCells, hasAlienStartingCell(new PositionCubic(11, 1, -12)));
+			assertThat(loadedCells, hasHumanStartingCell(new PositionCubic(11, -14, 3))); // check if the starting cells are included
+			assertThat(loadedCells, hasAlienStartingCell(new PositionCubic(11, -12, 1)));
 			
 			
 		} catch (BadJsonFileException e) {
@@ -72,6 +72,7 @@ public class MapLoaderTest {
 		List<Cell> ret = new ArrayList<Cell>();
 		ret.add(new DangerousCell(CoordinatesConverter.fromAlphaNumToCubic("A02")));
 		ret.add(new SafeCell(CoordinatesConverter.fromAlphaNumToCubic("C01")));
+		ret.add(new SafeCell(CoordinatesConverter.fromAlphaNumToCubic("L07")));
 		ret.add(new EscapeCell(CoordinatesConverter.fromAlphaNumToCubic("B02"), new GameMode(GameTypes.BASE)));
 		
 		return ret;

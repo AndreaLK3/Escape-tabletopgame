@@ -7,6 +7,15 @@ import it.escape.server.model.game.players.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utility class, with the purpose of calculating whether a
+ * player can reach a specified cell.
+ * It employs a breadth-first search algorithm.
+ * The algorithm won't attempt to cross any cell forbidden
+ * to the player (i.e. canEnter() == false)
+ * @author michele
+ *
+ */
 public class PathFinder {
 	
 	private MapPathfinderInterface map;

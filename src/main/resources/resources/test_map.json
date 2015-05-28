@@ -14,6 +14,10 @@
         "tipo" : "partenzaAlieni"
       },
       {
+      	"position" : "L07",
+      	"tipo" : "sicura"
+      },
+      {
         "position" : "L08",
         "tipo" : "partenzaUmani"
       },
@@ -24,6 +28,18 @@
       {
       	"position" : "B02",
       	"tipo" : "scialuppa"
+      },
+	  {
+        "position" : "M06",
+        "tipo" : "pericolosa"
+      },
+      {
+        "position" : "N06",
+        "tipo" : "pericolosa"
+      },
+      {
+        "position" : "J06",
+        "tipo" : "pericolosa"
       }
       
     ]
