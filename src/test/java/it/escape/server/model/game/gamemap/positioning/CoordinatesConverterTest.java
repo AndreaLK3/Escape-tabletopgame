@@ -14,7 +14,7 @@ import it.escape.utils.LogHelper;
 
 public class CoordinatesConverterTest {
 
-	protected static final Logger LOG = Logger.getLogger( CoordinatesConverterTest.class.getName() );
+	private static final Logger LOG = Logger.getLogger( CoordinatesConverterTest.class.getName() );
 	
 	@Before
 	public void initializeLogger() {
