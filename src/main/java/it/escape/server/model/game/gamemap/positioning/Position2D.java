@@ -6,33 +6,33 @@ package it.escape.server.model.game.gamemap.positioning;
  */
 public final class Position2D implements Cloneable {
 	
-	private final Integer x;
+	private final Integer col;
 	
-	private final Integer y;
+	private final Integer row;
 
 	public Position2D(Integer x, Integer y) {
-		this.x = x;
-		this.y = y;
+		this.col = x;
+		this.row = y;
 	}
 	
 	@Override
 	public Position2D clone() {
 		// l'ho messo solo perchè, essendo la classe immutabile, può servirci
-		return new Position2D(x, y);
+		return new Position2D(col, row);
 	}
 
-	public int getX() {
-		return x;
+	public int getCol() {
+		return col;
 	}
 
-	public int getY() {
-		return y;
+	public int getRow() {
+		return row;
 	}
 
 	@Override
 	public int hashCode() {
-		int a = x & 65535;
-		int b = y & 65535;
+		int a = col & 65535;
+		int b = row & 65535;
 		return (a<<16) + (b);
 	}
 	
@@ -40,7 +40,7 @@ public final class Position2D implements Cloneable {
 	public boolean equals(Object o) {
 		if (o instanceof Position2D && o!=null) {
 			Position2D other = (Position2D)o;
-			if (x == other.getX() && y == other.getY()) {
+			if (col == other.getCol() && row == other.getRow()) {
 				return true;
 				}
 			else
@@ -53,6 +53,6 @@ public final class Position2D implements Cloneable {
 	
 	@Override
 	public String toString() {
-		return "Position2D=[" + x.toString() + "," + y.toString() + "]";
+		return "Position2D=[" + col.toString() + "," + row.toString() + "]";
 	}
 }

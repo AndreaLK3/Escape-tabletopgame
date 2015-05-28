@@ -56,10 +56,10 @@ public class CommandLine {
 				promptUppercase(StringRes.getString("mapfile.qdgenerator.input.mapsize")));
 		globals.put(
 				StringRes.getString("mapfile.json.info.width"), 
-				size.getX());
+				size.getCol());
 		globals.put(
 				StringRes.getString("mapfile.json.info.height"), 
-				size.getY());
+				size.getRow());
 		return globals;
 	}
 	

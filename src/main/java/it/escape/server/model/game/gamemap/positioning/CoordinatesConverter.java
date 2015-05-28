@@ -49,16 +49,16 @@ public class CoordinatesConverter {
 	}
 	
 	/**
-	 * @param posC, posizione in coordinate cubiche, es. (1,3,4)
-	 * @return Stringa contenente riga e colonna, es: B12
+	 * @param positionCubic, for instance: (0,0,0), (1,3,4), (0,-1,1)
+	 * @return String that codifies the position, for instance: A00, B04, A01 respectively.
 	 */
 	public static String fromCubicToAlphaNum(PositionCubic posC) {
 		
 		Position2D mypos = fromCubicToOddQ(posC);
 		
-		Character col = new Character((char) ('A' + mypos.getX()));
+		Character col = new Character((char) ('A' + mypos.getCol()));
 		
-		return prettifyAlphaNum(new String(col.toString() + mypos.getY()));
+		return prettifyAlphaNum(new String(col.toString() + mypos.getRow()));
 	}
 	
 	/**
@@ -75,8 +75,8 @@ public class CoordinatesConverter {
 	public static PositionCubic fromOddqToCubic (Position2D Pos2D) {
 		int x, y, z;
 		
-		Integer col = Pos2D.getX();
-		Integer row = Pos2D.getY();
+		Integer col = Pos2D.getCol();
+		Integer row = Pos2D.getRow();
 		
 		x = col;
 		y = row - ((col - (col&1)) / 2);

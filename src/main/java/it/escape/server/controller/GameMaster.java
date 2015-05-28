@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 public class GameMaster {
 	
-	protected static final Logger log = Logger.getLogger( GameMaster.class.getName() );
+	protected static final Logger LOG = Logger.getLogger( GameMaster.class.getName() );
 	
 	private static List<GameMaster> gameMasters = new ArrayList<GameMaster>();
 	private static GameMaster currentGameMaster = null;
@@ -44,7 +44,7 @@ public class GameMaster {
 	
 	public static void newPlayerHasConnected(MessagingInterface interfaceWithUser) {
 		if (currentGameMaster == null) {
-			LogHelper.setDefaultOptions(log);
+			LogHelper.setDefaultOptions(LOG);
 			currentGameMaster = new GameMaster(mapCreator.getMap());
 			gameMasters.add(currentGameMaster);
 		}
@@ -92,7 +92,7 @@ public class GameMaster {
 	 * this function does not decide herself when we are ready
 	 */
 	public void startGame() {
-		log.info(StringRes.getString("controller.gamemaster.startingGame"));
+		LOG.info(StringRes.getString("controller.gamemaster.startingGame"));
 		launchThreads();
 		waitForFinish();
 		finalVictoryCheck();
@@ -165,7 +165,7 @@ public class GameMaster {
 			executorThread.join();
 		} catch (InterruptedException e) {
 		}
-		log.info(StringRes.getString("controller.gamemaster.gameFinished"));
+		LOG.info(StringRes.getString("controller.gamemaster.gameFinished"));
 	}
 	
 	/**
