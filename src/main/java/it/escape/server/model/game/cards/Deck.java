@@ -31,7 +31,7 @@ public class Deck {
 		for (int i=0; i<counter; i++)
 		{	temp = theDeck.remove(randGen.nextInt(counter)); 
 			theDeck.add(temp);}
-		
+		return;
 	}
 
 	/**
@@ -62,6 +62,7 @@ public class Deck {
 
 	public Deck() {
 		LogHelper.setDefaultOptions(log);
-	}	
-
+	}
+	
+	
 }
