@@ -100,4 +100,12 @@ public class CoordinatesConverterTest {
 		assertThat(CoordinatesConverter.fromAlphaNumToOddq("B01"), is(new Position2D(1,1)));
 	}
 	
+	@Test
+	public void testConversionLoop() throws BadCoordinatesException {
+		String start = "E15";
+		Position2D step1 = CoordinatesConverter.fromAlphaNumToOddq(start);
+		PositionCubic step2 = CoordinatesConverter.fromOddqToCubic(step1);
+		assertEquals(start, CoordinatesConverter.fromCubicToAlphaNum(step2));
+	}
+	
 }
