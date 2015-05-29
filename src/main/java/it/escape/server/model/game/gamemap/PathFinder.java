@@ -48,9 +48,10 @@ public class PathFinder {
 			for (Cell cube : previous) {
 				List<Cell> neighbors = map.getNeighbors(cube.getPosition());
 				for (Cell neighbor : neighbors) {
-					if (!visited.contains(neighbor) && neighbor.canEnter(curPlayer)) {
-						visited.add(neighbor);
-						current.add(neighbor);
+					if (!visited.contains(neighbor))
+						if(neighbor.canEnter(curPlayer)) {
+							visited.add(neighbor);
+							current.add(neighbor);
 					}
 				}
 				

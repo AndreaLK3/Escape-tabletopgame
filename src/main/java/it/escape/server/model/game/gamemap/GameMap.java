@@ -2,6 +2,7 @@ package it.escape.server.model.game.gamemap;
 
 import it.escape.server.controller.game.actions.CellAction;
 import it.escape.server.controller.game.actions.MapActionInterface;
+import it.escape.server.controller.game.actions.cellactions.NoCellAction;
 import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.exceptions.CellNotExistsException;
@@ -117,7 +118,8 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 		if (!cellExists(dest3D)) {
 			throw new CellNotExistsException("Destination cell does not exist");
 		}
-		if (!getCell(dest3D).canEnter(curPlayer)) {
+		Cell c = getCell(dest3D);
+		if (!c.canEnter(curPlayer)) {
 			throw new PlayerCanNotEnterException("Destination is not accessible");
 		}
 		if (!destinationReachable(curPlayer, dest3D)) {
@@ -206,12 +208,8 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 
 	/**Check if a Cell exists on the map; returns boolean)*/
 	public boolean cellExists(PositionCubic position) {
-		try {
-			cells.containsKey(CoordinatesConverter.fromCubicToAlphaNum(position));
-			return true;
-		} catch (NullPointerException e) {
-			return false;
-		}
+		return cells.containsKey(CoordinatesConverter.fromCubicToAlphaNum(position));
+
 	}
 	
 	public boolean cellExists(String position) {
