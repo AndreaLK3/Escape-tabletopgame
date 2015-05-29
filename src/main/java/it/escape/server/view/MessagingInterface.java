@@ -133,21 +133,25 @@ public class MessagingInterface extends Observable implements MessagingHead, Mes
 	 * Once input arrives and the user awakes the thread with the notify() in afterTailWrite(),
 	 * It invokes readFromClient.
 	 */
-	public synchronized String waitToReadFromClient() {
+	public synchronized String readFromClient() {
 			try {
 				wait();
 			} catch (InterruptedException e) {
 			}
-			return readFromClient();		
+			return readingFromClient();		
 	}
 	
-	private String readFromClient() {
+	/**
+	 * This function extracts a single String from the clientToServerQueue and checks if 
+	 * it is part of the current context. If not, it calls readFromClient() to wait for new input.
+	 * @return String next
+	 */
+	private String readingFromClient() {
 		if (override.get()) {
 			override.set(false);
 			return defaultOption;
 		}
 		else {
-				if(!clientToServerQueue.isEmpty()) {
 					String next = clientToServerQueue.poll();
 					if (context == null || context.isEmpty()) {
 						return next;
@@ -157,9 +161,11 @@ public class MessagingInterface extends Observable implements MessagingHead, Mes
 							return next;
 						}
 						else{							//if the user's answer is not present in the context,
-							return waitToReadFromClient();	//the function calls itself again
+							return readFromClient();	//the function calls back to readFromClient() and waits for new input
 						}
-			
+				}
+		}
+
 
 	
 	/**

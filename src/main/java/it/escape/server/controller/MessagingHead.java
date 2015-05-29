@@ -8,7 +8,7 @@ public interface MessagingHead {
 	
 	public void writeToClient(String message);
 	
-	public String waitToReadFromClient() throws AnswerOutOfContextException;
+	public String readFromClient();
 	
 	public void setContext(List<String> context);
 	

@@ -40,7 +40,7 @@ public class MessagingInterfaceTest {
 		Thread feederThread = new Thread(feeder);
 		iface.setContext(Arrays.asList(wanted));
 		feederThread.start();
-		ret = iface.waitToReadFromClient();
+		ret = iface.readFromClient();
 		feeder.stop();
 		try {
 			feederThread.join();

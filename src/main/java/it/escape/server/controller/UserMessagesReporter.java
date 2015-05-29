@@ -188,7 +188,7 @@ public class UserMessagesReporter {
 		// TODO: we should set the player's position as the default option
 		interfaceWithUser.setDefaultOption("");
 		interfaceWithUser.setContext(null);
-		return interfaceWithUser.waitToReadFromClient();
+		return interfaceWithUser.readFromClient();
 	}
 	
 	private String ioGetBinaryChoice(String defaultOption, String yes, String no) {
@@ -198,7 +198,7 @@ public class UserMessagesReporter {
 				no));
 		interfaceWithUser.setDefaultOption(defaultOption);
 		interfaceWithUser.setContext(Arrays.asList(yes,no));
-		return interfaceWithUser.waitToReadFromClient();
+		return interfaceWithUser.readFromClient();
 	}
 	
 	public void relayMessage(String string) {
