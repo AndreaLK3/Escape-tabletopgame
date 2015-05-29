@@ -70,10 +70,10 @@ public class MapLoaderTest {
 	
 	private List<Cell> assignTestCells() throws BadCoordinatesException {  // fill up the testing cells' array (note: do not include starting cells here)
 		List<Cell> ret = new ArrayList<Cell>();
-		ret.add(new DangerousCell(CoordinatesConverter.fromAlphaNumToCubic("A02")));
+		ret.add(new DangerousCell(CoordinatesConverter.fromAlphaNumToCubic("K08")));
 		ret.add(new SafeCell(CoordinatesConverter.fromAlphaNumToCubic("C01")));
-		ret.add(new SafeCell(CoordinatesConverter.fromAlphaNumToCubic("L07")));
-		ret.add(new EscapeCell(CoordinatesConverter.fromAlphaNumToCubic("B02"), new GameMode(GameTypes.COMPLETE)));
+		ret.add(new SafeCell(CoordinatesConverter.fromAlphaNumToCubic("K09")));
+		ret.add(new EscapeCell(CoordinatesConverter.fromAlphaNumToCubic("L05"), new GameMode(GameTypes.COMPLETE)));
 		
 		return ret;
 	}

@@ -114,15 +114,16 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	public CellAction move(Player curPlayer , String destination) throws BadCoordinatesException, DestinationUnreachableException, CellNotExistsException, PlayerCanNotEnterException {
 		PositionCubic dest3D = CoordinatesConverter.fromAlphaNumToCubic(destination);
 		
+		if (!cellExists(dest3D)) {
+			throw new CellNotExistsException("Destination cell does not exist");
+		}
 		if (!getCell(dest3D).canEnter(curPlayer)) {
 			throw new PlayerCanNotEnterException("Destination is not accessible");
 		}
 		if (!destinationReachable(curPlayer, dest3D)) {
 			throw new DestinationUnreachableException("Destination is not reachable");
 		}
-		if (!cellExists(dest3D)) {
-			throw new CellNotExistsException("Destination cell does not exist");
-		}
+	
 			
 		updatePlayerPosition(curPlayer, dest3D);
 		

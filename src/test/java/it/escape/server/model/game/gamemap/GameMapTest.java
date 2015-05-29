@@ -45,7 +45,6 @@ public class GameMapTest {
 	public ExpectedException exception = ExpectedException.none();
 	
 
-	@Test
 	public void pathFindingTest() throws DestinationUnreachableException {
 		try {
 			Player alien = new Alien("ridley");
@@ -94,12 +93,12 @@ public class GameMapTest {
 		return new DangerousCellMatcher();
 	}
 	
-	
+	@Test
 	public void testCellNotExisting() {
 		Player randomHuman = new Human("kirk");	
 		testMap.addNewPlayer(randomHuman, PlayerTeams.HUMANS);
-		exception.expect(CellNotExistsException.class);
 		try {
+			exception.expect(CellNotExistsException.class);
 			testMap.move(randomHuman, "A12");
 		} catch (BadCoordinatesException e) {
 			fail("could not move");
