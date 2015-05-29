@@ -142,8 +142,9 @@ public class MessagingInterface extends Observable implements MessagingHead, Mes
 	}
 	
 	/**
-	 * This function extracts a single String from the clientToServerQueue and checks if 
-	 * it is part of the current context. If not, it calls readFromClient() to wait for new input.
+	 * This method extracts a single String from the clientToServerQueue and checks if it is part of the current context.
+	 * If not, it removes the subsequent elements in the current clientToServerQueue and checks them. 
+	 * If no element in the queue is useful and the queue is empty, the method calls readFromClient() to wait for new input.
 	 * @return String next
 	 */
 	private String readingFromClient() {
@@ -152,20 +153,20 @@ public class MessagingInterface extends Observable implements MessagingHead, Mes
 			return defaultOption;
 		}
 		else {
-					String next = clientToServerQueue.poll();
-					if (context == null || context.isEmpty()) {
+			do { 	
+				String next = clientToServerQueue.poll();
+				if (context == null || context.isEmpty()) {
 						return next;
 					}
-					else
-						if (context.contains(next) && next!=null) {
+				else
+					if (context.contains(next) && next!=null) {	//this is the correct functioning
 							return next;
 						}
-						else{							//if the user's answer is not present in the context,
-							return readFromClient();	//the function calls back to readFromClient() and waits for new input
-						}
-				}
+				} while(!clientToServerQueue.isEmpty());
+			
+			return readFromClient();
 		}
-
+	}
 
 	
 	/**

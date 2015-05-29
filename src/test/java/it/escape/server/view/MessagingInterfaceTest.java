@@ -36,7 +36,7 @@ public class MessagingInterfaceTest {
 		String garbage = "baka";
 		String ret;
 		TestingInterface iface = new TestingInterface();
-		TestInterfaceFeeder feeder = new TestInterfaceFeeder(wanted, garbage, iface);
+		TestInterfaceFeeder feeder = new TestInterfaceFeeder(garbage, wanted, iface);
 		Thread feederThread = new Thread(feeder);
 		iface.setContext(Arrays.asList(wanted));
 		feederThread.start();
