@@ -5,6 +5,7 @@ import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.ObjectCardAction;
 import it.escape.server.controller.game.actions.cardactions.DrawObjectCard;
 import it.escape.server.model.game.Announcer;
+import it.escape.server.model.game.cards.ObjectCard;
 import it.escape.server.model.game.cards.objectcards.AdrenalineCard;
 import it.escape.server.model.game.cards.objectcards.LightsCard;
 import it.escape.server.model.game.cards.objectcards.SedativesCard;
@@ -30,22 +31,10 @@ public class TurnHandlerHuman extends TurnHandler {
 	private void playObjectCard() {
 		do {
 			try {
-				boolean restrictions = true;
 				String key = reporter.askWhichObjectCard();
-				objectCard = currentPlayer.drawCard(key);  // this card is removed from the player's hand
-														   			
-					
-					if (currentPlayer.HasMoved()) {		//after the move
-						if (objectCard instanceof TeleportCard || objectCard instanceof LightsCard)
-							restrictions = false;
-					}
-					else {	//before the move
-						if ( objectCard instanceof SedativesCard || objectCard instanceof AdrenalineCard 
-							|| objectCard instanceof TeleportCard || objectCard instanceof LightsCard)
-							restrictions = false;
-					}
-					
-					if (!restrictions) {
+				objectCard = currentPlayer.drawCard(key);  // this card is removed from the player's hand									   			
+				
+					if (canPlayObjectCard(objectCard)) {
 						objectCardAction = objectCard.getObjectAction();
 						Announcer.getAnnouncerInstance().announceObjectCard(currentPlayer, objectCard); 
 						objectCardAction.execute((Human)currentPlayer, map);
@@ -69,6 +58,24 @@ public class TurnHandlerHuman extends TurnHandler {
 			}
 		} while (!endObjectCard);
 	}
+	
+	private boolean canPlayObjectCard(ObjectCard objectCard) {
+		
+		if (currentPlayer.HasMoved()) {		//after the move
+			if (objectCard instanceof TeleportCard || objectCard instanceof LightsCard)
+				return true;
+			else
+				return false;
+		}
+		else {	//before the move
+			if ( objectCard instanceof SedativesCard || objectCard instanceof AdrenalineCard 
+				|| objectCard instanceof TeleportCard || objectCard instanceof LightsCard)
+				return true;
+			else
+				return false;
+		}
+	}
+	
 	
 	//discardObjectCard is defined inside the superclass TurnHandler, since it is the same for Humans and Aliens;
 	
