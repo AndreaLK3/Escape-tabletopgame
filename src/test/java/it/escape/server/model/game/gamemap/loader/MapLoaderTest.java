@@ -30,7 +30,7 @@ public class MapLoaderTest {
 		try {
 			List<Cell> loadedCells = new ArrayList<Cell>();
 			List<Cell> testCells = assignTestCells();
-			MapLoader loader = new MapLoader(FilesHelper.getResourceFile("resources/test_map.json"));
+			MapLoader loader = new MapLoader(FilesHelper.getResourceFile("resources/Test_map.json"));
 			
 			assertThat(loader, is("prova",new Position2D(25,14))); // check map's name and size
 			for (Cell lc : loader) {
