@@ -205,7 +205,12 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 
 	/**Check if a Cell exists on the map; returns boolean)*/
 	public boolean cellExists(PositionCubic position) {
-		return cells.containsKey(CoordinatesConverter.fromCubicToAlphaNum(position));
+		try {
+			cells.containsKey(CoordinatesConverter.fromCubicToAlphaNum(position));
+			return true;
+		} catch (NullPointerException e) {
+			return false;
+		}
 	}
 	
 	public boolean cellExists(String position) {

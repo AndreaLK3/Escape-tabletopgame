@@ -12,6 +12,7 @@ import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
 import it.escape.server.model.game.gamemap.positioning.Position2DMatcher;
 import it.escape.server.model.game.players.Alien;
+import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
 
@@ -74,11 +75,11 @@ public class GameMapTest {
 	@Test
 	public void noEntryTest() throws PlayerCanNotEnterException {
 		try {
-			Player alien = new Alien("jabba");	
-			testMap.addNewPlayer(alien, PlayerTeams.ALIENS);
+			Player randomAlien = new Alien("jabba");	
+			testMap.addNewPlayer(randomAlien, PlayerTeams.ALIENS);
 			
 			exception.expect(PlayerCanNotEnterException.class);
-			testMap.move(alien, "L05");
+			testMap.move(randomAlien, "L05");
 
 		} catch (BadCoordinatesException e) {
 			fail("could not move");
@@ -93,8 +94,22 @@ public class GameMapTest {
 		return new DangerousCellMatcher();
 	}
 	
-	//public void testCellNotExisting()
-
-
-
+	
+	public void testCellNotExisting() {
+		Player randomHuman = new Human("kirk");	
+		testMap.addNewPlayer(randomHuman, PlayerTeams.HUMANS);
+		exception.expect(CellNotExistsException.class);
+		try {
+			testMap.move(randomHuman, "A12");
+		} catch (BadCoordinatesException e) {
+			fail("could not move");
+		} catch (DestinationUnreachableException e) {
+			fail("could not move");
+		} catch (CellNotExistsException e) {
+			fail("could not move");
+		} catch (PlayerCanNotEnterException e) {
+			fail("could not move");
+		}
+	
+	} 
 }
