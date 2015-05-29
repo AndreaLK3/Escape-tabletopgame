@@ -15,7 +15,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-
+/**Responsibilities:
+ * 1) If a new user connects:
+ * 		a)bind his message interface to a Player
+ * 		b)add him to the Player List of a GameMaster object
+ * 		c)tell the GameMap to place a new Player
+ * 		d)tell the Announcer to announce that a new Player has connected
+ * 2) Handle the disconnection of a Player, depending on the current state of the game (started/in progress/finished).
+ * 3) Keeping the List of Players.
+ * 4) Initialize TimeController and ExecutiveController.
+ * 5) Launch the threads to start a game.
+ *n: The GameMaster class has a static list of the GameMaster objects.
+ * When new users connect, and there is no GameMaster object with free spots, 
+ * a new GameMaster object is created and added to the list.
+ */
 public class GameMaster {
 	
 	protected static final Logger LOG = Logger.getLogger( GameMaster.class.getName() );
