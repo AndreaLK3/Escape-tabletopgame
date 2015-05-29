@@ -8,6 +8,7 @@ import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
 import it.escape.server.model.game.cards.ObjectCard;
 import it.escape.server.model.game.exceptions.CardNotPresentException;
+import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 import it.escape.strings.StringRes;
@@ -45,6 +46,7 @@ public abstract class TurnHandler {
 	 * differently, but they remain the same nonetheless.
 	 */
 	public void executeTurnSequence() {
+		hailPlayer();
 		if (currentPlayer.isAlive()) {
 			initialize();  // step 0
 			turnBeforeMove();  // step 1
@@ -54,6 +56,19 @@ public abstract class TurnHandler {
 			deInitialize();  // cleanup (stop filling default options)
 		} else {
 			LOG.fine(StringRes.getString("controller.turnhandler.skipDead"));
+		}
+	}
+	
+	private void hailPlayer() {
+		if (currentPlayer.isAlive()) {
+			UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(String.format(
+					StringRes.getString("messaging.hail.player"),
+					currentPlayer.getName(),
+					CoordinatesConverter.fromCubicToAlphaNum(map.getPlayerPosition(currentPlayer))));
+		} else {
+			UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(String.format(
+					StringRes.getString("messaging.hail.deadPlayer"),
+					currentPlayer.getName()));
 		}
 	}
 	
