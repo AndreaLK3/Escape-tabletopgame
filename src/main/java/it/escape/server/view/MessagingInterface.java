@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import com.sun.jndi.cosnaming.CNNameParser;
 
 import it.escape.server.controller.MessagingHead;
+import it.escape.server.model.game.exceptions.AnswerOutOfContextException;
 
 /**
  * MessagingInterface manages a single per-user communication channel.
@@ -127,34 +128,39 @@ public class MessagingInterface extends Observable implements MessagingHead, Mes
 		tailReadDriver();
 	}
 	
-	/**
-	 * in this setup, headRead() won't return at all until
-	 * a valid input is received
+	/**This method is executed by the ExecutiveController's thread,
+	 * it is invoked by methods in UserMessagesReporter.
+	 * Once input arrives and the user awakes the thread with the notify() in afterTailWrite(),
+	 * It invokes readFromClient.
 	 */
-	public synchronized String readFromClient() {
-		while (true) {
+	public synchronized String waitToReadFromClient() {
 			try {
 				wait();
 			} catch (InterruptedException e) {
 			}
-			
-			if (override.get()) {
-				override.set(false);
-				return defaultOption;
-			}
-			else {
-				while (!clientToServerQueue.isEmpty()) {
+			return readFromClient();		
+	}
+	
+	private String readFromClient() {
+		if (override.get()) {
+			override.set(false);
+			return defaultOption;
+		}
+		else {
+				if(!clientToServerQueue.isEmpty()) {
 					String next = clientToServerQueue.poll();
 					if (context == null || context.isEmpty()) {
 						return next;
 					}
-					else if (context.contains(next) && next!=null) {
-						return next;
-					}
-				}
-			}
-		}
-	}
+					else
+						if (context.contains(next) && next!=null) {
+							return next;
+						}
+						else{							//if the user's answer is not present in the context,
+							return waitToReadFromClient();	//the function calls itself again
+						}
+			
+
 	
 	/**
 	 * Set the context, a list of string which are acceptable

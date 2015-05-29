@@ -130,8 +130,8 @@ public class UserMessagesReporter {
 		}
 		else {
 			interfaceWithUser.writeToClient(StringRes.getString("messaging.askPlayObjectCard"));
-			String ans = ioGetBinaryChoice(defaultChoice,"play","discard").toLowerCase();
-			if (ans.equals("yes")) {
+			String answer = ioGetBinaryChoice(defaultChoice,"play","discard").toLowerCase();
+			if (answer.equals("yes")) {
 				return true;
 			}
 			return false;
@@ -188,7 +188,7 @@ public class UserMessagesReporter {
 		// TODO: we should set the player's position as the default option
 		interfaceWithUser.setDefaultOption("");
 		interfaceWithUser.setContext(null);
-		return interfaceWithUser.readFromClient();
+		return interfaceWithUser.waitToReadFromClient();
 	}
 	
 	private String ioGetBinaryChoice(String defaultOption, String yes, String no) {
@@ -198,7 +198,7 @@ public class UserMessagesReporter {
 				no));
 		interfaceWithUser.setDefaultOption(defaultOption);
 		interfaceWithUser.setContext(Arrays.asList(yes,no));
-		return interfaceWithUser.readFromClient();
+		return interfaceWithUser.waitToReadFromClient();
 	}
 	
 	public void relayMessage(String string) {
