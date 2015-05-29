@@ -13,10 +13,28 @@ import it.escape.utils.LogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Logger;
 
-
-public class GameMaster {
+/**
+ * This class will automatically assign new players to an instance of the game,
+ * creating a new one if necessary.
+ * 
+ * This class has a static facility to gather all active/inactive games
+ * and enroute new players accordingly.
+ * 
+ * When certain conditions are met, the game is started.
+ * The game starting / life sequence is the following:
+ *   1) Minimum number of players is reached: spawn subthread with timeout
+ *   2) Maximum number of players reached: wake up subthread
+ *   3) When the subthread is awaken, either by notify() or timeout,
+ *      it will spawn the real worker threads, and wait for them to
+ *      terminate successfully. This will mark the end of the game.
+ *   4) Once the game is ended, victory/loss conditions will be assessed
+ * @author michele
+ *
+ */
+public class GameMaster implements Runnable {
 	
 	protected static final Logger LOG = Logger.getLogger( GameMaster.class.getName() );
 	
@@ -26,7 +44,10 @@ public class GameMaster {
 	private static MapCreator mapCreator;
 	
 	private final static int MAXPLAYERS = 8;
+	private final static int MINPLAYERS = 2;
 	private int numPlayers = 0;
+	
+	private final static int WAIT_TIMEOUT = 120000;
 	
 	private PlayerTeams currentTeam;
 	
@@ -42,18 +63,20 @@ public class GameMaster {
 	
 	private MapActionInterface map;
 	
+	private boolean gameRunning;
+	
 	public static void newPlayerHasConnected(MessagingInterface interfaceWithUser) {
 		if (currentGameMaster == null) {
 			LogHelper.setDefaultOptions(LOG);
 			currentGameMaster = new GameMaster(mapCreator.getMap());
 			gameMasters.add(currentGameMaster);
 		}
-		if (currentGameMaster.hasFreeSlots()) {
-			currentGameMaster.addNewPlayer(interfaceWithUser);
+		if (currentGameMaster.newPlayerAllowed()) {
+			currentGameMaster.newPlayerAttemptStarting(interfaceWithUser);
 		} else {
 			currentGameMaster = new GameMaster(mapCreator.getMap());
 			gameMasters.add(currentGameMaster);
-			currentGameMaster.addNewPlayer(interfaceWithUser);
+			currentGameMaster.newPlayerAttemptStarting(interfaceWithUser);
 		}
 	}
 	
@@ -61,6 +84,11 @@ public class GameMaster {
 		return gameMasters.get(index);
 	}
 	
+	/**
+	 * When a player disconnects, find the Master of her game,
+	 * and tell it to handle this event.
+	 * @param interfaceWithUser
+	 */
 	public static void playerHasDisconnected(MessagingInterface interfaceWithUser) {
 		for (GameMaster gm : gameMasters) {
 			Player offender = UserMessagesReporter.getReporterInstance(interfaceWithUser).getThePlayer();
@@ -84,23 +112,49 @@ public class GameMaster {
 		timerThread = new Thread(timeController);
 		listOfPlayers = new ArrayList<Player>();
 		currentTeam = PlayerTeams.ALIENS;
-		
+		gameRunning = false;
 	}
 	
 	/**
 	 * start the actual game, once ready.
 	 * this function does not decide herself when we are ready
 	 */
-	public void startGame() {
+	public void startGameAndWait() {
+		shufflePlayers();
+		gameRunning = true;
 		LOG.info(StringRes.getString("controller.gamemaster.startingGame"));
-		launchThreads();
+		launchWorkerThreads();
 		waitForFinish();
+		LOG.info(StringRes.getString("controller.gamemaster.gameFinished"));
 		finalVictoryCheck();
 		// final cleanup: close connections / update scoreboard / say goodbye
 	}
 	
+	public void run() {
+		LOG.fine(String.format(StringRes.getString("controller.gamemaster.gameStartTimeout"), WAIT_TIMEOUT/1000));
+		// maybe we can announce it to the players, too
+		try {
+			wait(WAIT_TIMEOUT);
+		} catch (InterruptedException e) {
+		}
+		startGameAndWait();
+	}
+	
+	/**
+	 * Here's the logic to decide when to start the actual game
+	 * @param interfaceWithUser
+	 */
+	private void newPlayerAttemptStarting(MessagingInterface interfaceWithUser) {
+		addNewPlayer(interfaceWithUser);
+		if (numPlayers >= MINPLAYERS) {
+			new Thread(this).start();
+		} else if (numPlayers >= MAXPLAYERS) {
+			notify();
+		}
+	}
+	
 	/* The interface is used to find the right UMR.*/
-	public void addNewPlayer(MessagingInterface interfaceWithUser) {
+	private void addNewPlayer(MessagingInterface interfaceWithUser) {
 		Player newP = createPlayer("default_Name");  // create the player
 		listOfPlayers.add(newP);  // add him to our players list
 		map.addNewPlayer(newP, newP.getTeam());  // tell the map to place our player
@@ -109,6 +163,11 @@ public class GameMaster {
 		Announcer.getAnnouncerInstance().announcePlayerConnected(numPlayers,MAXPLAYERS);
 	}
 	
+	/**
+	 * Handle a player's disconnection
+	 * This will be automatically invoked by the static facility
+	 * @param player
+	 */
 	private void handlePlayerDisconnect(Player player) {
 		Announcer.getAnnouncerInstance().announcePlayerDisconnected(player);
 		/*
@@ -131,6 +190,25 @@ public class GameMaster {
 		return false;
 	}
 	
+	/**
+	 * used to check if there the game managed by this gamemaster is running
+	 * @return
+	 */
+	public boolean isRunning() {
+		return gameRunning;
+	}
+	
+	/**
+	 * return true only if the game is accepting new players
+	 * @return
+	 */
+	public boolean newPlayerAllowed() {
+		if (hasFreeSlots() && !isRunning()) {
+			return true;
+		}
+		return false;
+	}
+	
 	private boolean hasPlayer(Player p) {
 		if (listOfPlayers.contains(p)) {
 			return true;
@@ -138,6 +216,12 @@ public class GameMaster {
 		return false;
 	}
 	
+	/**
+	 * Instantiate a new player object.
+	 * Teams assignation is alternate, to maintain ingame balance
+	 * @param name
+	 * @return
+	 */
 	private Player createPlayer(String name) {
 		Player newP = null;
 		if (currentTeam == PlayerTeams.ALIENS) {	
@@ -151,11 +235,30 @@ public class GameMaster {
 		return newP;
 	}
 	
-	private void launchThreads() {
+	/**
+	 * Randomize the player order
+	 * (The list of players is ordered, and their respective
+	 * turns will run in that order.)
+	 */
+	private void shufflePlayers() {
+		int counter = listOfPlayers.size();
+		Random randGen = new Random();
+		Player temp;
+		for (int i=0; i<counter; i++) {
+			temp = listOfPlayers.remove(randGen.nextInt(counter)); 
+			listOfPlayers.add(temp);
+			}
+	}
+	
+	private void launchWorkerThreads() {
 		executorThread.start();
 		timerThread.start();
 	}
 	
+	/**
+	 * The game will end only when the worker threads terminate.
+	 * The will stop on their own
+	 */
 	private void waitForFinish() {
 		try {
 			timerThread.join();
@@ -165,7 +268,7 @@ public class GameMaster {
 			executorThread.join();
 		} catch (InterruptedException e) {
 		}
-		LOG.info(StringRes.getString("controller.gamemaster.gameFinished"));
+		gameRunning = false;
 	}
 	
 	/**
@@ -197,6 +300,10 @@ public class GameMaster {
 		}
 	}
 	
+	/**
+	 * used for testing / debugging purposes
+	 * @return
+	 */
 	public List<Player> getPlayersList() {
 		return listOfPlayers;
 	}

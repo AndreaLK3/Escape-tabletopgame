@@ -1,14 +1,24 @@
 package it.escape.server.controller;
 
-import it.escape.server.model.game.Announcer;
 import it.escape.server.model.game.players.Player;
-import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
 
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * This class will organize the timing of a single active game:
+ * the turn succession, the timing, the game ending.
+ * It won't, however, manage the specific choreography of
+ * the turn.
+ * 
+ * This class will always exist as an object occupying its own thread.
+ * This object is meant to cooperate with ExecutiveController
+ * 
+ * @author michele
+ *
+ */
 public class TimeController implements Runnable {
 	
 	protected static final Logger log = Logger.getLogger( TimeController.class.getName() );
@@ -80,7 +90,7 @@ public class TimeController implements Runnable {
 			nowPlaying++;  // update current player
 			if (nowPlaying >= turnOrder.size()) {
 				nowPlaying = 0;
-				turnNumber++;
+				turnNumber++;  // update current turn
 				if (turnNumber > MAX_TURNS) {
 					endGame();  // ran out of turns
 				}

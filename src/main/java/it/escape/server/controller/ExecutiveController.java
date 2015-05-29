@@ -8,6 +8,17 @@ import it.escape.utils.LogHelper;
 
 import java.util.logging.Logger;
 
+/**
+ * This class will host the actual turnHandlers, in which the
+ * turn logic is executed.
+ * 
+ * This class is intended to live as an object occupying its own thread,
+ * turnHandler will also live in this thread.
+ * This object is meant to cooperate with TimeController
+ * 
+ * @author michele
+ *
+ */
 public class ExecutiveController implements Runnable {
 	
 	protected static final Logger LOG = Logger.getLogger( ExecutiveController.class.getName() );
