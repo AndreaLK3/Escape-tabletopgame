@@ -169,6 +169,8 @@ public class GameMaster implements Runnable {
 		map.addNewPlayer(newP, newP.getTeam());  // tell the map to place our player
 		UserMessagesReporter.bindPlayer(newP, interfaceWithUser);  // bind him to its command interface
 		numPlayers++;  // update the player counter
+		UserMessagesReporter.getReporterInstance(newP).relayMessage(
+				StringRes.getString("messaging.gamemaster.playAs") + " " + newP.getTeam().toString());
 		Announcer.getAnnouncerInstance().announcePlayerConnected(numPlayers,MAXPLAYERS);
 	}
 	
