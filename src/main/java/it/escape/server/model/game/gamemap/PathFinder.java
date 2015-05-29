@@ -59,8 +59,10 @@ public class PathFinder {
 	}
 	
 	public boolean isReachable() {
-		if (fringes.get(curPlayer.getMaxRange()).contains(map.getCell(dest))) {
-			return true;
+		for (int i = 0; i <= curPlayer.getMaxRange(); i++) {
+			if (fringes.get(i).contains(map.getCell(dest))) {
+				return true;
+		}
 		}
 		return false;
 	}

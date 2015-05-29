@@ -33,11 +33,16 @@ public class GameMapTest {
 			GameMap testMap = new GameMap("resources/test_map.json");
 			Player alien = new Alien("ridley");
 			Player alien2 = new Alien("kraid");
+			Player alien3 = new Alien("brain");
+			
 			testMap.addNewPlayer(alien, PlayerTeams.ALIENS);
 			testMap.addNewPlayer(alien2, PlayerTeams.ALIENS);
+			testMap.addNewPlayer(alien3, PlayerTeams.ALIENS);
 			
 			CellAction motion = testMap.move(alien, "N06");
 			assertThat(motion,isDrawSectorCard());
+			CellAction motion3 = testMap.move(alien3, "M06");
+			assertThat(motion3,isDrawSectorCard());
 			exception.expect(DestinationUnreachableException.class);
 			testMap.move(alien2, "J06");
 			
