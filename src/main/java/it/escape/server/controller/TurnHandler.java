@@ -46,22 +46,21 @@ public abstract class TurnHandler {
 	 */
 	public void executeTurnSequence() {
 		hailPlayer();
-		if (!currentPlayer.isUserIdle()) {
+		if (currentPlayer.isUserIdle()) {  // player idle
 			LOG.fine(StringRes.getString("controller.turnhandler.skipIdle"));
-			return;
-		}
-		if (currentPlayer.isAlive()) {
-			initialize();  // step 0
-			turnBeforeMove();  // step 1
-			turnMove();  // step 2
-			turnLand();  // also step 2
-			turnAfterMove();  // step 3
-			deInitialize();  // cleanup (stop filling default options)
-			return;
 		} else {
-			LOG.fine(StringRes.getString("controller.turnhandler.skipDead"));
-			return;
+			if (currentPlayer.isAlive()) {  // player respondind and alive
+				initialize();  // step 0
+				turnBeforeMove();  // step 1
+				turnMove();  // step 2
+				turnLand();  // also step 2
+				turnAfterMove();  // step 3
+				deInitialize();  // cleanup (stop filling default options)
+			} else {  // player responding but dead
+				LOG.fine(StringRes.getString("controller.turnhandler.skipDead"));
+			}
 		}
+		farewellPlayer();
 	}
 	
 	private void hailPlayer() {
@@ -75,6 +74,11 @@ public abstract class TurnHandler {
 					StringRes.getString("messaging.hail.deadPlayer"),
 					currentPlayer.getName()));
 		}
+	}
+	
+	private void farewellPlayer() {
+		UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(
+				StringRes.getString("messaging.farewell"));
 	}
 	
 	protected void discardObjectCard() {
