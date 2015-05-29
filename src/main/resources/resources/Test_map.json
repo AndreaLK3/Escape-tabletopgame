@@ -1,0 +1,55 @@
+{
+    "mapInfo" : {
+    "name" : "prova",
+    "width" : 25,
+    "height" : 14
+    },
+    "cells" : [
+      {
+        "position" : "L06",
+        "tipo" : "partenzaAlieni"
+      },
+      {
+        "position" : "K06",
+        "tipo" : "pericolosa"
+      },
+      {
+        "position" : "L05",
+        "tipo" : "scialuppa"
+      },
+      {
+        "position" : "M06",
+        "tipo" : "pericolosa"
+      },
+      {
+        "position" : "L08",
+        "tipo" : "partenzaUmani"
+      },
+      {
+        "position" : "K08",
+        "tipo" : "pericolosa"
+      },
+      {
+        "position" : "M08",
+        "tipo" : "pericolosa"
+      },
+       {
+        "position" : "K09",
+        "tipo" : "sicura"
+      },
+        {
+        "position" : "M09",
+        "tipo" : "sicura"
+      },
+        {
+        "position" : "L09",
+        "tipo" : "scialuppa"
+      },
+      {
+      	"position" : "C01",
+      	"tipo" : "sicura"
+      },
+     
+      
+    ]
+}

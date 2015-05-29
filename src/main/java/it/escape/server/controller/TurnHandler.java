@@ -22,7 +22,7 @@ import it.escape.strings.StringRes;
  */
 public abstract class TurnHandler {
 	
-	protected static final Logger log = Logger.getLogger( TurnHandler.class.getName() );
+	protected static final Logger LOG = Logger.getLogger( TurnHandler.class.getName() );
 	
 	protected UserMessagesReporter reporter;
 	protected CardAction cardAction;
@@ -53,7 +53,7 @@ public abstract class TurnHandler {
 			turnAfterMove();  // step 3
 			deInitialize();  // cleanup (stop filling default options)
 		} else {
-			log.fine(StringRes.getString("controller.turnhandler.skipDead"));
+			LOG.fine(StringRes.getString("controller.turnhandler.skipDead"));
 		}
 	}
 	
@@ -100,7 +100,7 @@ public abstract class TurnHandler {
 					cellAction = moveCommand.execute(currentPlayer, map);
 					correctInput = true;
 				} catch (Exception e) {
-					e.getMessage();
+					LOG.fine(e.getMessage());
 				}
 			
 			} while (!correctInput);

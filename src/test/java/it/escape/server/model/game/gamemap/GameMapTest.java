@@ -18,19 +18,35 @@ import it.escape.server.model.game.players.PlayerTeams;
 import java.io.IOException;
 
 import org.hamcrest.Matcher;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class GameMapTest {
 	
+	GameMap testMap;
+	
+	@Before
+	public void initializeMap() {
+		try {
+			testMap = new GameMap("resources/Test_map.json");
+		} catch (BadJsonFileException e) {
+			fail("problem loading test map");
+		} catch (IOException e) {
+			fail("problem loading test map");
+		} catch (MalformedStartingCells e) {
+			fail("problem loading test map");
+		}
+	}
+	
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
+	
 
 	@Test
 	public void pathFindingTest() throws DestinationUnreachableException {
 		try {
-			GameMap testMap = new GameMap("resources/test_map.json");
 			Player alien = new Alien("ridley");
 			Player alien2 = new Alien("kraid");
 			Player alien3 = new Alien("brain");
@@ -39,19 +55,13 @@ public class GameMapTest {
 			testMap.addNewPlayer(alien2, PlayerTeams.ALIENS);
 			testMap.addNewPlayer(alien3, PlayerTeams.ALIENS);
 			
-			CellAction motion = testMap.move(alien, "N06");
+			CellAction motion = testMap.move(alien, "K06");
 			assertThat(motion,isDrawSectorCard());
 			CellAction motion3 = testMap.move(alien3, "M06");
 			assertThat(motion3,isDrawSectorCard());
 			exception.expect(DestinationUnreachableException.class);
-			testMap.move(alien2, "J06");
+			testMap.move(alien2, "C01");
 			
-		} catch (BadJsonFileException e) {
-			fail("problem loading test map");
-		} catch (IOException e) {
-			fail("problem loading test map");
-		} catch (MalformedStartingCells e) {
-			fail("problem loading test map");
 		} catch (BadCoordinatesException e) {
 			fail("could not move");
 		} catch (CellNotExistsException e) {
@@ -64,19 +74,12 @@ public class GameMapTest {
 	@Test
 	public void noEntryTest() throws PlayerCanNotEnterException {
 		try {
-			GameMap testMap = new GameMap("resources/test_map.json");
 			Player alien = new Alien("jabba");	
 			testMap.addNewPlayer(alien, PlayerTeams.ALIENS);
 			
 			exception.expect(PlayerCanNotEnterException.class);
-			testMap.move(alien, "L08");
-			
-		} catch (BadJsonFileException e) {
-			fail("problem loading test map");
-		} catch (IOException e) {
-			fail("problem loading test map");
-		} catch (MalformedStartingCells e) {
-			fail("problem loading test map");
+			testMap.move(alien, "L05");
+
 		} catch (BadCoordinatesException e) {
 			fail("could not move");
 		} catch (CellNotExistsException e) {
@@ -89,5 +92,9 @@ public class GameMapTest {
 	private Matcher<? super CellAction> isDrawSectorCard() {
 		return new DangerousCellMatcher();
 	}
+	
+	//public void testCellNotExisting()
+
+
 
 }
