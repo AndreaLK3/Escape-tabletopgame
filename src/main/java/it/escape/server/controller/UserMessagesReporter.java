@@ -112,9 +112,19 @@ public class UserMessagesReporter {
 	
 
 	public boolean askIfAttack() {
-		//to be implemented
-		return false;
-		
+		String defaultChoice = "no";
+		if (overrideDefault) {
+			return false;
+		}
+		else {
+			interfaceWithUser.writeToClient(StringRes.getString("messaging.askIfAttack"));
+			String answer = ioGetBinaryChoice(defaultChoice,"yes","no").toLowerCase();
+			if (answer.equals("yes")) {
+				return true;
+			}
+			else
+				return false;
+		}
 	}
 	
 	
@@ -145,11 +155,15 @@ public class UserMessagesReporter {
 	 * @return string representing the chosen card
 	 */
 	public String askWhichObjectCard() {
-		String defaultChoice = "adrenaline";
-		/* To be implemented
-		 * returns a validated string from the Client
-		 */
-		return "adrenaline";
+		String defaultChoice = "none";
+		
+		if (overrideDefault) {
+			return defaultChoice;		
+		}
+		else {
+			interfaceWithUser.writeToClient(StringRes.getString("messaging.askWhichObjectCard"));
+			return ioGetCardKey();
+		}
 	}
 	
 	/**
@@ -157,6 +171,7 @@ public class UserMessagesReporter {
 	 * @return
 	 */
 	public MoveCommand askForMovement() {
+		interfaceWithUser.writeToClient(StringRes.getString("messaging.timeToMove"));
 		String destination;
 		destination = ioGetPosition();
 		return new MoveCommand(destination);
@@ -165,21 +180,22 @@ public class UserMessagesReporter {
 
 	public String askForNoisePosition() {
 		String location;
-		//to be implemented 
+		interfaceWithUser.writeToClient(StringRes.getString("messaging.askForNoisePosition"));
 		location = ioGetPosition();
 		return location;
 	}
 	
 	public String askForLightsPosition() {
 		String location;
-		//to be implemented 
+		interfaceWithUser.writeToClient(StringRes.getString("messaging.askForLightsPosition"));
 		location = ioGetPosition();
 		return location;
 	}
 	
 	public String ioGetCardKey() {
-		//to be implemented
-		return new String ("adrenaline");
+		interfaceWithUser.setDefaultOption("none");
+		interfaceWithUser.setContext(Arrays.asList("attack", "teleport", "lights", "sedatives", "adrenaline"));
+		return interfaceWithUser.readFromClient();
 	}
 
 	private String ioGetPosition() {
@@ -191,13 +207,13 @@ public class UserMessagesReporter {
 		return interfaceWithUser.readFromClient();
 	}
 	
-	private String ioGetBinaryChoice(String defaultOption, String yes, String no) {
+	private String ioGetBinaryChoice(String defaultOption, String first, String second) {
 		interfaceWithUser.writeToClient(String.format(
 				StringRes.getString("messaging.askBinaryChoice"),
-				yes,
-				no));
+				first,
+				second));
 		interfaceWithUser.setDefaultOption(defaultOption);
-		interfaceWithUser.setContext(Arrays.asList(yes,no));
+		interfaceWithUser.setContext(Arrays.asList(first,second));
 		return interfaceWithUser.readFromClient();
 	}
 	
