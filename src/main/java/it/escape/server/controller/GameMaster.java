@@ -156,6 +156,11 @@ public class GameMaster implements Runnable {
 	private synchronized void newPlayerAttemptStarting(MessagingInterface interfaceWithUser) {
 		addNewPlayer(interfaceWithUser);
 		
+		UserMessagesReporter.getReporterInstance(interfaceWithUser).relayMessage(String.format(
+				StringRes.getString("messaging.serversMap"),
+				map.getName()));
+		Announcer.getAnnouncerInstance().announcePlayerConnected(numPlayers,MAXPLAYERS);
+		
 		if (numPlayers >= MINPLAYERS) {
 			new Thread(this).start();
 		} else if (numPlayers >= MAXPLAYERS) {
@@ -170,7 +175,6 @@ public class GameMaster implements Runnable {
 		map.addNewPlayer(newP, newP.getTeam());  // tell the map to place our player
 		UserMessagesReporter.bindPlayer(newP, interfaceWithUser);  // bind him to its command interface
 		numPlayers++;  // update the player counter
-		Announcer.getAnnouncerInstance().announcePlayerConnected(numPlayers,MAXPLAYERS);
 	}
 	
 	/**

@@ -216,5 +216,9 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	public boolean cellExists(String position) {
 		return cells.containsKey(position);
 	}
+
+	public String getName() {
+		return name;
+	}
 	
 }
