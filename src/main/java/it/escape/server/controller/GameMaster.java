@@ -16,13 +16,20 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
-/**
- * This class will automatically assign new players to an instance of the game,
- * creating a new one if necessary.
- * 
- * This class has a static facility to gather all active/inactive games
- * and enroute new players accordingly.
- * 
+/**Responsibilities:
+ * 1) If a new user connects:
+ * 		a)bind his message interface to a Player
+ * 		b)add him to the Player List of a GameMaster object
+ * 		c)tell the GameMap to place a new Player
+ * 		d)tell the Announcer to announce that a new Player has connected
+ * 2) Handle the disconnection of a Player, depending on the current state of the game (started/in progress/finished).
+ * 3) Keeping the List of Players.
+ * 4) Initialize TimeController and ExecutiveController.
+ * 5) Launch the threads to start a game.
+ *n: The GameMaster class has a static list of the GameMaster objects.
+ * When new users connect, and there is no GameMaster object with free spots, 
+ * a new GameMaster object is created and added to the list.
+
  * When certain conditions are met, the game is started.
  * The game starting / life sequence is the following:
  *   1) Minimum number of players is reached: spawn subthread with timeout
@@ -31,7 +38,8 @@ import java.util.logging.Logger;
  *      it will spawn the real worker threads, and wait for them to
  *      terminate successfully. This will mark the end of the game.
  *   4) Once the game is ended, victory/loss conditions will be assessed
- * @author michele
+ *   
+ * @author michele, andrea
  *
  */
 public class GameMaster implements Runnable {
