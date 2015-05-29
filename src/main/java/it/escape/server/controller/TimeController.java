@@ -108,4 +108,17 @@ public class TimeController implements Runnable {
 		runGame = false;
 		executorRef.endGame();
 	}
+	
+	/**
+	 * Intended to be used by GameMaster, who can and *will*
+	 * abruptly terminate the game if certain conditions are met.
+	 * Please note that, even in this case, fillInDefaultChoices()
+	 * will be called to un-block the executor thread.
+	 * Both that and our thread must terminate for a game to end
+	 * correctly
+	 */
+	public void extraordinaryGameKill() {
+		endGame();
+		notify();
+	}
 }
