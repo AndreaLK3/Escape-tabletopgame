@@ -184,6 +184,12 @@ public class GameMaster implements Runnable {
 	 */
 	private void handlePlayerDisconnect(Player player) {
 		Announcer.getAnnouncerInstance().announcePlayerDisconnected(player);
+		if (!isRunning()) {
+			listOfPlayers.remove(player);
+		}
+		else {
+			
+		}
 		/*
 		 * do some things:
 		 * if the game has not yet started, simply remove him from the list

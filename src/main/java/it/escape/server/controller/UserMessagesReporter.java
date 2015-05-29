@@ -27,7 +27,7 @@ public class UserMessagesReporter {
 	private Player thePlayer;
 	private MessagingInterface interfaceWithUser;
 	
-	private boolean overrideDefault = false;
+	private boolean automaticOverriding = false;
 	
 	//creation and access methods
 	
@@ -79,12 +79,12 @@ public class UserMessagesReporter {
 	 * with the user
 	 */
 	public void fillinDefaultAlways() {
-		overrideDefault = true;
+		automaticOverriding = true;
 	}
 	
 	public void stopFillingDefault() {
-		if (overrideDefault) {
-			overrideDefault = false;
+		if (automaticOverriding) {
+			automaticOverriding = false;
 		}
 	}
 	
@@ -97,7 +97,7 @@ public class UserMessagesReporter {
 	 */
 	public boolean askIfObjectCard(String s) {
 		String defaultChoice = "no";
-		if (overrideDefault) {
+		if (automaticOverriding) {
 			return false;
 		}
 		else {
@@ -113,7 +113,7 @@ public class UserMessagesReporter {
 
 	public boolean askIfAttack() {
 		String defaultChoice = "no";
-		if (overrideDefault) {
+		if (automaticOverriding) {
 			return false;
 		}
 		else {
@@ -135,7 +135,7 @@ public class UserMessagesReporter {
 	 */
 	public boolean askPlayCardOrDiscard() {
 		String defaultChoice = "discard";
-		if (overrideDefault) {
+		if (automaticOverriding) {
 			return false;
 		}
 		else {
@@ -157,7 +157,7 @@ public class UserMessagesReporter {
 	public String askWhichObjectCard() {
 		String defaultChoice = "none";
 		
-		if (overrideDefault) {
+		if (automaticOverriding) {
 			return defaultChoice;		
 		}
 		else {
@@ -168,27 +168,28 @@ public class UserMessagesReporter {
 	
 	/**
 	 * Queries the user for a position to move to
+	 * @param playerCurrentPos 
 	 * @return
 	 */
-	public MoveCommand askForMovement() {
+	public MoveCommand askForMovement(String playerCurrentPos) {
 		interfaceWithUser.writeToClient(StringRes.getString("messaging.timeToMove"));
 		String destination;
-		destination = ioGetPosition();
+		destination = ioGetPosition(playerCurrentPos);
 		return new MoveCommand(destination);
 	}
 	
 
-	public String askForNoisePosition() {
+	public String askForNoisePosition(String playerCurrentPos) {
 		String location;
 		interfaceWithUser.writeToClient(StringRes.getString("messaging.askForNoisePosition"));
-		location = ioGetPosition();
+		location = ioGetPosition(playerCurrentPos);
 		return location;
 	}
 	
-	public String askForLightsPosition() {
+	public String askForLightsPosition(String playerCurrentPos) {
 		String location;
 		interfaceWithUser.writeToClient(StringRes.getString("messaging.askForLightsPosition"));
-		location = ioGetPosition();
+		location = ioGetPosition(playerCurrentPos);
 		return location;
 	}
 	
@@ -198,11 +199,10 @@ public class UserMessagesReporter {
 		return interfaceWithUser.readFromClient();
 	}
 
-	private String ioGetPosition() {
+	private String ioGetPosition(String playerCurrentPos) {
 		interfaceWithUser.writeToClient(String.format(
 				StringRes.getString("messaging.askForPosition")));
-		// TODO: we should set the player's position as the default option
-		interfaceWithUser.setDefaultOption("");
+		interfaceWithUser.setDefaultOption("playerCurrentPos");
 		interfaceWithUser.setContext(null);
 		return interfaceWithUser.readFromClient();
 	}

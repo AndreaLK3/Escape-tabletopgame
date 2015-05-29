@@ -18,6 +18,8 @@ public interface MapActionInterface {
 	
 	public PositionCubic getPlayerPosition(Player player);
 	
+	public String getPlayerAlphaNumPosition(Player player);
+	
 	public void addNewPlayer(Player player, PlayerTeams team);
 	
 	public Cell getStartHumans();

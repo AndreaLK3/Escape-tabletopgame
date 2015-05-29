@@ -25,7 +25,7 @@ public class Lights implements ObjectCardAction {
 		boolean correctInput;
 		
 		do{
-			posAlphaNum =  UserMessagesReporter.getReporterInstance(currentPlayer).askForLightsPosition();
+			posAlphaNum =  UserMessagesReporter.getReporterInstance(currentPlayer).askForLightsPosition(map.getPlayerAlphaNumPosition(currentPlayer));
 			try {
 				pos3D = CoordinatesConverter.fromAlphaNumToCubic(posAlphaNum);
 				cells = map.getNeighbors(pos3D);

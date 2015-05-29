@@ -154,6 +154,9 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	public PositionCubic getPlayerPosition(Player player) {
 		return playersPositions.get(player).getPosition();
 	}
+	public String getPlayerAlphaNumPosition(Player player) {
+		return CoordinatesConverter.fromCubicToAlphaNum(getPlayerPosition(player));
+	}
 	
 	/**
 	 * invoked by GameMaster, add a player (human or alien)

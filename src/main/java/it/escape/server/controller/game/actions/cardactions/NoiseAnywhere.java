@@ -9,8 +9,8 @@ import it.escape.server.model.game.players.Player;
 public class NoiseAnywhere implements CardAction{
 
 	public void execute(Player currentPlayer, MapActionInterface map) {
-			String location = UserMessagesReporter.getReporterInstance(currentPlayer).askForNoisePosition();
-			//map.cellExists(location); è meglio effettuare il controllo dell'esistenza delle celle prima, su client
+			String location = UserMessagesReporter.getReporterInstance(currentPlayer).askForNoisePosition(map.getPlayerAlphaNumPosition(currentPlayer));
+			
 			Announcer.getAnnouncerInstance().announceNoise(location);
 	}
 

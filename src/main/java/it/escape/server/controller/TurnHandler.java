@@ -109,7 +109,7 @@ public abstract class TurnHandler {
 	 */
 	public void turnMove() {
 		do {
-				moveCommand = reporter.askForMovement();
+				moveCommand = reporter.askForMovement(map.getPlayerAlphaNumPosition(currentPlayer));
 				try {
 					cellAction = moveCommand.execute(currentPlayer, map);
 					correctInput = true;
