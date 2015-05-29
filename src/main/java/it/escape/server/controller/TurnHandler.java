@@ -1,5 +1,7 @@
 package it.escape.server.controller;
 
+import java.util.logging.Logger;
+
 import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.CellAction;
 import it.escape.server.controller.game.actions.MapActionInterface;
@@ -8,6 +10,7 @@ import it.escape.server.model.game.cards.ObjectCard;
 import it.escape.server.model.game.exceptions.CardNotPresentException;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
+import it.escape.strings.StringRes;
 
 /** This class defines the order of execution of the various
  * methods that are invoked during a turn.
@@ -18,6 +21,8 @@ import it.escape.server.model.game.players.Player;
  * @author andrea, michele
  */
 public abstract class TurnHandler {
+	
+	protected static final Logger log = Logger.getLogger( TurnHandler.class.getName() );
 	
 	protected UserMessagesReporter reporter;
 	protected CardAction cardAction;
@@ -47,6 +52,8 @@ public abstract class TurnHandler {
 			turnLand();  // also step 2
 			turnAfterMove();  // step 3
 			deInitialize();  // cleanup (stop filling default options)
+		} else {
+			log.fine(StringRes.getString("controller.turnhandler.skipDead"));
 		}
 	}
 	

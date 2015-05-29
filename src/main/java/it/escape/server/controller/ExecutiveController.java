@@ -53,11 +53,12 @@ public class ExecutiveController implements Runnable {
 	private synchronized void gameLoop() {
 		while (runGame) {
 			try {
+				LOG.finer("sleeping");
 				wait();  // wait to be awakened by startTurn() or endGame()
 			} catch (InterruptedException e) {
 				LOG.finer(StringRes.getString("controller.executor.awaken"));
 			}
-			if (!runGame) {  // was awaken by startTurn()
+			if (runGame) {  // was awaken by startTurn()
 				gameTurn();
 				timeControllerRef.endTurn();  // wake up timeController, prevents timeout
 			}
