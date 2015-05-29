@@ -55,7 +55,7 @@ public class GameMaster implements Runnable {
 	private final static int MINPLAYERS = 2;
 	private int numPlayers = 0;
 	
-	private final static int WAIT_TIMEOUT = 2000;
+	private final static int WAIT_TIMEOUT = 120000;
 	
 	private PlayerTeams currentTeam;
 	
