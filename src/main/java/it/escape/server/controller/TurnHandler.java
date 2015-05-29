@@ -46,6 +46,10 @@ public abstract class TurnHandler {
 	 */
 	public void executeTurnSequence() {
 		hailPlayer();
+		if (!currentPlayer.isUserIdle()) {
+			LOG.fine(StringRes.getString("controller.turnhandler.skipIdle"));
+			return;
+		}
 		if (currentPlayer.isAlive()) {
 			initialize();  // step 0
 			turnBeforeMove();  // step 1
@@ -53,8 +57,10 @@ public abstract class TurnHandler {
 			turnLand();  // also step 2
 			turnAfterMove();  // step 3
 			deInitialize();  // cleanup (stop filling default options)
+			return;
 		} else {
 			LOG.fine(StringRes.getString("controller.turnhandler.skipDead"));
+			return;
 		}
 	}
 	

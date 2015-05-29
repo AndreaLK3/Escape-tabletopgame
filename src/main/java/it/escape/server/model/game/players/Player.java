@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 public abstract class Player {
 	
 	protected static final Logger log = Logger.getLogger( Player.class.getName() );
-	
+	protected boolean userIdle;
 	protected int maxRange;
 	protected boolean hasMoved;
 	protected boolean hasAttacked;
@@ -27,6 +27,7 @@ public abstract class Player {
 		this.name = name;
 		alive = true;
 		myHand = new Hand();
+		userIdle=false;
 	}
 	
 
@@ -121,4 +122,13 @@ public abstract class Player {
 	public boolean hasAttacked() {
 		return hasAttacked;
 	};
+	
+	public boolean isUserIdle() {
+		return userIdle;
+	}
+
+
+	public void setUserIdle(boolean userIdle) {
+		this.userIdle = userIdle;
+	}
 }

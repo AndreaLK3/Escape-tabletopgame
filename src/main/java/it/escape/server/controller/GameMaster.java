@@ -188,15 +188,10 @@ public class GameMaster implements Runnable {
 			listOfPlayers.remove(player);
 		}
 		else {
-			
+			player.setUserIdle(true);
 		}
-		/*
-		 * do some things:
-		 * if the game has not yet started, simply remove him from the list
-		 * if the game is already running, we may want to wait for him
-		 * 		or maybe kill him off, or set him as idle/penalized
-		 * what if an entire team disconnects a la MOBA?
-		 * if the game has already ended, do nothing
+		/*cosa succede se un intero team si disconnette?
+		 * 
 		 */
 	}
 	
