@@ -138,7 +138,7 @@ public class GameMaster implements Runnable {
 		// final cleanup: close connections / update scoreboard / say goodbye
 	}
 	
-	public void run() {
+	public synchronized void run() {
 		LOG.fine(String.format(StringRes.getString("controller.gamemaster.gameStartTimeout"), WAIT_TIMEOUT/1000));
 		// maybe we can announce it to the players, too
 		try {
@@ -152,7 +152,7 @@ public class GameMaster implements Runnable {
 	 * Here's the logic to decide when to start the actual game
 	 * @param interfaceWithUser
 	 */
-	private void newPlayerAttemptStarting(MessagingInterface interfaceWithUser) {
+	private synchronized void newPlayerAttemptStarting(MessagingInterface interfaceWithUser) {
 		addNewPlayer(interfaceWithUser);
 		if (numPlayers >= MINPLAYERS) {
 			new Thread(this).start();
