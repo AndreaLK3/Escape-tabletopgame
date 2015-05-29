@@ -40,9 +40,8 @@ public class Connection implements Observer, Runnable {
 			// setup required objects for a player to work properly
 			messagingInterface = new SocketInterface(clientSocket);
 			UserMessagesReporter.createUMR(messagingInterface);
-			GameMaster.newPlayerHasConnected(messagingInterface);
-			
 			Announcer.getAnnouncerInstance().addObserver(this);
+			GameMaster.newPlayerHasConnected(messagingInterface);
 			
 			// loop continuo: riempire la coda di ricezione
 			while (running) {
