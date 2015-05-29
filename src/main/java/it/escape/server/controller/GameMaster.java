@@ -55,7 +55,7 @@ public class GameMaster implements Runnable {
 	private final static int MINPLAYERS = 2;
 	private int numPlayers = 0;
 	
-	private final static int WAIT_TIMEOUT = 120000;
+	private final static int WAIT_TIMEOUT = 2000;
 	
 	private PlayerTeams currentTeam;
 	
@@ -113,12 +113,12 @@ public class GameMaster implements Runnable {
 
 	private GameMaster(MapActionInterface map) {
 		this.map = map;
+		listOfPlayers = new ArrayList<Player>();
 		timeController =  new TimeController(listOfPlayers);
 		executor = new ExecutiveController(timeController, map);
 		timeController.bindExecutor(executor);
 		executorThread = new Thread(executor);
 		timerThread = new Thread(timeController);
-		listOfPlayers = new ArrayList<Player>();
 		currentTeam = PlayerTeams.ALIENS;
 		gameRunning = false;
 	}
@@ -154,6 +154,7 @@ public class GameMaster implements Runnable {
 	 */
 	private synchronized void newPlayerAttemptStarting(MessagingInterface interfaceWithUser) {
 		addNewPlayer(interfaceWithUser);
+		
 		if (numPlayers >= MINPLAYERS) {
 			new Thread(this).start();
 		} else if (numPlayers >= MAXPLAYERS) {

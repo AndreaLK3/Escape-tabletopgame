@@ -53,7 +53,7 @@ public class TimeController implements Runnable {
 	public TimeController(List<Player> turnOrder) {
 		LogHelper.setDefaultOptions(log);
 		this.turnOrder = turnOrder;
-		nowPlaying = 1;
+		nowPlaying = 0;
 		this.runGame = true;
 	}
 
