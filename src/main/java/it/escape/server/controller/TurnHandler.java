@@ -1,7 +1,5 @@
 package it.escape.server.controller;
 
-import java.util.logging.Logger;
-
 import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.CellAction;
 import it.escape.server.controller.game.actions.MapActionInterface;
@@ -9,9 +7,10 @@ import it.escape.server.controller.game.actions.playercommands.MoveCommand;
 import it.escape.server.model.game.cards.ObjectCard;
 import it.escape.server.model.game.exceptions.CardNotPresentException;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
-import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 import it.escape.strings.StringRes;
+
+import java.util.logging.Logger;
 
 /** This class defines the order of execution of the various
  * methods that are invoked during a turn.
