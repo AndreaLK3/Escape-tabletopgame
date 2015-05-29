@@ -19,7 +19,7 @@ public class GameMasterTest {
 
 	@Test
 	public void testNewPlayerTeamAssignation() {
-		MapCreator stubMapCreator = new MapCreator("resources/test_map.json");
+		MapCreator stubMapCreator = new MapCreator("resources/Test_map.json");
 		TestingAnnouncerObserver observer = new TestingAnnouncerObserver();
 		GameMaster.setMapCreator(stubMapCreator);
 		Announcer.getAnnouncerInstance().addObserver(observer);
