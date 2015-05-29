@@ -33,7 +33,7 @@ public class TimeController implements Runnable {
 	
 	private boolean turnCompleted;
 	
-	private List<Player> turnOrder; // reference to the ordered list of players
+	private List<Player> turnOrder; // reference to the *ordered* list of players
 	private int nowPlaying;
 	
 	private int turnNumber;
