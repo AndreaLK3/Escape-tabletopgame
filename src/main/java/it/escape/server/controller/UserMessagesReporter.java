@@ -185,7 +185,10 @@ public class UserMessagesReporter {
 	private String ioGetPosition() {
 		interfaceWithUser.writeToClient(String.format(
 				StringRes.getString("messaging.askForPosition")));
-		return "B03";
+		// TODO: we should set the player's position as the default option
+		interfaceWithUser.setDefaultOption("");
+		interfaceWithUser.setContext(null);
+		return interfaceWithUser.readFromClient();
 	}
 	
 	private String ioGetBinaryChoice(String defaultOption, String yes, String no) {
