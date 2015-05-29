@@ -73,7 +73,7 @@ public class MapLoaderTest {
 		ret.add(new DangerousCell(CoordinatesConverter.fromAlphaNumToCubic("A02")));
 		ret.add(new SafeCell(CoordinatesConverter.fromAlphaNumToCubic("C01")));
 		ret.add(new SafeCell(CoordinatesConverter.fromAlphaNumToCubic("L07")));
-		ret.add(new EscapeCell(CoordinatesConverter.fromAlphaNumToCubic("B02"), new GameMode(GameTypes.BASE)));
+		ret.add(new EscapeCell(CoordinatesConverter.fromAlphaNumToCubic("B02"), new GameMode(GameTypes.COMPLETE)));
 		
 		return ret;
 	}

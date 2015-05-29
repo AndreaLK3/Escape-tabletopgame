@@ -52,7 +52,7 @@ public class CellGenerator {
 			return StartingCell.getStart(pos,PlayerTeams.ALIENS);
 		}
 		else if (tipo.equals(StringRes.getString("mapfile.stringToClass.CellaScialuppa"))) {
-			return new EscapeCell(pos, new GameMode(GameTypes.BASE));
+			return new EscapeCell(pos, new GameMode(GameTypes.COMPLETE));
 		}
 		
 		throw new BadJsonFileException();
