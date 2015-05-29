@@ -99,7 +99,7 @@ public class CoordinatesConverter {
 			
 			return new Position2D(col, row);
 		}
-		else throw new BadCoordinatesException();
+		else throw new BadCoordinatesException("Bad coordinate string " + coord);
 	}
 
 }

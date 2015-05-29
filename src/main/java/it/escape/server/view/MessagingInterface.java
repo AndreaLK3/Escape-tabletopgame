@@ -1,16 +1,13 @@
 package it.escape.server.view;
 
+import it.escape.server.controller.MessagingHead;
+
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import com.sun.jndi.cosnaming.CNNameParser;
-
-import it.escape.server.controller.MessagingHead;
-import it.escape.server.model.game.exceptions.AnswerOutOfContextException;
 
 /**
  * MessagingInterface manages a single per-user communication channel.

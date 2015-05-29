@@ -26,6 +26,7 @@ public abstract class Player {
 		LogHelper.setDefaultOptions(log);
 		this.name = name;
 		alive = true;
+		myHand = new Hand();
 	}
 	
 

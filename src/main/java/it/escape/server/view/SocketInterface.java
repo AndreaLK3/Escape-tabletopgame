@@ -27,7 +27,7 @@ public class SocketInterface extends MessagingInterface {
 	
 	@Override
 	public void receiveFromClient() throws NoSuchElementException {
-		String read = in.nextLine().toLowerCase();
+		String read = in.nextLine();
 		enqueueFacility(read);
 		afterTailWrite();
 	}

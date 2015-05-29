@@ -10,7 +10,6 @@ import it.escape.utils.LogHelper;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
-import java.nio.channels.SocketChannel;
 import java.util.NoSuchElementException;
 import java.util.Observable;
 import java.util.Observer;

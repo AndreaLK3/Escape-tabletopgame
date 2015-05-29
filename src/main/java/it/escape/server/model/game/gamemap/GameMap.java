@@ -78,7 +78,7 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 			}
 			return vicini;
 		} else {
-			throw new CellNotExistsException();  // a bit of defensive programming here
+			throw new CellNotExistsException("Cell does not exist");  // a bit of defensive programming here
 		}
 	}
 	
@@ -115,13 +115,13 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 		PositionCubic dest3D = CoordinatesConverter.fromAlphaNumToCubic(destination);
 		
 		if (!getCell(dest3D).canEnter(curPlayer)) {
-			throw new PlayerCanNotEnterException();
+			throw new PlayerCanNotEnterException("Destination is not accessible");
 		}
 		if (!destinationReachable(curPlayer, dest3D)) {
-			throw new DestinationUnreachableException();
+			throw new DestinationUnreachableException("Destination is not reachable");
 		}
 		if (!cellExists(dest3D)) {
-			throw new CellNotExistsException();
+			throw new CellNotExistsException("Destination cell does not exist");
 		}
 			
 		updatePlayerPosition(curPlayer, dest3D);
