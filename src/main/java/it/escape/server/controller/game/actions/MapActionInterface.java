@@ -27,4 +27,6 @@ public interface MapActionInterface {
 	public List<Cell> getNeighbors(PositionCubic fromAlphaNumToCubic) throws CellNotExistsException;
 
 	public Cell getCell(PositionCubic pos3d);
+	
+	public String getName();
 }
