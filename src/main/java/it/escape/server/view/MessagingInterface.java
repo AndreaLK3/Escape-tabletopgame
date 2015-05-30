@@ -174,7 +174,7 @@ public class MessagingInterface extends Observable implements MessagingHead, Mes
 	 * by the readFromClient() function;
 	 * Messages not belonging to the context are discarded without
 	 * further processing.
-	 * Strings can be regular expression, enabling a smarter control
+	 * Strings can be regular expressions, enabling a smarter control
 	 * over the user input
 	 * If the context is empty or null, any message will be accepted
 	 */
