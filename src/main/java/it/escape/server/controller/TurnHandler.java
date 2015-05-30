@@ -89,6 +89,7 @@ public abstract class TurnHandler {
 				endObjectCard = true;
 				
 			} catch (CardNotPresentException e) {	//CardNotExistingException
+				LOG.finer(e.getClass().getSimpleName() + " " + e.getMessage());
 				endObjectCard = false;
 			}
 		} while (!endObjectCard);
@@ -124,7 +125,7 @@ public abstract class TurnHandler {
 					cellAction = moveCommand.execute(currentPlayer, map);
 					correctInput = true;
 				} catch (Exception e) {
-					LOG.fine(e.getMessage());
+					LOG.finer(e.getClass().getSimpleName() + " " + e.getMessage());
 				}
 			
 			} while (!correctInput);

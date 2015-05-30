@@ -44,13 +44,15 @@ public class TurnHandlerHuman extends TurnHandler {
 						throw new WrongCardException();
 					}
 				}
-			catch (WrongCardException e) {	
+			catch (WrongCardException e) {
+				LOG.finer(e.getClass().getSimpleName() + " " + e.getMessage());
 				if (reporter.askIfObjectCard("Do you want to play an object card?"))
 					endObjectCard = false;
 				else 
 					endObjectCard = true;
 			}
 			catch (CardNotPresentException e) {	
+				LOG.finer(e.getClass().getSimpleName() + " " + e.getMessage());
 				if (reporter.askIfObjectCard("Do you want to play an object card?"))
 					endObjectCard = false;
 				else
