@@ -1,7 +1,6 @@
 package it.escape.server.model.game.gamemap;
 
 import it.escape.server.controller.game.actions.CellAction;
-import it.escape.server.controller.game.actions.cardactions.NoCardAction;
 import it.escape.server.controller.game.actions.cellactions.GetEscapeCardAction;
 import it.escape.server.controller.game.actions.cellactions.NoCellAction;
 import it.escape.server.model.game.GameMode;

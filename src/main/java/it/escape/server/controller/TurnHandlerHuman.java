@@ -4,7 +4,6 @@ package it.escape.server.controller;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.ObjectCardAction;
 import it.escape.server.controller.game.actions.cardactions.DrawObjectCard;
-import it.escape.server.model.game.Announcer;
 import it.escape.server.model.game.cards.ObjectCard;
 import it.escape.server.model.game.cards.objectcards.AdrenalineCard;
 import it.escape.server.model.game.cards.objectcards.LightsCard;
@@ -15,6 +14,7 @@ import it.escape.server.model.game.exceptions.WrongCardException;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 import it.escape.strings.StringRes;
+import it.escape.utils.Shorthand;
 
 public class TurnHandlerHuman extends TurnHandler {
 	
@@ -36,7 +36,7 @@ public class TurnHandlerHuman extends TurnHandler {
 				
 					if (canPlayObjectCard(objectCard)) {
 						objectCardAction = objectCard.getObjectAction();
-						Announcer.getAnnouncerInstance().announceObjectCard(currentPlayer, objectCard); 
+						Shorthand.announcer(currentPlayer).announceObjectCard(currentPlayer, objectCard); 
 						objectCardAction.execute((Human)currentPlayer, map);
 						endObjectCard = true;
 					}

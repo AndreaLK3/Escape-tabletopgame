@@ -19,7 +19,7 @@ public class VictoryChecker {
 		this.players = players;
 		humans = new ArrayList<Human>();
 		aliens = new ArrayList<Alien>();
-		for (Player p : players) {
+		for (Player p : this.players) {
 			if (p instanceof Human) {
 				humans.add((Human)p);
 			} else if (p instanceof Alien) {

@@ -1,15 +1,14 @@
 package it.escape.server.controller;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
-
+import static org.junit.Assert.assertEquals;
 import it.escape.server.MapCreator;
-import it.escape.server.model.game.Announcer;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.server.view.MessagingInterface;
 import it.escape.strings.StringRes;
+import it.escape.utils.Shorthand;
+
+import java.util.List;
 
 import org.junit.Test;
 
@@ -22,21 +21,17 @@ public class GameMasterTest {
 		MapCreator stubMapCreator = new MapCreator("resources/Test_map.json");
 		TestingAnnouncerObserver observer = new TestingAnnouncerObserver();
 		GameMaster.setMapCreator(stubMapCreator);
-		Announcer.getAnnouncerInstance().addObserver(observer);
 		
-		simulateConnect();
-		assertEquals(
-				String.format(StringRes.getString("messaging.playerConnected"), 1, MAXPLAYERS),
-				observer.getLast_message());
-		simulateConnect();
+		simulateConnect(observer);
+		simulateConnect(observer);
 		assertEquals(
 				String.format(StringRes.getString("messaging.playerConnected"), 2, MAXPLAYERS),
 				observer.getLast_message());
-		simulateConnect();
+		simulateConnect(observer);
 		assertEquals(
 				String.format(StringRes.getString("messaging.playerConnected"), 3, MAXPLAYERS),
 				observer.getLast_message());
-		simulateConnect();
+		simulateConnect(observer);
 		assertEquals(
 				String.format(StringRes.getString("messaging.playerConnected"), 4, MAXPLAYERS),
 				observer.getLast_message());
@@ -49,10 +44,11 @@ public class GameMasterTest {
 		
 	}
 	
-	private void simulateConnect() {
+	private void simulateConnect(TestingAnnouncerObserver observer) {
 		MessagingInterface iface = new MessagingInterface();
 		UserMessagesReporter.createUMR(iface);
 		GameMaster.newPlayerHasConnected(iface);
+		Shorthand.announcer(iface).addObserver(observer);
 	}
 
 }

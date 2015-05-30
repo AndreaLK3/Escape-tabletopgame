@@ -1,6 +1,7 @@
 package it.escape.server.controller;
 
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
+import it.escape.server.model.game.Announcer;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingInterface;
 import it.escape.strings.StringRes;
@@ -28,6 +29,8 @@ public class UserMessagesReporter {
 	private MessagingInterface interfaceWithUser;
 	
 	private boolean automaticOverriding = false;
+	
+	private Announcer announcerRef;
 	
 	//creation and access methods
 	
@@ -67,6 +70,10 @@ public class UserMessagesReporter {
 				break;
 			}
 		}
+	}
+	
+	public void bindAnnouncer(Announcer announcer) {
+		this.announcerRef = announcer;
 	}
 	
 	public void fillinDefaultOnce() {
@@ -234,7 +241,9 @@ public class UserMessagesReporter {
 		this.thePlayer = thePlayer;
 	}
 
-
+	public Announcer getAnnouncer() {
+		return announcerRef;
+	}
 	
 }
 

@@ -1,7 +1,5 @@
 package it.escape.server.controller;
 
-import it.escape.server.model.game.exceptions.AnswerOutOfContextException;
-
 import java.util.List;
 
 public interface MessagingHead {

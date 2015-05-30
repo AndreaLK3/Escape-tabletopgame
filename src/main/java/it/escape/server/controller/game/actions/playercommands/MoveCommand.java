@@ -3,10 +3,6 @@ package it.escape.server.controller.game.actions.playercommands;
 import it.escape.server.controller.game.actions.CellAction;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.PlayerCommand;
-import it.escape.server.model.game.exceptions.BadCoordinatesException;
-import it.escape.server.model.game.exceptions.CellNotExistsException;
-import it.escape.server.model.game.exceptions.DestinationUnreachableException;
-import it.escape.server.model.game.exceptions.PlayerCanNotEnterException;
 import it.escape.server.model.game.players.Player;
 
 public class MoveCommand implements PlayerCommand {

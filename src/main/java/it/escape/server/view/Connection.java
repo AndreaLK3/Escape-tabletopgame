@@ -6,6 +6,7 @@ import it.escape.server.model.game.Announcer;
 import it.escape.strings.StringRes;
 import it.escape.utils.FilesHelper;
 import it.escape.utils.LogHelper;
+import it.escape.utils.Shorthand;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -40,8 +41,8 @@ public class Connection implements Observer, Runnable {
 			// setup required objects for a player to work properly
 			messagingInterface = new SocketInterface(clientSocket);
 			UserMessagesReporter.createUMR(messagingInterface);
-			Announcer.getAnnouncerInstance().addObserver(this);
 			GameMaster.newPlayerHasConnected(messagingInterface);
+			Shorthand.announcer(messagingInterface).addObserver(this);
 			
 			// loop continuo: riempire la coda di ricezione
 			while (running) {
@@ -68,7 +69,7 @@ public class Connection implements Observer, Runnable {
 	
 	private void hasDisconnected() {
 		messagingInterface.setConnectionDead();
-		Announcer.getAnnouncerInstance().deleteObserver(this);
+		Shorthand.announcer(messagingInterface).deleteObserver(this);
 		GameMaster.playerHasDisconnected(messagingInterface);
 		
 		running = false;

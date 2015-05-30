@@ -13,23 +13,14 @@ import java.util.Observable;
 /**
  * Announcer class: simple observable, relays a message to the observers;
  * those are located in the server view (our net-communication threads).
- * Each running game will instance only one announcer (it is a singleton)
+ * Each running game will instance only one announcer
  * @author michele
  */
 public class Announcer extends Observable {
 	
 	private String message;
 	
-	private static Announcer instance = null;
-	
-	public static Announcer getAnnouncerInstance() {
-		if (instance == null) {
-			instance = new Announcer();
-		}
-		return instance;
-	}
-	
-	private Announcer() {
+	public Announcer() {
 		
 	}
 	

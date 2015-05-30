@@ -1,10 +1,7 @@
 package it.escape.server.controller;
 
 import it.escape.server.model.game.Announcer;
-import it.escape.strings.StringRes;
 
-import java.io.IOException;
-import java.io.PrintStream;
 import java.util.Observable;
 import java.util.Observer;
 

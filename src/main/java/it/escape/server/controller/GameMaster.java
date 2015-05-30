@@ -71,6 +71,8 @@ public class GameMaster implements Runnable {
 	
 	private MapActionInterface map;
 	
+	private Announcer announcer;
+	
 	private boolean gameRunning;
 	
 	public static void newPlayerHasConnected(MessagingInterface interfaceWithUser) {
@@ -120,6 +122,7 @@ public class GameMaster implements Runnable {
 		executorThread = new Thread(executor);
 		timerThread = new Thread(timeController);
 		currentTeam = PlayerTeams.ALIENS;
+		announcer = new Announcer();
 		gameRunning = false;
 	}
 	
@@ -159,7 +162,8 @@ public class GameMaster implements Runnable {
 		UserMessagesReporter.getReporterInstance(interfaceWithUser).relayMessage(String.format(
 				StringRes.getString("messaging.serversMap"),
 				map.getName()));
-		Announcer.getAnnouncerInstance().announcePlayerConnected(numPlayers,MAXPLAYERS);
+		
+		announcer.announcePlayerConnected(numPlayers,MAXPLAYERS);  // the new user won't see this, as he hasn't yet subscribed
 		
 		if (numPlayers >= MINPLAYERS) {
 			new Thread(this).start();
@@ -174,6 +178,7 @@ public class GameMaster implements Runnable {
 		listOfPlayers.add(newP);  // add him to our players list
 		map.addNewPlayer(newP, newP.getTeam());  // tell the map to place our player
 		UserMessagesReporter.bindPlayer(newP, interfaceWithUser);  // bind him to its command interface
+		UserMessagesReporter.getReporterInstance(interfaceWithUser).bindAnnouncer(announcer);  // the player will also use our game-announcer
 		numPlayers++;  // update the player counter
 	}
 	
@@ -183,7 +188,7 @@ public class GameMaster implements Runnable {
 	 * @param player
 	 */
 	private void handlePlayerDisconnect(Player player) {
-		Announcer.getAnnouncerInstance().announcePlayerDisconnected(player);
+		announcer.announcePlayerDisconnected(player);
 		if (!isRunning()) {
 			listOfPlayers.remove(player);
 		}
@@ -303,25 +308,25 @@ public class GameMaster implements Runnable {
 	 */
 	private void finalVictoryCheck() {
 		VictoryChecker conditions = new VictoryChecker(listOfPlayers);
-		Announcer.getAnnouncerInstance().announceGameEnd();
+		announcer.announceGameEnd();
 		
 		if (conditions.allHumansWin()) {
-			Announcer.getAnnouncerInstance().announceTeamVictory(
+			announcer.announceTeamVictory(
 					PlayerTeams.HUMANS,
 					conditions.getHumanWinners());
-			Announcer.getAnnouncerInstance().announceTeamDefeat(
+			announcer.announceTeamDefeat(
 					PlayerTeams.ALIENS);
 		} else if (conditions.areThereHumanWinners()) {
-			Announcer.getAnnouncerInstance().announceTeamVictory(
+			announcer.announceTeamVictory(
 					PlayerTeams.HUMANS,
 					conditions.getHumanWinners());
-			Announcer.getAnnouncerInstance().announceTeamVictory(
+			announcer.announceTeamVictory(
 					PlayerTeams.ALIENS,
 					conditions.getAlienWinners());
 		} else {
-			Announcer.getAnnouncerInstance().announceTeamDefeat(
+			announcer.announceTeamDefeat(
 					PlayerTeams.HUMANS);
-			Announcer.getAnnouncerInstance().announceTeamVictory(
+			announcer.announceTeamVictory(
 					PlayerTeams.ALIENS,
 					conditions.getAlienWinners());
 		}

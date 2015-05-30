@@ -1,20 +1,20 @@
 package it.escape.server.controller.game.actions.objectcardactions;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import it.escape.server.model.game.Announcer;
-import it.escape.server.model.game.gamemap.Cell;
 import it.escape.server.controller.UserMessagesReporter;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.ObjectCardAction;
 import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.CellNotExistsException;
+import it.escape.server.model.game.gamemap.Cell;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 import it.escape.strings.StringRes;
+import it.escape.utils.Shorthand;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Lights implements ObjectCardAction {
 
@@ -48,7 +48,7 @@ public class Lights implements ObjectCardAction {
 		for (Cell c : cells) {
 			List<Player> playersFound = map.getPlayersByPosition(c.getPosition());
 			for (Player p: playersFound) 
-				Announcer.getAnnouncerInstance().announcePlayerPosition(p, c.getPosition());
+				Shorthand.announcer(currentPlayer).announcePlayerPosition(p, c.getPosition());
 		}
 		return;
 		
