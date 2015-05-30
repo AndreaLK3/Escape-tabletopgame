@@ -210,7 +210,7 @@ public class UserMessagesReporter {
 		interfaceWithUser.writeToClient(String.format(
 				StringRes.getString("messaging.askForPosition")));
 		interfaceWithUser.setDefaultOption("playerCurrentPos");
-		interfaceWithUser.setContext(null);
+		interfaceWithUser.setContext(Arrays.asList("([A-Z]+)([0-9]+)"));
 		return interfaceWithUser.readFromClient();
 	}
 	

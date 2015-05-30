@@ -2,12 +2,15 @@ package it.escape.server.view;
 
 import it.escape.server.controller.MessagingHead;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * MessagingInterface manages a single per-user communication channel.
@@ -37,7 +40,7 @@ public class MessagingInterface extends Observable implements MessagingHead, Mes
 	private Queue<String> serverToClientQueue;
 	private Queue<String> clientToServerQueue;
 	
-	private List<String> context = null;
+	private List<Pattern> context = null;
 	
 	private String defaultOption;
 	
@@ -156,7 +159,7 @@ public class MessagingInterface extends Observable implements MessagingHead, Mes
 						return next;
 					}
 				else
-					if (context.contains(next) && next!=null) {	//this is the correct functioning
+					if (contextMatch(next) && next!=null) {	//this is the correct functioning
 							return next;
 						}
 				} while(!clientToServerQueue.isEmpty());
@@ -167,14 +170,33 @@ public class MessagingInterface extends Observable implements MessagingHead, Mes
 
 	
 	/**
-	 * Set the context, a list of string which are acceptable
+	 * Set the context, a list of strings which are acceptable
 	 * by the readFromClient() function;
 	 * Messages not belonging to the context are discarded without
 	 * further processing.
+	 * Strings can be regular expression, enabling a smarter control
+	 * over the user input
 	 * If the context is empty or null, any message will be accepted
 	 */
 	public void setContext(List<String> context) {
-		this.context = context;
+		if (context == null) {
+			this.context = null;
+		} else {
+			this.context = new ArrayList<Pattern>();
+			for (String s : context) {
+				this.context.add(Pattern.compile(s));
+			}
+		}
+	}
+	
+	private boolean contextMatch(String s) {
+		for (Pattern p : context) {
+			Matcher m = p.matcher(s);
+			if (m.matches()) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
