@@ -56,7 +56,7 @@ public class Connection implements Observer, Runnable {
 			// natural end of the connection's life-cycle: close the socket
 			try {
 				clientSocket.close();
-				log.info("Closed connection to " + clientSocket.getInetAddress().toString());
+				//log.info("Closed connection to " + clientSocket.getInetAddress().toString());
 			} catch (IOException e) {
 				log.severe("Cannot close the connection");
 			}
