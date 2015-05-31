@@ -77,7 +77,7 @@ public class VictoryChecker {
 	 */
 	public boolean allAliensWin() {
 		for (Human h : humans) {
-			if (!h.isAlive()) {
+			if (!h.isAlive() || h.isUserIdle()) {
 				return true;
 			} 
 		}
