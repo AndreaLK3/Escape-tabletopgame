@@ -73,6 +73,8 @@ public class GameMaster implements Runnable {
 	
 	private Announcer announcer;
 	
+	VictoryChecker victoryChecker;
+	
 	private boolean gameRunning;
 	
 	public static void newPlayerHasConnected(MessagingInterface interfaceWithUser) {
@@ -124,6 +126,7 @@ public class GameMaster implements Runnable {
 		timerThread = new Thread(timeController);
 		currentTeam = PlayerTeams.ALIENS;
 		announcer = new Announcer();
+		victoryChecker = new VictoryChecker(listOfPlayers);
 		gameRunning = false;
 	}
 	
@@ -196,9 +199,15 @@ public class GameMaster implements Runnable {
 		}
 		else {
 			player.setUserIdle(true);
-			if (getNumActivePlayers() < MINPLAYERS)
+			if (getNumActivePlayers() < MINPLAYERS) {
 				this.timeController.extraordinaryGameKill();
+			}
+			if (victoryChecker.entireTeamDisconnected()) {
+				this.timeController.extraordinaryGameKill();
+			}
 		}
+		
+		
 	
 	}
 	
@@ -317,28 +326,27 @@ public class GameMaster implements Runnable {
 	 * announce the winners
 	 */
 	private void finalVictoryCheck() {
-		VictoryChecker conditions = new VictoryChecker(listOfPlayers);
 		announcer.announceGameEnd();
 		
-		if (conditions.allHumansWin()) {
+		if (victoryChecker.allHumansWin()) {
 			announcer.announceTeamVictory(
 					PlayerTeams.HUMANS,
-					conditions.getHumanWinners());
+					victoryChecker.getHumanWinners());
 			announcer.announceTeamDefeat(
 					PlayerTeams.ALIENS);
-		} else if (conditions.areThereHumanWinners()) {
+		} else if (victoryChecker.areThereHumanWinners()) {
 			announcer.announceTeamVictory(
 					PlayerTeams.HUMANS,
-					conditions.getHumanWinners());
+					victoryChecker.getHumanWinners());
 			announcer.announceTeamVictory(
 					PlayerTeams.ALIENS,
-					conditions.getAlienWinners());
+					victoryChecker.getAlienWinners());
 		} else {
 			announcer.announceTeamDefeat(
 					PlayerTeams.HUMANS);
 			announcer.announceTeamVictory(
 					PlayerTeams.ALIENS,
-					conditions.getAlienWinners());
+					victoryChecker.getAlienWinners());
 		}
 	}
 	

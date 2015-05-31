@@ -46,7 +46,7 @@ public class Human extends Player {
 		escaped = true;
 	}
 	
-	public boolean getEscaped() {
+	public boolean hasEscaped() {
 		return escaped;
 	}
 	

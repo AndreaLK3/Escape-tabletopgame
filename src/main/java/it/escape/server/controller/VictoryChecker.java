@@ -30,7 +30,7 @@ public class VictoryChecker {
 	
 	/**
 	 * determine if the current game condition is a "victory condition":
-	 * all humans must be either dead or escaped
+	 * 1) all humans must be either dead or escaped
 	 * @return
 	 */
 	public boolean isVictoryCondition() {
@@ -39,7 +39,7 @@ public class VictoryChecker {
 		for (Human h : humans) {
 			if (!h.isAlive()) {
 				positiveMatches++;
-			} else if (h.getEscaped()) {
+			} else if (h.hasEscaped()) {
 				positiveMatches++;
 			}
 		}
@@ -47,7 +47,27 @@ public class VictoryChecker {
 		if (positiveMatches == humans.size()) {
 			return true;
 		}
+		
 		return false;
+	}
+	
+	public boolean entireTeamDisconnected() {
+		int counterHumans=0, counterAliens=0;
+		
+		for (Human h : humans)
+			if (h.isUserIdle())
+				counterHumans++;
+		if (counterHumans==humans.size())
+			return true;
+		
+		for (Alien a : aliens)
+			if (a.isUserIdle())
+				counterAliens++;
+		if (counterAliens==aliens.size())
+			return true;
+		
+		return false;	
+		
 	}
 	
 	/**
@@ -82,7 +102,7 @@ public class VictoryChecker {
 		int positiveMatches = 0;
 		
 		for (Human h : humans) {
-			if (h.getEscaped()) {
+			if (h.hasEscaped()) {
 				positiveMatches++;
 			}
 		}
@@ -100,7 +120,7 @@ public class VictoryChecker {
 	public List<Player> getHumanWinners() {
 		List<Player> ret = new ArrayList<Player>();
 		for (Human h : humans) {
-			if (h.getEscaped()) {
+			if (h.hasEscaped()) {
 				ret.add(h);
 			}
 		}
