@@ -95,8 +95,9 @@ public class GameMaster implements Runnable {
 	}
 	
 	/**
-	 * When a player disconnects, find the Master of her game,
-	 * and tell it to handle this event.
+	 * When a player disconnects, the thread inside her Connection invokes this method.
+	 * It finds the Master of her game,
+	 * and tells it to handle this event.
 	 * @param interfaceWithUser
 	 */
 	public static void playerHasDisconnected(MessagingInterface interfaceWithUser) {
@@ -183,8 +184,9 @@ public class GameMaster implements Runnable {
 	}
 	
 	/**
-	 * Handle a player's disconnection
-	 * This will be automatically invoked by the static facility
+	 * Handles a player's disconnection.
+	 * Previously, the thread in the user's Connection has invoked the static method of GameMaster
+	 * playerHasDisconnected, that in turn invokes this method.
 	 * @param player
 	 */
 	private void handlePlayerDisconnect(Player player) {
@@ -194,10 +196,18 @@ public class GameMaster implements Runnable {
 		}
 		else {
 			player.setUserIdle(true);
+			if (getNumActivePlayers() < MINPLAYERS)
+				this.timeController.extraordinaryGameKill();
 		}
-		/*cosa succede se un intero team si disconnette?
-		 * 
-		 */
+	
+	}
+	
+	private int getNumActivePlayers() {
+		int counter=0; 
+		for (Player p: listOfPlayers)
+			if (!p.isUserIdle())
+				counter++;
+			return counter;
 	}
 	
 	/**
