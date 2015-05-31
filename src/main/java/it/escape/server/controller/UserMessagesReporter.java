@@ -179,6 +179,9 @@ public class UserMessagesReporter {
 	 * @return
 	 */
 	public MoveCommand askForMovement(String playerCurrentPos) {
+		if (automaticOverriding) {
+			return new MoveCommand(playerCurrentPos);		
+		}
 		interfaceWithUser.writeToClient(StringRes.getString("messaging.timeToMove"));
 		String destination;
 		destination = ioGetPosition(playerCurrentPos);
@@ -187,6 +190,9 @@ public class UserMessagesReporter {
 	
 
 	public String askForNoisePosition(String playerCurrentPos) {
+		if (automaticOverriding) {
+			return playerCurrentPos;		
+		}
 		String location;
 		interfaceWithUser.writeToClient(StringRes.getString("messaging.askForNoisePosition"));
 		location = ioGetPosition(playerCurrentPos);
@@ -194,6 +200,9 @@ public class UserMessagesReporter {
 	}
 	
 	public String askForLightsPosition(String playerCurrentPos) {
+		if (automaticOverriding) {
+			return playerCurrentPos;		
+		}
 		String location;
 		interfaceWithUser.writeToClient(StringRes.getString("messaging.askForLightsPosition"));
 		location = ioGetPosition(playerCurrentPos);
