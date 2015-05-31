@@ -218,7 +218,7 @@ public class UserMessagesReporter {
 	private String ioGetPosition(String playerCurrentPos) {
 		interfaceWithUser.writeToClient(String.format(
 				StringRes.getString("messaging.askForPosition")));
-		interfaceWithUser.setDefaultOption("playerCurrentPos");
+		interfaceWithUser.setDefaultOption(playerCurrentPos);
 		interfaceWithUser.setContext(Arrays.asList("([A-Z]+)([0-9]+)"));  // regular expression
 		return interfaceWithUser.readFromClient();
 	}
