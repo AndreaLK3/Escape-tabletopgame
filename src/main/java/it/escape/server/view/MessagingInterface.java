@@ -1,6 +1,7 @@
 package it.escape.server.view;
 
 import it.escape.server.controller.MessagingHead;
+import it.escape.utils.LogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Observer;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,6 +39,8 @@ import java.util.regex.Pattern;
  */
 public class MessagingInterface extends Observable implements MessagingHead, MessagingTail {
 	
+	protected static final Logger log = Logger.getLogger( MessagingInterface.class.getName() );
+	
 	private Queue<String> serverToClientQueue;
 	private Queue<String> clientToServerQueue;
 	
@@ -52,6 +56,7 @@ public class MessagingInterface extends Observable implements MessagingHead, Mes
 	private AsyncMessagingObservable asyncInterface;
 	
 	public MessagingInterface() {
+		LogHelper.setDefaultOptions(log);
 		serverToClientQueue = new ConcurrentLinkedQueue<String>();
 		clientToServerQueue = new ConcurrentLinkedQueue<String>();
 		override = new AtomicBoolean();
@@ -209,6 +214,7 @@ public class MessagingInterface extends Observable implements MessagingHead, Mes
 	}
 
 	public synchronized void overrideDefaultOption() {
+		log.fine("Overriding with default: \"" + defaultOption + "\"");
 		override.set(true);
 		notify();
 	}
