@@ -1,12 +1,13 @@
-Il deckshandler è al momento un Singleton. Va cambiato (1 DecksHandler per GameMaster)
+Il deckshandler è al momento un Singleton. Va cambiato (1 DecksHandler per GameMaster...)
 E le azioni (es. GetSectorAction, che usa DecksHandler.drawSectorCard() devono avere riferimento al DecksHandler, in qualche modo...
 
-extraordinaryGameKilling non funziona, oppure funziona il turno dopo: serve modellare la sequenza delle chiamate dei 
-vari thread sui vari oggetti/classi. (Un diagramma di sequenza UML non è adatto, ci vuole un diagramma ad hoc di rettangoli+frecce numerate)
+Cicli Sonar: ve ne sono 32. I colpevoli sono : I Decks + le Carte. E la nuova classe ShortHand
+
+extraordinaryGameKilling o non funziona, oppure funziona il turno dopo: penso che sia utile modellare la sequenza delle chiamate dei 
+vari thread sui vari oggetti/classi per sistemare questo. (Un diagramma di sequenza UML non è adatto, ci vuole un diagramma ad hoc di rettangoli=oggetti + frecce di colore diverso per ciascun thread e numerate =chiamate)
 
 occorre chiedere al Player di inserire il suo nome quando si connette
 
+mandare dei messaggi all'utente quando inserisce un nome di ObjectCard inesistente
 
-
-completare assegnamento default option per richieste dell'UMR - A
 

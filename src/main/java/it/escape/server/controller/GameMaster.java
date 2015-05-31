@@ -170,7 +170,6 @@ public class GameMaster implements Runnable {
 	
 	
 	
-	
 	/** returns the number of players that are not currently idle / disconnected*/
 	private int getNumActivePlayers() {
 		int counter=0; 
@@ -180,7 +179,6 @@ public class GameMaster implements Runnable {
 			return counter;
 	}
 		
-	
 	
 	/** returns true only if the game is accepting new players	 */
 	public boolean newPlayerAllowed() {
@@ -269,7 +267,6 @@ public class GameMaster implements Runnable {
 	}
 
 	
-
 	private void launchWorkerThreads() {
 		executorThread.start();
 		timerThread.start();
@@ -291,8 +288,7 @@ public class GameMaster implements Runnable {
 		gameRunning = false;
 	}
 	
-	/**
-	 * announce the winners
+	/** announce the winners
 	 */
 	private void finalVictoryCheck() {
 		announcer.announceGameEnd();
