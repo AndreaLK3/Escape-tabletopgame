@@ -65,12 +65,14 @@ public class TimeController implements Runnable {
 		while (runGame) {
 			turnCompleted = false;
 			Player current = turnOrder.get(nowPlaying);
+			log.fine("Issuing startTurn command");
 			executorRef.startTurn(current);  // run current player's turn
 			
 			try {
 				wait(TIMEOUT);  // wait for it to end
 			} catch (InterruptedException e) {
 			}
+			log.finer("Awaken");
 			
 			if (!turnCompleted) {  // didn't end in time? End it for him
 				log.fine(StringRes.getString("controller.time.forcingDefaults"));
@@ -85,6 +87,9 @@ public class TimeController implements Runnable {
 					wait();
 				} catch (InterruptedException e) {
 				}
+			}
+			if (!runGame) {
+				endGame();
 			}
 			intermediateVictoryCheck();  // game might terminate here
 			nowPlaying++;  // update current player
@@ -114,8 +119,8 @@ public class TimeController implements Runnable {
 	 * Please note that, even in this case, fillInDefaultChoices() will be called to un-block the executor thread.
 	 * Both that and our thread must terminate for a game to end correctly.
 	 */
-	public void extraordinaryGameKill() {
-		endGame();
+	public synchronized void extraordinaryGameKill() {
+		runGame = false;
 		notify();
 	}
 }

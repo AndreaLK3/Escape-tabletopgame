@@ -73,7 +73,9 @@ public class ExecutiveController implements Runnable {
 		else {
 			turnHandler = new TurnHandlerAlien(currentPlayer, map);
 		}
+		LOG.fine("Executing turn sequence");
 		turnHandler.executeTurnSequence();
+		LOG.fine("Turn sequence completed");
 	}
 
 

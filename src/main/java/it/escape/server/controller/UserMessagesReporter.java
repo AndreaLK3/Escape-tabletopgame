@@ -5,10 +5,12 @@ import it.escape.server.model.game.Announcer;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingInterface;
 import it.escape.strings.StringRes;
+import it.escape.utils.LogHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 /** 
  * This class is located at the border of the controller package,
@@ -22,6 +24,8 @@ import java.util.List;
  * @author andrea
  */
 public class UserMessagesReporter {
+	
+	protected static final Logger log = Logger.getLogger( UserMessagesReporter.class.getName() );
 		
 	private static List<UserMessagesReporter> reportersList = new ArrayList<UserMessagesReporter>();
 	
@@ -55,6 +59,9 @@ public class UserMessagesReporter {
 	}
 
 	public static void createUMR(MessagingInterface interfaceWithUser) {
+		if (reportersList.size() <= 0) {
+			LogHelper.setDefaultOptions(log);
+		}
 		reportersList.add(new UserMessagesReporter(interfaceWithUser));
 	}
 	
@@ -77,6 +84,7 @@ public class UserMessagesReporter {
 	}
 	
 	public void fillinDefaultOnce() {
+		log.finer("Overriding default once...");
 		interfaceWithUser.overrideDefaultOption();
 	}
 	

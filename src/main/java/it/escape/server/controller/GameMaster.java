@@ -161,8 +161,7 @@ public class GameMaster implements Runnable {
 			if (getNumActivePlayers() < GameMaster.MINPLAYERS) {
 				LOG.info("Too few players left. Terminating game.");
 				this.timeController.extraordinaryGameKill();
-			}
-			if (victoryChecker.entireTeamDisconnected()) {
+			} else if (victoryChecker.entireTeamDisconnected()) {
 				LOG.info("Team disconnected. Terminating game.");
 				this.timeController.extraordinaryGameKill();
 			}
