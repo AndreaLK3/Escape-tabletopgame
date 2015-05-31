@@ -125,7 +125,9 @@ public abstract class TurnHandler {
 					cellAction = moveCommand.execute(currentPlayer, map);
 					correctInput = true;
 				} catch (Exception e) {
-					LOG.finer(e.getClass().getSimpleName() + " " + e.getMessage());
+					String exceptionMessage = e.getClass().getSimpleName() + " " + e.getMessage();
+					LOG.finer(exceptionMessage);
+					reporter.relayMessage(exceptionMessage);
 				}
 			
 			} while (!correctInput);

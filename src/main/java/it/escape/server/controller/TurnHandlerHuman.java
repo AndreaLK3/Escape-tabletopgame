@@ -111,16 +111,15 @@ public class TurnHandlerHuman extends TurnHandler {
 			//do nothing, do not ask the Human Player if he wants to attack, since he doesn't have an Attack Card
 		}
 		
-		if(((Human)currentPlayer).hasSedatives() || currentPlayer.hasAttacked())
-		{}
-		else{
-			cardAction = cellAction.execute(currentPlayer, map);
-		
+		if((!((Human)currentPlayer).hasSedatives()) || !currentPlayer.hasAttacked())
+		{cardAction = cellAction.execute(currentPlayer, map);
 			if (cardAction.hasObjectCard()) {
 				cardAction = new DrawObjectCard();
 				cardAction.execute(currentPlayer, map);
-			}
+				}
 		}
+		else{}
+		
 	}
 
 	@Override
