@@ -1,17 +1,12 @@
-Log : 
-	Turno
-	Eccezioni
-+
-	Messaggi all'utente	- M
+Il deckshandler è al momento un Singleton. Va cambiato (1 DecksHandler per GameMaster)
+E le azioni (es. GetSectorAction, che usa DecksHandler.drawSectorCard() devono avere riferimento al DecksHandler, in qualche modo...
 
-disconnessione di intero team - A
+extraordinaryGameKilling non funziona, oppure funziona il turno dopo: serve modellare la sequenza delle chiamate dei 
+vari thread sui vari oggetti/classi. (Un diagramma di sequenza UML non è adatto, ci vuole un diagramma ad hoc di rettangoli+frecce numerate)
 
-Announcer - M
+occorre chiedere al Player di inserire il suo nome quando si connette
 
-metodo per terminazione straordinaria in Time Controller- M
+mandare dei messaggi all'utente quando inserisce un nome di ObjectCard inesistente
 
 completare assegnamento default option per richieste dell'UMR - A
 
-Endgame se n.players connessi = 1; - A
-
-(Qualche test)
