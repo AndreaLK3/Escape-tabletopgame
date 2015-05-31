@@ -41,14 +41,6 @@ public class TurnHandlerAlien extends TurnHandler{
 		return;
 	}
 
-
-
-	@Override
-	public void fillInDefaultChoices() {
-		
-		
-	}
-
 	@Override
 	public void deInitialize() {
 		// if we didn't enable it first, this won't do anything
