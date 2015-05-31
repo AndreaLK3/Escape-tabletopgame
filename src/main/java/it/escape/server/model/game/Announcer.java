@@ -87,9 +87,12 @@ public class Announcer extends Observable {
 	}
 	
 	public void announceTeamVictory(PlayerTeams team, List<Player> members) {
-		String newmsg = String.format(StringRes.getString("messaging.winnerTeam"),
-				team.toString(),
-				new JoinPlayerList(members).join(", "));
+		String newmsg = String.format(StringRes.getString("messaging.winnerTeam"),team.toString(),"\n");
+		String winnersList=null;
+		for (Player p: members) {
+			winnersList.concat(p.getName());
+		}
+		newmsg.concat(winnersList);
 		announce(newmsg);
 	}
 	
