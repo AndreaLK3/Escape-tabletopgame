@@ -2,6 +2,7 @@ package it.escape.server.controller;
 
 import static org.junit.Assert.assertEquals;
 import it.escape.server.MapCreator;
+import it.escape.server.Master;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.server.view.MessagingInterface;
@@ -20,7 +21,7 @@ public class GameMasterTest {
 	public void testNewPlayerTeamAssignation() {
 		MapCreator stubMapCreator = new MapCreator("resources/Test_map.json");
 		TestingAnnouncerObserver observer = new TestingAnnouncerObserver();
-		GameMaster.setMapCreator(stubMapCreator);
+		Master.setMapCreator(stubMapCreator);
 		
 		simulateConnect(observer);
 		simulateConnect(observer);
@@ -36,7 +37,7 @@ public class GameMasterTest {
 				String.format(StringRes.getString("messaging.playerConnected"), 4, MAXPLAYERS),
 				observer.getLast_message());
 		
-		List<Player> players = GameMaster.getInstanceByIndex(0).getPlayersList();
+		List<Player> players = Master.getInstanceByIndex(0).getPlayersList();
 		assertEquals(players.get(0).getTeam(),PlayerTeams.ALIENS);
 		assertEquals(players.get(1).getTeam(),PlayerTeams.HUMANS);
 		assertEquals(players.get(2).getTeam(),PlayerTeams.ALIENS);
@@ -47,7 +48,7 @@ public class GameMasterTest {
 	private void simulateConnect(TestingAnnouncerObserver observer) {
 		MessagingInterface iface = new MessagingInterface();
 		UserMessagesReporter.createUMR(iface);
-		GameMaster.newPlayerHasConnected(iface);
+		Master.newPlayerHasConnected(iface);
 		Shorthand.announcer(iface).addObserver(observer);
 	}
 

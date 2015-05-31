@@ -1,6 +1,5 @@
 package it.escape.server.controller;
 
-import it.escape.server.MapCreator;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.model.game.Announcer;
 import it.escape.server.model.game.cards.DecksHandler;
@@ -10,7 +9,6 @@ import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.server.view.MessagingInterface;
 import it.escape.strings.StringRes;
-import it.escape.utils.LogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,25 +36,11 @@ import java.util.logging.Logger;
  *   3) When the subthread is awaken, either by notify() or timeout,
  *      it will spawn the real worker threads, and wait for them to
  *      terminate successfully. This will mark the end of the game.
- *   4) Once the game is ended, victory/loss conditions will be assessed
- *   
- * @author michele, andrea
- *
- */
+ *   4) Once the game is ended, victory/loss conditions will be assessed*/
+
 public class GameMaster implements Runnable {
-	
+
 	protected static final Logger LOG = Logger.getLogger( GameMaster.class.getName() );
-	
-	private static List<GameMaster> gameMasters = new ArrayList<GameMaster>();
-	private static GameMaster currentGameMaster = null;
-	
-	private static MapCreator mapCreator;
-	
-	private final static int MAXPLAYERS = 8;
-	private final static int MINPLAYERS = 2;
-	private int numPlayers = 0;
-	
-	private final static int WAIT_TIMEOUT = 60000;
 	
 	private PlayerTeams currentTeam;
 	
@@ -79,47 +63,15 @@ public class GameMaster implements Runnable {
 	VictoryChecker victoryChecker;
 	
 	private boolean gameRunning;
-	
-	public static void newPlayerHasConnected(MessagingInterface interfaceWithUser) {
-		if (currentGameMaster == null) {
-			LogHelper.setDefaultOptions(LOG);
-			currentGameMaster = new GameMaster(mapCreator.getMap());
-			gameMasters.add(currentGameMaster);
-		}
-		if (currentGameMaster.newPlayerAllowed()) {
-			currentGameMaster.newPlayerAttemptStarting(interfaceWithUser);
-		} else {
-			currentGameMaster = new GameMaster(mapCreator.getMap());
-			gameMasters.add(currentGameMaster);
-			currentGameMaster.newPlayerAttemptStarting(interfaceWithUser);
-		}
-	}
-	
-	public static GameMaster getInstanceByIndex(int index) {
-		return gameMasters.get(index);
-	}
-	
-	/**
-	 * When a player disconnects, the thread inside her Connection invokes this method.
-	 * It finds the Master of her game,
-	 * and tells it to handle this event.
-	 * @param interfaceWithUser
-	 */
-	public static void playerHasDisconnected(MessagingInterface interfaceWithUser) {
-		for (GameMaster gm : gameMasters) {
-			Player offender = UserMessagesReporter.getReporterInstance(interfaceWithUser).getThePlayer();
-			if (gm.hasPlayer(offender)){
-				gm.handlePlayerDisconnect(offender);
-				break;
-			}
-		}
-	}
-	
-	public static void setMapCreator(MapCreator creator) {
-		mapCreator = creator;
-	}
 
-	private GameMaster(MapActionInterface map) {
+	private final static int WAIT_TIMEOUT = 60000;
+	
+	public final static int MAXPLAYERS = 8;
+	public final static int MINPLAYERS = 2;
+	private int numPlayers = 0;
+	
+	/** The constructor */
+	public GameMaster(MapActionInterface map) {
 		this.map = map;
 		listOfPlayers = new ArrayList<Player>();
 		timeController =  new TimeController(listOfPlayers);
@@ -129,25 +81,9 @@ public class GameMaster implements Runnable {
 		timerThread = new Thread(timeController);
 		currentTeam = PlayerTeams.ALIENS;
 		announcer = new Announcer();
-		victoryChecker = new VictoryChecker(listOfPlayers);
 		gameRunning = false;
 	}
 	
-	/**
-	 * start the actual game, once ready.
-	 * this function does not decide herself when we are ready
-	 */
-	public void startGameAndWait() {
-		shufflePlayers();
-		greetPlayers();
-		gameRunning = true;
-		LOG.info(StringRes.getString("controller.gamemaster.startingGame"));
-		launchWorkerThreads();
-		waitForFinish();
-		LOG.info(StringRes.getString("controller.gamemaster.gameFinished"));
-		finalVictoryCheck();
-		// final cleanup: close connections / update scoreboard / say goodbye
-	}
 	
 	public synchronized void run() {
 		LOG.fine(String.format(StringRes.getString("controller.gamemaster.gameStartTimeout"), WAIT_TIMEOUT/1000));
@@ -160,21 +96,40 @@ public class GameMaster implements Runnable {
 	}
 	
 	/**
+	 * start the actual game, once ready.
+	 * this function does not decide herself when we are ready
+	 */
+	public void startGameAndWait() {
+		victoryChecker = new VictoryChecker(listOfPlayers);
+		shufflePlayers();
+		greetPlayers();
+		gameRunning = true;
+		LOG.info(StringRes.getString("controller.gamemaster.startingGame"));
+		launchWorkerThreads();
+		waitForFinish();
+		LOG.info(StringRes.getString("controller.gamemaster.gameFinished"));
+		finalVictoryCheck();
+		// final cleanup: close connections / update scoreboard / say goodbye
+	}
+	
+	
+		
+	/**
 	 * Here's the logic to decide when to start the actual game
 	 * @param interfaceWithUser
 	 */
-	private synchronized void newPlayerAttemptStarting(MessagingInterface interfaceWithUser) {
+	public synchronized void newPlayerMayCauseStart(MessagingInterface interfaceWithUser) {
 		addNewPlayer(interfaceWithUser);
 		
 		UserMessagesReporter.getReporterInstance(interfaceWithUser).relayMessage(String.format(
 				StringRes.getString("messaging.serversMap"),
 				map.getName()));
 		
-		announcer.announcePlayerConnected(numPlayers,MAXPLAYERS);  // the new user won't see this, as he hasn't yet subscribed
+		announcer.announcePlayerConnected(numPlayers,GameMaster.MAXPLAYERS);  // the new user won't see this, as he hasn't yet subscribed
 		
-		if (numPlayers >= MINPLAYERS) {
+		if (numPlayers >= GameMaster.MINPLAYERS) {
 			new Thread(this).start();
-		} else if (numPlayers >= MAXPLAYERS) {
+		} else if (numPlayers >= GameMaster.MAXPLAYERS) {
 			notify();
 		}
 	}
@@ -189,31 +144,34 @@ public class GameMaster implements Runnable {
 		numPlayers++;  // update the player counter
 	}
 	
+	
 	/**
 	 * Handles a player's disconnection.
 	 * Previously, the thread in the user's Connection has invoked the static method of GameMaster
 	 * playerHasDisconnected, that in turn invokes this method.
 	 * @param player
 	 */
-	private void handlePlayerDisconnect(Player player) {
+	public void handlePlayerDisconnect(Player player) {
 		announcer.announcePlayerDisconnected(player);
 		if (!isRunning()) {
 			listOfPlayers.remove(player);
 		}
 		else {
 			player.setUserIdle(true);
-			if (getNumActivePlayers() < MINPLAYERS) {
+			if (getNumActivePlayers() < GameMaster.MINPLAYERS) {
 				this.timeController.extraordinaryGameKill();
 			}
 			if (victoryChecker.entireTeamDisconnected()) {
 				this.timeController.extraordinaryGameKill();
 			}
 		}
-		
-		
 	
 	}
 	
+	
+	
+	
+	/** returns the number of players that are not currently idle / disconnected*/
 	private int getNumActivePlayers() {
 		int counter=0; 
 		for (Player p: listOfPlayers)
@@ -221,38 +179,12 @@ public class GameMaster implements Runnable {
 				counter++;
 			return counter;
 	}
+		
 	
-	/**
-	 * used to check if there are places avaible for new players
-	 */
-	public boolean hasFreeSlots() {
-		if (numPlayers < MAXPLAYERS) {
-			return true;
-		}
-		return false;
-	}
 	
-	/**
-	 * used to check if there the game managed by this gamemaster is running
-	 * @return
-	 */
-	public boolean isRunning() {
-		return gameRunning;
-	}
-	
-	/**
-	 * return true only if the game is accepting new players
-	 * @return
-	 */
+	/** returns true only if the game is accepting new players	 */
 	public boolean newPlayerAllowed() {
 		if (hasFreeSlots() && !isRunning()) {
-			return true;
-		}
-		return false;
-	}
-	
-	private boolean hasPlayer(Player p) {
-		if (listOfPlayers.contains(p)) {
 			return true;
 		}
 		return false;
@@ -282,7 +214,7 @@ public class GameMaster implements Runnable {
 	 * (The list of players is ordered, and their respective
 	 * turns will run in that order.)
 	 */
-	private void shufflePlayers() {
+	public void shufflePlayers() {
 		int counter = listOfPlayers.size();
 		Random randGen = new Random();
 		Player temp;
@@ -304,6 +236,40 @@ public class GameMaster implements Runnable {
 		}
 	}
 	
+	/** used to check if there the game managed by this gamemaster is running
+	 * @return
+	 */
+	public boolean isRunning() {
+		return gameRunning;
+	}
+	
+	
+	public boolean hasPlayer(Player p) {
+		if (listOfPlayers.contains(p)) {
+			return true;
+		}
+		return false;
+	}
+	
+	/** used to check if there are places avaible for new players
+	 */
+	public boolean hasFreeSlots() {
+		if (numPlayers < GameMaster.MAXPLAYERS) {
+			return true;
+		}
+		return false;
+	}
+	
+
+	/**used for testing / debugging purposes
+	 * @return
+	 */
+	public List<Player> getPlayersList() {
+		return listOfPlayers;
+	}
+
+	
+
 	private void launchWorkerThreads() {
 		executorThread.start();
 		timerThread.start();
@@ -353,11 +319,6 @@ public class GameMaster implements Runnable {
 		}
 	}
 	
-	/**
-	 * used for testing / debugging purposes
-	 * @return
-	 */
-	public List<Player> getPlayersList() {
-		return listOfPlayers;
-	}
+	
+	
 }

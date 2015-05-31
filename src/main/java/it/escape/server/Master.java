@@ -1,39 +1,92 @@
 package it.escape.server;
 
 import it.escape.server.controller.GameMaster;
-import it.escape.server.view.Server;
+import it.escape.server.controller.UserMessagesReporter;
+import it.escape.server.controller.game.actions.MapActionInterface;
+import it.escape.server.model.game.Announcer;
+import it.escape.server.model.game.cards.DecksHandler;
+import it.escape.server.model.game.players.Alien;
+import it.escape.server.model.game.players.Human;
+import it.escape.server.model.game.players.Player;
+import it.escape.server.model.game.players.PlayerTeams;
+import it.escape.server.view.MessagingInterface;
+import it.escape.strings.StringRes;
+import it.escape.utils.LogHelper;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.logging.Logger;
 
+/**Static class. It keeps a list of the GameMasters.
+ * It receives 2 events:
+ * 1) Connection of a new player, checking if a GameMaster has free spots and
+ * invoking the proper functions inside the GameMaster so that thePlayer is added to the List. 
+ * 2) Disconnection of a player, passing the handling request to the proper GameMaster
+ * @author michele, andrea
+ */
 public class Master {
 	
-	protected static final Logger log = Logger.getLogger( Master.class.getName() );
+	protected static final Logger LOG = Logger.getLogger( Master.class.getName() );
 	
-	private Server server;
-
-	public Master() {
-		try {
-			MapCreator mapCreator = new MapCreator("resources/Galilei.json");
-			GameMaster.setMapCreator(mapCreator);
-			server = Server.createServerInstance();
-			server.run();
-			
-		} catch (IOException e) {
-			crash(e.getMessage());
+	private static List<GameMaster> gameMasters = new ArrayList<GameMaster>();
+	private static GameMaster currentGameMaster = null;
+	private static MapCreator mapCreator;
+	
+		
+	public static void newPlayerHasConnected(MessagingInterface interfaceWithUser) {
+		if (currentGameMaster == null) {
+			LogHelper.setDefaultOptions(LOG);
+			currentGameMaster = new GameMaster(mapCreator.getMap());
+			gameMasters.add(currentGameMaster);
+		}
+		if (currentGameMaster.newPlayerAllowed()) {
+			currentGameMaster.newPlayerMayCauseStart(interfaceWithUser);
+		} else {
+			currentGameMaster = new GameMaster(mapCreator.getMap());
+			gameMasters.add(currentGameMaster);
+			currentGameMaster.newPlayerMayCauseStart(interfaceWithUser);
 		}
 	}
 	
+	public static GameMaster getInstanceByIndex(int index) {
+		return gameMasters.get(index);
+	}
+	
 	/**
-	 * Stops the program in case of unrecoverable errors
-	 * @param message
+	 * When a player disconnects, the thread inside her Connection invokes this method.
+	 * It finds the Master of her game, and tells it to handle this event.
+	 * @param interfaceWithUser
 	 */
-	private void crash(String message) {
-		log.severe(message);
-		throw new AssertionError();
+	public static void playerHasDisconnected(MessagingInterface interfaceWithUser) {
+			
+		Player offender = getPlayer(interfaceWithUser);
+		GameMaster gm = getGameMasterOfPlayer(offender);
+		gm.handlePlayerDisconnect(offender);		
+	}
+	
+	public static Player getPlayer(MessagingInterface interfaceWithUser) {
+		return UserMessagesReporter.getReporterInstance(interfaceWithUser).getThePlayer();
+	}
+	
+	/**Given a Player, returns the GameMaster where the Player is in.
+	 * Note: a Player is created when it is added to the GameMaster List, so the 
+	 * function will surely return a GameMaster*/
+	public static GameMaster getGameMasterOfPlayer (Player p) {
+		for (GameMaster gm : gameMasters) {
+			if (gm.hasPlayer(p) ){
+				return gm;
+			}
+		}
+			return null;
+		}
+
+	
+	
+	public static void setMapCreator(MapCreator creator) {
+		mapCreator = creator;
 	}
 
-	public static void main(String[] args) {
-		new Master();
-	}
+
+	
 }

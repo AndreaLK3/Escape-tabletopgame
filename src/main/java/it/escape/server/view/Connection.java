@@ -1,6 +1,6 @@
 package it.escape.server.view;
 
-import it.escape.server.controller.GameMaster;
+import it.escape.server.Master;
 import it.escape.server.controller.UserMessagesReporter;
 import it.escape.server.model.game.Announcer;
 import it.escape.strings.StringRes;
@@ -41,7 +41,7 @@ public class Connection implements Observer, Runnable {
 			// setup required objects for a player to work properly
 			messagingInterface = new SocketInterface(clientSocket);
 			UserMessagesReporter.createUMR(messagingInterface);
-			GameMaster.newPlayerHasConnected(messagingInterface);
+			Master.newPlayerHasConnected(messagingInterface);
 			Shorthand.announcer(messagingInterface).addObserver(this);
 			
 			// loop continuo: riempire la coda di ricezione
@@ -70,7 +70,7 @@ public class Connection implements Observer, Runnable {
 	private void hasDisconnected() {
 		messagingInterface.setConnectionDead();
 		Shorthand.announcer(messagingInterface).deleteObserver(this);
-		GameMaster.playerHasDisconnected(messagingInterface);
+		Master.playerHasDisconnected(messagingInterface);
 		
 		running = false;
 		log.warning("Lost connection to " + clientSocket.getInetAddress().toString());
