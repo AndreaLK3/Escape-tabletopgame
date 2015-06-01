@@ -82,6 +82,7 @@ public class GameMaster implements Runnable {
 		currentTeam = PlayerTeams.ALIENS;
 		announcer = new Announcer();
 		gameRunning = false;
+		decksHandler = new DecksHandler();
 	}
 	
 	
@@ -112,26 +113,14 @@ public class GameMaster implements Runnable {
 		// final cleanup: close connections / update scoreboard / say goodbye
 	}
 	
-	
-		
 	/**
-	 * Here's the logic to decide when to start the actual game
+	 * Invoked by Master, sequence of action to perform when a new user connects
 	 * @param interfaceWithUser
 	 */
-	public synchronized void newPlayerMayCauseStart(MessagingInterface interfaceWithUser) {
+	public void newPlayerMayCauseStart(MessagingInterface interfaceWithUser) {
 		addNewPlayer(interfaceWithUser);
-		
-		UserMessagesReporter.getReporterInstance(interfaceWithUser).relayMessage(String.format(
-				StringRes.getString("messaging.serversMap"),
-				map.getName()));
-		
-		announcer.announcePlayerConnected(numPlayers,GameMaster.MAXPLAYERS);  // the new user won't see this, as he hasn't yet subscribed
-		
-		if (numPlayers >= GameMaster.MINPLAYERS) {
-			new Thread(this).start();
-		} else if (numPlayers >= GameMaster.MAXPLAYERS) {
-			notify();
-		}
+		announceNewPlayer(interfaceWithUser);
+		gameStartLogic();
 	}
 	
 	/* The interface is used to find the right UMR.*/
@@ -144,6 +133,24 @@ public class GameMaster implements Runnable {
 		numPlayers++;  // update the player counter
 	}
 	
+	private void announceNewPlayer(MessagingInterface interfaceWithUser) {
+		UserMessagesReporter.getReporterInstance(interfaceWithUser).relayMessage(String.format(
+				StringRes.getString("messaging.serversMap"),
+				map.getName()));
+		
+		announcer.announcePlayerConnected(numPlayers,GameMaster.MAXPLAYERS);  // the new user won't see this, as he hasn't yet subscribed
+	}
+	/**
+	 * Here's the logic to decide when to start the actual game
+	 * @param interfaceWithUser
+	 */
+	private synchronized void gameStartLogic() {
+		if (numPlayers >= GameMaster.MINPLAYERS) {
+			new Thread(this).start();
+		} else if (numPlayers >= GameMaster.MAXPLAYERS) {
+			notify();
+		}
+	}
 	
 	/**
 	 * Handles a player's disconnection.
@@ -224,7 +231,7 @@ public class GameMaster implements Runnable {
 	}
 	
 	/**
-	 * Sends a greeting to the players
+	 * Sends a greeting to the players (When the game starts, not when they connect)
 	 * Currently, the message does only tell them which team they're in
 	 */
 	private void greetPlayers() {
@@ -242,7 +249,11 @@ public class GameMaster implements Runnable {
 		return gameRunning;
 	}
 	
-	
+	/**
+	 * Used to check if a specific player belongs to this game
+	 * @param p
+	 * @return
+	 */
 	public boolean hasPlayer(Player p) {
 		if (listOfPlayers.contains(p)) {
 			return true;

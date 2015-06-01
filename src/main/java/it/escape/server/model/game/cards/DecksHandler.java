@@ -19,7 +19,7 @@ public class DecksHandler {
 		return decksHandlerInstance;
 	}
 	
-	private DecksHandler() {
+	public DecksHandler() {
 		eDeck = new EscapeDeck();
 		sDeck = new SectorDeck();
 		oDeck = new ObjectDeck();
