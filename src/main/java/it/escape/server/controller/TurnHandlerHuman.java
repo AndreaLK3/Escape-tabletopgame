@@ -50,7 +50,7 @@ public class TurnHandlerHuman extends TurnHandler {
 				if (reporter.askIfObjectCard("Do you want to play an object card?")) {
 					endObjectCard = false;
 				} else {
-					endObjectCard = true;
+					endObjectCard = true; 
 				}
 			} catch (CardNotPresentException e) {	
 				String exceptionMessage = e.getClass().getSimpleName() + " : " + e.getMessage();
