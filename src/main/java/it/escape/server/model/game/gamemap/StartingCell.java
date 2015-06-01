@@ -29,10 +29,14 @@ public class StartingCell extends Cell {
 			
 			StartingCell newStart;
 			
-			for (StartingCell start : startCells)
-				if (start!=null)
-					if (start.getType()==type)
-						return start;	
+			for (StartingCell start : startCells) {
+				if (start!=null) {
+					if (start.getType()==type) {
+						return start;
+					}
+				}
+			}
+				
 			
 			 newStart= new StartingCell(position, type);
 			 startCells.add(newStart);

@@ -138,8 +138,7 @@ public class UserMessagesReporter {
 			if (answer.equals("yes")) {
 				return true;
 			}
-			else
-				return false;
+			return false;
 		}
 	}
 	

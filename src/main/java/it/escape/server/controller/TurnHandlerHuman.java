@@ -40,24 +40,25 @@ public class TurnHandlerHuman extends TurnHandler {
 						Shorthand.announcer(currentPlayer).announceObjectCard(currentPlayer, objectCard); 
 						objectCardAction.execute((Human)currentPlayer, map);
 						endObjectCard = true;
-					}
-					else {
+					} else {
 						throw new WrongCardException();
 					}
 				}
 			catch (WrongCardException e) {
 				LOG.finer(e.getClass().getSimpleName() + " " + e.getMessage());
-				if (reporter.askIfObjectCard("Do you want to play an object card?"))
+				if (reporter.askIfObjectCard("Do you want to play an object card?")) {
 					endObjectCard = false;
-				else 
+				} else {
 					endObjectCard = true;
+				}	
 			}
 			catch (CardNotPresentException e) {	
 				LOG.finer(e.getClass().getSimpleName() + " " + e.getMessage());
-				if (reporter.askIfObjectCard("Do you want to play an object card?"))
+				if (reporter.askIfObjectCard("Do you want to play an object card?")) {
 					endObjectCard = false;
-				else
+				} else {
 					endObjectCard = true;
+				}
 			}
 		} while (!endObjectCard);
 	}
@@ -65,17 +66,20 @@ public class TurnHandlerHuman extends TurnHandler {
 	private boolean canPlayObjectCard(ObjectCard objectCard) {
 		
 		if (currentPlayer.HasMoved()) {		//after the move
-			if (objectCard instanceof TeleportCard || objectCard instanceof LightsCard)
+			if (objectCard instanceof TeleportCard || objectCard instanceof LightsCard) {
 				return true;
-			else
+			} else {
 				return false;
+			}
 		}
 		else {	//before the move
 			if ( objectCard instanceof SedativesCard || objectCard instanceof AdrenalineCard 
-				|| objectCard instanceof TeleportCard || objectCard instanceof LightsCard)
+				|| objectCard instanceof TeleportCard || objectCard instanceof LightsCard) {
 				return true;
-			else
+			} else {
 				return false;
+			}
+				
 		}
 	}
 	

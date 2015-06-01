@@ -54,18 +54,23 @@ public class VictoryChecker {
 	public boolean entireTeamDisconnected() {
 		int counterHumans=0, counterAliens=0;
 		
-		for (Human h : humans)
-			if (h.isUserIdle())
+		for (Human h : humans) {
+			if (h.isUserIdle()) {
 				counterHumans++;
-		if (counterHumans==humans.size())
+			}
+		}	
+		if (counterHumans==humans.size()) {
 			return true;
-		
-		for (Alien a : aliens)
-			if (a.isUserIdle())
+		}
+			
+		for (Alien a : aliens) {
+			if (a.isUserIdle()) {
 				counterAliens++;
-		if (counterAliens==aliens.size())
+			}
+		}	
+		if (counterAliens==aliens.size()) {
 			return true;
-		
+		}
 		return false;	
 		
 	}
