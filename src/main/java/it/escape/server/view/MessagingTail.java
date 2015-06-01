@@ -9,4 +9,6 @@ public interface MessagingTail {
 	public void setConnectionAlive();
 	
 	public void setConnectionDead();
+	
+	public void killConnection();
 }

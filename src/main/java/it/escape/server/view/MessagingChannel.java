@@ -113,6 +113,17 @@ public class MessagingChannel extends Observable implements MessagingHead, Messa
 		// must call afterTailWrite()
 		afterTailWrite();
 	}
+	
+	/**
+	 * To be overridden by the class extending MessagingChannel.
+	 * This function will permanently terminate the connection
+	 * with the client.
+	 * If the class extending MessagingChannel does not employ
+	 * anything like connections, the method will do nothing.
+	 */
+	public void killConnection() {
+		// to be overridden
+	}
 
 	public void setConnectionAlive() {
 		connectionAlive.set(true);

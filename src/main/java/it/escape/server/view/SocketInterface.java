@@ -32,4 +32,10 @@ public class SocketInterface extends MessagingChannel {
 		afterTailWrite();
 	}
 
+	@Override
+	public void killConnection() {
+		out.close();
+	}
+
+	
 }

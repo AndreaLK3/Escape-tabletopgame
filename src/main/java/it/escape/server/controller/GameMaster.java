@@ -9,6 +9,7 @@ import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.server.view.MessagingChannel;
 import it.escape.strings.StringRes;
+import it.escape.utils.LogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,8 +66,10 @@ public class GameMaster implements Runnable {
 	VictoryChecker victoryChecker;
 	
 	private boolean gameRunning;
+	
+	private boolean gameFinished;
 
-	private final static int WAIT_TIMEOUT = 60000;
+	private final static int WAIT_TIMEOUT = 2000;
 	
 	public final static int MAXPLAYERS = 8;
 	public final static int MINPLAYERS = 2;
@@ -74,6 +77,7 @@ public class GameMaster implements Runnable {
 	
 	/** The constructor */
 	public GameMaster(MapActionInterface map) {
+		LogHelper.setDefaultOptions(LOG);
 		this.map = map;
 		decksHandler = new DecksHandler();
 		announcer = new Announcer();
@@ -86,6 +90,7 @@ public class GameMaster implements Runnable {
 		timerThread = new Thread(timeController);
 		currentTeam = PlayerTeams.ALIENS;
 		gameRunning = false;
+		gameFinished = false;
 	}
 	
 	
@@ -97,6 +102,8 @@ public class GameMaster implements Runnable {
 		} catch (InterruptedException e) {
 		}
 		startGameAndWait();
+		LOG.fine("GameMaster tasks completed, thread will now stop");
+		gameFinished = true;
 	}
 	
 	/**
@@ -113,7 +120,8 @@ public class GameMaster implements Runnable {
 		waitForFinish();
 		LOG.info(StringRes.getString("controller.gamemaster.gameFinished"));
 		finalVictoryCheck();
-		// final cleanup: close connections / update scoreboard / say goodbye
+		// TODO: if we had a persistent scoreboard, here's where we would update it
+		closeConnections();
 	}
 	
 	/**
@@ -256,6 +264,14 @@ public class GameMaster implements Runnable {
 	}
 	
 	/**
+	 * Used by Master to check if the GameMaster has finished its work
+	 * @return
+	 */
+	public boolean isFinished() {
+		return gameFinished;
+	}
+	
+	/**
 	 * Used to check if a specific player belongs to this game
 	 * @param p
 	 * @return
@@ -333,6 +349,13 @@ public class GameMaster implements Runnable {
 		}
 	}
 	
-	
+	private void closeConnections() {
+		for (Player p : listOfPlayers) {
+			UserMessagesReporter.getReporterInstance(p).relayMessage(String.format(
+					StringRes.getString("messaging.goodbye"),
+					p.getName()));  // say goodbye
+			UserMessagesReporter.getReporterInstance(p).getInterfaceWithUser().killConnection();
+		}
+	}
 	
 }

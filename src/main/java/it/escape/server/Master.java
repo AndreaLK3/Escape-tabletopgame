@@ -2,20 +2,12 @@ package it.escape.server;
 
 import it.escape.server.controller.GameMaster;
 import it.escape.server.controller.UserMessagesReporter;
-import it.escape.server.controller.game.actions.MapActionInterface;
-import it.escape.server.model.game.Announcer;
-import it.escape.server.model.game.cards.DecksHandler;
-import it.escape.server.model.game.players.Alien;
-import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
-import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.server.view.MessagingChannel;
-import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.logging.Logger;
 
 /**Static class. It keeps a list of the GameMasters.
@@ -35,6 +27,7 @@ public class Master {
 	
 		
 	public static void newPlayerHasConnected(MessagingChannel interfaceWithUser) {
+		reaper();
 		if (currentGameMaster == null) {
 			LogHelper.setDefaultOptions(LOG);
 			currentGameMaster = new GameMaster(mapCreator.getMap());
@@ -81,12 +74,19 @@ public class Master {
 			return null;
 		}
 
-	
-	
 	public static void setMapCreator(MapCreator creator) {
 		mapCreator = creator;
 	}
 
-
+	/**
+	 * Remove all the unused gamemasters
+	 */
+	private static void reaper() {
+		for (GameMaster gm : gameMasters) {
+			if (gm.isFinished()) {
+				gameMasters.remove(gm);
+			}
+		}
+	}
 	
 }
