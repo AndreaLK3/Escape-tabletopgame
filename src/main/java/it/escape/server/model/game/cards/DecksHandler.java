@@ -1,11 +1,13 @@
 package it.escape.server.model.game.cards;
 
+import it.escape.server.controller.game.actions.DecksHandlerInterface;
+
 
 /**This class initializes the decks, which contain different kinds of cards, and makes them visible.
  * n: It is a singleton.
  * @author andrea
  */
-public class DecksHandler {
+public class DecksHandler implements DecksHandlerInterface{
 	
 	private EscapeDeck eDeck;
 	private SectorDeck sDeck;

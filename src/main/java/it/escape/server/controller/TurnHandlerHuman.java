@@ -112,7 +112,7 @@ public class TurnHandlerHuman extends TurnHandler {
 		}
 		
 		if((!((Human)currentPlayer).hasSedatives()) || !currentPlayer.hasAttacked())
-		{cardAction = cellAction.execute(currentPlayer, map);
+		{cardAction = cellAction.execute(currentPlayer, map, null);
 			if (cardAction.hasObjectCard()) {
 				cardAction = new DrawObjectCard();
 				cardAction.execute(currentPlayer, map);
