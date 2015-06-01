@@ -62,7 +62,7 @@ public class Hand {
 		String key = s.toLowerCase();
 		for (ObjectCard card : handOfCards) {
 			String name = card.getClass().getSimpleName(); // dynamic class name (i.e. "SedativesCard")
-			if (name.toLowerCase().equalsIgnoreCase(key)) { 
+			if (name.toLowerCase().startsWith(key)) { 
 				return card;
 			}
 		}
