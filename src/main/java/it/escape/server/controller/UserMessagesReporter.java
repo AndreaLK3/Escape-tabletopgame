@@ -115,8 +115,7 @@ public class UserMessagesReporter {
 		String defaultChoice = "no";
 		if (automaticOverriding) {
 			return false;
-		}
-		else {
+		} else {
 			interfaceWithUser.writeToClient(StringRes.getString("messaging.askPlayObjectCard"));
 			String ans = ioGetBinaryChoice(defaultChoice,"yes","no").toLowerCase();
 			if (ans.equals("yes")) {
@@ -131,8 +130,7 @@ public class UserMessagesReporter {
 		String defaultChoice = "no";
 		if (automaticOverriding) {
 			return false;
-		}
-		else {
+		} else {
 			interfaceWithUser.writeToClient(StringRes.getString("messaging.askIfAttack"));
 			String answer = ioGetBinaryChoice(defaultChoice,"yes","no").toLowerCase();
 			if (answer.equals("yes")) {
@@ -152,8 +150,7 @@ public class UserMessagesReporter {
 		String defaultChoice = "discard";
 		if (automaticOverriding) {
 			return false;
-		}
-		else {
+		} else {
 			interfaceWithUser.writeToClient(StringRes.getString("messaging.askPlayObjectCard"));
 			String answer = ioGetBinaryChoice(defaultChoice,"play","discard").toLowerCase();
 			if (answer.equals("yes")) {
@@ -174,8 +171,7 @@ public class UserMessagesReporter {
 		
 		if (automaticOverriding) {
 			return defaultChoice;		
-		}
-		else {
+		} else {
 			interfaceWithUser.writeToClient(StringRes.getString("messaging.askWhichObjectCard"));
 			return ioGetCardKey();
 		}

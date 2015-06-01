@@ -41,17 +41,13 @@ public class CellGenerator {
 	private Cell mapper(PositionCubic pos, String tipo) throws BadJsonFileException {
 		if (tipo.equals(StringRes.getString("mapfile.stringToClass.CellaSicura"))) {
 			return new SafeCell(pos);
-		}
-		else if (tipo.equals(StringRes.getString("mapfile.stringToClass.CellaPericolosa"))) {
+		} else if (tipo.equals(StringRes.getString("mapfile.stringToClass.CellaPericolosa"))) {
 			return new DangerousCell(pos);
-		}
-		else if (tipo.equals(StringRes.getString("mapfile.stringToClass.Cellapartenza.umani"))) {
+		} else if (tipo.equals(StringRes.getString("mapfile.stringToClass.Cellapartenza.umani"))) {
 			return StartingCell.getStart(pos,PlayerTeams.HUMANS);
-		}
-		else if (tipo.equals(StringRes.getString("mapfile.stringToClass.Cellapartenza.alieni"))) {
+		} else if (tipo.equals(StringRes.getString("mapfile.stringToClass.Cellapartenza.alieni"))) {
 			return StartingCell.getStart(pos,PlayerTeams.ALIENS);
-		}
-		else if (tipo.equals(StringRes.getString("mapfile.stringToClass.CellaScialuppa"))) {
+		} else if (tipo.equals(StringRes.getString("mapfile.stringToClass.CellaScialuppa"))) {
 			return new EscapeCell(pos, new GameMode(GameTypes.COMPLETE));
 		}
 		

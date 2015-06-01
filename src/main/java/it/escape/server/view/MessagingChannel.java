@@ -157,17 +157,17 @@ public class MessagingChannel extends Observable implements MessagingHead, Messa
 		if (override.get()) {
 			override.set(false);
 			return defaultOption;
-		}
-		else {
+		} else {
 			do { 	
 				String next = clientToServerQueue.poll();
 				if (context == null || context.isEmpty()) {
 						return next;
-					}
-				else
-					if (contextMatch(next) && next!=null) {	//this is the correct functioning
+					} else {
+						if (contextMatch(next) && next!=null) {
 							return next;
 						}
+					}
+					
 				} while(!clientToServerQueue.isEmpty());
 			
 			return readFromClient();

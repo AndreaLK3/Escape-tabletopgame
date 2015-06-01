@@ -43,16 +43,14 @@ public class TurnHandlerHuman extends TurnHandler {
 					} else {
 						throw new WrongCardException();
 					}
-				}
-			catch (WrongCardException e) {
+			} catch (WrongCardException e) {
 				LOG.finer(e.getClass().getSimpleName() + " " + e.getMessage());
 				if (reporter.askIfObjectCard("Do you want to play an object card?")) {
 					endObjectCard = false;
 				} else {
 					endObjectCard = true;
-				}	
-			}
-			catch (CardNotPresentException e) {	
+				}
+			} catch (CardNotPresentException e) {	
 				LOG.finer(e.getClass().getSimpleName() + " " + e.getMessage());
 				if (reporter.askIfObjectCard("Do you want to play an object card?")) {
 					endObjectCard = false;
@@ -71,8 +69,7 @@ public class TurnHandlerHuman extends TurnHandler {
 			} else {
 				return false;
 			}
-		}
-		else {	//before the move
+		} else {	//before the move
 			if ( objectCard instanceof SedativesCard || objectCard instanceof AdrenalineCard 
 				|| objectCard instanceof TeleportCard || objectCard instanceof LightsCard) {
 				return true;
@@ -113,8 +110,7 @@ public class TurnHandlerHuman extends TurnHandler {
 				objectCardAction.execute((Human)currentPlayer, map);
 				currentPlayer.setHasAttacked();
 			}
-		}
-		catch (CardNotPresentException e) {
+		} catch (CardNotPresentException e) {
 			//do nothing, do not ask the Human Player if he wants to attack, since he doesn't have an Attack Card
 		}
 		
@@ -130,8 +126,7 @@ public class TurnHandlerHuman extends TurnHandler {
 		if (currentPlayer.getMyHand().isOverFull()) {  // too many cards in my hand
 			if (reporter.askPlayCardOrDiscard()) {  // user chose "play"
 				playObjectCard();
-			}
-			else {  // user chose "discard"
+			} else {  // user chose "discard"
 				discardObjectCard();
 			}
 		}
