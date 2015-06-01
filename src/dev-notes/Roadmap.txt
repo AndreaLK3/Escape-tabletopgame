@@ -1,5 +1,7 @@
 Il deckshandler è al momento un Singleton. Va cambiato (1 DecksHandler per GameMaster...)
 E le azioni (es. GetSectorAction, che usa DecksHandler.drawSectorCard() devono avere riferimento al DecksHandler, in qualche modo...
+^^^^^^^^^
+(MM) Fixed
 
 Cicli Sonar: ve ne sono 32. I colpevoli sono : I Decks + le Carte. E la nuova classe ShortHand
 ^^^^^^^^^
