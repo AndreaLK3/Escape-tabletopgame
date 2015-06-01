@@ -34,6 +34,7 @@ public class TurnHandlerHuman extends TurnHandler {
 			try {
 				String key = reporter.askWhichObjectCard();
 				objectCard = currentPlayer.drawCard(key);  // this card is removed from the player's hand									   			
+				LOG.finer("User selected card: " + objectCard.getClass().getSimpleName());
 				
 					if (canPlayObjectCard(objectCard)) {
 						objectCardAction = objectCard.getObjectAction();
@@ -91,8 +92,10 @@ public class TurnHandlerHuman extends TurnHandler {
 
 	@Override
 	public void turnBeforeMove() {
-		if (reporter.askIfObjectCard("Do you want to play an object card before moving?")) {
-			playObjectCard();
+		if (currentPlayer.hasCards()) {
+			if (reporter.askIfObjectCard("Do you want to play an object card before moving?")) {
+				playObjectCard();
+			}
 		}
 	}
 
@@ -100,7 +103,7 @@ public class TurnHandlerHuman extends TurnHandler {
 	@Override
 	public void turnLand() {
 		try {
-			currentPlayer.searchForCard(StringRes.getString("cardKeys.attack"));
+			currentPlayer.searchForCard(StringRes.getString("cardKeys.attackOrder"));
 			if (reporter.askIfAttack()) {
 				objectCard = currentPlayer.drawCard(StringRes.getString("cardKeys.attackOrder"));  // the AttackOrder card is removed from the player's hand
 				objectCardAction = objectCard.getObjectAction();
@@ -112,14 +115,9 @@ public class TurnHandlerHuman extends TurnHandler {
 			//do nothing, do not ask the Human Player if he wants to attack, since he doesn't have an Attack Card
 		}
 		
-		if((!((Human)currentPlayer).hasSedatives()) || !currentPlayer.hasAttacked()) {
-			cardAction = cellAction.execute(currentPlayer, map, deck);
-			if (cardAction.hasObjectCard()) {
-				cardAction = new DrawObjectCard();
-				cardAction.execute(currentPlayer, map, deck);
-				}
+		if ((!((Human)currentPlayer).hasSedatives()) && !currentPlayer.hasAttacked()) {
+			commonLandingLogic();
 		}
-		else{}
 		
 	}
 
@@ -135,8 +133,10 @@ public class TurnHandlerHuman extends TurnHandler {
 			}
 		}
 		else {  // normal circumstances
-			if (reporter.askIfObjectCard("Do you want to play an object card after moving?")) {
-				playObjectCard();
+			if (currentPlayer.hasCards()) {
+				if (reporter.askIfObjectCard("Do you want to play an object card after moving?")) {
+					playObjectCard();
+				}
 			}
 		}
 	}

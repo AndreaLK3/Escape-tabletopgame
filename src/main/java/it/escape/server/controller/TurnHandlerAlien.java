@@ -30,7 +30,9 @@ public class TurnHandlerAlien extends TurnHandler{
 			new Attack().execute(currentPlayer, map);
 			currentPlayer.setHasAttacked();
 		}
-		return;
+		if (!currentPlayer.hasAttacked()) {
+			commonLandingLogic();
+		}
 	}
 
 

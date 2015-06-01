@@ -4,6 +4,7 @@ import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.CellAction;
 import it.escape.server.controller.game.actions.DecksHandlerInterface;
 import it.escape.server.controller.game.actions.MapActionInterface;
+import it.escape.server.controller.game.actions.cardactions.DrawObjectCard;
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
 import it.escape.server.model.game.cards.ObjectCard;
 import it.escape.server.model.game.exceptions.CardNotPresentException;
@@ -97,6 +98,22 @@ public abstract class TurnHandler {
 				endObjectCard = false;
 			}
 		} while (!endObjectCard);
+	}
+	
+	/**
+	 * Part of turnLanding which is the same in both humans and aliens
+	 * (trigger the sector-specific action, draw an object card if
+	 * needed). This sequence may not be executed, depending on whether
+	 * the player has attacked/ is sedated.
+	 */
+	protected void commonLandingLogic() {
+		cardAction = cellAction.execute(currentPlayer, map, deck);
+		LOG.finer(currentPlayer.getName() + " has drawn: " + cardAction.getClass().getSimpleName());
+		cardAction.execute(currentPlayer, map, deck);  // make noise/silence/whatever
+		if (cardAction.hasObjectCard()) {
+			cardAction = new DrawObjectCard();
+			cardAction.execute(currentPlayer, map, deck);  // actually draw the object card
+			}
 	}
 	
 	

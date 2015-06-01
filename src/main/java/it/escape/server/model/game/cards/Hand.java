@@ -51,9 +51,10 @@ public class Hand {
 	 * @return
 	 */
 	public ObjectCard getCardFromString(String s) {
+		String key = s.toLowerCase();
 		for (ObjectCard card : handOfCards) {
 			String name = card.getClass().getSimpleName(); // dynamic class name (i.e. "SedativesCard")
-			if (name.toLowerCase().startsWith(s.toLowerCase())) {  // use startswith, to accept partial matches
+			if (name.toLowerCase().startsWith(key)) {  // use startswith, to accept partial matches
 				return card;
 			}
 		}

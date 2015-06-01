@@ -81,6 +81,10 @@ public abstract class Player {
 		myHand.addCard(card);
 	}
 	
+	public boolean hasCards() {
+		return !myHand.isEmpty();
+	}
+	
 	/**
 	 * extract and return a card from the player's hand
 	 * a card matching "key" is selected.
