@@ -1,13 +1,35 @@
-Il deckshandler è al momento un Singleton. Va cambiato (1 DecksHandler per GameMaster...)
-E le azioni (es. GetSectorAction, che usa DecksHandler.drawSectorCard() devono avere riferimento al DecksHandler, in qualche modo...
+Elenco responsabilità del Client:
+mandare messaggio all'utente quando inserisce un nome di ObjectCard inesistente
+mandare messaggio all'utente quando inserisce una stringa fuori format (es asdfghj al posto di A32)
+
+Bug: failed check - carta Oggetto Adrenaline giocata post-mossa;  adesso lo controllo
+
 
 Cicli Sonar: ve ne sono 32. I colpevoli sono : I Decks + le Carte. E la nuova classe ShortHand
+^^^^^^^^^
+(MM) Shorthand non la cestinerei così, dato che riduce di molto il codice copiato.
+     Vedrò di mettere qualche interfaccia tattica per sistemarla.
+     Ai Decks mi sa che è meglio se ci pensi tu.
+(MM) EDIT: adesso i cicli sono solo 16
+(AL) Ho visto, meglio di prima anche se non ottimale; sto pensando come fare, intanto vediamo altre cose.
+__________________________________________________________
+
+
+Il deckshandler è al momento un Singleton. Va cambiato (1 DecksHandler per GameMaster...)
+E le azioni (es. GetSectorAction, che usa DecksHandler.drawSectorCard() devono avere riferimento al DecksHandler, in qualche modo...
+^^^^^^^^^
+(MM) Fixed
 
 extraordinaryGameKilling o non funziona, oppure funziona il turno dopo: penso che sia utile modellare la sequenza delle chiamate dei 
 vari thread sui vari oggetti/classi per sistemare questo. (Un diagramma di sequenza UML non è adatto, ci vuole un diagramma ad hoc di rettangoli=oggetti + frecce di colore diverso per ciascun thread e numerate =chiamate)
+^^^^^^^^^
+(MM) Adesso funziona, era qualche baco nel meccanismo delle default options, ora risolto.
 
 occorre chiedere al Player di inserire il suo nome quando si connette
+^^^^^^^^^
+(MM) Pensavo di lasciare all'utente la possibilità di dare un comando tipo "rename: Ciccio"
 
 mandare dei messaggi all'utente quando inserisce un nome di ObjectCard inesistente
-
-
+^^^^^^^^^
+(MM) Il fatto è che il meccanismo context di MessagingInterface già ignora i nomi di objectcard inesistenti.
+IMHO questo tipo di controllo così fine andrebbe delegato al programma client.
