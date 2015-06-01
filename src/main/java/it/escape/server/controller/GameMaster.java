@@ -73,16 +73,16 @@ public class GameMaster implements Runnable {
 	/** The constructor */
 	public GameMaster(MapActionInterface map) {
 		this.map = map;
+		decksHandler = new DecksHandler();
+		announcer = new Announcer();
 		listOfPlayers = new ArrayList<Player>();
 		timeController =  new TimeController(listOfPlayers);
-		executor = new ExecutiveController(timeController, map);
+		executor = new ExecutiveController(timeController, map, decksHandler);
 		timeController.bindExecutor(executor);
 		executorThread = new Thread(executor);
 		timerThread = new Thread(timeController);
 		currentTeam = PlayerTeams.ALIENS;
-		announcer = new Announcer();
 		gameRunning = false;
-		decksHandler = new DecksHandler();
 	}
 	
 	

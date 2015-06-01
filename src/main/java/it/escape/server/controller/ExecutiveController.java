@@ -1,5 +1,6 @@
 package it.escape.server.controller;
 
+import it.escape.server.controller.game.actions.DecksHandlerInterface;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
@@ -32,6 +33,8 @@ public class ExecutiveController implements Runnable {
 	private boolean runGame;
 	
 	private MapActionInterface map;
+	
+	private DecksHandlerInterface deck;
 	
 	public synchronized void startTurn(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
@@ -68,10 +71,10 @@ public class ExecutiveController implements Runnable {
 	private void gameTurn() {
 
 		if (currentPlayer instanceof Human) {
-			turnHandler = new TurnHandlerHuman(currentPlayer, map);
+			turnHandler = new TurnHandlerHuman(currentPlayer, map, deck);
 		}
 		else {
-			turnHandler = new TurnHandlerAlien(currentPlayer, map);
+			turnHandler = new TurnHandlerAlien(currentPlayer, map, deck);
 		}
 		LOG.fine("Executing turn sequence");
 		turnHandler.executeTurnSequence();
@@ -79,9 +82,10 @@ public class ExecutiveController implements Runnable {
 	}
 
 
-	public ExecutiveController(TimeController timeControllerRef, MapActionInterface map) {
+	public ExecutiveController(TimeController timeControllerRef, MapActionInterface map, DecksHandlerInterface deck) {
 		LogHelper.setDefaultOptions(LOG);
 		this.map = map;
+		this.deck = deck;
 		this.timeControllerRef = timeControllerRef;
 		runGame = true;		
 	}

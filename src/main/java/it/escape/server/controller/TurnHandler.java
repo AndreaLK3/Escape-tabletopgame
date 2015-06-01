@@ -2,6 +2,7 @@ package it.escape.server.controller;
 
 import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.CellAction;
+import it.escape.server.controller.game.actions.DecksHandlerInterface;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
 import it.escape.server.model.game.cards.ObjectCard;
@@ -36,8 +37,11 @@ public abstract class TurnHandler {
 	
 	protected MapActionInterface map;
 	
-	public TurnHandler (MapActionInterface map) {
+	protected DecksHandlerInterface deck;
+	
+	public TurnHandler (MapActionInterface map, DecksHandlerInterface deck) {
 		this.map = map;
+		this.deck = deck;
 	}
 	
 	/**

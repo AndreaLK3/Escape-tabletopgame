@@ -1,6 +1,7 @@
 package it.escape.server.controller.game.actions.cardactions;
 
 import it.escape.server.controller.game.actions.CardAction;
+import it.escape.server.controller.game.actions.DecksHandlerInterface;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.model.game.cards.DecksHandler;
 import it.escape.server.model.game.cards.ObjectCard;
@@ -8,8 +9,8 @@ import it.escape.server.model.game.players.Player;
 
 public class DrawObjectCard implements CardAction{
 
-	public void execute(Player currentPlayer, MapActionInterface map) {
-		ObjectCard card = (ObjectCard) DecksHandler.getDecksHandler().drawObjectCard();
+	public void execute(Player currentPlayer, MapActionInterface map, DecksHandlerInterface deck) {
+		ObjectCard card = (ObjectCard) deck.drawObjectCard();
 		currentPlayer.addCard(card);
 	}
 

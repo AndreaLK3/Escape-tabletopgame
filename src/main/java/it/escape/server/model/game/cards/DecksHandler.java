@@ -15,12 +15,6 @@ public class DecksHandler implements DecksHandlerInterface{
 	
 	private static DecksHandler decksHandlerInstance;
 	
-	public static DecksHandler getDecksHandler() {
-		if (decksHandlerInstance == null)
-			decksHandlerInstance = new DecksHandler();
-		return decksHandlerInstance;
-	}
-	
 	public DecksHandler() {
 		eDeck = new EscapeDeck();
 		sDeck = new SectorDeck();

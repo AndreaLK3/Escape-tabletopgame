@@ -1,6 +1,7 @@
 package it.escape.server.controller;
 
 
+import it.escape.server.controller.game.actions.DecksHandlerInterface;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.ObjectCardAction;
 import it.escape.server.controller.game.actions.cardactions.DrawObjectCard;
@@ -23,8 +24,8 @@ public class TurnHandlerHuman extends TurnHandler {
 
 	
 	
-	public TurnHandlerHuman(Player currentPlayer, MapActionInterface map) {
-		super(map);
+	public TurnHandlerHuman(Player currentPlayer, MapActionInterface map, DecksHandlerInterface deck) {
+		super(map, deck);
 		this.currentPlayer=(Human)currentPlayer;
 	}
 	
@@ -111,11 +112,11 @@ public class TurnHandlerHuman extends TurnHandler {
 			//do nothing, do not ask the Human Player if he wants to attack, since he doesn't have an Attack Card
 		}
 		
-		if((!((Human)currentPlayer).hasSedatives()) || !currentPlayer.hasAttacked())
-		{cardAction = cellAction.execute(currentPlayer, map, null);
+		if((!((Human)currentPlayer).hasSedatives()) || !currentPlayer.hasAttacked()) {
+			cardAction = cellAction.execute(currentPlayer, map, deck);
 			if (cardAction.hasObjectCard()) {
 				cardAction = new DrawObjectCard();
-				cardAction.execute(currentPlayer, map);
+				cardAction.execute(currentPlayer, map, deck);
 				}
 		}
 		else{}

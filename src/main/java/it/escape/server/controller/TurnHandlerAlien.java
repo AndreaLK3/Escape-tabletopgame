@@ -1,5 +1,6 @@
 package it.escape.server.controller;
 
+import it.escape.server.controller.game.actions.DecksHandlerInterface;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.playercommands.Attack;
 import it.escape.server.model.game.players.Alien;
@@ -7,8 +8,8 @@ import it.escape.server.model.game.players.Player;
 
 public class TurnHandlerAlien extends TurnHandler{
 	
-	public TurnHandlerAlien(Player currentPlayer, MapActionInterface map) {
-		super(map);
+	public TurnHandlerAlien(Player currentPlayer, MapActionInterface map, DecksHandlerInterface deck) {
+		super(map, deck);
 		this.currentPlayer=(Alien)currentPlayer;
 	}
 
