@@ -5,7 +5,7 @@ public class WrongCardException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	public WrongCardException() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public WrongCardException(String message) {
