@@ -6,6 +6,15 @@ import java.net.Socket;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * A MessagingChannel which make use of a socket.
+ * The socket is opened / closed[1] elsewhere, we only
+ * make use of it.
+ * 
+ *   [1] but we can trigger its termination
+ * @author michele
+ *
+ */
 public class SocketInterface extends MessagingChannel {
 	
 	private Socket clientSocket;
@@ -31,10 +40,17 @@ public class SocketInterface extends MessagingChannel {
 		enqueueFacility(read);
 		afterTailWrite();
 	}
-
+	
+	/**
+	 * Once we have closed the output stream, the Socket will
+	 * stop working.
+	 * The Connection thread will sense it, and do all the
+	 * required cleanup.
+	 */
 	@Override
 	public void killConnection() {
 		out.close();
+		setConnectionDead();  // a bit useless, since we don't plan to use this channel anymore
 	}
 
 	
