@@ -13,6 +13,14 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The purpose of this object is to asynchronously monitor all the messages
+ * coming from a specific user, and act accordingly.
+ * Since the core gameplay is highly synchronous, this class only
+ * handles secondary aspect of the game (changing name, chatting with others)
+ * @author michele
+ *
+ */
 public class AsyncUserListener implements Observer{
 	
 	private static final Logger LOG = Logger.getLogger( AsyncUserListener.class.getName() );
