@@ -183,13 +183,12 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	 */
 	public List<Player> getPlayersByPosition(PositionCubic pos) {
 		List<Player> ret = new ArrayList<Player>();
-		Cell current = getCell(pos);
-		Iterator mapIterator = playersPositions.entrySet().iterator();
+		Iterator<Map.Entry<Player,Cell>> mapIterator = playersPositions.entrySet().iterator();
 		while (mapIterator.hasNext()) {
-			Map.Entry pair = (Map.Entry)mapIterator.next();
+			Map.Entry pair = mapIterator.next();
 			Cell candidateCell = (Cell)pair.getValue();
 			Player candidatePlayer = (Player)pair.getKey();
-			if (pos.equals(candidateCell)) {
+			if (pos.equals(candidateCell.getPosition())) {
 				ret.add(candidatePlayer);
 			}
 		}
