@@ -114,4 +114,12 @@ public class Announcer extends Observable {
 				team.toString());
 		announce(newmsg);
 	}
+	
+	public void announcePlayerRename(String oldname, String newname) {
+		String newmsg = String.format(
+				StringRes.getString("messaging.announceRename"),
+				oldname,
+				newname);
+		announce(newmsg);
+	}
 }

@@ -13,4 +13,6 @@ public interface PlayerActionInterface {
 	public boolean isAlive();
 	
 	public void die();
+	
+	public void changeName(String newname);
 }

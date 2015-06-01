@@ -30,6 +30,9 @@ public abstract class Player implements PlayerActionInterface {
 		userIdle=false;
 	}
 	
+	public void changeName(String newname) {
+		name = newname;
+	}
 
 	public void startTurn() {
 		hasMoved = false;

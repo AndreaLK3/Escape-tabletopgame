@@ -54,6 +54,8 @@ public class GameMaster implements Runnable {
 	
 	private List<Player> listOfPlayers;
 	
+	private List<AsyncUserListener> listeners;
+	
 	private MapActionInterface map;
 	
 	private DecksHandler decksHandler;
@@ -76,6 +78,7 @@ public class GameMaster implements Runnable {
 		decksHandler = new DecksHandler();
 		announcer = new Announcer();
 		listOfPlayers = new ArrayList<Player>();
+		listeners = new ArrayList<AsyncUserListener>();
 		timeController =  new TimeController(listOfPlayers);
 		executor = new ExecutiveController(timeController, map, decksHandler);
 		timeController.bindExecutor(executor);
@@ -126,10 +129,13 @@ public class GameMaster implements Runnable {
 	/* The interface is used to find the right UMR.*/
 	private void addNewPlayer(MessagingChannel interfaceWithUser) {
 		Player newP = createPlayer("default_Name");  // create the player
+		AsyncUserListener listener = new AsyncUserListener(newP, announcer);
 		listOfPlayers.add(newP);  // add him to our players list
 		map.addNewPlayer(newP, newP.getTeam());  // tell the map to place our player
 		UserMessagesReporter.bindPlayer(newP, interfaceWithUser);  // bind him to its command interface
 		UserMessagesReporter.getReporterInstance(interfaceWithUser).bindAnnouncer(announcer);  // the player will also use our game-announcer
+		interfaceWithUser.addObserver(listener);
+		listeners.add(listener);
 		numPlayers++;  // update the player counter
 	}
 	
