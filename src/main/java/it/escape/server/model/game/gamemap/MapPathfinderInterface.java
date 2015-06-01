@@ -10,7 +10,7 @@ public interface MapPathfinderInterface {
 	
 	public Cell getPlayerCell(Player player);
 	
-	public List<Cell> getNeighbors(PositionCubic center) throws CellNotExistsException;
+	public List<Cell> getNeighborCells(PositionCubic center) throws CellNotExistsException;
 	
 	public Cell getCell(PositionCubic pos3D);
 }

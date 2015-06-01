@@ -9,7 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.escape.server.model.game.exceptions.BadCoordinatesException;
+import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
+import it.escape.server.model.game.gamemap.positioning.Position2D;
 import it.escape.server.model.game.gamemap.positioning.Position2DMatcher;
+import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.utils.LogHelper;
 
 public class CoordinatesConverterTest {

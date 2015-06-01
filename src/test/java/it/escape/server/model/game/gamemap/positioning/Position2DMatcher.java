@@ -1,5 +1,7 @@
 package it.escape.server.model.game.gamemap.positioning;
 
+import it.escape.server.model.game.gamemap.positioning.Position2D;
+
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 

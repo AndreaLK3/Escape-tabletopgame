@@ -1,6 +1,7 @@
 package it.escape.server.model.game.players;
 
 
+
 public class Alien extends Player {
 	
 	private final static int ALIENSMAXRANGE = 2;

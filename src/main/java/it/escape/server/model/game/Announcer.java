@@ -1,5 +1,6 @@
 package it.escape.server.model.game;
 
+import it.escape.server.controller.game.actions.PlayerActionInterface;
 import it.escape.server.model.game.cards.ObjectCard;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
@@ -38,13 +39,13 @@ public class Announcer extends Observable {
 		announce(newmsg);
 	}
 	
-	public void announcePlayerDisconnected(Player player) {
+	public void announcePlayerDisconnected(PlayerActionInterface player) {
 		String newmsg = String.format(StringRes.getString("messaging.playerDisconnected"),
 				player.getName());
 		announce(newmsg);
 	}
 	
-	public void announceAttack(Player player, PositionCubic position) {
+	public void announceAttack(PlayerActionInterface player, PositionCubic position) {
 		String newmsg = String.format(StringRes.getString("messaging.playerAttacking"),
 				player.getName(),
 				CoordinatesConverter.fromCubicToAlphaNum(position));
@@ -57,7 +58,7 @@ public class Announcer extends Observable {
 		announce(newmsg);
 	}
 	
-	public void announceObjectCard(Player player, ObjectCard theCard) {
+	public void announceObjectCard(PlayerActionInterface player, ObjectCard theCard) {
 		String newmsg = String.format(StringRes.getString("messaging.playerIsUsingObjCard"),
 				player.getName(),
 				theCard.getClass().getSimpleName(),
@@ -65,7 +66,7 @@ public class Announcer extends Observable {
 		announce(newmsg);
 	}
 	
-	public void announceDeath(Player victim) {
+	public void announceDeath(PlayerActionInterface victim) {
 		String newmsg = String.format(StringRes.getString("messaging.playerDied"),
 				victim.getName());
 		announce(newmsg);
@@ -81,14 +82,14 @@ public class Announcer extends Observable {
 		return message;
 	}
 
-	public void announcePlayerPosition(Player p, PositionCubic position) {
+	public void announcePlayerPosition(PlayerActionInterface p, PositionCubic position) {
 		String newmsg = String.format(StringRes.getString("messaging.disclosePlayerPosition"),
 				p.getName(),
 				CoordinatesConverter.fromCubicToAlphaNum(position));
 		announce(newmsg);
 	}
 
-	public void announceEscape(Player currentPlayer) {
+	public void announceEscape(PlayerActionInterface currentPlayer) {
 		String newmsg = String.format(StringRes.getString("messaging.playerEscaped"),
 				currentPlayer.getName(),
 				StringRes.getString("ship_name"));

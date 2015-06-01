@@ -4,11 +4,11 @@ import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.CellAction;
 import it.escape.server.controller.game.actions.DecksHandlerInterface;
 import it.escape.server.controller.game.actions.MapActionInterface;
-import it.escape.server.model.game.players.Player;
+import it.escape.server.controller.game.actions.PlayerActionInterface;
 
 public class GetEscapeCardAction implements CellAction {
 
-	public CardAction execute(Player currentPlayer, MapActionInterface map, DecksHandlerInterface deck) {
+	public CardAction execute(PlayerActionInterface currentPlayer, MapActionInterface map, DecksHandlerInterface deck) {
 			return deck.drawEscapeCard().getCardAction();
 	}
 

@@ -15,7 +15,6 @@ import it.escape.server.model.game.exceptions.WrongCardException;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 import it.escape.strings.StringRes;
-import it.escape.utils.Shorthand;
 
 public class TurnHandlerHuman extends TurnHandler {
 	

@@ -1,4 +1,6 @@
-package it.escape.server.model.game.cards;
+package it.escape.server.model.game.players;
+
+import it.escape.server.model.game.cards.ObjectCard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +13,12 @@ public class Hand {
 	
 	public final static int MAXOBJECTS = 3;
 	
-	List<ObjectCard> handOfCards;
+	private List<ObjectCard> handOfCards;
 	
+	public List<ObjectCard> getHandOfCards() {
+		return handOfCards;
+	}
+
 	/**Constructor**/
 	public Hand() {
 		handOfCards = new ArrayList<ObjectCard>();

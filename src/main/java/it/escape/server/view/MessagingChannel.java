@@ -1,5 +1,6 @@
 package it.escape.server.view;
 
+import it.escape.server.controller.MessagingChannelInterface;
 import it.escape.server.controller.MessagingHead;
 import it.escape.utils.LogHelper;
 
@@ -37,7 +38,7 @@ import java.util.regex.Pattern;
  * 
  * @author michele, andrea
  */
-public class MessagingChannel extends Observable implements MessagingHead, MessagingTail {
+public class MessagingChannel extends Observable implements MessagingHead, MessagingTail, MessagingChannelInterface {
 	
 	protected static final Logger log = Logger.getLogger( MessagingChannel.class.getName() );
 	

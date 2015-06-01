@@ -1,9 +1,7 @@
-package it.escape.utils;
+package it.escape.server.controller;
 
-import it.escape.server.controller.UserMessagesReporter;
+import it.escape.server.controller.game.actions.PlayerActionInterface;
 import it.escape.server.model.game.Announcer;
-import it.escape.server.model.game.players.Player;
-import it.escape.server.view.MessagingChannel;
 
 /**
  * Static class used to shadow long and unwieldy method chains
@@ -12,11 +10,11 @@ import it.escape.server.view.MessagingChannel;
  */
 public class Shorthand {
 	
-	public static Announcer announcer(MessagingChannel interfaceWithUser) {
+	public static Announcer announcer(MessagingChannelInterface interfaceWithUser) {
 		return UserMessagesReporter.getReporterInstance(interfaceWithUser).getAnnouncer();
 	}
 	
-	public static Announcer announcer(Player player) {
+	public static Announcer announcer(PlayerActionInterface player) {
 		return UserMessagesReporter.getReporterInstance(player).getAnnouncer();
 	}
 }

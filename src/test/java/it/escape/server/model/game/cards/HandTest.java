@@ -11,6 +11,7 @@ import it.escape.server.model.game.cards.objectcards.LightsCard;
 import it.escape.server.model.game.cards.objectcards.SedativesCard;
 import it.escape.server.model.game.cards.objectcards.TeleportCard;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverterTest;
+import it.escape.server.model.game.players.Hand;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,12 +24,12 @@ public class HandTest {
 	
 	@Before
 	public void acquireCards() {
-		 hand.handOfCards.add(new AttackCard());
-		 hand.handOfCards.add(new DefenseCard());
-		 hand.handOfCards.add(new SedativesCard());
-		 hand.handOfCards.add(new AdrenalineCard());
-		 hand.handOfCards.add(new TeleportCard());
-		 hand.handOfCards.add(new LightsCard());
+		 hand.getHandOfCards().add(new AttackCard());
+		 hand.getHandOfCards().add(new DefenseCard());
+		 hand.getHandOfCards().add(new SedativesCard());
+		 hand.getHandOfCards().add(new AdrenalineCard());
+		 hand.getHandOfCards().add(new TeleportCard());
+		 hand.getHandOfCards().add(new LightsCard());
 	}
 	
 	@Test

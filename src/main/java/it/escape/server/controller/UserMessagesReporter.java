@@ -1,5 +1,6 @@
 package it.escape.server.controller;
 
+import it.escape.server.controller.game.actions.PlayerActionInterface;
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
 import it.escape.server.model.game.Announcer;
 import it.escape.server.model.game.players.Player;
@@ -38,17 +39,17 @@ public class UserMessagesReporter {
 	
 	//creation and access methods
 	
-	public static UserMessagesReporter getReporterInstance(Player currentPlayer) {
+	public static UserMessagesReporter getReporterInstance(PlayerActionInterface currentPlayer) {
 		for (UserMessagesReporter r : reportersList) {	
-			if (r.getThePlayer()==currentPlayer)
+			if (r.getThePlayer() == (Player)currentPlayer)
 			return r;
 		}
 		return null;
 	}
 	
-	public static UserMessagesReporter getReporterInstance(MessagingChannel interfaceWithUser) {
+	public static UserMessagesReporter getReporterInstance(MessagingChannelInterface interfaceWithUser) {
 		for (UserMessagesReporter r : reportersList) {	
-			if (r.getInterfaceWithUser()==interfaceWithUser)
+			if (r.getInterfaceWithUser() == (MessagingChannel)interfaceWithUser)
 			return r;
 		}
 		return null;

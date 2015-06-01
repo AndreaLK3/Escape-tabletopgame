@@ -2,6 +2,7 @@ package it.escape.server.model.game.gamemap;
 
 import it.escape.server.controller.game.actions.CellAction;
 import it.escape.server.controller.game.actions.MapActionInterface;
+import it.escape.server.controller.game.actions.PlayerActionInterface;
 import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.exceptions.CellNotExistsException;
@@ -67,7 +68,7 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 		}
 	}
 	
-	public List<Cell> getNeighbors(PositionCubic center) throws CellNotExistsException {
+	public List<Cell> getNeighborCells(PositionCubic center) throws CellNotExistsException {
 		if (cellExists(center)) {
 			List<Cell> vicini = new ArrayList<Cell>();
 			for (PositionCubic pos : CubicDeltas.getDeltas()) {
@@ -80,6 +81,15 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 		} else {
 			throw new CellNotExistsException("Cell does not exist");  // a bit of defensive programming here
 		}
+	}
+	
+	public List<PositionCubic> getNeighborPositions(PositionCubic center) throws CellNotExistsException {
+		List<Cell> vicini = getNeighborCells(center);
+		List<PositionCubic> ret = new ArrayList<PositionCubic>();
+		for (Cell c : vicini) {
+			ret.add(c.getPosition());
+		}
+		return ret;
 	}
 	
 	private void attemptAssignStartingCells(Cell c) throws MalformedStartingCells {
@@ -111,19 +121,19 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	 * @throws DestinationUnreachableException 
 	 * @throws CellNotExistsException 
 	 * @throws PlayerCanNotEnterException */
-	public CellAction move(Player curPlayer , String destination) throws BadCoordinatesException, DestinationUnreachableException, CellNotExistsException, PlayerCanNotEnterException {
+	public CellAction move(PlayerActionInterface curPlayer , String destination) throws BadCoordinatesException, DestinationUnreachableException, CellNotExistsException, PlayerCanNotEnterException {
 		PositionCubic dest3D = CoordinatesConverter.fromAlphaNumToCubic(destination);
 		
-		if (!dest3D.equals(getPlayerPosition(curPlayer))) {
+		if (!dest3D.equals(getPlayerPosition((Player)curPlayer))) {
 			// if the destination is the cell we're in, we can bypass all this
 			if (!cellExists(dest3D)) {
 				throw new CellNotExistsException("Destination cell does not exist");
 			}
 			Cell c = getCell(dest3D);
-			if (!c.canEnter(curPlayer)) {
+			if (!c.canEnter((Player)curPlayer)) {
 				throw new PlayerCanNotEnterException("Destination is not accessible");
 			}
-			if (!destinationReachable(curPlayer, dest3D)) {
+			if (!destinationReachable((Player)curPlayer, dest3D)) {
 				throw new DestinationUnreachableException("Destination is not reachable");
 			}
 		}
@@ -133,9 +143,9 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 		return getCell(dest3D).getCellAction(); 
 	}
 	
-	public void updatePlayerPosition(Player curPlayer, PositionCubic dest) {
+	public void updatePlayerPosition(PlayerActionInterface curPlayer, PositionCubic dest) {
 		playersPositions.remove(curPlayer);
-		playersPositions.put(curPlayer,getCell(dest));
+		playersPositions.put((Player)curPlayer,getCell(dest));
 	}
 	
 	private boolean destinationReachable(Player curPlayer, PositionCubic dest) throws CellNotExistsException {
@@ -152,11 +162,11 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 		return playersPositions.get(player);
 	}
 	
-	public PositionCubic getPlayerPosition(Player player) {
-		return playersPositions.get(player).getPosition();
+	public PositionCubic getPlayerPosition(PlayerActionInterface player) {
+		return playersPositions.get((Player)player).getPosition();
 	}
-	public String getPlayerAlphaNumPosition(Player player) {
-		return CoordinatesConverter.fromCubicToAlphaNum(getPlayerPosition(player));
+	public String getPlayerAlphaNumPosition(PlayerActionInterface player) {
+		return CoordinatesConverter.fromCubicToAlphaNum(getPlayerPosition((Player)player));
 	}
 	
 	/**
@@ -165,14 +175,14 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	 * @param player
 	 * @param team
 	 */
-	public void addNewPlayer(Player player, PlayerTeams team) {
+	public void addNewPlayer(PlayerActionInterface player, PlayerTeams team) {
 		Cell startIn = null;
 		if (team == PlayerTeams.HUMANS) {
 			startIn = startHumans;
 		} else {
 			startIn = startAliens;
 		}
-		playersPositions.put(player, startIn);
+		playersPositions.put((Player)player, startIn);
 	}
 	
 	/**
@@ -181,8 +191,8 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	 * @param pos
 	 * @return
 	 */
-	public List<Player> getPlayersByPosition(PositionCubic pos) {
-		List<Player> ret = new ArrayList<Player>();
+	public List<PlayerActionInterface> getPlayersByPosition(PositionCubic pos) {
+		List<PlayerActionInterface> ret = new ArrayList<PlayerActionInterface>();
 		Iterator<Map.Entry<Player,Cell>> mapIterator = playersPositions.entrySet().iterator();
 		while (mapIterator.hasNext()) {
 			Map.Entry pair = mapIterator.next();
@@ -195,8 +205,8 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 		return ret;
 	}
 
-	public Cell getStartHumans() {
-		return startHumans;
+	public PositionCubic getStartHumans() {
+		return startHumans.getPosition();
 	}
 	
 	/**Given the position, returns a Cell)

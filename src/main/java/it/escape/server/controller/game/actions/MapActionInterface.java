@@ -3,32 +3,28 @@ package it.escape.server.controller.game.actions;
 import java.util.List;
 
 import it.escape.server.model.game.exceptions.CellNotExistsException;
-import it.escape.server.model.game.gamemap.Cell;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
-import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
 
 public interface MapActionInterface {
 
-	public CellAction move(Player curPlayer , String destination) throws Exception;
+	public CellAction move(PlayerActionInterface curPlayer , String destination) throws Exception;
 	
-	public void updatePlayerPosition(Player curPlayer, PositionCubic dest);
+	public void updatePlayerPosition(PlayerActionInterface curPlayer, PositionCubic dest);
 	
-	public List<Player> getPlayersByPosition(PositionCubic pos);
+	public List<PlayerActionInterface> getPlayersByPosition(PositionCubic pos);
 	
-	public PositionCubic getPlayerPosition(Player player);
+	public PositionCubic getPlayerPosition(PlayerActionInterface player);
 	
-	public String getPlayerAlphaNumPosition(Player player);
+	public String getPlayerAlphaNumPosition(PlayerActionInterface player);
 	
-	public void addNewPlayer(Player player, PlayerTeams team);
+	public void addNewPlayer(PlayerActionInterface player, PlayerTeams team);
 	
-	public Cell getStartHumans();
+	public PositionCubic getStartHumans();
 
 	public boolean cellExists(String posAlphaNum);
 
-	public List<Cell> getNeighbors(PositionCubic fromAlphaNumToCubic) throws CellNotExistsException;
-
-	public Cell getCell(PositionCubic pos3d);
+	public List<PositionCubic> getNeighborPositions(PositionCubic center) throws CellNotExistsException;
 	
 	public String getName();
 }

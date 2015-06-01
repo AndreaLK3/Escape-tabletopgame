@@ -1,6 +1,6 @@
 package it.escape.server.model.game.players;
 
-import it.escape.server.model.game.cards.Hand;
+import it.escape.server.controller.game.actions.PlayerActionInterface;
 import it.escape.server.model.game.cards.ObjectCard;
 import it.escape.server.model.game.exceptions.CardNotPresentException;
 import it.escape.utils.LogHelper;
@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 
 
-public abstract class Player {
+public abstract class Player implements PlayerActionInterface {
 	
 	protected static final Logger log = Logger.getLogger( Player.class.getName() );
 	protected boolean userIdle;

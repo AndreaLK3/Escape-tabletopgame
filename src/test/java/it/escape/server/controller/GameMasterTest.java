@@ -7,7 +7,6 @@ import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.server.view.MessagingChannel;
 import it.escape.strings.StringRes;
-import it.escape.utils.Shorthand;
 
 import java.util.List;
 

@@ -46,7 +46,7 @@ public class PathFinder {
 			List<Cell> previous = fringes.get(i - 1);
 			List<Cell> current = fringes.get(i);
 			for (Cell cube : previous) {
-				List<Cell> neighbors = map.getNeighbors(cube.getPosition());
+				List<Cell> neighbors = map.getNeighborCells(cube.getPosition());
 				for (Cell neighbor : neighbors) {
 					if (!visited.contains(neighbor))
 						if(neighbor.canEnter(curPlayer)) {

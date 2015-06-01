@@ -1,10 +1,11 @@
 package it.escape.server.model.game.players;
 
+import it.escape.server.controller.game.actions.HumanActionInterface;
 import it.escape.server.model.game.exceptions.CardNotPresentException;
 import it.escape.strings.StringRes;
 
 
-public class Human extends Player {
+public class Human extends Player implements HumanActionInterface {
 	
 	private final static int HUMANSMAXRANGE = 1;
 	private final static int ADRENALINERANGE = 2;
