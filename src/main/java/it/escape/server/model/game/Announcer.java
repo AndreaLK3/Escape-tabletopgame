@@ -122,4 +122,12 @@ public class Announcer extends Observable {
 				newname);
 		announce(newmsg);
 	}
+	
+	public void announceChatMessage(PlayerActionInterface player, String message) {
+		String newmsg = String.format(
+				StringRes.getString("messaging.relayChat"),
+				player.getName(),
+				message);
+		announce(newmsg);
+	}
 }

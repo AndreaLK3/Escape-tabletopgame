@@ -18,6 +18,7 @@ public class AsyncUserListener implements Observer{
 	private static final Logger LOG = Logger.getLogger( AsyncUserListener.class.getName() );
 	
 	private Pattern rename;
+	private Pattern chat;
 	
 	private PlayerActionInterface subject;
 	
@@ -31,21 +32,35 @@ public class AsyncUserListener implements Observer{
 		this.subject = subject;
 		this.announcer = announcer;
 		rename = new FormatToPattern(StringRes.getString("messaging.renameMyself")).convert();
+		chat = new FormatToPattern(StringRes.getString("messaging.chat")).convert();
 		
 		LOG.fine("Async listener for user " + subject.getName() + " has been  created");
 	}
 	
 	private void processMessage(String msg) {
 		Matcher ren = rename.matcher(msg);
+		Matcher cha = chat.matcher(msg);
 		if (ren.matches()) {
 			LOG.finer("Rename command detected");
 			if (!renamedOnce) {
-				renamedOnce = true;
-				String newname = ren.group(1);
-				announcer.announcePlayerRename(subject.getName(),newname);
-				subject.changeName(newname);
+				renameProcedure(ren);
 			}
-		} // else, other matches
+		} else if (cha.matches()) {
+			LOG.finer("Chat message detected");
+			chatProcedure(cha);
+		} // other cases
+	}
+	
+	private void chatProcedure(Matcher match) {
+		String message = match.group(1).trim();  // also remove initial/trailing blank spaces
+		announcer.announceChatMessage(subject, message);
+	}
+	
+	private void renameProcedure(Matcher match) {
+		renamedOnce = true;
+		String newname = match.group(1);
+		announcer.announcePlayerRename(subject.getName(),newname);
+		subject.changeName(newname);
 	}
 
 	public void update(Observable arg0, Object arg1) {
