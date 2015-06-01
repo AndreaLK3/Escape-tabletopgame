@@ -92,7 +92,7 @@ public class TurnHandlerHuman extends TurnHandler {
 	@Override
 	public void turnBeforeMove() {
 		if (currentPlayer.hasCards()) {
-			if (reporter.askIfObjectCard("Do you want to play an object card before moving?")) {
+			if (reporter.askIfObjectCard(StringRes.getString("messaging.askPlayObjCardBeforeMove"))) {
 				playObjectCard();
 			}
 		}
@@ -133,7 +133,7 @@ public class TurnHandlerHuman extends TurnHandler {
 		}
 		else {  // normal circumstances
 			if (currentPlayer.hasCards()) {
-				if (reporter.askIfObjectCard("Do you want to play an object card after moving?")) {
+				if (reporter.askIfObjectCard(StringRes.getString("messaging.askPlayObjCardBeforeMove"))) {
 					playObjectCard();
 				}
 			}
