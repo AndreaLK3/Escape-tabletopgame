@@ -5,7 +5,7 @@ import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.PlayerActionInterface;
 import it.escape.server.controller.game.actions.PlayerCommand;
 
-public class MoveCommand implements PlayerCommand {
+public class MoveCommand {
 	
 	String destination;
 	

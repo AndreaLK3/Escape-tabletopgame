@@ -14,7 +14,7 @@ public class Attack {
 			Shorthand.announcer(currentPlayer).announceAttack(currentPlayer, myPos);
 			List<PlayerActionInterface> targets = map.getPlayersByPosition(myPos);
 			for (PlayerActionInterface p : targets) {
-				if (p.isAlive()) {
+				if (p.isAlive() && !p.equals(currentPlayer)) {
 					p.die();
 					if (!p.isAlive()) {
 						Shorthand.announcer(currentPlayer).announceDeath(p);
