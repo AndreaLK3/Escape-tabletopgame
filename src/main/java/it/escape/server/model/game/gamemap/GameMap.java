@@ -127,14 +127,14 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 		if (!dest3D.equals(getPlayerPosition((Player)curPlayer))) {
 			// if the destination is the cell we're in, we can bypass all this
 			if (!cellExists(dest3D)) {
-				throw new CellNotExistsException("Destination cell does not exist");
+				throw new CellNotExistsException(StringRes.getString("messaging.exceptions.cellNotExists"));
 			}
 			Cell c = getCell(dest3D);
 			if (!c.canEnter((Player)curPlayer)) {
-				throw new PlayerCanNotEnterException("Destination is not accessible");
+				throw new PlayerCanNotEnterException(StringRes.getString("messaging.exceptions.playerCanNotEnter"));
 			}
 			if (!destinationReachable((Player)curPlayer, dest3D)) {
-				throw new DestinationUnreachableException("Destination is not reachable");
+				throw new DestinationUnreachableException(StringRes.getString("messaging.exceptions.destinationUnreachable"));
 			}
 		}
 			

@@ -41,7 +41,7 @@ public class TurnHandlerHuman extends TurnHandler {
 						objectCardAction.execute((Human)currentPlayer, map);
 						endObjectCard = true;
 					} else {
-						throw new WrongCardException();
+						throw new WrongCardException(StringRes.getString("messaging.exceptions.wrongCard"));
 					}
 			} catch (WrongCardException e) {
 				String exceptionMessage = e.getClass().getSimpleName() + " : " + e.getMessage();
@@ -53,7 +53,7 @@ public class TurnHandlerHuman extends TurnHandler {
 					endObjectCard = true; 
 				}
 			} catch (CardNotPresentException e) {	
-				String exceptionMessage = e.getClass().getSimpleName() + " : " + e.getMessage();
+				String exceptionMessage = e.getClass().getSimpleName();
 				LOG.finer(exceptionMessage);
 				reporter.relayMessage(exceptionMessage);
 				if (reporter.askIfObjectCard("Do you want to play an object card?")) {

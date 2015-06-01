@@ -2,94 +2,42 @@ Benvenuto su Escape from The Aliens in Outer Space!!
 Versione 0.8
 Have fun!
 We are playing the map "Galilei"
+Player 'default_Name' changed its name to 'A'
+rename "B"
+Player 'default_Name' changed its name to 'B'
+chat: hi!
+B says: hi!
 Sei stato assegnato alla squadra HUMANS
-Player default_Name is attacking in sector L05!
 ******************
-Hello player default_Name, you are located in L08 and it's your turn to move
+Hello player B, you are located in L08 and it's your turn to move
 you have to move your character on the map
 please enter valid position (es. A05)
-L09
-Your turn is now over
-default_Name says: mi sono rinominato!
-default_Name says: mi sono rinominato!
-Player 'default_Name' changed its name to 'Alieno'
-Player Alieno is attacking in sector L05!
-******************
-Hello player default_Name, you are located in L09 and it's your turn to move
-you have to move your character on the map
-please enter valid position (es. A05)
-L10
+M08
 enter the coordinates where you want to make a noise
-please enter valid position (es. A05)
-L12 
-You hear noise coming from coordinates L12
-You have drawn a LightsCard-type object card
-Do you want to play an object card?
-please enter 'yes' or 'no'
-no
-Your turn is now over
-******************
-Hello player default_Name, you are located in L10 and it's your turn to move
-Do you want to play an object card?
-please enter 'yes' or 'no'
-Alieno says: mi sono rinominato!
-Your turn is now over
-Alieno says: hey ci sei?
-ren******************
-Hello player default_Name, you are located in L10 and it's your turn to move
-Do you want to play an object card?
-please enter 'yes' or 'no'
-M09
-no
-you have to move your character on the map
-please enter valid position (es. A05)
-M09
-DestinationUnreachableException Destination is not reachable
-you have to move your character on the map
 please enter valid position (es. A05)
 M10
-enter the coordinates where you want to make a noise
-please enter valid position (es. A05)
-M11
-You hear noise coming from coordinates M11
+You hear noise coming from coordinates M10
 You have drawn a AdrenalineCard-type object card
 Do you want to play an object card?
 please enter 'yes' or 'no'
 yes
 please specify the object card
 Valid cards are: "attack", "teleport", "lights", "sedatives", "adrenaline"
-adrenaline
-Player default_Name is using a AdrenalineCard-type card. default_Name is a human for sure!
-Your turn is now over
-rename:"Umano"^[[D
-rename "Umano******************
-Hello player default_Name, you are located in M10 and it's your turn to move
-Do you want to play an object card?
-please enter 'yes' or 'no'
-
-yes
-please specify the object card
-Valid cards are: "attack", "teleport", "lights", "sedatives", "adrenaline"
 attack
+CardNotPresentException
 Do you want to play an object card?
 please enter 'yes' or 'no'
-no
-you have to move your character on the map
-please enter valid position (es. A05)
-M11
-Do you want to play an object card?
-please enter 'yes' or 'no'
+lights
 yes
 please specify the object card
 Valid cards are: "attack", "teleport", "lights", "sedatives", "adrenaline"
-lights
-Player default_Name is using a LightsCard-type card. default_Name is a human for sure!
-enter the position of the cell where the lights will be turned on
-please enter valid position (es. A05)
-L10
-Player default_Name identified! Location: M11
+adrenaline
+Player B is using a AdrenalineCard-type card. B is a human for sure!
 Your turn is now over
-Player Alieno has disconnected from the game
+Player A has disconnected from the game
+You hear noise coming from coordinates M06
 End of the Game! Here come the results
 Team HUMANS was defeated
-Winners from the ALIENS team:
+Winners from the ALIENS team: 
+
+
