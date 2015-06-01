@@ -36,6 +36,10 @@ public class ExecutiveController implements Runnable {
 	
 	private DecksHandlerInterface deck;
 	
+	/**This function is invoked by TimeController's thread; it awakens the
+	 * Executor's thread that was in the method gameLoop() inside this class
+	 * @param currentPlayer 
+	 */
 	public synchronized void startTurn(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
 		notify();

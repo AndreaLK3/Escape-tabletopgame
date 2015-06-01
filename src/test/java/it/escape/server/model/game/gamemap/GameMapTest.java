@@ -1,6 +1,7 @@
 package it.escape.server.model.game.gamemap;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 import it.escape.server.controller.game.actions.CellAction;
 import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
@@ -8,11 +9,7 @@ import it.escape.server.model.game.exceptions.CellNotExistsException;
 import it.escape.server.model.game.exceptions.DestinationUnreachableException;
 import it.escape.server.model.game.exceptions.MalformedStartingCells;
 import it.escape.server.model.game.exceptions.PlayerCanNotEnterException;
-import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
-import it.escape.server.model.game.gamemap.positioning.Position2D;
-import it.escape.server.model.game.gamemap.positioning.Position2DMatcher;
 import it.escape.server.model.game.players.Alien;
-import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
 

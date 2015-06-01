@@ -66,6 +66,7 @@ public class Announcer extends Observable {
 		announce(newmsg);
 	}
 	
+	
 	public void announceDeath(PlayerActionInterface victim) {
 		String newmsg = String.format(StringRes.getString("messaging.playerDied"),
 				victim.getName());

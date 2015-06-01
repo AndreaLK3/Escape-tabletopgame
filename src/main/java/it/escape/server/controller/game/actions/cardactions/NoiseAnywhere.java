@@ -10,7 +10,9 @@ import it.escape.server.controller.game.actions.PlayerActionInterface;
 public class NoiseAnywhere implements CardAction{
 
 	public void execute(PlayerActionInterface currentPlayer, MapActionInterface map, DecksHandlerInterface deck) {
-			String location = UserMessagesReporter.getReporterInstance(currentPlayer).askForNoisePosition(map.getPlayerAlphaNumPosition(currentPlayer));
+			UserMessagesReporter reporter = UserMessagesReporter.getReporterInstance(currentPlayer);
+			
+			String location = reporter.askForNoisePosition(map.getPlayerAlphaNumPosition(currentPlayer));
 			
 			Shorthand.announcer(currentPlayer).announceNoise(location);
 	}

@@ -1,9 +1,14 @@
-Elenco responsabilità del Client:
-mandare messaggio all'utente quando inserisce un nome di ObjectCard inesistente
-mandare messaggio all'utente quando inserisce una stringa fuori format (es asdfghj al posto di A32)
+Current tasks:
 
-Bug: failed check - carta Oggetto Adrenaline giocata post-mossa;  adesso lo controllo
 
+
+Bug: failed check : carta Oggetto Adrenaline giocabile post-mossa
+
+Cleanup delle connessioni e del GameMaster quando una partita finisce
+
+
+
+Lower priority:
 
 Cicli Sonar: ve ne sono 32. I colpevoli sono : I Decks + le Carte. E la nuova classe ShortHand
 ^^^^^^^^^
@@ -12,7 +17,12 @@ Cicli Sonar: ve ne sono 32. I colpevoli sono : I Decks + le Carte. E la nuova cl
      Ai Decks mi sa che è meglio se ci pensi tu.
 (MM) EDIT: adesso i cicli sono solo 16
 (AL) Ho visto, meglio di prima anche se non ottimale; sto pensando come fare, intanto vediamo altre cose.
+
+
+
 __________________________________________________________
+Completed tasks:
+
 
 
 Il deckshandler è al momento un Singleton. Va cambiato (1 DecksHandler per GameMaster...)

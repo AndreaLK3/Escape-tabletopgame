@@ -25,7 +25,7 @@ public class TimeController implements Runnable {
 	
 	private final static Integer TIMEOUT = 60000;  // milliseconds
 	
-	private final static int MAX_TURNS = 39;
+	private final static int MAX_TURNS = 40;
 	
 	private ExecutiveController executorRef;
 	
@@ -45,7 +45,7 @@ public class TimeController implements Runnable {
 
 	public void run() {
 		log.fine(StringRes.getString("controller.time.start"));
-		turnNumber = 0;
+		turnNumber = 1;
 		mainLoop();
 		log.fine(StringRes.getString("controller.time.finish"));
 	}
@@ -62,9 +62,11 @@ public class TimeController implements Runnable {
 	}
 	
 	private synchronized void mainLoop() {
+		
 		while (runGame) {
 			turnCompleted = false;
 			Player current = turnOrder.get(nowPlaying);
+			Shorthand.announcer(current).announce(String.format(StringRes.getString("messaging.timecontroller.turnNumber"),turnNumber));
 			log.fine("Issuing startTurn command");
 			executorRef.startTurn(current);  // run current player's turn
 			
