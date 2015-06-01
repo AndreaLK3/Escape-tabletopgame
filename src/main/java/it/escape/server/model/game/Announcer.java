@@ -1,6 +1,7 @@
 package it.escape.server.model.game;
 
 import it.escape.server.model.game.cards.ObjectCard;
+import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.server.model.game.players.JoinPlayerList;
 import it.escape.server.model.game.players.Player;
@@ -44,23 +45,30 @@ public class Announcer extends Observable {
 	}
 	
 	public void announceAttack(Player player, PositionCubic position) {
-		// encode player and position to a string
-		// use announce to send that string
+		String newmsg = String.format(StringRes.getString("messaging.playerAttacking"),
+				player.getName(),
+				CoordinatesConverter.fromCubicToAlphaNum(position));
+		announce(newmsg);
 	}
 	
 	public void announceNoise(String location) {
-		// encode position to a string
-		// use announce to send that string
+		String newmsg = String.format(StringRes.getString("messaging.noise"),
+				location);
+		announce(newmsg);
 	}
 	
 	public void announceObjectCard(Player player, ObjectCard theCard) {
-		
-		
+		String newmsg = String.format(StringRes.getString("messaging.playerIsUsingObjCard"),
+				player.getName(),
+				theCard.getClass().getSimpleName(),
+				player.getName());
+		announce(newmsg);
 	}
 	
 	public void announceDeath(Player victim) {
-		
-		
+		String newmsg = String.format(StringRes.getString("messaging.playerDied"),
+				victim.getName());
+		announce(newmsg);
 	}
 	
 	public void announce(String message) {
@@ -74,11 +82,17 @@ public class Announcer extends Observable {
 	}
 
 	public void announcePlayerPosition(Player p, PositionCubic position) {
-		
+		String newmsg = String.format(StringRes.getString("messaging.disclosePlayerPosition"),
+				p.getName(),
+				CoordinatesConverter.fromCubicToAlphaNum(position));
+		announce(newmsg);
 	}
 
 	public void announceEscape(Player currentPlayer) {
-		
+		String newmsg = String.format(StringRes.getString("messaging.playerEscaped"),
+				currentPlayer.getName(),
+				StringRes.getString("ship_name"));
+		announce(newmsg);
 	}
 	
 	public void announceGameEnd() {
