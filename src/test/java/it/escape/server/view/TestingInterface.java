@@ -1,6 +1,6 @@
 package it.escape.server.view;
 
-public class TestingInterface extends MessagingInterface {
+public class TestingInterface extends MessagingChannel {
 	
 	private String last_message;
 	

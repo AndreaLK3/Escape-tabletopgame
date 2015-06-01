@@ -3,7 +3,7 @@ package it.escape.server.controller;
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
 import it.escape.server.model.game.Announcer;
 import it.escape.server.model.game.players.Player;
-import it.escape.server.view.MessagingInterface;
+import it.escape.server.view.MessagingChannel;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
 
@@ -15,12 +15,12 @@ import java.util.logging.Logger;
 /** 
  * This class is located at the border of the controller package,
  * it communicates with the classes inside the View;
- * This class statically links a player in the game to a MessagingInterface,
+ * This class statically links a player in the game to a MessagingChannel,
  * thus automatically routing any user-specific communications.
  * The TurnHandler issues requests to this class.
  * N: The check on the syntax is not performed by this class, it is done by the interface
  * The check on the semantics is performed by TurnHandler.
- * This class makes use of the Synchronous-communication facilities offered by MessagingInterface
+ * This class makes use of the Synchronous-communication facilities offered by MessagingChannel
  * @author andrea
  */
 public class UserMessagesReporter {
@@ -30,7 +30,7 @@ public class UserMessagesReporter {
 	private static List<UserMessagesReporter> reportersList = new ArrayList<UserMessagesReporter>();
 	
 	private Player thePlayer;
-	private MessagingInterface interfaceWithUser;
+	private MessagingChannel interfaceWithUser;
 	
 	private boolean automaticOverriding = false;
 	
@@ -46,7 +46,7 @@ public class UserMessagesReporter {
 		return null;
 	}
 	
-	public static UserMessagesReporter getReporterInstance(MessagingInterface interfaceWithUser) {
+	public static UserMessagesReporter getReporterInstance(MessagingChannel interfaceWithUser) {
 		for (UserMessagesReporter r : reportersList) {	
 			if (r.getInterfaceWithUser()==interfaceWithUser)
 			return r;
@@ -54,11 +54,11 @@ public class UserMessagesReporter {
 		return null;
 	}
 	
-	private UserMessagesReporter(MessagingInterface interfaceWithUser) {
+	private UserMessagesReporter(MessagingChannel interfaceWithUser) {
 		this.interfaceWithUser = interfaceWithUser;
 	}
 
-	public static void createUMR(MessagingInterface interfaceWithUser) {
+	public static void createUMR(MessagingChannel interfaceWithUser) {
 		if (reportersList.size() <= 0) {
 			LogHelper.setDefaultOptions(log);
 		}
@@ -70,7 +70,7 @@ public class UserMessagesReporter {
 	 * @param newP
 	 * @param interfaceWithUser
 	 */
-	public static void bindPlayer(Player newP,MessagingInterface interfaceWithUser) {
+	public static void bindPlayer(Player newP,MessagingChannel interfaceWithUser) {
 		for (UserMessagesReporter r : reportersList) {	
 			if (r.getInterfaceWithUser() == interfaceWithUser) {
 				r.setThePlayer(newP);
@@ -251,7 +251,7 @@ public class UserMessagesReporter {
 		return thePlayer;
 	}
 
-	public MessagingInterface getInterfaceWithUser() {
+	public MessagingChannel getInterfaceWithUser() {
 		return interfaceWithUser;
 	}
 

@@ -1,12 +1,12 @@
 package it.escape.server.view.dummymessageinterface;
 
-import it.escape.server.view.MessagingInterface;
+import it.escape.server.view.MessagingChannel;
 
 public class DummyTimer implements Runnable {
 	
-	private MessagingInterface iface;
+	private MessagingChannel iface;
 
-	public DummyTimer(MessagingInterface iface) {
+	public DummyTimer(MessagingChannel iface) {
 		this.iface = iface;
 	}
 

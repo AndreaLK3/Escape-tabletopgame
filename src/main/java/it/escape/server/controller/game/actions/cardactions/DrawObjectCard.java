@@ -4,7 +4,6 @@ import it.escape.server.controller.UserMessagesReporter;
 import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.DecksHandlerInterface;
 import it.escape.server.controller.game.actions.MapActionInterface;
-import it.escape.server.model.game.cards.DecksHandler;
 import it.escape.server.model.game.cards.ObjectCard;
 import it.escape.server.model.game.players.Player;
 import it.escape.strings.StringRes;

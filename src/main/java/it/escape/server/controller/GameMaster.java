@@ -7,7 +7,7 @@ import it.escape.server.model.game.players.Alien;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
-import it.escape.server.view.MessagingInterface;
+import it.escape.server.view.MessagingChannel;
 import it.escape.strings.StringRes;
 
 import java.util.ArrayList;
@@ -117,14 +117,14 @@ public class GameMaster implements Runnable {
 	 * Invoked by Master, sequence of action to perform when a new user connects
 	 * @param interfaceWithUser
 	 */
-	public void newPlayerMayCauseStart(MessagingInterface interfaceWithUser) {
+	public void newPlayerMayCauseStart(MessagingChannel interfaceWithUser) {
 		addNewPlayer(interfaceWithUser);
 		announceNewPlayer(interfaceWithUser);
 		gameStartLogic();
 	}
 	
 	/* The interface is used to find the right UMR.*/
-	private void addNewPlayer(MessagingInterface interfaceWithUser) {
+	private void addNewPlayer(MessagingChannel interfaceWithUser) {
 		Player newP = createPlayer("default_Name");  // create the player
 		listOfPlayers.add(newP);  // add him to our players list
 		map.addNewPlayer(newP, newP.getTeam());  // tell the map to place our player
@@ -133,7 +133,7 @@ public class GameMaster implements Runnable {
 		numPlayers++;  // update the player counter
 	}
 	
-	private void announceNewPlayer(MessagingInterface interfaceWithUser) {
+	private void announceNewPlayer(MessagingChannel interfaceWithUser) {
 		UserMessagesReporter.getReporterInstance(interfaceWithUser).relayMessage(String.format(
 				StringRes.getString("messaging.serversMap"),
 				map.getName()));

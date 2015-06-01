@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class SocketInterface extends MessagingInterface {
+public class SocketInterface extends MessagingChannel {
 	
 	private Socket clientSocket;
 	

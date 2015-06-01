@@ -2,13 +2,13 @@ package it.escape.server.view.dummymessageinterface;
 
 import java.util.Arrays;
 
-import it.escape.server.view.MessagingInterface;
+import it.escape.server.view.MessagingChannel;
 
 public class DummyBackend implements Runnable{
 
-	private MessagingInterface iface;
+	private MessagingChannel iface;
 	
-	public DummyBackend(MessagingInterface iface) {
+	public DummyBackend(MessagingChannel iface) {
 		this.iface = iface;
 	}
 

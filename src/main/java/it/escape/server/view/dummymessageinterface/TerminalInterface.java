@@ -2,9 +2,9 @@ package it.escape.server.view.dummymessageinterface;
 
 import java.util.Scanner;
 
-import it.escape.server.view.MessagingInterface;
+import it.escape.server.view.MessagingChannel;
 
-public class TerminalInterface extends MessagingInterface {
+public class TerminalInterface extends MessagingChannel {
 	
 	private Scanner cliInput;
 	

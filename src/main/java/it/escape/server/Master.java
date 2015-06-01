@@ -9,7 +9,7 @@ import it.escape.server.model.game.players.Alien;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
-import it.escape.server.view.MessagingInterface;
+import it.escape.server.view.MessagingChannel;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
 
@@ -34,7 +34,7 @@ public class Master {
 	private static MapCreator mapCreator;
 	
 		
-	public static void newPlayerHasConnected(MessagingInterface interfaceWithUser) {
+	public static void newPlayerHasConnected(MessagingChannel interfaceWithUser) {
 		if (currentGameMaster == null) {
 			LogHelper.setDefaultOptions(LOG);
 			currentGameMaster = new GameMaster(mapCreator.getMap());
@@ -58,14 +58,14 @@ public class Master {
 	 * It finds the Master of her game, and tells it to handle this event.
 	 * @param interfaceWithUser
 	 */
-	public static void playerHasDisconnected(MessagingInterface interfaceWithUser) {
+	public static void playerHasDisconnected(MessagingChannel interfaceWithUser) {
 			
 		Player offender = getPlayer(interfaceWithUser);
 		GameMaster gm = getGameMasterOfPlayer(offender);
 		gm.handlePlayerDisconnect(offender);		
 	}
 	
-	public static Player getPlayer(MessagingInterface interfaceWithUser) {
+	public static Player getPlayer(MessagingChannel interfaceWithUser) {
 		return UserMessagesReporter.getReporterInstance(interfaceWithUser).getThePlayer();
 	}
 	

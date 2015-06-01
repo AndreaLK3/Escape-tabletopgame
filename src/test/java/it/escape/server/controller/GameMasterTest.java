@@ -5,7 +5,7 @@ import it.escape.server.MapCreator;
 import it.escape.server.Master;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
-import it.escape.server.view.MessagingInterface;
+import it.escape.server.view.MessagingChannel;
 import it.escape.strings.StringRes;
 import it.escape.utils.Shorthand;
 
@@ -46,7 +46,7 @@ public class GameMasterTest {
 	}
 	
 	private void simulateConnect(TestingAnnouncerObserver observer) {
-		MessagingInterface iface = new MessagingInterface();
+		MessagingChannel iface = new MessagingChannel();
 		UserMessagesReporter.createUMR(iface);
 		Master.newPlayerHasConnected(iface);
 		Shorthand.announcer(iface).addObserver(observer);
