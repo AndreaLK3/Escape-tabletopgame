@@ -69,7 +69,7 @@ public class GameMaster implements Runnable {
 	
 	private boolean gameFinished;
 
-	private final static int WAIT_TIMEOUT = 2000;
+	private final static int WAIT_TIMEOUT = 60000;
 	
 	public final static int MAXPLAYERS = 8;
 	public final static int MINPLAYERS = 2;
