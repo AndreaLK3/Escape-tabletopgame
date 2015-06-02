@@ -40,6 +40,7 @@ public class TurnHandlerHuman extends TurnHandler {
 						objectCardAction.execute((Human)currentPlayer, map);
 						endObjectCard = true;
 					} else {
+						currentPlayer.getMyHand().addCard(objectCard);	//return the card to the Player's hand
 						throw new WrongCardException(StringRes.getString("messaging.exceptions.wrongCard"));
 					}
 			} catch (WrongCardException e) {
@@ -64,7 +65,7 @@ public class TurnHandlerHuman extends TurnHandler {
 		} while (!endObjectCard);
 	}
 	
-	//This function is temporarily public for testing purposes
+	//This function is public for testing purposes
 	public boolean canPlayObjectCard(ObjectCard objectCard) {
 		
 		if (currentPlayer.HasMoved()) {		//after the move
@@ -109,7 +110,7 @@ public class TurnHandlerHuman extends TurnHandler {
 		try {
 			currentPlayer.searchForCard(StringRes.getString("cardKeys.attackOrder"));
 			if (reporter.askIfAttack()) {
-				objectCard = currentPlayer.drawCard(StringRes.getString("cardKeys.attackOrder"));  // the AttackOrder card is removed from the player's hand
+				objectCard = currentPlayer.drawCard(StringRes.getString("cardKeys.attackOrder"));  // the Attack card is removed from the player's hand
 				objectCardAction = objectCard.getObjectAction();
 				objectCardAction.execute((Human)currentPlayer, map);
 				currentPlayer.setHasAttacked();

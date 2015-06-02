@@ -214,7 +214,7 @@ public class UserMessagesReporter {
 	}
 	
 	public String ioGetCardKey() {
-		interfaceWithUser.writeToClient("Valid cards are: \"attack\", \"teleport\", \"lights\", \"sedatives\", \"adrenaline\"");
+		interfaceWithUser.writeToClient(StringRes.getString("messaging.validCards"));
 		interfaceWithUser.setDefaultOption("none");
 		interfaceWithUser.setContext(Arrays.asList("attack", "teleport", "lights", "sedatives", "adrenaline"));
 		return interfaceWithUser.readFromClient();
