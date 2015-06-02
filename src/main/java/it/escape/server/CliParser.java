@@ -36,12 +36,14 @@ public class CliParser {
 	}
 	
 	private void parseSingles() {
+		List<String> copy = new ArrayList<String>(rawOptions);
 		for (String s : rawOptions) {
 			if (singleOptions.contains(s)) {
 				processSwitch(s);
-				rawOptions.remove(s);
+				copy.remove(s);
 			}
 		}
+		rawOptions = copy;
 	}
 	
 	private void processSwitch(String opt) {
