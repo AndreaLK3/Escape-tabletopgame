@@ -12,5 +12,10 @@ public class AttackCard implements ObjectCard, Card {
 		return new AttackOrder();
 	}
 
+	@Override
+	public String toString() {
+		return ("ObjectCard : " + getClass().getSimpleName());
+	}
+
 
 }

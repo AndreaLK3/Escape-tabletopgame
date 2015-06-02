@@ -13,4 +13,9 @@ public class DefenseCard implements ObjectCard, Card {
 		return new Defense();
 	}
 
+	@Override
+	public String toString() {
+		return ("ObjectCard : " + getClass().getSimpleName());
+	}
+
 }

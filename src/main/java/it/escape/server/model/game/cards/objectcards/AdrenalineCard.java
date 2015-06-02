@@ -12,5 +12,10 @@ public class AdrenalineCard implements ObjectCard, Card{
 		return new Adrenaline();
 	}
 
+	@Override
+	public String toString() {
+		return ("ObjectCard : " + getClass().getSimpleName());
+	}
+
 
 }

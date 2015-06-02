@@ -11,5 +11,10 @@ public class SedativesCard implements ObjectCard,Card {
 		return new Sedatives();
 	}
 
+	@Override
+	public String toString() {
+		return ("ObjectCard : " + getClass().getSimpleName());
+	}
+
 
 }

@@ -12,5 +12,10 @@ public class LightsCard  implements Card, ObjectCard{
 		return new Lights();
 	}
 
+	@Override
+	public String toString() {
+		return ("ObjectCard : " + getClass().getSimpleName());
+	}
+
 
 }

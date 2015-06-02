@@ -11,5 +11,10 @@ public class TeleportCard implements Card, ObjectCard{
 	
 		return new Teleport();
 	}
+	
+	@Override
+	public String toString() {
+		return ("ObjectCard : " + getClass().getSimpleName());
+	}
 
 }
