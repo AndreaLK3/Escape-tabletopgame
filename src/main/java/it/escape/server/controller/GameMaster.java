@@ -327,7 +327,19 @@ public class GameMaster implements Runnable {
 	private void finalVictoryCheck() {
 		announcer.announceGameEnd();
 		
-		if (victoryChecker.allHumansWin()) {
+		if (victoryChecker.allHumansDisconnected()) {
+			announcer.announceTeamDefeat(
+					PlayerTeams.HUMANS);
+			announcer.announceTeamVictory(
+					PlayerTeams.ALIENS,
+					victoryChecker.getAlienWinners());
+		} else if (victoryChecker.allAliensDisconnected()) {
+			announcer.announceTeamVictory(
+					PlayerTeams.HUMANS,
+					victoryChecker.getHumanWinners());
+			announcer.announceTeamDefeat(
+					PlayerTeams.ALIENS);
+		} else if (victoryChecker.allHumansWin()) {
 			announcer.announceTeamVictory(
 					PlayerTeams.HUMANS,
 					victoryChecker.getHumanWinners());

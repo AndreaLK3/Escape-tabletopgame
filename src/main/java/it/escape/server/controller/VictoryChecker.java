@@ -54,8 +54,14 @@ public class VictoryChecker {
 	/** This method checks if all the players of a team have disconnected. 
 	 * (If this is the case, GameMaster will terminate the game).*/
 	public boolean entireTeamDisconnected() {
-		int counterHumans=0, counterAliens=0;
-		
+		if (allAliensDisconnected() || allHumansDisconnected()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean allHumansDisconnected() {
+		int counterHumans=0;
 		for (Human h : humans) {
 			if (h.isUserIdle()) {
 				counterHumans++;
@@ -64,7 +70,11 @@ public class VictoryChecker {
 		if (counterHumans==humans.size()) {
 			return true;
 		}
-			
+		return false;
+	}
+	
+	public boolean allAliensDisconnected() {
+		int counterAliens=0;
 		for (Alien a : aliens) {
 			if (a.isUserIdle()) {
 				counterAliens++;
@@ -73,8 +83,7 @@ public class VictoryChecker {
 		if (counterAliens==aliens.size()) {
 			return true;
 		}
-		return false;	
-		
+		return false;
 	}
 	
 	/**
@@ -125,23 +134,31 @@ public class VictoryChecker {
 	 * @return
 	 */
 	public List<Player> getHumanWinners() {
-		List<Player> ret = new ArrayList<Player>();
-		for (Human h : humans) {
-			if (h.hasEscaped()) {
+		if (allHumansWin() || allAliensDisconnected()) {  // add all the humans to the winners
+			List<Player> ret = new ArrayList<Player>();
+			for (Human h : humans) {
 				ret.add(h);
 			}
+			return ret;
+		} else {  // cherry-pick the human winners
+			List<Player> ret = new ArrayList<Player>();
+			for (Human h : humans) {
+				if (h.hasEscaped()) {
+					ret.add(h);
+				}
+			}
+			return ret;
 		}
-		return ret;
 	}
 
 	public List<Player> getAlienWinners() {
-		if (allAliensWin()) {
+		if (allAliensWin() || allHumansDisconnected()) {  // all aliens are winners
 			List<Player> ret = new ArrayList<Player>();
 			for (Alien a : aliens) {
 				ret.add(a);
 			}
 			return ret;
-		} else {
+		} else {  // no alien winners
 			return new ArrayList<Player>();
 		}
 	}
