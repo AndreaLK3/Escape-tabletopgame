@@ -8,6 +8,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * Simple Command line arguments parser
+ * @author michele
+ *
+ */
 public class CliParser {
 	
 	protected static final Logger LOG = Logger.getLogger( CliParser.class.getName() );

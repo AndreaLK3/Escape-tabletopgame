@@ -4,6 +4,14 @@ import it.escape.utils.LogHelper;
 
 import java.util.logging.Logger;
 
+/**
+ * Static class which holds *some* global options.
+ * The intention is to hold all the options which
+ * can be set via cli parameters, and make them
+ * accessible everywhere else in the program
+ * @author michele
+ *
+ */
 public class GlobalSettings {
 	
 	private static final Logger LOG = Logger.getLogger( GlobalSettings.class.getName() );
