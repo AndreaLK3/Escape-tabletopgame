@@ -325,39 +325,19 @@ public class GameMaster implements Runnable {
 	/** announce the winners
 	 */
 	private void finalVictoryCheck() {
+		VictoryAnnounce vic = new VictoryAnnounce(announcer, victoryChecker);
 		announcer.announceGameEnd();
 		
 		if (victoryChecker.allHumansDisconnected()) {
-			announcer.announceTeamDefeat(
-					PlayerTeams.HUMANS);
-			announcer.announceTeamVictory(
-					PlayerTeams.ALIENS,
-					victoryChecker.getAlienWinners());
+			vic.totalAlienWin();
 		} else if (victoryChecker.allAliensDisconnected()) {
-			announcer.announceTeamVictory(
-					PlayerTeams.HUMANS,
-					victoryChecker.getHumanWinners());
-			announcer.announceTeamDefeat(
-					PlayerTeams.ALIENS);
+			vic.totalHumanWin();
 		} else if (victoryChecker.allHumansWin()) {
-			announcer.announceTeamVictory(
-					PlayerTeams.HUMANS,
-					victoryChecker.getHumanWinners());
-			announcer.announceTeamDefeat(
-					PlayerTeams.ALIENS);
+			vic.totalHumanWin();
 		} else if (victoryChecker.areThereHumanWinners()) {
-			announcer.announceTeamVictory(
-					PlayerTeams.HUMANS,
-					victoryChecker.getHumanWinners());
-			announcer.announceTeamVictory(
-					PlayerTeams.ALIENS,
-					victoryChecker.getAlienWinners());
+			vic.partialHumanWin();
 		} else {
-			announcer.announceTeamDefeat(
-					PlayerTeams.HUMANS);
-			announcer.announceTeamVictory(
-					PlayerTeams.ALIENS,
-					victoryChecker.getAlienWinners());
+			vic.totalAlienWin();
 		}
 	}
 	
