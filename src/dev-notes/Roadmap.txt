@@ -1,12 +1,14 @@
 Current tasks:
 
+Ora quando vi sono 2 giocatori il gioco parte subito, senza aspettare 60 sec
+
+Bug : errore nell'attribuzione della vittoria in caso di disconnessione (v. Partita.txt)
+
+Bug : mancato automaticOverride nella 2a fase del turno alieno (è askIfAttack()?)
 
 
-Bug : mancato automaticOverride nella 2a fase del turno (è askIfAttack()?)
 
-
-
-
+___________________________________________________________
 Lower priority:
 
 Cicli Sonar: ve ne sono 32. I colpevoli sono : I Decks + le Carte. E la nuova classe ShortHand
