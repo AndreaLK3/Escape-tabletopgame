@@ -4,7 +4,8 @@ Current tasks:
 
 Bug: failed check : carta Oggetto Adrenaline giocabile post-mossa
 
-Cleanup delle connessioni e del GameMaster quando una partita finisce
+
+
 
 
 
@@ -23,6 +24,14 @@ Cicli Sonar: ve ne sono 32. I colpevoli sono : I Decks + le Carte. E la nuova cl
 __________________________________________________________
 Completed tasks:
 
+
+
+
+
+
+Cleanup delle connessioni e del GameMaster quando una partita finisce
+^^^^
+Fixed
 
 
 Il deckshandler è al momento un Singleton. Va cambiato (1 DecksHandler per GameMaster...)

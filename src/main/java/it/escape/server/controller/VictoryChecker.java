@@ -51,6 +51,8 @@ public class VictoryChecker {
 		return false;
 	}
 	
+	/** This method checks if all the players of a team have disconnected. 
+	 * (If this is the case, GameMaster will terminate the game).*/
 	public boolean entireTeamDisconnected() {
 		int counterHumans=0, counterAliens=0;
 		
