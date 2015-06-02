@@ -38,11 +38,11 @@ public abstract class TurnHandler {
 	
 	protected MapActionInterface map;
 	
-	protected DecksHandlerInterface deck;
+	protected DecksHandlerInterface decks;
 	
-	public TurnHandler (MapActionInterface map, DecksHandlerInterface deck) {
+	public TurnHandler (MapActionInterface map, DecksHandlerInterface decks) {
 		this.map = map;
-		this.deck = deck;
+		this.decks = decks;
 	}
 	
 	/**
@@ -107,12 +107,12 @@ public abstract class TurnHandler {
 	 * the player has attacked/ is sedated.
 	 */
 	protected void commonLandingLogic() {
-		cardAction = cellAction.execute(currentPlayer, map, deck);
+		cardAction = cellAction.execute(currentPlayer, map, decks);
 		LOG.finer(currentPlayer.getName() + " has drawn: " + cardAction.getClass().getSimpleName());
-		cardAction.execute(currentPlayer, map, deck);  // make noise/silence/whatever
+		cardAction.execute(currentPlayer, map, decks);  // make noise/silence/whatever
 		if (cardAction.hasObjectCard()) {
 			cardAction = new DrawObjectCard();
-			cardAction.execute(currentPlayer, map, deck);  // actually draw the object card
+			cardAction.execute(currentPlayer, map, decks);  // actually draw the object card
 			}
 	}
 	

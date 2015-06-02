@@ -64,7 +64,8 @@ public class TurnHandlerHuman extends TurnHandler {
 		} while (!endObjectCard);
 	}
 	
-	private boolean canPlayObjectCard(ObjectCard objectCard) {
+	//This function is temporarily public for testing purposes
+	public boolean canPlayObjectCard(ObjectCard objectCard) {
 		
 		if (currentPlayer.HasMoved()) {		//after the move
 			if (objectCard instanceof TeleportCard || objectCard instanceof LightsCard) {
