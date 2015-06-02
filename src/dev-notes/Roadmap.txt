@@ -1,11 +1,17 @@
 Current tasks:
 
 Ora quando vi sono 2 giocatori il gioco parte subito, senza aspettare 60 sec
+^^^^^^^^
+(MM) rimesso a 60. Ho aggiunto un semplice parser di opzioni command line per settarlo al 2 sec in sede di     
+     testing
 
 Bug : errore nell'attribuzione della vittoria in caso di disconnessione (v. Partita.txt)
+^^^^^^^^
+(MM) fixed
 
 Bug : mancato automaticOverride nella 2a fase del turno alieno (è askIfAttack()?)
-
+^^^^^^^^
+(MM) cannot reproduce
 
 
 ___________________________________________________________
