@@ -42,25 +42,25 @@ public class LabelFrame extends JFrame
 	private void initializeLabels() {
 	
 		
-	label1 = new JLabel("Interface for Player.");
-	label2 = new JLabel("Work in progress.");
-	label3 = new JLabel();
-	Icon map = new ImageIcon("/res/galilei.jpg");
-	label3.setIcon(map);
-	
+	label1 = new JLabel("Escape from the Aliens in Outer Space");
 	label1.setPreferredSize(new Dimension (200, 50));
-	label2.setPreferredSize(new Dimension (200, 50));
-	label3.setPreferredSize(new Dimension (300, 300));
-	 
-    label1.setBackground(new Color(248, 213, 131));
-    label2.setBackground(new Color(200, 100, 200));
-    //label3.setBackground(new Color(200, 100, 200));
-    
-    label1.setHorizontalAlignment(SwingConstants.LEFT);
+	label1.setBackground(new Color(248, 213, 131));
+	label1.setHorizontalAlignment(SwingConstants.LEFT);
     label1.setVerticalAlignment(SwingConstants.TOP);
+	
+	label2 = new JLabel("Players");
+	label2.setPreferredSize(new Dimension (200, 50));
+	label2.setBackground(new Color(200, 100, 200));
     label2.setHorizontalAlignment(SwingConstants.RIGHT);
     label2.setVerticalAlignment(SwingConstants.BOTTOM);
+	
+	label3 = new JLabel();
+	Icon map = new ImageIcon(ImageScaler.resizeImage("resources/galilei.jpg", 400, 400));
+	label3.setIcon(map);
+	//label3.setPreferredSize(new Dimension (300, 300));
+	 //label3.setBackground(new Color(200, 100, 200));
     
+   
     label1.setOpaque(true);
     label2.setOpaque(true);
     label3.setOpaque(true);

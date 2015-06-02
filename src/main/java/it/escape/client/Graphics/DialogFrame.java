@@ -47,7 +47,7 @@ public class DialogFrame extends JFrame {
 								}
 							};
 		thread1.start();
-		 
+		
 	}
 
 
