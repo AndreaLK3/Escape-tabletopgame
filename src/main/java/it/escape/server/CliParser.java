@@ -21,8 +21,7 @@ public class CliParser {
 			);
 	
 	// options in the format "-switch"
-	private List<String> singleOptions = Arrays.asList(
-			);
+	private List<String> singleOptions = Arrays.asList();
 
 	public CliParser(String[] arrayOptions) {
 		LogHelper.setDefaultOptions(LOG);
