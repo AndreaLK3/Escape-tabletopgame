@@ -114,6 +114,7 @@ public class UserMessagesReporter {
 	public boolean askIfObjectCard(String s) {
 		String defaultChoice = "no";
 		if (automaticOverriding) {
+			log.finer("automaticOverriding: return false");
 			return false;
 		} else {
 			interfaceWithUser.writeToClient(StringRes.getString("messaging.askPlayObjectCard"));
@@ -129,6 +130,7 @@ public class UserMessagesReporter {
 	public boolean askIfAttack() {
 		String defaultChoice = "no";
 		if (automaticOverriding) {
+			log.finer("automaticOverriding: return false");
 			return false;
 		} else {
 			interfaceWithUser.writeToClient(StringRes.getString("messaging.askIfAttack"));
@@ -149,6 +151,7 @@ public class UserMessagesReporter {
 	public boolean askPlayCardOrDiscard() {
 		String defaultChoice = "discard";
 		if (automaticOverriding) {
+			log.finer("automaticOverriding: return false");
 			return false;
 		} else {
 			interfaceWithUser.writeToClient(StringRes.getString("messaging.askPlayObjectCard"));
@@ -170,6 +173,7 @@ public class UserMessagesReporter {
 		String defaultChoice = "none";
 		
 		if (automaticOverriding) {
+			log.finer("automaticOverriding: return " + defaultChoice);
 			return defaultChoice;		
 		} else {
 			interfaceWithUser.writeToClient(StringRes.getString("messaging.askWhichObjectCard"));
@@ -184,6 +188,7 @@ public class UserMessagesReporter {
 	 */
 	public MoveCommand askForMovement(String playerCurrentPos) {
 		if (automaticOverriding) {
+			log.finer("automaticOverriding: return MoveCommand(" + playerCurrentPos + ")");
 			return new MoveCommand(playerCurrentPos);		
 		}
 		interfaceWithUser.writeToClient(StringRes.getString("messaging.timeToMove"));
@@ -195,6 +200,7 @@ public class UserMessagesReporter {
 
 	public String askForNoisePosition(String playerCurrentPos) {
 		if (automaticOverriding) {
+			log.finer("automaticOverriding: return " + playerCurrentPos);
 			return playerCurrentPos;		
 		}
 		String location;
@@ -205,6 +211,7 @@ public class UserMessagesReporter {
 	
 	public String askForLightsPosition(String playerCurrentPos) {
 		if (automaticOverriding) {
+			log.finer("automaticOverriding: return " + playerCurrentPos);
 			return playerCurrentPos;		
 		}
 		String location;
