@@ -34,6 +34,7 @@ public class Initializer {
 	}
 
 	public static void main(String[] args) {
+		new CliParser(args).parse();
 		new Initializer();
 	}
 }

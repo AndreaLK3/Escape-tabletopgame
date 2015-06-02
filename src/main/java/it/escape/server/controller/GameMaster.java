@@ -1,5 +1,6 @@
 package it.escape.server.controller;
 
+import it.escape.server.GlobalSettings;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.model.game.Announcer;
 import it.escape.server.model.game.cards.DecksHandler;
@@ -69,7 +70,7 @@ public class GameMaster implements Runnable {
 	
 	private boolean gameFinished;
 
-	private final static int WAIT_TIMEOUT = 60000;
+	private final static int WAIT_TIMEOUT = GlobalSettings.getServerPort();
 	
 	public final static int MAXPLAYERS = 8;
 	public final static int MINPLAYERS = 2;

@@ -1,5 +1,6 @@
 package it.escape.server.view;
 
+import it.escape.server.GlobalSettings;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
 
@@ -20,7 +21,7 @@ public class Server implements ConnectionUnregisterInterface{
 	
 	private static Server serverInstance = null;
 	private static List<Connection> connections = new ArrayList<Connection>();
-	private static final int PORT = 1331;
+	private static final int PORT = GlobalSettings.getServerPort();
 	private ServerSocket serverSocket;
 	
 	public static Server createServerInstance() throws IOException {

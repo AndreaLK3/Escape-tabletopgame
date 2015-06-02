@@ -1,0 +1,45 @@
+package it.escape.server;
+
+import it.escape.utils.LogHelper;
+
+import java.util.logging.Logger;
+
+public class GlobalSettings {
+	
+	private static final Logger LOG = Logger.getLogger( GlobalSettings.class.getName() );
+	private static boolean logSet = false;
+	
+	private static int ServerPort = 1331;
+	
+	private static int GameMasterTimeout = 60000;
+
+	
+	private static void setLog() {
+		if (!logSet) {
+			logSet = true;
+			LogHelper.setDefaultOptions(LOG);
+		}
+	}
+	
+	public static int getServerPort() {
+		return ServerPort;
+	}
+
+	public static void setServerPort(int serverPort) {
+		setLog();
+		LOG.finer("Setting ServerPort to " + serverPort + " (default: " + ServerPort + ")");
+		ServerPort = serverPort;
+	}
+
+	public static int getGameMasterTimeout() {
+		return GameMasterTimeout;
+	}
+
+	public static void setGameMasterTimeout(int gameMasterTimeout) {
+		setLog();
+		LOG.finer("Setting GameMasterTimeout to " + gameMasterTimeout + " (default: " + GameMasterTimeout + ")");
+		GameMasterTimeout = gameMasterTimeout;
+	}
+	
+	
+}
