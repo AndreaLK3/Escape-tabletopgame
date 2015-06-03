@@ -24,12 +24,12 @@ public class ClientInitializer {
 		String ipaddress = "127.0.0.1";
 		try {
 			connection = new ClientSocketInterface(ipaddress);
-			new Thread(connection).start();
 			stateManager = new StateManager();
 			relay = new Relay(connection);
 			view = new Terminal(relay, stateManager);
 			updater = new Updater(stateManager, view);
-			
+			connection.addObserver(updater);
+			new Thread(connection).start();
 			view.mainLoop();
 			
 		} catch (UnknownHostException e) {
