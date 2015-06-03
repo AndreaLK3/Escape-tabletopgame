@@ -22,7 +22,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import it.escape.client.PlayerState;
+import it.escape.client.model.PlayerState;
 
 
 public class EventsFrame extends JFrame {

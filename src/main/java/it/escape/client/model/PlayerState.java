@@ -1,4 +1,4 @@
-package it.escape.client;
+package it.escape.client.model;
 
 import java.util.ArrayList;
 import java.util.List;
