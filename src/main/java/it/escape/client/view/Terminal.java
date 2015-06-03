@@ -3,6 +3,7 @@ package it.escape.client.view;
 import it.escape.client.controller.Relay;
 import it.escape.client.controller.StateManager;
 import it.escape.client.controller.TurnInputStates;
+import it.escape.strings.StringRes;
 
 import java.io.PrintStream;
 import java.util.Scanner;
@@ -26,27 +27,50 @@ public class Terminal {
 		this.stateManager = stateManager;
 	}
 	
+	/**
+	 * draw a nice prompt dos-style
+	 */
+	private void printPrompt() {
+		out.print(String.format(
+				StringRes.getString("client.text.prompt"),
+				stateManager.getCurrentState().getPrompt()));
+	}
+	
 	public void mainLoop() {
 		while (running) {
+			printPrompt();
 			userInput = in.nextLine();
+			
 			if (stateManager.getCurrentState() == TurnInputStates.FREE) {
 				relayRef.relayMessage(userInput);
-			}
-			if (stateManager.getCurrentState() == TurnInputStates.OBJECTCARD) {
-				if (relayRef.checkCardsFormat(userInput))
+			} else if (stateManager.getCurrentState() == TurnInputStates.OBJECTCARD) {
+				if (relayRef.checkCardsFormat(userInput)) {
 					relayRef.relayMessage(userInput);
-				else 
+					stateManager.setFreeState();
+				} else {
 					out.println("Format error");
-			}
-			if (stateManager.getCurrentState() == TurnInputStates.POSITION) {
-				if (relayRef.checkYesNoFormat(userInput))
+				}
+			} else if (stateManager.getCurrentState() == TurnInputStates.POSITION) {
+				if (relayRef.checkPositionFormat(userInput)) {
 					relayRef.relayMessage(userInput);
-				else 
+					stateManager.setFreeState();
+				} else {
 					out.println("Format error");
+				}	
+			} else if (stateManager.getCurrentState() == TurnInputStates.YES_NO) {
+				if (relayRef.checkYesNoFormat(userInput)) {
+					relayRef.relayMessage(userInput);
+					stateManager.setFreeState();
+				} else {
+					out.println("Format error");
+				}	
 			}
 
 		}
 	}
 	
-	
+	public void visualizeMessage(String message) {
+		out.println("\r" + message);  // carriage-return to clear the prompt string
+		printPrompt();  // re-create the prompt string
+	}
 }
