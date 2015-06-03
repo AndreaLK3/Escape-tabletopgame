@@ -3,9 +3,11 @@ package it.escape.client;
 import java.io.*;
 import java.net.*;
 import java.util.NoSuchElementException;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Scanner;
 
-public class ClientSocketInterface {
+public class ClientSocketInterface extends Observable implements Runnable {
 	
 	private final static int PORTNUMBER = 1331;
 	
@@ -19,23 +21,55 @@ public class ClientSocketInterface {
 	
 	private boolean running;
 	
+	private MessageCarrier messaging;
+	
 	
 	public ClientSocketInterface(String ipAddress) throws UnknownHostException, IOException {
 		SERVERIP = ipAddress;
 		clientSocket = new Socket(SERVERIP, PORTNUMBER);
 		in = new Scanner(clientSocket.getInputStream());
 		out = new PrintStream(clientSocket.getOutputStream());
+		messaging = new MessageCarrier();
 		running = true;
+	}
+	
+	@Override
+	public synchronized void addObserver(Observer o) {
+		messaging.addObserver(o);
 	}
 
 	public void mainLoop() {
-	while (running) {
+		while (running) {
+			try {
+				String read = in.nextLine();
+				messaging.newMessage(read);
+			} catch (NoSuchElementException e) {  // detect disconnection
+				disconnected();
+			}
+		}
+		
+	}
+	
+	private void disconnected() {
 		try {
-			String read = in.nextLine();
-		} catch (NoSuchElementException e) {  // detect disconnection
-			//hasDisconnected();
+			clientSocket.close();
+			//log.info("Closed connection to " + clientSocket.getInetAddress().toString());
+		} catch (IOException e) {
+			System.out.println("Error: cannot close the connection");
 		}
 	}
+	
+	public void killConnection() {
+		out.close();
+	}
+	
+	public void sendMessage(String msg) {
+		out.println(msg);
+	}
+
+	@Override
+	public void run() {
+		mainLoop();		
 	}
 	
 	    /*  try {

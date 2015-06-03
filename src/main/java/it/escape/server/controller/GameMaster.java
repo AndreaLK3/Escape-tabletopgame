@@ -70,7 +70,7 @@ public class GameMaster implements Runnable {
 	
 	private boolean gameFinished;
 
-	private final static int WAIT_TIMEOUT = GlobalSettings.getServerPort();
+	private final static int WAIT_TIMEOUT = GlobalSettings.getGameMasterTimeout();
 	
 	public final static int MAXPLAYERS = 8;
 	public final static int MINPLAYERS = 2;
