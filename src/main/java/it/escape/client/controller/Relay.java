@@ -27,6 +27,14 @@ public class Relay {
 		return false;
 	}
 	
+	public boolean checkYesNoFormat(String message) {
+		List<String> cardnames = new ArrayList<String>(Arrays.asList("yes", "no"));
+		if (cardnames.contains(message)) {
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean checkPositionFormat(String message) {
 		Pattern pos = Pattern.compile("([A-Z]+)([0-9]+)");
 		if (pos.matcher(message).matches()) {
