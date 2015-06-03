@@ -42,7 +42,7 @@ public class Updater implements Observer {
 		if (arg0 instanceof MessageCarrier) {
 			MessageCarrier msg = (MessageCarrier) arg0;
 			processMessage(msg.getMessage());
-			// view show message
+			view.visualizeMessage(msg.getMessage());
 		}
 	}
 	
