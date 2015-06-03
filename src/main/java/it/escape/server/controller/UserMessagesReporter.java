@@ -223,7 +223,7 @@ public class UserMessagesReporter {
 	public String ioGetCardKey() {
 		interfaceWithUser.writeToClient(StringRes.getString("messaging.validCards"));
 		interfaceWithUser.setDefaultOption("none");
-		interfaceWithUser.setContext(Arrays.asList("attack", "teleport", "lights", "sedatives", "adrenaline"));
+		interfaceWithUser.setContext(Arrays.asList("teleport", "lights", "sedatives", "adrenaline"));
 		return interfaceWithUser.readFromClient();
 	}
 
