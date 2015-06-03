@@ -20,6 +20,8 @@ public class Updater implements Observer {
 	private Pattern inputObjectCard;
 	private Pattern inputPosition;
 	private Pattern inputYesNo;
+	private Pattern myTurnStart;
+	private Pattern myTurnEnd;
 	
 	
 	public Updater(StateManager stateRef, Terminal view) {
@@ -35,6 +37,9 @@ public class Updater implements Observer {
 				StringRes.getString("messaging.askBinaryChoice"),
 				"yes",
 				"no"));
+		myTurnStart = new FormatToPattern(StringRes.getString("messaging.hail.player")).convert();
+		myTurnEnd = new FormatToPattern(StringRes.getString("messaging.farewell")).convert();
+		
 	}
 
 	@Override
@@ -50,12 +55,18 @@ public class Updater implements Observer {
 		Matcher obj = inputObjectCard.matcher(message);
 		Matcher pos = inputPosition.matcher(message);
 		Matcher yesno = inputYesNo.matcher(message);
+		Matcher turnstart = myTurnStart.matcher(message);
+		Matcher turnend = myTurnEnd.matcher(message);
 		if (obj.matches()) {
 			stateRef.setObjectCardState();
 		} else if (pos.matches()) {
 			stateRef.setPositionState();
 		} else if (yesno.matches()) {
 			stateRef.setYesNoState();
+		} else if (turnstart.matches()) {
+			stateRef.setMyTurn();
+		} else if (turnend.matches()) {
+			stateRef.setNotMyTurn();
 		}
 	}
 

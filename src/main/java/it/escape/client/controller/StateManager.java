@@ -1,17 +1,28 @@
 package it.escape.client.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class StateManager {
 
-	private TurnInputStates currentState;
+	private TurnInputStates currentState;  // input required
+	
+	private boolean myTurn;  // my turn vs not my turn
 
 	public StateManager () {
+		myTurn = false;
 		setFreeState();
 		
 	}
 	
+	public void setMyTurn() {
+		myTurn = true;
+	}
+	
+	public void setNotMyTurn() {
+		myTurn = false;
+	}
+	
+	public boolean isMyTurn() {
+		return myTurn;
+	}
 	
 	public void setFreeState() {
 		

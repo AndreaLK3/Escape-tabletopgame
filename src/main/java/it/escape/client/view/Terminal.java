@@ -23,6 +23,8 @@ public class Terminal implements DisconnectedCallbackInterface {
 	
 	private String userInput;
 	
+	private String prompt;
+	
 	public Terminal (Relay relay, StateManager stateManager) {
 		this.relayRef = relay;
 		this.stateManager = stateManager;
@@ -32,9 +34,20 @@ public class Terminal implements DisconnectedCallbackInterface {
 	 * draw a nice prompt dos-style
 	 */
 	private void printPrompt() {
-		out.print(String.format(
+		String whoseTurn;
+		
+		if (stateManager.isMyTurn()) {
+			whoseTurn = "My turn";
+		} else {
+			whoseTurn = "Someone else's turn";
+		}
+		
+		prompt = String.format(
 				StringRes.getString("client.text.prompt"),
-				stateManager.getCurrentState().getPrompt()));
+				whoseTurn,
+				stateManager.getCurrentState().getPrompt());
+		
+		out.print(prompt);
 	}
 	
 	public void mainLoop() {
@@ -43,7 +56,6 @@ public class Terminal implements DisconnectedCallbackInterface {
 			userInput = in.nextLine();
 			
 			boolean localcommand = checkAndRunLocalCommands();
-			
 			if (running && !localcommand) {
 				checkAndSend();
 			}
@@ -82,12 +94,32 @@ public class Terminal implements DisconnectedCallbackInterface {
 			running = false;
 			relayRef.disconnectNow();
 			return true;
+		} else if (userInput.equals(StringRes.getString("client.commands.printhelp"))) {
+			visualizeMessage(StringRes.getString("client.help"));
+			return true;
 		}
 		return false;
 	}
 	
+	private void cleanPromptAndPrint(String message) {
+		int oldPromptLength = prompt.length();
+		int newMessageLength = message.length();
+		
+		out.print("\r");  // go to the beginning of the line
+		
+		out.print(message);  // print the message
+		
+		if (newMessageLength < oldPromptLength) {  
+			for (int i=0; i < (oldPromptLength - newMessageLength); i++) {
+				out.print(" ");  // cover up remaining 'old' characters
+			}
+		}
+		
+		out.println();  // newline
+	}
+	
 	public void visualizeMessage(String message) {
-		out.println("\r" + message);  // carriage-return to clear the prompt string
+		cleanPromptAndPrint(message);
 		printPrompt();  // re-create the prompt string
 	}
 

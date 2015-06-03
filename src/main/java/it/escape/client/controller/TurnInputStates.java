@@ -2,7 +2,7 @@ package it.escape.client.controller;
 
 public enum TurnInputStates {
 	
-	FREE(""), OBJECTCARD("object-card"), POSITION("coordinates"), YES_NO("yes/no");
+	FREE("free-action"), OBJECTCARD("object-card"), POSITION("coordinates"), YES_NO("yes/no");
 	
 	private String prompt;
 
