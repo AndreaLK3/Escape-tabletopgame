@@ -79,7 +79,7 @@ public class Terminal implements DisconnectedCallbackInterface {
 				relayRef.relayMessage(userInput);
 				stateManager.setFreeState();
 			} else {
-				out.println("Format error");
+				out.println(StringRes.getString("client.text.error.format.position"));
 			}	
 		} else if (stateManager.getCurrentState() == TurnInputStates.YES_NO) {
 			if (relayRef.checkYesNoFormat(userInput)) {
