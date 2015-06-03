@@ -78,7 +78,11 @@ public class Terminal implements DisconnectedCallbackInterface {
 	}
 	
 	private boolean checkAndRunLocalCommands() {
-		
+		if (userInput.equals(StringRes.getString("client.commands.disconnect"))) {
+			running = false;
+			relayRef.disconnectNow();
+			return true;
+		}
 		return false;
 	}
 	
