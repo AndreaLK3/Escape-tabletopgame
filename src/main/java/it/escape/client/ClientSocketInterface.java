@@ -21,7 +21,11 @@ public class ClientSocketInterface extends Observable implements Runnable {
 	
 	private boolean running;
 	
+	private boolean terminatedByClient;  // connection terminated clientside vs killed by the server
+	
 	private MessageCarrier messaging;
+	
+	private DisconnectedCallbackInterface disconnectCallback;
 	
 	
 	public ClientSocketInterface(String ipAddress) throws UnknownHostException, IOException {
@@ -31,6 +35,11 @@ public class ClientSocketInterface extends Observable implements Runnable {
 		out = new PrintStream(clientSocket.getOutputStream());
 		messaging = new MessageCarrier();
 		running = true;
+		terminatedByClient = false;
+	}
+	
+	public void bindDisconnCallback(DisconnectedCallbackInterface disconnectCallback) {
+		this.disconnectCallback = disconnectCallback;
 	}
 	
 	@Override
@@ -53,13 +62,17 @@ public class ClientSocketInterface extends Observable implements Runnable {
 	private void disconnected() {
 		try {
 			clientSocket.close();
-			//log.info("Closed connection to " + clientSocket.getInetAddress().toString());
+			running = false;
+			if (!terminatedByClient) {  // if the disconnection wasn't ordered by the client, do some cleanup
+				disconnectCallback.disconnected();
+			}
 		} catch (IOException e) {
 			System.out.println("Error: cannot close the connection");
 		}
 	}
 	
 	public void killConnection() {
+		terminatedByClient = true;
 		out.close();
 	}
 	

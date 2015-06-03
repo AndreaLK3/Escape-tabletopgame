@@ -28,6 +28,7 @@ public class ClientInitializer {
 			relay = new Relay(connection);
 			view = new Terminal(relay, stateManager);
 			updater = new Updater(stateManager, view);
+			connection.bindDisconnCallback(view);
 			connection.addObserver(updater);
 			new Thread(connection).start();
 			view.mainLoop();

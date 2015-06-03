@@ -19,6 +19,10 @@ public class Relay {
 		communication.sendMessage(message);
 	}
 	
+	public void disconnectNow() {
+		communication.killConnection();
+	}
+	
 	public boolean checkCardsFormat(String message) {
 		List<String> cardnames = new ArrayList<String>(Arrays.asList("teleport", "lights", "sedatives", "adrenaline"));
 		if (cardnames.contains(message)) {

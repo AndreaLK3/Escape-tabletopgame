@@ -24,7 +24,12 @@ public class FormatToPattern {
 	}
 	
 	public Pattern convert() {
+		temp = temp.replaceAll("\\(", "\\\\(");
+		temp = temp.replaceAll("\\)", "\\\\)");
+		temp = temp.replaceAll("\\.", "\\\\.");
+		temp = temp.replaceAll("\\*", "\\\\*");
 		temp = temp.replaceAll("%s", matchall);
+		
 		return Pattern.compile(temp);
 	}
 	
