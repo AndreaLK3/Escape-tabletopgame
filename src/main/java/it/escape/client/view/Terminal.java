@@ -37,9 +37,9 @@ public class Terminal implements DisconnectedCallbackInterface {
 		String whoseTurn;
 		
 		if (stateManager.isMyTurn()) {
-			whoseTurn = "My turn";
+			whoseTurn = StringRes.getString("client.text.prompt.myturn");
 		} else {
-			whoseTurn = "Someone else's turn";
+			whoseTurn = StringRes.getString("client.text.prompt.someoneElsesTurn");
 		}
 		
 		prompt = String.format(
@@ -70,7 +70,9 @@ public class Terminal implements DisconnectedCallbackInterface {
 				relayRef.relayMessage(userInput);
 				stateManager.setFreeState();
 			} else {
-				out.println("Format error");
+				out.println(String.format(
+						StringRes.getString("client.text.error.format.objectcard"),
+						StringRes.getString("messaging.validCards")));
 			}
 		} else if (stateManager.getCurrentState() == TurnInputStates.POSITION) {
 			if (relayRef.checkPositionFormat(userInput)) {
@@ -89,6 +91,11 @@ public class Terminal implements DisconnectedCallbackInterface {
 		}
 	}
 	
+	/**
+	 * If the provided command can be run locally (i.e. "disconnect"),
+	 * run it directly. Returns true if such circumstances did take place
+	 * @return
+	 */
 	private boolean checkAndRunLocalCommands() {
 		if (userInput.equals(StringRes.getString("client.commands.disconnect"))) {
 			running = false;
@@ -124,7 +131,7 @@ public class Terminal implements DisconnectedCallbackInterface {
 	}
 
 	public void disconnected() {
-		visualizeMessage("Disconnected by server; press enter to quit.");
+		visualizeMessage(StringRes.getString("client.text.disconnectByServer"));
 		running = false;
 	}
 }
