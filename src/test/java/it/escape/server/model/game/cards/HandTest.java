@@ -1,17 +1,15 @@
 package it.escape.server.model.game.cards;
 
-import static org.junit.Assert.*;
-
-import java.util.logging.Logger;
-
+import static org.junit.Assert.assertNotNull;
 import it.escape.server.model.game.cards.objectcards.AdrenalineCard;
 import it.escape.server.model.game.cards.objectcards.AttackCard;
 import it.escape.server.model.game.cards.objectcards.DefenseCard;
 import it.escape.server.model.game.cards.objectcards.LightsCard;
 import it.escape.server.model.game.cards.objectcards.SedativesCard;
 import it.escape.server.model.game.cards.objectcards.TeleportCard;
-import it.escape.server.model.game.gamemap.positioning.CoordinatesConverterTest;
 import it.escape.server.model.game.players.Hand;
+
+import java.util.logging.Logger;
 
 import org.junit.Before;
 import org.junit.Test;

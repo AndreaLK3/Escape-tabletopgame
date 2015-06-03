@@ -1,8 +1,6 @@
 package it.escape.server.view;
 
 import static org.junit.Assert.*;
-import it.escape.server.controller.TestingAnnouncerObserver;
-
 import java.util.Arrays;
 
 import org.junit.Test;

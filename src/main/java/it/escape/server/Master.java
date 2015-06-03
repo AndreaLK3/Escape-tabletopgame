@@ -30,13 +30,13 @@ public class Master {
 		reaper();
 		if (currentGameMaster == null) {
 			LogHelper.setDefaultOptions(LOG);
-			currentGameMaster = new GameMaster(mapCreator.getMap());
+			currentGameMaster = new GameMaster(mapCreator.getMap(), gameMasters.size());
 			gameMasters.add(currentGameMaster);
 		}
 		if (currentGameMaster.newPlayerAllowed()) {
 			currentGameMaster.newPlayerMayCauseStart(interfaceWithUser);
 		} else {
-			currentGameMaster = new GameMaster(mapCreator.getMap());
+			currentGameMaster = new GameMaster(mapCreator.getMap(), gameMasters.size());
 			gameMasters.add(currentGameMaster);
 			currentGameMaster.newPlayerMayCauseStart(interfaceWithUser);
 		}

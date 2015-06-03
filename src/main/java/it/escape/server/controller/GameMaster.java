@@ -42,7 +42,9 @@ import java.util.logging.Logger;
 
 public class GameMaster implements Runnable {
 
-	protected static final Logger LOG = Logger.getLogger( GameMaster.class.getName() );
+	private static final Logger LOG = Logger.getLogger( GameMaster.class.getName() );
+	
+	private final int id; 
 	
 	private PlayerTeams currentTeam;
 	
@@ -77,8 +79,9 @@ public class GameMaster implements Runnable {
 	private int numPlayers = 0;
 	
 	/** The constructor */
-	public GameMaster(MapActionInterface map) {
+	public GameMaster(MapActionInterface map, int id) {
 		LogHelper.setDefaultOptions(LOG);
+		this.id = id;
 		this.map = map;
 		decksHandler = new DecksHandler();
 		announcer = new Announcer();
@@ -137,7 +140,7 @@ public class GameMaster implements Runnable {
 	
 	/* The interface is used to find the right UMR.*/
 	private void addNewPlayer(MessagingChannel interfaceWithUser) {
-		Player newP = createPlayer("default_Name");  // create the player
+		Player newP = createPlayer("Guest-" + id + "-" + numPlayers);  // create the player
 		AsyncUserListener listener = new AsyncUserListener(newP, announcer);
 		listOfPlayers.add(newP);  // add him to our players list
 		map.addNewPlayer(newP, newP.getTeam());  // tell the map to place our player

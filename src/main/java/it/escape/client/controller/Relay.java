@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import it.escape.client.ClientSocketInterface;
+import it.escape.strings.FormatToPattern;
+import it.escape.strings.StringRes;
 
 public class Relay {
 	
@@ -42,6 +44,29 @@ public class Relay {
 	public boolean checkPositionFormat(String message) {
 		Pattern pos = Pattern.compile("([A-Z]+)([0-9]+)");
 		if (pos.matcher(message).matches()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkChatFormat(String message) {
+		Pattern chat = new FormatToPattern(StringRes.getString("messaging.chat")).convert();
+		if (chat.matcher(message).matches()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkRenameFormat(String message) {
+		Pattern rename = new FormatToPattern(StringRes.getString("messaging.renameMyself")).convert();
+		if (rename.matcher(message).matches()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkFreeMessage(String message) {
+		if (checkChatFormat(message) || checkRenameFormat(message)) {
 			return true;
 		}
 		return false;

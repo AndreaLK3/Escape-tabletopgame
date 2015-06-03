@@ -63,9 +63,12 @@ public class Terminal implements DisconnectedCallbackInterface {
 	}
 	
 	private void checkAndSend() {
-		if (stateManager.getCurrentState() == TurnInputStates.FREE) {
+		
+		if (relayRef.checkFreeMessage(userInput)) {  // chat, rename and other 'free' messages can always be sent
 			relayRef.relayMessage(userInput);
-		} else if (stateManager.getCurrentState() == TurnInputStates.OBJECTCARD) {
+		} else if (stateManager.getCurrentState() == TurnInputStates.FREE) {  // free state, any message can be sent
+			relayRef.relayMessage(userInput);
+		} else if (stateManager.getCurrentState() == TurnInputStates.OBJECTCARD) {  // predisposed to read an object card key
 			if (relayRef.checkCardsFormat(userInput)) {
 				relayRef.relayMessage(userInput);
 				stateManager.setFreeState();
@@ -74,21 +77,21 @@ public class Terminal implements DisconnectedCallbackInterface {
 						StringRes.getString("client.text.error.format.objectcard"),
 						StringRes.getString("messaging.validCards")));
 			}
-		} else if (stateManager.getCurrentState() == TurnInputStates.POSITION) {
+		} else if (stateManager.getCurrentState() == TurnInputStates.POSITION) {  // predisposed to read a coordinate
 			if (relayRef.checkPositionFormat(userInput)) {
 				relayRef.relayMessage(userInput);
 				stateManager.setFreeState();
 			} else {
 				out.println(StringRes.getString("client.text.error.format.position"));
 			}	
-		} else if (stateManager.getCurrentState() == TurnInputStates.YES_NO) {
+		} else if (stateManager.getCurrentState() == TurnInputStates.YES_NO) {  // predisposed to read yes/no
 			if (relayRef.checkYesNoFormat(userInput)) {
 				relayRef.relayMessage(userInput);
 				stateManager.setFreeState();
 			} else {
 				out.println("Format error");
 			}	
-		}
+		} 
 	}
 	
 	/**
