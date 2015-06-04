@@ -22,6 +22,7 @@ public class Master {
 	protected static final Logger LOG = Logger.getLogger( Master.class.getName() );
 	
 	private static List<GameMaster> gameMasters = new ArrayList<GameMaster>();
+	private static int gmUniqueId = 0;
 	private static GameMaster currentGameMaster = null;
 	private static MapCreator mapCreator;
 	
@@ -30,13 +31,15 @@ public class Master {
 		reaper();
 		if (currentGameMaster == null) {
 			LogHelper.setDefaultOptions(LOG);
-			currentGameMaster = new GameMaster(mapCreator.getMap(), gameMasters.size());
+			currentGameMaster = new GameMaster(mapCreator.getMap(), gmUniqueId);
+			gmUniqueId++;
 			gameMasters.add(currentGameMaster);
 		}
 		if (currentGameMaster.newPlayerAllowed()) {
 			currentGameMaster.newPlayerMayCauseStart(interfaceWithUser);
 		} else {
-			currentGameMaster = new GameMaster(mapCreator.getMap(), gameMasters.size());
+			currentGameMaster = new GameMaster(mapCreator.getMap(), gmUniqueId);
+			gmUniqueId++;
 			gameMasters.add(currentGameMaster);
 			currentGameMaster.newPlayerMayCauseStart(interfaceWithUser);
 		}
