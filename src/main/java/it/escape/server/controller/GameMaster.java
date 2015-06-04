@@ -74,6 +74,8 @@ public class GameMaster implements Runnable {
 
 	private final static int WAIT_TIMEOUT = GlobalSettings.getGameMasterTimeout();
 	
+	private final static int USERID_RANDOMIZE = 10000;
+	
 	public final static int MAXPLAYERS = 8;
 	public final static int MINPLAYERS = 2;
 	private int numPlayers = 0;
@@ -140,7 +142,7 @@ public class GameMaster implements Runnable {
 	
 	/* The interface is used to find the right UMR.*/
 	private void addNewPlayer(MessagingChannel interfaceWithUser) {
-		Player newP = createPlayer("Guest-" + id + "-" + numPlayers);  // create the player
+		Player newP = createPlayer("Guest-" + id + "-" + new Random().nextInt(USERID_RANDOMIZE));  // create the player
 		AsyncUserListener listener = new AsyncUserListener(newP, announcer);
 		listOfPlayers.add(newP);  // add him to our players list
 		map.addNewPlayer(newP, newP.getTeam());  // tell the map to place our player
