@@ -26,7 +26,7 @@ public class Relay {
 	}
 	
 	public boolean checkCardsFormat(String message) {
-		List<String> cardnames = new ArrayList<String>(Arrays.asList("teleport", "lights", "sedatives", "adrenaline"));
+		List<String> cardnames = new ArrayList<String>(Arrays.asList("attack", "defense", "teleport", "lights", "sedatives", "adrenaline"));
 		if (cardnames.contains(message)) {
 			return true;
 		}

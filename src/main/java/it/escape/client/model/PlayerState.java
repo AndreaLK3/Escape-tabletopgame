@@ -10,8 +10,6 @@ public class PlayerState {
 	
 	public PlayerState() {
 		objectCards = new ArrayList<String>();
-		addCard("Attack");
-		addCard("Teleport");
 	}
 	
 	public void addCard(String cardName) {
