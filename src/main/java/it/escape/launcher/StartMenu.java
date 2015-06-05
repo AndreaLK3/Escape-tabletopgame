@@ -1,7 +1,8 @@
 package it.escape.launcher;
 
-import it.escape.CliParser;
+import it.escape.GlobalSettings;
 import it.escape.client.Graphics.ImageAutoFit;
+import it.escape.launcher.menucontroller.ActionAcceptNewPortNumber;
 import it.escape.launcher.menucontroller.ActionQuit;
 import it.escape.launcher.menucontroller.ActionSetNetMode;
 import it.escape.launcher.menucontroller.ActionSetUserExperience;
@@ -18,13 +19,19 @@ import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
 import java.awt.event.WindowEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
+/**
+ * The view of our mini MVC, initialize and show the graphic interface, as well as
+ * LauncherState (the model) and the various ActionListeners (the controller)
+ * @author michele
+ *
+ */
 public class StartMenu extends JFrame implements StartMenuInterface {
 
 	private static final long serialVersionUID = 1L;
@@ -73,6 +80,10 @@ public class StartMenu extends JFrame implements StartMenuInterface {
    			net.addActionListener(new ActionSetNetMode(state));
    		JComboBox<String> ui = setCBox(experience);
    			ui.addActionListener(new ActionSetUserExperience(state));
+   		setLabelBeforeTextField("Port:");
+   		JTextField portno = setTextField("" + GlobalSettings.getServerPort());
+   		JButton acceptPort = setAcceptButton();
+   			acceptPort.addActionListener(new ActionAcceptNewPortNumber(portno));
    		JButton quit = setButton(2);
    			quit.addActionListener(new ActionQuit());
 	}
@@ -87,6 +98,7 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		c.gridy = 0;
+		c.gridwidth = 3;
 		c.ipady = 0;
 		c.weightx = 1;
 		c.weighty = 1;	
@@ -111,6 +123,7 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = growMenu;
+		c.gridwidth = 3;
 		c.ipady = 0;
 		c.weightx = 1;
 		c.weighty = 0;
@@ -126,6 +139,7 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = growMenu;
+		c.gridwidth = 3;
 		c.ipady = 0;
 		c.weightx = 1;
 		c.weighty = 0;
@@ -133,6 +147,57 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		add(box,c);
 		growMenu += 1;
 		return box;
+	}
+	
+	private JLabel setLabelBeforeTextField(String value) {
+		JLabel lab = new JLabel(value);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = growMenu;
+		c.gridwidth = 1;
+		c.ipady = 0;
+		c.weightx = 0.2;
+		c.weighty = 0;
+		
+		add(lab,c);
+		growMenu += 1;
+		
+		return lab;
+	}
+	
+	private JTextField setTextField(String value) {
+		JTextField text = new JTextField(value);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = growMenu-1;
+		c.gridwidth = 1;
+		c.ipady = 0;
+		c.weightx = 1;
+		c.weighty = 0;
+		
+		add(text,c);
+		growMenu += 1;
+		
+		return text;
+	}
+	
+	private JButton setAcceptButton() {
+		JButton bt = new JButton("Accept");
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 2;
+		c.gridy = growMenu-2;
+		c.gridwidth = 1;
+		c.ipady = 0;
+		c.weightx = 1;
+		c.weighty = 0;
+		
+		add(bt,c);
+		growMenu += 1;
+		
+		return bt;
 	}
 	
 	public void tbiMessage() {

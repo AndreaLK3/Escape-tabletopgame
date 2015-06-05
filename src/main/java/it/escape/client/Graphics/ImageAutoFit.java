@@ -37,7 +37,6 @@ public class ImageAutoFit implements Runnable {
 			label.setHorizontalAlignment(JLabel.CENTER);
 			oldX = label.getWidth();
 			oldY = label.getHeight();
-			System.out.println("refitted to " + oldX + "x" + oldY);
 		}
 	}
 

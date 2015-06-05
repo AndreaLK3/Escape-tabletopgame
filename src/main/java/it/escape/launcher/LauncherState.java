@@ -24,5 +24,4 @@ public class LauncherState {
 		this.uiMode = uiMode;
 	}
 	
-	
 }

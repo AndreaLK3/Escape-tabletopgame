@@ -1,5 +1,7 @@
 package it.escape.client;
 
+import it.escape.GlobalSettings;
+
 import java.io.*;
 import java.net.*;
 import java.util.NoSuchElementException;
@@ -9,7 +11,7 @@ import java.util.Scanner;
 
 public class ClientSocketInterface extends Observable implements Runnable {
 	
-	private final static int PORTNUMBER = 1331;
+	private final static int PORTNUMBER = GlobalSettings.getServerPort();
 	
 	private final String SERVERIP;
 	
