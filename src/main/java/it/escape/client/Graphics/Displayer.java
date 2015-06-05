@@ -42,6 +42,7 @@ public class Displayer extends JFrame
 	private JTextArea statusArea;
 	private JTextArea lastNoiseArea;
 	private Icon map;
+	int currentRow = 2;
    	
    	public Displayer(String string) {
    		super(string);
@@ -55,33 +56,45 @@ public class Displayer extends JFrame
 		setVisible(true);
    	}
    	
+   	private void initializePanels() {
+   		
+		JPanel panel[] = new JPanel[8];
+		for (int x=0; x < 8 ; x++) {
+			createPlayerStatusPanels(panel[x]);
+		}
+			
+   	}
    	
-	private void initializePanels() {
-		JPanel panel1 = new JPanel();
+   	
+	private void createPlayerStatusPanels(JPanel panel) {
+			
+			panel = new JPanel();
+			panel.setLayout(new FlowLayout());
 		
-		panel1.setLayout(new FlowLayout());
+			playerArea = new JTextArea();
+			playerArea.setEditable(false);
+			playerArea.setText("Giocatore 1\n");
+			playerArea.setVisible(true);
+			panel.add(playerArea);
 		
-		playerArea = new JTextArea();
-		playerArea.setEditable(false);
-		playerArea.setText("Giocatore 1\n");
-		playerArea.setVisible(true);
-		panel1.add(playerArea);
+			statusArea = new JTextArea();
+			statusArea.setEditable(false);
+			statusArea.setText("Alive\n");
+			panel.add(statusArea);
 		
-		statusArea = new JTextArea();
-		statusArea.setEditable(false);
-		statusArea.setText("Alive\n");
-		panel1.add(statusArea);
+			lastNoiseArea = new JTextArea();
+			lastNoiseArea.setEditable(false);
+			lastNoiseArea.setText("C5\n");
+			panel.add(lastNoiseArea);
 		
-		lastNoiseArea = new JTextArea();
-		lastNoiseArea.setEditable(false);
-		lastNoiseArea.setText("Alive\n");
-		panel1.add(lastNoiseArea);
+			constraints.fill = GridBagConstraints.BOTH;
+			constraints.weightx = 1;
+			constraints.gridx = 0;
+			constraints.gridy = currentRow;
+			currentRow++;
+			add(panel,constraints);
+			resetConstraints(constraints);
 		
-		constraints.fill = GridBagConstraints.BOTH;
-		constraints.gridx = 0;
-		constraints.gridy = 2;
-		add(panel1,constraints);
-	    resetConstraints(constraints);
 	}
 
 
@@ -96,36 +109,33 @@ public class Displayer extends JFrame
 	constraints.gridwidth = GridBagConstraints.REMAINDER;
     add(label1,constraints);
     resetConstraints(constraints);
-	
+
+    JPanel labelsPanel = new JPanel();
+    
+    labelsPanel.setLayout(new FlowLayout());
+    
 	label2 = new JLabel("Players");
 	label2.setBackground(new Color(200, 100, 200));
-	constraints.fill = GridBagConstraints.HORIZONTAL;
+	labelsPanel.add(label2);
+	
+	
+	label3 = new JLabel("Status");
+	label3.setBackground(new Color(200, 100, 20));
+	labelsPanel.add(label3);
+	
+	
+	label4 = new JLabel("LastNoise");
+	label4.setBackground(new Color(50, 100, 200));
+	labelsPanel.add(label4);
+	
 	constraints.gridx = 0;
 	constraints.gridy = 1;
 	constraints.weightx = 0;
 	constraints.weighty = 0;
-	add(label2,constraints);
+	add(labelsPanel,constraints);
 	resetConstraints(constraints);
 	
-	label3 = new JLabel("Status");
-	label3.setBackground(new Color(200, 100, 20));
-	constraints.fill = GridBagConstraints.HORIZONTAL;
-	constraints.gridx = 1;
-	constraints.gridy = 1;
-	constraints.weightx = 0;
-	constraints.weighty = 0;
-	add(label3,constraints);
-	resetConstraints(constraints);
 	
-	label4 = new JLabel("LastNoise");
-	label4.setBackground(new Color(50, 100, 200));
-	constraints.fill = GridBagConstraints.HORIZONTAL;
-	constraints.gridx = 2;
-	constraints.gridy = 1;
-	constraints.weightx = 0;
-	constraints.weighty = 0;
-	add(label4,constraints);
-	resetConstraints(constraints);
 	
 	label5 = new JLabel();
 	Icon map = new ImageIcon(ImageScaler.resizeImage("resources/galilei.jpg", 1000, 1000));
@@ -138,7 +148,7 @@ public class Displayer extends JFrame
 	constraints.weightx = 1;
 	constraints.weighty = 1;
 	constraints.gridwidth = 1;
-	constraints.gridheight = 2;
+	constraints.gridheight = 9;
 	constraints.anchor = GridBagConstraints.CENTER;
 	add(mapScrollPane, constraints);
 	resetConstraints(constraints);
