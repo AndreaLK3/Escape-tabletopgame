@@ -26,6 +26,12 @@ public class ServerShutdownHook implements Runnable {
 	public void run() {
 		LOG.info("Running server shutdown hook.");
 		Master.stopAll();
+		/*
+		 * For some reasons, JVM closes the loggers halfway through,
+		 * so this message is necessary to diagnose the correct
+		 * execution of the shutdown sequence
+		 */
+		System.out.println("Shutdown sequence completed");
 	}
 
 }
