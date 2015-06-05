@@ -2,6 +2,7 @@ package it.escape.launcher;
 
 import it.escape.GlobalSettings;
 import it.escape.client.Graphics.ImageAutoFit;
+import it.escape.client.Graphics.ImageScaler;
 import it.escape.launcher.menucontroller.ActionAcceptNewPortNumber;
 import it.escape.launcher.menucontroller.ActionQuit;
 import it.escape.launcher.menucontroller.ActionSetNetMode;
@@ -19,6 +20,8 @@ import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
 import java.awt.event.WindowEvent;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -36,12 +39,19 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 
 	private static final long serialVersionUID = 1L;
 	
+	private static final int ICON_SIZE = 24;
+	
 	private GridBagConstraints c;
 	
 	private String[] buttons = {
 			StringRes.getString("launcher.button.client"),
 			StringRes.getString("launcher.button.server"),
 			StringRes.getString("launcher.button.quit")};
+	
+	private String[] icons = {
+			"resources/artwork/launcher/icon-play.png",
+			"resources/artwork/launcher/icon-server.png",
+			"resources/artwork/launcher/icon-quit.png"};
 	
 	private String[] netmodes = {
 			StringRes.getString("launcher.option.netmode.socket"),
@@ -66,7 +76,7 @@ public class StartMenu extends JFrame implements StartMenuInterface {
    		createMenu();
    		
    		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-   		setSize(400, 440);
+   		setSize(400, 450);
    		setLocationRelativeTo(null);
 		setVisible(true);
    	}
@@ -83,7 +93,7 @@ public class StartMenu extends JFrame implements StartMenuInterface {
    			ui.addActionListener(new ActionSetUserExperience(state));
    		setLabelBeforeTextField("Port:");
    		JTextField portno = setTextField("" + GlobalSettings.getServerPort());
-   		JButton acceptPort = setAcceptButton();
+   		JButton acceptPort = setAcceptButton("Change port number");
    			acceptPort.addActionListener(new ActionAcceptNewPortNumber(portno));
    		JButton quit = setButton(2);
    			quit.addActionListener(new ActionQuit());
@@ -94,7 +104,7 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		top.setOpaque(true);
 		top.setBackground(new Color(0, 0, 0));
 		
-		new ImageAutoFit(top, "resources/artwork/splash-logo.jpg");
+		new ImageAutoFit(top, "resources/artwork/launcher/splash-logo.jpg");
 		
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
@@ -111,15 +121,24 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 	
 	private JButton setButton(int num) {
 		String name;
+		Icon icon = null;
 		
 		try {
 			name = buttons[num];
 		} catch (ArrayIndexOutOfBoundsException e) {
 			name = "default";
 		}
+
+		try {
+			icon = new ImageIcon(ImageScaler.resizeImage(icons[num], ICON_SIZE, ICON_SIZE));
+		} catch (ArrayIndexOutOfBoundsException e) {
+		}
 		
 		JButton bt = new JButton(name);
 		bt.setActionCommand(name);
+		if (icon != null) {
+			bt.setIcon(icon);
+		}
 		//bt.setBackground(new Color(255, 0, 0));
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
@@ -184,8 +203,8 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		return text;
 	}
 	
-	private JButton setAcceptButton() {
-		JButton bt = new JButton("Accept");
+	private JButton setAcceptButton(String label) {
+		JButton bt = new JButton(label);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 2;
