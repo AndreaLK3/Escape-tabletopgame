@@ -4,14 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.Box;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -20,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 
@@ -40,10 +38,19 @@ public class Displayer extends JFrame
 	private JLabel label7;
 	private JLabel label8;
 	private JLabel label9;
-	JScrollPane mapScrollPane;
+	private JScrollPane mapScrollPane;
 	
-	JPanel playerPanels[] = new JPanel[MAXPLAYERS];
-
+	private JTextField nameField;
+	private JTextArea statusArea;
+	private JTextArea teamArea;
+	private JTextField chatField;
+	
+	
+	PlayerStatusPanel playerPanels[] = new PlayerStatusPanel[MAXPLAYERS];
+	
+	NameListener myNameListener = new NameListener();
+	ChatListener myChatListener = new ChatListener();
+	
 	private Icon map;
 	int currentRow = 1;
    	
@@ -55,8 +62,10 @@ public class Displayer extends JFrame
    		constraints = new GridBagConstraints();
    		
    		initializeGeneralLabels();
+   		initializeMap();
    		initializeGeneralSidePanels();
    		initializePersonalPanels();
+   		addChatPanel();
    		setLabelsOpaque();
    		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    		setSize(800, 600);
@@ -94,6 +103,11 @@ public class Displayer extends JFrame
 		addSidePanel(panel);
 		
 	
+	
+	}
+	
+	private void initializeMap() {
+
 		label5 = new JLabel();
 		Icon map = new ImageIcon(ImageScaler.resizeImage("resources/galilei.jpg", 1000, 1000));
 		label5.setIcon(map);
@@ -105,10 +119,11 @@ public class Displayer extends JFrame
 		constraints.weightx = 1;
 		constraints.weighty = 1;
 		constraints.gridwidth = 1;
-		constraints.gridheight = 9;
+		constraints.gridheight = 11;
 		constraints.anchor = GridBagConstraints.CENTER;
 		add(mapScrollPane, constraints);
 		resetConstraints(constraints);
+		
 	}
 	
 	
@@ -123,9 +138,61 @@ public class Displayer extends JFrame
    	}
    	
    	private void initializePersonalPanels() {
+	
+   		JPanel panel = new JPanel();
 		
+		label6 = new JLabel("MyName");
+		label6.setBackground(new Color(20, 100, 20));
+		
+		label7 = new JLabel("Status");
+		label7.setBackground(new Color(200, 100, 20));
+		
+		label8 = new JLabel("Team");
+		label8.setBackground(new Color(50, 100, 200));
+		panel = createRowPanel(Arrays.asList(label6, label7, label8));
+		addSidePanel(panel);
+		
+		
+		nameField = new JTextField("Enter your name in this field");
+		nameField.addActionListener(myNameListener);
+		
+		statusArea = new JTextArea("Status");
+		statusArea.setEditable(false);
+		
+		teamArea = new JTextArea("Team");
+		teamArea.setEditable(false);
+		
+		panel = createRowPanel(Arrays.asList(nameField, statusArea, teamArea));
+		addSidePanel(panel);
 		
 	}
+   	
+   	private void addChatPanel() {
+   		label9 = new JLabel("Chat");
+		label9.setBackground(new Color(150, 100, 150));
+		
+		chatField = new JTextField("You can write chat messages here");
+		chatField.addActionListener(myChatListener);
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		constraints.fill = GridBagConstraints.NONE;
+		panel.add(label9, constraints);
+		
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		constraints.weightx = 1;
+		constraints.weighty = 1;
+		constraints.fill = GridBagConstraints.BOTH;
+		panel.add(chatField, constraints);
+		
+		resetConstraints(constraints);
+		addSidePanel(panel);
+		
+   	}
    	
    	/**This method adds a panel to the area on the left side. note: It doesn't specify the Panel layout.
    	 * @param panel 	 */
@@ -153,6 +220,7 @@ public class Displayer extends JFrame
 		for (JComponent c : components) {
 			constraints.gridx=column;
 			constraints.gridy=0;
+			constraints.weightx = 1;
 			panel.add(c, constraints);
 			column++;
 			resetConstraints(constraints);
@@ -176,12 +244,29 @@ public class Displayer extends JFrame
 	}
 	
 	private void setLabelsOpaque() {
-		List<JLabel> labelsList = Arrays.asList(label1,label2,label3,label4,label5);
+		List<JLabel> labelsList = Arrays.asList(label1,label2,label3,label4,label5, label6, label7, label8, label9);
 		   for (JLabel l : labelsList){
 			   l.setOpaque(true);
 			}
 	}
+	
+	
+	/** TODO Implement updating (either using a method call or the Observer pattern)
+	 * We could also define another class that updates the elements inside this one that need
+	 * to be updated*/
+	public void updateView() {
+		
+	}
 
+	
+	private PlayerStatusPanel findPlayerPanel(String playerName) {
+		for (PlayerStatusPanel p : playerPanels) {
+			if (playerName == p.getPlayer())
+				return p;
+		}
+		return null;
+			
+	}
    	
    	public static void main( String[] args )
     {
