@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.Box;
@@ -21,6 +22,7 @@ public class LabelFrame extends JFrame
 {
    	private static final long serialVersionUID = 1L;
    	
+   	private GridBagConstraints constraints;
    	
    	private JLabel label1;
 	private JLabel label2;
@@ -31,7 +33,8 @@ public class LabelFrame extends JFrame
    	
    	public LabelFrame(String string) {
    		super(string);
-   		setLayout(new BorderLayout());
+   		setLayout(new GridBagLayout());
+   		constraints = new GridBagConstraints();
    		
    		initializeLabels();
    		initializeTextAreas();
@@ -53,8 +56,8 @@ public class LabelFrame extends JFrame
 		
 	label1 = new JLabel("Escape from the Aliens in Outer Space");
 	label1.setBackground(new Color(248, 213, 131));
-    label1.setVerticalAlignment(SwingConstants.TOP);
-    add(label1, BorderLayout.NORTH);
+    
+    add(label1);
 	
 	label2 = new JLabel("Players");
 	label2.setBackground(new Color(200, 100, 200));
