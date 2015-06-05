@@ -28,6 +28,7 @@ public class LabelFrame extends JFrame
    	private JLabel label1;
 	private JLabel label2;
 	private JLabel label3;
+	private JLabel label4;
 	JScrollPane mapScrollPane;
 	private JTextArea area1;
 	private Icon map;
@@ -60,19 +61,23 @@ public class LabelFrame extends JFrame
 		
 	label1 = new JLabel("Escape from the Aliens in Outer Space");
 	label1.setBackground(new Color(248, 213, 131));
+	label1.setHorizontalAlignment(SwingConstants.CENTER);
 	constraints.fill = GridBagConstraints.BOTH;
 	constraints.gridx = 0;
 	constraints.gridy = 0;
-	
+	constraints.gridwidth = GridBagConstraints.REMAINDER;
     add(label1,constraints);
+    resetConstraints(constraints);
 	
 	label2 = new JLabel("Players");
 	label2.setBackground(new Color(200, 100, 200));
 	constraints.fill = GridBagConstraints.HORIZONTAL;
 	constraints.gridx = 0;
 	constraints.gridy = 1;
+	constraints.weightx = 0;
+	constraints.weighty = 0;
 	add(label2,constraints);
-
+	resetConstraints(constraints);
 	
 	label3 = new JLabel();
 	Icon map = new ImageIcon(ImageScaler.resizeImage("resources/galilei.jpg", 1000, 1000));
@@ -82,20 +87,44 @@ public class LabelFrame extends JFrame
 	constraints.fill = GridBagConstraints.BOTH;
 	constraints.gridx = 1;
 	constraints.gridy = 1;
-	constraints.weightx = 1;	
+	constraints.weightx = 1;
+	constraints.weighty = 1;
 	constraints.anchor = GridBagConstraints.CENTER;
 	add(mapScrollPane, constraints);
-    
+	resetConstraints(constraints);
+	
+	label4 = new JLabel("Status");
+	label4.setBackground(new Color(90, 100, 200));
+	constraints.fill = GridBagConstraints.HORIZONTAL;
+	constraints.gridx = 0;
+	constraints.gridy = 1;
+	add(label4,constraints);
+	resetConstraints(constraints);
    
     label1.setOpaque(true);
     label2.setOpaque(true);
     label3.setOpaque(true);
+    label4.setOpaque(true);
  
    
 
 	}
    	
 	
+	private void addLabelsOnRow(){
+		
+	}
+	
+	private void resetConstraints(GridBagConstraints constraints) {
+		constraints.fill = GridBagConstraints.NONE;
+		constraints.weightx = 0;
+		constraints.weighty = 0;
+		constraints.gridwidth = 1;	
+		constraints.gridheight = 1;
+		constraints.ipadx = 0;
+		constraints.ipady = 0;
+		constraints.anchor = GridBagConstraints.CENTER;
+	}
    	
    	
    	public static void main( String[] args )
