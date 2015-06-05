@@ -66,7 +66,8 @@ public class StartMenu extends JFrame implements StartMenuInterface {
    		createMenu();
    		
    		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-   		setSize(400, 400);
+   		setSize(400, 440);
+   		setLocationRelativeTo(null);
 		setVisible(true);
    	}
 	
