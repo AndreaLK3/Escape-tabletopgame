@@ -78,7 +78,7 @@ public class LabelFrame extends JFrame
 	Icon map = new ImageIcon(ImageScaler.resizeImage("resources/galilei.jpg", 1000, 1000));
 	label3.setIcon(map);
 	mapScrollPane = new JScrollPane(label3);
-	mapScrollPane.setPreferredSize(new Dimension(400,400));
+	mapScrollPane.setPreferredSize(new Dimension(400,400)); 
 	constraints.fill = GridBagConstraints.BOTH;
 	constraints.gridx = 1;
 	constraints.gridy = 1;
