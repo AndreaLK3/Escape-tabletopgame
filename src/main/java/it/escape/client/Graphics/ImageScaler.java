@@ -1,5 +1,7 @@
 package it.escape.client.Graphics;
 
+import it.escape.utils.FilesHelper;
+
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -19,7 +21,7 @@ public class ImageScaler {
 	private static BufferedImage readPictureAsBufferedImage (String filename) {
 		BufferedImage image = null;
 		try {
-			image = ImageIO.read(Thread.currentThread().getContextClassLoader().getResource(filename));
+			image = ImageIO.read(FilesHelper.getResourceFile(filename));
 		} catch (IOException e) {
 			e.getMessage();
 			return null;

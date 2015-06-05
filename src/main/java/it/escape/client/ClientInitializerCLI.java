@@ -3,12 +3,12 @@ package it.escape.client;
 import it.escape.client.controller.Relay;
 import it.escape.client.controller.StateManager;
 import it.escape.client.controller.Updater;
-import it.escape.client.view.Terminal;
+import it.escape.client.view.cli.Terminal;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
 
-public class ClientInitializer {
+public class ClientInitializerCLI {
 	
 	private static ClientSocketInterface connection;
 	

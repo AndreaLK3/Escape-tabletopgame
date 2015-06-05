@@ -2,7 +2,7 @@ package it.escape.client.controller;
 
 import it.escape.client.MessageCarrier;
 import it.escape.client.model.PlayerState;
-import it.escape.client.view.Terminal;
+import it.escape.client.view.cli.Terminal;
 import it.escape.strings.FormatToPattern;
 import it.escape.strings.StringRes;
 

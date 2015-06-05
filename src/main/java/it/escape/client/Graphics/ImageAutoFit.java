@@ -26,11 +26,15 @@ public class ImageAutoFit implements Runnable {
 		new Thread(this).start();
 	}
 	
+	private void getRatio() {
+		
+	}
 	
 	private void update() {
 		if (label.getWidth() != oldX || label.getHeight() != oldY) {
-			icon = new ImageIcon(ImageScaler.resizeImage(image, label.getWidth(), label.getHeight()));
+			icon = new ImageIcon(ImageScaler.resizeImage(image, label.getWidth(), -1));
 			label.setIcon(icon);
+			label.setHorizontalAlignment(JLabel.CENTER);
 			oldX = label.getWidth();
 			oldY = label.getHeight();
 			System.out.println("refitted to " + oldX + "x" + oldY);

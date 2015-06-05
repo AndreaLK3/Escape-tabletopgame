@@ -1,4 +1,4 @@
-package it.escape.client.view;
+package it.escape.client.view.cli;
 
 import it.escape.client.DisconnectedCallbackInterface;
 import it.escape.client.controller.Relay;

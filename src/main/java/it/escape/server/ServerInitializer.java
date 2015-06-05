@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 /**The class that is used to start the Server*/
-public class Initializer {
+public class ServerInitializer {
 	
-	protected static final Logger log = Logger.getLogger( Initializer.class.getName() );
+	protected static final Logger log = Logger.getLogger( ServerInitializer.class.getName() );
 	
 	private Server server;
 
-	public Initializer() {
+	public ServerInitializer() {
 		try {
 			MapCreator mapCreator = new MapCreator("resources/Galilei.json");
 			Master.setMapCreator(mapCreator);
@@ -35,6 +35,6 @@ public class Initializer {
 
 	public static void main(String[] args) {
 		new CliParser(args).parse();
-		new Initializer();
+		new ServerInitializer();
 	}
 }
