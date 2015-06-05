@@ -57,7 +57,7 @@
 		      <configuration>
 		        <archive>
 		          <manifest>
-		            <mainClass>fully.qualified.MainClass</mainClass>
+		            <mainClass>it.escape.launcher.StartMenu</mainClass>
 		          </manifest>
 		        </archive>
 		        <descriptorRefs>
