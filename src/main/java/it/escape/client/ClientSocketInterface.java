@@ -17,7 +17,7 @@ public class ClientSocketInterface extends Observable implements Runnable {
 	
 	private Scanner in;
 	
-	private PrintStream out;
+	private PrintStream out; 
 	
 	private Socket clientSocket;
 	
