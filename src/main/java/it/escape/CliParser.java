@@ -1,4 +1,4 @@
-package it.escape.server;
+package it.escape;
 
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
@@ -26,7 +26,10 @@ public class CliParser {
 			);
 	
 	// options in the format "-switch"
-	private List<String> singleOptions = Arrays.asList();
+	private List<String> singleOptions = Arrays.asList(
+			StringRes.getString("cliparser.option.long.textclient"),
+			StringRes.getString("cliparser.option.long.textserver")
+			);
 
 	public CliParser(String[] arrayOptions) {
 		LogHelper.setDefaultOptions(LOG);
@@ -51,7 +54,11 @@ public class CliParser {
 	}
 	
 	private void processSwitch(String opt) {
-		
+		if (opt.equals(StringRes.getString("cliparser.option.long.textclient"))) {
+			GlobalSettings.setStartInTextClient(true);
+		} else if (opt.equals(StringRes.getString("cliparser.option.long.textserver"))) {
+			GlobalSettings.setStartInTextServer(true);
+		}
 	}
 	
 	private void parseCouples() {

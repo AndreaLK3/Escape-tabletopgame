@@ -1,4 +1,4 @@
-package it.escape.server;
+package it.escape;
 
 import it.escape.utils.LogHelper;
 
@@ -21,6 +21,9 @@ public class GlobalSettings {
 	
 	private static int GameMasterTimeout = 60000;
 
+	private static boolean StartInTextClient = false;
+	
+	private static boolean StartInTextServer = false;
 	
 	private static void setLog() {
 		if (!logSet) {
@@ -47,6 +50,22 @@ public class GlobalSettings {
 		setLog();
 		LOG.finer("Setting GameMasterTimeout to " + gameMasterTimeout + " (default: " + GameMasterTimeout + ")");
 		GameMasterTimeout = gameMasterTimeout;
+	}
+
+	public static boolean isStartInTextClient() {
+		return StartInTextClient;
+	}
+
+	public static void setStartInTextClient(boolean startInTextClient) {
+		StartInTextClient = startInTextClient;
+	}
+
+	public static boolean isStartInTextServer() {
+		return StartInTextServer;
+	}
+
+	public static void setStartInTextServer(boolean startInTextServer) {
+		StartInTextServer = startInTextServer;
 	}
 	
 	

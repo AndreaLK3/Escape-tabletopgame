@@ -1,6 +1,6 @@
 package it.escape.server.view;
 
-import it.escape.server.GlobalSettings;
+import it.escape.GlobalSettings;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
 

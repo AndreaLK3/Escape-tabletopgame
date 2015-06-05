@@ -57,7 +57,7 @@
 		      <configuration>
 		        <archive>
 		          <manifest>
-		            <mainClass>it.escape.launcher.StartMenu</mainClass>
+		            <mainClass>it.escape.MainEntryPoint</mainClass>
 		          </manifest>
 		        </archive>
 		        <descriptorRefs>
