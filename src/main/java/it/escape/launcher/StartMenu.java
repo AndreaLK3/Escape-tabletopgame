@@ -2,39 +2,53 @@ package it.escape.launcher;
 
 import it.escape.client.Graphics.ImageAutoFit;
 import it.escape.launcher.menucontroller.ActionQuit;
+import it.escape.launcher.menucontroller.ActionSetNetMode;
+import it.escape.launcher.menucontroller.ActionSetUserExperience;
+import it.escape.launcher.menucontroller.ActionStartClient;
+import it.escape.launcher.menucontroller.ActionStartServer;
+import it.escape.launcher.menucontroller.StartMenuInterface;
+import it.escape.server.CliParser;
 import it.escape.strings.StringRes;
 
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
-public class StartMenu extends JFrame {
+public class StartMenu extends JFrame implements StartMenuInterface {
 
 	private static final long serialVersionUID = 1L;
-	GridBagConstraints c;
+	
+	private GridBagConstraints c;
 	
 	private String[] buttons = {
-			"Start client",
-			"Start server",
+			StringRes.getString("launcher.button.client"),
+			StringRes.getString("launcher.button.server"),
 			StringRes.getString("launcher.button.quit")};
 	
 	private String[] netmodes = {
-			StringRes.getString("launche.option.netmode.socket"),
-			"RMI"};
+			StringRes.getString("launcher.option.netmode.socket"),
+			StringRes.getString("launcher.option.netmode.RMI")};
 	
-	private String[] experience = {"Graphical","Textual"};
+	private String[] experience = {
+			StringRes.getString("launcher.option.experience.graphical"),
+			StringRes.getString("launcher.option.experience.textual")};
 	
 	private int growMenu;
 	
+	private LauncherState state;
+	
 	public StartMenu(String string) {
    		super(string);
+   		state = new LauncherState();
    		setLayout(new GridBagLayout());
    		c = new GridBagConstraints();
    		
@@ -49,12 +63,16 @@ public class StartMenu extends JFrame {
 	
 	private void createMenu() {
 		setTopImage();
-   		setButton(0);
-   		setButton(1);
-   		setCBox(netmodes);
-   		setCBox(experience);
+   		JButton client = setButton(0);
+   			client.addActionListener(new ActionStartClient(state, this));
+   		JButton server = setButton(1);
+   			server.addActionListener(new ActionStartServer(state, this));
+   		JComboBox<String> net = setCBox(netmodes);
+   			net.addActionListener(new ActionSetNetMode(state));
+   		JComboBox<String> ui = setCBox(experience);
+   			ui.addActionListener(new ActionSetUserExperience(state));
    		JButton quit = setButton(2);
-   		quit.addActionListener(new ActionQuit());
+   			quit.addActionListener(new ActionQuit());
 	}
 
 	private JLabel setTopImage() {
@@ -115,8 +133,23 @@ public class StartMenu extends JFrame {
 		return box;
 	}
 	
-	public static void main( String[] args )
-    {
+	public void tbiMessage() {
+		JOptionPane.showMessageDialog(null,
+		    "This feature is currently *not* implemented",
+		    "Oops!",
+		    JOptionPane.WARNING_MESSAGE);
+	}
+	
+	public void closeMenu() {
+		this.setVisible(false);
+	}
+	
+	public void closeProgram() {
+		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+	}
+	
+	public static void main( String[] args ) {
+		new CliParser(args).parse();
 		EventQueue.invokeLater(
 			new Runnable() {
 				public void run() {

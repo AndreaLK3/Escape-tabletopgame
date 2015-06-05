@@ -32,9 +32,4 @@ public class ServerInitializer {
 		log.severe(message);
 		throw new AssertionError();
 	}
-
-	public static void main(String[] args) {
-		new CliParser(args).parse();
-		new ServerInitializer();
-	}
 }

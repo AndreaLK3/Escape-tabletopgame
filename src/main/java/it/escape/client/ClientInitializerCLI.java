@@ -20,7 +20,7 @@ public class ClientInitializerCLI {
 	
 	private static Terminal view;
 	
-	public static void main(String[] args) {
+	public static void start() {
 		String ipaddress = "127.0.0.1";
 		try {
 			connection = new ClientSocketInterface(ipaddress);
