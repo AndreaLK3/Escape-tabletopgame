@@ -13,9 +13,9 @@ public class Terminal implements DisconnectedCallbackInterface {
 	
 	private boolean running = true;
 	
-	private  Scanner in = new Scanner(System.in);
+	private Scanner in;
 	
-	private PrintStream out = System.out;
+	private PrintStream out;
 	
 	private Relay relayRef;
 	
@@ -25,7 +25,9 @@ public class Terminal implements DisconnectedCallbackInterface {
 	
 	private String prompt;
 	
-	public Terminal (Relay relay, StateManager stateManager) {
+	public Terminal (Relay relay, StateManager stateManager, Scanner in, PrintStream out) {
+		this.in = in;
+		this.out = out;
 		this.relayRef = relay;
 		this.stateManager = stateManager;
 	}
@@ -130,7 +132,7 @@ public class Terminal implements DisconnectedCallbackInterface {
 	
 	public void visualizeMessage(String message) {
 		cleanPromptAndPrint(message);
-		//printPrompt();  // re-create the prompt string
+		printPrompt();  // re-create the prompt string
 	}
 
 	public void disconnected() {
