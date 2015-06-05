@@ -23,6 +23,7 @@ public class LabelFrame extends JFrame
    	private static final long serialVersionUID = 1L;
    	
    	private GridBagConstraints constraints;
+   	//private int currentRow=0, currentColumn=0;
    	
    	private JLabel label1;
 	private JLabel label2;
@@ -37,7 +38,7 @@ public class LabelFrame extends JFrame
    		constraints = new GridBagConstraints();
    		
    		initializeLabels();
-   		initializeTextAreas();
+   		//initializeTextAreas();
    		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    		setSize(800, 600);
 		setVisible(true);
@@ -45,9 +46,12 @@ public class LabelFrame extends JFrame
    	
    	
 	private void initializeTextAreas() {
-		area1 = new JTextArea("Prova\n");
+		area1 = new JTextArea("Giocatore1\n");
 		area1.setEditable(false);
-		add(area1, BorderLayout.WEST);
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		add(area1, constraints);
 	}
 
 
@@ -56,12 +60,18 @@ public class LabelFrame extends JFrame
 		
 	label1 = new JLabel("Escape from the Aliens in Outer Space");
 	label1.setBackground(new Color(248, 213, 131));
-    
-    add(label1);
+	constraints.fill = GridBagConstraints.BOTH;
+	constraints.gridx = 0;
+	constraints.gridy = 0;
+	
+    add(label1,constraints);
 	
 	label2 = new JLabel("Players");
 	label2.setBackground(new Color(200, 100, 200));
-	add(label2);
+	constraints.fill = GridBagConstraints.HORIZONTAL;
+	constraints.gridx = 0;
+	constraints.gridy = 1;
+	add(label2,constraints);
 
 	
 	label3 = new JLabel();
@@ -69,7 +79,12 @@ public class LabelFrame extends JFrame
 	label3.setIcon(map);
 	mapScrollPane = new JScrollPane(label3);
 	mapScrollPane.setPreferredSize(new Dimension(400,400));
-	add(mapScrollPane, BorderLayout.EAST);
+	constraints.fill = GridBagConstraints.BOTH;
+	constraints.gridx = 1;
+	constraints.gridy = 1;
+	constraints.weightx = 1;	
+	constraints.anchor = GridBagConstraints.CENTER;
+	add(mapScrollPane, constraints);
     
    
     label1.setOpaque(true);
