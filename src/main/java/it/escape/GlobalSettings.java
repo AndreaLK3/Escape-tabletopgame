@@ -17,7 +17,7 @@ public class GlobalSettings {
 	private static final Logger LOG = Logger.getLogger( GlobalSettings.class.getName() );
 	private static boolean logSet = false;
 	
-	private static int ServerPort = 1331;
+	private static int ServerPort = 1337;
 	
 	private static int GameMasterTimeout = 60000;
 
