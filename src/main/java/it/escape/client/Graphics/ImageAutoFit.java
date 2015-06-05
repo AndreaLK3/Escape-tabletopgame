@@ -26,10 +26,6 @@ public class ImageAutoFit implements Runnable {
 		new Thread(this).start();
 	}
 	
-	private void getRatio() {
-		
-	}
-	
 	private void update() {
 		if (label.getWidth() != oldX || label.getHeight() != oldY) {
 			icon = new ImageIcon(ImageScaler.resizeImage(image, label.getWidth(), -1));

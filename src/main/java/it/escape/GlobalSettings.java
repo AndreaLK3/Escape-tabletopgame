@@ -25,6 +25,8 @@ public class GlobalSettings {
 	
 	private static boolean StartInTextServer = false;
 	
+	private static String DestinationServerAddress = "localhost";
+	
 	private static void setLog() {
 		if (!logSet) {
 			logSet = true;
@@ -66,6 +68,16 @@ public class GlobalSettings {
 
 	public static void setStartInTextServer(boolean startInTextServer) {
 		StartInTextServer = startInTextServer;
+	}
+
+	public static String getDestinationServerAddress() {
+		return DestinationServerAddress;
+	}
+
+	public static void setDestinationServerAddress(
+			String destinationServerAddress) {
+		LOG.finer("Setting DestinationServerAddress to " + destinationServerAddress + " (default: " + DestinationServerAddress + ")");
+		DestinationServerAddress = destinationServerAddress;
 	}
 	
 	

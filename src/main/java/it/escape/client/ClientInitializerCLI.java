@@ -1,12 +1,15 @@
 package it.escape.client;
 
+import it.escape.GlobalSettings;
 import it.escape.client.controller.Relay;
 import it.escape.client.controller.StateManager;
 import it.escape.client.controller.Updater;
 import it.escape.client.view.cli.Terminal;
+import it.escape.strings.StringRes;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 public class ClientInitializerCLI {
 	
@@ -21,9 +24,9 @@ public class ClientInitializerCLI {
 	private static Terminal view;
 	
 	public static void start() {
-		String ipaddress = "127.0.0.1";
+		enterServerAddress();
 		try {
-			connection = new ClientSocketInterface(ipaddress);
+			connection = new ClientSocketInterface(GlobalSettings.getDestinationServerAddress());
 			stateManager = new StateManager();
 			relay = new Relay(connection);
 			view = new Terminal(relay, stateManager);
@@ -38,5 +41,17 @@ public class ClientInitializerCLI {
 		} catch (IOException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
+	}
+	
+	private static void enterServerAddress() {
+		Scanner in = new Scanner(System.in);
+		System.out.println(String.format(
+				StringRes.getString("client.text.enterServerAddress"),
+				GlobalSettings.getDestinationServerAddress()));
+		String input = in.nextLine();
+		if (!"".equals(input)) {
+			GlobalSettings.setDestinationServerAddress(input);
+		}
+		in.close();
 	}
 }
