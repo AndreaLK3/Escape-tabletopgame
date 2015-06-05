@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class Master {
 	
-	protected static final Logger LOG = Logger.getLogger( Master.class.getName() );
+	private static final Logger LOG = Logger.getLogger( Master.class.getName() );
 	
 	private static List<GameMaster> gameMasters = new ArrayList<GameMaster>();
 	private static int gmUniqueId = 0;
@@ -92,4 +92,14 @@ public class Master {
 		}
 	}
 	
+	/**
+	 * Order all the gamemasters to instantly stop the
+	 * current game, disconnect all users, and terminate.
+	 */
+	public static void stopAll() {
+		reaper();
+		for (GameMaster gm : gameMasters) {
+			gm.instaStopGame();
+		}
+	}
 }

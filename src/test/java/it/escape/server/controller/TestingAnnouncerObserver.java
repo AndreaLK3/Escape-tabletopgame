@@ -1,9 +1,9 @@
 package it.escape.server.controller;
 
-import it.escape.server.model.game.Announcer;
-
 import java.util.Observable;
 import java.util.Observer;
+
+import it.escape.server.model.game.Announcer;
 
 public class TestingAnnouncerObserver implements Observer {
 	

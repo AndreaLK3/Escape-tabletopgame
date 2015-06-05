@@ -71,6 +71,8 @@ public class GameMaster implements Runnable {
 	private boolean gameRunning;
 	
 	private boolean gameFinished;
+	
+	private Thread ownThread;
 
 	private final static int WAIT_TIMEOUT = GlobalSettings.getGameMasterTimeout();
 	
@@ -166,7 +168,8 @@ public class GameMaster implements Runnable {
 	 */
 	private synchronized void gameStartLogic() {
 		if (numPlayers >= GameMaster.MINPLAYERS) {
-			new Thread(this).start();
+			ownThread = new Thread(this);
+			ownThread.start();
 		} else if (numPlayers >= GameMaster.MAXPLAYERS) {
 			notify();
 		}
@@ -179,24 +182,37 @@ public class GameMaster implements Runnable {
 	 * @param player
 	 */
 	public void handlePlayerDisconnect(Player player) {
-		announcer.announcePlayerDisconnected(player);
-		if (!isRunning()) {
-			listOfPlayers.remove(player);
-		}
-		else {
-			player.setUserIdle(true);
-			if (getNumActivePlayers() < GameMaster.MINPLAYERS) {
-				LOG.info("Too few players left. Terminating game.");
-				this.timeController.extraordinaryGameKill();
-			} else if (victoryChecker.entireTeamDisconnected()) {
-				LOG.info("Team disconnected. Terminating game.");
-				this.timeController.extraordinaryGameKill();
+		if (!isFinished()) {
+			announcer.announcePlayerDisconnected(player);
+			if (!isRunning()) {
+				listOfPlayers.remove(player);
+			}
+			else {
+				player.setUserIdle(true);
+				if (getNumActivePlayers() < GameMaster.MINPLAYERS) {
+					LOG.info("Too few players left. Terminating game.");
+					this.timeController.extraordinaryGameKill();
+				} else if (victoryChecker.entireTeamDisconnected()) {
+					LOG.info("Team disconnected. Terminating game.");
+					this.timeController.extraordinaryGameKill();
+				}
 			}
 		}
-	
 	}
 	
-	
+	/**
+	 * Instantly terminate the running game.
+	 * Invoked by Master
+	 */
+	public void instaStopGame() {
+		LOG.info("Terminating game now!");
+		this.timeController.extraordinaryGameKill();
+		try {
+			ownThread.join();  // wait for the thread to actually terminate
+		} catch (InterruptedException e) {
+		}
+		LOG.fine("Game terminated.");
+	}
 	
 	/** returns the number of players that are not currently idle / disconnected*/
 	private int getNumActivePlayers() {

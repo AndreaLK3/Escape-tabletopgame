@@ -40,6 +40,7 @@ public class Server implements ConnectionUnregisterInterface{
 	 */
 	private Server() throws IOException {
 		LogHelper.setDefaultOptions(log);
+		Runtime.getRuntime().addShutdownHook(new Thread(new ServerShutdownHook()));
 		this.serverSocket = new ServerSocket(PORT);
 		log.info("Server is now listening on port " + PORT);
 	}
