@@ -1,5 +1,11 @@
 package it.escape.client.controller;
 
+/**This class contains:
+ * 1) the variable TurnInputState currentState, 
+ * to keep track of what the turn is asking the user to do.
+ * 2) The methods to set the currentState,
+ * 3) The variable myTurn (true/false)
+ * */
 public class StateManager {
 
 	private TurnInputStates currentState;  // input required

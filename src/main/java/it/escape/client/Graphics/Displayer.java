@@ -18,7 +18,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 
-public class LabelFrame extends JFrame
+public class Displayer extends JFrame
 {
    	private static final long serialVersionUID = 1L;
    	
@@ -33,7 +33,7 @@ public class LabelFrame extends JFrame
 	private JTextArea area1;
 	private Icon map;
    	
-   	public LabelFrame(String string) {
+   	public Displayer(String string) {
    		super(string);
    		setLayout(new GridBagLayout());
    		constraints = new GridBagConstraints();
@@ -110,9 +110,18 @@ public class LabelFrame extends JFrame
 
 	}
    	
-	
-	private void addLabelsOnRow(){
-		
+	/**Add a label 
+	 * @param label
+	 * @param row
+	 */
+	private void addLabelOnRow(JLabel label, int row){
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 0;
+		constraints.gridy = row;
+		constraints.weightx = 0;
+		constraints.weighty = 0;
+		add(label2,constraints);
+		resetConstraints(constraints);
 	}
 	
 	private void resetConstraints(GridBagConstraints constraints) {
@@ -132,7 +141,7 @@ public class LabelFrame extends JFrame
 		EventQueue.invokeLater(
 				new Runnable() {
 					public void run() {
-						LabelFrame playerFrame = new LabelFrame("Escape from the Aliens in Outer Space");
+						Displayer playerFrame = new Displayer("Escape from the Aliens in Outer Space");
 				
 					}
 				}

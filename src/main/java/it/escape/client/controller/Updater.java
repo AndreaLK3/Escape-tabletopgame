@@ -11,6 +11,10 @@ import java.util.Observer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**This class Observes the MessageCarrier, that receives Strings from the Connection.
+ * This class checks if the messages sent by the Server correspond
+ * to one of the given patterns; if they do, the TurnInputState is set.
+ */
 public class Updater implements Observer {
 	
 	private StateManager stateRef;

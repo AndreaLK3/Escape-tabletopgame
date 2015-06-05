@@ -9,6 +9,13 @@ import it.escape.client.ClientSocketInterface;
 import it.escape.strings.FormatToPattern;
 import it.escape.strings.StringRes;
 
+/**This class contains the methods to check the format of the messages,
+ * according to the type of input requested, such as 
+ * checkCardsFormat(String s), checkYesNoFormat(String s).
+ * Moreover:
+ * The method relayMessage(String message) gives the connection the order to send a message.
+ * The method disconnectNow() gives the connection the order to terminate.
+ */
 public class Relay {
 	
 	private ClientSocketInterface communication;

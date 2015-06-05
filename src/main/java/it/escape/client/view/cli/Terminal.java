@@ -130,7 +130,7 @@ public class Terminal implements DisconnectedCallbackInterface {
 	
 	public void visualizeMessage(String message) {
 		cleanPromptAndPrint(message);
-		printPrompt();  // re-create the prompt string
+		//printPrompt();  // re-create the prompt string
 	}
 
 	public void disconnected() {
