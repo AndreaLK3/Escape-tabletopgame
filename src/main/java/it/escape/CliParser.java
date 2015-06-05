@@ -22,7 +22,8 @@ public class CliParser {
 	// options in the format "-key parameter"
 	private List<String> doubleOptions = Arrays.asList(
 			StringRes.getString("cliparser.option.long.gmtimeout"),
-			StringRes.getString("cliparser.option.long.serverport")
+			StringRes.getString("cliparser.option.long.serverport"),
+			StringRes.getString("cliparser.option.long.defaultserver")
 			);
 	
 	// options in the format "-switch"
@@ -82,6 +83,8 @@ public class CliParser {
 			GlobalSettings.setGameMasterTimeout(Integer.parseInt(value));
 		} else if (key.equals(StringRes.getString("cliparser.option.long.serverport"))) {
 			GlobalSettings.setServerPort(Integer.parseInt(value));
+		} else if (key.equals(StringRes.getString("cliparser.option.long.defaultserver"))) {
+			GlobalSettings.setDestinationServerAddress(value);
 		}
 	}
 }
