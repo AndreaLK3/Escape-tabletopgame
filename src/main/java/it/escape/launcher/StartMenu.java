@@ -1,5 +1,6 @@
 package it.escape.launcher;
 
+import it.escape.CliParser;
 import it.escape.client.Graphics.ImageAutoFit;
 import it.escape.launcher.menucontroller.ActionQuit;
 import it.escape.launcher.menucontroller.ActionSetNetMode;
@@ -7,13 +8,14 @@ import it.escape.launcher.menucontroller.ActionSetUserExperience;
 import it.escape.launcher.menucontroller.ActionStartClient;
 import it.escape.launcher.menucontroller.ActionStartServer;
 import it.escape.launcher.menucontroller.StartMenuInterface;
-import it.escape.server.CliParser;
 import it.escape.strings.StringRes;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.HeadlessException;
 import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
@@ -148,8 +150,13 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
 	
-	public static void main( String[] args ) {
-		new CliParser(args).parse();
+	public static void launch() throws HeadlessException {
+		
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment(); 
+		if (ge.isHeadless()) {
+			throw new HeadlessException();
+		}
+		
 		EventQueue.invokeLater(
 			new Runnable() {
 				public void run() {
