@@ -16,8 +16,13 @@ public class PlayerState {
 		objectCards.add(cardName);
 	}
 	
+	/** This method returns a copy of the original list, not a reference to it.*/
 	public List<String> getObjectCards() {
-		return objectCards;
+		List<String> objectCardsCopy = new ArrayList<String>();
+		for (String s : objectCards) {
+			objectCardsCopy.add(s);
+		}
+		return objectCardsCopy;
 	}
 
 
