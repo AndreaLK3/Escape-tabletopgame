@@ -143,7 +143,7 @@ public class EventsFrame extends JFrame {
 				message = introduceName.concat(event.getActionCommand());
 			}
 			if (event.getSource() == showCardsButton) {
-				message = cardsWillGoHere;
+				//JOptionPane.
 			}
 	
 			JOptionPane.showMessageDialog(null, message);
