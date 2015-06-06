@@ -229,7 +229,7 @@ public class Displayer extends JFrame
    	 * @param panel 	 */
    	private void addSidePanel(JPanel panel) {
    		constraints.fill = GridBagConstraints.BOTH;
-		constraints.weightx = 1;
+		constraints.weightx = 0.4;
 		constraints.gridx = 0;
 		constraints.gridy = currentRow;
 		currentRow++;
