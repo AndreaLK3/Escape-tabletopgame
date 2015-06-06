@@ -1,11 +1,13 @@
 package it.escape.launcher.menucontroller;
 
 import it.escape.client.ClientInitializerCLI;
+import it.escape.client.Graphics.Displayer;
 import it.escape.launcher.LauncherState;
 import it.escape.strings.StringRes;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class ActionStartClient implements ActionListener {
 	
@@ -38,10 +40,27 @@ public class ActionStartClient implements ActionListener {
 			}
 			
 		} else if (ui.equals(StringRes.getString("launcher.option.experience.graphical"))) {
-			startMenu.tbiMessage();
+			if (net.equals(StringRes.getString("launcher.option.netmode.socket"))) {
+				startSockGUIClient();
+			} else if (net.equals(StringRes.getString("launcher.option.netmode.RMI"))) {
+				startMenu.tbiMessage();
+			} else {
+				startMenu.tbiMessage();
+			}
 		} else {
 			startMenu.tbiMessage();
 		}
+	}
+	
+	private void startSockGUIClient() {
+		new Thread(
+				new Runnable() {
+					@Override
+					public void run() {
+						String param[] = {""};
+						Displayer.main(param);
+					}}).start();
+		startMenu.closeMenu();
 	}
 
 	private void startSockTextClient() {
