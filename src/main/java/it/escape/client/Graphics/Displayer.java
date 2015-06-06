@@ -1,5 +1,7 @@
 package it.escape.client.Graphics;
 
+import it.escape.server.model.game.exceptions.BadJsonFileException;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -7,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -114,9 +117,14 @@ public class Displayer extends JFrame
 	/** Creation method: the map, on the upper right part of the screen*/
 	private void initializeMap() {
 
-		label5 = new JLabel();
+		/*label5 = new JLabel();
 		Icon map = new ImageIcon(ImageScaler.resizeImage("resources/galilei.jpg", 1000, 1000));
-		label5.setIcon(map);
+		label5.setIcon(map);*/
+		try {
+			label5 = new MapViewer();
+		} catch (BadJsonFileException | IOException e) {
+			label5 = new JLabel("Error loading map file");
+		}
 		mapScrollPane = new JScrollPane(label5);
 		mapScrollPane.setPreferredSize(new Dimension(400,400)); 
 		constraints.fill = GridBagConstraints.BOTH;
