@@ -117,13 +117,12 @@ public class Displayer extends JFrame
 	/** Creation method: the map, on the upper right part of the screen*/
 	private void initializeMap() {
 
-		/*label5 = new JLabel();
-		Icon map = new ImageIcon(ImageScaler.resizeImage("resources/galilei.jpg", 1000, 1000));
-		label5.setIcon(map);*/
 		try {
 			label5 = new MapViewer();
-		} catch (BadJsonFileException | IOException e) {
-			label5 = new JLabel("Error loading map file");
+		} catch (BadJsonFileException e) {
+			label5 = new JLabel("Bad json map file");
+		} catch (IOException e) {
+			label5 = new JLabel("Cannot open map file");
 		}
 		mapScrollPane = new JScrollPane(label5);
 		mapScrollPane.setPreferredSize(new Dimension(400,400)); 
