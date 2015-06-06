@@ -8,7 +8,9 @@ import it.escape.launcher.menucontroller.ActionSetNetMode;
 import it.escape.launcher.menucontroller.ActionSetUserExperience;
 import it.escape.launcher.menucontroller.ActionStartClient;
 import it.escape.launcher.menucontroller.ActionStartServer;
+import it.escape.launcher.menucontroller.LauncherLocalSettings;
 import it.escape.launcher.menucontroller.StartMenuInterface;
+import it.escape.launcher.menucontroller.StartSubsystemsInterface;
 import it.escape.strings.StringRes;
 
 import java.awt.Color;
@@ -38,7 +40,9 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 
 	private static final long serialVersionUID = 1L;
 	
-	private GlobalSettings locals;
+	private LauncherLocalSettings locals;
+	
+	private StartSubsystemsInterface starter;
 	
 	private static final int ICON_SIZE = 24;
 	
@@ -66,9 +70,10 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 	
 	private LauncherState state;
 	
-	public StartMenu(String string, GlobalSettings locals) {
+	public StartMenu(String string, LauncherLocalSettings locals, StartSubsystemsInterface starter) {
    		super(string);
    		this.locals = locals;
+   		this.starter = starter;
    		state = new LauncherState();
    		setLayout(new GridBagLayout());
    		c = new GridBagConstraints();
@@ -237,11 +242,15 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
 	
-	public GlobalSettings getLocalSettings() {
+	public LauncherLocalSettings getLocalSettings() {
 		return locals;
 	}
 	
-	public static void launch(final GlobalSettings locals) throws HeadlessException {
+	public StartSubsystemsInterface getStarter() {
+		return starter;
+	}
+	
+	public static void launch(final LauncherLocalSettings locals, final StartSubsystemsInterface starter) throws HeadlessException {
 
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment(); 
 		if (ge.isHeadless()) {
@@ -251,7 +260,7 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		EventQueue.invokeLater(
 			new Runnable() {
 				public void run() {
-					StartMenu menu = new StartMenu("Escape from the Aliens in Outer Space", locals);
+					StartMenu menu = new StartMenu("Escape from the Aliens in Outer Space", locals, starter);
 				}
 			});
 	}

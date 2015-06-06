@@ -1,9 +1,10 @@
 package it.escape;
 
 import it.escape.client.ClientInitializerCLI;
-import it.escape.launcher.CliParser;
-import it.escape.launcher.GlobalSettings;
+import it.escape.client.Graphics.Displayer;
 import it.escape.launcher.StartMenu;
+import it.escape.launcher.menucontroller.StartMenuInterface;
+import it.escape.launcher.menucontroller.StartSubsystemsInterface;
 import it.escape.server.ServerInitializer;
 import it.escape.strings.StringRes;
 
@@ -17,7 +18,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class MainEntryPoint {
+public class MainEntryPoint implements StartSubsystemsInterface {
 	
 	private static PrintStream out = System.out;
 	
@@ -35,6 +36,11 @@ public class MainEntryPoint {
 		
 		new CliParser(args).parse(globals);
 		
+		new MainEntryPoint();
+		
+	}
+	
+	private MainEntryPoint() {
 		if (globals.isStartInTextClient()) {
 			ClientInitializerCLI.start(globals);
 		} else if (globals.isStartInTextServer()) {
@@ -42,7 +48,7 @@ public class MainEntryPoint {
 		} else {
 			try {
 				lookAndFeel();
-				StartMenu.launch(globals);
+				StartMenu.launch(globals, this);
 			} catch (HeadlessException e) {
 				out.println(String.format(
 						StringRes.getString("launcher.warn.headless"),
@@ -50,7 +56,6 @@ public class MainEntryPoint {
 						StringRes.getString("cliparser.option.long.textserver")));
 			}
 		}
-		
 	}
 	
 	private static void lookAndFeel() {
@@ -75,6 +80,39 @@ public class MainEntryPoint {
 		} catch (UnsupportedLookAndFeelException e) {
 			out.println("Error setting look and feel.");
 		}
+	}
+
+	@Override
+	public void startTextSocketClient(final StartMenuInterface startMenu) {
+		new Thread(
+			new Runnable() {
+				@Override
+				public void run() {
+					ClientInitializerCLI.start(globals);
+					startMenu.closeProgram();
+				}}).start();
+	}
+
+	@Override
+	public void startTextSocketServer(final StartMenuInterface startMenu) {
+		new Thread(
+			new Runnable() {
+				@Override
+				public void run() {
+					new ServerInitializer(globals);
+					startMenu.closeProgram();
+				}}).start();
+	}
+
+	@Override
+	public void startGUISocketClient() {
+		new Thread(
+			new Runnable() {
+				@Override
+				public void run() {
+					String param[] = {""};
+					Displayer.main(param);
+				}}).start();
 	}
 
 }

@@ -1,4 +1,4 @@
-package it.escape.launcher;
+package it.escape;
 
 import it.escape.client.ClientLocalSettings;
 import it.escape.launcher.menucontroller.LauncherLocalSettings;

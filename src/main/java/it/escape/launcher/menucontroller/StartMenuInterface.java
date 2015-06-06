@@ -1,6 +1,5 @@
 package it.escape.launcher.menucontroller;
 
-import it.escape.launcher.GlobalSettings;
 
 public interface StartMenuInterface {
 	
@@ -10,5 +9,7 @@ public interface StartMenuInterface {
 	
 	public void closeProgram();
 	
-	public GlobalSettings getLocalSettings();
+	public LauncherLocalSettings getLocalSettings();
+	
+	public StartSubsystemsInterface getStarter();
 }

@@ -1,6 +1,5 @@
 package it.escape.launcher.menucontroller;
 
-import it.escape.server.ServerInitializer;
 import it.escape.strings.StringRes;
 
 import java.awt.event.ActionEvent;
@@ -29,7 +28,8 @@ public class ActionStartServer implements ActionListener {
 		String net = launcherState.getNetMode();
 		if (ui.equals(StringRes.getString("launcher.option.experience.textual"))) {
 			if (net.equals(StringRes.getString("launcher.option.netmode.socket"))) {
-				startSockTextServer();
+				startMenu.getStarter().startTextSocketServer(startMenu);
+				startMenu.closeMenu();
 			} else if (net.equals(StringRes.getString("launcher.option.netmode.RMI"))) {
 				startMenu.tbiMessage();
 			} else {
@@ -41,16 +41,5 @@ public class ActionStartServer implements ActionListener {
 		} else {
 			startMenu.tbiMessage();
 		}
-	}
-
-	private void startSockTextServer() {
-		new Thread(
-				new Runnable() {
-					@Override
-					public void run() {
-						new ServerInitializer(startMenu.getLocalSettings());
-						startMenu.closeProgram();
-					}}).start();
-		startMenu.closeMenu();
 	}
 }

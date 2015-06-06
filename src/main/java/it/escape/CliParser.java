@@ -1,4 +1,4 @@
-package it.escape.launcher;
+package it.escape;
 
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;

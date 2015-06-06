@@ -1,6 +1,6 @@
 package it.escape.server.controller;
 
-import it.escape.launcher.GlobalSettings;
+import it.escape.GlobalSettings;
 import it.escape.server.ServerLocalSettings;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.model.game.Announcer;

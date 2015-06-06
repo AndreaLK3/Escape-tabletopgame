@@ -1,7 +1,7 @@
 package it.escape.server.controller;
 
 import static org.junit.Assert.assertEquals;
-import it.escape.launcher.GlobalSettings;
+import it.escape.GlobalSettings;
 import it.escape.server.MapCreator;
 import it.escape.server.Master;
 import it.escape.server.model.game.players.Player;
