@@ -1,4 +1,4 @@
-package it.escape;
+package it.escape.launcher;
 
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
@@ -19,6 +19,8 @@ public class CliParser {
 	
 	private List<String> rawOptions;
 	
+	private GlobalSettings globals;
+	
 	// options in the format "-key parameter"
 	private List<String> doubleOptions = Arrays.asList(
 			StringRes.getString("cliparser.option.long.gmtimeout"),
@@ -37,7 +39,8 @@ public class CliParser {
 		this.rawOptions = new ArrayList<String>(Arrays.asList(arrayOptions));
 	}
 	
-	public void parse() {
+	public void parse(GlobalSettings globals) {
+		this.globals = globals;
 		LOG.finer("Parsing command line parameters");
 		parseSingles();
 		parseCouples();
@@ -56,9 +59,9 @@ public class CliParser {
 	
 	private void processSwitch(String opt) {
 		if (opt.equals(StringRes.getString("cliparser.option.long.textclient"))) {
-			GlobalSettings.setStartInTextClient(true);
+			globals.setStartInTextClient(true);
 		} else if (opt.equals(StringRes.getString("cliparser.option.long.textserver"))) {
-			GlobalSettings.setStartInTextServer(true);
+			globals.setStartInTextServer(true);
 		}
 	}
 	
@@ -80,11 +83,11 @@ public class CliParser {
 	
 	private void processKeyValue(String key, String value) {
 		if (key.equals(StringRes.getString("cliparser.option.long.gmtimeout"))) {
-			GlobalSettings.setGameMasterTimeout(Integer.parseInt(value));
+			globals.setGameMasterTimeout(Integer.parseInt(value));
 		} else if (key.equals(StringRes.getString("cliparser.option.long.serverport"))) {
-			GlobalSettings.setServerPort(Integer.parseInt(value));
+			globals.setServerPort(Integer.parseInt(value));
 		} else if (key.equals(StringRes.getString("cliparser.option.long.defaultserver"))) {
-			GlobalSettings.setDestinationServerAddress(value);
+			globals.setDestinationServerAddress(value);
 		}
 	}
 }

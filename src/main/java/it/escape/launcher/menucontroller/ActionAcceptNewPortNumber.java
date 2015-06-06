@@ -1,7 +1,6 @@
 package it.escape.launcher.menucontroller;
 
-import it.escape.GlobalSettings;
-import it.escape.launcher.LauncherState;
+import it.escape.launcher.GlobalSettings;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,14 +13,17 @@ public class ActionAcceptNewPortNumber implements ActionListener {
 	
 	private JTextField field;
 	
+	private GlobalSettings locals;
+	
 	private Pattern validInt = Pattern.compile("[0-9]+");
 	
 	private static final int minimumPort = 1;
 	
 	private static final int maximumPort = 65535;
 
-	public ActionAcceptNewPortNumber(JTextField field) {
+	public ActionAcceptNewPortNumber(JTextField field, GlobalSettings locals) {
 		this.field = field;
+		this.locals = locals;
 	}
 	
 	@Override
@@ -33,14 +35,14 @@ public class ActionAcceptNewPortNumber implements ActionListener {
 				if (newPortInt < minimumPort || newPortInt > maximumPort) {
 					throw new NumberFormatException();
 				}
-				GlobalSettings.setServerPort(newPortInt);
+				locals.setServerPort(newPortInt);
 			} catch (NumberFormatException e1) {
 				outOfRange();
-				field.setText("" + GlobalSettings.getServerPort());
+				field.setText("" + locals.getServerPort());
 			}
 		} else {
 			invalidInt();
-			field.setText("" + GlobalSettings.getServerPort());
+			field.setText("" + locals.getServerPort());
 		}
 	}
 	

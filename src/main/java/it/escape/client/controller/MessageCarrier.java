@@ -1,4 +1,4 @@
-package it.escape.client;
+package it.escape.client.controller;
 
 import java.util.Observable;
 

@@ -1,6 +1,6 @@
 package it.escape.server.view;
 
-import it.escape.GlobalSettings;
+import it.escape.server.ServerLocalSettings;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
 
@@ -15,18 +15,20 @@ import java.util.logging.Logger;
 /**This class handles the creation of the TCP connections when the clients connect.
  * (n: We could make it a Singleton...)
  */
-public class Server implements ConnectionUnregisterInterface{
+public class Server implements ServerInterface{
 	
-	protected static final Logger log = Logger.getLogger( Server.class.getName() );
+	private static final Logger log = Logger.getLogger( Server.class.getName() );
+	
+	private ServerLocalSettings locals;
 	
 	private static Server serverInstance = null;
 	private static List<Connection> connections = new ArrayList<Connection>();
-	private static final int PORT = GlobalSettings.getServerPort();
+	private final int PORT;
 	private ServerSocket serverSocket;
 	
-	public static Server createServerInstance() throws IOException {
+	public static Server createServerInstance(ServerLocalSettings locals) throws IOException {
 		if (serverInstance == null) {
-			serverInstance = new Server();
+			serverInstance = new Server(locals);
 		}
 		return serverInstance;
 	}
@@ -38,8 +40,10 @@ public class Server implements ConnectionUnregisterInterface{
 	/**The constructor: it tries to initialize the ServerSocket at the given port.
 	 * @throws IOException
 	 */
-	private Server() throws IOException {
+	private Server(ServerLocalSettings locals) throws IOException {
 		LogHelper.setDefaultOptions(log);
+		this.locals = locals;
+		PORT = this.locals.getServerPort();
 		Runtime.getRuntime().addShutdownHook(new Thread(new ServerShutdownHook()));
 		this.serverSocket = new ServerSocket(PORT);
 		log.info("Server is now listening on port " + PORT);
@@ -57,6 +61,10 @@ public class Server implements ConnectionUnregisterInterface{
 				log.severe("Connection error!");
 			}
 		}
+	}
+	
+	public ServerLocalSettings getLocals() {
+		return locals;
 	}
 	
 	private synchronized void registerConnection(Connection c){

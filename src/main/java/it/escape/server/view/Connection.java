@@ -24,11 +24,11 @@ public class Connection implements Observer, Runnable {
 	
 	private MessagingChannel messagingInterface;
 	
-	private ConnectionUnregisterInterface server;
+	private ServerInterface server;
 	
 	private Announcer announcer;
 
-	public Connection(Socket clientSocket, ConnectionUnregisterInterface server) {
+	public Connection(Socket clientSocket, ServerInterface server) {
 		LogHelper.setDefaultOptions(log);
 		this.clientSocket = clientSocket;
 		this.running = true;
@@ -41,7 +41,7 @@ public class Connection implements Observer, Runnable {
 			// setup required objects for a player to work properly
 			messagingInterface = new SocketInterface(clientSocket);
 			UserMessagesReporter.createUMR(messagingInterface);
-			Master.newPlayerHasConnected(messagingInterface);
+			Master.newPlayerHasConnected(messagingInterface, server.getLocals());
 			announcer = UserMessagesReporter.getReporterInstance(messagingInterface).getAnnouncer();
 			announcer.addObserver(this);
 			

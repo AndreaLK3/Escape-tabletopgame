@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import it.escape.client.ClientSocketInterface;
 import it.escape.strings.FormatToPattern;
 import it.escape.strings.StringRes;
 
@@ -18,9 +17,9 @@ import it.escape.strings.StringRes;
  */
 public class Relay {
 	
-	private ClientSocketInterface communication;
+	private ClientSocketChannelInterface communication;
 
-	public Relay(ClientSocketInterface communication) {
+	public Relay(ClientSocketChannelInterface communication) {
 		this.communication = communication;
 	}
 	

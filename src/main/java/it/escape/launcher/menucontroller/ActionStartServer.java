@@ -49,7 +49,7 @@ public class ActionStartServer implements ActionListener {
 				new Runnable() {
 					@Override
 					public void run() {
-						new ServerInitializer();
+						new ServerInitializer(startMenu.getLocalSettings());
 						startMenu.closeProgram();
 					}}).start();
 		startMenu.closeMenu();

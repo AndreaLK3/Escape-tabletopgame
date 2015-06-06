@@ -1,7 +1,5 @@
 package it.escape.client.controller;
 
-import it.escape.client.MessageCarrier;
-import it.escape.client.model.PlayerState;
 import it.escape.client.view.cli.Terminal;
 import it.escape.strings.FormatToPattern;
 import it.escape.strings.StringRes;
@@ -15,11 +13,11 @@ import java.util.regex.Pattern;
  * This class checks if the messages sent by the Server correspond
  * to one of the given patterns; if they do, the TurnInputState is set.
  */
-public class Updater implements Observer {
+public class UpdaterCLI implements Observer {
 	
 	private StateManager stateRef;
 	
-	private Terminal view;
+	private UpdaterCLItoTerminalInterface view;
 	
 	private Pattern inputObjectCard;
 	private Pattern inputPosition;
@@ -28,7 +26,7 @@ public class Updater implements Observer {
 	private Pattern myTurnEnd;
 	
 	
-	public Updater(StateManager stateRef, Terminal view) {
+	public UpdaterCLI(StateManager stateRef, UpdaterCLItoTerminalInterface view) {
 		this.stateRef = stateRef;
 		this.view = view;
 		initPatterns();

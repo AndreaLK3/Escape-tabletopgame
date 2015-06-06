@@ -1,6 +1,5 @@
 package it.escape.launcher;
 
-import it.escape.GlobalSettings;
 import it.escape.client.Graphics.ImageAutoFit;
 import it.escape.client.Graphics.ImageScaler;
 import it.escape.launcher.menucontroller.ActionAcceptNewPortNumber;
@@ -39,6 +38,8 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 
 	private static final long serialVersionUID = 1L;
 	
+	private GlobalSettings locals;
+	
 	private static final int ICON_SIZE = 24;
 	
 	private GridBagConstraints c;
@@ -65,8 +66,9 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 	
 	private LauncherState state;
 	
-	public StartMenu(String string) {
+	public StartMenu(String string, GlobalSettings locals) {
    		super(string);
+   		this.locals = locals;
    		state = new LauncherState();
    		setLayout(new GridBagLayout());
    		c = new GridBagConstraints();
@@ -92,9 +94,9 @@ public class StartMenu extends JFrame implements StartMenuInterface {
    		JComboBox<String> ui = setCBox(experience);
    			ui.addActionListener(new ActionSetUserExperience(state));
    		setLabelBeforeTextField("Port:");
-   		JTextField portno = setTextField("" + GlobalSettings.getServerPort());
+   		JTextField portno = setTextField("" + locals.getServerPort());
    		JButton acceptPort = setAcceptButton("Change port number");
-   			acceptPort.addActionListener(new ActionAcceptNewPortNumber(portno));
+   			acceptPort.addActionListener(new ActionAcceptNewPortNumber(portno, locals));
    		JButton quit = setButton(2);
    			quit.addActionListener(new ActionQuit());
 	}
@@ -235,8 +237,12 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
 	
-	public static void launch() throws HeadlessException {
-		
+	public GlobalSettings getLocalSettings() {
+		return locals;
+	}
+	
+	public static void launch(final GlobalSettings locals) throws HeadlessException {
+
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment(); 
 		if (ge.isHeadless()) {
 			throw new HeadlessException();
@@ -245,7 +251,7 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		EventQueue.invokeLater(
 			new Runnable() {
 				public void run() {
-					StartMenu menu = new StartMenu("Escape from the Aliens in Outer Space");
+					StartMenu menu = new StartMenu("Escape from the Aliens in Outer Space", locals);
 				}
 			});
 	}

@@ -1,6 +1,8 @@
 package it.escape;
 
 import it.escape.client.ClientInitializerCLI;
+import it.escape.launcher.CliParser;
+import it.escape.launcher.GlobalSettings;
 import it.escape.launcher.StartMenu;
 import it.escape.server.ServerInitializer;
 import it.escape.strings.StringRes;
@@ -19,6 +21,8 @@ public class MainEntryPoint {
 	
 	private static PrintStream out = System.out;
 	
+	private static GlobalSettings globals = new GlobalSettings();
+	
 	private static String[] lafPreference = {
 			"javax.swing.plaf.nimbus.NimbusLookAndFeel",  // very nice
 			"com.sun.java.swing.plaf.gtk.GTKLookAndFeel",  // ok
@@ -29,16 +33,16 @@ public class MainEntryPoint {
 
 	public static void main(String[] args) {
 		
-		new CliParser(args).parse();
+		new CliParser(args).parse(globals);
 		
-		if (GlobalSettings.isStartInTextClient()) {
-			ClientInitializerCLI.start();
-		} else if (GlobalSettings.isStartInTextServer()) {
-			new ServerInitializer();
+		if (globals.isStartInTextClient()) {
+			ClientInitializerCLI.start(globals);
+		} else if (globals.isStartInTextServer()) {
+			new ServerInitializer(globals);
 		} else {
 			try {
 				lookAndFeel();
-				StartMenu.launch();
+				StartMenu.launch(globals);
 			} catch (HeadlessException e) {
 				out.println(String.format(
 						StringRes.getString("launcher.warn.headless"),

@@ -1,13 +1,13 @@
 package it.escape.server.controller;
 
 import static org.junit.Assert.assertEquals;
+import it.escape.launcher.GlobalSettings;
 import it.escape.server.MapCreator;
 import it.escape.server.Master;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.server.view.MessagingChannel;
 import it.escape.strings.StringRes;
-
 
 import java.util.List;
 
@@ -48,7 +48,7 @@ public class GameMasterTest {
 	private void simulateConnect(TestingAnnouncerObserver observer) {
 		MessagingChannel iface = new MessagingChannel();
 		UserMessagesReporter.createUMR(iface);
-		Master.newPlayerHasConnected(iface);
+		Master.newPlayerHasConnected(iface, new GlobalSettings());
 		Shorthand.announcer(iface).addObserver(observer);
 	}
 

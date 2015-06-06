@@ -1,6 +1,7 @@
 package it.escape.server.controller;
 
-import it.escape.GlobalSettings;
+import it.escape.launcher.GlobalSettings;
+import it.escape.server.ServerLocalSettings;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.model.game.Announcer;
 import it.escape.server.model.game.cards.DecksHandler;
@@ -73,8 +74,10 @@ public class GameMaster implements Runnable {
 	private boolean gameFinished;
 	
 	private Thread ownThread;
+	
+	private final ServerLocalSettings locals;
 
-	private final static int WAIT_TIMEOUT = GlobalSettings.getGameMasterTimeout();
+	private final int WAIT_TIMEOUT;
 	
 	private final static int USERID_RANDOMIZE = 10000;
 	
@@ -83,10 +86,12 @@ public class GameMaster implements Runnable {
 	private int numPlayers = 0;
 	
 	/** The constructor */
-	public GameMaster(MapActionInterface map, int id) {
+	public GameMaster(MapActionInterface map, int id, ServerLocalSettings locals) {
 		LogHelper.setDefaultOptions(LOG);
 		this.id = id;
 		this.map = map;
+		this.locals = locals;
+		WAIT_TIMEOUT = this.locals.getGameMasterTimeout();
 		decksHandler = new DecksHandler();
 		announcer = new Announcer();
 		listOfPlayers = new ArrayList<Player>();

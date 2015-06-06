@@ -25,20 +25,23 @@ public class Master {
 	private static int gmUniqueId = 0;
 	private static GameMaster currentGameMaster = null;
 	private static MapCreator mapCreator;
-	
+	private static ServerLocalSettings locals = null;
 		
-	public static void newPlayerHasConnected(MessagingChannel interfaceWithUser) {
+	public static void newPlayerHasConnected(MessagingChannel interfaceWithUser, ServerLocalSettings Locals) {
+		if (locals == null) {
+			locals = Locals;
+		}
 		reaper();
 		if (currentGameMaster == null) {
 			LogHelper.setDefaultOptions(LOG);
-			currentGameMaster = new GameMaster(mapCreator.getMap(), gmUniqueId);
+			currentGameMaster = new GameMaster(mapCreator.getMap(), gmUniqueId, locals);
 			gmUniqueId++;
 			gameMasters.add(currentGameMaster);
 		}
 		if (currentGameMaster.newPlayerAllowed()) {
 			currentGameMaster.newPlayerMayCauseStart(interfaceWithUser);
 		} else {
-			currentGameMaster = new GameMaster(mapCreator.getMap(), gmUniqueId);
+			currentGameMaster = new GameMaster(mapCreator.getMap(), gmUniqueId, locals);
 			gmUniqueId++;
 			gameMasters.add(currentGameMaster);
 			currentGameMaster.newPlayerMayCauseStart(interfaceWithUser);

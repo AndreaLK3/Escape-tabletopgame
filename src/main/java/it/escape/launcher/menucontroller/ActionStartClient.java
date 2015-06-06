@@ -7,7 +7,6 @@ import it.escape.strings.StringRes;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class ActionStartClient implements ActionListener {
 	
@@ -68,7 +67,7 @@ public class ActionStartClient implements ActionListener {
 				new Runnable() {
 					@Override
 					public void run() {
-						ClientInitializerCLI.start();
+						ClientInitializerCLI.start(startMenu.getLocalSettings());
 						startMenu.closeProgram();
 					}}).start();
 		startMenu.closeMenu();

@@ -1,19 +1,18 @@
 package it.escape.client;
 
-import it.escape.GlobalSettings;
+import it.escape.client.controller.ClientSocketChannelInterface;
+import it.escape.client.controller.MessageCarrier;
 
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.NoSuchElementException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
 
-public class ClientSocketInterface extends Observable implements Runnable {
-	
-	private final static int PORTNUMBER = GlobalSettings.getServerPort();
-	
-	private final String SERVERIP;
+public class ClientSocketChannel extends Observable implements Runnable, ClientSocketChannelInterface {
 	
 	private Scanner in;
 	
@@ -30,9 +29,8 @@ public class ClientSocketInterface extends Observable implements Runnable {
 	private DisconnectedCallbackInterface disconnectCallback;
 	
 	
-	public ClientSocketInterface(String ipAddress) throws UnknownHostException, IOException {
-		SERVERIP = ipAddress;
-		clientSocket = new Socket(SERVERIP, PORTNUMBER);
+	public ClientSocketChannel(String ipAddress, int port) throws UnknownHostException, IOException {
+		clientSocket = new Socket(ipAddress, port);
 		in = new Scanner(clientSocket.getInputStream());
 		out = new PrintStream(clientSocket.getOutputStream());
 		messaging = new MessageCarrier();

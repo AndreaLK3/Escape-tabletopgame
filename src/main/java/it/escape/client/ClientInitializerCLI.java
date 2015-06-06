@@ -1,10 +1,8 @@
 package it.escape.client;
 
-import it.escape.GlobalSettings;
 import it.escape.client.controller.Relay;
 import it.escape.client.controller.StateManager;
-import it.escape.client.controller.Updater;
-import it.escape.client.view.cli.Terminal;
+import it.escape.client.controller.UpdaterCLI;
 import it.escape.strings.StringRes;
 
 import java.io.IOException;
@@ -14,28 +12,33 @@ import java.util.Scanner;
 
 public class ClientInitializerCLI {
 	
-	private static ClientSocketInterface connection;
+	private static ClientSocketChannel connection;
 	
 	private static StateManager stateManager;
 	
 	private static Relay relay;
 	
-	private static Updater updater;
+	private static UpdaterCLI updater;
 	
-	private static Terminal view;
+	private static CLIAdapter view;
 	
 	private static Scanner in = new Scanner(System.in);
 	
 	private static PrintStream out = System.out;
 	
-	public static void start() {
+	private static ClientLocalSettings locals;
+	
+	public static void start(ClientLocalSettings Locals) {
+		locals = Locals;
 		enterServerAddress();
 		try {
-			connection = new ClientSocketInterface(GlobalSettings.getDestinationServerAddress());
+			connection = new ClientSocketChannel(
+					locals.getDestinationServerAddress(),
+					locals.getServerPort());
 			stateManager = new StateManager();
 			relay = new Relay(connection);
-			view = new Terminal(relay, stateManager, in, out);
-			updater = new Updater(stateManager, view);
+			view = new CLIAdapter(relay, stateManager, in, out);
+			updater = new UpdaterCLI(stateManager, view);
 			connection.bindDisconnCallback(view);
 			connection.addObserver(updater);
 			new Thread(connection).start();
@@ -51,10 +54,10 @@ public class ClientInitializerCLI {
 	private static void enterServerAddress() {
 		out.println(String.format(
 				StringRes.getString("client.text.enterServerAddress"),
-				GlobalSettings.getDestinationServerAddress()));
+				locals.getDestinationServerAddress()));
 		String input = in.nextLine();
 		if (!"".equals(input)) {
-			GlobalSettings.setDestinationServerAddress(input);
+			locals.setDestinationServerAddress(input);
 		}
 	}
 }
