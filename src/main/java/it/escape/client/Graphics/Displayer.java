@@ -1,5 +1,6 @@
 package it.escape.client.Graphics;
 
+import it.escape.client.controller.gui.MouseOnMapCell;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 
 import java.awt.BorderLayout;
@@ -124,6 +125,7 @@ public class Displayer extends JFrame
 		} catch (IOException e) {
 			label5 = new JLabel("Cannot open map file");
 		}
+		((MapViewer)label5).addCellListener(new MouseOnMapCell((MapViewer)label5));
 		mapScrollPane = new JScrollPane(label5);
 		mapScrollPane.setPreferredSize(new Dimension(400,400)); 
 		constraints.fill = GridBagConstraints.BOTH;

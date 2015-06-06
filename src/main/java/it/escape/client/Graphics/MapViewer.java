@@ -1,24 +1,31 @@
 package it.escape.client.Graphics;
 
+import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
-import it.escape.server.model.game.gamemap.loader.MapLoader;
-import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
-import it.escape.server.model.game.gamemap.positioning.Position2D;
-import it.escape.utils.FilesHelper;
 import it.escape.server.model.game.gamemap.Cell;
 import it.escape.server.model.game.gamemap.DangerousCell;
 import it.escape.server.model.game.gamemap.EscapeCell;
 import it.escape.server.model.game.gamemap.SafeCell;
 import it.escape.server.model.game.gamemap.StartingCell;
+import it.escape.server.model.game.gamemap.loader.MapLoader;
+import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
+import it.escape.server.model.game.gamemap.positioning.Position2D;
 import it.escape.server.model.game.players.PlayerTeams;
+import it.escape.utils.FilesHelper;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -40,21 +47,68 @@ public class MapViewer extends JLabel {
 	
 	private Image background = null;
 	
+	private Icon cellHighlight;
+	
+	private JLabel highlightOverlay;
+	
+	private MouseListener submitMouseAction;
+	
+	private List<MouseListener> cellListeners;
+	
 	public MapViewer(int cellWidth, int cellHeight) throws BadJsonFileException, IOException {
 		super();
 		this.cellWidth = cellWidth;
 		this.cellHeight = cellHeight;
 		initialize();
+		initMouseListener();
 		drawCells();
 	}
 	
 	public MapViewer() throws BadJsonFileException, IOException {
 		super();
 		initialize();
+		initMouseListener();
 		drawCells();
 	}
 	
+	private void initMouseListener() {
+		cellListeners = new ArrayList<MouseListener>();
+		submitMouseAction = new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				notifyClick(e);
+		    }
+			public void mouseEntered(MouseEvent e) {
+				notifyHover(e);
+			}
+			public void mouseExited(MouseEvent e) {
+				notifyLeave(e);
+			}
+		};
+	}
+	
+	private void notifyClick(MouseEvent e) {
+		for(MouseListener ml: cellListeners){
+		    ml.mouseClicked(e);
+		}
+	}
+	
+	private void notifyHover(MouseEvent e) {
+		for(MouseListener ml: cellListeners){
+		    ml.mouseEntered(e);
+		}
+	}
+	
+	private void notifyLeave(MouseEvent e) {
+		for(MouseListener ml: cellListeners){
+		    ml.mouseExited(e);
+		}
+	}
+	
 	private void initialize() throws BadJsonFileException, IOException {
+		cellHighlight = new ImageIcon(ImageScaler.resizeImage("resources/artwork/celle/highlight.png", cellWidth, cellHeight));
+		highlightOverlay = new JLabel(cellHighlight);
+		highlightOverlay.setVisible(false);
+		add(highlightOverlay);
 		background = ImageScaler.resizeImage("resources/artwork/map-background.png", backgroundTileSize, backgroundTileSize);
 		map = new MapLoader(FilesHelper.getResourceFile("resources/Galilei.json"));
 		Position2D mapsize = map.getMapSize();
@@ -75,51 +129,83 @@ public class MapViewer extends JLabel {
 			} else if (c instanceof DangerousCell) {
 				drawDangerousCell(coord[0], coord[1], CoordinatesConverter.fromCubicToAlphaNum(c.getPosition()));
 			} else if (c instanceof EscapeCell) {
-				drawEscapeCell(coord[0], coord[1], "" + (escapeFlag++));
+				drawEscapeCell(coord[0], coord[1], "" + (escapeFlag++), CoordinatesConverter.fromCubicToAlphaNum(c.getPosition()));
 			} else if (c instanceof StartingCell) {
 				StartingCell s = (StartingCell) c;
 				if (s.getType() == PlayerTeams.ALIENS) {
-					drawAlienStartingCell(coord[0], coord[1]);
+					drawAlienStartingCell(coord[0], coord[1], CoordinatesConverter.fromCubicToAlphaNum(c.getPosition()));
 				} else if (s.getType() == PlayerTeams.HUMANS) {
-					drawHumanStartingCell(coord[0], coord[1]);
+					drawHumanStartingCell(coord[0], coord[1], CoordinatesConverter.fromCubicToAlphaNum(c.getPosition()));
 				}
 			} 
 		}
 	}
 	
-	private void drawAlienStartingCell(int x, int y) {
-		JLabel label = new JLabel();
+	private void drawAlienStartingCell(int x, int y, String coord) {
+		MapCell label = new MapCell();
+		label.setCoord(coord);
 		drawCell(x,y,label,"resources/artwork/celle/partenza-alieni.png");
 	}
 	
-	private void drawHumanStartingCell(int x, int y) {
-		JLabel label = new JLabel();
+	private void drawHumanStartingCell(int x, int y, String coord) {
+		MapCell label = new MapCell();
+		label.setCoord(coord);
 		drawCell(x,y,label,"resources/artwork/celle/partenza-umani.png");
 	}
 	
-	private void drawEscapeCell(int x, int y, String name) {
-		JLabel label = new JLabel(name);
+	private void drawEscapeCell(int x, int y, String name, String coord) {
+		MapCell label = new MapCell(name);
 		label.setForeground(Color.WHITE);
+		label.setCoord(coord);
 		drawCell(x,y,label,"resources/artwork/celle/scialuppa.png");
 	}
 	
 	private void drawDangerousCell(int x, int y, String name) {
-		JLabel label = new JLabel(name);
+		MapCell label = new MapCell(name);
+		label.setCoord(name);
 		drawCell(x,y,label,"resources/artwork/celle/pericolosa.png");
 	}
 	
 	private void drawSafeCell(int x, int y, String name) {
-		JLabel label = new JLabel(name);
+		MapCell label = new MapCell(name);
+		label.setCoord(name);
 		drawCell(x,y,label,"resources/artwork/celle/sicura.png");
 	}
 	
-	private void drawCell(int x, int y, JLabel label, String image) {
+	private void drawCell(int x, int y, MapCell label, String image) {
 		label.setPreferredSize(new Dimension(cellWidth, cellHeight));
 		label.setHorizontalTextPosition(JLabel.CENTER);
 		label.setIcon(new ImageIcon(ImageScaler.resizeImage(image, cellWidth, cellHeight)));
+		label.addMouseListener(submitMouseAction);
 		placeAbsolute(x, y, label);
 	}
 	
+	public void highlightCell(String position) {
+		try {
+			int coord[] = cellToPixels(CoordinatesConverter.fromAlphaNumToOddq(position));
+			Insets insets = getInsets();
+			Dimension size = highlightOverlay.getPreferredSize();
+			highlightOverlay.setBounds(
+					coord[0] + insets.left,
+					coord[1] + insets.top,
+		            size.width,
+		            size.height);
+			highlightOverlay.setVisible(true);
+			repaint();
+		} catch (BadCoordinatesException e) {
+		}
+	}
+	
+	public void deHighlight() {
+		highlightOverlay.setVisible(false);
+	}
+	
+	/**
+	 * add a label by specifying its absolute coordinates
+	 * @param x
+	 * @param y
+	 * @param label
+	 */
 	private void placeAbsolute(int x, int y, JLabel label) {
 		add(label);
 		label.setOpaque(false);
@@ -132,6 +218,12 @@ public class MapViewer extends JLabel {
 	            size.height);
 	}
 	
+	/**
+	 * convert a Position2D to an int array
+	 * representing the coordinates on the screen
+	 * @param posCella
+	 * @return
+	 */
 	private int[] cellToPixels(Position2D posCella) {
 		int ans[] = new int[2];
 		int size = cellWidth/2;
@@ -144,6 +236,9 @@ public class MapViewer extends JLabel {
 		return ans;
 	}
 	
+	/**
+	 * draw a tiled background
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 	    super.paintComponent(g); 
@@ -156,4 +251,13 @@ public class MapViewer extends JLabel {
 	    }
 	    	
 	 }
+	
+	public void addCellListener(MouseListener l) {
+		cellListeners.add(l);
+	}
+	
+	public void removeCellListener(MouseListener l) {
+		cellListeners.remove(l);
+	}
+
 }

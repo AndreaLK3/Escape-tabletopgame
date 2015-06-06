@@ -1,5 +1,6 @@
-package it.escape.client.controller;
+package it.escape.client.controller.cli;
 
+import it.escape.client.controller.MessageCarrier;
 import it.escape.strings.FormatToPattern;
 import it.escape.strings.StringRes;
 
