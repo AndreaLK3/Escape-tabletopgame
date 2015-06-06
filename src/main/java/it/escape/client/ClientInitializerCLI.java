@@ -1,8 +1,11 @@
 package it.escape.client;
 
 import it.escape.client.controller.Relay;
-import it.escape.client.controller.StateManager;
+import it.escape.client.controller.StateManagerCLIInterface;
 import it.escape.client.controller.UpdaterCLI;
+import it.escape.client.controller.UpdaterCLItoTerminalInterface;
+import it.escape.client.view.cli.StateManagerCLI;
+import it.escape.client.view.cli.Terminal;
 import it.escape.strings.StringRes;
 
 import java.io.IOException;
@@ -14,13 +17,13 @@ public class ClientInitializerCLI {
 	
 	private static ClientSocketChannel connection;
 	
-	private static StateManager stateManager;
+	private static StateManagerCLI stateManager;
 	
 	private static Relay relay;
 	
 	private static UpdaterCLI updater;
 	
-	private static CLIAdapter view;
+	private static Terminal view;
 	
 	private static Scanner in = new Scanner(System.in);
 	
@@ -35,10 +38,11 @@ public class ClientInitializerCLI {
 			connection = new ClientSocketChannel(
 					locals.getDestinationServerAddress(),
 					locals.getServerPort());
-			stateManager = new StateManager();
+			stateManager = new StateManagerCLI();
 			relay = new Relay(connection);
-			view = new CLIAdapter(relay, stateManager, in, out);
-			updater = new UpdaterCLI(stateManager, view);
+			view = new Terminal(relay, stateManager, in, out);
+			updater = new UpdaterCLI((StateManagerCLIInterface)stateManager,
+					(UpdaterCLItoTerminalInterface)view);
 			connection.bindDisconnCallback(view);
 			connection.addObserver(updater);
 			new Thread(connection).start();

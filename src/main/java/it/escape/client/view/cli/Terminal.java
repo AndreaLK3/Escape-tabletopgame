@@ -1,9 +1,6 @@
 package it.escape.client.view.cli;
 
-import it.escape.client.DisconnectedCallbackInterface;
 import it.escape.client.controller.Relay;
-import it.escape.client.controller.StateManager;
-import it.escape.client.controller.TurnInputStates;
 import it.escape.strings.StringRes;
 
 import java.io.PrintStream;
@@ -19,13 +16,13 @@ public class Terminal implements DisconnectedCallbackInterface {
 	
 	private Relay relayRef;
 	
-	private StateManager stateManager;
+	private StateManagerCLI stateManager;
 	
 	private String userInput;
 	
 	private String prompt;
 	
-	public Terminal (Relay relay, StateManager stateManager, Scanner in, PrintStream out) {
+	public Terminal (Relay relay, StateManagerCLI stateManager, Scanner in, PrintStream out) {
 		this.in = in;
 		this.out = out;
 		this.relayRef = relay;

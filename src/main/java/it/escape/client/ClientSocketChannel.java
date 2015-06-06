@@ -2,6 +2,7 @@ package it.escape.client;
 
 import it.escape.client.controller.ClientSocketChannelInterface;
 import it.escape.client.controller.MessageCarrier;
+import it.escape.client.view.cli.DisconnectedCallbackInterface;
 
 import java.io.IOException;
 import java.io.PrintStream;

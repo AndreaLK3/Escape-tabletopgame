@@ -1,6 +1,5 @@
 package it.escape.client.controller;
 
-import it.escape.client.view.cli.Terminal;
 import it.escape.strings.FormatToPattern;
 import it.escape.strings.StringRes;
 
@@ -15,7 +14,7 @@ import java.util.regex.Pattern;
  */
 public class UpdaterCLI implements Observer {
 	
-	private StateManager stateRef;
+	private StateManagerCLIInterface stateRef;
 	
 	private UpdaterCLItoTerminalInterface view;
 	
@@ -26,7 +25,7 @@ public class UpdaterCLI implements Observer {
 	private Pattern myTurnEnd;
 	
 	
-	public UpdaterCLI(StateManager stateRef, UpdaterCLItoTerminalInterface view) {
+	public UpdaterCLI(StateManagerCLIInterface stateRef, UpdaterCLItoTerminalInterface view) {
 		this.stateRef = stateRef;
 		this.view = view;
 		initPatterns();

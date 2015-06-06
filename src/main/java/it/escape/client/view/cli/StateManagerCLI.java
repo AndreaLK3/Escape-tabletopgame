@@ -1,4 +1,5 @@
-package it.escape.client.controller;
+package it.escape.client.view.cli;
+
 
 /**This class contains:
  * 1) the variable TurnInputState currentState, 
@@ -6,13 +7,13 @@ package it.escape.client.controller;
  * 2) The methods to set the currentState,
  * 3) The variable myTurn (true/false)
  * */
-public class StateManager {
+public class StateManagerCLI {
 
 	private TurnInputStates currentState;  // input required
 	
 	private boolean myTurn;  // my turn vs not my turn
 
-	public StateManager () {
+	public StateManagerCLI () {
 		myTurn = false;
 		setFreeState();
 		

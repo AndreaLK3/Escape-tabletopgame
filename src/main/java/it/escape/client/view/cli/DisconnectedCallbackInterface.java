@@ -1,4 +1,4 @@
-package it.escape.client;
+package it.escape.client.view.cli;
 
 /**
  * Implemented by the view, the connection object will call

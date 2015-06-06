@@ -1,4 +1,4 @@
-package it.escape.client.controller;
+package it.escape.client.view.cli;
 
 public enum TurnInputStates {
 	
