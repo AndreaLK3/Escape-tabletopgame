@@ -18,6 +18,20 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
+/**
+ * Main entry point of the whole application.
+ * Its sequence of operation is the following:
+ * 1) Parse the command line parameters
+ * 2) Attempt to set the Swing look and Feel to something that
+ *    is not completely hideous
+ * 3) Attempt to start the graphical launcher. If that's not
+ *    possible, write an error message and return
+ *    
+ * The class also offers an interface to start the actual game.
+ * Said interface is intended to be used by the launcher
+ * @author michele
+ *
+ */
 public class MainEntryPoint implements StartSubsystemsInterface {
 	
 	private static PrintStream out = System.out;

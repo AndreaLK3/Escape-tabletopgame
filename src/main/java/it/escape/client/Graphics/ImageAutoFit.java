@@ -4,6 +4,12 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+/**
+ * Runnable that will monitor a Swing label for changes in
+ * its size, and apply an image background accordingly
+ * @author michele
+ *
+ */
 public class ImageAutoFit implements Runnable {
 	
 	private static final int SCANTIME = 300;

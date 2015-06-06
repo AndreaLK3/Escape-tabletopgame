@@ -8,10 +8,12 @@ import it.escape.utils.LogHelper;
 import java.util.logging.Logger;
 
 /**
- * Static class which holds *some* global options.
+ * Class which holds *some* global options.
  * The intention is to hold all the options which
  * can be set via cli parameters, and make them
- * accessible everywhere else in the program
+ * accessible everywhere else in the program.
+ * When the program branches, a reference to this
+ * class must be propagated to the various sub-branches.
  * @author michele
  *
  */
