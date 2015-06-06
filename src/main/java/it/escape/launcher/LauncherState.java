@@ -1,8 +1,9 @@
 package it.escape.launcher;
 
+import it.escape.launcher.menucontroller.LauncherStateInterface;
 import it.escape.strings.StringRes;
 
-public class LauncherState {
+public class LauncherState implements LauncherStateInterface {
 
 	private String netMode = StringRes.getString("launcher.option.netmode.socket");
 	

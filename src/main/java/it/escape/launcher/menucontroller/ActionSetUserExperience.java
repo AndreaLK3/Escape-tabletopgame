@@ -1,16 +1,14 @@
 package it.escape.launcher.menucontroller;
 
-import it.escape.launcher.LauncherState;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 
 public class ActionSetUserExperience implements ActionListener {
-	private LauncherState launcherState;
+	private LauncherStateInterface launcherState;
 
-	public ActionSetUserExperience(LauncherState launcherState) {
+	public ActionSetUserExperience(LauncherStateInterface launcherState) {
 		this.launcherState = launcherState;
 	}
 

@@ -1,7 +1,5 @@
 package it.escape.launcher.menucontroller;
 
-import it.escape.launcher.GlobalSettings;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.regex.Pattern;
@@ -13,7 +11,7 @@ public class ActionAcceptNewPortNumber implements ActionListener {
 	
 	private JTextField field;
 	
-	private GlobalSettings locals;
+	private LauncherLocalSettings locals;
 	
 	private Pattern validInt = Pattern.compile("[0-9]+");
 	
@@ -21,7 +19,7 @@ public class ActionAcceptNewPortNumber implements ActionListener {
 	
 	private static final int maximumPort = 65535;
 
-	public ActionAcceptNewPortNumber(JTextField field, GlobalSettings locals) {
+	public ActionAcceptNewPortNumber(JTextField field, LauncherLocalSettings locals) {
 		this.field = field;
 		this.locals = locals;
 	}

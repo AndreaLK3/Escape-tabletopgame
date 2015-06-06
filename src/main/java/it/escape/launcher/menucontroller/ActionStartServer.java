@@ -1,6 +1,5 @@
 package it.escape.launcher.menucontroller;
 
-import it.escape.launcher.LauncherState;
 import it.escape.server.ServerInitializer;
 import it.escape.strings.StringRes;
 
@@ -9,11 +8,11 @@ import java.awt.event.ActionListener;
 
 public class ActionStartServer implements ActionListener {
 	
-	private LauncherState launcherState;
+	private LauncherStateInterface launcherState;
 	
 	private StartMenuInterface startMenu;
 
-	public ActionStartServer(LauncherState launcherState, StartMenuInterface startMenu) {
+	public ActionStartServer(LauncherStateInterface launcherState, StartMenuInterface startMenu) {
 		this.launcherState = launcherState;
 		this.startMenu = startMenu;
 	}

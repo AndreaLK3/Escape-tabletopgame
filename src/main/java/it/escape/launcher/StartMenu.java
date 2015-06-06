@@ -98,7 +98,7 @@ public class StartMenu extends JFrame implements StartMenuInterface {
    		JButton acceptPort = setAcceptButton("Change port number");
    			acceptPort.addActionListener(new ActionAcceptNewPortNumber(portno, locals));
    		JButton quit = setButton(2);
-   			quit.addActionListener(new ActionQuit());
+   			quit.addActionListener(new ActionQuit(this));
 	}
 
 	private JLabel setTopImage() {

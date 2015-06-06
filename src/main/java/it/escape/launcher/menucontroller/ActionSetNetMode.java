@@ -1,7 +1,5 @@
 package it.escape.launcher.menucontroller;
 
-import it.escape.launcher.LauncherState;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,9 +7,9 @@ import javax.swing.JComboBox;
 
 public class ActionSetNetMode implements ActionListener {
 	
-	private LauncherState launcherState;
+	private LauncherStateInterface launcherState;
 
-	public ActionSetNetMode(LauncherState launcherState) {
+	public ActionSetNetMode(LauncherStateInterface launcherState) {
 		this.launcherState = launcherState;
 	}
 

@@ -1,6 +1,7 @@
 package it.escape.launcher;
 
 import it.escape.client.ClientLocalSettings;
+import it.escape.launcher.menucontroller.LauncherLocalSettings;
 import it.escape.server.ServerLocalSettings;
 import it.escape.utils.LogHelper;
 
@@ -14,7 +15,7 @@ import java.util.logging.Logger;
  * @author michele
  *
  */
-public class GlobalSettings implements ServerLocalSettings, ClientLocalSettings {
+public class GlobalSettings implements ServerLocalSettings, ClientLocalSettings, LauncherLocalSettings {
 	
 	private final Logger LOG = Logger.getLogger( GlobalSettings.class.getName() );
 	
