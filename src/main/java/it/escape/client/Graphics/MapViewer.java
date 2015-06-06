@@ -50,7 +50,7 @@ public class MapViewer extends JLabel {
 		Position2D mapsize = map.getMapSize();
 		int max[] = cellToPixels(mapsize);
 		totalWidth = max[0] + cellWidth;
-		totalHeight = max[1] + cellHeight;
+		totalHeight = max[1] + (int) Math.ceil((cellHeight * 3)/2);
 		setPreferredSize(new Dimension(totalWidth, totalHeight));
 	}
 	
@@ -102,7 +102,7 @@ public class MapViewer extends JLabel {
 		int col = posCella.getCol();
 		
 		ans[0] = (int) Math.round(size * 3/2 * col);
-		ans[1] = (int) Math.round(size * Math.sqrt(3) * (row + 0.5 * (col&1)));
+		ans[1] = (int) Math.round(size * Math.sqrt(3) * (row + 0.5 * (col&1))) - cellHeight;
 		
 		return ans;
 	}
