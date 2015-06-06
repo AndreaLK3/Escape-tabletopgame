@@ -8,7 +8,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-public class PlayerStatusPanel extends JPanel {
+public class PlayerPanel extends JPanel {
 
 	private GridBagConstraints constraints = new GridBagConstraints();
 	
@@ -16,7 +16,7 @@ public class PlayerStatusPanel extends JPanel {
 	private JTextArea statusArea;
 	private JTextArea lastNoiseArea;
 	
-	public PlayerStatusPanel () {
+	public PlayerPanel () {
 		this.setLayout(new GridBagLayout());
 	
 		playerArea = new JTextArea();

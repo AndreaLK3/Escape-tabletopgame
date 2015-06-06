@@ -1,35 +1,32 @@
 Current tasks:
 
-Ora quando vi sono 2 giocatori il gioco parte subito, senza aspettare 60 sec
-^^^^^^^^
-(MM) rimesso a 60. Ho aggiunto un semplice parser di opzioni command line per settarlo al 2 sec in sede di     
-     testing
+(AL:)
+Sonar riporta che vi sono un po' di cicli che riguardano il Client; visto che il Client non è particolarmente vasto,
+sarebbe il caso di fare refactoring per eliminarli e suddividere bene le responsabilità tra le classi del Client.
+(Se serve posso fare dei Sequence Diagram e lavoriamo su quelli). 
+Questo non ha particolare importanza in sè, ma è utile per passare alla task successiva, 
+e cioè:
 
-Bug : errore nell'attribuzione della vittoria in caso di disconnessione (v. Partita.txt)
-^^^^^^^^
-(MM) fixed
+Design architettura interfaccia grafica
+	Nella interfaccia Swing per il Client che ho scritto fino ad ora, vi sono 3 task importanti:
+		Creare gli elementi dell'interfaccia e disporli
+		Contenere questi elementi
+		Aggiornare questi elementi principalmente a seconda dei messaggi che manda il Server, e poi anche a seconda dell'input del player
 
-Bug : mancato automaticOverride nella 2a fase del turno alieno (è askIfAttack()?)
-^^^^^^^^
-(MM) cannot reproduce
+Per ora vi è una unica classe, Displayer, che esegue tutte queste tasks; si potrebbero creare 3 classi...
+^^^^^^^^^^^^^^^^^^^^
 
 
-___________________________________________________________
-Lower priority:
-
-Cicli Sonar: ve ne sono 32. I colpevoli sono : I Decks + le Carte. E la nuova classe ShortHand
-^^^^^^^^^
-(MM) Shorthand non la cestinerei così, dato che riduce di molto il codice copiato.
-     Vedrò di mettere qualche interfaccia tattica per sistemarla.
-     Ai Decks mi sa che è meglio se ci pensi tu.
-(MM) EDIT: adesso i cicli sono solo 16
-(AL) Ho visto, meglio di prima anche se non ottimale; sto pensando come fare, intanto vediamo altre cose.
 
 
 
 __________________________________________________________
 Notes about other tasks:
 
+
+Bug : mancato automaticOverride nella 2a fase del turno alieno (è askIfAttack()?)
+^^^^^^^^
+(MM) cannot reproduce
 
 occorre chiedere al Player di inserire il suo nome quando si connette
 ^^^^^^^^^
