@@ -204,7 +204,7 @@ public class Displayer extends JFrame
    	
    	
 	/** Creation method: button to show the object Cards in your possession*/
-   	private void initializeButtons() {
+   	private void initializeButtons() { 
    		
 		showCardsButton = new JButton("See your object Cards");
 		showCardsButton.addActionListener(buttonHandler);

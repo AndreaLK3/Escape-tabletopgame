@@ -1,19 +1,22 @@
 Current tasks:
 
 (AL:)
-Sonar riporta che vi sono un po' di cicli che riguardano il Client; visto che il Client non è particolarmente vasto,
+1) Sonar riporta che vi sono un po' di cicli che riguardano il Client; visto che il Client non è particolarmente vasto,
 sarebbe il caso di fare refactoring per eliminarli e suddividere bene le responsabilità tra le classi del Client.
 (Se serve posso fare dei Sequence Diagram e lavoriamo su quelli). 
 Questo non ha particolare importanza in sè, ma è utile per passare alla task successiva, 
 e cioè:
 
-Design architettura interfaccia grafica
+2) Design architettura interfaccia grafica
 	Nella interfaccia Swing per il Client che ho scritto fino ad ora, vi sono 3 task importanti:
 		Creare gli elementi dell'interfaccia e disporli
 		Contenere questi elementi
 		Aggiornare questi elementi principalmente a seconda dei messaggi che manda il Server, e poi anche a seconda dell'input del player
 
 Per ora vi è una unica classe, Displayer, che esegue tutte queste tasks; si potrebbero creare 3 classi...
+
+3) (Non so se sia necessario)Modificare la schermata del Displayer in modo da inserire da qualche parte una textArea con messaggi dal Server
+	Es: stato: Cercando un gioco / Facente parte di un GameMaster con 3/8 persone / Giocando
 ^^^^^^^^^^^^^^^^^^^^
 
 
