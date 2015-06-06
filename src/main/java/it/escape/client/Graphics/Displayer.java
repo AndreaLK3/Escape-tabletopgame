@@ -2,6 +2,7 @@ package it.escape.client.Graphics;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
@@ -9,8 +10,10 @@ import java.awt.GridBagLayout;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -44,12 +47,14 @@ public class Displayer extends JFrame
 	private JTextArea statusArea;
 	private JTextArea teamArea;
 	private JTextField chatField;
+	private JButton showCardsButton;
 	
 	
-	PlayerStatusPanel playerPanels[] = new PlayerStatusPanel[MAXPLAYERS];
+	PlayerPanel playerPanels[] = new PlayerPanel[MAXPLAYERS];
 	
 	NameListener myNameListener = new NameListener();
 	ChatListener myChatListener = new ChatListener();
+	ButtonHandler buttonHandler = new ButtonHandler();
 	
 	private Icon map;
 	int currentRow = 1;
@@ -66,6 +71,8 @@ public class Displayer extends JFrame
    		initializeGeneralSidePanels();
    		initializePersonalPanels();
    		addChatPanel();
+   		initializeButtons();
+   		
    		setLabelsOpaque();
    		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    		setSize(800, 600);
@@ -75,7 +82,7 @@ public class Displayer extends JFrame
    	
   
 
-
+   	/** Creation method: Labels in the upper part of the screen*/
 	private void initializeGeneralLabels() {
 		
 		JPanel panel = new JPanel();
@@ -101,11 +108,10 @@ public class Displayer extends JFrame
 		label4.setBackground(new Color(50, 100, 200));
 		panel = createRowPanel(Arrays.asList(label2, label3, label4));
 		addSidePanel(panel);
-		
-	
 	
 	}
 	
+	/** Creation method: the map, on the upper right part of the screen*/
 	private void initializeMap() {
 
 		label5 = new JLabel();
@@ -127,16 +133,17 @@ public class Displayer extends JFrame
 	}
 	
 	
-   	
+	/** Creation method: the PlayerPanels, with a the Players and their status*/
    	private void initializeGeneralSidePanels() {
    	
 		for (int x=0; x < MAXPLAYERS ; x++) {
-			playerPanels[x] = new PlayerStatusPanel();
+			playerPanels[x] = new PlayerPanel();
 			addSidePanel(playerPanels[x]);
 		}
 			
    	}
    	
+	/** Creation method: my name(editable), status and team*/
    	private void initializePersonalPanels() {
 	
    		JPanel panel = new JPanel();
@@ -167,6 +174,7 @@ public class Displayer extends JFrame
 		
 	}
    	
+	/** Creation method: chat text field*/
    	private void addChatPanel() {
    		label9 = new JLabel("Chat");
 		label9.setBackground(new Color(150, 100, 150));
@@ -193,6 +201,21 @@ public class Displayer extends JFrame
 		addSidePanel(panel);
 		
    	}
+   	
+   	
+	/** Creation method: button to show the object Cards in your possession*/
+   	private void initializeButtons() { 
+   		
+		showCardsButton = new JButton("See your object Cards");
+		showCardsButton.addActionListener(buttonHandler);
+   		constraints.gridx = 1;
+		constraints.gridy = 12;
+		constraints.weightx = 1;
+		add(showCardsButton, constraints);
+		resetConstraints(constraints);
+   	
+   	}
+   	
    	
    	/**This method adds a panel to the area on the left side. note: It doesn't specify the Panel layout.
    	 * @param panel 	 */
@@ -251,6 +274,7 @@ public class Displayer extends JFrame
 	}
 	
 	
+	
 	/** TODO Implement updating (either using a method call or the Observer pattern)
 	 * We could also define another class that updates the elements inside this one that need
 	 * to be updated*/
@@ -259,8 +283,8 @@ public class Displayer extends JFrame
 	}
 
 	
-	private PlayerStatusPanel findPlayerPanel(String playerName) {
-		for (PlayerStatusPanel p : playerPanels) {
+	private PlayerPanel findPlayerPanel(String playerName) {
+		for (PlayerPanel p : playerPanels) {
 			if (playerName == p.getPlayer())
 				return p;
 		}
