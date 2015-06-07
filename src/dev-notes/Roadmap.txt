@@ -1,7 +1,9 @@
 Current tasks:
 
-(AL:)
-
+(MM): è necessario mettere il campo "last noise nella GUI"?
+      noi non possiamo sapere *chi* a provocato un rumore
+      (eccetto il nostro, ovviamente ;)
+(MM): non è il caso di creare qualche schema / mockup della GUI?
 
 
 

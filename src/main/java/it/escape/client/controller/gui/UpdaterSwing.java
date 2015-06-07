@@ -10,6 +10,13 @@ import java.util.Observer;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 
+/**
+ * Updates the swing interface when a new network message arrives
+ * TODO: add facilities to modify the local state (the model) too,
+ * when needed.
+ * @author michele
+ *
+ */
 public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterface {
 	
 	protected static final Logger LOG = Logger.getLogger( UpdaterSwing.class.getName() );

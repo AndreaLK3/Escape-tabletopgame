@@ -58,10 +58,10 @@ public class ClientInitializerGUI {
 			
 		} catch (UnknownHostException e) {
 			pleaseWait.dispose();
-			popupError("Unknown host");
+			popupError("Cannot resolve the hostname");
 		} catch (IOException e) {
 			pleaseWait.dispose();
-			popupError("Socket write error");
+			popupError("Cannot connect to the server");
 		}
 	}
 	
