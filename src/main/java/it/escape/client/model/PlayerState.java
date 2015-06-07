@@ -1,34 +1,51 @@
 package it.escape.client.model;
 
-import it.escape.server.model.game.players.PlayerTeams;
-
-import java.util.ArrayList;
-import java.util.List;
-
+/**This class in client.model defines:
+ * Name, Status, LastNoiseLocation of a Player.
+ * It is updated by the UpdaterSwing in the Controller, 
+ * according to the messages the Server sends.
+ * POSSIBLE IMPLEMENTATION: The view observes this class and updates the Swing view.
+ */
 public class PlayerState {
 	
-	private PlayerStatus myStatus;
+	protected String myName;
 	
+	protected CurrentPlayerStatus myStatus;
 	
-	private List<String> objectCards;
+	protected String lastNoiseLocation;
 	
-	
+
+
 	public PlayerState() {
-		objectCards = new ArrayList<String>();
+		
+	};
+	
+	public String setMyName() {
+		return myName;
 	}
 	
-	public void addCard(String cardName) {
-		objectCards.add(cardName);
+
+	public String getMyName() {
+		return myName;
 	}
 	
-	/** This method returns a copy of the original list, not a reference to it.*/
-	public List<String> getObjectCards() {
-		List<String> objectCardsCopy = new ArrayList<String>();
-		for (String s : objectCards) {
-			objectCardsCopy.add(s);
-		}
-		return objectCardsCopy;
+	public String getLastNoiseLocation() {
+		return lastNoiseLocation;
 	}
 
 
+	public void setLastNoiseLocation(String lastNoiseLocation) {
+		this.lastNoiseLocation = lastNoiseLocation;
+	}
+
+
+	public void setMyStatus(CurrentPlayerStatus myStatus) {
+		this.myStatus = myStatus;
+	}
+	
+	public CurrentPlayerStatus getMyStatus() {
+		return myStatus;
+	}
+
+	
 }

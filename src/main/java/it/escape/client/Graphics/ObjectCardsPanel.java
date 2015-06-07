@@ -64,7 +64,7 @@ public class ObjectCardsPanel extends JPanel {
 	/** If the cardName corresponds with one of the known ones, 
 	 * this method returns the corresponding image (usually a .png).
 	 * @param String cardName
-	 * @return Image (es.Attack.png)
+	 * @return Image (es.attack.png)
 	 */
 	private Image getImage(String cardName) {
 		String cardNames[] = {"attack", "defense","teleport","lights","sedatives","adrenaline"};
@@ -73,9 +73,6 @@ public class ObjectCardsPanel extends JPanel {
 				return ImageScaler.resizeImage("resources/artwork/ObjectCards/"+cardNames[i]+".png", 50, 46);
 			}
 		}
-		
-		
-		
 		return null;
 	}
 	

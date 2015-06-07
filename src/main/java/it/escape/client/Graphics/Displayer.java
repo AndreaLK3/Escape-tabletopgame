@@ -300,8 +300,6 @@ public class Displayer extends JFrame
 	}
 	
 	
-
-	
 	private PlayerPanel findPlayerPanel(String playerName) {
 		for (PlayerPanel p : playerPanels) {
 			if (playerName == p.getPlayer())
