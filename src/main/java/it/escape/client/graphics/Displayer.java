@@ -40,7 +40,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 	private JLabel label2;
 	private JLabel label3;
 	private JLabel label4;
-	private JLabel label5;
+	private JLabel label5_map;
 	private JLabel label6;
 	private JLabel label7;
 	private JLabel label8;
@@ -130,14 +130,14 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 	private void initializeMap() {
 
 		try {
-			label5 = new MapViewer();
+			label5_map = new MapViewer();
 		} catch (BadJsonFileException e) {
-			label5 = new JLabel("Bad json map file");
+			label5_map = new JLabel("Bad json map file");
 		} catch (IOException e) {
-			label5 = new JLabel("Cannot open map file");
+			label5_map = new JLabel("Cannot open map file");
 		}
-		((MapViewer)label5).addCellListener(new MouseOnMapCell((MapViewer)label5));
-		mapScrollPane = new JScrollPane(label5);
+		((MapViewer)label5_map).addCellListener(new MouseOnMapCell((MapViewer)label5_map));
+		mapScrollPane = new JScrollPane(label5_map);
 		mapScrollPane.setPreferredSize(new Dimension(400,400)); 
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.gridx = 1;
@@ -298,7 +298,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 	}
 	
 	private void setLabelsOpaque() {
-		List<JLabel> labelsList = Arrays.asList(label1,label2,label3,label4,label5, label6, label7, label8, label9);
+		List<JLabel> labelsList = Arrays.asList(label1,label2,label3,label4,label5_map, label6, label7, label8, label9);
 		   for (JLabel l : labelsList){
 			   l.setOpaque(true);
 			}

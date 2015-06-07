@@ -2,6 +2,12 @@ package it.escape.client.graphics.maplabel;
 
 import javax.swing.JLabel;
 
+/**
+ * Label representing a cell on the map, it's no different from
+ * a vanilla JLabel, *but* it also stores its alfanum coordinates
+ * @author michele
+ *
+ */
 public class MapCell extends JLabel {
 
 	private static final long serialVersionUID = 1L;

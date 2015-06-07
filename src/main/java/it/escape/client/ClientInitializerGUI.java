@@ -50,7 +50,7 @@ public class ClientInitializerGUI {
 			connectionThread = new Thread(connection);
 			connectionThread.start();
 			
-			// join connection & view threads
+			// join connection thread
 			try {
 				connectionThread.join();
 			} catch (InterruptedException e) {

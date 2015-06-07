@@ -30,6 +30,16 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+/**
+ * A large jlabel containing smaller jlabels (the cells)
+ * It offers an addCellListener(MouseListener) method; said
+ * method will notify the MouseListener whenever a cell is
+ * clicked.
+ * Also note that differences between cell types are purely
+ * esthetical here.
+ * @author michele
+ *
+ */
 public class MapViewer extends JLabel {
 	
 	private int cellWidth = 62;
