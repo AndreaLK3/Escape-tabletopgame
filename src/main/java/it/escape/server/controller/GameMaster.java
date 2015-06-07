@@ -73,7 +73,7 @@ public class GameMaster implements Runnable {
 	
 	private boolean gameFinished;
 	
-	private Thread ownThread;
+	private Thread ownThread = null;
 	
 	private final ServerLocalSettings locals;
 
@@ -166,6 +166,10 @@ public class GameMaster implements Runnable {
 				map.getName()));
 		
 		announcer.announcePlayerConnected(numPlayers,GameMaster.MAXPLAYERS);  // the new user won't see this, as he hasn't yet subscribed
+		UserMessagesReporter.getReporterInstance(interfaceWithUser).relayMessage(String.format(
+				StringRes.getString("messaging.othersWaiting"),
+				numPlayers,
+				GameMaster.MAXPLAYERS));
 	}
 	/**
 	 * Here's the logic to decide when to start the actual game
@@ -210,13 +214,17 @@ public class GameMaster implements Runnable {
 	 * Invoked by Master
 	 */
 	public void instaStopGame() {
-		LOG.info("Terminating game now!");
-		this.timeController.extraordinaryGameKill();
-		try {
-			ownThread.join();  // wait for the thread to actually terminate
-		} catch (InterruptedException e) {
+		if (isRunning()) {
+			LOG.info("Terminating game now!");
+			this.timeController.extraordinaryGameKill();
+			try {
+				ownThread.join();  // wait for the thread to actually terminate
+			} catch (InterruptedException e) {
+			}
+			LOG.fine("Game terminated.");
+		} else {
+			LOG.info("No running game to terminate");
 		}
-		LOG.fine("Game terminated.");
 	}
 	
 	/** returns the number of players that are not currently idle / disconnected*/
