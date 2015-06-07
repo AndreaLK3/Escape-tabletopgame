@@ -27,19 +27,22 @@ public class ObjectCardsPanel extends JPanel {
 	private String chosenCardName;
 	
 	
-	/** The constructor: when it is called, the ObjectCardsPanel is updated, 
-	 * acquiring the cards in the User's possession and adding them as buttons.
-	 * @param List<String> cards */
-	public ObjectCardsPanel (List<String> cards) {
+	/** The constructor */
+	public ObjectCardsPanel () {
 		objectCardsButtons = new ArrayList<JRadioButton>();
 		group = new ButtonGroup();
 		radioListener = new RadioListener();
+	}
+	
+	
+	/** This method updates the List of JRadioButtons, 
+	 * according to the List<String> of cardNames received
+	 * @param List<String> cards */
+	public void updateCards(List<String> cards) {
 		for (String cardName : cards) {
 			addCardButton(cardName);
 		}
-		
 	}
-	
 	
 	/**This method creates a JRadioButton with the given cardName and the corresponding image.
 	 * (n:The check on the cardName (that should always be correct anyways, since it is sent by the Server)

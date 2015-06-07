@@ -1,5 +1,7 @@
 package it.escape.client.view.cli;
 
+import it.escape.client.controller.cli.StateManagerCLIInterface;
+
 
 /**This class contains:
  * 1) the variable TurnInputState currentState, 
@@ -7,7 +9,7 @@ package it.escape.client.view.cli;
  * 2) The methods to set the currentState,
  * 3) The variable myTurn (true/false)
  * */
-public class StateManagerCLI {
+public class StateManagerCLI implements StateManagerCLIInterface {
 
 	private TurnInputStates currentState;  // input required
 	
