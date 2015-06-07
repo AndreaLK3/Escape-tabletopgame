@@ -1,23 +1,20 @@
 Current tasks:
 
 (AL:)
-1) Sonar riporta che vi sono un po' di cicli che riguardano il Client; visto che il Client non è particolarmente vasto,
-sarebbe il caso di fare refactoring per eliminarli e suddividere bene le responsabilità tra le classi del Client.
-(Se serve posso fare dei Sequence Diagram e lavoriamo su quelli). 
-Questo non ha particolare importanza in sè, ma è utile per passare alla task successiva, 
-e cioè:
+nuovo bug:
+Provando a iniziare una nuova partita con Server+Client+Client da MainEntryPoint, 
+nel Client:
 
-2) Design architettura interfaccia grafica
-	Nella interfaccia Swing per il Client che ho scritto fino ad ora, vi sono 3 task importanti:
-		Creare gli elementi dell'interfaccia e disporli
-		Contenere questi elementi
-		Aggiornare questi elementi principalmente a seconda dei messaggi che manda il Server, e poi anche a seconda dell'input del player
+Jun 07, 2015 12:38:53 PM it.escape.CliParser parse
+FINER: Parsing command line parameters
+Please enter the address (ip or hostname) of the server you wish to connect to.
+If you just press enter, we'll keep default "localhost"
 
-Per ora vi è una unica classe, Displayer, che esegue tutte queste tasks; si potrebbero creare 3 classi...
+Exception in thread "Thread-3" java.lang.ClassCastException: it.escape.client.view.cli.StateManagerCLI cannot be cast to it.escape.client.controller.cli.StateManagerCLIInterface
+	at it.escape.client.ClientInitializerCLI.start(ClientInitializerCLI.java:44)
+	at it.escape.MainEntryPoint$1.run(MainEntryPoint.java:105)
+	at java.lang.Thread.run(Thread.java:745)
 
-3) (Non so se sia necessario)Modificare la schermata del Displayer in modo da inserire da qualche parte una textArea con messaggi dal Server
-	Es: stato: Cercando un gioco / Facente parte di un GameMaster con 3/8 persone / Giocando
-^^^^^^^^^^^^^^^^^^^^
 
 
 
@@ -30,10 +27,6 @@ Notes about other tasks:
 Bug : mancato automaticOverride nella 2a fase del turno alieno (è askIfAttack()?)
 ^^^^^^^^
 (MM) cannot reproduce
-
-occorre chiedere al Player di inserire il suo nome quando si connette
-^^^^^^^^^
-(MM) Pensavo di lasciare all'utente la possibilità di dare un comando tipo "rename: Ciccio"
 
 mandare dei messaggi all'utente quando inserisce un nome di ObjectCard inesistente
 ^^^^^^^^^
