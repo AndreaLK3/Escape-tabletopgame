@@ -1,12 +1,13 @@
 package it.escape.client.view.cli;
 
 import it.escape.client.controller.Relay;
+import it.escape.client.controller.cli.UpdaterCLItoTerminalInterface;
 import it.escape.strings.StringRes;
 
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class Terminal implements DisconnectedCallbackInterface {
+public class Terminal implements DisconnectedCallbackInterface, UpdaterCLItoTerminalInterface {
 	
 	private boolean running = true;
 	

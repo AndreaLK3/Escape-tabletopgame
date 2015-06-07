@@ -24,11 +24,12 @@ public class FormatToPattern {
 	}
 	
 	public Pattern convert() {
-		temp = temp.replaceAll("\\(", "\\\\(");
+		temp = temp.replaceAll("\\(", "\\\\(");  // escape all parenthesis
 		temp = temp.replaceAll("\\)", "\\\\)");
 		temp = temp.replaceAll("\\.", "\\\\.");
 		temp = temp.replaceAll("\\*", "\\\\*");
-		temp = temp.replaceAll("%s", matchall);
+		temp = temp.replaceAll("%s", matchall);  // match strings
+		temp = temp.replaceAll("%d", matchall);  // match integer numbers 
 		
 		return Pattern.compile(temp);
 	}
