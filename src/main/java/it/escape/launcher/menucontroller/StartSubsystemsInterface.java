@@ -12,5 +12,5 @@ public interface StartSubsystemsInterface {
 	
 	public void startTextSocketServer(StartMenuInterface startMenu);
 	
-	public void startGUISocketClient();
+	public void startGUISocketClient(StartMenuInterface startMenu);
 }

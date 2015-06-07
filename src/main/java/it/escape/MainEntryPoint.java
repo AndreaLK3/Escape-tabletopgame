@@ -1,7 +1,7 @@
 package it.escape;
 
 import it.escape.client.ClientInitializerCLI;
-import it.escape.client.Graphics.Displayer;
+import it.escape.client.ClientInitializerGUI;
 import it.escape.launcher.StartMenu;
 import it.escape.launcher.menucontroller.StartMenuInterface;
 import it.escape.launcher.menucontroller.StartSubsystemsInterface;
@@ -131,14 +131,14 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 	}
 
 	@Override
-	public void startGUISocketClient() {
+	public void startGUISocketClient(final StartMenuInterface startMenu) {
 		new Thread(
 			new Runnable() {
 				@Override
 				public void run() {
-					String param[] = {""};
 					graphicalEnterIp();
-					Displayer.main(param);
+					ClientInitializerGUI.start(globals);
+					startMenu.closeProgram();
 				}}).start();
 	}
 

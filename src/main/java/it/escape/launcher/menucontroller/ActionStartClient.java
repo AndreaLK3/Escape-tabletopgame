@@ -38,7 +38,7 @@ public class ActionStartClient implements ActionListener {
 			
 		} else if (ui.equals(StringRes.getString("launcher.option.experience.graphical"))) {
 			if (net.equals(StringRes.getString("launcher.option.netmode.socket"))) {
-				startMenu.getStarter().startGUISocketClient();
+				startMenu.getStarter().startGUISocketClient(startMenu);
 				startMenu.closeMenu();
 			} else if (net.equals(StringRes.getString("launcher.option.netmode.RMI"))) {
 				startMenu.tbiMessage();
