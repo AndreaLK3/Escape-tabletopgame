@@ -7,7 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.regex.Pattern;
 
-public class Updater implements Observer {
+public class Updater implements Observer { 
 
 	protected Pattern inputObjectCard;
 	protected Pattern inputPosition;
