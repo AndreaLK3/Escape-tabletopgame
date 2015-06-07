@@ -13,17 +13,15 @@ import java.util.regex.Pattern;
  * This class checks if the messages sent by the Server correspond
  * to one of the given patterns; if they do, the TurnInputState is set.
  */
-public class UpdaterCLI implements Observer {
+public class UpdaterCLI extends Updater implements Observer {
 	
 	private StateManagerCLIInterface stateRef;
 	
+	/**
+	 * 
+	 */
 	private UpdaterCLItoTerminalInterface view;
 	
-	private Pattern inputObjectCard;
-	private Pattern inputPosition;
-	private Pattern inputYesNo;
-	private Pattern myTurnStart;
-	private Pattern myTurnEnd;
 	
 	
 	public UpdaterCLI(StateManagerCLIInterface stateRef, UpdaterCLItoTerminalInterface view) {
@@ -32,18 +30,12 @@ public class UpdaterCLI implements Observer {
 		initPatterns();
 	}
 	
-	private void initPatterns() {
-		inputObjectCard = new FormatToPattern(StringRes.getString("messaging.askWhichObjectCard")).convert();
-		inputPosition = new FormatToPattern(StringRes.getString("messaging.askForPosition")).convert();
-		inputYesNo = Pattern.compile(String.format(
-				StringRes.getString("messaging.askBinaryChoice"),
-				"yes",
-				"no"));
-		myTurnStart = new FormatToPattern(StringRes.getString("messaging.hail.player")).convert();
-		myTurnEnd = new FormatToPattern(StringRes.getString("messaging.farewell")).convert();
-		
-	}
+	
 
+	/**When the MessageCarrier notifies this class,
+	 * the message is processed (setting TurnInputState) and 
+	 * then it is visualized on the Terminal View.
+	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		if (arg0 instanceof MessageCarrier) {
@@ -53,6 +45,11 @@ public class UpdaterCLI implements Observer {
 		}
 	}
 	
+	/**This method checks if the String message received from the Server 
+	 * corresponds to any of the given patterns.
+	 * If it does, it sets the appropriate TurnInputState.
+	 * @param message
+	 */
 	private void processMessage(String message) {
 		Matcher obj = inputObjectCard.matcher(message);
 		Matcher pos = inputPosition.matcher(message);
