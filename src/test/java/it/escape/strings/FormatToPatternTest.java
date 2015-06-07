@@ -11,7 +11,7 @@ public class FormatToPatternTest {
 
 	@Test
 	public void testMotd() {
-		String core = "this is a test";
+		String core = "this is a test\nhello!\n";
 		Pattern conv;
 		String format = String.format(
 				StringRes.getString("messaging.motd"),

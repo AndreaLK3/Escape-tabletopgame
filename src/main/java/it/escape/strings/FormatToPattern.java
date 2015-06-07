@@ -31,7 +31,7 @@ public class FormatToPattern {
 		temp = temp.replaceAll("%s", matchall);  // match strings
 		temp = temp.replaceAll("%d", matchall);  // match integer numbers 
 		
-		return Pattern.compile(temp);
+		return Pattern.compile(temp, Pattern.DOTALL);
 	}
 	
 }

@@ -82,11 +82,11 @@ public class Connection implements Observer, Runnable {
 		PrintStream out;
 		try {
 			out = new PrintStream(clientSocket.getOutputStream());
-			out.println(String.format(
-					StringRes.getString("messaging.motd"),
+			out.println(StringRes.getString("messaging.motd.start") + "\n" + 
 					FilesHelper.streamToString(
-							FilesHelper.getResourceFile("resources/MOTD.txt"))
-							)
+							FilesHelper.getResourceFile("resources/MOTD.txt")
+							) + "\n" +
+					StringRes.getString("messaging.motd.end")
 					);
 		} catch (IOException e) {
 			log.warning(StringRes.getString("view.connection.cantWelcome"));

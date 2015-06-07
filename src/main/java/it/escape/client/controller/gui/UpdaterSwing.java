@@ -23,6 +23,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 
 	private UpdaterSwingToDisplayerInterface view;
 	
+	private boolean readingMotd = false;
+	
+	private String loadedMotd = "";
+	
 	public UpdaterSwing() {
 		super();
 		LogHelper.setDefaultOptions(LOG);
@@ -43,15 +47,38 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	@Override
 	protected void processMessage(String message) {
 		Matcher map = setGameMap.matcher(message);
-		Matcher motd = getMOTD.matcher(message);
+		Matcher startmotd = getMOTDstart.matcher(message);
 		
-		if (map.matches()) {
-			LOG.finer("Setting map to " + map.group(1));
-			view.setGameMap(map.group(1));
-		} else if (motd.matches()) {
-			LOG.finer("Received MOTD from server");
-			view.displayServerMOTD(motd.group(1));
+		if (!handlingMOTDspecialCase(message)) {
+			if (map.matches()) {
+				LOG.finer("Setting map to " + map.group(1));
+				view.setGameMap(map.group(1));
+			} else if (startmotd.matches()) {
+				LOG.finer("Server has begun writing motd");
+				readingMotd = true;
+			}
 		}
+		
 	}
 
+	/**
+	 * The Message Of The Day is a special situation, since it's a
+	 * text body read in pieces
+	 * @param message
+	 * @return
+	 */
+	private boolean handlingMOTDspecialCase(String message) {
+		Matcher endmotd = getMOTDend.matcher(message);
+		if (readingMotd) {
+			if (endmotd.matches()) {
+				LOG.finer("Server has stopped writing motd");
+				readingMotd = false;
+				view.displayServerMOTD(loadedMotd);;
+			} else {
+				loadedMotd = loadedMotd + "\n" + message;
+			}
+			return true;
+		}
+		return false;
+	}
 }
