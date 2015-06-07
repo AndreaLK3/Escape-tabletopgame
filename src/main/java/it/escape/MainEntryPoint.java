@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -95,6 +96,17 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 			out.println("Error setting look and feel.");
 		}
 	}
+	
+	private static void graphicalEnterIp() {
+		String newAddr = null;
+		while (newAddr == null || newAddr.length() == 0) {
+			newAddr = (String) JOptionPane.showInputDialog(null,
+					"Please enter the server hostname or IP:",
+					"Connect to...",
+					JOptionPane.PLAIN_MESSAGE);
+		}
+		globals.setDestinationServerAddress(newAddr);
+	}
 
 	@Override
 	public void startTextSocketClient(final StartMenuInterface startMenu) {
@@ -125,6 +137,7 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 				@Override
 				public void run() {
 					String param[] = {""};
+					graphicalEnterIp();
 					Displayer.main(param);
 				}}).start();
 	}
