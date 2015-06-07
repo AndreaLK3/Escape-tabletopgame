@@ -6,5 +6,6 @@ package it.escape.client.controller.gui;
  *
  */
 public interface UpdaterSwingToDisplayerInterface {
-
+	
+	public void setGameMap(String name);
 }

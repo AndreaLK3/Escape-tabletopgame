@@ -205,6 +205,7 @@ public class GameMaster implements Runnable {
 			announcer.announcePlayerDisconnected(player);
 			if (!isRunning()) {
 				listOfPlayers.remove(player);
+				numPlayers--;
 			}
 			else {
 				player.setUserIdle(true);

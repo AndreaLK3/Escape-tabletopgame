@@ -72,14 +72,25 @@ public class MapViewer extends JLabel {
 		this.cellHeight = cellHeight;
 		initialize();
 		initMouseListener();
-		drawCells();
+		
 	}
 	
 	public MapViewer() throws BadJsonFileException, IOException {
 		super();
 		initialize();
 		initMouseListener();
+	}
+	
+	public void setMap(String name) throws BadJsonFileException, IOException {
+		map = new MapLoader(FilesHelper.getResourceFile("resources/" + name + ".json"));
+		Position2D mapsize = map.getMapSize();
+		int max[] = cellToPixels(mapsize);
+		totalWidth = max[0] + cellWidth;
+		totalHeight = max[1] + (int) Math.ceil((cellHeight * 3)/2);
+		setPreferredSize(new Dimension(totalWidth, totalHeight));
+		
 		drawCells();
+		repaint();
 	}
 	
 	private void initMouseListener() {
@@ -115,17 +126,14 @@ public class MapViewer extends JLabel {
 		}
 	}
 	
-	private void initialize() throws BadJsonFileException, IOException {
+	private void initialize(){
 		cellHighlight = new ImageIcon(ImageScaler.resizeImage("resources/artwork/celle/highlight.png", cellWidth, cellHeight));
 		highlightOverlay = new JLabel(cellHighlight);
 		highlightOverlay.setVisible(false);
 		add(highlightOverlay);
 		background = ImageScaler.resizeImage("resources/artwork/map-background.png", backgroundTileSize, backgroundTileSize);
-		map = new MapLoader(FilesHelper.getResourceFile("resources/Galilei.json"));
-		Position2D mapsize = map.getMapSize();
-		int max[] = cellToPixels(mapsize);
-		totalWidth = max[0] + cellWidth;
-		totalHeight = max[1] + (int) Math.ceil((cellHeight * 3)/2);
+		totalWidth = 400;
+		totalHeight = 400;
 		setPreferredSize(new Dimension(totalWidth, totalHeight));
 		setOpaque(true);
 	}

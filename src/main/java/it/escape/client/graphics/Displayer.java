@@ -29,6 +29,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import sun.misc.Lock;
+
 
 public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterface{
    	private static final long serialVersionUID = 1L;
@@ -76,7 +78,6 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
    	public Displayer(String string, BindUpdaterInterface updater, Relay relay) {
    		super(string);
    		this.relayRef = relay;
-   		updater.bindView(this);
    		setLayout(new GridBagLayout());
    		constraints = new GridBagConstraints();
    		
@@ -87,6 +88,8 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
    		addChatPanel();
    		initializeButtons();
    		setLabelsOpaque();
+   		
+   		updater.bindView(this);
    		
    		objectCardsPanel = new ObjectCardsPanel();
    		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -328,22 +331,38 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		
 	}
    	
-   	public static void launch(final BindUpdaterInterface updater, final Relay relay) {
+   	public static void synchronousLaunch(final BindUpdaterInterface updater, final Relay relay) {
+   		final Lock l = new Lock();
+   		try {
+			l.lock();  // (1) set mutex once, so that the program flow will stop at (2)
+		} catch (InterruptedException e1) {
+		}
+   		
 		EventQueue.invokeLater(
 				new Runnable() {
 					public void run() {
 						Displayer playerFrame = new Displayer("Escape from the Aliens in Outer Space", updater, relay);	
+						l.unlock();  // unlock the mutex, let the synchronousLaunch return
 					}
 				}
 		);
+		
+		try {
+			l.lock();  // (2) try again setting the mutex, but it must be unlocked first
+		} catch (InterruptedException e) {
+		}
+		
 		}
 
-   	
-   	
-   
-   	
-
-
-	
+	@Override
+	public void setGameMap(String name) {
+		try {
+			((MapViewer)label5_map).setMap(name);
+		} catch (BadJsonFileException e) {
+			// TODO Auto-generated catch block
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+		}
+	}
 }
 	

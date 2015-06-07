@@ -14,8 +14,7 @@ public abstract class Updater implements Observer {
 	protected Pattern inputYesNo;
 	protected Pattern myTurnStart;
 	protected Pattern myTurnEnd;
-	
-	
+	protected Pattern setGameMap;
 	
 	public Updater() {
 		initPatterns();
@@ -34,6 +33,7 @@ public abstract class Updater implements Observer {
 				"no"));
 		myTurnStart = new FormatToPattern(StringRes.getString("messaging.hail.player")).convert();
 		myTurnEnd = new FormatToPattern(StringRes.getString("messaging.farewell")).convert();
+		setGameMap = new FormatToPattern(StringRes.getString("messaging.serversMap")).convert();
 		
 	};
 	

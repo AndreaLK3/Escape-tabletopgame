@@ -27,7 +27,7 @@ public class ClientSocketChannel extends Observable implements Runnable, ClientS
 	
 	private MessageCarrier messaging;
 	
-	private DisconnectedCallbackInterface disconnectCallback;
+	private DisconnectedCallbackInterface disconnectCallback = null;
 	
 	
 	public ClientSocketChannel(String ipAddress, int port) throws UnknownHostException, IOException {
@@ -39,6 +39,11 @@ public class ClientSocketChannel extends Observable implements Runnable, ClientS
 		terminatedByClient = false;
 	}
 	
+	/**
+	 * Bind a DisconnectedCallbackInterface, it contains a single method
+	 * to be called after an unexpected disconnection
+	 * @param disconnectCallback
+	 */
 	public void bindDisconnCallback(DisconnectedCallbackInterface disconnectCallback) {
 		this.disconnectCallback = disconnectCallback;
 	}
@@ -65,7 +70,9 @@ public class ClientSocketChannel extends Observable implements Runnable, ClientS
 			clientSocket.close();
 			running = false;
 			if (!terminatedByClient) {  // if the disconnection wasn't ordered by the client, do some cleanup
-				disconnectCallback.disconnected();
+				if (disconnectCallback != null) {
+					disconnectCallback.disconnected();
+				}
 			}
 		} catch (IOException e) {
 			System.out.println("Error: cannot close the connection");
