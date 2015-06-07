@@ -42,7 +42,6 @@ public class ImageAutoFit implements Runnable {
 		}
 	}
 
-	@Override
 	public void run() {
 		while (label != null) {
 			try {

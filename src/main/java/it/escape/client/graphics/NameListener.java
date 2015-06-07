@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 
 public class NameListener implements ActionListener {
 
-	@Override
 	public void actionPerformed(ActionEvent event) {
 		JOptionPane.showMessageDialog(null, "To implement: handle the name change");
 

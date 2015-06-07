@@ -16,7 +16,6 @@ public class ActionStartServer implements ActionListener {
 		this.startMenu = startMenu;
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (StringRes.getString("launcher.button.server").equals(e.getActionCommand())) {
 			chooseServer();

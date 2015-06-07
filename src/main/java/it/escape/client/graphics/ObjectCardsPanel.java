@@ -107,7 +107,6 @@ public class ObjectCardsPanel extends JPanel {
 	 * @author andrea */
 	private class RadioListener implements ItemListener {
 
-		@Override
 		public void itemStateChanged(ItemEvent event) {
 			chosenCardName = ((AbstractButton) event.getSource()).getText();
 		}

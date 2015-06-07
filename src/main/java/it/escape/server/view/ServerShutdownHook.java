@@ -22,7 +22,6 @@ public class ServerShutdownHook implements Runnable {
 		LogHelper.setDefaultOptions(LOG);
 	}
 
-	@Override
 	public void run() {
 		LOG.info("Running server shutdown hook.");
 		Master.stopAll();

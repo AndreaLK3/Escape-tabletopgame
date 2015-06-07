@@ -13,7 +13,6 @@ public class ActionSetNetMode implements ActionListener {
 		this.launcherState = launcherState;
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		JComboBox cb = (JComboBox)e.getSource();
         String selected = (String)cb.getSelectedItem();

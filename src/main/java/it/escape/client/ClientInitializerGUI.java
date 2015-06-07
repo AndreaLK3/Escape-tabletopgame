@@ -46,11 +46,12 @@ public class ClientInitializerGUI {
 			// start the view
 			Displayer.synchronousLaunch((BindUpdaterInterface)updater, relay);
 			
-			// start reading from the network
+			// start reading from the network *only* once the gui is up
 			connectionThread = new Thread(connection);
 			connectionThread.start();
 			
-			// join connection thread
+			// join connection thread, when the connection goes down, the program will stop
+			// TODO: we will probably change that later (i.e. display winners/losers)
 			try {
 				connectionThread.join();
 			} catch (InterruptedException e) {

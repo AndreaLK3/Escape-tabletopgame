@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 
 public class ChatListener implements ActionListener {
 
-	@Override
 	public void actionPerformed(ActionEvent event) {
 		JOptionPane.showMessageDialog(null, "To implement: send and receive chat messages");
 

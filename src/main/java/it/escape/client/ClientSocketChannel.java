@@ -88,7 +88,6 @@ public class ClientSocketChannel extends Observable implements Runnable, ClientS
 		out.println(msg);
 	}
 
-	@Override
 	public void run() {
 		mainLoop();		
 	}

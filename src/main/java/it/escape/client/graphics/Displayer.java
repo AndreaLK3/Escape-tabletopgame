@@ -319,7 +319,6 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 	
 	private class ButtonHandler implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent event) {
 			if (event.getSource() == showCardsButton) {
 				//the objectCardsPanel will have to be updated reading the client.model.PlayerState
@@ -354,7 +353,6 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		
 		}
 
-	@Override
 	public void setGameMap(String name) {
 		try {
 			((MapViewer)label5_map).setMap(name);
@@ -363,6 +361,17 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 		}
+	}
+
+	public void displayServerMOTD(final String motd) {
+		new Thread(new Runnable() {
+			public void run() {
+				JOptionPane.showMessageDialog(null,
+					    motd,
+					    "Welcome!",
+					    JOptionPane.PLAIN_MESSAGE);
+			}
+		}).start();
 	}
 }
 	

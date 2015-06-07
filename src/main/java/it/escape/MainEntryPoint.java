@@ -111,33 +111,27 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 		globals.setDestinationServerAddress(newAddr);
 	}
 
-	@Override
 	public void startTextSocketClient(final StartMenuInterface startMenu) {
 		new Thread(
 			new Runnable() {
-				@Override
 				public void run() {
 					ClientInitializerCLI.start(globals);
 					startMenu.closeProgram();
 				}}).start();
 	}
 
-	@Override
 	public void startTextSocketServer(final StartMenuInterface startMenu) {
 		new Thread(
 			new Runnable() {
-				@Override
 				public void run() {
 					new ServerInitializer(globals);
 					startMenu.closeProgram();
 				}}).start();
 	}
 
-	@Override
 	public void startGUISocketClient(final StartMenuInterface startMenu) {
 		new Thread(
 			new Runnable() {
-				@Override
 				public void run() {
 					graphicalEnterIp();
 					ClientInitializerGUI.start(globals);

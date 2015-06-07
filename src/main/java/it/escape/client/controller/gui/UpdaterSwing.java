@@ -43,10 +43,14 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	@Override
 	protected void processMessage(String message) {
 		Matcher map = setGameMap.matcher(message);
+		Matcher motd = getMOTD.matcher(message);
 		
 		if (map.matches()) {
 			LOG.finer("Setting map to " + map.group(1));
 			view.setGameMap(map.group(1));
+		} else if (motd.matches()) {
+			LOG.finer("Received MOTD from server");
+			view.displayServerMOTD(motd.group(1));
 		}
 	}
 

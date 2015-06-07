@@ -24,7 +24,6 @@ public class ActionAcceptNewPortNumber implements ActionListener {
 		this.locals = locals;
 	}
 	
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		String newPort = field.getText();
 		if (validInt.matcher(newPort).matches()) {
