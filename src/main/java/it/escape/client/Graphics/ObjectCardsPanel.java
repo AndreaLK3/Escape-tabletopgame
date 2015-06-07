@@ -5,6 +5,7 @@ import it.escape.utils.FilesHelper;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -25,20 +26,19 @@ public class ObjectCardsPanel extends JPanel {
 	 * acquiring the cards in the User's possession and adding them as buttons.
 	 * @param List<String> cards */
 	public ObjectCardsPanel (List<String> cards) {
+		objectCardsButtons = new ArrayList<JRadioButton>();
+		group = new ButtonGroup();
 		for (String cardName : cards) {
 			addCardButton(cardName);
 		}
 		
-		for (JRadioButton b : objectCardsButtons)
-			group.add(b);
 	}
 	
 	
-	/**
-	 * The check on the cardName (that should always be correct anyways, since it is sent by the Server)
-	 * has already been done by either the Connection or PlayerState.
-	 * @param cardName
-	 */
+	/**This method creates a JRadioButton with the given cardName and the corresponding image.
+	 * (n:The check on the cardName (that should always be correct anyways, since it is sent by the Server)
+	 * has already been done by either the Connection or PlayerState).
+	 * @param cardName */
 	private void addCardButton(String cardName) {
 		JRadioButton cardButton  = new JRadioButton(cardName);
 		cardButton.setIcon(new ImageIcon(getImage(cardName)));

@@ -51,6 +51,7 @@ public class Displayer extends JFrame
 	private JTextArea statusArea;
 	private JTextArea teamArea;
 	private JTextField chatField;
+	private JTextArea chatArea;
 	private JButton showCardsButton;
 	
 	
@@ -188,6 +189,10 @@ public class Displayer extends JFrame
    		label9 = new JLabel("Chat");
 		label9.setBackground(new Color(150, 100, 150));
 		
+		chatArea = new JTextArea();
+		chatArea.setText("Chat messages will be displayed here");
+		chatArea.setEditable(false);
+		
 		chatField = new JTextField("You can write chat messages here");
 		chatField.addActionListener(myChatListener);
 		
@@ -201,6 +206,13 @@ public class Displayer extends JFrame
 		
 		constraints.gridx = 0;
 		constraints.gridy = 1;
+		constraints.weightx = 1;
+		constraints.weighty = 1;
+		constraints.fill = GridBagConstraints.BOTH;
+		panel.add(chatArea, constraints);
+		
+		constraints.gridx = 0;
+		constraints.gridy = 2;
 		constraints.weightx = 1;
 		constraints.weighty = 1;
 		constraints.fill = GridBagConstraints.BOTH;
