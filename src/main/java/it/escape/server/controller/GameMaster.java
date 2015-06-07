@@ -79,6 +79,8 @@ public class GameMaster implements Runnable {
 
 	private final int WAIT_TIMEOUT;
 	
+	private int started_countdown;
+	
 	private final static int USERID_RANDOMIZE = 10000;
 	
 	public final static int MAXPLAYERS = 8;
@@ -108,8 +110,9 @@ public class GameMaster implements Runnable {
 	
 	
 	public synchronized void run() {
+		started_countdown = (int) System.currentTimeMillis();
 		LOG.fine(String.format(StringRes.getString("controller.gamemaster.gameStartTimeout"), WAIT_TIMEOUT/1000));
-		// maybe we can announce it to the players, too
+		announcer.announceGameStartETA(WAIT_TIMEOUT / 1000);
 		try {
 			wait(WAIT_TIMEOUT);
 		} catch (InterruptedException e) {
@@ -163,13 +166,18 @@ public class GameMaster implements Runnable {
 	private void announceNewPlayer(MessagingChannel interfaceWithUser) {
 		UserMessagesReporter.getReporterInstance(interfaceWithUser).relayMessage(String.format(
 				StringRes.getString("messaging.serversMap"),
-				map.getName()));
+				map.getName()));  // greet him
 		
-		announcer.announcePlayerConnected(numPlayers,GameMaster.MAXPLAYERS);  // the new user won't see this, as he hasn't yet subscribed
+		announcer.announcePlayerConnected(numPlayers,GameMaster.MAXPLAYERS);  // notify the others
 		UserMessagesReporter.getReporterInstance(interfaceWithUser).relayMessage(String.format(
 				StringRes.getString("messaging.othersWaiting"),
 				numPlayers,
-				GameMaster.MAXPLAYERS));
+				GameMaster.MAXPLAYERS));  // tell him how many players are connected
+		if (ownThread != null) {  // if a game is about to start
+			UserMessagesReporter.getReporterInstance(interfaceWithUser).relayMessage(String.format(
+					StringRes.getString("messaging.gameStartETA"),
+					getStartGameETA()));  // tell him how long until game starts
+		}
 	}
 	/**
 	 * Here's the logic to decide when to start the actual game
@@ -177,8 +185,10 @@ public class GameMaster implements Runnable {
 	 */
 	private synchronized void gameStartLogic() {
 		if (numPlayers >= GameMaster.MINPLAYERS) {
-			ownThread = new Thread(this);
-			ownThread.start();
+			if (ownThread == null) {  // start the subthread only if necessary
+				ownThread = new Thread(this);
+				ownThread.start();
+			}
 		} else if (numPlayers >= GameMaster.MAXPLAYERS) {
 			notify();
 		}
@@ -289,6 +299,11 @@ public class GameMaster implements Runnable {
 					StringRes.getString("messaging.gamemaster.playAs") + " " + p.getTeam().toString());
 			
 		}
+	}
+	
+	private int getStartGameETA() {
+		int passed = (int) System.currentTimeMillis() - started_countdown;
+		return (WAIT_TIMEOUT/1000) - (passed/1000);
 	}
 	
 	/** used to check if there the game managed by this gamemaster is running

@@ -131,4 +131,11 @@ public class Announcer extends Observable {
 				message);
 		announce(newmsg);
 	}
+	
+	public void announceGameStartETA(int seconds) {
+		String newmsg = String.format(
+				StringRes.getString("messaging.gameStartETA"),
+				seconds);
+		announce(newmsg);
+	}
 }
