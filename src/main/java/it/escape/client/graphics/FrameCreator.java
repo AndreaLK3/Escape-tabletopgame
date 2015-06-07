@@ -1,4 +1,4 @@
-package it.escape.client.Graphics;
+package it.escape.client.graphics;
 
 import javax.swing.JFrame;
 

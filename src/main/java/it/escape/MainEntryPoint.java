@@ -101,9 +101,12 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 		String newAddr = null;
 		while (newAddr == null || newAddr.length() == 0) {
 			newAddr = (String) JOptionPane.showInputDialog(null,
-					"Please enter the server hostname or IP:",
+					"Please enter the server's hostname or IP:",
 					"Connect to...",
-					JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.PLAIN_MESSAGE,
+					null,
+					null,
+					globals.getDestinationServerAddress());
 		}
 		globals.setDestinationServerAddress(newAddr);
 	}

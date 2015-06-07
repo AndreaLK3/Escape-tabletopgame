@@ -1,11 +1,12 @@
-package it.escape.client.Graphics;
+package it.escape.client.graphics;
 
+import it.escape.client.controller.Relay;
 import it.escape.client.controller.gui.MouseOnMapCell;
+import it.escape.client.controller.gui.UpdaterSwingToDisplayerInterface;
+import it.escape.client.graphics.maplabel.MapViewer;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
@@ -16,9 +17,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.AbstractButton;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -31,8 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 
-public class Displayer extends JFrame
-{
+public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterface{
    	private static final long serialVersionUID = 1L;
    	private static final int MAXPLAYERS = 8;
   	
@@ -60,18 +58,25 @@ public class Displayer extends JFrame
 	private String chosenObjectCard;
 	
 	PlayerPanel playerPanels[] = new PlayerPanel[MAXPLAYERS];
+
+	private Relay relayRef;
 	
 	NameListener myNameListener = new NameListener();
 	ChatListener myChatListener = new ChatListener();
 	ButtonHandler buttonHandler = new ButtonHandler();
 	
-	private Icon map;
 	int currentRow = 1;
    	
-	/**The constructor: initializes the window and all of its containers and components.
-	 * @param string (the title of the window) */
-   	public Displayer(String string) {
+	/**
+	 * The constructor: initializes the window and all of its containers and components.
+	 * @param string (the title of the window) 
+	 * @param BindUpdaterInterface (updater that will feed us data from the net) 
+	 * @param Relay (used to send data to the net)
+	 */
+   	public Displayer(String string, BindUpdaterInterface updater, Relay relay) {
    		super(string);
+   		this.relayRef = relay;
+   		updater.bindView(this);
    		setLayout(new GridBagLayout());
    		constraints = new GridBagConstraints();
    		
@@ -323,13 +328,11 @@ public class Displayer extends JFrame
 		
 	}
    	
-   	public static void main( String[] args )
-    {
+   	public static void launch(final BindUpdaterInterface updater, final Relay relay) {
 		EventQueue.invokeLater(
 				new Runnable() {
 					public void run() {
-						Displayer playerFrame = new Displayer("Escape from the Aliens in Outer Space");
-				
+						Displayer playerFrame = new Displayer("Escape from the Aliens in Outer Space", updater, relay);	
 					}
 				}
 		);

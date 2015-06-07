@@ -1,15 +1,15 @@
-package it.escape.client.Graphics;
+package it.escape.client.graphics;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-public class ChatListener implements ActionListener {
+public class NameListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		JOptionPane.showMessageDialog(null, "To implement: send and receive chat messages");
+		JOptionPane.showMessageDialog(null, "To implement: handle the name change");
 
 	}
 

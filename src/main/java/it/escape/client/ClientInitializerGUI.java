@@ -1,6 +1,10 @@
 package it.escape.client;
 
-import it.escape.client.Graphics.Displayer;
+import it.escape.client.controller.ClientSocketChannelInterface;
+import it.escape.client.controller.Relay;
+import it.escape.client.controller.gui.UpdaterSwing;
+import it.escape.client.graphics.BindUpdaterInterface;
+import it.escape.client.graphics.Displayer;
 import it.escape.utils.FilesHelper;
 
 import java.io.IOException;
@@ -20,24 +24,31 @@ public class ClientInitializerGUI {
 	
 	private static JDialog pleaseWait;
 	
+	private static Relay relay;
+	
+	private static UpdaterSwing updater;
+	
 	public static void start(ClientLocalSettings Locals) {
 		locals = Locals;
 		openProgressDialog();
 		
 		try {
+			// connect to server
 			connection = new ClientSocketChannel(
 					locals.getDestinationServerAddress(),
 					locals.getServerPort());
 			
-			pleaseWait.dispose();
-			// initialize other stuff
+			pleaseWait.dispose();  // remove the "connecting..." dialog
+			// initialize other stuff, like the controller
+			relay = new Relay((ClientSocketChannelInterface) connection);
+			updater = new UpdaterSwing();
 			
-			connectionThread = new Thread(connection);
-			
-			connectionThread.start();
 			// start the view
-			String param[] = {""};
-			Displayer.main(param);
+			Displayer.launch((BindUpdaterInterface)updater, relay);
+			
+			// start reading from the network
+			connectionThread = new Thread(connection);
+			connectionThread.start();
 			
 			// join connection & view threads
 			try {

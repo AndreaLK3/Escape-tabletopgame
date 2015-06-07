@@ -1,13 +1,11 @@
 package it.escape.client.controller.cli;
 
 import it.escape.client.controller.MessageCarrier;
-import it.escape.strings.FormatToPattern;
-import it.escape.strings.StringRes;
+import it.escape.client.controller.Updater;
 
 import java.util.Observable;
 import java.util.Observer;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**This class Observes the MessageCarrier, that receives Strings from the Connection.
  * This class checks if the messages sent by the Server correspond
@@ -25,9 +23,9 @@ public class UpdaterCLI extends Updater implements Observer {
 	
 	
 	public UpdaterCLI(StateManagerCLIInterface stateRef, UpdaterCLItoTerminalInterface view) {
+		super();
 		this.stateRef = stateRef;
 		this.view = view;
-		initPatterns();
 	}
 	
 	
@@ -50,7 +48,7 @@ public class UpdaterCLI extends Updater implements Observer {
 	 * If it does, it sets the appropriate TurnInputState.
 	 * @param message
 	 */
-	private void processMessage(String message) {
+	protected void processMessage(String message) {
 		Matcher obj = inputObjectCard.matcher(message);
 		Matcher pos = inputPosition.matcher(message);
 		Matcher yesno = inputYesNo.matcher(message);
