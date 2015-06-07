@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -299,13 +300,6 @@ public class Displayer extends JFrame
 	}
 	
 	
-	
-	/** TODO Implement updating (either using a method call or the Observer pattern)
-	 * We could also define another class that updates the elements inside this one that need
-	 * to be updated*/
-	public void updateView() {
-		
-	}
 
 	
 	private PlayerPanel findPlayerPanel(String playerName) {
@@ -322,9 +316,11 @@ public class Displayer extends JFrame
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			if (event.getSource() == showCardsButton) {
-				
-			}
-				
+				//the objectCardsPanel will have to be updated reading the client.model.PlayerState
+				objectCardsPanel.updateCards(Arrays.asList("attack", "defense","teleport","lights","sedatives","adrenaline"));
+				JOptionPane.showConfirmDialog(null, objectCardsPanel.getButtonsAsArray(), "Your object cards", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
+				chosenObjectCard = objectCardsPanel.getChosenCardName();
+				JOptionPane.showMessageDialog(null, "You have chosen the " + chosenObjectCard  + " card.");}
 		}
 		
 	}

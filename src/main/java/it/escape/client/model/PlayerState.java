@@ -1,9 +1,14 @@
 package it.escape.client.model;
 
+import it.escape.server.model.game.players.PlayerTeams;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerState {
+	
+	private PlayerStatus myStatus;
+	
 	
 	private List<String> objectCards;
 	

@@ -19,8 +19,8 @@ import javax.swing.JTextField;
 
 public class ObjectCardsPanel extends JPanel {
 
-
-	private JTextField title;
+	private final static int NUMCARDTYPES = 6;
+	
 	private List<JRadioButton> objectCardsButtons;
 	private ButtonGroup group;
 	private ItemListener radioListener;
@@ -67,36 +67,27 @@ public class ObjectCardsPanel extends JPanel {
 	 * @return Image (es.Attack.png)
 	 */
 	private Image getImage(String cardName) {
-		if (cardName.startsWith("attack")) {
-			return ImageScaler.resizeImage("resources/artwork/ObjectCards/Attack.png", 60, 60);
+		String cardNames[] = {"attack", "defense","teleport","lights","sedatives","adrenaline"};
+		for (int i=0; i<NUMCARDTYPES; i++) {
+			if (cardName.equalsIgnoreCase(cardNames[i])) {
+				return ImageScaler.resizeImage("resources/artwork/ObjectCards/"+cardNames[i]+".png", 50, 46);
+			}
 		}
-		if (cardName.startsWith("defense")) {
-			return ImageScaler.resizeImage("resources/artwork/ObjectCards/Attack.png", 60, 60);		
-		}
-		if (cardName.startsWith("lights")) {
-			return ImageScaler.resizeImage("resources/artwork/ObjectCards/Attack.png", 60, 60);
-		}
-		if (cardName.startsWith("teleport")) {
-			return ImageScaler.resizeImage("resources/artwork/ObjectCards/Attack.png", 60, 60);
-		}
-		if (cardName.startsWith("sedatives")) {
-			return ImageScaler.resizeImage("resources/artwork/ObjectCards/Attack.png", 60, 60);
-		}
-		if (cardName.startsWith("adrenaline")) {
-			return ImageScaler.resizeImage("resources/artwork/ObjectCards/Attack.png", 60, 60);
-		}
+		
+		
 		
 		return null;
 	}
 	
 	
-	public void getButtonsAsArray() {
+	public JRadioButton[] getButtonsAsArray() {
 		int x = 0;
-		JRadioButton buttonsArray[] = new JRadioButton[4];
+		JRadioButton buttonsArray[] = new JRadioButton[6];
 		for (JRadioButton b : objectCardsButtons) {
 			buttonsArray[x]=b;
 			x++;
 		}
+		return buttonsArray;
 	}
 	
 	public String getChosenCardName() {
