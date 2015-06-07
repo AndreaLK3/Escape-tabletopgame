@@ -1,19 +1,6 @@
 Current tasks:
 
 (AL:)
-nuovo bug:
-Provando a iniziare una nuova partita con Server+Client+Client da MainEntryPoint, 
-nel Client:
-
-Jun 07, 2015 12:38:53 PM it.escape.CliParser parse
-FINER: Parsing command line parameters
-Please enter the address (ip or hostname) of the server you wish to connect to.
-If you just press enter, we'll keep default "localhost"
-
-Exception in thread "Thread-3" java.lang.ClassCastException: it.escape.client.view.cli.StateManagerCLI cannot be cast to it.escape.client.controller.cli.StateManagerCLIInterface
-	at it.escape.client.ClientInitializerCLI.start(ClientInitializerCLI.java:44)
-	at it.escape.MainEntryPoint$1.run(MainEntryPoint.java:105)
-	at java.lang.Thread.run(Thread.java:745)
 
 
 

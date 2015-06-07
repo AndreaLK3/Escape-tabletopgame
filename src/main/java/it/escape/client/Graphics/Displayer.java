@@ -10,6 +10,8 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +36,6 @@ public class Displayer extends JFrame
    	private static final int MAXPLAYERS = 8;
   	
    	private GridBagConstraints constraints;
-   	//private int currentRow=0, currentColumn=0;
    	
    	private JLabel label1;
 	private JLabel label2;
@@ -54,6 +55,8 @@ public class Displayer extends JFrame
 	private JTextArea chatArea;
 	private JButton showCardsButton;
 	
+	private ObjectCardsPanel objectCardsPanel;
+	private String chosenObjectCard;
 	
 	PlayerPanel playerPanels[] = new PlayerPanel[MAXPLAYERS];
 	
@@ -77,8 +80,9 @@ public class Displayer extends JFrame
    		initializePersonalPanels();
    		addChatPanel();
    		initializeButtons();
-   		
    		setLabelsOpaque();
+   		
+   		objectCardsPanel = new ObjectCardsPanel();
    		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    		setSize(800, 600);
 		setVisible(true);
@@ -135,7 +139,7 @@ public class Displayer extends JFrame
 		constraints.weightx = 1;
 		constraints.weighty = 1;
 		constraints.gridwidth = 1;
-		constraints.gridheight = 11;
+		constraints.gridheight = 12;
 		constraints.anchor = GridBagConstraints.CENTER;
 		add(mapScrollPane, constraints);
 		resetConstraints(constraints);
@@ -184,7 +188,7 @@ public class Displayer extends JFrame
 		
 	}
    	
-	/** Creation method: chat text field*/
+	/** Creation method: chat text area and text field*/
    	private void addChatPanel() {
    		label9 = new JLabel("Chat");
 		label9.setBackground(new Color(150, 100, 150));
@@ -230,7 +234,7 @@ public class Displayer extends JFrame
 		showCardsButton = new JButton("See your object Cards");
 		showCardsButton.addActionListener(buttonHandler);
    		constraints.gridx = 1;
-		constraints.gridy = 12;
+		constraints.gridy = 13;
 		constraints.weightx = 1;
 		add(showCardsButton, constraints);
 		resetConstraints(constraints);
@@ -311,6 +315,18 @@ public class Displayer extends JFrame
 		}
 		return null;
 			
+	}
+	
+	private class ButtonHandler implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			if (event.getSource() == showCardsButton) {
+				
+			}
+				
+		}
+		
 	}
    	
    	public static void main( String[] args )
