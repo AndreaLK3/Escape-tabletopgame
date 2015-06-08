@@ -3,12 +3,15 @@ package it.escape.client.controller.gui;
 import it.escape.client.controller.MessageCarrier;
 import it.escape.client.controller.Updater;
 import it.escape.client.view.gui.BindUpdaterInterface;
+import it.escape.strings.FormatToPattern;
+import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
 
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Updates the swing interface when a new network message arrives
@@ -27,6 +30,25 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	
 	private String loadedMotd = "";
 	
+	private Pattern info_numLobbyPlayers;
+	private Pattern info_playerConnected;
+	private Pattern info_yourTeam;
+	private Pattern info_currentTurnAndPlayer;
+	private Pattern turn_Attack;
+	private Pattern event_Noise;
+	private Pattern ask_Noise;
+	private Pattern turn_askForNoise;
+	private Pattern info_DrawnObjectCard;
+	private Pattern event_ObjectUsed;
+	private Pattern event_PlayerLocated;
+	private Pattern event_Attack;
+	private Pattern exception_1;
+	private Pattern exception_2;
+	private Pattern exception_3;
+	private Pattern exception_4;
+	private Pattern exception_5;
+	
+	
 	public UpdaterSwing() {
 		super();
 		LogHelper.setDefaultOptions(LOG);
@@ -43,7 +65,34 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			processMessage(msg.getMessage());
 		}
 	}
-
+	
+	
+	protected void initPatterns() {
+		super.initPatterns();
+		info_numLobbyPlayers = new FormatToPattern(StringRes.getString("messaging.othersWaiting")).convert();
+		info_playerConnected = new FormatToPattern(StringRes.getString("messaging.playerConnected")).convert();
+		info_yourTeam = new FormatToPattern(StringRes.getString("messaging.gamemaster.playAs")).convert();
+		info_currentTurnAndPlayer = new FormatToPattern(StringRes.getString("messaging.timecontroller.turnNumber")).convert();
+		info_DrawnObjectCard = new FormatToPattern(StringRes.getString("messaging.objectCardDrawn")).convert();
+		
+		turn_Attack = new FormatToPattern(StringRes.getString("messaging.askIfAttack")).convert();
+		turn_askForNoise = new FormatToPattern(StringRes.getString("messaging.askForNoisePosition")).convert();
+		
+		event_ObjectUsed = new FormatToPattern(StringRes.getString("messaging.playerIsUsingObjCard")).convert();
+		event_Noise = new FormatToPattern(StringRes.getString("messaging.noise")).convert();
+		event_PlayerLocated = new FormatToPattern(StringRes.getString("messaging.disclosePlayerPosition")).convert();
+		event_Attack = new FormatToPattern(StringRes.getString("messaging.playerAttacking")).convert();
+		//These ones are necessary so that we can display the JInputDialog (ex, for the position) again.
+		//There will be a dialog that displays the exception message (whatever it is) and
+		//the view will have to repeat the last dialog display...
+		exception_1 = new FormatToPattern(StringRes.getString("messaging.exceptions.badCoordinatesFormat")).convert();
+		exception_2 = new FormatToPattern(StringRes.getString("messaging.exceptions.cellNotExists")).convert();
+		exception_3 = new FormatToPattern(StringRes.getString("messaging.exceptions.playerCanNotEnter")).convert();
+		exception_4 = new FormatToPattern(StringRes.getString("messaging.exceptions.destinationUnreachable")).convert();
+		exception_5 = new FormatToPattern(StringRes.getString("messaging.exceptions.wrongCard")).convert();
+	}
+	
+	
 	@Override
 	protected void processMessage(String message) {
 		Matcher map = setGameMap.matcher(message);

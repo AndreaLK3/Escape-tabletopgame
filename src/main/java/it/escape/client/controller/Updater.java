@@ -21,6 +21,8 @@ public abstract class Updater implements Observer {
 	protected Pattern inboundChatMessage;
 	
 	
+	
+	
 	public Updater() {
 		initPatterns();
 	}
@@ -43,6 +45,10 @@ public abstract class Updater implements Observer {
 		getMOTDend = new FormatToPattern(StringRes.getString("messaging.motd.end")).convert();
 		startInXSeconds = new FormatToPattern(StringRes.getString("messaging.gameStartETA")).convert();
 		inboundChatMessage = new FormatToPattern(StringRes.getString("messaging.relayChat")).convert();
+		
+		
+		
+		
 	};
 	
 }
