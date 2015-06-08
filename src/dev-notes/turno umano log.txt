@@ -1,0 +1,81 @@
+--=== Server Welcome message ===--  
+Benvenuto su Escape from The Aliens in Outer Space!!
+Versione 0.9                        
+Have fun!                           
+--=== End of Welcome message ===--  
+We are playing the map "Galilei"    
+There are (2/8) players waiting in this lobby
+The game will start in 60 seconds   
+Sei stato assegnato alla squadra HUMANS
+********** Turn number: 1 * Now Playing : Guest-0-2291 **********
+********** Turn number: 1 * Now Playing : Guest-0-9179 **********
+Hello player Guest-0-9179, you are located in L08 and it's your turn to move
+you have to move your character on the map
+please enter valid position (es. A05)
+(My turn, coordinates)> M08
+You hear noise coming from coordinates M08
+Your turn is now over   
+********** Turn number: 2 * Now Playing : Guest-0-2291 **********
+You hear noise coming from coordinates A03
+********** Turn number: 2 * Now Playing : Guest-0-9179 **********
+Hello player Guest-0-9179, you are located in M08 and it's your turn to move
+you have to move your character on the map
+please enter valid position (es. A05)
+(My turn, coordinates)> N08
+You hear noise coming from coordinates N08
+You have drawn a LightsCard-type object card
+Do you want to play an object card?
+please enter 'yes' or 'no'
+(My turn, yes/no)> yes
+please specify the object card
+Valid cards are: "attack", "defense", "teleport", "lights", "sedatives", "adrenaline"
+(My turn, object-card)> lights
+Player Guest-0-9179 is using a LightsCard-type card. Guest-0-9179 is a human for sure!
+enter the position of the cell where the lights will be turned on
+please enter valid position (es. A05)
+(My turn, coordinates)> N06
+Player Guest-0-2291 identified! Location: N06
+Your turn is now over   
+********** Turn number: 3 * Now Playing : Guest-0-2291 **********
+Guest-0-2291 says: stronzo!         
+Player Guest-0-2291 is attacking in sector O06!
+********** Turn number: 3 * Now Playing : Guest-0-9179 **********
+Hello player Guest-0-9179, you are located in N08 and it's your turn to move
+you have to move your character on the map
+please enter valid position (es. A05)
+(My turn, coordinates)> O08
+You have drawn a AdrenalineCard-type object card
+Do you want to play an object card?
+please enter 'yes' or 'no'
+(My turn, yes/no)> yes
+please specify the object card
+Valid cards are: "attack", "defense", "teleport", "lights", "sedatives", "adrenaline"
+(My turn, object-card)> adrenaline
+WrongCardException : You are not allowed to play that card during this phase of the turn
+Do you want to play an object card?
+please enter 'yes' or 'no'
+(My turn, yes/no)> no
+Your turn is now over   
+********** Turn number: 4 * Now Playing : Guest-0-2291 **********
+********** Turn number: 4 * Now Playing : Guest-0-9179 **********
+Hello player Guest-0-9179, you are located in O08 and it's your turn to move
+Do you want to play an object card?
+please enter 'yes' or 'no'
+(My turn, yes/no)> no 
+you have to move your character on the map
+please enter valid position (es. A05)
+(My turn, coordinates)> O08
+You have drawn a TeleportCard-type object card
+Do you want to play an object card?
+please enter 'yes' or 'no'
+(My turn, yes/no)> no
+Your turn is now over   
+********** Turn number: 5 * Now Playing : Guest-0-2291 **********
+Player Guest-0-2291 is attacking in sector O08!
+Player Guest-0-9179 was killed!     
+End of the Game! Here come the results
+Team HUMANS was defeated            
+Winners from the ALIENS team: Guest-0-2291
+Goodbye user Guest-0-9179, it was nice to have you on our server
+Disconnected by server; press enter to quit.
+(Someone else's turn, free-action)>

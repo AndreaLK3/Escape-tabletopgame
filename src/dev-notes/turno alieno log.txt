@@ -1,0 +1,83 @@
+--=== Server Welcome message ===--  
+Benvenuto su Escape from The Aliens in Outer Space!!
+Versione 0.9                        
+Have fun!                           
+--=== End of Welcome message ===--  
+We are playing the map "Galilei"    
+There are (1/8) players waiting in this lobby
+A new player has connected (2/8)    
+The game will start in 60 seconds   
+Sei stato assegnato alla squadra ALIENS
+********** Turn number: 1 * Now Playing : Guest-0-2291 **********
+Hello player Guest-0-2291, you are located in L06 and it's your turn to move
+you have to move your character on the map
+please enter valid position (es. A05)
+(My turn, coordinates)> M06
+do you want to attack?  
+please enter 'yes' or 'no'
+(My turn, yes/no)> no
+Your turn is now over   
+********** Turn number: 1 * Now Playing : Guest-0-9179 **********
+You hear noise coming from coordinates M08
+********** Turn number: 2 * Now Playing : Guest-0-2291 **********
+Hello player Guest-0-2291, you are located in M06 and it's your turn to move
+you have to move your character on the map
+please enter valid position (es. A05)
+(My turn, coordinates)> N06
+do you want to attack?  
+please enter 'yes' or 'no'
+(My turn, yes/no)> no
+enter the coordinates where you want to make a noise
+please enter valid position (es. A05)
+(My turn, coordinates)> A03
+You hear noise coming from coordinates A03
+You have drawn a DefenseCard-type object card
+Your turn is now over   
+********** Turn number: 2 * Now Playing : Guest-0-9179 **********
+You hear noise coming from coordinates N08
+Player Guest-0-9179 is using a LightsCard-type card. Guest-0-9179 is a human for sure!
+Player Guest-0-2291 identified! Location: N06
+********** Turn number: 3 * Now Playing : Guest-0-2291 **********
+Hello player Guest-0-2291, you are located in N06 and it's your turn to move
+you have to move your character on the map
+please enter valid position (es. A05)
+(My turn, coordinates)> chat:stronzo!
+Guest-0-2291 says: stronzo!
+(My turn, coordinates)> L06
+PlayerCanNotEnterException : Destination can not be reached by members of your team
+you have to move your character on the map
+please enter valid position (es. A05)
+(My turn, coordinates)> O06
+do you want to attack?  
+please enter 'yes' or 'no'
+(My turn, yes/no)> yes
+Player Guest-0-2291 is attacking in sector O06!
+Your turn is now over   
+********** Turn number: 3 * Now Playing : Guest-0-9179 **********
+********** Turn number: 4 * Now Playing : Guest-0-2291 **********
+Hello player Guest-0-2291, you are located in O06 and it's your turn to move
+you have to move your character on the map
+please enter valid position (es. A05)
+(My turn, coordinates)> O07
+do you want to attack?  
+please enter 'yes' or 'no'
+(My turn, yes/no)> no
+Your turn is now over   
+********** Turn number: 4 * Now Playing : Guest-0-9179 **********
+********** Turn number: 5 * Now Playing : Guest-0-2291 **********
+Hello player Guest-0-2291, you are located in O07 and it's your turn to move
+you have to move your character on the map
+please enter valid position (es. A05)
+(My turn, coordinates)> O08
+do you want to attack?  
+please enter 'yes' or 'no'
+(My turn, yes/no)> yes
+Player Guest-0-2291 is attacking in sector O08!
+Player Guest-0-9179 was killed!
+Your turn is now over   
+End of the Game! Here come the results
+Team HUMANS was defeated            
+Winners from the ALIENS team: Guest-0-2291
+Goodbye user Guest-0-2291, it was nice to have you on our server
+Disconnected by server; press enter to quit.
+(Someone else's turn, free-action)> 
