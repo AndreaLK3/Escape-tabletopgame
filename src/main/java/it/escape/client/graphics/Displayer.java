@@ -434,7 +434,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 	public void displayServerMOTD(final String motd) {
 		new Thread(new Runnable() {
 			public void run() {
-				JOptionPane.showMessageDialog(null,
+				JOptionPane.showMessageDialog(null, 
 					    motd,
 					    "Welcome!",
 					    JOptionPane.PLAIN_MESSAGE);
