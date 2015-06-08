@@ -268,7 +268,11 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		chatArea.setEditable(false);
 		chatArea.setLineWrap(true);
 		chatArea.setWrapStyleWord(true);
+		chatArea.setLineWrap(true);
+		chatArea.setWrapStyleWord(false);
 		
+		// just to contain the textarea, otherwise it will flood the screen when large messages appear
+		JScrollPane chatScrollPane = new JScrollPane(chatArea);
 		chatField = new JTextField("");
 		chatField.addActionListener(new ActionSendChat(relayRef));
 		
@@ -285,7 +289,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		constraints.weightx = 1;
 		constraints.weighty = 1;
 		constraints.fill = GridBagConstraints.BOTH;
-		panel.add(chatArea, constraints);
+		panel.add(chatScrollPane, constraints);
 		
 		constraints.gridx = 0;
 		constraints.gridy = 2;
