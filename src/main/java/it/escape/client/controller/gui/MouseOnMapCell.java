@@ -1,7 +1,7 @@
 package it.escape.client.controller.gui;
 
-import it.escape.client.graphics.maplabel.MapCell;
-import it.escape.client.graphics.maplabel.MapViewer;
+import it.escape.client.view.gui.maplabel.MapCell;
+import it.escape.client.view.gui.maplabel.MapViewer;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

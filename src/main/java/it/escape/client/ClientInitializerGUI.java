@@ -3,8 +3,8 @@ package it.escape.client;
 import it.escape.client.controller.ClientSocketChannelInterface;
 import it.escape.client.controller.Relay;
 import it.escape.client.controller.gui.UpdaterSwing;
-import it.escape.client.graphics.BindUpdaterInterface;
-import it.escape.client.graphics.Displayer;
+import it.escape.client.view.gui.BindUpdaterInterface;
+import it.escape.client.view.gui.Displayer;
 import it.escape.utils.FilesHelper;
 
 import java.io.IOException;

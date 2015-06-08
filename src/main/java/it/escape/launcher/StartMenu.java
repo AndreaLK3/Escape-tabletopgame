@@ -1,7 +1,7 @@
 package it.escape.launcher;
 
-import it.escape.client.graphics.ImageAutoFit;
-import it.escape.client.graphics.ImageScaler;
+import it.escape.client.view.gui.ImageAutoFit;
+import it.escape.client.view.gui.ImageScaler;
 import it.escape.launcher.menucontroller.ActionAcceptNewPortNumber;
 import it.escape.launcher.menucontroller.ActionQuit;
 import it.escape.launcher.menucontroller.ActionSetNetMode;

@@ -1,4 +1,4 @@
-package it.escape.client.graphics.maplabel;
+package it.escape.client.view.gui.maplabel;
 
 import javax.swing.JLabel;
 

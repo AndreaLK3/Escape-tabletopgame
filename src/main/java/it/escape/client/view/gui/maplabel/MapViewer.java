@@ -1,6 +1,6 @@
-package it.escape.client.graphics.maplabel;
+package it.escape.client.view.gui.maplabel;
 
-import it.escape.client.graphics.ImageScaler;
+import it.escape.client.view.gui.ImageScaler;
 import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.Cell;

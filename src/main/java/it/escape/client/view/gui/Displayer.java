@@ -1,10 +1,10 @@
-package it.escape.client.graphics;
+package it.escape.client.view.gui;
 
 import it.escape.client.controller.Relay;
 import it.escape.client.controller.gui.ActionSendChat;
 import it.escape.client.controller.gui.MouseOnMapCell;
 import it.escape.client.controller.gui.UpdaterSwingToDisplayerInterface;
-import it.escape.client.graphics.maplabel.MapViewer;
+import it.escape.client.view.gui.maplabel.MapViewer;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 
 import java.awt.Color;

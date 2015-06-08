@@ -2,7 +2,7 @@ package it.escape.client.controller.gui;
 
 import it.escape.client.controller.MessageCarrier;
 import it.escape.client.controller.Updater;
-import it.escape.client.graphics.BindUpdaterInterface;
+import it.escape.client.view.gui.BindUpdaterInterface;
 import it.escape.utils.LogHelper;
 
 import java.util.Observable;

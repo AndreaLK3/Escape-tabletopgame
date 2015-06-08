@@ -1,4 +1,4 @@
-package it.escape.client.graphics;
+package it.escape.client.view.gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

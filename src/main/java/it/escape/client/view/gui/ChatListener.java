@@ -1,4 +1,4 @@
-package it.escape.client.graphics;
+package it.escape.client.view.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
