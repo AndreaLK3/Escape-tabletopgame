@@ -88,7 +88,8 @@ public class Master {
 	 * Remove all the unused gamemasters
 	 */
 	private static void reaper() {
-		for (GameMaster gm : gameMasters) {
+		List<GameMaster> temp = new ArrayList<GameMaster>(gameMasters);
+		for (GameMaster gm : temp) {
 			if (gm.isFinished()) {
 				gameMasters.remove(gm);
 			}
