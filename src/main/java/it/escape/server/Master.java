@@ -61,7 +61,9 @@ public class Master {
 			
 		Player offender = getPlayer(interfaceWithUser);
 		GameMaster gm = getGameMasterOfPlayer(offender);
-		gm.handlePlayerDisconnect(offender);		
+		if (gm != null) {
+			gm.handlePlayerDisconnect(offender);
+		}
 	}
 	
 	public static Player getPlayer(MessagingChannel interfaceWithUser) {
