@@ -34,13 +34,13 @@ public class Lights implements ObjectCardAction {
 			}
 			catch (BadCoordinatesException e) {
 				UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(
-						StringRes.getString("messaging.badCoordinatesFormat"));
+						StringRes.getString("messaging.exceptions.badCoordinatesFormat"));
 				//NOTE: It would be better to transfer the format check either to the client or to the UMR 
 				correctInput = false;
 			}
 			catch (CellNotExistsException e) {
 				UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(
-						StringRes.getString("messaging.cellNotExists"));
+						StringRes.getString("messaging.exceptions.cellNotExists"));
 				correctInput=false;
 			}
 		} while (!correctInput);	

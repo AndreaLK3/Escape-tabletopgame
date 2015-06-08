@@ -10,6 +10,8 @@ import javax.swing.JTextArea;
 
 public class PlayerPanel extends JPanel {
 
+	private static final long serialVersionUID = 1L;
+
 	private GridBagConstraints constraints = new GridBagConstraints();
 	
 	private JTextArea playerArea;
@@ -21,19 +23,19 @@ public class PlayerPanel extends JPanel {
 	
 		playerArea = new JTextArea();
 		playerArea.setEditable(false);
-		playerArea.setText("Giocatore 1 \n");
+		playerArea.setText("Giocatore 1");
 		constraints.gridx=0;
 		this.add(playerArea, constraints);
 
 		statusArea = new JTextArea();
 		statusArea.setEditable(false);
-		statusArea.setText(" Alive\n");
+		statusArea.setText(" Alive");
 		constraints.gridx=1;
 		this.add(statusArea, constraints);
 
 		lastNoiseArea = new JTextArea();
 		lastNoiseArea.setEditable(false);
-		lastNoiseArea.setText(" C5 \n");
+		lastNoiseArea.setText(" C5");
 		constraints.gridx=2;
 		this.add(lastNoiseArea, constraints);
 	

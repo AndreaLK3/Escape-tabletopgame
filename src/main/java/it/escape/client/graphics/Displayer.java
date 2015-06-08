@@ -38,7 +38,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
   	
    	private GridBagConstraints constraints;
    	
-   	private JLabel label1;
+   	private JLabel label1_title;
 	private JLabel label2;
 	private JLabel label3;
 	private JLabel label4;
@@ -46,12 +46,14 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 	private JLabel label6;
 	private JLabel label7;
 	private JLabel label8;
-	private JLabel label9;
+	private JLabel label9_turnStatus;
+	private JLabel label10_chat;
 	private JScrollPane mapScrollPane;
 	
 	private JTextField nameField;
 	private JTextArea statusArea;
 	private JTextArea teamArea;
+	JTextArea serverArea;
 	private JTextField chatField;
 	private JTextArea chatArea;
 	private JButton showCardsButton;
@@ -85,6 +87,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
    		initializeMap();
    		initializeGeneralSidePanels();
    		initializePersonalPanels();
+   		addTurnStatusPanel();
    		addChatPanel();
    		initializeButtons();
    		setLabelsOpaque();
@@ -105,14 +108,14 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		
 		JPanel panel = new JPanel();
 			
-		label1 = new JLabel("Escape from the Aliens in Outer Space");
-		label1.setBackground(new Color(248, 213, 131));
-		label1.setHorizontalAlignment(SwingConstants.CENTER);
+		label1_title = new JLabel("Escape from the Aliens in Outer Space");
+		label1_title.setBackground(new Color(248, 213, 131));
+		label1_title.setHorizontalAlignment(SwingConstants.CENTER);
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.gridwidth = GridBagConstraints.REMAINDER;
-	    add(label1,constraints);
+	    add(label1_title,constraints);
 	    resetConstraints(constraints);
 	
 	    
@@ -175,7 +178,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		constraints.weightx = 1;
 		constraints.weighty = 1;
 		constraints.gridwidth = 1;
-		constraints.gridheight = 12;
+		constraints.gridheight = 13;
 		constraints.anchor = GridBagConstraints.CENTER;
 		add(mapScrollPane, constraints);
 		resetConstraints(constraints);
@@ -224,10 +227,40 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		
 	}
    	
+   	/** Creation method: chat text area and text field*/
+   	private void addTurnStatusPanel() {
+   		label9_turnStatus = new JLabel("Turn Status");
+   		label9_turnStatus.setBackground(new Color(150, 100, 150));
+		
+   		serverArea = new JTextArea();
+		serverArea.setText("Not Playing");
+		serverArea.setEditable(false);
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		constraints.fill = GridBagConstraints.NONE;
+		panel.add(label9_turnStatus, constraints);
+		
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		constraints.weightx = 1;
+		constraints.weighty = 1;
+		constraints.fill = GridBagConstraints.BOTH;
+		panel.add(serverArea, constraints);
+		
+		resetConstraints(constraints);
+		addSidePanel(panel);
+		
+   	}
+   	
+   	
 	/** Creation method: chat text area and text field*/
    	private void addChatPanel() {
-   		label9 = new JLabel("Chat");
-		label9.setBackground(new Color(150, 100, 150));
+   		label10_chat = new JLabel("Chat");
+		label10_chat.setBackground(new Color(150, 100, 150));
 		
 		chatArea = new JTextArea();
 		chatArea.setText("Chat messages will be displayed here");
@@ -242,7 +275,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.fill = GridBagConstraints.NONE;
-		panel.add(label9, constraints);
+		panel.add(label10_chat, constraints);
 		
 		constraints.gridx = 0;
 		constraints.gridy = 1;
@@ -254,7 +287,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		constraints.gridx = 0;
 		constraints.gridy = 2;
 		constraints.weightx = 1;
-		constraints.weighty = 1;
+		constraints.weighty = 0;
 		constraints.fill = GridBagConstraints.BOTH;
 		panel.add(chatField, constraints);
 		
@@ -270,7 +303,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		showCardsButton = new JButton("See your object Cards");
 		showCardsButton.addActionListener(buttonHandler);
    		constraints.gridx = 1;
-		constraints.gridy = 13;
+		constraints.gridy = 14;
 		constraints.weightx = 1;
 		add(showCardsButton, constraints);
 		resetConstraints(constraints);
@@ -328,7 +361,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 	}
 	
 	private void setLabelsOpaque() {
-		List<JLabel> labelsList = Arrays.asList(label1,label2,label3,label4,label5_map, label6, label7, label8, label9);
+		List<JLabel> labelsList = Arrays.asList(label1_title,label2,label3,label4,label5_map, label6, label7, label8, label10_chat);
 		   for (JLabel l : labelsList){
 			   l.setOpaque(true);
 			}
