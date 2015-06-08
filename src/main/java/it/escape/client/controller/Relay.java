@@ -77,4 +77,9 @@ public class Relay {
 		}
 		return false;
 	}
+	
+	public void sendChat(String message) {
+		String ready = String.format(StringRes.getString("messaging.chat"), message);
+		relayMessage(ready);
+	}
 }

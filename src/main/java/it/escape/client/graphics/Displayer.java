@@ -1,6 +1,7 @@
 package it.escape.client.graphics;
 
 import it.escape.client.controller.Relay;
+import it.escape.client.controller.gui.ActionSendChat;
 import it.escape.client.controller.gui.MouseOnMapCell;
 import it.escape.client.controller.gui.UpdaterSwingToDisplayerInterface;
 import it.escape.client.graphics.maplabel.MapViewer;
@@ -66,7 +67,6 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 	private Relay relayRef;
 	
 	NameListener myNameListener = new NameListener();
-	ChatListener myChatListener = new ChatListener();
 	ButtonHandler buttonHandler = new ButtonHandler();
 	
 	int currentRow = 1;
@@ -263,11 +263,11 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		label10_chat.setBackground(new Color(150, 100, 150));
 		
 		chatArea = new JTextArea();
-		chatArea.setText("Chat messages will be displayed here");
+		chatArea.setText("Ingame chat");
 		chatArea.setEditable(false);
 		
-		chatField = new JTextField("You can write chat messages here");
-		chatField.addActionListener(myChatListener);
+		chatField = new JTextField("");
+		chatField.addActionListener(new ActionSendChat(relayRef));
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
