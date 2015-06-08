@@ -11,4 +11,8 @@ public interface UpdaterSwingToDisplayerInterface {
 	
 	public void displayServerMOTD(String motd);
 	
+	public void setTurnStatusString(String status);
+	
+	public void newChatMessage(String username, String message);
+	
 }

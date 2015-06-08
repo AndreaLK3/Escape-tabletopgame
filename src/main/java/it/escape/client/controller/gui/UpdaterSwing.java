@@ -48,6 +48,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	protected void processMessage(String message) {
 		Matcher map = setGameMap.matcher(message);
 		Matcher startmotd = getMOTDstart.matcher(message);
+		Matcher gameStartETA = startInXSeconds.matcher(message);
+		Matcher chatMsg = inboundChatMessage.matcher(message);
 		
 		if (!handlingMOTDspecialCase(message)) {
 			if (map.matches()) {
@@ -56,7 +58,11 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			} else if (startmotd.matches()) {
 				LOG.finer("Server has begun writing motd");
 				readingMotd = true;
-			}
+			} else if (chatMsg.matches()) {
+				view.newChatMessage(chatMsg.group(1), chatMsg.group(2));
+			} else if (gameStartETA.matches()) {
+				view.setTurnStatusString(message);
+			} 
 		}
 		
 	}

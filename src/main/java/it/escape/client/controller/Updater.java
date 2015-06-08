@@ -17,6 +17,8 @@ public abstract class Updater implements Observer {
 	protected Pattern setGameMap;
 	protected Pattern getMOTDstart;
 	protected Pattern getMOTDend;
+	protected Pattern startInXSeconds;
+	protected Pattern inboundChatMessage;
 	
 	
 	public Updater() {
@@ -39,7 +41,8 @@ public abstract class Updater implements Observer {
 		setGameMap = new FormatToPattern(StringRes.getString("messaging.serversMap")).convert();
 		getMOTDstart = new FormatToPattern(StringRes.getString("messaging.motd.start")).convert();
 		getMOTDend = new FormatToPattern(StringRes.getString("messaging.motd.end")).convert();
-		
+		startInXSeconds = new FormatToPattern(StringRes.getString("messaging.gameStartETA")).convert();
+		inboundChatMessage = new FormatToPattern(StringRes.getString("messaging.relayChat")).convert();
 	};
 	
 }

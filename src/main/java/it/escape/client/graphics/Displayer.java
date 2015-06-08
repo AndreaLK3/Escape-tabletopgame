@@ -233,7 +233,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
    		label9_turnStatus.setBackground(new Color(150, 100, 150));
 		
    		serverArea = new JTextArea();
-		serverArea.setText("Not Playing");
+		serverArea.setText("Waiting for server");
 		serverArea.setEditable(false);
 		
 		JPanel panel = new JPanel();
@@ -412,6 +412,8 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		}
 		
 		}
+   	
+   	// functions belonging to the interface UpdaterSwingToDisplayerInterface
 
 	public void setGameMap(String name) {
 		try {
@@ -433,6 +435,23 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 					    JOptionPane.PLAIN_MESSAGE);
 			}
 		}).start();
+	}
+
+	public void setTurnStatusString(String status) {
+		serverArea.setText(status);
+	}
+
+	public void newChatMessage(String username, String message) {
+		String oldChatText = chatArea.getText();
+		StringBuilder newChatText = new StringBuilder();
+		if (oldChatText.length() > 0) {
+			newChatText.append(oldChatText);
+			newChatText.append("\n");
+		}
+		newChatText.append(username + ": ");
+		newChatText.append(message);
+		chatArea.setText(newChatText.toString());
+		// TODO: magari aggiungere un'icona 'new message' da qualche parte
 	}
 }
 	
