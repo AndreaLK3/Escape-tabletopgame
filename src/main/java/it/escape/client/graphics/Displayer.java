@@ -74,7 +74,8 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 	/**
 	 * The constructor: initializes the window and all of its containers and components.
 	 * @param string (the title of the window) 
-	 * @param BindUpdaterInterface (updater that will feed us data from the net) 
+	 * [@param BindUpdaterInterface (updater that will feed us data from the net) 
+	 * note: removed, since we don't need this connection (see Client Diagram), and it creates a cycle too]
 	 * @param Relay (used to send data to the net)
 	 */
    	public Displayer(String string, BindUpdaterInterface updater, Relay relay) {
@@ -414,7 +415,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		}
    	
    	// functions belonging to the interface UpdaterSwingToDisplayerInterface
-   	//(They are invoked by the UpdaterSwing)s
+   	//(They are invoked by the UpdaterSwing)
 
 	public void setGameMap(String name) {
 		try {
