@@ -129,6 +129,33 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 	
 	}
 	
+	/**
+	 * Programmatically scroll the map panel to a specified position
+	 * (i.e. scrollMap(0.5, 0.5) centers the map)
+	 * @param x 0 - 1 position of the center of the horizontal slider
+	 * @param y 0 - 1 position of the center of the vertical slider
+	 */
+	private void scrollMap(double x, double y) {
+		// scrollbar ranges (in "scroll-pixels")
+		int maxWidth = mapScrollPane.getHorizontalScrollBar().getMaximum();
+		int maxHeight = mapScrollPane.getVerticalScrollBar().getMaximum();
+		// unrolled map size
+		int mapWidth = ((MapViewer)label5_map).getTotalWidth();
+		int mapHeight = ((MapViewer)label5_map).getTotalHeight();
+		// visible map size
+		int viewWidth = mapScrollPane.getWidth();
+		int viewHeight = mapScrollPane.getHeight();
+		
+		// size of the visible map in "scroll-pixels"
+		int relativeWidth = (viewWidth * maxWidth) / mapWidth;
+		int relativeHeight = (viewHeight * maxHeight) / mapHeight;
+		
+		// scroll the panel so that both sliders are perfectly centered on the specified positions
+		mapScrollPane.getHorizontalScrollBar().setValue((int)Math.round(maxWidth * x) - relativeWidth/2);
+		mapScrollPane.getVerticalScrollBar().setValue((int)Math.round(maxHeight * y) - relativeHeight/2);
+		
+	}
+	
 	/** Creation method: the map, on the upper right part of the screen*/
 	private void initializeMap() {
 
@@ -141,7 +168,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		}
 		((MapViewer)label5_map).addCellListener(new MouseOnMapCell((MapViewer)label5_map));
 		mapScrollPane = new JScrollPane(label5_map);
-		mapScrollPane.setPreferredSize(new Dimension(400,400)); 
+		mapScrollPane.setPreferredSize(new Dimension(400,400));
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.gridx = 1;
 		constraints.gridy = 1;
@@ -356,6 +383,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 	public void setGameMap(String name) {
 		try {
 			((MapViewer)label5_map).setMap(name);
+			scrollMap(0.5, 0.5);
 		} catch (BadJsonFileException e) {
 			// TODO Auto-generated catch block
 		} catch (IOException e) {

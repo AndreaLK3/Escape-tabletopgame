@@ -278,5 +278,12 @@ public class MapViewer extends JLabel {
 	public void removeCellListener(MouseListener l) {
 		cellListeners.remove(l);
 	}
+	
+	public int getTotalWidth() {
+		return totalWidth;
+	}
 
+	public int getTotalHeight() {
+		return totalHeight;
+	}
 }
