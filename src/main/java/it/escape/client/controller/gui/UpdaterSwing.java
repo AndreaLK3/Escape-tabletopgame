@@ -50,6 +50,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher startmotd = getMOTDstart.matcher(message);
 		Matcher gameStartETA = startInXSeconds.matcher(message);
 		Matcher chatMsg = inboundChatMessage.matcher(message);
+		Matcher turnEnd = myTurnEnd.matcher(message);
+		Matcher turnStart = myTurnStart.matcher(message);
 		
 		if (!handlingMOTDspecialCase(message)) {
 			if (map.matches()) {
@@ -62,6 +64,11 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				view.newChatMessage(chatMsg.group(1), chatMsg.group(2));
 			} else if (gameStartETA.matches()) {
 				view.setTurnStatusString(message);
+			} else if (turnEnd.matches()) {
+				view.setTurnStatusString("waiting for my turn");
+			} else if (turnStart.matches()) {
+				view.setTurnStatusString("now is my turn to play");
+				// we could do more (i.e. send a visual notification of some sort)
 			} 
 		}
 		
