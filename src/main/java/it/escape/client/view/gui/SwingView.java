@@ -32,8 +32,16 @@ import javax.swing.SwingConstants;
 
 import sun.misc.Lock;
 
-
-public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterface{
+/**This class contains the Frame that is displayed for the Client that uses the GUI.
+ * Responsibilities:
+ * 1) Containing all the components
+ * 2) Creating and initializing the components (n: this one could be transferred to another class)
+ * 3) Observes PlayerStates/PlayerStateHandler and GameState, and is updated accordingly
+ * 4) Can send messages to the Relay (ex: -chat messages , -send input obtained through dialogs)
+ * 
+ * @author andrea, michele
+ */
+public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterface{
    	private static final long serialVersionUID = 1L;
    	private static final int MAXPLAYERS = 8;
   	
@@ -78,7 +86,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 	 * note: removed, since we don't need this connection (see Client Diagram), and it creates a cycle too]
 	 * @param Relay (used to send data to the net)
 	 */
-   	public Displayer(String string, BindUpdaterInterface updater, Relay relay) {
+   	public SwingView(String string, BindUpdaterInterface updater, Relay relay) {
    		super(string);
    		this.relayRef = relay;
    		setLayout(new GridBagLayout());
@@ -407,7 +415,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		EventQueue.invokeLater(
 				new Runnable() {
 					public void run() {
-						Displayer playerFrame = new Displayer("Escape from the Aliens in Outer Space", updater, relay);	
+						SwingView playerFrame = new SwingView("Escape from the Aliens in Outer Space", updater, relay);	
 						l.unlock();  // unlock the mutex, let the synchronousLaunch return
 					}
 				}
