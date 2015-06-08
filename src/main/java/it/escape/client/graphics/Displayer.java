@@ -125,7 +125,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		label3 = new JLabel("Status");
 		label3.setBackground(new Color(200, 100, 20));
 		
-		label4 = new JLabel("LastNoise");
+		label4 = new JLabel("LastKnownAction");
 		label4.setBackground(new Color(50, 100, 200));
 		panel = createRowPanel(Arrays.asList(label2, label3, label4));
 		addSidePanel(panel);
@@ -414,6 +414,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		}
    	
    	// functions belonging to the interface UpdaterSwingToDisplayerInterface
+   	//(They are invoked by the UpdaterSwing)s
 
 	public void setGameMap(String name) {
 		try {
@@ -426,6 +427,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		}
 	}
 
+	/**This method uses a new thread to show the welcoming Dialog. */
 	public void displayServerMOTD(final String motd) {
 		new Thread(new Runnable() {
 			public void run() {
@@ -441,6 +443,9 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		serverArea.setText(status);
 	}
 
+	/** This method receives a chat message, and it displays it inside
+	 * the chat TextArea appended after the previous messages.
+	 */
 	public void newChatMessage(String username, String message) {
 		String oldChatText = chatArea.getText();
 		StringBuilder newChatText = new StringBuilder();

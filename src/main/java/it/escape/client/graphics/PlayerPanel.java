@@ -16,7 +16,7 @@ public class PlayerPanel extends JPanel {
 	
 	private JTextArea playerArea;
 	private JTextArea statusArea;
-	private JTextArea lastNoiseArea;
+	private JTextArea lastKnownActionArea;
 	
 	public PlayerPanel () {
 		this.setLayout(new GridBagLayout());
@@ -33,11 +33,11 @@ public class PlayerPanel extends JPanel {
 		constraints.gridx=1;
 		this.add(statusArea, constraints);
 
-		lastNoiseArea = new JTextArea();
-		lastNoiseArea.setEditable(false);
-		lastNoiseArea.setText(" C5");
+		lastKnownActionArea = new JTextArea();
+		lastKnownActionArea.setEditable(false);
+		lastKnownActionArea.setText(" C5");
 		constraints.gridx=2;
-		this.add(lastNoiseArea, constraints);
+		this.add(lastKnownActionArea, constraints);
 	
 	}
 	
@@ -51,7 +51,7 @@ public class PlayerPanel extends JPanel {
 	}
 
 	public void updateLastNoiseArea (String s) {
-		lastNoiseArea.setText(s);
+		lastKnownActionArea.setText(s);
 	}
 	
 	
@@ -64,7 +64,7 @@ public class PlayerPanel extends JPanel {
 		return statusArea.getText();
 	}
 	
-	public String getLastNoise () {
-		return lastNoiseArea.getText();
+	public String getLastKnownAction () {
+		return lastKnownActionArea.getText();
 	}
 }

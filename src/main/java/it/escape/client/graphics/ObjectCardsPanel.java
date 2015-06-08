@@ -39,6 +39,7 @@ public class ObjectCardsPanel extends JPanel {
 	 * according to the List<String> of cardNames received
 	 * @param List<String> cards */
 	public void updateCards(List<String> cards) {
+		objectCardsButtons.clear();
 		for (String cardName : cards) {
 			addCardButton(cardName);
 		}
