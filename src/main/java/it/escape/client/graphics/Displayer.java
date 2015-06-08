@@ -234,7 +234,7 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
    		label9_turnStatus.setBackground(new Color(150, 100, 150));
 		
    		serverArea = new JTextArea();
-		serverArea.setText("Waiting for server");
+		serverArea.setText("Waiting for the game to start");
 		serverArea.setEditable(false);
 		
 		JPanel panel = new JPanel();
@@ -266,6 +266,8 @@ public class Displayer extends JFrame implements UpdaterSwingToDisplayerInterfac
 		chatArea = new JTextArea();
 		chatArea.setText("Ingame chat");
 		chatArea.setEditable(false);
+		chatArea.setLineWrap(true);
+		chatArea.setWrapStyleWord(true);
 		
 		chatField = new JTextField("");
 		chatField.addActionListener(new ActionSendChat(relayRef));
