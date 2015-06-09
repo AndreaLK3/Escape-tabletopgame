@@ -308,6 +308,14 @@ public class MapViewer extends JLabel {
 		cellListeners.remove(l);
 	}
 	
+	public void addNoiseMarker(String location) {
+		// TODO
+	}
+	
+	public void clearNoiseMarkers() {
+		// TODO
+	}
+	
 	public int getTotalWidth() {
 		return totalWidth;
 	}

@@ -598,13 +598,11 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	}
 
 	public void addNoiseToMap(String location) {
-		// TODO Auto-generated method stub
-		
+		((MapViewer)label5_map).addNoiseMarker(location);
 	}
 
 	public void clearNoisesFromMap(String location) {
-		// TODO Auto-generated method stub
-		
+		((MapViewer)label5_map).clearNoiseMarkers();
 	}
 }
 	
