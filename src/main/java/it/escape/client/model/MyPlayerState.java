@@ -32,10 +32,7 @@ public class MyPlayerState extends PlayerState {
 	
 	/** This method returns a copy of the original list, not a reference to it.*/
 	public List<String> getObjectCards() {
-		List<String> objectCardsCopy = new ArrayList<String>();
-		for (String s : objectCards) {
-			objectCardsCopy.add(s);
-		}
+		List<String> objectCardsCopy = new ArrayList<String>(objectCards);
 		return objectCardsCopy;
 	}
 

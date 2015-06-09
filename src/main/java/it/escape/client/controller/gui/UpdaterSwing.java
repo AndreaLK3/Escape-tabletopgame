@@ -199,8 +199,11 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				view.bindPositionSender();
 			} else if (drawncard.matches()) {
 				LOG.finer("Server reported new object card " + drawncard.group(1));
-				String cardkey = getCardGUIKey(drawncard.group(1));
-				view.notifyUser("You have drawn a " + cardkey + " card");
+				String cardKey = getCardGUIKey(drawncard.group(1));
+				model.getMyPlayerState().addCard(cardKey);
+				model.finishedUpdating();
+				view.notifyUser("You have drawn a " + cardKey + " card");
+				
 			} 
 		}  
 		

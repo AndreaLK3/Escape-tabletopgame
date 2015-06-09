@@ -86,6 +86,8 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	ButtonHandler buttonHandler = new ButtonHandler();
 	
 	int currentRow = 1;
+	
+	private boolean doRelayObjectCard;
    	
 	/**
 	 * The constructor: initializes the window and all of its containers and components.
@@ -409,16 +411,27 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 				new Thread(
 					new Runnable() {
 						public void run() {
-							//the objectCardsPanel will have to be updated reading the client.model.PlayerState
-							objectCardsPanel.updateCards(Arrays.asList("attack", "defense","teleport","lights","sedatives","adrenaline"));
-							JOptionPane.showConfirmDialog(null, objectCardsPanel.getButtonsAsArray(), "Your object cards", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
-							chosenObjectCard = objectCardsPanel.getChosenCardName();
-							JOptionPane.showMessageDialog(null, "You have chosen the " + chosenObjectCard  + " card.");
+							JOptionPane.showConfirmDialog(null, objectCardsPanel.getButtonsAsArray(), 
+									"Your object cards", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
+							if (doRelayObjectCard) {
+								chosenObjectCard = objectCardsPanel.getChosenCardName();
+								if (chosenObjectCard==null){
+									JOptionPane.showMessageDialog(null, "You haven't chosen any card.");
+								}
+								else {
+									JOptionPane.showMessageDialog(null, "You have chosen the " + chosenObjectCard  + " card.");
+									relayRef.relayMessage(chosenObjectCard);
+								}
+								
+								
+							}
+						
 						}}).start();
 			}
 		}
-		
 	}
+	
+	
    	
    	public static void synchronousLaunch(final BindUpdaterInterface updater, final Relay relay, final Observable model) {
    		final Lock l = new Lock();
@@ -450,8 +463,16 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
    		teamArea.setText(model.getMyPlayerState().getMyTeam());
    	}
    	
+   	/**This method updates the position of the player icon on the map*/
    	private void updateMapMarkers(ModelForGUI model) {
    		((MapViewer) label5_map).setPlayerMarkerPosition(model.getMyPlayerState().getLocation());
+   	}
+   	
+   	/**This method, depending on the info that are stored in the model,
+   	 * calls the method updateCards inside the objectCards panel, 
+   	 * to update the List of JRadioButtons that correspond to the cards*/
+   	private void updateObjectCardsPanel(ModelForGUI model) {
+   		objectCardsPanel.updateCards(model.getMyPlayerState().getObjectCards());
    	}
    	
    	private void updatePlayerPanels(ModelForGUI model) {
@@ -464,13 +485,14 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
    		}
    	}
    	
-   	// basic observer (it observes the model)
+   /**This method observes the model; upon any model changes, it updates the Client's model */
    	public void update(Observable arg0, Object arg1) {
    		if (arg0 instanceof ModelForGUI) {
    			ModelForGUI model = (ModelForGUI) arg0;
    			updateMyStatusScreen(model);
    			updatePlayerPanels(model);
    			updateMapMarkers(model);
+   			updateObjectCardsPanel(model);
 			// do something
 		}
 	}
