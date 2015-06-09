@@ -159,11 +159,11 @@ public class GameMaster implements Runnable {
 	/* The interface is used to find the right UMR.*/
 	private void addNewPlayer(MessagingChannel interfaceWithUser) {
 		Player newP = createPlayer("Guest-" + id + "-" + new Random().nextInt(USERID_RANDOMIZE));  // create the player
-		AsyncUserListener listener = new AsyncUserListener(newP, announcer);
-		listOfPlayers.add(newP);  // add him to our players list
 		map.addNewPlayer(newP, newP.getTeam());  // tell the map to place our player
 		UserMessagesReporter.bindPlayer(newP, interfaceWithUser);  // bind him to its command interface
 		UserMessagesReporter.getReporterInstance(interfaceWithUser).bindAnnouncer(announcer);  // the player will also use our game-announcer
+		AsyncUserListener listener = new AsyncUserListener(newP, announcer, UserMessagesReporter.getReporterInstance(interfaceWithUser));
+		listOfPlayers.add(newP);  // add him to our players list
 		interfaceWithUser.addObserver(listener);
 		listeners.add(listener);
 		numPlayers++;  // update the player counter
@@ -336,6 +336,15 @@ public class GameMaster implements Runnable {
 	public boolean hasPlayer(Player p) {
 		if (listOfPlayers.contains(p)) {
 			return true;
+		}
+		return false;
+	}
+	
+	public boolean hasPlayerNamed(String name) {
+		for (Player p : listOfPlayers) {
+			if (p.getName().equals(name)) {
+				return true;
+			}
 		}
 		return false;
 	}

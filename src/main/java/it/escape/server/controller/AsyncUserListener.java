@@ -27,20 +27,24 @@ public class AsyncUserListener implements Observer{
 	
 	private Pattern rename;
 	private Pattern chat;
+	private Pattern whoami;
 	
 	private PlayerActionInterface subject;
 	
+	private UserMessagesReporter privateUMR;
+	
 	private Announcer announcer;
 	
-	private boolean renamedOnce;  // we allow a player to change name only once per game
+	private GameMaster gameMaster;
 	
-	public AsyncUserListener(PlayerActionInterface subject, Announcer announcer) {
+	public AsyncUserListener(PlayerActionInterface subject, Announcer announcer, UserMessagesReporter myUMR) {
 		LogHelper.setDefaultOptions(LOG);
-		renamedOnce = false;
 		this.subject = subject;
 		this.announcer = announcer;
+		this.privateUMR = myUMR;
 		rename = new FormatToPattern(StringRes.getString("messaging.renameMyself")).convert();
 		chat = new FormatToPattern(StringRes.getString("messaging.chat")).convert();
+		whoami = new FormatToPattern(StringRes.getString("messaging.whoami")).convert();
 		
 		LOG.fine("Async listener for user " + subject.getName() + " has been  created");
 	}
@@ -48,14 +52,17 @@ public class AsyncUserListener implements Observer{
 	private void processMessage(String msg) {
 		Matcher ren = rename.matcher(msg);
 		Matcher cha = chat.matcher(msg);
+		Matcher me = whoami.matcher(msg);
+		
 		if (ren.matches()) {
 			LOG.finer("Rename command detected");
-			if (!renamedOnce) {
-				renameProcedure(ren);
-			}
+			renameProcedure(ren);
 		} else if (cha.matches()) {
 			LOG.finer("Chat message detected");
 			chatProcedure(cha);
+		} else if (me.matches()) {
+			LOG.finer("Whoami message detected");
+			whoAmIProcedure();
 		} // other cases
 	}
 	
@@ -65,10 +72,18 @@ public class AsyncUserListener implements Observer{
 	}
 	
 	private void renameProcedure(Matcher match) {
-		renamedOnce = true;
 		String newname = match.group(1);
-		announcer.announcePlayerRename(subject.getName(),newname);
-		subject.changeName(newname);
+		if (!gameMaster.hasPlayerNamed(newname)) {
+			announcer.announcePlayerRename(subject.getName(),newname);
+			subject.changeName(newname);
+		}
+		
+	}
+	
+	private void whoAmIProcedure() {
+		privateUMR.relayMessage(String.format(
+				StringRes.getString("messaging.whoYouAre"),
+				subject.getName()));
 	}
 
 	public void update(Observable arg0, Object arg1) {
