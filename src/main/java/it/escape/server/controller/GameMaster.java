@@ -16,6 +16,7 @@ import it.escape.utils.LogHelper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Logger;
 
 /**Responsibilities:
@@ -69,9 +70,11 @@ public class GameMaster implements Runnable {
 	
 	VictoryChecker victoryChecker;
 	
-	private boolean gameRunning;
+	private boolean gameRunning;  // true if the game is taking place
 	
-	private boolean gameFinished;
+	private boolean gameFinished;  // true if the game has concluded normally
+	
+	private AtomicBoolean timeoutTicking;  // true if the starting timeout is up andd running
 	
 	private Thread ownThread = null;
 	
@@ -106,10 +109,12 @@ public class GameMaster implements Runnable {
 		currentTeam = PlayerTeams.ALIENS;
 		gameRunning = false;
 		gameFinished = false;
+		timeoutTicking.set(false);
 	}
 	
 	
 	public synchronized void run() {
+		timeoutTicking.set(true);
 		started_countdown = (int) System.currentTimeMillis();
 		LOG.fine(String.format(StringRes.getString("controller.gamemaster.gameStartTimeout"), WAIT_TIMEOUT/1000));
 		announcer.announceGameStartETA(WAIT_TIMEOUT / 1000);
@@ -117,13 +122,15 @@ public class GameMaster implements Runnable {
 			wait(WAIT_TIMEOUT);
 		} catch (InterruptedException e) {
 		}
-		if (numPlayers >= GameMaster.MINPLAYERS) {  // someone disconnected in the meantime?
+		if (numPlayers >= GameMaster.MINPLAYERS) {  // someone disconnected in the meantime? no? good.
+			timeoutTicking.set(false);
 			startGameAndWait();
 			LOG.fine("GameMaster tasks completed, thread will now stop");
 			gameFinished = true;
 		} else {
 			// TODO: logging / inform users
 			ownThread = null;  // one last thing: erase the reference, so that the thread will be dead for good
+			timeoutTicking.set(false);
 		}
 		
 	}
@@ -179,7 +186,7 @@ public class GameMaster implements Runnable {
 				StringRes.getString("messaging.othersWaiting"),
 				numPlayers,
 				GameMaster.MAXPLAYERS));  // tell him how many players are connected
-		if (ownThread != null) {  // if a game is about to start
+		if (timeoutTicking.get()) {  // if a game is about to start
 			UserMessagesReporter.getReporterInstance(interfaceWithUser).relayMessage(String.format(
 					StringRes.getString("messaging.gameStartETA"),
 					getStartGameETA()));  // tell him how long until game starts
@@ -191,7 +198,7 @@ public class GameMaster implements Runnable {
 	 */
 	private synchronized void gameStartLogic() {
 		if (numPlayers >= GameMaster.MINPLAYERS) {
-			if (ownThread == null) {  // start the subthread only if necessary
+			if (!timeoutTicking.get()) {  // start the subthread only if necessary
 				ownThread = new Thread(this);
 				ownThread.start();
 			}
@@ -210,6 +217,7 @@ public class GameMaster implements Runnable {
 		if (!isFinished()) {
 			announcer.announcePlayerDisconnected(player);
 			if (!isRunning()) {
+				LOG.info("Player disconnected while the game was not up");
 				listOfPlayers.remove(player);
 				numPlayers--;
 			}
