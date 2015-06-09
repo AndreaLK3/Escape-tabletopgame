@@ -22,7 +22,6 @@ public class ClickSendPositionListener extends MouseAdapter {
 		String coordinates = ((MapCell)e.getSource()).getCoord();
 		relay.relayMessage(coordinates);
 		view.unbindPositionSender(this);
-		relay.sendWhereami();
     }
 
 	

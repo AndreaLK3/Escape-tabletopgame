@@ -153,7 +153,11 @@ public abstract class TurnHandler {
 				}
 			
 			} while (!correctInput);
-
+		
+		// say where I am after the move
+		UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(String.format(
+				StringRes.getString("messaging.hereYouAre"),
+				map.getPlayerAlphaNumPosition(currentPlayer)));
 		
 	}
 	

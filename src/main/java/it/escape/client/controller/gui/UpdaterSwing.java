@@ -237,11 +237,6 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				view.notifyUser(message);
 				
 			} else if(eventNoise.matches()) {
-				/*
-				 * The message dialog for every noise is kind of annoying,
-				 * I'll replace it with direct on-map visual pings
-				 */
-				//view.notifyUser(message);
 				view.addNoiseToMap(eventNoise.group(1));
 				
 			} else if (eventDeath.matches()) {
