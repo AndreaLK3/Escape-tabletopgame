@@ -151,11 +151,14 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				model.updatePlayerRename(playerRename.group(1), playerRename.group(2));
 				model.finishedUpdating();
 			} else if (myName.matches()) {
+				LOG.finer("Read player name from server");
 				model.getMyPlayerState().setMyName(myName.group(1));
 				model.finishedUpdating();
 			} else if (myTeam.matches()) {
+				LOG.finer("Read team name from server");
 				model.getMyPlayerState().setMyTeam(myTeam.group(1));
 				model.finishedUpdating();
+				view.discoverMyName();  // if someone else's playing we don't know it yet
 			} 
 		}
 		

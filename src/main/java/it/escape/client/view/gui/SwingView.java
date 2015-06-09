@@ -64,8 +64,8 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
 	private JScrollPane mapScrollPane;
 	
 	private JTextField nameField;
-	private JTextArea statusArea;
-	private JTextArea teamArea;
+	private JTextField statusArea;
+	private JTextField teamArea;
 	JTextArea serverArea;
 	private JTextField chatField;
 	private JTextArea chatArea;
@@ -214,7 +214,7 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
    	private void initializePersonalPanels() {
 	
    		JPanel panel = new JPanel();
-		
+   		
 		label6 = new JLabel("MyName");
 		label6.setBackground(new Color(20, 100, 20));
 		
@@ -230,10 +230,10 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
 		nameField = new JTextField("Enter your name in this field");
 		nameField.addActionListener(myNameListener);
 		
-		statusArea = new JTextArea("Status");
+		statusArea = new JTextField("Status");
 		statusArea.setEditable(false);
 		
-		teamArea = new JTextArea("Team");
+		teamArea = new JTextField("Team");
 		teamArea.setEditable(false);
 		
 		panel = createRowPanel(Arrays.asList(nameField, statusArea, teamArea));
@@ -249,6 +249,7 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
    		serverArea = new JTextArea();
 		serverArea.setText("Waiting for the game to start");
 		serverArea.setEditable(false);
+		JScrollPane serverScrollPane = new JScrollPane(serverArea);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
@@ -263,7 +264,7 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
 		constraints.weightx = 1;
 		constraints.weighty = 1;
 		constraints.fill = GridBagConstraints.BOTH;
-		panel.add(serverArea, constraints);
+		panel.add(serverScrollPane, constraints);
 		
 		resetConstraints(constraints);
 		addSidePanel(panel);
@@ -493,5 +494,8 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
 		// TODO: magari aggiungere un'icona 'new message' da qualche parte
 	}
 
+	public void discoverMyName() {
+		relayRef.sendWhoami();
+	}
 }
 	

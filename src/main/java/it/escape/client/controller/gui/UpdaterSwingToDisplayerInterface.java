@@ -15,4 +15,6 @@ public interface UpdaterSwingToDisplayerInterface {
 	
 	public void newChatMessage(String username, String message);
 	
+	public void discoverMyName();
+	
 }
