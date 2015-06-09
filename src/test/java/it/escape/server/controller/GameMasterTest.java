@@ -8,7 +8,7 @@ import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.server.view.MessagingChannel;
 import it.escape.strings.StringRes;
-
+import it.escape.server.controller.TestingAnnouncerObserver;
 import java.util.List;
 
 import org.junit.Test;

@@ -420,7 +420,7 @@ public class GameMaster implements Runnable {
 		}
 	}
 	
-	private void closeConnections() {
+	private synchronized void closeConnections() {
 		for (Player p : listOfPlayers) {
 			UserMessagesReporter.getReporterInstance(p).relayMessage(String.format(
 					StringRes.getString("messaging.goodbye"),
