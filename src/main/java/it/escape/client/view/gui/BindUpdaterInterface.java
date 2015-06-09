@@ -5,6 +5,7 @@ import it.escape.client.controller.gui.UpdaterSwingToDisplayerInterface;
 /**
  * The view will use this interface to associate herself with
  * an existing updater
+ * (AL, Note: is it really necessary?)
  * @author michele
  *
  */

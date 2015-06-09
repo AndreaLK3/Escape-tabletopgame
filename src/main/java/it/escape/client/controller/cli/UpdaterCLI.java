@@ -7,7 +7,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.regex.Matcher;
 
-/**This class Observes the MessageCarrier, that receives Strings from the Connection.
+/**This class Observes the Connection 
+ * (n: that means it observes the MessageCarrier, that receives Strings from the Connection)(.
  * This class checks if the messages sent by the Server correspond
  * to one of the given patterns; if they do, the TurnInputState is set.
  */
@@ -15,9 +16,6 @@ public class UpdaterCLI extends Updater implements Observer {
 	
 	private StateManagerCLIInterface stateRef;
 	
-	/**
-	 * 
-	 */
 	private UpdaterCLItoTerminalInterface view;
 	
 	
