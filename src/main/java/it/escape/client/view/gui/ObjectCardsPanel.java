@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.AbstractButton;
@@ -77,15 +78,32 @@ public class ObjectCardsPanel extends JPanel {
 		return null;
 	}
 	
-	
+	/**Returns an array of JRadioButtons, that correspond to the cards currently owned.
+	 * The array is used inside a JDialog in the View */
 	public JRadioButton[] getButtonsAsArray() {
 		int x = 0;
-		JRadioButton buttonsArray[] = new JRadioButton[6];
+		JRadioButton buttonsArray[] = new JRadioButton[NUMCARDTYPES];
 		for (JRadioButton b : objectCardsButtons) {
 			buttonsArray[x]=b;
 			x++;
 		}
 		return buttonsArray;
+	}
+	
+	private JRadioButton[] getPlayableButtonsAsArray() {
+		List<JRadioButton> playableObjectCardsList = Arrays.asList(getButtonsAsArray());
+		int i=0;
+		JRadioButton[] playableCardsArray = new JRadioButton[NUMCARDTYPES];
+		for (JRadioButton button : playableObjectCardsList) {
+			if (button.getText().equals("attack")|| button.getText().equals("defense")) {
+				playableObjectCardsList.remove(button);
+			}
+		}
+		for (JRadioButton button : playableObjectCardsList) {
+			playableCardsArray[i] = button;
+			i++;
+		}
+		return playableCardsArray;
 	}
 	
 	public String getChosenCardName() {

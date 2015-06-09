@@ -436,6 +436,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	}
 	
 	
+	
    	
    	public static void synchronousLaunch(final BindUpdaterInterface updater, final Relay relay, final Observable model) {
    		final Lock l = new Lock();
@@ -452,7 +453,6 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 					}
 				}
 		);
-		
 		try {
 			l.lock();  // (2) try again setting the mutex, but it must be unlocked first
 		} catch (InterruptedException e) {
@@ -596,6 +596,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 		showCardsButton.doClick();
 	}
 
+	
 	public void addNoiseToMap(String location) {
 		((MapViewer)label5_map).addNoiseMarker(location);
 	}

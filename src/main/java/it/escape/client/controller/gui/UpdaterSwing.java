@@ -229,7 +229,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			
 			} else if (wrongCard.matches()) {
 				LOG.finer("Server reported : that Card can't be played now." );
-				view.notifyUser(StringRes.getString(message));
+				view.notifyUser(message);
 				processMessage(StringRes.getString("messaging.askPlayObjectCard"));
 				
 			} else if(eventObject.matches()) {
