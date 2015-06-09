@@ -53,9 +53,9 @@ public class MapViewer extends JLabel {
 	
 	private static final int cell_z = 0;
 	
-	private static final int noise_z = 0;
+	private static final int noise_z = 2;
 	
-	private static final int overlays_z = 0;
+	private static final int overlays_z = 3;
 	
 	private int totalWidth;
 	
@@ -103,6 +103,8 @@ public class MapViewer extends JLabel {
 		setPreferredSize(new Dimension(totalWidth, totalHeight));
 		
 		drawCells();
+		setComponentZOrder(playerHereOverlay, overlays_z);
+		setComponentZOrder(highlightOverlay, overlays_z);
 		repaint();
 	}
 	
@@ -153,8 +155,6 @@ public class MapViewer extends JLabel {
 		
 		add(playerHereOverlay);
 		add(highlightOverlay);
-		setComponentZOrder(playerHereOverlay, overlays_z);
-		setComponentZOrder(highlightOverlay, overlays_z);
 		
 		background = ImageScaler.resizeImage("resources/artwork/map-background.png", backgroundTileSize, backgroundTileSize);
 		totalWidth = 400;
