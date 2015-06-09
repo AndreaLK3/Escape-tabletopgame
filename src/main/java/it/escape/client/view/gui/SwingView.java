@@ -439,11 +439,16 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
    		teamArea.setText(model.getMyPlayerState().getMyTeam());
    	}
    	
+   	public void updateMapMarkers(ModelForGUI model) {
+   		((MapViewer) label5_map).setPlayerMarkerPosition(model.getMyPlayerState().getLocation());
+   	}
+   	
    	// basic observer (it observes the model)
    	public void update(Observable arg0, Object arg1) {
    		if (arg0 instanceof ModelForGUI) {
    			ModelForGUI model = (ModelForGUI) arg0;
    			updateMyStatusScreen(model);
+   			updateMapMarkers(model);
 			// do something
 		}
 	}
@@ -455,6 +460,7 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
 		try {
 			((MapViewer)label5_map).setMap(name);
 			scrollMap(0.5, 0.5);
+			((MapViewer)label5_map).setPlayerMarkerPosition("L08");
 		} catch (BadJsonFileException e) {
 			// TODO Auto-generated catch block
 		} catch (IOException e) {

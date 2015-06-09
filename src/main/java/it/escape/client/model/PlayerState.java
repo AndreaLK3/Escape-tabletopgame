@@ -1,5 +1,7 @@
 package it.escape.client.model;
 
+import it.escape.strings.StringRes;
+
 /**This class in client.model defines:
  * Name, Status, LastNoiseLocation of a Player.
  * It is updated by the UpdaterSwing in the Controller, 
@@ -15,7 +17,7 @@ public class PlayerState {
 	protected String lastNoiseLocation;
 	
 	// value to initialize lastNoiseLocation to
-	protected static final String noNoise = "A00";
+	protected static final String noNoise = StringRes.getString("client.applogic.unknownCoordinates");
 
 	public PlayerState() {
 		myName = "Unknown";

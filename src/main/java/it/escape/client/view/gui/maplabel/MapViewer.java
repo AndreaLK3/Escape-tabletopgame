@@ -12,6 +12,7 @@ import it.escape.server.model.game.gamemap.loader.MapLoader;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.server.model.game.gamemap.positioning.Position2D;
 import it.escape.server.model.game.players.PlayerTeams;
+import it.escape.strings.StringRes;
 import it.escape.utils.FilesHelper;
 
 import java.awt.Color;
@@ -58,9 +59,13 @@ public class MapViewer extends JLabel {
 	
 	private Image background = null;
 	
+	private Icon playerHere;
+	
 	private Icon cellHighlight;
 	
 	private JLabel highlightOverlay;
+	
+	private JLabel playerHereOverlay;
 	
 	private MouseListener submitMouseAction;
 	
@@ -127,9 +132,13 @@ public class MapViewer extends JLabel {
 	}
 	
 	private void initialize(){
+		playerHere = new ImageIcon(ImageScaler.resizeImage("resources/artwork/celle/player-here.png", cellWidth, cellHeight));
 		cellHighlight = new ImageIcon(ImageScaler.resizeImage("resources/artwork/celle/highlight.png", cellWidth, cellHeight));
 		highlightOverlay = new JLabel(cellHighlight);
 		highlightOverlay.setVisible(false);
+		playerHereOverlay = new JLabel(playerHere);
+		playerHereOverlay.setVisible(false);
+		
 		add(highlightOverlay);
 		background = ImageScaler.resizeImage("resources/artwork/map-background.png", backgroundTileSize, backgroundTileSize);
 		totalWidth = 400;
@@ -199,24 +208,40 @@ public class MapViewer extends JLabel {
 		placeAbsolute(x, y, label);
 	}
 	
-	public void highlightCell(String position) {
+	private void visualizeAndPlace(String position, JLabel label) {
 		try {
 			int coord[] = cellToPixels(CoordinatesConverter.fromAlphaNumToOddq(position));
 			Insets insets = getInsets();
-			Dimension size = highlightOverlay.getPreferredSize();
-			highlightOverlay.setBounds(
+			Dimension size = label.getPreferredSize();
+			label.setBounds(
 					coord[0] + insets.left,
 					coord[1] + insets.top,
 		            size.width,
 		            size.height);
-			highlightOverlay.setVisible(true);
+			label.setVisible(true);
 			repaint();
 		} catch (BadCoordinatesException e) {
 		}
 	}
 	
+	public void highlightCell(String position) {
+		visualizeAndPlace(position, highlightOverlay);
+	}
+	
 	public void deHighlight() {
 		highlightOverlay.setVisible(false);
+	}
+	
+	/**
+	 * Place on the map a nice icon representing the player's position
+	 * @param position Alphanum coordinates, the marker will be hidden if set to "unknown"
+	 */
+	public void setPlayerMarkerPosition(String position) {
+		if (position.equals(StringRes.getString("client.applogic.unknownCoordinates"))) {
+			playerHereOverlay.setVisible(false);
+		} else {
+			visualizeAndPlace(position, playerHereOverlay);
+		}
 	}
 	
 	/**

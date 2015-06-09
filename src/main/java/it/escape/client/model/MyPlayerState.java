@@ -1,6 +1,7 @@
 package it.escape.client.model;
 
 import it.escape.server.model.game.players.PlayerTeams;
+import it.escape.strings.StringRes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class MyPlayerState extends PlayerState {
 		super();
 		objectCards = new ArrayList<String>();
 		myTeam = "unknown";
+		location = StringRes.getString("client.applogic.unknownCoordinates");
 	}
 	
 	public void addCard(String cardName) {
