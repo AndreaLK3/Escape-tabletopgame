@@ -422,6 +422,7 @@ public class GameMaster implements Runnable {
 					p.getName()));  // say goodbye
 			UserMessagesReporter.getReporterInstance(p).getInterfaceWithUser().killConnection();
 		}
+		numPlayers = 0;
 	}
 	
 }
