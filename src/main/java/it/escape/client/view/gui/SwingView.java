@@ -460,7 +460,7 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
 		try {
 			((MapViewer)label5_map).setMap(name);
 			scrollMap(0.5, 0.5);
-			((MapViewer)label5_map).setPlayerMarkerPosition("L08");
+			//((MapViewer)label5_map).setPlayerMarkerPosition("L08");
 		} catch (BadJsonFileException e) {
 			// TODO Auto-generated catch block
 		} catch (IOException e) {

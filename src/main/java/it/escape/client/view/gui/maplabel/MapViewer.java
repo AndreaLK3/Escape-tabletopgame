@@ -139,6 +139,7 @@ public class MapViewer extends JLabel {
 		playerHereOverlay = new JLabel(playerHere);
 		playerHereOverlay.setVisible(false);
 		
+		add(playerHereOverlay);
 		add(highlightOverlay);
 		background = ImageScaler.resizeImage("resources/artwork/map-background.png", backgroundTileSize, backgroundTileSize);
 		totalWidth = 400;
