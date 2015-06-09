@@ -106,11 +106,9 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		//These ones are necessary so that we can display the JInputDialog (ex, for the position) again.
 		//There will be a dialog that displays the exception message (whatever it is) and
 		//the view will have to repeat the last dialog display...
-		exception_1 = new FormatToPattern(StringRes.getString("messaging.exceptions.badCoordinatesFormat")).convert();
-		exception_2 = new FormatToPattern(StringRes.getString("messaging.exceptions.cellNotExists")).convert();
-		exception_3 = new FormatToPattern(StringRes.getString("messaging.exceptions.playerCanNotEnter")).convert();
-		exception_4 = new FormatToPattern(StringRes.getString("messaging.exceptions.destinationUnreachable")).convert();
-		exception_5 = new FormatToPattern(StringRes.getString("messaging.exceptions.wrongCard")).convert();
+		exception_1 = new FormatToPattern(StringRes.getString("messaging.exceptions.playerCanNotEnter")).convert();
+		exception_2 = new FormatToPattern(StringRes.getString("messaging.exceptions.destinationUnreachable")).convert();
+		exception_3 = new FormatToPattern(StringRes.getString("messaging.exceptions.wrongCard")).convert();
 		
 	}
 	
@@ -135,6 +133,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher playObject = turn_askForObject.matcher(message);
 		Matcher noisepos = turn_askForNoise.matcher(message);
 		Matcher drawncard = info_DrawnObjectCard.matcher(message);
+		
+		Matcher moveCanNotEnter = exception_1.matcher(message);
+		Matcher moveUnreachable = exception_2.matcher(message);
+		Matcher wrongCard = exception_3.matcher(message);
 		
 		if (!handlingMOTDspecialCase(message)) {
 			if (map.matches()) {
@@ -202,11 +204,23 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				String cardKey = getCardGUIKey(drawncard.group(1));
 				model.getMyPlayerState().addCard(cardKey);
 				model.finishedUpdating();
-				view.notifyUser("You have drawn a " + cardKey + " card");
-				
-			} 
-		}  
+				view.notifyUser("You have drawn a " + cardKey + " card");				
+			} else if (moveCanNotEnter.matches()) {
+				LOG.finer("Server reported : movement is impossible. Player can't enter that kind of cell." );
+				view.notifyUser(moveCanNotEnter.group());
+				processMessage(StringRes.getString("messaging.timeToMove"));
+			} else if (moveUnreachable.matches()) {
+				LOG.finer("Server reported : movement is impossible. Destination Unreachable." );
+				view.notifyUser(moveUnreachable.group());
+				processMessage(StringRes.getString("messaging.timeToMove"));
+			} else if (wrongCard.matches()) {
+				LOG.finer("Server reported : that Card can't be played now." );
+				view.notifyUser(wrongCard.group());
+				processMessage(StringRes.getString("messaging.askPlayObjectCard"));
+			}
 		
+			
+		}  
 		
 	}
 
