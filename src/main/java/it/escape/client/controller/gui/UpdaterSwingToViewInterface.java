@@ -25,4 +25,6 @@ public interface UpdaterSwingToViewInterface {
 	
 	public void notifyUser(String message);
 	
+	public void relayObjectCard();
+	
 }

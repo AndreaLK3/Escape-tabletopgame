@@ -404,6 +404,12 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 			
 	}
 	
+	/**This private inner class listens to the JButton ShowCardsButton.
+	 * When the user clicks it, it shows a dialog with objectCardsPanel,
+	 * which contains the object Cards currently owned.
+	 * When the Updater "clicks" it, because the Server requires an Object Card,
+	 * depending on the user's choice a String with the CardName is obtained and sent to the Relay.
+	 * @author andrea, michele*/
 	private class ButtonHandler implements ActionListener {
 
 		public void actionPerformed(ActionEvent event) {
@@ -421,11 +427,9 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 								else {
 									JOptionPane.showMessageDialog(null, "You have chosen the " + chosenObjectCard  + " card.");
 									relayRef.relayMessage(chosenObjectCard);
-								}
-								
-								
+									doRelayObjectCard = false;
+								}	
 							}
-						
 						}}).start();
 			}
 		}
@@ -475,6 +479,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
    		objectCardsPanel.updateCards(model.getMyPlayerState().getObjectCards());
    	}
    	
+   	
    	private void updatePlayerPanels(ModelForGUI model) {
    		int currentPanel = 0;
    		for (PlayerState pState : model.getPlayerStates()) {
@@ -485,7 +490,8 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
    		}
    	}
    	
-   /**This method observes the model; upon any model changes, it updates the Client's model */
+   /**This method observes the model; upon any model changes, it 
+    * invokes the methods that update this View according to the data stored in the Model */
    	public void update(Observable arg0, Object arg1) {
    		if (arg0 instanceof ModelForGUI) {
    			ModelForGUI model = (ModelForGUI) arg0;
@@ -558,6 +564,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	}
 
 
+
 	public void relayYesNoDialog(final String question) {
 		new Thread(
 			new Runnable() {
@@ -573,6 +580,8 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 		
 	}
 
+	/**This method causes a pop-up (messageDialog) that shows some message to the user
+	 * @param String message*/
 	public void notifyUser(final String message) {
 		new Thread(
 				new Runnable() {
@@ -581,5 +590,11 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 					}}).start();
 	}
 
+	/**This method is invoked by the UpdaterSwing when the Server requires 
+	 * the name of an ObjectCard*/
+	public void relayObjectCard() { 
+		doRelayObjectCard = true;
+		showCardsButton.doClick();
+	}
 }
 	
