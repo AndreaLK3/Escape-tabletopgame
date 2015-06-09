@@ -69,7 +69,7 @@ public class ModelForGUI extends Observable {
 	}
 	
 	/**
-	 * Update a player's noise location, adds a new player to the list if needed
+	 * Update a player's name, adds a new player to the list if needed
 	 * The caller must call finishedUpdating() himself after doing this
 	 * @param name
 	 * @param newStatus

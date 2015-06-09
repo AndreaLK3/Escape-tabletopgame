@@ -6,6 +6,7 @@ import it.escape.client.controller.gui.ActionSendChat;
 import it.escape.client.controller.gui.MouseOnMapCell;
 import it.escape.client.controller.gui.UpdaterSwingToDisplayerInterface;
 import it.escape.client.model.ModelForGUI;
+import it.escape.client.model.PlayerState;
 import it.escape.client.view.gui.maplabel.MapViewer;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 
@@ -434,13 +435,24 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
 		
 		}
    	
-   	public void updateMyStatusScreen(ModelForGUI model) {
+   	/** This method updates my personal panel
+   	 * TODO: TurnStatus*/
+   	private void updateMyStatusScreen(ModelForGUI model) {
    		nameField.setText(model.getMyPlayerState().getMyName());
    		teamArea.setText(model.getMyPlayerState().getMyTeam());
    	}
    	
-   	public void updateMapMarkers(ModelForGUI model) {
+   	private void updateMapMarkers(ModelForGUI model) {
    		((MapViewer) label5_map).setPlayerMarkerPosition(model.getMyPlayerState().getLocation());
+   	}
+   	
+   	private void updatePlayerPanels(ModelForGUI model) {
+   		int currentPanel = 0;
+   		for (PlayerState pState : model.getPlayerStates()) {
+   			playerPanels[currentPanel].updatePlayerArea(pState.getMyName());
+   			playerPanels[currentPanel].updateStatusArea(pState.getMyStatus().toString());
+   			playerPanels[currentPanel].updateLastKnownActionArea(pState.getLastNoiseLocation());
+   		}
    	}
    	
    	// basic observer (it observes the model)
@@ -449,6 +461,8 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
    			ModelForGUI model = (ModelForGUI) arg0;
    			updateMyStatusScreen(model);
    			updateMapMarkers(model);
+   			updatePlayerPanels(model);
+   			
 			// do something
 		}
 	}

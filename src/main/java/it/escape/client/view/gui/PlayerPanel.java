@@ -50,7 +50,7 @@ public class PlayerPanel extends JPanel {
 		statusArea.setText(s);
 	}
 
-	public void updateLastNoiseArea (String s) {
+	public void updateLastKnownActionArea (String s) {
 		lastKnownActionArea.setText(s);
 	}
 	
