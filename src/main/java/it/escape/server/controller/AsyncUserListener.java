@@ -28,6 +28,7 @@ public class AsyncUserListener implements Observer{
 	private Pattern rename;
 	private Pattern chat;
 	private Pattern whoami;
+	private Pattern whereami;
 	
 	private PlayerActionInterface subject;
 	
@@ -46,6 +47,7 @@ public class AsyncUserListener implements Observer{
 		rename = new FormatToPattern(StringRes.getString("messaging.renameMyself")).convert();
 		chat = new FormatToPattern(StringRes.getString("messaging.chat")).convert();
 		whoami = new FormatToPattern(StringRes.getString("messaging.whoami")).convert();
+		whereami = new FormatToPattern(StringRes.getString("messaging.whereami")).convert();
 		
 		LOG.fine("Async listener for user " + subject.getName() + " has been  created");
 	}
@@ -54,6 +56,7 @@ public class AsyncUserListener implements Observer{
 		Matcher ren = rename.matcher(msg);
 		Matcher cha = chat.matcher(msg);
 		Matcher me = whoami.matcher(msg);
+		Matcher mypos = whereami.matcher(msg);
 		
 		if (ren.matches()) {
 			LOG.finer("Rename command detected");
@@ -64,9 +67,18 @@ public class AsyncUserListener implements Observer{
 		} else if (me.matches()) {
 			LOG.finer("Whoami message detected");
 			whoAmIProcedure();
+		} else if (mypos.matches()) {
+			LOG.finer("Whereami message detected");
+			whereAmIProcedure();
 		} // other cases
 	}
 	
+	private void whereAmIProcedure() {
+		privateUMR.relayMessage(String.format(
+				StringRes.getString("messaging.hereYouAre"),
+				gameMaster.getPlayerPosition(subject)));
+	}
+
 	private void chatProcedure(Matcher match) {
 		String message = match.group(1).trim();  // also remove initial/trailing blank spaces
 		announcer.announceChatMessage(subject, message);

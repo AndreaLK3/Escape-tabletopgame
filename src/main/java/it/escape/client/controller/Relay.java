@@ -88,6 +88,11 @@ public class Relay {
 		relayMessage(ready);
 	}
 	
+	public void sendWhereami() {
+		String ready = StringRes.getString("messaging.whereami");
+		relayMessage(ready);
+	}
+	
 	public void renameSelf(String name) {
 		String ready = String.format(StringRes.getString("messaging.renameMyself"), name);
 		relayMessage(ready);

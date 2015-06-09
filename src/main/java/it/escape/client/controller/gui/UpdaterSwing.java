@@ -38,6 +38,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern info_playerRenamed;
 	private Pattern info_DrawnObjectCard;
 	private Pattern info_whoIAm;
+	private Pattern info_whereIAm;
 	
 	private Pattern turn_Attack;
 	private Pattern turn_askForNoise;
@@ -86,6 +87,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		info_DrawnObjectCard = new FormatToPattern(StringRes.getString("messaging.objectCardDrawn")).convert();
 		info_playerRenamed  = new FormatToPattern(StringRes.getString("messaging.announceRename")).convert();
 		info_whoIAm = new FormatToPattern(StringRes.getString("messaging.whoYouAre")).convert();
+		info_whereIAm = new FormatToPattern(StringRes.getString("messaging.hereYouAre")).convert();
+		
 		
 		turn_Attack = new FormatToPattern(StringRes.getString("messaging.askIfAttack")).convert();
 		turn_askForNoise = new FormatToPattern(StringRes.getString("messaging.askForNoisePosition")).convert();
@@ -122,6 +125,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher myName = info_whoIAm.matcher(message);
 		Matcher myTeam = info_yourTeam.matcher(message);
 		Matcher movement = turn_movement.matcher(message);
+		Matcher myPos = info_whereIAm.matcher(message);
 		
 		if (!handlingMOTDspecialCase(message)) {
 			if (map.matches()) {
@@ -161,6 +165,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				LOG.finer("Read player name from server");
 				model.getMyPlayerState().setMyName(myName.group(1));
 				model.finishedUpdating();
+			} else if (myPos.matches()) {
+				LOG.finer("Read player position from server");
+				model.getMyPlayerState().setLocation(myPos.group(1));
+				model.finishedUpdating();
 			} else if (myTeam.matches()) {
 				LOG.finer("Read team name from server");
 				model.getMyPlayerState().setMyTeam(myTeam.group(1));
@@ -172,10 +180,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		}
 		
 	}
-	
-	private void movementSequence() {
-		
-	}
+
 
 	/**
 	 * The Message Of The Day is a special situation, since it's a

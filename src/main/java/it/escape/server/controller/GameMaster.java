@@ -3,6 +3,7 @@ package it.escape.server.controller;
 import it.escape.GlobalSettings;
 import it.escape.server.ServerLocalSettings;
 import it.escape.server.controller.game.actions.MapActionInterface;
+import it.escape.server.controller.game.actions.PlayerActionInterface;
 import it.escape.server.model.game.Announcer;
 import it.escape.server.model.game.cards.DecksHandler;
 import it.escape.server.model.game.players.Alien;
@@ -355,6 +356,10 @@ public class GameMaster implements Runnable {
 			}
 		}
 		return false;
+	}
+	
+	public String getPlayerPosition(PlayerActionInterface p) {
+		return map.getPlayerAlphaNumPosition(p);
 	}
 	
 	/** used to check if there are places avaible for new players
