@@ -16,10 +16,12 @@ public class MyPlayerState extends PlayerState {
 	
 	private List<String> objectCards;
 	
+	private String location;  // for the sake of completeness
 	
 	public MyPlayerState() {
 		super();
 		objectCards = new ArrayList<String>();
+		myTeam = "unknown";
 	}
 	
 	public void addCard(String cardName) {
@@ -43,7 +45,12 @@ public class MyPlayerState extends PlayerState {
 		this.myTeam = myTeam;
 	}
 
+	public String getLocation() {
+		return location;
+	}
 
-
+	public void setLocation(String location) {
+		this.location = location;
+	}
 
 }

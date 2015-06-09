@@ -433,10 +433,16 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
 		
 		}
    	
+   	public void updateMyStatusScreen(ModelForGUI model) {
+   		nameField.setText(model.getMyPlayerState().getMyName());
+   		teamArea.setText(model.getMyPlayerState().getMyTeam());
+   	}
+   	
    	// basic observer (it observes the model)
    	public void update(Observable arg0, Object arg1) {
    		if (arg0 instanceof ModelForGUI) {
    			ModelForGUI model = (ModelForGUI) arg0;
+   			updateMyStatusScreen(model);
 			// do something
 		}
 	}

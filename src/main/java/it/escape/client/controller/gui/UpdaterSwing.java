@@ -112,6 +112,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher othersTurn = info_currentTurnAndPlayer.matcher(message);
 		Matcher playerRename = info_playerRenamed.matcher(message);
 		Matcher myName = info_whoIAm.matcher(message);
+		Matcher myTeam = info_yourTeam.matcher(message);
 		
 		if (!handlingMOTDspecialCase(message)) {
 			if (map.matches()) {
@@ -128,7 +129,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				view.setTurnStatusString("waiting for my turn");
 			} else if (othersTurn.matches()) {
 				view.setTurnStatusString(othersTurn.group(2) + " is playing");
-				model.updatePlayerExists(othersTurn.group(2));
+				// don't add *myself* to the list of *others*
+				if (!othersTurn.group(2).equals(model.getMyPlayerState().getMyName())) {
+					model.updatePlayerExists(othersTurn.group(2));
+				}
 				model.setTurnNumber(Integer.parseInt(othersTurn.group(1)));
 				model.finishedUpdating();
 			} else if (turnStart.matches()) {
@@ -139,6 +143,9 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				model.finishedUpdating();
 			} else if (myName.matches()) {
 				model.getMyPlayerState().setMyName(myName.group(1));
+				model.finishedUpdating();
+			} else if (myTeam.matches()) {
+				model.getMyPlayerState().setMyTeam(myTeam.group(1));
 				model.finishedUpdating();
 			} 
 		}
