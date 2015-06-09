@@ -130,10 +130,12 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			} else if (chatMsg.matches()) {
 				view.newChatMessage(chatMsg.group(1), chatMsg.group(2));
 			} else if (gameStartETA.matches()) {
+				LOG.finer("Setting game start ETA");
 				view.setTurnStatusString(message);
 			} else if (turnEnd.matches()) {
 				view.setTurnStatusString("waiting for my turn");
 			} else if (othersTurn.matches()) {
+				LOG.finer("Someone's turn");
 				view.setTurnStatusString(othersTurn.group(2) + " is playing");
 				// don't add *myself* to the list of *others*
 				if (!othersTurn.group(2).equals(model.getMyPlayerState().getMyName())) {
@@ -142,12 +144,14 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				model.setTurnNumber(Integer.parseInt(othersTurn.group(1)));
 				model.finishedUpdating();
 			} else if (turnStart.matches()) {
+				LOG.finer("My turn");
 				view.setTurnStatusString("now is my turn to play");
 				model.getMyPlayerState().setMyName(turnStart.group(1));
 				model.getMyPlayerState().setLocation(turnStart.group(2));
 				model.finishedUpdating();
 				// we could do more (i.e. send a visual notification of some sort)
 			} else if (playerRename.matches()) {
+				LOG.finer("Someone renamed himself");
 				model.updatePlayerRename(playerRename.group(1), playerRename.group(2));
 				model.finishedUpdating();
 			} else if (myName.matches()) {
