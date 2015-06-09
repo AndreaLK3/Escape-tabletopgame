@@ -109,7 +109,7 @@ public class GameMaster implements Runnable {
 		currentTeam = PlayerTeams.ALIENS;
 		gameRunning = false;
 		gameFinished = false;
-		timeoutTicking.set(false);
+		timeoutTicking = new AtomicBoolean(false);
 	}
 	
 	
