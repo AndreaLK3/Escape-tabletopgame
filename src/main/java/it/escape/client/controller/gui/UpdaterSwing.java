@@ -133,7 +133,9 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher playObject = turn_askForObject.matcher(message);
 		Matcher noisepos = turn_askForNoise.matcher(message);
 		Matcher drawncard = info_DrawnObjectCard.matcher(message);
+		
 		Matcher eventNoise = event_Noise.matcher(message);
+		Matcher eventObject = event_ObjectUsed.matcher(message);
 		
 		Matcher moveCanNotEnter = exception_1.matcher(message);
 		Matcher moveUnreachable = exception_2.matcher(message);
@@ -229,10 +231,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				view.notifyUser(StringRes.getString(message));
 				processMessage(StringRes.getString("messaging.askPlayObjectCard"));
 				
-			} else if(eventNoise.matches()) {
+			} else if(eventNoise.matches() || eventObject.matches()) {
 				view.notifyUser(message);
 				
-			}
+			} 
 		
 			
 		}  

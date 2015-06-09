@@ -1,13 +1,23 @@
 Current tasks:
 
-(MM): non è il caso di creare qualche schema / mockup della GUI?
+(AL):
+Le eccezioni non vengono ancora comunicate come dovrebbero, anche se il notifyPlayer l'ho chiamato... perchè viene "mangiato" subito...
 
+Manca ancora la gestione di:
+	playerEscaped
+	risultati finali
 
+Lo stato di un Player non è aggiornato quando viene eliminato. Non c'è ancora collegamento tra i messaggi/ Pattern e PlayerState.
 
 
 
 __________________________________________________________
 Notes about other tasks:
+
+
+(MM): non è il caso di creare qualche schema / mockup della GUI?
+
+
 
 
 Bug : mancato automaticOverride nella 2a fase del turno alieno (è askIfAttack()?)
