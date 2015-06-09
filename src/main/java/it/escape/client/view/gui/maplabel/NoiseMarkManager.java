@@ -27,6 +27,8 @@ public class NoiseMarkManager {
 	public void addNoise(String location, MapViewer parent) {
 		JLabel nuova = new JLabel(noisy);
 		markers.add(nuova);
+		parent.add(nuova);
+		parent.setComponentZOrder(nuova, parent.getNoiseZ());
 		parent.visualizeAndPlace(location, nuova);
 	}
 	

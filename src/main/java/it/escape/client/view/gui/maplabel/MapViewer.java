@@ -51,6 +51,12 @@ public class MapViewer extends JLabel {
 
 	private static final long serialVersionUID = 1L;
 	
+	private static final int cell_z = 0;
+	
+	private static final int noise_z = 0;
+	
+	private static final int overlays_z = 0;
+	
 	private int totalWidth;
 	
 	private int totalHeight;
@@ -147,6 +153,9 @@ public class MapViewer extends JLabel {
 		
 		add(playerHereOverlay);
 		add(highlightOverlay);
+		setComponentZOrder(playerHereOverlay, overlays_z);
+		setComponentZOrder(highlightOverlay, overlays_z);
+		
 		background = ImageScaler.resizeImage("resources/artwork/map-background.png", backgroundTileSize, backgroundTileSize);
 		totalWidth = 400;
 		totalHeight = 400;
@@ -213,6 +222,7 @@ public class MapViewer extends JLabel {
 		label.setIcon(new ImageIcon(ImageScaler.resizeImage(image, cellWidth, cellHeight)));
 		label.addMouseListener(submitMouseAction);
 		placeAbsolute(x, y, label);
+		setComponentZOrder(label, cell_z);
 	}
 	
 	public void visualizeAndPlace(String position, JLabel label) {
@@ -325,5 +335,9 @@ public class MapViewer extends JLabel {
 
 	public int getTotalHeight() {
 		return totalHeight;
+	}
+	
+	public int getNoiseZ() {
+		return noise_z;
 	}
 }
