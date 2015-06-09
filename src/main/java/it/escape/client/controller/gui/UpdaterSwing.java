@@ -192,7 +192,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				view.relayYesNoDialog(StringRes.getString("messaging.askPlayObjectCard"));
 			} else if (whichobjectCard.matches()) {
 				LOG.finer("Server asked an object card");
-				//TODO
+				view.relayObjectCard();
 			} else if (noisepos.matches()) {
 				LOG.finer("Server asked to place a noise");
 				view.notifyUser("Select the sector you want to make a noise in");
