@@ -28,6 +28,8 @@ public class FormatToPattern {
 		temp = temp.replaceAll("\\)", "\\\\)");
 		temp = temp.replaceAll("\\.", "\\\\.");
 		temp = temp.replaceAll("\\*", "\\\\*");
+		temp = temp.replaceAll("\\?", "\\\\?");
+		temp = temp.replaceAll("\\^", "\\\\^");
 		temp = temp.replaceAll("%s", matchall);  // match strings
 		temp = temp.replaceAll("%d", matchall);  // match integer numbers 
 		

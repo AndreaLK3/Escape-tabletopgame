@@ -406,11 +406,16 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 
 		public void actionPerformed(ActionEvent event) {
 			if (event.getSource() == showCardsButton) {
-				//the objectCardsPanel will have to be updated reading the client.model.PlayerState
-				objectCardsPanel.updateCards(Arrays.asList("attack", "defense","teleport","lights","sedatives","adrenaline"));
-				JOptionPane.showConfirmDialog(null, objectCardsPanel.getButtonsAsArray(), "Your object cards", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
-				chosenObjectCard = objectCardsPanel.getChosenCardName();
-				JOptionPane.showMessageDialog(null, "You have chosen the " + chosenObjectCard  + " card.");}
+				new Thread(
+					new Runnable() {
+						public void run() {
+							//the objectCardsPanel will have to be updated reading the client.model.PlayerState
+							objectCardsPanel.updateCards(Arrays.asList("attack", "defense","teleport","lights","sedatives","adrenaline"));
+							JOptionPane.showConfirmDialog(null, objectCardsPanel.getButtonsAsArray(), "Your object cards", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
+							chosenObjectCard = objectCardsPanel.getChosenCardName();
+							JOptionPane.showMessageDialog(null, "You have chosen the " + chosenObjectCard  + " card.");
+						}}).start();
+			}
 		}
 		
 	}
@@ -533,17 +538,25 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 
 	public void relayYesNoDialog(final String question) {
 		new Thread(
+			new Runnable() {
+				public void run() {
+					int n = JOptionPane.showConfirmDialog(null, question, null, JOptionPane.YES_NO_OPTION);
+					if (n==JOptionPane.OK_OPTION) {
+						relayRef.relayMessage("yes");
+					}
+					else {
+						relayRef.relayMessage("no");
+					}
+				}}).start();
+		
+	}
+
+	public void notifyUser(final String message) {
+		new Thread(
 				new Runnable() {
 					public void run() {
-						int n = JOptionPane.showConfirmDialog(null, question, null, JOptionPane.YES_NO_OPTION);
-						if (n==JOptionPane.OK_OPTION) {
-							relayRef.relayMessage("yes");
-						}
-						else {
-							relayRef.relayMessage("yes");
-						}
+						JOptionPane.showMessageDialog(null, message, null, JOptionPane.PLAIN_MESSAGE);
 					}}).start();
-		
 	}
 
 }

@@ -23,4 +23,6 @@ public interface UpdaterSwingToViewInterface {
 
 	public void relayYesNoDialog(String question);
 	
+	public void notifyUser(String message);
+	
 }

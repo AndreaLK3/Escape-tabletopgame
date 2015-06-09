@@ -130,9 +130,11 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher movement = turn_movement.matcher(message);
 		Matcher myPos = info_whereIAm.matcher(message);
 		
-		Matcher objectCard = inputObjectCard.matcher(message);
+		Matcher whichobjectCard = inputObjectCard.matcher(message);
 		Matcher doAttack = turn_askForAttack.matcher(message);
 		Matcher playObject = turn_askForObject.matcher(message);
+		Matcher noisepos = turn_askForNoise.matcher(message);
+		Matcher drawncard = info_DrawnObjectCard.matcher(message);
 		
 		if (!handlingMOTDspecialCase(message)) {
 			if (map.matches()) {
@@ -170,7 +172,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				model.getMyPlayerState().setMyName(myName.group(1));
 				model.finishedUpdating();
 			} else if (myPos.matches()) {
-				LOG.finer("Read player position from server");
+				LOG.finer("Read player position from server: [" + myPos.group(1) + "]");
 				model.getMyPlayerState().setLocation(myPos.group(1));
 				model.finishedUpdating();
 			} else if (myTeam.matches()) {
@@ -179,19 +181,36 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				model.finishedUpdating();
 				view.discoverMyName();  // if someone else's playing we don't know it yet
 			} else if (movement.matches()) {
+				LOG.finer("Server asked to move");
+				view.notifyUser("Please move your character: click where you want to go");
 				view.bindPositionSender();
 			}  else if (doAttack.matches()) {
+				LOG.finer("Server asked to attack");
 				view.relayYesNoDialog(StringRes.getString("messaging.askIfAttack"));
 			}  else if (playObject.matches()) {
+				LOG.finer("Server asked whether to play an object card");
 				view.relayYesNoDialog(StringRes.getString("messaging.askPlayObjectCard"));
-			} else if (objectCard.matches()) {
-				//view.relayYesNoDialog(StringRes.getString("messaging.askPlayObjectCard"));
-			}
+			} else if (whichobjectCard.matches()) {
+				LOG.finer("Server asked an object card");
+				//TODO
+			} else if (noisepos.matches()) {
+				LOG.finer("Server asked to place a noise");
+				view.notifyUser("Select the sector you want to make a noise in");
+				view.bindPositionSender();
+			} else if (drawncard.matches()) {
+				LOG.finer("Server reported new object card " + drawncard.group(1));
+				String cardkey = getCardGUIKey(drawncard.group(1));
+				view.notifyUser("You have drawn a " + cardkey + " card");
+			} 
 		}  
 		
 		
 	}
 
+	public String getCardGUIKey(String classname) {
+		String ans = classname.substring(0, classname.length()-4);
+		return ans.toLowerCase();
+	}
 
 	/**
 	 * The Message Of The Day is a special situation, since it's a
