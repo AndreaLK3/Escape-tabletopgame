@@ -3,8 +3,9 @@ package it.escape.client.view.gui;
 import it.escape.client.controller.MessageCarrier;
 import it.escape.client.controller.Relay;
 import it.escape.client.controller.gui.ActionSendChat;
+import it.escape.client.controller.gui.ClickSendPositionListener;
 import it.escape.client.controller.gui.MouseOnMapCell;
-import it.escape.client.controller.gui.UpdaterSwingToDisplayerInterface;
+import it.escape.client.controller.gui.UpdaterSwingToViewInterface;
 import it.escape.client.model.ModelForGUI;
 import it.escape.client.model.PlayerState;
 import it.escape.client.view.gui.maplabel.MapViewer;
@@ -46,7 +47,7 @@ import sun.misc.Lock;
  * 
  * @author andrea, michele
  */
-public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterface, Observer{
+public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Observer{
    	private static final long serialVersionUID = 1L;
    	private static final int MAXPLAYERS = 8;
   	
@@ -465,7 +466,7 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
 		}
 	}
    	
-   	// functions belonging to the interface UpdaterSwingToDisplayerInterface
+   	// functions belonging to the interface UpdaterSwingToViewInterface
    	//(They are invoked by the UpdaterSwing)
 
 	public void setGameMap(String name) {
@@ -515,5 +516,15 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
 	public void discoverMyName() {
 		relayRef.sendWhoami();
 	}
+
+	public void bindPositionSender() {
+		ClickSendPositionListener listener = new ClickSendPositionListener(relayRef, this);
+		((MapViewer)label5_map).addCellListener(listener);
+	}
+	
+	public void unbindPositionSender(ClickSendPositionListener listener) {
+		((MapViewer)label5_map).removeCellListener(listener);
+	}
+
 }
 	

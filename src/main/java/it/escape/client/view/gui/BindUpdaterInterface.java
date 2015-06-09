@@ -1,6 +1,6 @@
 package it.escape.client.view.gui;
 
-import it.escape.client.controller.gui.UpdaterSwingToDisplayerInterface;
+import it.escape.client.controller.gui.UpdaterSwingToViewInterface;
 
 /**
  * The view will use this interface to associate herself with
@@ -10,5 +10,5 @@ import it.escape.client.controller.gui.UpdaterSwingToDisplayerInterface;
  *
  */
 public interface BindUpdaterInterface {
-	public void bindView(UpdaterSwingToDisplayerInterface view);
+	public void bindView(UpdaterSwingToViewInterface view);
 }

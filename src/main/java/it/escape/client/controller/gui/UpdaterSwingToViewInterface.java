@@ -5,7 +5,7 @@ package it.escape.client.controller.gui;
  * @author michele
  *
  */
-public interface UpdaterSwingToDisplayerInterface {
+public interface UpdaterSwingToViewInterface {
 	
 	public void setGameMap(String name);
 	
@@ -16,5 +16,9 @@ public interface UpdaterSwingToDisplayerInterface {
 	public void newChatMessage(String username, String message);
 	
 	public void discoverMyName();
+	
+	public void bindPositionSender();
+	
+	public void unbindPositionSender(ClickSendPositionListener listener);
 	
 }

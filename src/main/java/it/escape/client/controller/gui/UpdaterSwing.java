@@ -23,7 +23,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	
 	protected static final Logger LOG = Logger.getLogger( UpdaterSwing.class.getName() );
 
-	private UpdaterSwingToDisplayerInterface view;
+	private UpdaterSwingToViewInterface view;
 	
 	private boolean readingMotd = false;
 	
@@ -41,6 +41,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	
 	private Pattern turn_Attack;
 	private Pattern turn_askForNoise;
+	private Pattern turn_movement;
 	
 	private Pattern event_Noise;
 	private Pattern event_ObjectUsed;
@@ -63,7 +64,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		this.model = model;
 	}
 
-	public void bindView(UpdaterSwingToDisplayerInterface view) {
+	public void bindView(UpdaterSwingToViewInterface view) {
 		this.view = view;
 	}
 
@@ -88,6 +89,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		
 		turn_Attack = new FormatToPattern(StringRes.getString("messaging.askIfAttack")).convert();
 		turn_askForNoise = new FormatToPattern(StringRes.getString("messaging.askForNoisePosition")).convert();
+		turn_movement = new FormatToPattern(StringRes.getString("messaging.timeToMove")).convert();
 		
 		event_ObjectUsed = new FormatToPattern(StringRes.getString("messaging.playerIsUsingObjCard")).convert();
 		event_Noise = new FormatToPattern(StringRes.getString("messaging.noise")).convert();
@@ -119,6 +121,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher playerRename = info_playerRenamed.matcher(message);
 		Matcher myName = info_whoIAm.matcher(message);
 		Matcher myTeam = info_yourTeam.matcher(message);
+		Matcher movement = turn_movement.matcher(message);
 		
 		if (!handlingMOTDspecialCase(message)) {
 			if (map.matches()) {
@@ -163,8 +166,14 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				model.getMyPlayerState().setMyTeam(myTeam.group(1));
 				model.finishedUpdating();
 				view.discoverMyName();  // if someone else's playing we don't know it yet
+			} else if (movement.matches()) {
+				view.bindPositionSender();
 			} 
 		}
+		
+	}
+	
+	private void movementSequence() {
 		
 	}
 
