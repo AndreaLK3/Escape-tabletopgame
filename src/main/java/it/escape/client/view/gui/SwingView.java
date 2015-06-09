@@ -453,6 +453,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
    			playerPanels[currentPanel].updatePlayerArea(pState.getMyName());
    			playerPanels[currentPanel].updateStatusArea(pState.getMyStatus().toString());
    			playerPanels[currentPanel].updateLastKnownActionArea(pState.getLastNoiseLocation());
+   			currentPanel++;
    		}
    	}
    	
@@ -461,7 +462,8 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
    		if (arg0 instanceof ModelForGUI) {
    			ModelForGUI model = (ModelForGUI) arg0;
    			updateMyStatusScreen(model);
-   			updateMapMarkers(model);   			
+   			updateMapMarkers(model);
+   			updatePlayerPanels(model);
 			// do something
 		}
 	}
