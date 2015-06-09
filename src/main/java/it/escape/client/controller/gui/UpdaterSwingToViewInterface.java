@@ -29,6 +29,6 @@ public interface UpdaterSwingToViewInterface {
 	
 	public void addNoiseToMap(String location);
 	
-	public void clearNoisesFromMap(String location);
+	public void clearNoisesFromMap();
 	
 }

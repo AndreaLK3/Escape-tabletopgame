@@ -158,6 +158,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				view.setTurnStatusString(message);
 				
 			} else if (turnEnd.matches()) {
+				view.clearNoisesFromMap();
 				view.setTurnStatusString("waiting for my turn");
 				
 			} else if (othersTurn.matches()) {

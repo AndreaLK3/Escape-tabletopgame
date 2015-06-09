@@ -601,7 +601,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 		((MapViewer)label5_map).addNoiseMarker(location);
 	}
 
-	public void clearNoisesFromMap(String location) {
+	public void clearNoisesFromMap() {
 		((MapViewer)label5_map).clearNoiseMarkers();
 	}
 }

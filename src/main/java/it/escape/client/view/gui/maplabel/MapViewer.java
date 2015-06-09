@@ -71,6 +71,8 @@ public class MapViewer extends JLabel {
 	
 	private List<MouseListener> cellListeners;
 	
+	private NoiseMarkManager noiseManager;
+	
 	public MapViewer(int cellWidth, int cellHeight) throws BadJsonFileException, IOException {
 		super();
 		this.cellWidth = cellWidth;
@@ -135,6 +137,7 @@ public class MapViewer extends JLabel {
 	}
 	
 	private void initialize(){
+		noiseManager = new NoiseMarkManager();
 		playerHere = new ImageIcon(ImageScaler.resizeImage("resources/artwork/celle/player-here.png", cellWidth, cellHeight));
 		cellHighlight = new ImageIcon(ImageScaler.resizeImage("resources/artwork/celle/highlight.png", cellWidth, cellHeight));
 		highlightOverlay = new JLabel(cellHighlight);
@@ -212,7 +215,7 @@ public class MapViewer extends JLabel {
 		placeAbsolute(x, y, label);
 	}
 	
-	private void visualizeAndPlace(String position, JLabel label) {
+	public void visualizeAndPlace(String position, JLabel label) {
 		try {
 			int coord[] = cellToPixels(CoordinatesConverter.fromAlphaNumToOddq(position));
 			Insets insets = getInsets();
@@ -309,11 +312,11 @@ public class MapViewer extends JLabel {
 	}
 	
 	public void addNoiseMarker(String location) {
-		// TODO
+		noiseManager.addNoise(location, this);
 	}
 	
 	public void clearNoiseMarkers() {
-		// TODO
+		noiseManager.clearNoises(this);
 	}
 	
 	public int getTotalWidth() {
