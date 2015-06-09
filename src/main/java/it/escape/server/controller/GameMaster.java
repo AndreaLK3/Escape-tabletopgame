@@ -117,7 +117,7 @@ public class GameMaster implements Runnable {
 			wait(WAIT_TIMEOUT);
 		} catch (InterruptedException e) {
 		}
-		if (numPlayers < GameMaster.MINPLAYERS) {  // someone disconnected in the meantime?
+		if (numPlayers >= GameMaster.MINPLAYERS) {  // someone disconnected in the meantime?
 			startGameAndWait();
 			LOG.fine("GameMaster tasks completed, thread will now stop");
 			gameFinished = true;
