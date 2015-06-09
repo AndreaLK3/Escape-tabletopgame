@@ -90,7 +90,7 @@ public class ObjectCardsPanel extends JPanel {
 		return buttonsArray;
 	}
 	
-	private JRadioButton[] getPlayableButtonsAsArray() {
+	public JRadioButton[] getPlayableButtonsAsArray() {
 		List<JRadioButton> playableObjectCardsList = Arrays.asList(getButtonsAsArray());
 		int i=0;
 		JRadioButton[] playableCardsArray = new JRadioButton[NUMCARDTYPES];

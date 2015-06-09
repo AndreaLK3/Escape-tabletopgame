@@ -405,10 +405,11 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	}
 	
 	/**This private inner class listens to the JButton ShowCardsButton.
-	 * When the user clicks it, it shows a dialog with objectCardsPanel,
+	 * 1) When the user clicks it, it shows a dialog with objectCardsPanel,
 	 * which contains the object Cards currently owned.
-	 * When the Updater "clicks" it, because the Server requires an Object Card,
-	 * depending on the user's choicea String with the CardName is obtained and sent to the Relay.
+	 * 2) When the Updater "clicks" it, because the Server requires an Object Card, 
+	 * it shows a dialog with the playable objectCards, and,
+	 * depending on the user's choice, a String with the CardName is obtained and sent to the Relay.
 	 * @author andrea, michele*/
 	private class ButtonHandler implements ActionListener {
 
@@ -417,20 +418,25 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 				new Thread(
 					new Runnable() {
 						public void run() {
-							JOptionPane.showConfirmDialog(null, objectCardsPanel.getButtonsAsArray(), 
-									"Your object cards", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
 							if (doRelayObjectCard) {
+								JOptionPane.showConfirmDialog(null, objectCardsPanel.getPlayableButtonsAsArray(), 
+										"Your object cards", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
 								chosenObjectCard = objectCardsPanel.getChosenCardName();
 								if (chosenObjectCard==null){
 									JOptionPane.showMessageDialog(null, "You haven't chosen any card.");
 								}
 								else {
 									JOptionPane.showMessageDialog(null, "You have chosen the " + chosenObjectCard  + " card.");
-									relayRef.relayMessage(chosenObjectCard);
-									doRelayObjectCard = false;
-								}	
+									relayRef.relayMessage(chosenObjectCard);	
+								}
+								doRelayObjectCard = false;
 							}
-						}}).start();
+							else {
+								JOptionPane.showConfirmDialog(null, objectCardsPanel.getPlayableButtonsAsArray(), 
+											"Your object cards", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
+							}
+							}
+						}).start();
 			}
 		}
 	}
@@ -511,9 +517,9 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 			((MapViewer)label5_map).setMap(name);
 			scrollMap(0.5, 0.5);
 		} catch (BadJsonFileException e) {
-			// TODO Auto-generated catch block
+			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 		}
 	}
 
