@@ -3,6 +3,7 @@ package it.escape.client;
 import it.escape.client.controller.ClientSocketChannelInterface;
 import it.escape.client.controller.Relay;
 import it.escape.client.controller.gui.UpdaterSwing;
+import it.escape.client.model.ModelForGUI;
 import it.escape.client.view.gui.BindUpdaterInterface;
 import it.escape.client.view.gui.SwingView;
 import it.escape.utils.FilesHelper;
@@ -28,6 +29,8 @@ public class ClientInitializerGUI {
 	
 	private static UpdaterSwing updater;
 	
+	private static ModelForGUI model;
+	
 	public static void start(ClientLocalSettings Locals) {
 		locals = Locals;
 		openProgressDialog();
@@ -41,7 +44,8 @@ public class ClientInitializerGUI {
 			pleaseWait.dispose();  // remove the "connecting..." dialog
 			// initialize other stuff, like the controller
 			relay = new Relay((ClientSocketChannelInterface) connection);
-			updater = new UpdaterSwing();
+			model = new ModelForGUI();
+			updater = new UpdaterSwing(model);
 			connection.addObserver(updater);
 			// start the view
 			SwingView.synchronousLaunch((BindUpdaterInterface)updater, relay);

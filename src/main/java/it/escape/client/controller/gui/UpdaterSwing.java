@@ -2,6 +2,7 @@ package it.escape.client.controller.gui;
 
 import it.escape.client.controller.MessageCarrier;
 import it.escape.client.controller.Updater;
+import it.escape.client.model.ModelForGUI;
 import it.escape.client.view.gui.BindUpdaterInterface;
 import it.escape.strings.FormatToPattern;
 import it.escape.strings.StringRes;
@@ -28,6 +29,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	
 	private boolean readingMotd = false;
 	
+	private ModelForGUI model;
+	
 	private String loadedMotd = "";
 	
 	private Pattern info_numLobbyPlayers;
@@ -49,9 +52,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern exception_5;
 	
 	
-	public UpdaterSwing() {
+	public UpdaterSwing(ModelForGUI model) {
 		super();
 		LogHelper.setDefaultOptions(LOG);
+		this.model = model;
 	}
 
 	public void bindView(UpdaterSwingToDisplayerInterface view) {
@@ -101,6 +105,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher chatMsg = inboundChatMessage.matcher(message);
 		Matcher turnEnd = myTurnEnd.matcher(message);
 		Matcher turnStart = myTurnStart.matcher(message);
+		Matcher othersTurn = info_currentTurnAndPlayer.matcher(message);
 		
 		if (!handlingMOTDspecialCase(message)) {
 			if (map.matches()) {
@@ -115,6 +120,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				view.setTurnStatusString(message);
 			} else if (turnEnd.matches()) {
 				view.setTurnStatusString("waiting for my turn");
+			} else if (othersTurn.matches()) {
+				view.setTurnStatusString(othersTurn.group(2) + " is playing");
 			} else if (turnStart.matches()) {
 				view.setTurnStatusString("now is my turn to play");
 				// we could do more (i.e. send a visual notification of some sort)

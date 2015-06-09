@@ -14,11 +14,32 @@ public class PlayerState {
 	
 	protected String lastNoiseLocation;
 	
-
+	// value to initialize lastNoiseLocation to
+	protected static final String noNoise = "A00";
 
 	public PlayerState() {
-		
-	};
+		myName = "Unknown";
+		myStatus = CurrentPlayerStatus.DISCONNECTED;
+		lastNoiseLocation = noNoise;
+	}
+	
+	public PlayerState(String myName) {
+		this.myName = myName;
+		myStatus = CurrentPlayerStatus.CONNECTED;
+		lastNoiseLocation = noNoise;
+	}
+	
+	public PlayerState(String myName, CurrentPlayerStatus status) {
+		this.myName = myName;
+		myStatus = status;
+		lastNoiseLocation = noNoise;
+	}
+	
+	public PlayerState(String myName, String noiseLocation) {
+		this.myName = myName;
+		myStatus = CurrentPlayerStatus.ALIVE;  // if he makes a noise, then he must be alive!
+		lastNoiseLocation = noiseLocation;
+	}
 	
 	public String setMyName() {
 		return myName;

@@ -1,9 +1,11 @@
 package it.escape.client.view.gui;
 
+import it.escape.client.controller.MessageCarrier;
 import it.escape.client.controller.Relay;
 import it.escape.client.controller.gui.ActionSendChat;
 import it.escape.client.controller.gui.MouseOnMapCell;
 import it.escape.client.controller.gui.UpdaterSwingToDisplayerInterface;
+import it.escape.client.model.ModelForGUI;
 import it.escape.client.view.gui.maplabel.MapViewer;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 
@@ -17,6 +19,8 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -41,7 +45,7 @@ import sun.misc.Lock;
  * 
  * @author andrea, michele
  */
-public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterface{
+public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterface, Observer{
    	private static final long serialVersionUID = 1L;
    	private static final int MAXPLAYERS = 8;
   	
@@ -428,6 +432,14 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
 		
 		}
    	
+   	// basic observer (it observes the model)
+   	public void update(Observable arg0, Object arg1) {
+   		if (arg0 instanceof ModelForGUI) {
+   			ModelForGUI model = (ModelForGUI) arg0;
+			// do something
+		}
+	}
+   	
    	// functions belonging to the interface UpdaterSwingToDisplayerInterface
    	//(They are invoked by the UpdaterSwing)
 
@@ -473,5 +485,6 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
 		chatArea.setText(newChatText.toString());
 		// TODO: magari aggiungere un'icona 'new message' da qualche parte
 	}
+
 }
 	
