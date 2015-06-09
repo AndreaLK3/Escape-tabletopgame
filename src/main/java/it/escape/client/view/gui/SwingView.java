@@ -90,7 +90,7 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
 	 * note: removed, since we don't need this connection (see Client Diagram), and it creates a cycle too]
 	 * @param Relay (used to send data to the net)
 	 */
-   	public SwingView(String string, BindUpdaterInterface updater, Relay relay) {
+   	public SwingView(String string, BindUpdaterInterface updater, Relay relay, Observable model) {
    		super(string);
    		this.relayRef = relay;
    		setLayout(new GridBagLayout());
@@ -106,6 +106,7 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
    		setLabelsOpaque();
    		
    		updater.bindView(this);
+   		model.addObserver(this);
    		
    		objectCardsPanel = new ObjectCardsPanel();
    		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -409,7 +410,7 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
 		
 	}
    	
-   	public static void synchronousLaunch(final BindUpdaterInterface updater, final Relay relay) {
+   	public static void synchronousLaunch(final BindUpdaterInterface updater, final Relay relay, final Observable model) {
    		final Lock l = new Lock();
    		try {
 			l.lock();  // (1) set mutex once, so that the program flow will stop at (2)
@@ -419,7 +420,7 @@ public class SwingView extends JFrame implements UpdaterSwingToDisplayerInterfac
 		EventQueue.invokeLater(
 				new Runnable() {
 					public void run() {
-						SwingView playerFrame = new SwingView("Escape from the Aliens in Outer Space", updater, relay);	
+						SwingView playerFrame = new SwingView("Escape from the Aliens in Outer Space", updater, relay, model);	
 						l.unlock();  // unlock the mutex, let the synchronousLaunch return
 					}
 				}

@@ -48,7 +48,7 @@ public class ClientInitializerGUI {
 			updater = new UpdaterSwing(model);
 			connection.addObserver(updater);
 			// start the view
-			SwingView.synchronousLaunch((BindUpdaterInterface)updater, relay);
+			SwingView.synchronousLaunch((BindUpdaterInterface)updater, relay, model);
 			
 			// start reading from the network *only* once the gui is up
 			connectionThread = new Thread(connection);
