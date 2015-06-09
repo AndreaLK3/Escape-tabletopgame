@@ -137,6 +137,9 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				model.finishedUpdating();
 			} else if (turnStart.matches()) {
 				view.setTurnStatusString("now is my turn to play");
+				model.getMyPlayerState().setMyName(turnStart.group(1));
+				model.getMyPlayerState().setLocation(turnStart.group(2));
+				model.finishedUpdating();
 				// we could do more (i.e. send a visual notification of some sort)
 			} else if (playerRename.matches()) {
 				model.updatePlayerRename(playerRename.group(1), playerRename.group(2));
