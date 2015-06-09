@@ -114,19 +114,22 @@ public class MapViewer extends JLabel {
 	}
 	
 	private void notifyClick(MouseEvent e) {
-		for(MouseListener ml: cellListeners){
+		List<MouseListener> temp = new ArrayList<MouseListener>(cellListeners);
+		for(MouseListener ml: temp){
 		    ml.mouseClicked(e);
 		}
 	}
 	
 	private void notifyHover(MouseEvent e) {
-		for(MouseListener ml: cellListeners){
+		List<MouseListener> temp = new ArrayList<MouseListener>(cellListeners);
+		for(MouseListener ml: temp){
 		    ml.mouseEntered(e);
 		}
 	}
 	
 	private void notifyLeave(MouseEvent e) {
-		for(MouseListener ml: cellListeners){
+		List<MouseListener> temp = new ArrayList<MouseListener>(cellListeners);
+		for(MouseListener ml: temp){
 		    ml.mouseExited(e);
 		}
 	}
