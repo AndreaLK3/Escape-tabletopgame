@@ -106,6 +106,9 @@ public class Master {
 		reaper();
 		for (GameMaster gm : gameMasters) {
 			gm.instaStopGame();
+			if (gm == currentGameMaster) {
+				currentGameMaster = null;
+			}
 		}
 	}
 }
