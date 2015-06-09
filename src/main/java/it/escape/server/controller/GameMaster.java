@@ -426,8 +426,8 @@ public class GameMaster implements Runnable {
 					StringRes.getString("messaging.goodbye"),
 					p.getName()));  // say goodbye
 			UserMessagesReporter.getReporterInstance(p).getInterfaceWithUser().killConnection();
+			numPlayers--;
 		}
-		numPlayers = 0;
 	}
 	
 }
