@@ -462,8 +462,8 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
    		if (arg0 instanceof ModelForGUI) {
    			ModelForGUI model = (ModelForGUI) arg0;
    			updateMyStatusScreen(model);
-   			updateMapMarkers(model);
    			updatePlayerPanels(model);
+   			updateMapMarkers(model);
 			// do something
 		}
 	}

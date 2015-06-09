@@ -16,13 +16,6 @@ public class MouseOnMapCell extends MouseAdapter {
 		super();
 		this.mapview = mapview;
 	}
-
-	public void mouseClicked(MouseEvent e) {  
-		JOptionPane.showMessageDialog(null,
-			    "You clicked on cell " + ((MapCell)e.getSource()).getCoord(),
-			    "Click",
-			    JOptionPane.PLAIN_MESSAGE);
-    }
 	
 	public void mouseEntered(MouseEvent e) {
 		MapCell source = (MapCell)e.getSource();

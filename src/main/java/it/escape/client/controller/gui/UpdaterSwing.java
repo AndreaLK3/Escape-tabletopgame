@@ -144,10 +144,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			} else if (othersTurn.matches()) {
 				LOG.finer("Someone's turn");
 				view.setTurnStatusString(othersTurn.group(2) + " is playing");
-				// don't add *myself* to the list of *others*
-				if (!othersTurn.group(2).equals(model.getMyPlayerState().getMyName())) {
-					model.updatePlayerExists(othersTurn.group(2));
-				}
+				model.updatePlayerExists(othersTurn.group(2));
 				model.setTurnNumber(Integer.parseInt(othersTurn.group(1)));
 				model.finishedUpdating();
 			} else if (turnStart.matches()) {
