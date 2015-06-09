@@ -38,6 +38,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern info_yourTeam;
 	private Pattern info_currentTurnAndPlayer;
 	private Pattern info_playerRenamed;
+	private Pattern info_whoIAm;
 	private Pattern turn_Attack;
 	private Pattern event_Noise;
 	private Pattern ask_Noise;
@@ -80,6 +81,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		info_currentTurnAndPlayer = new FormatToPattern(StringRes.getString("messaging.timecontroller.turnNumber")).convert();
 		info_DrawnObjectCard = new FormatToPattern(StringRes.getString("messaging.objectCardDrawn")).convert();
 		info_playerRenamed  = new FormatToPattern(StringRes.getString("messaging.announceRename")).convert();
+		info_whoIAm = new FormatToPattern(StringRes.getString("messaging.whoYouAre")).convert();
 		
 		turn_Attack = new FormatToPattern(StringRes.getString("messaging.askIfAttack")).convert();
 		turn_askForNoise = new FormatToPattern(StringRes.getString("messaging.askForNoisePosition")).convert();
@@ -109,6 +111,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher turnStart = myTurnStart.matcher(message);
 		Matcher othersTurn = info_currentTurnAndPlayer.matcher(message);
 		Matcher playerRename = info_playerRenamed.matcher(message);
+		Matcher myName = info_whoIAm.matcher(message);
 		
 		if (!handlingMOTDspecialCase(message)) {
 			if (map.matches()) {
@@ -133,6 +136,9 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				// we could do more (i.e. send a visual notification of some sort)
 			} else if (playerRename.matches()) {
 				model.updatePlayerRename(playerRename.group(1), playerRename.group(2));
+				model.finishedUpdating();
+			} else if (myName.matches()) {
+				model.getMyPlayerState().setMyName(myName.group(1));
 				model.finishedUpdating();
 			} 
 		}

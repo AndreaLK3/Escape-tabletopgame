@@ -82,4 +82,15 @@ public class Relay {
 		String ready = String.format(StringRes.getString("messaging.chat"), message);
 		relayMessage(ready);
 	}
+	
+	public void renameSelf(String name) {
+		String ready = String.format(StringRes.getString("messaging.renameMyself"), name);
+		relayMessage(ready);
+		// to get a confirm from the server, ask "whoami"; the updater will take care
+		// of updating the displayed name accordingly
+		ready = StringRes.getString("messaging.whoami");
+		relayMessage(ready);
+		
+		
+	}
 }
