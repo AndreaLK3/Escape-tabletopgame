@@ -20,5 +20,7 @@ public interface UpdaterSwingToViewInterface {
 	public void bindPositionSender();
 	
 	public void unbindPositionSender(ClickSendPositionListener listener);
+
+	public void relayYesNoDialog(String question);
 	
 }

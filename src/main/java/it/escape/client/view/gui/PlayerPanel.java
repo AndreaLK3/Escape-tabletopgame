@@ -23,19 +23,19 @@ public class PlayerPanel extends JPanel {
 	
 		playerArea = new JTextArea();
 		playerArea.setEditable(false);
-		playerArea.setText("Giocatore 1");
+		playerArea.setText("Unknown");
 		constraints.gridx=0;
 		this.add(playerArea, constraints);
 
 		statusArea = new JTextArea();
 		statusArea.setEditable(false);
-		statusArea.setText(" Alive");
+		statusArea.setText("Unknown");
 		constraints.gridx=1;
 		this.add(statusArea, constraints);
 
 		lastKnownActionArea = new JTextArea();
 		lastKnownActionArea.setEditable(false);
-		lastKnownActionArea.setText(" C5");
+		lastKnownActionArea.setText("Unknown");
 		constraints.gridx=2;
 		this.add(lastKnownActionArea, constraints);
 	

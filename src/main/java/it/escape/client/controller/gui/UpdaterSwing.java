@@ -40,9 +40,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern info_whoIAm;
 	private Pattern info_whereIAm;
 	
-	private Pattern turn_Attack;
+	private Pattern turn_askForAttack;
 	private Pattern turn_askForNoise;
 	private Pattern turn_movement;
+	private Pattern turn_askForObject;
 	
 	private Pattern event_Noise;
 	private Pattern event_ObjectUsed;
@@ -55,6 +56,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern exception_3;
 	private Pattern exception_4;
 	private Pattern exception_5;
+
+	
 
 	
 	
@@ -89,8 +92,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		info_whoIAm = new FormatToPattern(StringRes.getString("messaging.whoYouAre")).convert();
 		info_whereIAm = new FormatToPattern(StringRes.getString("messaging.hereYouAre")).convert();
 		
-		
-		turn_Attack = new FormatToPattern(StringRes.getString("messaging.askIfAttack")).convert();
+		turn_askForObject = new FormatToPattern(StringRes.getString("messaging.askPlayObjectCard")).convert();
+		turn_askForAttack = new FormatToPattern(StringRes.getString("messaging.askIfAttack")).convert();
 		turn_askForNoise = new FormatToPattern(StringRes.getString("messaging.askForNoisePosition")).convert();
 		turn_movement = new FormatToPattern(StringRes.getString("messaging.timeToMove")).convert();
 		
@@ -126,6 +129,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher myTeam = info_yourTeam.matcher(message);
 		Matcher movement = turn_movement.matcher(message);
 		Matcher myPos = info_whereIAm.matcher(message);
+		
+		Matcher objectCard = inputObjectCard.matcher(message);
+		Matcher doAttack = turn_askForAttack.matcher(message);
+		Matcher playObject = turn_askForObject.matcher(message);
 		
 		if (!handlingMOTDspecialCase(message)) {
 			if (map.matches()) {
@@ -173,8 +180,15 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				view.discoverMyName();  // if someone else's playing we don't know it yet
 			} else if (movement.matches()) {
 				view.bindPositionSender();
-			} 
-		}
+			}  else if (doAttack.matches()) {
+				view.relayYesNoDialog(StringRes.getString("messaging.askIfAttack"));
+			}  else if (playObject.matches()) {
+				view.relayYesNoDialog(StringRes.getString("messaging.askPlayObjectCard"));
+			} else if (objectCard.matches()) {
+				//view.relayYesNoDialog(StringRes.getString("messaging.askPlayObjectCard"));
+			}
+		}  
+		
 		
 	}
 

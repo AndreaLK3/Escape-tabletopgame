@@ -1,5 +1,6 @@
 package it.escape.client.view.gui;
 
+import it.escape.client.ClientInitializerGUI;
 import it.escape.client.controller.MessageCarrier;
 import it.escape.client.controller.Relay;
 import it.escape.client.controller.gui.ActionSendChat;
@@ -10,6 +11,7 @@ import it.escape.client.model.ModelForGUI;
 import it.escape.client.model.PlayerState;
 import it.escape.client.view.gui.maplabel.MapViewer;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
+import it.escape.strings.StringRes;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -526,6 +528,22 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	
 	public void unbindPositionSender(ClickSendPositionListener listener) {
 		((MapViewer)label5_map).removeCellListener(listener);
+	}
+
+
+	public void relayYesNoDialog(final String question) {
+		new Thread(
+				new Runnable() {
+					public void run() {
+						int n = JOptionPane.showConfirmDialog(null, question, null, JOptionPane.YES_NO_OPTION);
+						if (n==JOptionPane.OK_OPTION) {
+							relayRef.relayMessage("yes");
+						}
+						else {
+							relayRef.relayMessage("yes");
+						}
+					}}).start();
+		
 	}
 
 }
