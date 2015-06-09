@@ -2,9 +2,18 @@ Current tasks:
 
 (AL):
 PROBLEMA del GameMaster: 
+Tentando di riconnettersi a una nuova partita quando la precedente è stata completata, il numero del Players non va a 1 ma a 0.
+--=== Server Welcome message ===--  
+Benvenuto su Escape from The Aliens in Outer Space!!
+Versione 0.9                        
+Have fun!                           
+--=== End of Welcome message ===--  
+We are playing the map "Galilei"    
+There are (0/8) players waiting in this lobby
+(Someone else's turn, free-action)>
 
-quando ci sono 2 giocatori e uno si disconnette, l numero del Players non va a 1 ma a 0. E poi quando uno si riconnette, il numero è 1 e il gioco non parte.
 
+AGGIORNAMENTO : Ora i bug della grafica non appaiono più , ma l'omino con la mia posizione non si vede più:(
 
 BUG della grafica:
 Exception in thread "AWT-EventQueue-0" java.lang.ClassCastException: java.lang.Character cannot be cast to javax.swing.Painter
@@ -20,6 +29,8 @@ Exception in thread "Thread-4" java.lang.ClassCastException: javax.swing.plaf.ni
 	at it.escape.client.view.gui.maplabel.MapViewer.drawDangerousCell(MapViewer.java:208)
 ...
 
+
+Ora l'evento "Un altro Player attacca D3" viene comunicato...
 Le eccezioni non vengono ancora comunicate come dovrebbero, anche se il notifyPlayer l'ho chiamato... perchè viene "mangiato" subito...
 
 Manca ancora la gestione di:
