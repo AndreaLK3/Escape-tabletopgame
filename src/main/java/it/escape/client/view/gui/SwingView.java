@@ -588,11 +588,8 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	/**This method causes a pop-up (messageDialog) that shows some message to the user
 	 * @param String message*/
 	public void notifyUser(final String message) {
-		new Thread(
-				new Runnable() {
-					public void run() {
-						JOptionPane.showMessageDialog(null, message, null, JOptionPane.PLAIN_MESSAGE);
-					}}).start();
+		JOptionPane.showMessageDialog(null, message, null, JOptionPane.PLAIN_MESSAGE);
+			
 	}
 
 	/**This method is invoked by the UpdaterSwing when the Server requires 

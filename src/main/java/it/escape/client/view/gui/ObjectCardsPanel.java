@@ -91,20 +91,18 @@ public class ObjectCardsPanel extends JPanel {
 	}
 	
 	public JRadioButton[] getPlayableButtonsAsArray() {
-		List<JRadioButton> playableObjectCardsList = Arrays.asList(getButtonsAsArray());
-		int i=0;
-		JRadioButton[] playableCardsArray = new JRadioButton[NUMCARDTYPES];
-		for (JRadioButton button : playableObjectCardsList) {
-			if (button.getText().equals("attack")|| button.getText().equals("defense")) {
-				playableObjectCardsList.remove(button);
+		int x = 0;
+		JRadioButton buttonsArray[] = new JRadioButton[NUMCARDTYPES];
+		for (JRadioButton b : objectCardsButtons) {
+			if (!(b.getText().equals("attack")) || !(b.getText().equals("defense"))) {
+				buttonsArray[x]=b;
 			}
+			x++;
 		}
-		for (JRadioButton button : playableObjectCardsList) {
-			playableCardsArray[i] = button;
-			i++;
-		}
-		return playableCardsArray;
+		return buttonsArray;
 	}
+	
+
 	
 	public String getChosenCardName() {
 		return chosenCardName;
