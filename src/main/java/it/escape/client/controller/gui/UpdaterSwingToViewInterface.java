@@ -27,4 +27,8 @@ public interface UpdaterSwingToViewInterface {
 	
 	public void relayObjectCard();
 	
+	public void addNoiseToMap(String location);
+	
+	public void clearNoisesFromMap(String location);
+	
 }

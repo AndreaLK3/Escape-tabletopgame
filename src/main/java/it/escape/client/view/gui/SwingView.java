@@ -596,5 +596,15 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 		doRelayObjectCard = true;
 		showCardsButton.doClick();
 	}
+
+	public void addNoiseToMap(String location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void clearNoisesFromMap(String location) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 	

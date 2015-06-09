@@ -231,9 +231,16 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				view.notifyUser(StringRes.getString(message));
 				processMessage(StringRes.getString("messaging.askPlayObjectCard"));
 				
-			} else if(eventNoise.matches() || eventObject.matches()) {
+			} else if(eventObject.matches()) {
 				view.notifyUser(message);
 				
+			} else if(eventNoise.matches()) {
+				/*
+				 * The message dialog for every noise is kind of annoying,
+				 * I'll replace it with direct on-map visual pings
+				 */
+				//view.notifyUser(message);
+				view.addNoiseToMap(eventNoise.group(1));
 			} 
 		
 			
