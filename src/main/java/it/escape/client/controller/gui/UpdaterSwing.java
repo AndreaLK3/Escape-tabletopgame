@@ -2,6 +2,7 @@ package it.escape.client.controller.gui;
 
 import it.escape.client.controller.MessageCarrier;
 import it.escape.client.controller.Updater;
+import it.escape.client.model.CurrentPlayerStatus;
 import it.escape.client.model.ModelForGUI;
 import it.escape.client.view.gui.BindUpdaterInterface;
 import it.escape.strings.FormatToPattern;
@@ -54,13 +55,11 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern exception_1;
 	private Pattern exception_2;
 	private Pattern exception_3;
-	private Pattern exception_4;
-	private Pattern exception_5;
+
 
 	
 
-	
-	
+
 	
 	public UpdaterSwing(ModelForGUI model) {
 		super();
@@ -131,11 +130,13 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher whichobjectCard = inputObjectCard.matcher(message);
 		Matcher doAttack = turn_askForAttack.matcher(message);
 		Matcher playObject = turn_askForObject.matcher(message);
-		Matcher noisepos = turn_askForNoise.matcher(message);
+		Matcher noisePos = turn_askForNoise.matcher(message);
 		Matcher drawncard = info_DrawnObjectCard.matcher(message);
 		
 		Matcher eventNoise = event_Noise.matcher(message);
 		Matcher eventObject = event_ObjectUsed.matcher(message);
+		Matcher eventAttack = event_Attack.matcher(message);
+		Matcher eventDeath = event_Death.matcher(message);
 		
 		Matcher moveCanNotEnter = exception_1.matcher(message);
 		Matcher moveUnreachable = exception_2.matcher(message);
@@ -210,7 +211,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				LOG.finer("Server asked an object card");
 				view.relayObjectCard();
 				
-			} else if (noisepos.matches()) {
+			} else if (noisePos.matches()) {
 				LOG.finer("Server asked to place a noise");
 				view.notifyUser("Select the sector you want to make a noise in");
 				view.bindPositionSender();
@@ -232,7 +233,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				view.notifyUser(message);
 				processMessage(StringRes.getString("messaging.askPlayObjectCard"));
 				
-			} else if(eventObject.matches()) {
+			} else if(eventObject.matches() || eventAttack.matches()) {
 				view.notifyUser(message);
 				
 			} else if(eventNoise.matches()) {
@@ -242,7 +243,11 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				 */
 				//view.notifyUser(message);
 				view.addNoiseToMap(eventNoise.group(1));
-			} 
+				
+			} else if (eventDeath.matches()) {
+				model.getSpecificPlayerState(eventDeath.group(1)).setMyStatus(CurrentPlayerStatus.DEAD);
+				view.notifyUser(message);
+			}
 		
 			
 		}  
