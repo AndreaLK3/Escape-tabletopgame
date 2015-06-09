@@ -15,11 +15,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Updates the swing interface when a new network message arrives
- * TODO: add facilities to modify the local state (the model) too,
- * when needed.
- * @author michele
- *
+ * Updates the GUIModel and/or sends commands to the GUIView when a new network message arrives
+ * TODO: add facilities to modify the local state (the model), when needed.
+ * @author michele, andrea
  */
 public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterface {
 	
@@ -38,20 +36,25 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern info_yourTeam;
 	private Pattern info_currentTurnAndPlayer;
 	private Pattern info_playerRenamed;
-	private Pattern info_whoIAm;
-	private Pattern turn_Attack;
-	private Pattern event_Noise;
-	private Pattern ask_Noise;
-	private Pattern turn_askForNoise;
 	private Pattern info_DrawnObjectCard;
+	private Pattern info_whoIAm;
+	
+	private Pattern turn_Attack;
+	private Pattern turn_askForNoise;
+	
+	private Pattern event_Noise;
 	private Pattern event_ObjectUsed;
 	private Pattern event_PlayerLocated;
 	private Pattern event_Attack;
+	private Pattern event_Death;
+	
 	private Pattern exception_1;
 	private Pattern exception_2;
 	private Pattern exception_3;
 	private Pattern exception_4;
 	private Pattern exception_5;
+
+	
 	
 	
 	public UpdaterSwing(ModelForGUI model) {
@@ -90,6 +93,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		event_Noise = new FormatToPattern(StringRes.getString("messaging.noise")).convert();
 		event_PlayerLocated = new FormatToPattern(StringRes.getString("messaging.disclosePlayerPosition")).convert();
 		event_Attack = new FormatToPattern(StringRes.getString("messaging.playerAttacking")).convert();
+		event_Death = new FormatToPattern(StringRes.getString("messaging.playerDied")).convert(); 
+		
 		//These ones are necessary so that we can display the JInputDialog (ex, for the position) again.
 		//There will be a dialog that displays the exception message (whatever it is) and
 		//the view will have to repeat the last dialog display...
@@ -98,6 +103,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		exception_3 = new FormatToPattern(StringRes.getString("messaging.exceptions.playerCanNotEnter")).convert();
 		exception_4 = new FormatToPattern(StringRes.getString("messaging.exceptions.destinationUnreachable")).convert();
 		exception_5 = new FormatToPattern(StringRes.getString("messaging.exceptions.wrongCard")).convert();
+		
 	}
 	
 	
