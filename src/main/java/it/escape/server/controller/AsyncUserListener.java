@@ -37,11 +37,12 @@ public class AsyncUserListener implements Observer{
 	
 	private GameMaster gameMaster;
 	
-	public AsyncUserListener(PlayerActionInterface subject, Announcer announcer, UserMessagesReporter myUMR) {
+	public AsyncUserListener(PlayerActionInterface subject, Announcer announcer, UserMessagesReporter myUMR, GameMaster gameMaster) {
 		LogHelper.setDefaultOptions(LOG);
 		this.subject = subject;
 		this.announcer = announcer;
 		this.privateUMR = myUMR;
+		this.gameMaster = gameMaster;
 		rename = new FormatToPattern(StringRes.getString("messaging.renameMyself")).convert();
 		chat = new FormatToPattern(StringRes.getString("messaging.chat")).convert();
 		whoami = new FormatToPattern(StringRes.getString("messaging.whoami")).convert();
