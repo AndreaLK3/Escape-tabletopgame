@@ -133,6 +133,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher playObject = turn_askForObject.matcher(message);
 		Matcher noisepos = turn_askForNoise.matcher(message);
 		Matcher drawncard = info_DrawnObjectCard.matcher(message);
+		Matcher eventNoise = event_Noise.matcher(message);
 		
 		Matcher moveCanNotEnter = exception_1.matcher(message);
 		Matcher moveUnreachable = exception_2.matcher(message);
@@ -142,22 +143,28 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			if (map.matches()) {
 				LOG.finer("Setting map to " + map.group(1));
 				view.setGameMap(map.group(1));
+				
 			} else if (startmotd.matches()) {
 				LOG.finer("Server has begun writing motd");
 				readingMotd = true;
+				
 			} else if (chatMsg.matches()) {
 				view.newChatMessage(chatMsg.group(1), chatMsg.group(2));
+				
 			} else if (gameStartETA.matches()) {
 				LOG.finer("Setting game start ETA");
 				view.setTurnStatusString(message);
+				
 			} else if (turnEnd.matches()) {
 				view.setTurnStatusString("waiting for my turn");
+				
 			} else if (othersTurn.matches()) {
 				LOG.finer("Someone's turn");
 				view.setTurnStatusString(othersTurn.group(2) + " is playing");
 				model.updatePlayerExists(othersTurn.group(2));
 				model.setTurnNumber(Integer.parseInt(othersTurn.group(1)));
 				model.finishedUpdating();
+				
 			} else if (turnStart.matches()) {
 				LOG.finer("My turn");
 				view.setTurnStatusString("now is my turn to play");
@@ -165,58 +172,66 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				model.getMyPlayerState().setLocation(turnStart.group(2));
 				model.finishedUpdating();
 				// we could do more (i.e. send a visual notification of some sort)
+				
 			} else if (playerRename.matches()) {
 				LOG.finer("Someone renamed himself");
 				model.updatePlayerRename(playerRename.group(1), playerRename.group(2));
 				model.finishedUpdating();
+				
 			} else if (myName.matches()) {
 				LOG.finer("Read player name from server");
 				model.getMyPlayerState().setMyName(myName.group(1));
 				model.finishedUpdating();
+				
 			} else if (myPos.matches()) {
 				LOG.finer("Read player position from server: [" + myPos.group(1) + "]");
 				model.getMyPlayerState().setLocation(myPos.group(1));
 				model.finishedUpdating();
+				
 			} else if (myTeam.matches()) {
 				LOG.finer("Read team name from server");
 				model.getMyPlayerState().setMyTeam(myTeam.group(1));
 				model.finishedUpdating();
 				view.discoverMyName();  // if someone else's playing we don't know it yet
+				
 			} else if (movement.matches()) {
 				LOG.finer("Server asked to move");
 				view.notifyUser("Please move your character: click where you want to go");
 				view.bindPositionSender();
-			}  else if (doAttack.matches()) {
-				LOG.finer("Server asked to attack");
-				view.relayYesNoDialog(StringRes.getString("messaging.askIfAttack"));
-			}  else if (playObject.matches()) {
-				LOG.finer("Server asked whether to play an object card");
-				view.relayYesNoDialog(StringRes.getString("messaging.askPlayObjectCard"));
+				
+			}  else if (doAttack.matches()|| playObject.matches()) {
+				LOG.finer("Server asked yes/no question");
+				view.relayYesNoDialog(message);
+				
 			} else if (whichobjectCard.matches()) {
 				LOG.finer("Server asked an object card");
 				view.relayObjectCard();
+				
 			} else if (noisepos.matches()) {
 				LOG.finer("Server asked to place a noise");
 				view.notifyUser("Select the sector you want to make a noise in");
 				view.bindPositionSender();
+				
 			} else if (drawncard.matches()) {
 				LOG.finer("Server reported new object card " + drawncard.group(1));
 				String cardKey = getCardGUIKey(drawncard.group(1));
 				model.getMyPlayerState().addCard(cardKey);
 				model.finishedUpdating();
-				view.notifyUser("You have drawn a " + cardKey + " card");				
-			} else if (moveCanNotEnter.matches()) {
-				LOG.finer("Server reported : movement is impossible. Player can't enter that kind of cell." );
-				view.notifyUser(moveCanNotEnter.group());
+				view.notifyUser("You have drawn a " + cardKey + " card");
+				
+			} else if (moveCanNotEnter.matches() || moveUnreachable.matches()) {
+				LOG.finer("Server reported : movement is impossible." );
+				view.notifyUser(message);
 				processMessage(StringRes.getString("messaging.timeToMove"));
-			} else if (moveUnreachable.matches()) {
-				LOG.finer("Server reported : movement is impossible. Destination Unreachable." );
-				view.notifyUser(moveUnreachable.group());
-				processMessage(StringRes.getString("messaging.timeToMove"));
+			
 			} else if (wrongCard.matches()) {
 				LOG.finer("Server reported : that Card can't be played now." );
-				view.notifyUser(wrongCard.group());
+				view.notifyUser(StringRes.getString(message));
 				processMessage(StringRes.getString("messaging.askPlayObjectCard"));
+				
+			} else if(eventNoise.matches()) {
+				view.notifyUser(message);
+				
 			}
 		
 			

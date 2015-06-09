@@ -408,7 +408,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	 * When the user clicks it, it shows a dialog with objectCardsPanel,
 	 * which contains the object Cards currently owned.
 	 * When the Updater "clicks" it, because the Server requires an Object Card,
-	 * depending on the user's choice a String with the CardName is obtained and sent to the Relay.
+	 * depending on the user's choicea String with the CardName is obtained and sent to the Relay.
 	 * @author andrea, michele*/
 	private class ButtonHandler implements ActionListener {
 
