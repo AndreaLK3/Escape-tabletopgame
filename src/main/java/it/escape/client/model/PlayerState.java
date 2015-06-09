@@ -41,8 +41,8 @@ public class PlayerState {
 		lastNoiseLocation = noiseLocation;
 	}
 	
-	public String setMyName() {
-		return myName;
+	public void setMyName(String name) {
+		myName = name;
 	}
 	
 

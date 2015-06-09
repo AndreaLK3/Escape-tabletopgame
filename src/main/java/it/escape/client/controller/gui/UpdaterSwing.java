@@ -37,6 +37,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern info_playerConnected;
 	private Pattern info_yourTeam;
 	private Pattern info_currentTurnAndPlayer;
+	private Pattern info_playerRenamed;
 	private Pattern turn_Attack;
 	private Pattern event_Noise;
 	private Pattern ask_Noise;
@@ -78,6 +79,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		info_yourTeam = new FormatToPattern(StringRes.getString("messaging.gamemaster.playAs")).convert();
 		info_currentTurnAndPlayer = new FormatToPattern(StringRes.getString("messaging.timecontroller.turnNumber")).convert();
 		info_DrawnObjectCard = new FormatToPattern(StringRes.getString("messaging.objectCardDrawn")).convert();
+		info_playerRenamed  = new FormatToPattern(StringRes.getString("messaging.announceRename")).convert();
 		
 		turn_Attack = new FormatToPattern(StringRes.getString("messaging.askIfAttack")).convert();
 		turn_askForNoise = new FormatToPattern(StringRes.getString("messaging.askForNoisePosition")).convert();
@@ -106,6 +108,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher turnEnd = myTurnEnd.matcher(message);
 		Matcher turnStart = myTurnStart.matcher(message);
 		Matcher othersTurn = info_currentTurnAndPlayer.matcher(message);
+		Matcher playerRename = info_playerRenamed.matcher(message);
 		
 		if (!handlingMOTDspecialCase(message)) {
 			if (map.matches()) {
@@ -122,9 +125,15 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				view.setTurnStatusString("waiting for my turn");
 			} else if (othersTurn.matches()) {
 				view.setTurnStatusString(othersTurn.group(2) + " is playing");
+				model.updatePlayerExists(othersTurn.group(2));
+				model.setTurnNumber(Integer.parseInt(othersTurn.group(1)));
+				model.finishedUpdating();
 			} else if (turnStart.matches()) {
 				view.setTurnStatusString("now is my turn to play");
 				// we could do more (i.e. send a visual notification of some sort)
+			} else if (playerRename.matches()) {
+				model.updatePlayerRename(playerRename.group(1), playerRename.group(2));
+				model.finishedUpdating();
 			} 
 		}
 		

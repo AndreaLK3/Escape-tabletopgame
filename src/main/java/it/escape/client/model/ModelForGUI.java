@@ -9,11 +9,14 @@ public class ModelForGUI extends Observable {
 	private MyPlayerState myPlayerState;
 	
 	private List<PlayerState> playerStates;
+	
+	private int turnNumber;
 
 	public ModelForGUI() {
 		super();
 		playerStates = new ArrayList<PlayerState>();
-		
+		myPlayerState = new MyPlayerState();
+		setTurnNumber(0);
 	}
 
 	public MyPlayerState getMyPlayerState() {
@@ -66,6 +69,36 @@ public class ModelForGUI extends Observable {
 	}
 	
 	/**
+	 * Update a player's noise location, adds a new player to the list if needed
+	 * The caller must call finishedUpdating() himself after doing this
+	 * @param name
+	 * @param newStatus
+	 */
+	public void updatePlayerRename(String name, String newName) {
+		PlayerState existing = getSpecificPlayerState(name);
+		if (existing == null) {
+			PlayerState newEntry = new PlayerState(newName);
+			playerStates.add(newEntry);
+		} else {
+			existing.setMyName(newName);
+		}
+	}
+	
+	/**
+	 * Adds a new player to the list if needed, otherwise don't touch it
+	 * The caller must call finishedUpdating() himself after doing this
+	 * @param name
+	 * @param newStatus
+	 */
+	public void updatePlayerExists(String name) {
+		PlayerState existing = getSpecificPlayerState(name);
+		if (existing == null) {
+			PlayerState newEntry = new PlayerState(name);
+			playerStates.add(newEntry);
+		}
+	}
+	
+	/**
 	 * The controller should access model data using the getters,
 	 * modify said data, and only then call finishedUpdating()
 	 * which will trigger the observer notify mechanism
@@ -73,5 +106,13 @@ public class ModelForGUI extends Observable {
 	public void finishedUpdating() {
 		setChanged();
 		notifyObservers();
+	}
+
+	public int getTurnNumber() {
+		return turnNumber;
+	}
+
+	public void setTurnNumber(int turnNumber) {
+		this.turnNumber = turnNumber;
 	}
 }
