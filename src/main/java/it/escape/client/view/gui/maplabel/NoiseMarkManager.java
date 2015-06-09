@@ -26,10 +26,12 @@ public class NoiseMarkManager {
 	
 	public void addNoise(String location, MapViewer parent) {
 		JLabel nuova = new JLabel(noisy);
+		int correctX = (parent.getCellWidth() - noisy.getIconWidth()) / 2;
+		int correctY = (parent.getCellHeight() - noisy.getIconHeight()) / 2;
 		markers.add(nuova);
 		parent.add(nuova);
 		parent.setComponentZOrder(nuova, parent.getNoiseZ());
-		parent.visualizeAndPlace(location, nuova);
+		parent.visualizeAndPlace(location, nuova, correctX, correctY);
 	}
 	
 	public void clearNoises(MapViewer parent) {

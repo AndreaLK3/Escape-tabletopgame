@@ -15,7 +15,8 @@ public class MapCell extends JLabel {
 	private String alfaNumCoord;
 
 	public MapCell(String name) {
-		super(name);
+		super();
+		setText(name);
 	}
 
 	public MapCell() {

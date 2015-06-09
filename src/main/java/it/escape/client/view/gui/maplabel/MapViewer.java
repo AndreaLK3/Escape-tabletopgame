@@ -225,20 +225,24 @@ public class MapViewer extends JLabel {
 		setComponentZOrder(label, cell_z);
 	}
 	
-	public void visualizeAndPlace(String position, JLabel label) {
+	public void visualizeAndPlace(String position, JLabel label, int correctX, int correctY) {
 		try {
 			int coord[] = cellToPixels(CoordinatesConverter.fromAlphaNumToOddq(position));
 			Insets insets = getInsets();
 			Dimension size = label.getPreferredSize();
 			label.setBounds(
-					coord[0] + insets.left,
-					coord[1] + insets.top,
+					coord[0] + insets.left + correctX,
+					coord[1] + insets.top + correctY,
 		            size.width,
 		            size.height);
 			label.setVisible(true);
 			repaint();
 		} catch (BadCoordinatesException e) {
 		}
+	}
+	
+	public void visualizeAndPlace(String position, JLabel label) {
+		visualizeAndPlace(position, label, 0, 0);
 	}
 	
 	public void highlightCell(String position) {
@@ -337,6 +341,14 @@ public class MapViewer extends JLabel {
 		return totalHeight;
 	}
 	
+	public int getCellWidth() {
+		return cellWidth;
+	}
+
+	public int getCellHeight() {
+		return cellHeight;
+	}
+
 	public int getNoiseZ() {
 		return noise_z;
 	}
