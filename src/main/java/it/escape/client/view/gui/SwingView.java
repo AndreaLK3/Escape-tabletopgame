@@ -12,6 +12,7 @@ import it.escape.client.model.PlayerState;
 import it.escape.client.view.gui.maplabel.MapViewer;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.strings.StringRes;
+import it.escape.utils.FilesHelper;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -27,6 +28,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -65,6 +67,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	private JLabel label8;
 	private JLabel label9_turnStatus;
 	private JLabel label10_chat;
+	private JLabel label11_card_notify;
 	private JScrollPane mapScrollPane;
 	
 	private JTextField nameField;
@@ -110,6 +113,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
    		initializePersonalPanels();
    		addTurnStatusPanel();
    		addChatPanel();
+   		addCardNotifyZone();
    		initializeButtons();
    		setLabelsOpaque();
    		
@@ -324,6 +328,22 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 		
    	}
    	
+   	private void addCardNotifyZone() {
+   		Icon newcard = null;
+   		try {
+			newcard = new ImageIcon(FilesHelper.getResourceAsByteArray("resources/artwork/new.gif"));
+		} catch (IOException e) {
+		}
+   		label11_card_notify = new JLabel(newcard);
+   		label11_card_notify.setHorizontalTextPosition(JLabel.LEFT);
+		label11_card_notify.setVerticalTextPosition(JLabel.CENTER);
+		label11_card_notify.setVisible(false);
+   		constraints.gridx = 0;
+		constraints.gridy = 14;
+		constraints.weightx = 1;
+		add(label11_card_notify, constraints);
+		resetConstraints(constraints);
+   	}
    	
 	/** Creation method: button to show the object Cards in your possession*/
    	private void initializeButtons() { 
@@ -336,8 +356,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 		add(showCardsButton, constraints);
 		resetConstraints(constraints);
    	
-   	}
-   	
+   	}  	
    	
    	/**This method adds a panel to the area on the left side. note: It doesn't specify the Panel layout.
    	 * @param panel 	 */
@@ -513,27 +532,27 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
    	//(They are invoked by the UpdaterSwing)
 
 	public void setGameMap(final String name) {
-	EventQueue.invokeLater(
-			new Runnable() {
-				public void run() {
-					try {
-						((MapViewer)label5_map).setMap(
-								name,
-								new Runnable() { public void run() {
-									try {
-										Thread.sleep(100);
-									} catch (InterruptedException e) {
-									}
-									scrollMap(0.5, 0.5);}}
-								);
-					} catch (BadJsonFileException e) {
-						
-					} catch (IOException e) {
-						
-					} 
-				}});
-		
-		
+		EventQueue.invokeLater(
+				new Runnable() {
+					public void run() {
+						try {
+							((MapViewer)label5_map).setMap(
+									name,
+									new Runnable() { public void run() {
+										try {
+											Thread.sleep(100);
+										} catch (InterruptedException e) {
+										}
+										scrollMap(0.5, 0.5);}}
+									);
+						} catch (BadJsonFileException e) {
+							
+						} catch (IOException e) {
+							
+						} 
+					}});
+			
+		notifyNewCard("test");
 	}
 
 	/**This method uses a new thread to show the welcoming Dialog. */
@@ -550,6 +569,21 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 
 	public void setTurnStatusString(String status) {
 		serverField.setText(status);
+	}
+	
+	public void notifyNewCard(String cardName) {
+		final int duration = 10000;
+		label11_card_notify.setText("You have drawn a new " + cardName + " card");
+		label11_card_notify.setVisible(true);
+		new Thread(
+			new Runnable() {
+				public void run() {
+					try {
+						Thread.sleep(duration);
+					} catch (InterruptedException e) {
+					}
+					label11_card_notify.setVisible(false);
+			}}).start();
 	}
 
 	/** This method receives a chat message, and it displays it inside
