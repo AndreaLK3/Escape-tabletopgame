@@ -5,6 +5,7 @@ Current tasks:
 1)Esaminare i log delle partite e risolvere le issues indicate lì (che sono in buona parte Server-side)
 
 2)Quando il server va giù, non libera la porta che usava
+^^^^(MM): non starai mica terminando ancora il programma con ctrl-z? perchè ctrl-z lo manda solo in background. usa ctrl-c invece.
 
 3)Problema del GameMaster: 
 Tentando di riconnettersi a una nuova partita quando la precedente è stata completata, il numero del Players non va a 1 ma a 0.
@@ -16,7 +17,7 @@ Have fun!
 We are playing the map "Galilei"    
 There are (0/8) players waiting in this lobby
 (Someone else's turn, free-action)>
-
+^^^^(MM): risolto
 
 
 

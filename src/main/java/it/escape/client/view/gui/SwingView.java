@@ -514,20 +514,27 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
    	//(They are invoked by the UpdaterSwing)
 
 	public void setGameMap(final String name) {
-		EventQueue.invokeLater(
+	EventQueue.invokeLater(
 			new Runnable() {
 				public void run() {
 					try {
-						((MapViewer)label5_map).setMap(name);
-						scrollMap(0.5, 0.5);
+						((MapViewer)label5_map).setMap(
+								name,
+								new Runnable() { public void run() {
+									try {
+										Thread.sleep(100);
+									} catch (InterruptedException e) {
+									}
+									scrollMap(0.5, 0.5);}}
+								);
 					} catch (BadJsonFileException e) {
 						
 					} catch (IOException e) {
 						
 					} 
-				}
-			}
-		);
+				}});
+		
+		
 	}
 
 	/**This method uses a new thread to show the welcoming Dialog. */

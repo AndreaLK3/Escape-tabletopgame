@@ -35,13 +35,16 @@ public class Master {
 		if (currentGameMaster == null) {
 			LogHelper.setDefaultOptions(LOG);
 			currentGameMaster = new GameMaster(mapCreator.getMap(), gmUniqueId, locals);
+			LOG.info("Creating new gamemaster (id=" + gmUniqueId + ")");
 			gmUniqueId++;
 			gameMasters.add(currentGameMaster);
 		}
 		if (currentGameMaster.newPlayerAllowed()) {
+			LOG.info("Routing user to existing gamemaster (id=" + gmUniqueId + ")");
 			currentGameMaster.newPlayerMayCauseStart(interfaceWithUser);
 		} else {
 			currentGameMaster = new GameMaster(mapCreator.getMap(), gmUniqueId, locals);
+			LOG.info("Creating new gamemaster (id=" + gmUniqueId + ")");
 			gmUniqueId++;
 			gameMasters.add(currentGameMaster);
 			currentGameMaster.newPlayerMayCauseStart(interfaceWithUser);
@@ -93,7 +96,11 @@ public class Master {
 		List<GameMaster> temp = new ArrayList<GameMaster>(gameMasters);
 		for (GameMaster gm : temp) {
 			if (gm.isFinished()) {
+				LOG.fine("Deleting old unused gamemaster");
 				gameMasters.remove(gm);
+				if (gm == currentGameMaster) {
+					currentGameMaster = null;
+				}
 			}
 		}
 	}
@@ -106,9 +113,6 @@ public class Master {
 		reaper();
 		for (GameMaster gm : gameMasters) {
 			gm.instaStopGame();
-			if (gm == currentGameMaster) {
-				currentGameMaster = null;
-			}
 		}
 	}
 }

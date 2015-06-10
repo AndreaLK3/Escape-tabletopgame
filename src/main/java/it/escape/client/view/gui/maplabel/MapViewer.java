@@ -94,7 +94,7 @@ public class MapViewer extends JLabel {
 		initMouseListener();
 	}
 	
-	public void setMap(String name) throws BadJsonFileException, IOException {
+	public void setMap(String name, Runnable runAfterDraw) throws BadJsonFileException, IOException {
 		map = new MapLoader(FilesHelper.getResourceFile("resources/" + name + ".json"));
 		Position2D mapsize = map.getMapSize();
 		int max[] = cellToPixels(mapsize);
@@ -106,6 +106,10 @@ public class MapViewer extends JLabel {
 		setComponentZOrder(playerHereOverlay, overlays_z);
 		setComponentZOrder(highlightOverlay, overlays_z);
 		repaint();
+		
+		if (runAfterDraw != null) {
+			new Thread(runAfterDraw).start();
+		}
 	}
 	
 	private void initMouseListener() {
