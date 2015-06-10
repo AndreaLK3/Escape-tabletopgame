@@ -17,9 +17,7 @@ import it.escape.strings.StringRes;
 
 public class TurnHandlerHuman extends TurnHandler {
 	
-	
 	private ObjectCardAction objectCardAction;
-
 	
 	
 	public TurnHandlerHuman(Player currentPlayer, MapActionInterface map, DecksHandlerInterface deck) {
@@ -65,7 +63,9 @@ public class TurnHandlerHuman extends TurnHandler {
 		} while (!endObjectCard);
 	}
 	
-	//This function is public for testing purposes
+	/**This method checks if a Player is actually allowed to play a 
+	 * certain ObjectCard, depending on the current phase of the turn.
+	 * It is currently public for testing purposes*/
 	public boolean canPlayObjectCard(ObjectCard objectCard) {
 		
 		if (currentPlayer.HasMoved()) {		//after the move

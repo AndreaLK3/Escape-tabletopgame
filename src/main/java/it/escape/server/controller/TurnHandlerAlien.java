@@ -5,6 +5,7 @@ import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.playercommands.Attack;
 import it.escape.server.model.game.players.Alien;
 import it.escape.server.model.game.players.Player;
+import it.escape.strings.StringRes;;
 
 public class TurnHandlerAlien extends TurnHandler{
 	
@@ -39,6 +40,7 @@ public class TurnHandlerAlien extends TurnHandler{
 	@Override
 	public void turnAfterMove() {
 		if (currentPlayer.getMyHand().isOverFull()) {  // too many cards in my hand
+			reporter.relayMessage(StringRes.getString("messaging.tooManyCards"));
 			super.discardObjectCard();
 		}
 		return;

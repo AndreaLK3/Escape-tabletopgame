@@ -154,7 +154,7 @@ public class UserMessagesReporter {
 			log.finer("automaticOverriding: return false");
 			return false;
 		} else {
-			interfaceWithUser.writeToClient(StringRes.getString("messaging.askPlayObjectCard"));
+			interfaceWithUser.writeToClient(StringRes.getString("messaging.tooManyCards"));
 			String answer = ioGetBinaryChoice(defaultChoice,"play","discard").toLowerCase();
 			if (answer.equals("yes")) {
 				return true;
@@ -245,6 +245,10 @@ public class UserMessagesReporter {
 		return interfaceWithUser.readFromClient();
 	}
 	
+	
+	/**This method is used when we just need to send a message to the user.
+	 * We have no special questions to ask.
+	 * @param string */
 	public void relayMessage(String string) {
 		interfaceWithUser.writeToClient(string);
 	}
