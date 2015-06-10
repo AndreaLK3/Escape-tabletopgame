@@ -89,7 +89,8 @@ public abstract class TurnHandler {
 	protected void discardObjectCard() {
 		do {
 			try {
-				String key = reporter.askWhichObjectCard();
+				String defaultCardName = currentPlayer.getMyHand().getCardName(0);
+				String key = reporter.askWhichObjectCard(defaultCardName);
 				objectCard = currentPlayer.drawCard(key);  // card is removed from the player's hand	
 				endObjectCard = true;
 				

@@ -28,7 +28,7 @@ public class TurnHandlerHuman extends TurnHandler {
 	private void playObjectCard() {
 		do {
 			try {
-				String key = reporter.askWhichObjectCard();
+				String key = reporter.askWhichObjectCard("none");
 				if (key.equals("none")) {  // only used by the override mechanism
 					return;
 				}
@@ -132,6 +132,7 @@ public class TurnHandlerHuman extends TurnHandler {
 	public void turnAfterMove() {
 	
 		if (currentPlayer.getMyHand().isOverFull()) {  // too many cards in my hand
+			reporter.relayMessage(StringRes.getString("messaging.tooManyCards"));
 			if (reporter.askPlayCardOrDiscard()) {  // user chose "play"
 				playObjectCard();
 			} else {  // user chose "discard"

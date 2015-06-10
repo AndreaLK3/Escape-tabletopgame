@@ -167,10 +167,9 @@ public class UserMessagesReporter {
 	 * Queries the user for an object card to play / discard
 	 * It is assumed that the user / client program already knows
 	 * the cards in her possession.
-	 * @return string representing the chosen card
-	 */
-	public String askWhichObjectCard() {
-		String defaultChoice = thePlayer.getMyHand().getCardName(0);
+	 * @return string representing the chosen card	 */
+	public String askWhichObjectCard(String defaultCard) {
+		String defaultChoice = defaultCard;
 		
 		if (automaticOverriding) {
 			log.finer("automaticOverriding: return " + defaultChoice);
