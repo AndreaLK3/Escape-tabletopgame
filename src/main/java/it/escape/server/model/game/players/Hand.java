@@ -15,6 +15,7 @@ public class Hand {
 	
 	private List<ObjectCard> handOfCards;
 	
+	
 	public List<ObjectCard> getHandOfCards() {
 		return handOfCards;
 	}
@@ -35,6 +36,20 @@ public class Hand {
 		if (!isEmpty()) {
 			handOfCards.remove(card);
 		}
+	}
+	
+	/**Chooses the name of the card that happens to be the first card in the list;
+	 * this is required when the User has to discard 1 card because
+	 * the hand has 4 cards, and doesn't answer the request. 
+	 * In the UMR the default choice, used by the timeout override, is the cardName returned by this method */
+	public String getFirstCardName() {
+		if (!isEmpty()) {
+			String nameCard = handOfCards.get(1).getClass().getSimpleName();
+			String name = nameCard.substring(0, nameCard.length()-4);
+			return name.toLowerCase();
+		}
+		else
+			return null;
 	}
 	
 	/** 
