@@ -10,6 +10,8 @@ public class ModelForGUI extends Observable {
 	
 	private List<PlayerState> playerStates;
 	
+	private PlayerState nowPlaying;
+	
 	private GameStatus gameStatus;
 	
 	private int turnNumber;
@@ -18,6 +20,7 @@ public class ModelForGUI extends Observable {
 		super();
 		playerStates = new ArrayList<PlayerState>();
 		myPlayerState = new MyPlayerState();
+		nowPlaying = null;
 		setTurnNumber(0);
 	}
 
@@ -36,6 +39,16 @@ public class ModelForGUI extends Observable {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * Points nowPlaying to a named playerState,
+	 * adding it if it does not exist
+	 * @param name
+	 */
+	public void updateNowPlaying(String name) {
+		updatePlayerExists(name);
+		nowPlaying = getSpecificPlayerState(name);
 	}
 	
 	/**

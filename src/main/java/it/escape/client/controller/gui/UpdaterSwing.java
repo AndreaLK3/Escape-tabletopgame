@@ -175,7 +175,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		if (currentTurnAndPlayer.matches()) {
 			LOG.finer("Someone's turn");
 			view.setTurnStatusString(currentTurnAndPlayer.group(2) + " is playing");
-			model.updatePlayerExists(currentTurnAndPlayer.group(2));
+			model.updateNowPlaying(currentTurnAndPlayer.group(2));
 			model.updatePlayerStatus(currentTurnAndPlayer.group(2), CurrentPlayerStatus.ALIVE);
 			model.setGameStatus(GameStatus.RUNNING);
 			model.setTurnNumber(Integer.parseInt(currentTurnAndPlayer.group(1)));
