@@ -7,6 +7,7 @@ import it.escape.client.controller.gui.ActionSendChat;
 import it.escape.client.controller.gui.ClickSendPositionListener;
 import it.escape.client.controller.gui.MouseOnMapCell;
 import it.escape.client.controller.gui.UpdaterSwingToViewInterface;
+import it.escape.client.model.GameStatus;
 import it.escape.client.model.ModelForGUI;
 import it.escape.client.model.PlayerState;
 import it.escape.client.view.gui.maplabel.MapViewer;
@@ -57,7 +58,10 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
   	
    	private GridBagConstraints constraints;
    	
-   	private JLabel label1_title;
+   	private JLabel label0_gameStatus;
+   	private JTextField gameStatusField;
+   	private JLabel label1_turnNumber;
+   	private JTextField turnNumberField;
 	private JLabel label2;
 	private JLabel label3;
 	private JLabel label4;
@@ -91,6 +95,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	int currentRow = 1;
 	
 	private boolean doRelayObjectCard;
+	
    	
 	/**
 	 * The constructor: initializes the window and all of its containers and components.
@@ -133,15 +138,22 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	private void initializeGeneralLabels() {
 		
 		JPanel panel = new JPanel();
-			
-		label1_title = new JLabel("Escape from the Aliens in Outer Space");
-		label1_title.setBackground(new Color(248, 213, 131));
-		label1_title.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		label0_gameStatus = new JLabel("Game Status:");
+		gameStatusField = new JTextField(GameStatus.WAITING_FOR_PLAYERS.toString());
+		gameStatusField.setEditable(false);
+		
+		label1_turnNumber = new JLabel("Turn Number:");
+		turnNumberField = new JTextField("0");
+		turnNumberField.setEditable(false);
+		
+		panel = createRowPanel(Arrays.asList(label0_gameStatus, gameStatusField, label1_turnNumber, turnNumberField));
+		
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.gridwidth = GridBagConstraints.REMAINDER;
-	    add(label1_title,constraints);
+	    add(panel,constraints);
 	    resetConstraints(constraints);
 	
 	    
@@ -408,7 +420,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	}
 	
 	private void setLabelsOpaque() {
-		List<JLabel> labelsList = Arrays.asList(label1_title,label2,label3,label4,label5_map, label6, label7, label8, label10_chat);
+		List<JLabel> labelsList = Arrays.asList(label0_gameStatus,label1_turnNumber,label2,label3,label4,label5_map, label6, label7, label8, label10_chat);
 		   for (JLabel l : labelsList){
 			   l.setOpaque(true);
 			}
@@ -486,6 +498,12 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 		
 		}
    	
+   	/**This method updates the current GameStatus and TurnNumber*/
+   	private void updateGameStatePanel(ModelForGUI model) {
+   		gameStatusField.setText(model.getGameStatus().toString());
+   		turnNumberField.setText(""+model.getTurnNumber());
+   	}
+   	
    	/** This method updates my personal panel
    	 * TODO: TurnStatus*/
    	private void updateMyStatusScreen(ModelForGUI model) {
@@ -525,6 +543,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
    			updatePlayerPanels(model);
    			updateMapMarkers(model);
    			updateObjectCardsPanel(model);
+   			updateGameStatePanel(model);
 		}
 	}
    	
