@@ -13,7 +13,7 @@ public class NameListener implements ActionListener {
 	Relay relay;
 	
 	public NameListener(Relay relay) {
-		this.relay = relay;
+		this.relay = relay; 
 	}
 	
 	public void actionPerformed(ActionEvent event) {

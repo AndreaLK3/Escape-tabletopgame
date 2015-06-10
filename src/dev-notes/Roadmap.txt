@@ -1,6 +1,10 @@
 Current tasks:
 
 (AL):
+
+Quando il server va giù, non libera la porta che usava
+
+
 PROBLEMA del GameMaster: 
 Tentando di riconnettersi a una nuova partita quando la precedente è stata completata, il numero del Players non va a 1 ma a 0.
 --=== Server Welcome message ===--  
@@ -13,22 +17,6 @@ There are (0/8) players waiting in this lobby
 (Someone else's turn, free-action)>
 
 
-AGGIORNAMENTO : Ora i bug della grafica non appaiono più , ma l'omino con la mia posizione non si vede più:(
-
-BUG della grafica:
-Exception in thread "AWT-EventQueue-0" java.lang.ClassCastException: java.lang.Character cannot be cast to javax.swing.Painter
-...
-	at javax.swing.JComponent.paintComponent(JComponent.java:770)
-	at it.escape.client.view.gui.maplabel.MapViewer.paintComponent(MapViewer.java:305)
-...
-
-Exception in thread "Thread-4" java.lang.ClassCastException: javax.swing.plaf.nimbus.DerivedColor$UIResource cannot be cast to java.awt.Font
-...
-	at javax.swing.JLabel.<init>(JLabel.java:193)
-	at it.escape.client.view.gui.maplabel.MapCell.<init>(MapCell.java:18)
-	at it.escape.client.view.gui.maplabel.MapViewer.drawDangerousCell(MapViewer.java:208)
-...
-
 
 Ora l'evento "Un altro Player attacca D3" viene comunicato...
 Le eccezioni non vengono ancora comunicate come dovrebbero, anche se il notifyPlayer l'ho chiamato... perchè viene "mangiato" subito...
@@ -36,6 +24,9 @@ Le eccezioni non vengono ancora comunicate come dovrebbero, anche se il notifyPl
 Manca ancora la gestione di:
 	playerEscaped
 	risultati finali
+	lightsCard
+	quando serve scartare una ObjectCard
+	lastKnownNoise
 
 
 
