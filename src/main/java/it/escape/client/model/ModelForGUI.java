@@ -22,6 +22,7 @@ public class ModelForGUI extends Observable {
 		myPlayerState = new MyPlayerState();
 		nowPlaying = null;
 		setTurnNumber(0);
+		setGameStatus(GameStatus.WAITING_FOR_PLAYERS);
 	}
 
 	public MyPlayerState getMyPlayerState() {
