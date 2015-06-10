@@ -70,7 +70,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	private JTextField nameField;
 	private JTextField statusArea;
 	private JTextField teamArea;
-	JTextArea serverArea;
+	private JTextField serverField;
 	private JTextField chatField;
 	private JTextArea chatArea;
 	private JButton showCardsButton;
@@ -254,10 +254,9 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
    		label9_turnStatus = new JLabel("Turn Status");
    		label9_turnStatus.setBackground(new Color(150, 100, 150));
 		
-   		serverArea = new JTextArea();
-		serverArea.setText("Waiting for the game to start");
-		serverArea.setEditable(false);
-		JScrollPane serverScrollPane = new JScrollPane(serverArea);
+   		serverField = new JTextField();
+   		serverField.setText("Waiting for the game to start");
+   		serverField.setEditable(false);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
@@ -272,7 +271,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 		constraints.weightx = 1;
 		constraints.weighty = 1;
 		constraints.fill = GridBagConstraints.BOTH;
-		panel.add(serverScrollPane, constraints);
+		panel.add(serverField, constraints);
 		
 		resetConstraints(constraints);
 		addSidePanel(panel);
@@ -550,7 +549,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	}
 
 	public void setTurnStatusString(String status) {
-		serverArea.setText(status);
+		serverField.setText(status);
 	}
 
 	/** This method receives a chat message, and it displays it inside
