@@ -82,8 +82,8 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 
 	private Relay relayRef;
 	
-	NameListener myNameListener = new NameListener();
-	ButtonHandler buttonHandler = new ButtonHandler();
+	NameListener myNameListener;
+	ButtonHandler buttonHandler;
 	
 	int currentRow = 1;
 	
@@ -99,6 +99,8 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
    	public SwingView(String string, BindUpdaterInterface updater, Relay relay, Observable model) {
    		super(string);
    		this.relayRef = relay;
+   		myNameListener = new NameListener(relayRef);
+   		buttonHandler = new ButtonHandler();
    		setLayout(new GridBagLayout());
    		constraints = new GridBagConstraints();
    		
@@ -588,8 +590,11 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	/**This method causes a pop-up (messageDialog) that shows some message to the user
 	 * @param String message*/
 	public void notifyUser(final String message) {
-		JOptionPane.showMessageDialog(null, message, null, JOptionPane.PLAIN_MESSAGE);
-			
+		new Thread(
+				new Runnable() {
+					public void run() {
+						JOptionPane.showMessageDialog(null, message, null, JOptionPane.PLAIN_MESSAGE);
+					}}).start();
 	}
 
 	/**This method is invoked by the UpdaterSwing when the Server requires 

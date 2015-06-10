@@ -306,7 +306,8 @@ public class MapViewer extends JLabel {
 	 */
 	@Override
 	protected void paintComponent(Graphics g) {
-	    super.paintComponent(g); 
+	    super.paintComponent(g); 	//Sometimes it throws the exception: 
+	    							//Exception in thread "AWT-EventQueue-0" java.lang.ClassCastException: javax.swing.plaf.FontUIResource cannot be cast to java.awt.Color
 	    if (background != null) {
 	    	for (int x = 0; x < totalWidth; x += backgroundTileSize) {
 	            for (int y = 0; y < totalHeight; y += backgroundTileSize) {
