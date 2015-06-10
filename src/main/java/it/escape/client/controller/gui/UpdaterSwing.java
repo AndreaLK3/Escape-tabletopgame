@@ -42,7 +42,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern info_whereIAm;
 	
 	private Pattern turn_askForAttack;
-	private Pattern turn_askForNoise;
+	private Pattern turn_askForNoisePos;
 	private Pattern turn_movement;
 	private Pattern turn_askForObject;
 	
@@ -93,7 +93,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		
 		turn_askForObject = new FormatToPattern(StringRes.getString("messaging.askPlayObjectCard")).convert();
 		turn_askForAttack = new FormatToPattern(StringRes.getString("messaging.askIfAttack")).convert();
-		turn_askForNoise = new FormatToPattern(StringRes.getString("messaging.askForNoisePosition")).convert();
+		turn_askForNoisePos = new FormatToPattern(StringRes.getString("messaging.askForNoisePosition")).convert();
 		turn_movement = new FormatToPattern(StringRes.getString("messaging.timeToMove")).convert();
 		
 		event_ObjectUsed = new FormatToPattern(StringRes.getString("messaging.playerIsUsingObjCard")).convert();
@@ -112,37 +112,20 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	
+	/**The method that is invoked whenever this class receives a motifyObserves(),
+	 * because a new message has arrived to the Connection.
+	 * It checks if the message corresponds to some given patterns, and then
+	 * invokes the other 4 methods that check a specific kind of patterns
+	 *(info, TurnRequests, events, exceptions) */
 	@Override
 	protected void processMessage(String message) {
 		Matcher map = setGameMap.matcher(message);
 		Matcher startmotd = getMOTDstart.matcher(message);
 		Matcher gameStartETA = startInXSeconds.matcher(message);
-		Matcher chatMsg = inboundChatMessage.matcher(message);
-		Matcher turnEnd = myTurnEnd.matcher(message);
-		Matcher turnStart = myTurnStart.matcher(message);
-		Matcher othersTurn = info_currentTurnAndPlayer.matcher(message);
-		Matcher playerRename = info_playerRenamed.matcher(message);
-		Matcher myName = info_whoIAm.matcher(message);
-		Matcher myTeam = info_yourTeam.matcher(message);
-		Matcher movement = turn_movement.matcher(message);
-		Matcher myPos = info_whereIAm.matcher(message);
-		
-		Matcher whichobjectCard = inputObjectCard.matcher(message);
-		Matcher doAttack = turn_askForAttack.matcher(message);
-		Matcher playObject = turn_askForObject.matcher(message);
-		Matcher noisePos = turn_askForNoise.matcher(message);
-		Matcher drawncard = info_DrawnObjectCard.matcher(message);
-		
-		Matcher eventNoise = event_Noise.matcher(message);
-		Matcher eventObject = event_ObjectUsed.matcher(message);
-		Matcher eventAttack = event_Attack.matcher(message);
-		Matcher eventDeath = event_Death.matcher(message);
-		
-		Matcher moveCanNotEnter = exception_1.matcher(message);
-		Matcher moveUnreachable = exception_2.matcher(message);
-		Matcher wrongCard = exception_3.matcher(message);
+		Matcher chatMsg = inboundChatMessage.matcher(message);	
 		
 		if (!handlingMOTDspecialCase(message)) {
+			
 			if (map.matches()) {
 				LOG.finer("Setting map to " + map.group(1));
 				view.setGameMap(map.group(1));
@@ -158,96 +141,149 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				LOG.finer("Setting game start ETA");
 				view.setTurnStatusString(message);
 				
-			} else if (turnEnd.matches()) {
-				view.clearNoisesFromMap();
-				view.setTurnStatusString("waiting for my turn");
-				
-			} else if (othersTurn.matches()) {
-				LOG.finer("Someone's turn");
-				view.setTurnStatusString(othersTurn.group(2) + " is playing");
-				model.updatePlayerExists(othersTurn.group(2));
-				model.setTurnNumber(Integer.parseInt(othersTurn.group(1)));
-				model.finishedUpdating();
-				
-			} else if (turnStart.matches()) {
-				LOG.finer("My turn");
-				view.setTurnStatusString("now is my turn to play");
-				model.getMyPlayerState().setMyName(turnStart.group(1));
-				model.getMyPlayerState().setLocation(turnStart.group(2));
-				model.finishedUpdating();
-				// we could do more (i.e. send a visual notification of some sort)
-				
-			} else if (playerRename.matches()) {
-				LOG.finer("Someone renamed himself");
-				model.updatePlayerRename(playerRename.group(1), playerRename.group(2));
-				model.finishedUpdating();
-				
-			} else if (myName.matches()) {
-				LOG.finer("Read player name from server");
-				model.getMyPlayerState().setMyName(myName.group(1));
-				model.finishedUpdating();
-				
-			} else if (myPos.matches()) {
-				LOG.finer("Read player position from server: [" + myPos.group(1) + "]");
-				model.getMyPlayerState().setLocation(myPos.group(1));
-				model.finishedUpdating();
-				
-			} else if (myTeam.matches()) {
-				LOG.finer("Read team name from server");
-				model.getMyPlayerState().setMyTeam(myTeam.group(1));
-				model.finishedUpdating();
-				view.discoverMyName();  // if someone else's playing we don't know it yet
-				
-			} else if (movement.matches()) {
-				LOG.finer("Server asked to move");
-				view.notifyUser("Please move your character: click where you want to go");
-				view.bindPositionSender();
-				
-			}  else if (doAttack.matches()|| playObject.matches()) {
-				LOG.finer("Server asked yes/no question");
-				view.relayYesNoDialog(message);
-				
-			} else if (whichobjectCard.matches()) {
-				LOG.finer("Server asked an object card");
-				view.relayObjectCard();
-				
-			} else if (noisePos.matches()) {
-				LOG.finer("Server asked to place a noise");
-				view.notifyUser("Select the sector you want to make a noise in");
-				view.bindPositionSender();
-				
-			} else if (drawncard.matches()) {
-				LOG.finer("Server reported new object card " + drawncard.group(1));
-				String cardKey = getCardGUIKey(drawncard.group(1));
-				model.getMyPlayerState().addCard(cardKey);
-				model.finishedUpdating();
-				view.notifyUser("You have drawn a " + cardKey + " card");
-				
-			} else if (moveCanNotEnter.matches() || moveUnreachable.matches()) {
-				LOG.finer("Server reported : movement is impossible." );
-				view.notifyUser(message);
-				processMessage(StringRes.getString("messaging.timeToMove"));
-			
-			} else if (wrongCard.matches()) {
-				LOG.finer("Server reported : that Card can't be played now." );
-				view.notifyUser(message);
-				processMessage(StringRes.getString("messaging.askPlayObjectCard"));
-				
-			} else if(eventObject.matches() || eventAttack.matches()) {
-				view.notifyUser(message);
-				
-			} else if(eventNoise.matches()) {
-				view.addNoiseToMap(eventNoise.group(1));
-				
-			} else if (eventDeath.matches()) {
-				model.getSpecificPlayerState(eventDeath.group(1)).setMyStatus(CurrentPlayerStatus.DEAD);
-				view.notifyUser(message);
-			}
-		
+			} 
+			processInfo(message);
+			processTurnRequest(message);
+			processEvent(message);
+			processException(message);
 			
 		}  
 		
 	}
+	
+	private void processInfo(String message) {
+		Matcher currentTurnAndPlayer = info_currentTurnAndPlayer.matcher(message);
+		Matcher playerRename = info_playerRenamed.matcher(message);
+		Matcher myName = info_whoIAm.matcher(message);
+		Matcher myTeam = info_yourTeam.matcher(message);
+		Matcher myPosition = info_whereIAm.matcher(message);
+		Matcher drawncard = info_DrawnObjectCard.matcher(message);
+		
+		if (currentTurnAndPlayer.matches()) {
+			LOG.finer("Someone's turn");
+			view.setTurnStatusString(currentTurnAndPlayer.group(2) + " is playing");
+			model.updatePlayerExists(currentTurnAndPlayer.group(2));
+			model.setTurnNumber(Integer.parseInt(currentTurnAndPlayer.group(1)));
+			model.finishedUpdating();
+			
+		} else if (playerRename.matches()) {
+			LOG.finer("Someone renamed himself");
+			model.updatePlayerRename(playerRename.group(1), playerRename.group(2));
+			model.finishedUpdating();
+			
+		} else if (myName.matches()) {
+			LOG.finer("Read player name from server");
+			model.getMyPlayerState().setMyName(myName.group(1));
+			model.finishedUpdating();
+			
+		} else if (myPosition.matches()) {
+			LOG.finer("Read player position from server: [" + myPosition.group(1) + "]");
+			model.getMyPlayerState().setLocation(myPosition.group(1));
+			model.finishedUpdating();
+			
+		} else if (myTeam.matches()) {
+			LOG.finer("Read team name from server");
+			model.getMyPlayerState().setMyTeam(myTeam.group(1));
+			model.finishedUpdating();
+			view.discoverMyName();  // if someone else's playing we don't know it yet
+			
+		} else if (drawncard.matches()) {
+			LOG.finer("Server reported new object card " + drawncard.group(1));
+			String cardKey = getCardGUIKey(drawncard.group(1));
+			model.getMyPlayerState().addCard(cardKey);
+			model.finishedUpdating();
+			view.notifyUser("You have drawn a " + cardKey + " card");
+			
+		} 
+		
+		
+	}
+	
+	private void processTurnRequest(String message) {
+		
+		Matcher turnStart = turn_Start.matcher(message);
+		Matcher movement = turn_movement.matcher(message);
+		Matcher askForAttack = turn_askForAttack.matcher(message);
+		Matcher askForObject = turn_askForObject.matcher(message);
+		Matcher whichobjectCard = input_ObjectCard.matcher(message);
+		Matcher askForNoisePos = turn_askForNoisePos.matcher(message);
+		Matcher turnEnd = turn_End.matcher(message);
+		
+		
+		if (turnEnd.matches()) {
+			view.clearNoisesFromMap();
+			view.setTurnStatusString("waiting for my turn");
+			
+		} else if (turnStart.matches()) {
+			LOG.finer("My turn");
+			view.setTurnStatusString("now is my turn to play");
+			model.getMyPlayerState().setMyName(turnStart.group(1));
+			model.getMyPlayerState().setLocation(turnStart.group(2));
+			model.finishedUpdating();
+			// we could do more (i.e. send a visual notification of some sort)
+			
+		}   else if (movement.matches()) {
+			LOG.finer("Server asked to move");
+			view.notifyUser("Please move your character: click where you want to go");
+			view.bindPositionSender();
+			
+		}  else if (askForAttack.matches()|| askForObject.matches()) {
+			LOG.finer("Server asked yes/no question");
+			view.relayYesNoDialog(message);
+			
+		} else if (askForNoisePos.matches()) {
+			LOG.finer("Server asked to place a noise");
+			view.notifyUser("Select the sector you want to make a noise in");
+			view.bindPositionSender();
+			
+		} else if (whichobjectCard.matches()) {
+			LOG.finer("Server asked an object card");
+			view.relayObjectCard();
+			
+		 } 
+	}
+	
+	private void processEvent(String message) {
+		
+		Matcher eventNoise = event_Noise.matcher(message);
+		Matcher eventObject = event_ObjectUsed.matcher(message);
+		Matcher eventAttack = event_Attack.matcher(message);
+		Matcher eventDeath = event_Death.matcher(message);
+		
+		if(eventObject.matches() || eventAttack.matches()) {
+			view.notifyUser(message);
+			
+		} else if(eventNoise.matches()) {
+			view.addNoiseToMap(eventNoise.group(1));
+			
+		} else if (eventDeath.matches()) {
+			model.getSpecificPlayerState(eventDeath.group(1)).setMyStatus(CurrentPlayerStatus.DEAD);
+			view.notifyUser(message);
+		}
+	
+	}
+	
+	private void processException(String message) {
+		
+		Matcher moveCanNotEnter = exception_1.matcher(message);
+		Matcher moveUnreachable = exception_2.matcher(message);
+		Matcher wrongCard = exception_3.matcher(message);
+		
+	if (moveCanNotEnter.matches() || moveUnreachable.matches()) {
+		LOG.finer("Server reported : movement is impossible." );
+		view.notifyUser(message);
+		processMessage(StringRes.getString("messaging.timeToMove"));
+	
+	} else if (wrongCard.matches()) {
+		LOG.finer("Server reported : that Card can't be played now." );
+		view.notifyUser(message);
+		processMessage(StringRes.getString("messaging.askPlayObjectCard"));
+		
+	}
+	}
+	
+	
+	
 
 	public String getCardGUIKey(String classname) {
 		String ans = classname.substring(0, classname.length()-4);

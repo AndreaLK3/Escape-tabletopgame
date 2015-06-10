@@ -47,11 +47,11 @@ public class UpdaterCLI extends Updater implements Observer {
 	 * @param message
 	 */
 	protected void processMessage(String message) {
-		Matcher obj = inputObjectCard.matcher(message);
-		Matcher pos = inputPosition.matcher(message);
-		Matcher yesno = inputYesNo.matcher(message);
-		Matcher turnstart = myTurnStart.matcher(message);
-		Matcher turnend = myTurnEnd.matcher(message);
+		Matcher obj = input_ObjectCard.matcher(message);
+		Matcher pos = input_Position.matcher(message);
+		Matcher yesno = input_YesNo.matcher(message);
+		Matcher turnstart = turn_Start.matcher(message);
+		Matcher turnend = turn_End.matcher(message);
 		if (obj.matches()) {
 			stateRef.setObjectCardState();
 		} else if (pos.matches()) {
