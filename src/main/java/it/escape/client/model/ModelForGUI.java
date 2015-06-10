@@ -138,4 +138,9 @@ public class ModelForGUI extends Observable {
 	public void setGameStatus(GameStatus gameStatus) {
 		this.gameStatus = gameStatus;
 	}
+
+	public PlayerState getNowPlaying() {
+		return nowPlaying;
+	}
+	
 }
