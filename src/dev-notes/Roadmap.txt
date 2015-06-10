@@ -2,10 +2,11 @@ Current tasks:
 
 (AL):
 
-Quando il server va giù, non libera la porta che usava
+1)Esaminare i log delle partite e risolvere le issues indicate lì (che sono in buona parte Server-side)
 
+2)Quando il server va giù, non libera la porta che usava
 
-PROBLEMA del GameMaster: 
+3)Problema del GameMaster: 
 Tentando di riconnettersi a una nuova partita quando la precedente è stata completata, il numero del Players non va a 1 ma a 0.
 --=== Server Welcome message ===--  
 Benvenuto su Escape from The Aliens in Outer Space!!
@@ -17,16 +18,6 @@ There are (0/8) players waiting in this lobby
 (Someone else's turn, free-action)>
 
 
-
-Ora l'evento "Un altro Player attacca D3" viene comunicato...
-Le eccezioni non vengono ancora comunicate come dovrebbero, anche se il notifyPlayer l'ho chiamato... perchè viene "mangiato" subito...
-
-Manca ancora la gestione di:
-	playerEscaped
-	risultati finali
-	lightsCard
-	quando serve scartare una ObjectCard
-	lastKnownNoise
 
 
 
