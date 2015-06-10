@@ -145,17 +145,17 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				LOG.finer("Setting game start ETA");
 				view.setTurnStatusString(message);
 				
-			} 
-			processInfo(message);
-			processTurnRequest(message);
-			processEvent(message);
-			processException(message);
+			}
+			if (processInfo(message)) return;
+			if (processTurnRequest(message)) return;
+			if (processEvent(message)) return;
+			if (processException(message)) return;
 			
 		}  
 		
 	}
 	
-	private void processInfo(String message) {
+	private boolean processInfo(String message) {
 		Matcher currentTurnAndPlayer = info_currentTurnAndPlayer.matcher(message);
 		Matcher playerRename = info_playerRenamed.matcher(message);
 		Matcher myName = info_whoIAm.matcher(message);
@@ -169,27 +169,32 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			model.updatePlayerExists(currentTurnAndPlayer.group(2));
 			model.setTurnNumber(Integer.parseInt(currentTurnAndPlayer.group(1)));
 			model.finishedUpdating();
+			return true;
 			
 		} else if (playerRename.matches()) {
 			LOG.finer("Someone renamed himself");
 			model.updatePlayerRename(playerRename.group(1), playerRename.group(2));
 			model.finishedUpdating();
+			return true;
 			
 		} else if (myName.matches()) {
 			LOG.finer("Read player name from server");
 			model.getMyPlayerState().setMyName(myName.group(1));
 			model.finishedUpdating();
+			return true;
 			
 		} else if (myPosition.matches()) {
 			LOG.finer("Read player position from server: [" + myPosition.group(1) + "]");
 			model.getMyPlayerState().setLocation(myPosition.group(1));
 			model.finishedUpdating();
+			return true;
 			
 		} else if (myTeam.matches()) {
 			LOG.finer("Read team name from server");
 			model.getMyPlayerState().setMyTeam(myTeam.group(1));
 			model.finishedUpdating();
 			view.discoverMyName();  // if someone else's playing we don't know it yet
+			return true;
 			
 		} else if (drawncard.matches()) {
 			LOG.finer("Server reported new object card " + drawncard.group(1));
@@ -197,14 +202,14 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			model.getMyPlayerState().addCard(cardKey);
 			model.finishedUpdating();
 			view.notifyNewCard(cardKey);
-			
+			return true;
 		} 
 		
-		
+		return false;
 	}
 	
 	
-	private void processTurnRequest(String message) {
+	private boolean processTurnRequest(String message) {
 		
 		Matcher turnStart = turn_Start.matcher(message);
 		Matcher movement = turn_movement.matcher(message);
@@ -218,6 +223,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		if (turnEnd.matches()) {
 			view.clearNoisesFromMap();
 			view.setTurnStatusString("waiting for my turn");
+			return true;
 			
 		} else if (turnStart.matches()) {
 			LOG.finer("My turn");
@@ -226,34 +232,41 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			model.getMyPlayerState().setLocation(turnStart.group(2));
 			model.finishedUpdating();
 			// we could do more (i.e. send a visual notification of some sort)
+			return true;
 			
 		}   else if (movement.matches()) {
 			LOG.finer("Server asked to move");
 			view.notifyUser("Please move your character: click where you want to go");
 			view.bindPositionSender();
+			return true;
 			
 		}  else if (askForAttack.matches()|| askForObject.matches()) {
 			LOG.finer("Server asked yes/no question");
 			view.relayYesNoDialog(message);
+			return true;
 			
 		} else if (askForNoisePos.matches()) {
 			LOG.finer("Server asked to place a noise");
 			view.notifyUser("Select the sector you want to make a noise in");
 			view.bindPositionSender();
+			return true;
 			
 		} else if (askForLightsPos.matches()) {
 			LOG.finer("Server asked where to turn the Lights on");
 			view.notifyUser("Select the sector where you want to turn the lights on");
 			view.bindPositionSender();
+			return true;
 			
 		}else if (whichobjectCard.matches()) {
 			LOG.finer("Server asked an object card");
 			view.relayObjectCard();
+			return true;
 			
-		 } 
+		} 
+		return false;
 	}
 	
-	private void processEvent(String message) {
+	private boolean processEvent(String message) {
 		
 		Matcher eventNoise = event_Noise.matcher(message);
 		Matcher eventObject = event_ObjectUsed.matcher(message);
@@ -262,34 +275,38 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		
 		if(eventObject.matches() || eventAttack.matches()) {
 			view.notifyUser(message);
+			return true;
 			
 		} else if(eventNoise.matches()) {
 			view.addNoiseToMap(eventNoise.group(1));
-			
+			return true;
 		} else if (eventDeath.matches()) {
 			model.getSpecificPlayerState(eventDeath.group(1)).setMyStatus(CurrentPlayerStatus.DEAD);
 			view.notifyUser(message);
+			return true;
 		}
-	
+		return false;
 	}
 	
-	private void processException(String message) {
+	private boolean processException(String message) {
 		
 		Matcher moveCanNotEnter = exception_1.matcher(message);
 		Matcher moveUnreachable = exception_2.matcher(message);
 		Matcher wrongCard = exception_3.matcher(message);
 		
-	if (moveCanNotEnter.matches() || moveUnreachable.matches()) {
-		LOG.finer("Server reported : movement is impossible." );
-		view.notifyUser(message);
-		processMessage(StringRes.getString("messaging.timeToMove"));
-	
-	} else if (wrongCard.matches()) {
-		LOG.finer("Server reported : that Card can't be played now." );
-		view.notifyUser(message);
-		processMessage(StringRes.getString("messaging.askPlayObjectCard"));
+		if (moveCanNotEnter.matches() || moveUnreachable.matches()) {
+			LOG.finer("Server reported : movement is impossible." );
+			view.notifyUser(message);
+			processMessage(StringRes.getString("messaging.timeToMove"));
+			return true;
 		
-	}
+		} else if (wrongCard.matches()) {
+			LOG.finer("Server reported : that Card can't be played now." );
+			view.notifyUser(message);
+			processMessage(StringRes.getString("messaging.askPlayObjectCard"));
+			return true;
+		}
+		return false;
 	}
 	
 	
