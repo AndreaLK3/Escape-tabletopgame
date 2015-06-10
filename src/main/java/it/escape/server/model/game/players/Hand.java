@@ -38,13 +38,13 @@ public class Hand {
 		}
 	}
 	
-	/**Chooses the name of the card that happens to be the first card in the list;
+	/**Returns the name of i-th card in the list;
 	 * this is required when the User has to discard 1 card because
 	 * the hand has 4 cards, and doesn't answer the request. 
-	 * In the UMR the default choice, used by the timeout override, is the cardName returned by this method */
-	public String getFirstCardName() {
+	 * In the UMR the default choice, used by the timeout override, is the String returned by getCardName(1)*/
+	public String getCardName(int i) {
 		if (!isEmpty()) {
-			String nameCard = handOfCards.get(1).getClass().getSimpleName();
+			String nameCard = handOfCards.get(i).getClass().getSimpleName();
 			String name = nameCard.substring(0, nameCard.length()-4);
 			return name.toLowerCase();
 		}

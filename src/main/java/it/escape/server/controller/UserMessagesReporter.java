@@ -170,7 +170,7 @@ public class UserMessagesReporter {
 	 * @return string representing the chosen card
 	 */
 	public String askWhichObjectCard() {
-		String defaultChoice = "none";
+		String defaultChoice = thePlayer.getMyHand().getCardName(0);
 		
 		if (automaticOverriding) {
 			log.finer("automaticOverriding: return " + defaultChoice);
