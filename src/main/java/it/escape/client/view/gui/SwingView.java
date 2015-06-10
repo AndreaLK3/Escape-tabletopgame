@@ -551,8 +551,6 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 							
 						} 
 					}});
-			
-		notifyNewCard("test");
 	}
 
 	/**This method uses a new thread to show the welcoming Dialog. */
