@@ -37,4 +37,6 @@ public interface UpdaterSwingToViewInterface {
 	
 	public void removeOtherPlayerFromMap(String name);
 	
+	public void clearOtherPlayersFromMap();
+	
 }
