@@ -291,8 +291,16 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher eventEndGame = event_EndGame.matcher(message);
 		Matcher eventFoundPlr = event_PlayerLocated.matcher(message);
 		
-		if(eventObject.matches() || eventAttack.matches()) {
-			view.notifyUser(message);
+		if (eventObject.matches()) {
+			if (!isMe(eventObject.group(1))) { // it's not me
+				view.notifyUser(message);
+			}
+			return true;
+			
+		} else if (eventAttack.matches()) {
+			if (!isMe(eventAttack.group(1))) { // it's not me
+				view.notifyUser(message);
+			}
 			return true;
 			
 		} else if(eventNoise.matches()) {
@@ -307,8 +315,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			model.setGameStatus(GameStatus.FINISHED);
 			return true;
 		} else if (eventFoundPlr.matches()) {
-			if (!eventFoundPlr.group(1).equals(model.getMyPlayerState().getMyName())) {
-				// it's not me
+			if (!isMe(eventFoundPlr.group(1))) { // it's not me
 				view.addOtherPlayerToMap(eventFoundPlr.group(2), eventFoundPlr.group(1));
 			}
 			
@@ -340,7 +347,9 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	
-	
+	private boolean isMe(String who) {
+		return who.equals(model.getMyPlayerState().getMyName());
+	}
 
 	public String getCardGUIKey(String classname) {
 		String ans = classname.substring(0, classname.length()-4);

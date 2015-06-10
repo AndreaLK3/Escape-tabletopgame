@@ -1,5 +1,8 @@
 Current tasks:
 
+(MM):
+Al momento le carte usate / scartate non vengono rimosse dall' ObjectCardsPanel
+
 (AL):
 
 1)Esaminare i log delle partite e risolvere le issues indicate lì (che sono in buona parte Server-side)
