@@ -1,6 +1,7 @@
 package it.escape.server.model.game.players;
 
 import static org.junit.Assert.*;
+import it.escape.server.model.game.cards.ObjectCard;
 import it.escape.server.model.game.cards.objectcards.AttackCard;
 import it.escape.server.model.game.cards.objectcards.TeleportCard;
 
@@ -27,7 +28,9 @@ public class HandTest {
 		assertEquals ("teleport", hand.getCardName(0));
 		assertEquals ("attack", hand.getCardName(1));
 	}
+	
 
+	
 	@Test
 	public void testGetCardFromString() {
 		assertTrue(hand.getCardFromString("attack") instanceof AttackCard );

@@ -88,6 +88,26 @@ public abstract class Player implements PlayerActionInterface {
 		return !myHand.isEmpty();
 	}
 	
+
+	/**This method checks if the Player has playable cards in his hand
+	 * It is invoked by the TurnHandlerHuman to decide if we have to ask the User to play an ObjectCard or not.
+	 * @return boolean */
+	public boolean hasPlayableCards() {
+		String playableCardsNames[] = {"teleport", "lights", "sedatives","adrenaline"};
+		
+		if (myHand.isEmpty()) {
+			return false;
+		}
+		else {
+			for (int i=0; i<playableCardsNames.length ; i++) {			//for each of the playable cards' names
+				if (myHand.getCardFromString(playableCardsNames[i])!=null) {	//if there is a corresponding card
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * extract and return a card from the player's hand
 	 * a card matching "key" is selected.
@@ -108,6 +128,9 @@ public abstract class Player implements PlayerActionInterface {
 		
 	}
 	
+	/**This method goes on to call the method of class hand getCardFromString(String key).
+	 * It doesn't modify anything.
+	 * @returns the Card we were looking for, or null if not present*/
 	public ObjectCard searchForCard(String key) throws CardNotPresentException{
 		ObjectCard theCard;
 		// match key with one or none of the cards in the player's hand
@@ -116,7 +139,6 @@ public abstract class Player implements PlayerActionInterface {
 			throw new CardNotPresentException();
 		}
 		return theCard;
-		
 	}
 
 	public void setEscaped(){}

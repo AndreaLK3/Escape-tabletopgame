@@ -8,7 +8,7 @@ import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.server.view.MessagingChannel;
 import it.escape.strings.StringRes;
-import it.escape.server.controller.TestingAnnouncerObserver;
+import it.escape.server.controller.AnnouncerObserverTest;
 import java.util.List;
 
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class GameMasterTest {
 	@Test
 	public void testNewPlayerTeamAssignation() {
 		MapCreator stubMapCreator = new MapCreator("resources/Test_map.json");
-		TestingAnnouncerObserver observer = new TestingAnnouncerObserver();
+		AnnouncerObserverTest observer = new AnnouncerObserverTest();
 		Master.setMapCreator(stubMapCreator);
 		
 		simulateConnect(observer);
@@ -45,7 +45,7 @@ public class GameMasterTest {
 		
 	}
 	
-	private void simulateConnect(TestingAnnouncerObserver observer) {
+	private void simulateConnect(AnnouncerObserverTest observer) {
 		MessagingChannel iface = new MessagingChannel();
 		UserMessagesReporter.createUMR(iface);
 		Master.newPlayerHasConnected(iface, new GlobalSettings());

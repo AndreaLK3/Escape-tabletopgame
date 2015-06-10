@@ -9,11 +9,11 @@ import org.junit.Test;
 
 import it.escape.server.model.game.Announcer;
 
-public class TestingAnnouncerObserver implements Observer {
+public class AnnouncerObserverTest implements Observer {
 	
 	private String last_message;
 
-	public TestingAnnouncerObserver() {
+	public AnnouncerObserverTest() {
 	}
 
 	public void update(Observable o, Object arg) {
