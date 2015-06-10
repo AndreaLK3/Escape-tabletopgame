@@ -236,7 +236,6 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher askForLightsPos = turn_askForLightsPos.matcher(message);
 		
 		if (turnEnd.matches()) {
-			view.clearOtherPlayersFromMap();
 			view.clearNoisesFromMap();
 			view.setTurnStatusString("waiting for my turn");
 			return true;
@@ -247,6 +246,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			model.getMyPlayerState().setMyName(turnStart.group(1));
 			model.getMyPlayerState().setLocation(turnStart.group(2));
 			model.finishedUpdating();
+			view.clearOtherPlayersFromMap();
 			// we could do more (i.e. send a visual notification of some sort)
 			return true;
 			
