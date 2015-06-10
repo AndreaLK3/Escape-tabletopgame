@@ -349,6 +349,10 @@ public class MapViewer extends JLabel {
 		strangerManager.clearPlayers(this);
 	}
 	
+	public void removeSpecificPlayer(String name) {
+		strangerManager.removeSpecificPlayer(name, this);
+	}
+	
 	public int getTotalWidth() {
 		return totalWidth;
 	}

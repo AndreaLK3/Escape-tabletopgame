@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 
 public abstract class MarkerManager {
 	
-	private List<JLabel> markers;
+	protected List<JLabel> markers;
 	
 	protected Icon graphics;
 	
@@ -42,9 +42,13 @@ public abstract class MarkerManager {
 	protected void clearMarkers(MapViewer parent) {
 		List<JLabel> temp = new ArrayList<JLabel>(markers);
 		for (JLabel l : temp) {
-			parent.remove(l);
-			markers.remove(l);
+			removeSingleMarker(l, parent);
 		}
+	}
+	
+	protected void removeSingleMarker(JLabel marker, MapViewer parent) {
+		parent.remove(marker);
+		markers.remove(marker);
 	}
 	
 }
