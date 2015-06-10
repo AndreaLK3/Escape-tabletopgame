@@ -40,7 +40,7 @@ public class Master {
 			gameMasters.add(currentGameMaster);
 		}
 		if (currentGameMaster.newPlayerAllowed()) {
-			LOG.info("Routing user to existing gamemaster (id=" + gmUniqueId + ")");
+			LOG.info("Routing user to existing gamemaster (id=" + (gmUniqueId-1) + ")");
 			currentGameMaster.newPlayerMayCauseStart(interfaceWithUser);
 		} else {
 			currentGameMaster = new GameMaster(mapCreator.getMap(), gmUniqueId, locals);

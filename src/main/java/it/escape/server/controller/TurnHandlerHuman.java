@@ -29,6 +29,9 @@ public class TurnHandlerHuman extends TurnHandler {
 		do {
 			try {
 				String key = reporter.askWhichObjectCard();
+				if (key.equals("none")) {  // only used by the override mechanism
+					return;
+				}
 				objectCard = currentPlayer.drawCard(key);  // this card is removed from the player's hand									   			
 				LOG.finer("User selected card: " + objectCard.getClass().getSimpleName());
 				
