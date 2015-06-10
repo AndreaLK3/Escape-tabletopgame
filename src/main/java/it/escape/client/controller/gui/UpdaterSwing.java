@@ -37,7 +37,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern info_yourTeam;
 	private Pattern info_currentTurnAndPlayer;
 	private Pattern info_playerRenamed;
-	private Pattern info_DrawnObjectCard;
+	private Pattern info_drawnObjectCard;
 	private Pattern info_whoIAm;
 	private Pattern info_whereIAm;
 	
@@ -83,11 +83,12 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	
 	protected void initPatterns() {
 		super.initPatterns();
+		
 		info_numLobbyPlayers = new FormatToPattern(StringRes.getString("messaging.othersWaiting")).convert();
 		info_playerConnected = new FormatToPattern(StringRes.getString("messaging.playerConnected")).convert();
 		info_yourTeam = new FormatToPattern(StringRes.getString("messaging.gamemaster.playAs")).convert();
 		info_currentTurnAndPlayer = new FormatToPattern(StringRes.getString("messaging.timecontroller.turnNumber")).convert();
-		info_DrawnObjectCard = new FormatToPattern(StringRes.getString("messaging.objectCardDrawn")).convert();
+		info_drawnObjectCard = new FormatToPattern(StringRes.getString("messaging.objectCardDrawn")).convert();
 		info_playerRenamed  = new FormatToPattern(StringRes.getString("messaging.announceRename")).convert();
 		info_whoIAm = new FormatToPattern(StringRes.getString("messaging.whoYouAre")).convert();
 		info_whereIAm = new FormatToPattern(StringRes.getString("messaging.hereYouAre")).convert();
@@ -97,6 +98,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		turn_askForNoisePos = new FormatToPattern(StringRes.getString("messaging.askForNoisePosition")).convert();
 		turn_movement = new FormatToPattern(StringRes.getString("messaging.timeToMove")).convert();
 		turn_askForLightsPos = new FormatToPattern(StringRes.getString("messaging.askForLightsPosition")).convert();
+		
 		
 		event_ObjectUsed = new FormatToPattern(StringRes.getString("messaging.playerIsUsingObjCard")).convert();
 		event_Noise = new FormatToPattern(StringRes.getString("messaging.noise")).convert();
@@ -159,12 +161,14 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher myName = info_whoIAm.matcher(message);
 		Matcher myTeam = info_yourTeam.matcher(message);
 		Matcher myPosition = info_whereIAm.matcher(message);
-		Matcher drawncard = info_DrawnObjectCard.matcher(message);
+		Matcher drawncard = info_drawnObjectCard.matcher(message);
+		Matcher playerConnected = info_playerConnected.matcher(message);
 		
 		if (currentTurnAndPlayer.matches()) {
 			LOG.finer("Someone's turn");
 			view.setTurnStatusString(currentTurnAndPlayer.group(2) + " is playing");
 			model.updatePlayerExists(currentTurnAndPlayer.group(2));
+			model.updatePlayerStatus(currentTurnAndPlayer.group(2), CurrentPlayerStatus.ALIVE);
 			model.setTurnNumber(Integer.parseInt(currentTurnAndPlayer.group(1)));
 			model.finishedUpdating();
 			return true;
@@ -278,6 +282,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		} else if(eventNoise.matches()) {
 			view.addNoiseToMap(eventNoise.group(1));
 			return true;
+			
 		} else if (eventDeath.matches()) {
 			model.getSpecificPlayerState(eventDeath.group(1)).setMyStatus(CurrentPlayerStatus.DEAD);
 			view.notifyUser(message);

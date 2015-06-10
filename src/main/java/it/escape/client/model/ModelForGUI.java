@@ -10,6 +10,8 @@ public class ModelForGUI extends Observable {
 	
 	private List<PlayerState> playerStates;
 	
+	private GameStatus gameStatus;
+	
 	private int turnNumber;
 
 	public ModelForGUI() {
@@ -100,7 +102,7 @@ public class ModelForGUI extends Observable {
 	
 	/**
 	 * The controller should access model data using the getters,
-	 * modify said data, and only then call finishedUpdating()
+	 * modify said data using the setters, and only then call finishedUpdating()
 	 * which will trigger the observer notify mechanism
 	 */
 	public void finishedUpdating() {
@@ -114,5 +116,13 @@ public class ModelForGUI extends Observable {
 
 	public void setTurnNumber(int turnNumber) {
 		this.turnNumber = turnNumber;
+	}
+
+	public GameStatus getGameStatus() {
+		return gameStatus;
+	}
+
+	public void setGameStatus(GameStatus gameStatus) {
+		this.gameStatus = gameStatus;
 	}
 }
