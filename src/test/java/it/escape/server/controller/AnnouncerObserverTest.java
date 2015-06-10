@@ -7,7 +7,7 @@ import java.util.Observer;
 
 import org.junit.Test;
 
-import it.escape.server.model.game.Announcer;
+import it.escape.server.model.game.Announcer; 
 
 public class AnnouncerObserverTest implements Observer {
 	

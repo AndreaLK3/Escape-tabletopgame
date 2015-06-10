@@ -10,6 +10,13 @@ Al momento le carte usate / scartate non vengono rimosse dall' ObjectCardsPanel
 2)Quando il server va giù, non libera la porta che usava
 ^^^^(MM): non starai mica terminando ancora il programma con ctrl-z? perchè ctrl-z lo manda solo in background. usa ctrl-c invece.
 
+
+
+
+
+__________________________________________________________
+Notes about other tasks:
+
 3)Problema del GameMaster: 
 Tentando di riconnettersi a una nuova partita quando la precedente è stata completata, il numero del Players non va a 1 ma a 0.
 --=== Server Welcome message ===--  
@@ -21,13 +28,6 @@ We are playing the map "Galilei"
 There are (0/8) players waiting in this lobby
 (Someone else's turn, free-action)>
 ^^^^(MM): risolto
-
-
-
-
-
-__________________________________________________________
-Notes about other tasks:
 
 
 (MM): non è il caso di creare qualche schema / mockup della GUI?
