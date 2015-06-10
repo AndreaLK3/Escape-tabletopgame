@@ -74,9 +74,8 @@ public class AsyncUserListener implements Observer{
 	}
 	
 	private void whereAmIProcedure() {
-		privateUMR.relayMessage(String.format(
-				StringRes.getString("messaging.hereYouAre"),
-				gameMaster.getPlayerPosition(subject)));
+		privateUMR.reportMyUserPosition(
+				gameMaster.getPlayerPosition(subject));
 	}
 
 	private void chatProcedure(Matcher match) {

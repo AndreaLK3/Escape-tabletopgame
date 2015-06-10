@@ -104,6 +104,16 @@ public class UserMessagesReporter {
 		}
 	}
 	
+	/**
+	 * Frequently used code
+	 * @param position
+	 */
+	public void reportMyUserPosition(String position) {
+		relayMessage(String.format(
+				StringRes.getString("messaging.hereYouAre"),
+				position));
+	}
+	
 	//methods to answer to TurnHandler's requests
 	
 	/** This function returns the user's answer to the question:
