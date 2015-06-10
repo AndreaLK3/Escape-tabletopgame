@@ -9,7 +9,7 @@ public class OtherPlayerMarker extends MarkerManager {
 	
 	public OtherPlayerMarker() {
 		super();
-		setGraphics("resources/artwork/celle/foreign-player.gif");
+		setGraphics("resources/artwork/celle/foreign-player.png");
 	}
 	
 	public void addPlayer(String location, String name, MapViewer parent) {
