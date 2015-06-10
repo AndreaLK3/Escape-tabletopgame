@@ -265,7 +265,7 @@ public class GameMaster implements Runnable {
 	
 	/** returns true only if the game is accepting new players	 */
 	public boolean newPlayerAllowed() {
-		if (hasFreeSlots() && !isRunning()) {
+		if (hasFreeSlots() && !isRunning() && !isFinished()) {
 			return true;
 		}
 		return false;

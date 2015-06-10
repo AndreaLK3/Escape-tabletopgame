@@ -507,22 +507,27 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
    			updatePlayerPanels(model);
    			updateMapMarkers(model);
    			updateObjectCardsPanel(model);
-			// do something
 		}
 	}
    	
    	// functions belonging to the interface UpdaterSwingToViewInterface
    	//(They are invoked by the UpdaterSwing)
 
-	public void setGameMap(String name) {
-		try {
-			((MapViewer)label5_map).setMap(name);
-			scrollMap(0.5, 0.5);
-		} catch (BadJsonFileException e) {
-			
-		} catch (IOException e) {
-			
-		}
+	public void setGameMap(final String name) {
+		EventQueue.invokeLater(
+			new Runnable() {
+				public void run() {
+					try {
+						((MapViewer)label5_map).setMap(name);
+						scrollMap(0.5, 0.5);
+					} catch (BadJsonFileException e) {
+						
+					} catch (IOException e) {
+						
+					} 
+				}
+			}
+		);
 	}
 
 	/**This method uses a new thread to show the welcoming Dialog. */
