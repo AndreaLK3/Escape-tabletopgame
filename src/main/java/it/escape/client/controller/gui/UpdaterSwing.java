@@ -175,6 +175,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		if (currentTurnAndPlayer.matches()) {
 			LOG.finer("Someone's turn");
 			view.setTurnStatusString(currentTurnAndPlayer.group(2) + " is playing");
+			if (!currentTurnAndPlayer.group(2).equals(model.getMyPlayerState().getMyName())) {
+				// the player-position indicator is now out-dated
+				view.removeOtherPlayerFromMap(currentTurnAndPlayer.group(2));
+			}
 			model.updateNowPlaying(currentTurnAndPlayer.group(2));
 			model.updatePlayerStatus(currentTurnAndPlayer.group(2), CurrentPlayerStatus.ALIVE);
 			model.setGameStatus(GameStatus.RUNNING);
@@ -288,6 +292,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher eventAttack = event_Attack.matcher(message);
 		Matcher eventDeath = event_Death.matcher(message);
 		Matcher eventEndGame = event_EndGame.matcher(message);
+		Matcher eventFoundPlr = event_PlayerLocated.matcher(message);
 		
 		if(eventObject.matches() || eventAttack.matches()) {
 			view.notifyUser(message);
@@ -301,10 +306,13 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			model.getSpecificPlayerState(eventDeath.group(1)).setMyStatus(CurrentPlayerStatus.DEAD);
 			view.notifyUser(message);
 			return true;
-		}  else if (eventEndGame.matches()) {
+		} else if (eventEndGame.matches()) {
 			model.setGameStatus(GameStatus.FINISHED);
 			return true;
-		}
+		} else if (eventFoundPlr.matches()) {
+			view.addOtherPlayerToMap(eventFoundPlr.group(2), eventFoundPlr.group(1));
+			return true;
+		} 
 		
 		return false;
 	}
