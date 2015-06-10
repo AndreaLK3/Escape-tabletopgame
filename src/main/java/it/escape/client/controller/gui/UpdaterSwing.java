@@ -3,6 +3,7 @@ package it.escape.client.controller.gui;
 import it.escape.client.controller.MessageCarrier;
 import it.escape.client.controller.Updater;
 import it.escape.client.model.CurrentPlayerStatus;
+import it.escape.client.model.GameStatus;
 import it.escape.client.model.ModelForGUI;
 import it.escape.client.view.gui.BindUpdaterInterface;
 import it.escape.strings.FormatToPattern;
@@ -34,6 +35,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	
 	private Pattern info_numLobbyPlayers;
 	private Pattern info_playerConnected;
+	private Pattern info_playerDisconnected;
 	private Pattern info_yourTeam;
 	private Pattern info_currentTurnAndPlayer;
 	private Pattern info_playerRenamed;
@@ -52,6 +54,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern event_PlayerLocated;
 	private Pattern event_Attack;
 	private Pattern event_Death;
+	private Pattern event_EndGame;
 	
 	private Pattern exception_1;
 	private Pattern exception_2;
@@ -86,6 +89,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		
 		info_numLobbyPlayers = new FormatToPattern(StringRes.getString("messaging.othersWaiting")).convert();
 		info_playerConnected = new FormatToPattern(StringRes.getString("messaging.playerConnected")).convert();
+		info_playerDisconnected =  new FormatToPattern(StringRes.getString("messaging.playerDisconnected")).convert();
 		info_yourTeam = new FormatToPattern(StringRes.getString("messaging.gamemaster.playAs")).convert();
 		info_currentTurnAndPlayer = new FormatToPattern(StringRes.getString("messaging.timecontroller.turnNumber")).convert();
 		info_drawnObjectCard = new FormatToPattern(StringRes.getString("messaging.objectCardDrawn")).convert();
@@ -105,6 +109,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		event_PlayerLocated = new FormatToPattern(StringRes.getString("messaging.disclosePlayerPosition")).convert();
 		event_Attack = new FormatToPattern(StringRes.getString("messaging.playerAttacking")).convert();
 		event_Death = new FormatToPattern(StringRes.getString("messaging.playerDied")).convert(); 
+		event_EndGame = new FormatToPattern(StringRes.getString("messaging.endOfTheGame")).convert();
 		
 		//These ones are necessary so that we can display the JInputDialog (ex, for the position) again.
 		//There will be a dialog that displays the exception message (whatever it is) and
@@ -143,6 +148,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				
 			} else if (gameStartETA.matches()) {
 				LOG.finer("Setting game start ETA");
+				model.setGameStatus(GameStatus.GOING_TO_START);
 				view.setTurnStatusString(message);
 				
 			}
@@ -162,6 +168,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher myTeam = info_yourTeam.matcher(message);
 		Matcher myPosition = info_whereIAm.matcher(message);
 		Matcher drawncard = info_drawnObjectCard.matcher(message);
+		
+		Matcher playerDisconnected = info_playerDisconnected.matcher(message);
 		Matcher playerConnected = info_playerConnected.matcher(message);
 		
 		if (currentTurnAndPlayer.matches()) {
@@ -169,6 +177,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			view.setTurnStatusString(currentTurnAndPlayer.group(2) + " is playing");
 			model.updatePlayerExists(currentTurnAndPlayer.group(2));
 			model.updatePlayerStatus(currentTurnAndPlayer.group(2), CurrentPlayerStatus.ALIVE);
+			model.setGameStatus(GameStatus.RUNNING);
 			model.setTurnNumber(Integer.parseInt(currentTurnAndPlayer.group(1)));
 			model.finishedUpdating();
 			return true;
@@ -205,7 +214,11 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			model.finishedUpdating();
 			view.notifyNewCard(cardKey);
 			return true;
-		} 
+			
+		} else if (playerDisconnected.matches()) {
+			model.getSpecificPlayerState(playerDisconnected.group(1)).setMyStatus(CurrentPlayerStatus.DISCONNECTED);
+			model.finishedUpdating();
+		}
 		
 		return false;
 	}
@@ -274,6 +287,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher eventObject = event_ObjectUsed.matcher(message);
 		Matcher eventAttack = event_Attack.matcher(message);
 		Matcher eventDeath = event_Death.matcher(message);
+		Matcher eventEndGame = event_EndGame.matcher(message);
 		
 		if(eventObject.matches() || eventAttack.matches()) {
 			view.notifyUser(message);
@@ -287,7 +301,11 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			model.getSpecificPlayerState(eventDeath.group(1)).setMyStatus(CurrentPlayerStatus.DEAD);
 			view.notifyUser(message);
 			return true;
+		}  else if (eventEndGame.matches()) {
+			model.setGameStatus(GameStatus.FINISHED);
+			return true;
 		}
+		
 		return false;
 	}
 	
