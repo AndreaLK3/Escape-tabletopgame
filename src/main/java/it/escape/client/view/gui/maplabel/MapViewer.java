@@ -116,7 +116,7 @@ public class MapViewer extends JLabel {
 	
 	private void initialize() {
 		noiseManager = new NoiseMarkManager();
-		strangerManager = new OtherPlayerMarker();
+		strangerManager = new OtherPlayerMarker(this);
 		playerHere = new ImageIcon(ImageScaler.resizeImage("resources/artwork/celle/player-here.png", cellWidth, cellHeight));
 		cellHighlight = new ImageIcon(ImageScaler.resizeImage("resources/artwork/celle/highlight.png", cellWidth, cellHeight));
 		highlightOverlay = new JLabel(cellHighlight);
