@@ -62,8 +62,6 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 
 	
 
-
-	
 	public UpdaterSwing(ModelForGUI model) {
 		super();
 		LogHelper.setDefaultOptions(LOG);
@@ -146,10 +144,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				view.setTurnStatusString(message);
 				
 			}
-			if (processInfo(message)) return;
-			if (processTurnRequest(message)) return;
-			if (processEvent(message)) return;
-			if (processException(message)) return;
+			processInfo(message);
+			processTurnRequest(message);
+			processEvent(message);
+			processException(message);
 			
 		}  
 		
