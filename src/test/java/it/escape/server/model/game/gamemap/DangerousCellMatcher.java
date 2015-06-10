@@ -10,7 +10,7 @@ public class DangerousCellMatcher extends BaseMatcher<Object> {
 	public boolean matches(Object item) {
 		if (item instanceof GetSectorCardAction) {
 			return true;
-		}
+		} 
 		return false;
 	}
 
