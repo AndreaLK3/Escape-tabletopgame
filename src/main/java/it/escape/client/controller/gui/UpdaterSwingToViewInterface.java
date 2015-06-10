@@ -31,4 +31,6 @@ public interface UpdaterSwingToViewInterface {
 	
 	public void clearNoisesFromMap();
 	
+	public void notifyNewCard(String cardName);
+	
 }

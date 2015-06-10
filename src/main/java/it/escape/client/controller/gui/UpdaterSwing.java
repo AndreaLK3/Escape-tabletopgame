@@ -196,7 +196,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			String cardKey = getCardGUIKey(drawncard.group(1));
 			model.getMyPlayerState().addCard(cardKey);
 			model.finishedUpdating();
-			view.notifyUser("You have drawn a " + cardKey + " card");
+			view.notifyNewCard(cardKey);
 			
 		} 
 		
