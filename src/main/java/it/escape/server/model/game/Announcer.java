@@ -54,7 +54,7 @@ public class Announcer extends Observable {
 	
 	public void announceNoise(String location) {
 		String newmsg = String.format(StringRes.getString("messaging.noise"),
-				location);
+						CoordinatesConverter.prettifyAlphaNum(location));
 		announce(newmsg);
 	}
 	
