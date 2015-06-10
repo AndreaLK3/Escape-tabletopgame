@@ -666,13 +666,19 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 		showCardsButton.doClick();
 	}
 
-	
 	public void addNoiseToMap(String location) {
 		((MapViewer)label5_map).addNoiseMarker(location);
 	}
-
 	public void clearNoisesFromMap() {
 		((MapViewer)label5_map).clearNoiseMarkers();
 	}
+	public void addOtherPlayerToMap(String location, String name) {
+		((MapViewer)label5_map).addOtherPlayerMarker(location, name);
+	}
+	public void removeOtherPlayerFromMap(String name) {
+		((MapViewer)label5_map).removeSpecificPlayer(name);
+	}
+	
+	
 }
 	

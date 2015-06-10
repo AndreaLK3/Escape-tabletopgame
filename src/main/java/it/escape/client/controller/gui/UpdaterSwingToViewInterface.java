@@ -33,4 +33,8 @@ public interface UpdaterSwingToViewInterface {
 	
 	public void notifyNewCard(String cardName);
 	
+	public void addOtherPlayerToMap(String location, String name);
+	
+	public void removeOtherPlayerFromMap(String name);
+	
 }
