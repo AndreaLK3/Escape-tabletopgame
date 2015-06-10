@@ -144,7 +144,7 @@ public class UserMessagesReporter {
 	
 	
 	/**
-	 * Ask the user (who has too much cards in his hand) if he wants to play
+	 * Ask the user (who has too many cards in his hand) if he wants to play
 	 * or discard the extra card
 	 * @return true for play, false for discard
 	 */

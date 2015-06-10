@@ -45,6 +45,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern turn_askForNoisePos;
 	private Pattern turn_movement;
 	private Pattern turn_askForObject;
+	private Pattern turn_askForLightsPos;
 	
 	private Pattern event_Noise;
 	private Pattern event_ObjectUsed;
@@ -55,6 +56,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern exception_1;
 	private Pattern exception_2;
 	private Pattern exception_3;
+
+	
 
 
 	
@@ -95,6 +98,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		turn_askForAttack = new FormatToPattern(StringRes.getString("messaging.askIfAttack")).convert();
 		turn_askForNoisePos = new FormatToPattern(StringRes.getString("messaging.askForNoisePosition")).convert();
 		turn_movement = new FormatToPattern(StringRes.getString("messaging.timeToMove")).convert();
+		turn_askForLightsPos = new FormatToPattern(StringRes.getString("messaging.askForLightsPosition")).convert();
 		
 		event_ObjectUsed = new FormatToPattern(StringRes.getString("messaging.playerIsUsingObjCard")).convert();
 		event_Noise = new FormatToPattern(StringRes.getString("messaging.noise")).convert();
@@ -199,6 +203,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		
 	}
 	
+	
 	private void processTurnRequest(String message) {
 		
 		Matcher turnStart = turn_Start.matcher(message);
@@ -208,7 +213,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher whichobjectCard = input_ObjectCard.matcher(message);
 		Matcher askForNoisePos = turn_askForNoisePos.matcher(message);
 		Matcher turnEnd = turn_End.matcher(message);
-		
+		Matcher askForLightsPos = turn_askForLightsPos.matcher(message);
 		
 		if (turnEnd.matches()) {
 			view.clearNoisesFromMap();
@@ -236,7 +241,12 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			view.notifyUser("Select the sector you want to make a noise in");
 			view.bindPositionSender();
 			
-		} else if (whichobjectCard.matches()) {
+		} else if (askForLightsPos.matches()) {
+			LOG.finer("Server asked where to turn the Lights on");
+			view.notifyUser("Select the sector where you want to turn the lights on");
+			view.bindPositionSender();
+			
+		}else if (whichobjectCard.matches()) {
 			LOG.finer("Server asked an object card");
 			view.relayObjectCard();
 			
