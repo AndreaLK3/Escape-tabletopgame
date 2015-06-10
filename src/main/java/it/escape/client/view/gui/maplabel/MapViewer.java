@@ -79,6 +79,8 @@ public class MapViewer extends JLabel {
 	
 	private NoiseMarkManager noiseManager;
 	
+	private OtherPlayerMarker strangerManager;
+	
 	public MapViewer(int cellWidth, int cellHeight) throws BadJsonFileException, IOException {
 		super();
 		this.cellWidth = cellWidth;
@@ -110,6 +112,26 @@ public class MapViewer extends JLabel {
 		if (runAfterDraw != null) {
 			new Thread(runAfterDraw).start();
 		}
+	}
+	
+	private void initialize() {
+		noiseManager = new NoiseMarkManager();
+		strangerManager = new OtherPlayerMarker();
+		playerHere = new ImageIcon(ImageScaler.resizeImage("resources/artwork/celle/player-here.png", cellWidth, cellHeight));
+		cellHighlight = new ImageIcon(ImageScaler.resizeImage("resources/artwork/celle/highlight.png", cellWidth, cellHeight));
+		highlightOverlay = new JLabel(cellHighlight);
+		highlightOverlay.setVisible(false);
+		playerHereOverlay = new JLabel(playerHere);
+		playerHereOverlay.setVisible(false);
+		
+		add(playerHereOverlay);
+		add(highlightOverlay);
+		
+		background = ImageScaler.resizeImage("resources/artwork/map-background.png", backgroundTileSize, backgroundTileSize);
+		totalWidth = 400;
+		totalHeight = 400;
+		setPreferredSize(new Dimension(totalWidth, totalHeight));
+		setOpaque(true);
 	}
 	
 	private void initMouseListener() {
@@ -146,25 +168,6 @@ public class MapViewer extends JLabel {
 		for(MouseListener ml: temp){
 		    ml.mouseExited(e);
 		}
-	}
-	
-	private void initialize(){
-		noiseManager = new NoiseMarkManager();
-		playerHere = new ImageIcon(ImageScaler.resizeImage("resources/artwork/celle/player-here.png", cellWidth, cellHeight));
-		cellHighlight = new ImageIcon(ImageScaler.resizeImage("resources/artwork/celle/highlight.png", cellWidth, cellHeight));
-		highlightOverlay = new JLabel(cellHighlight);
-		highlightOverlay.setVisible(false);
-		playerHereOverlay = new JLabel(playerHere);
-		playerHereOverlay.setVisible(false);
-		
-		add(playerHereOverlay);
-		add(highlightOverlay);
-		
-		background = ImageScaler.resizeImage("resources/artwork/map-background.png", backgroundTileSize, backgroundTileSize);
-		totalWidth = 400;
-		totalHeight = 400;
-		setPreferredSize(new Dimension(totalWidth, totalHeight));
-		setOpaque(true);
 	}
 	
 	private void drawCells() {
@@ -336,6 +339,14 @@ public class MapViewer extends JLabel {
 	
 	public void clearNoiseMarkers() {
 		noiseManager.clearNoises(this);
+	}
+	
+	public void addOtherPlayerMarker(String location, String name) {
+		strangerManager.addPlayer(location, name, this);
+	}
+	
+	public void clearOtherPlayerMarkers() {
+		strangerManager.clearPlayers(this);
 	}
 	
 	public int getTotalWidth() {

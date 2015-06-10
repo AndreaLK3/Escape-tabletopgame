@@ -12,9 +12,11 @@ import javax.swing.JLabel;
 
 public abstract class MarkerManager {
 	
-private List<JLabel> markers;
+	private List<JLabel> markers;
 	
 	protected Icon graphics;
+	
+	protected JLabel nuova;
 
 	public MarkerManager() {
 		markers = new ArrayList<JLabel>();
@@ -28,7 +30,7 @@ private List<JLabel> markers;
 	}
 	
 	protected void addMarker(String location, MapViewer parent) {
-		JLabel nuova = new JLabel(graphics);
+		nuova = new JLabel(graphics);
 		int correctX = (parent.getCellWidth() - graphics.getIconWidth()) / 2;
 		int correctY = (parent.getCellHeight() - graphics.getIconHeight()) / 2;
 		markers.add(nuova);
