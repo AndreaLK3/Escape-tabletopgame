@@ -1,17 +1,38 @@
 Current tasks:
 
 (MM):
-Al momento le carte usate / scartate non vengono rimosse dall' ObjectCardsPanel
+1)Al momento le carte usate / scartate non vengono rimosse dall' ObjectCardsPanel
 
-(AL):
+2)GUI - Gestione dei risultati finali e della disconnessione
+Quando un giocatore che usa la Swing GUI viene eliminato e la partita finisce, la GUI scompare di colpo... perchè si disconnette?
 
-1)Esaminare i log delle partite e risolvere le issues indicate lì (che sono in buona parte Server-side)
+3) La segnalazione di quando un Giocatore si è difeso.
+	Nella GUI questa cosa non si vede, devo controllare se il messaggio c'è già in CLI, e se sì aggiungere un avviso.
 
-2)Quando il server va giù, non libera la porta che usava
+
+__________________________________________________________
+Prossimamente su questo schermo:
+
+RMI. Idea preliminare: il Server, che ha la logica di controllo, fa partire delle chiamate RMI su metodi del Client,
+es: RMI+UpdaterRMICLI, metodo Movimento =  richiedi Stringa+controllaFormato
+	RMI+UpdaterRMIGUI, metodo Movimento =  bindPositionSender e richiedi click su Cella + aggiorna Model a seconda di quello che ti manda il Server
+
+Quando saremo più avanti, dovremo iniziare a fare un Documento di presentazione, che contenga: 
+tutti i pattern che abbiamo usato + Diagrammi di classe e diagrammi di sequenza e spiegazione per ogni parte significativa.
+
+
+__________________________________________________________
+Lower priority:
+
+Quando il server va giù, non libera la porta che usava
 ^^^^(MM): non starai mica terminando ancora il programma con ctrl-z? perchè ctrl-z lo manda solo in background. usa ctrl-c invece.
+^^^^(AL): lol, se lo termino con CTRL+Z funziona. Con i crash mi pare di no, ma non è ad alta priorità per il momento.
 
 
-
+(AL)
+Esaminare i log delle partite e risolvere le issues indicate lì (che sono in buona parte Server-side)
+^^^^^^^^
+Per la maggior parte risolte.
 
 
 __________________________________________________________

@@ -148,7 +148,6 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 		turnNumberField.setEditable(false);
 		
 		panel = createRowPanel(Arrays.asList(label0_gameStatus, gameStatusField, label1_turnNumber, turnNumberField));
-		
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.gridx = 0;
 		constraints.gridy = 0;
