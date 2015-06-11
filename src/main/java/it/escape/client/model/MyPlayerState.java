@@ -30,6 +30,10 @@ public class MyPlayerState extends PlayerState {
 		objectCards.add(cardName);
 	}
 	
+	public void removeCard(String cardName) {
+		objectCards.remove(cardName);
+	}
+	
 	/** This method returns a copy of the original list, not a reference to it.*/
 	public List<String> getObjectCards() {
 		List<String> objectCardsCopy = new ArrayList<String>(objectCards);

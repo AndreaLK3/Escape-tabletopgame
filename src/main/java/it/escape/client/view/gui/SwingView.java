@@ -463,7 +463,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 								doRelayObjectCard = false;
 							}
 							else {
-								JOptionPane.showConfirmDialog(null, objectCardsPanel.getPlayableButtonsAsArray(), 
+								JOptionPane.showConfirmDialog(null, objectCardsPanel.getButtonsAsArray(), 
 											"Your object cards", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
 							}
 							}

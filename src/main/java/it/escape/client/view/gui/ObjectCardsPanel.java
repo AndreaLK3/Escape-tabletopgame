@@ -94,7 +94,7 @@ public class ObjectCardsPanel extends JPanel {
 		int x = 0;
 		JRadioButton buttonsArray[] = new JRadioButton[NUMCARDTYPES];
 		for (JRadioButton b : objectCardsButtons) {
-			if (!(b.getText().equals("attack")) || !(b.getText().equals("defense"))) {
+			if (!(b.getText().equalsIgnoreCase("attack")) || !(b.getText().equalsIgnoreCase("defense"))) {
 				buttonsArray[x]=b;
 			}
 			x++;

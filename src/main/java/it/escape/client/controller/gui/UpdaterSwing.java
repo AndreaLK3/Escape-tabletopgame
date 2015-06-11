@@ -295,6 +295,11 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			if (!isMe(eventObject.group(1))) { // it's not me
 				view.notifyUser(message);
 			}
+			if(isMe(eventObject.group(1))) { 	//if it's me
+				String cardName = getCardGUIKey(eventObject.group(2));
+				model.getMyPlayerState().removeCard(cardName);	//remove the card from my hand in the Client
+				model.finishedUpdating();
+			}
 			return true;
 			
 		} else if (eventAttack.matches()) {
@@ -311,9 +316,11 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			model.getSpecificPlayerState(eventDeath.group(1)).setMyStatus(CurrentPlayerStatus.DEAD);
 			view.notifyUser(message);
 			return true;
+			
 		} else if (eventEndGame.matches()) {
 			model.setGameStatus(GameStatus.FINISHED);
 			return true;
+			
 		} else if (eventFoundPlr.matches()) {
 			if (!isMe(eventFoundPlr.group(1))) { // it's not me
 				view.addOtherPlayerToMap(eventFoundPlr.group(2), eventFoundPlr.group(1));
