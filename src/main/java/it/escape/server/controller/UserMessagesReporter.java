@@ -185,7 +185,8 @@ public class UserMessagesReporter {
 			return defaultChoice;		
 		} else {
 			interfaceWithUser.writeToClient(StringRes.getString("messaging.askWhichObjectCard"));
-			return ioGetCardKey();
+			String cardNames[] = thePlayer.getMyHand().getAllCardNames();
+			return ioGetCardKey(cardNames);
 		}
 	}
 	
@@ -228,8 +229,11 @@ public class UserMessagesReporter {
 		return location;
 	}
 	
-	public String ioGetCardKey() {
-		interfaceWithUser.writeToClient(StringRes.getString("messaging.validCards"));
+	public String ioGetCardKey(String cardNames[]) {
+		interfaceWithUser.writeToClient(StringRes.getString("messaging.ownedCards"));
+		for (int i=0; i<cardNames.length ; i++) {
+			interfaceWithUser.writeToClient(cardNames[i]);
+		}
 		interfaceWithUser.setDefaultOption("none");
 		interfaceWithUser.setContext(Arrays.asList("attack","defense","teleport", "lights", "sedatives", "adrenaline"));
 		return interfaceWithUser.readFromClient();
