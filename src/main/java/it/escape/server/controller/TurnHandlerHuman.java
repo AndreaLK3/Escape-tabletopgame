@@ -132,7 +132,7 @@ public class TurnHandlerHuman extends TurnHandler {
 	public void turnAfterMove() {
 		
 		if (currentPlayer.getMyHand().isOverFull()) {  // too many cards in my hand
-			reporter.relayMessage(StringRes.getString("messaging.tooManyCards"));
+			reporter.relayMessage(StringRes.getString("messaging.tooManyCardsHuman"));
 			if (reporter.askPlayCardOrDiscard()) {  // user chose "play"
 				playObjectCard(currentPlayer.getMyHand().getCardName(0));
 			} else {  // user chose "discard"

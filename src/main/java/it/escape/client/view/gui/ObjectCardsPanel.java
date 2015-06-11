@@ -2,6 +2,7 @@ package it.escape.client.view.gui;
 
 import it.escape.utils.FilesHelper;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +25,9 @@ public class ObjectCardsPanel extends JPanel {
 	
 	private List<JRadioButton> objectCardsButtons;
 	private ButtonGroup group;
+	
+
+
 	private ItemListener radioListener;
 	private String chosenCardName;
 	
@@ -90,6 +94,8 @@ public class ObjectCardsPanel extends JPanel {
 		return buttonsArray;
 	}
 	
+	/**Returns an array of JRadioButtons, that correspond to the Playable cards currently owned.
+	 * The array is used inside a JDialog in the View */
 	public JRadioButton[] getPlayableButtonsAsArray() {
 		int x = 0;
 		JRadioButton buttonsArray[] = new JRadioButton[NUMCARDTYPES];
@@ -102,10 +108,12 @@ public class ObjectCardsPanel extends JPanel {
 		return buttonsArray;
 	}
 	
-
-	
 	public String getChosenCardName() {
 		return chosenCardName;
+	}
+	
+	public ButtonGroup getGroup() {
+		return group;
 	}
 
 	public void getButtonsAsStringArray() {
@@ -125,7 +133,12 @@ public class ObjectCardsPanel extends JPanel {
 	private class RadioListener implements ItemListener {
 
 		public void itemStateChanged(ItemEvent event) {
-			chosenCardName = ((AbstractButton) event.getSource()).getText();
+			if (event.getSource() instanceof JRadioButton) {
+				JRadioButton button = (JRadioButton) event.getSource();
+				chosenCardName = button.getText();
+				}
+			
+			
 		}
 	}
 	

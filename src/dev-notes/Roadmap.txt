@@ -1,13 +1,18 @@
 Current tasks:
 
-1) Problema Server-side: l'automaticOverride non funziona come dovrebbe. Prova a far giocare 2 giocatori quasi completamente inattivi, 
+(AL):
+1) Problema Server-side: l'automaticOverride non funziona come dovrebbe. Prova a far giocare su Client-testo 2 giocatori quasi completamente inattivi, 
 e spesso dopo 1 singolo override non riesce a fare i successivi.
 
 2)GUI - Gestione di : 
 	Eliminazione 
 	Risultati finali
 	Disconnessione
-Quando la partita finisce, la GUI scompare di colpo... perchè si disconnette?
+Un giocatore che viene eliminato ha la finestra GUI che scompare, perchè viene disconnesso; 
+A fine partita, gli altri restano con la finestra aperta[Questo è ok], lo status ALIVE [Cambiare a WINNER],
+e nessuna indicazione dei risultati finali [aggiungere pattern... multipli pattern per produrre un solo Dialog?] 
+
+3) Problemino con la GUI: non chiede all'utente umano PlayCardOrDiscard, anche se ho scritto buona parte del codice e in teoria dovrebbe funzionare.
 
 
 

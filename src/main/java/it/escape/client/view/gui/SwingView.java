@@ -478,6 +478,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 									JOptionPane.showMessageDialog(null, "You have chosen the " + chosenObjectCard  + " card.");
 									relayRef.relayMessage(chosenObjectCard);	
 								}
+								objectCardsPanel.getGroup().clearSelection();
 								chosenObjectCard = null;
 								doRelayObjectCard = false;
 							}
@@ -662,6 +663,24 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 					}
 					else {
 						relayRef.relayMessage("no");
+					}
+				}}).start();
+		
+	}
+	
+	/**Overloaded version of the binary dialog, using custom options instead of yes/no*/
+	public void relayYesNoDialog(final String question, final String option1, final String option2) {
+		new Thread(
+			new Runnable() {
+				public void run() {
+					String options[] = {"option1, option2"};
+					int n = JOptionPane.showOptionDialog
+							(null, question, null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);				
+					if (n==JOptionPane.YES_OPTION) {
+						relayRef.relayMessage("option1");
+					}
+					else {
+						relayRef.relayMessage("option2");
 					}
 				}}).start();
 		

@@ -49,6 +49,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern turn_movement;
 	private Pattern turn_askForObject;
 	private Pattern turn_askForLightsPos;
+	private Pattern turn_discard;
+	private Pattern turn_playOrDiscard;
 	
 	private Pattern event_Noise;
 	private Pattern event_ObjectUsed;
@@ -105,7 +107,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		turn_askForNoisePos = new FormatToPattern(StringRes.getString("messaging.askForNoisePosition")).convert();
 		turn_movement = new FormatToPattern(StringRes.getString("messaging.timeToMove")).convert();
 		turn_askForLightsPos = new FormatToPattern(StringRes.getString("messaging.askForLightsPosition")).convert();
-		
+		turn_discard = new FormatToPattern(StringRes.getString("messaging.tooManyCardsAlien")).convert();
+		turn_playOrDiscard =  new FormatToPattern(StringRes.getString("messaging.tooManyCardsHuman")).convert();
 		
 		event_ObjectUsed = new FormatToPattern(StringRes.getString("messaging.playerIsUsingObjCard")).convert();
 		event_Noise = new FormatToPattern(StringRes.getString("messaging.noise")).convert();
@@ -245,6 +248,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher askForNoisePos = turn_askForNoisePos.matcher(message);
 		Matcher turnEnd = turn_End.matcher(message);
 		Matcher askForLightsPos = turn_askForLightsPos.matcher(message);
+		Matcher discard = turn_discard.matcher(message);
+		Matcher playOrDiscard = turn_playOrDiscard.matcher(message);
 		
 		if (turnEnd.matches()) {
 			view.clearNoisesFromMap();
@@ -288,6 +293,16 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		}else if (whichobjectCard.matches()) {
 			LOG.finer("Server asked an object card");
 			view.relayObjectCard();
+			return true;
+			
+		} else if (discard.matches()) {
+			LOG.finer("Server asked to discard a card");
+			view.relayObjectCard();
+			return true;
+			
+		} else if (playOrDiscard.matches()) {
+			LOG.finer("Server asked to play or discard a card");
+			view.relayYesNoDialog(message, "play", "discard");
 			return true;
 			
 		} 

@@ -23,6 +23,8 @@ public interface UpdaterSwingToViewInterface {
 
 	public void relayYesNoDialog(String question);
 	
+	public void relayYesNoDialog(String question,String option1,String option2);
+	
 	public void notifyUser(String message);
 	
 	public void relayObjectCard();
