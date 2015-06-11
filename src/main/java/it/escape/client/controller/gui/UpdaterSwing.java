@@ -249,7 +249,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			model.getMyPlayerState().setLocation(turnStart.group(2));
 			model.finishedUpdating();
 			view.clearOtherPlayersFromMap();
-			view.focusOnLocation(model.getMyPlayerState().getLocation());
+			view.focusOnLocation(model.getMyPlayerState().getLocation(), 2000);
 			// we could do more (i.e. send a visual notification of some sort)
 			return true;
 			
@@ -314,7 +314,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			
 		} else if(eventNoise.matches()) {
 			view.addNoiseToMap(eventNoise.group(1));
-			view.focusOnLocation(eventNoise.group(1));
+			view.focusOnLocation(eventNoise.group(1), 0);
 			return true;
 			
 		} else if (eventDeath.matches()) {
@@ -329,7 +329,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		} else if (eventFoundPlr.matches()) {
 			if (!isMe(eventFoundPlr.group(1))) { // it's not me
 				view.addOtherPlayerToMap(eventFoundPlr.group(2), eventFoundPlr.group(1));
-				view.focusOnLocation(eventFoundPlr.group(2));
+				view.focusOnLocation(eventFoundPlr.group(2), 0);
 			}		
 			return true;
 		} else if (eventDefense.matches()) {
