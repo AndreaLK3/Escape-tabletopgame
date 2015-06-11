@@ -54,6 +54,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern event_PlayerLocated;
 	private Pattern event_Attack;
 	private Pattern event_Death;
+	private Pattern event_Defense;
 	private Pattern event_EndGame;
 	
 	private Pattern exception_1;
@@ -110,6 +111,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		event_Attack = new FormatToPattern(StringRes.getString("messaging.playerAttacking")).convert();
 		event_Death = new FormatToPattern(StringRes.getString("messaging.playerDied")).convert(); 
 		event_EndGame = new FormatToPattern(StringRes.getString("messaging.endOfTheGame")).convert();
+		event_Defense = new FormatToPattern(StringRes.getString("messaging.playerDefended")).convert();
 		
 		//These ones are necessary so that we can display the JInputDialog (ex, for the position) again.
 		//There will be a dialog that displays the exception message (whatever it is) and
@@ -291,6 +293,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher eventDeath = event_Death.matcher(message);
 		Matcher eventEndGame = event_EndGame.matcher(message);
 		Matcher eventFoundPlr = event_PlayerLocated.matcher(message);
+		Matcher eventDefense = event_Defense.matcher(message);
 		
 		if (eventObject.matches()) {
 			if (!isMe(eventObject.group(1))) { // it's not me
@@ -327,10 +330,11 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			if (!isMe(eventFoundPlr.group(1))) { // it's not me
 				view.addOtherPlayerToMap(eventFoundPlr.group(2), eventFoundPlr.group(1));
 				view.focusOnLocation(eventFoundPlr.group(2));
-			}
-			
+			}		
 			return true;
-		} 
+		} else if (eventDefense.matches()) {
+			view.notifyUser(message);
+		}
 		
 		return false;
 	}
