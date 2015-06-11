@@ -686,11 +686,12 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 
 	public void focusOnLocation(String coord) {
 		try {
-			int pos_x = CoordinatesConverter.fromAlphaNumToOddq(coord).getCol();
-			int pos_y = CoordinatesConverter.fromAlphaNumToOddq(coord).getCol();
+			int pos[] = ((MapViewer)label5_map).cellToPixels(CoordinatesConverter.fromAlphaNumToOddq(coord));
+			int correct_X = ((MapViewer)label5_map).getCellWidth() / 2;
+			int correct_Y = ((MapViewer)label5_map).getCellHeight() / 2;
 			int map_x = ((MapViewer)label5_map).getTotalWidth();
 			int map_y = ((MapViewer)label5_map).getTotalWidth();
-			scrollMap((double) pos_x / map_x, (double) pos_y / map_y);
+			scrollMap((double) (pos[0] + correct_X) / map_x, (double) (pos[1] + correct_Y) / map_y);
 		} catch (BadCoordinatesException e) {
 		}
 	}

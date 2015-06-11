@@ -296,7 +296,7 @@ public class MapViewer extends JLabel {
 	 * @param posCella
 	 * @return
 	 */
-	private int[] cellToPixels(Position2D posCella) {
+	public int[] cellToPixels(Position2D posCella) {
 		int ans[] = new int[2];
 		int size = cellWidth/2;
 		int row = posCella.getRow();
