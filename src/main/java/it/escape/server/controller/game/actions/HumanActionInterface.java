@@ -1,6 +1,6 @@
 package it.escape.server.controller.game.actions;
 
-public interface HumanActionInterface {
+public interface HumanActionInterface extends PlayerActionInterface {
 
 	public void setAdrenaline();
 	

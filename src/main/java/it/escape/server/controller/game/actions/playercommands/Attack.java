@@ -4,6 +4,7 @@ import it.escape.server.controller.Shorthand;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.PlayerActionInterface;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
+import it.escape.strings.StringRes;
 
 import java.util.List;
 
@@ -18,6 +19,8 @@ public class Attack {
 					p.die();
 					if (!p.isAlive()) {
 						Shorthand.announcer(currentPlayer).announceDeath(p);
+					} else {
+						Shorthand.announcer(currentPlayer).announce(StringRes.getString("messaging.playerDefended"));
 					}
 				}
 			}
