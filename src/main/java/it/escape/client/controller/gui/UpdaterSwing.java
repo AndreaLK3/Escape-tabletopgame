@@ -18,7 +18,6 @@ import java.util.regex.Pattern;
 
 /**
  * Updates the GUIModel and/or sends commands to the GUIView when a new network message arrives
- * TODO: add facilities to modify the local state (the model), when needed.
  * @author michele, andrea
  */
 public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterface {
@@ -61,6 +60,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern event_Death;
 	private Pattern event_Defense;
 	private Pattern event_EndGame;
+	private Pattern event_EndOfResults;
 	
 	private Pattern exception_1;
 	private Pattern exception_2;
@@ -122,6 +122,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		event_Death = new FormatToPattern(StringRes.getString("messaging.playerDied")).convert(); 
 		event_EndGame = new FormatToPattern(StringRes.getString("messaging.endOfTheGame")).convert();
 		event_Defense = new FormatToPattern(StringRes.getString("messaging.playerDefended")).convert();
+		event_EndOfResults = new FormatToPattern(StringRes.getString("messaging.endOfResults")).convert();
 		
 		//These ones are necessary so that we can display the JInputDialog (ex, for the position) again.
 		//There will be a dialog that displays the exception message (whatever it is) and
@@ -338,6 +339,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher eventEndGame = event_EndGame.matcher(message);
 		Matcher eventFoundPlr = event_PlayerLocated.matcher(message);
 		Matcher eventDefense = event_Defense.matcher(message);
+		Matcher endResults = event_EndOfResults.matcher(message);
 		
 		if (eventObject.matches()) {
 			if (!isMe(eventObject.group(1))) { // it's not me
@@ -372,6 +374,12 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			
 		} else if (eventEndGame.matches()) {
 			model.setGameStatus(GameStatus.FINISHED);
+			return true;
+			
+		} else if (endResults.matches()) {
+			// this is the end of the end (LOL)
+			// the final results dialog will be fired here
+			view.spawnVictoryRecap(model);
 			return true;
 			
 		} else if (eventFoundPlr.matches()) {

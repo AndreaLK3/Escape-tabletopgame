@@ -729,6 +729,21 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 						focusOnLocationInstantly(coord);
 					}}).start();
 	}
+
+	/**
+	 * Spawn a dialog / panel / whatever to show the results of the match
+	 * The dialog is spawned from inside the EDT, so that the application
+	 * won't instantly stop.
+	 * The model is passed as an argument
+	 */
+	public void spawnVictoryRecap(ModelForGUI model) {
+		EventQueue.invokeLater(
+			new Runnable() {
+				public void run() {
+					// TODO: do something
+				} 
+			});
+	}
 	
 	
 }

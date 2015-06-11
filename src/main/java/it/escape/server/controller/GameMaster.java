@@ -418,6 +418,8 @@ public class GameMaster implements Runnable {
 		} else {
 			vic.totalAlienWin();
 		}
+		
+		announcer.announceEndOfResults();
 	}
 	
 	private synchronized void closeConnections() {

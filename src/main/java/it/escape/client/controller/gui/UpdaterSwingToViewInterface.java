@@ -1,5 +1,7 @@
 package it.escape.client.controller.gui;
 
+import it.escape.client.model.ModelForGUI;
+
 /**
  * The updater will use this class to modify the view (swing)
  * @author michele
@@ -42,5 +44,7 @@ public interface UpdaterSwingToViewInterface {
 	public void clearOtherPlayersFromMap();
 	
 	public void focusOnLocation(String coord, int waitBefore);
+	
+	public void spawnVictoryRecap(ModelForGUI model);
 	
 }

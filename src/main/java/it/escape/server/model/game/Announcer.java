@@ -108,6 +108,11 @@ public class Announcer extends Observable {
 		announce(newmsg);
 	}
 	
+	public void announceEndOfResults() {
+		String newmsg = StringRes.getString("messaging.endOfResults");
+		announce(newmsg);
+	}
+	
 	public void announceTeamVictory(PlayerTeams team, List<Player> members) {
 		String newmsg = String.format(
 				StringRes.getString("messaging.winnerTeam"),
