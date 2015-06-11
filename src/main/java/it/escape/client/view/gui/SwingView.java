@@ -460,6 +460,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 									JOptionPane.showMessageDialog(null, "You have chosen the " + chosenObjectCard  + " card.");
 									relayRef.relayMessage(chosenObjectCard);	
 								}
+								chosenObjectCard = null;
 								doRelayObjectCard = false;
 							}
 							else {
