@@ -690,7 +690,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 			int correct_X = ((MapViewer)label5_map).getCellWidth() / 2;
 			int correct_Y = ((MapViewer)label5_map).getCellHeight() / 2;
 			int map_x = ((MapViewer)label5_map).getTotalWidth();
-			int map_y = ((MapViewer)label5_map).getTotalWidth();
+			int map_y = ((MapViewer)label5_map).getTotalHeight();
 			scrollMap((double) (pos[0] + correct_X) / map_x, (double) (pos[1] + correct_Y) / map_y);
 		} catch (BadCoordinatesException e) {
 		}
