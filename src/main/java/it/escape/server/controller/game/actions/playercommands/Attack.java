@@ -20,7 +20,7 @@ public class Attack {
 					if (!p.isAlive()) {
 						Shorthand.announcer(currentPlayer).announceDeath(p);
 					} else {
-						Shorthand.announcer(currentPlayer).announce(StringRes.getString("messaging.playerDefended"));
+						Shorthand.announcer(currentPlayer).announceDefense(myPos);
 					}
 				}
 			}
