@@ -243,10 +243,14 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			
 		} else if (winners.matches()) {
 			model.getVictoryStatus().addWinners(winners.group(1), winners.group(2));
+			model.finalRefreshPlayerStatus();
+			model.finishedUpdating();
 			return true;
 			
 		} else if (losers.matches()) {
 			model.getVictoryStatus().setTeamDefeated(losers.group(1));
+			model.finalRefreshPlayerStatus();
+			model.finishedUpdating();
 			return true;
 		} 
 		

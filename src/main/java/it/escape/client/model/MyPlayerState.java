@@ -1,6 +1,5 @@
 package it.escape.client.model;
 
-import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.strings.StringRes;
 
 import java.util.ArrayList;

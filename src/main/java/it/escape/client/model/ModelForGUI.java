@@ -118,6 +118,23 @@ public class ModelForGUI extends Observable {
 	}
 	
 	/**
+	 * To be called after the end of the game.
+	 * Update the player statuses so that they reflect
+	 * the data stored in victoryStatus
+	 */
+	public void finalRefreshPlayerStatus() {
+		List<String> alienWinners = victoryStatus.getAlienWinners();
+		List<String> humanWinners = victoryStatus.getHumanWinners();
+		for (PlayerState p : playerStates) {
+			if (alienWinners.contains(p.getMyName()) || humanWinners.contains(p.getMyName())) {
+				p.setMyStatus(CurrentPlayerStatus.WINNER);
+			} else {
+				p.setMyStatus(CurrentPlayerStatus.LOSER);
+			}
+		}
+	}
+	
+	/**
 	 * The controller should access model data using the getters,
 	 * modify said data using the setters, and only then call finishedUpdating()
 	 * which will trigger the observer notify mechanism
