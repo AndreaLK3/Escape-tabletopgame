@@ -232,7 +232,7 @@ public class UserMessagesReporter {
 	public String ioGetCardKey(String cardNames[]) {
 		interfaceWithUser.writeToClient(StringRes.getString("messaging.ownedCards"));
 		for (int i=0; i<cardNames.length ; i++) {
-			interfaceWithUser.writeToClient(cardNames[i]);
+			interfaceWithUser.writeToClient("\t"+cardNames[i]);
 		}
 		interfaceWithUser.setDefaultOption("none");
 		interfaceWithUser.setContext(Arrays.asList("attack","defense","teleport", "lights", "sedatives", "adrenaline"));

@@ -76,7 +76,7 @@ public class Announcer extends Observable {
 	public void announceDefense(PositionCubic position) {
 		String msg = String.format(StringRes.getString("messaging.playerDefended"), 
 				CoordinatesConverter.fromCubicToAlphaNum(position));
-		
+		announce(msg);
 	}
 	
 	public void announce(String message) {
