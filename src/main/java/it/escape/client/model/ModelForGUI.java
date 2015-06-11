@@ -14,12 +14,15 @@ public class ModelForGUI extends Observable {
 	
 	private GameStatus gameStatus;
 	
+	private VictoryStatus victoryStatus;
+	
 	private int turnNumber;
 
 	public ModelForGUI() {
 		super();
 		playerStates = new ArrayList<PlayerState>();
 		myPlayerState = new MyPlayerState();
+		victoryStatus = new VictoryStatus();
 		nowPlaying = null;
 		setTurnNumber(0);
 		setGameStatus(GameStatus.WAITING_FOR_PLAYERS);
@@ -142,6 +145,10 @@ public class ModelForGUI extends Observable {
 
 	public PlayerState getNowPlaying() {
 		return nowPlaying;
+	}
+
+	public VictoryStatus getVictoryStatus() {
+		return victoryStatus;
 	}
 	
 }

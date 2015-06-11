@@ -43,6 +43,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern info_whoIAm;
 	private Pattern info_whereIAm;
 	private Pattern info_discardedCard;
+	private Pattern info_teamWinners;
+	private Pattern info_teamDefeated;
 	
 	private Pattern turn_askForAttack;
 	private Pattern turn_askForNoisePos;
@@ -101,6 +103,9 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		info_whoIAm = new FormatToPattern(StringRes.getString("messaging.whoYouAre")).convert();
 		info_whereIAm = new FormatToPattern(StringRes.getString("messaging.hereYouAre")).convert();
 		info_discardedCard = new FormatToPattern(StringRes.getString("messaging.discardedCard")).convert();
+		info_teamWinners = new FormatToPattern(StringRes.getString("messaging.winnerTeam")).convert();
+		info_teamDefeated = new FormatToPattern(StringRes.getString("messaging.loserTeam")).convert();
+		
 		
 		turn_askForObject = new FormatToPattern(StringRes.getString("messaging.askPlayObjectCard")).convert();
 		turn_askForAttack = new FormatToPattern(StringRes.getString("messaging.askIfAttack")).convert();
@@ -180,6 +185,9 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher playerDisconnected = info_playerDisconnected.matcher(message);
 		Matcher playerConnected = info_playerConnected.matcher(message);
 		
+		Matcher winners = info_teamWinners.matcher(message);
+		Matcher losers = info_teamDefeated.matcher(message);
+		
 		if (currentTurnAndPlayer.matches()) {
 			LOG.finer("Someone's turn");
 			view.setTurnStatusString(currentTurnAndPlayer.group(2) + " is playing");
@@ -232,7 +240,15 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			model.getMyPlayerState().removeCard(discardedCard.group(1));
 			model.finishedUpdating();
 			return true;
-		}
+			
+		} else if (winners.matches()) {
+			model.getVictoryStatus().addWinners(winners.group(1), winners.group(2));
+			return true;
+			
+		} else if (losers.matches()) {
+			model.getVictoryStatus().setTeamDefeated(losers.group(1));
+			return true;
+		} 
 		
 		return false;
 	}
