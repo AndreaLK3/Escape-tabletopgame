@@ -25,14 +25,15 @@ public class PlayerState {
 	}
 	
 	public PlayerState(String myName) {
-		super();
 		this.myName = myName;
+		myStatus = CurrentPlayerStatus.DISCONNECTED;
+		lastNoiseLocation = noNoise;
 	}
 	
 	public PlayerState(String myName, CurrentPlayerStatus status) {
 		this.myName = myName;
 		myStatus = status;
-		lastNoiseLocation = noNoise;
+		//lastNoiseLocation = noNoise;
 	}
 	
 	public PlayerState(String myName, String noiseLocation) {

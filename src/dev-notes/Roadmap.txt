@@ -3,13 +3,13 @@ Current tasks:
 1) Problema Server-side: l'automaticOverride non funziona come dovrebbe. Prova a far giocare 2 giocatori quasi completamente inattivi, 
 e spesso dopo 1 singolo override non riesce a fare i successivi.
 
+2)GUI - Gestione di : 
+	Eliminazione 
+	Risultati finali
+	Disconnessione
+Quando la partita finisce, la GUI scompare di colpo... perchè si disconnette?
 
-2)GUI - Gestione dei risultati finali e della disconnessione
-Quando un giocatore che usa la Swing GUI viene eliminato e la partita finisce, la GUI scompare di colpo... perchè si disconnette?
 
-3) La segnalazione di quando un Giocatore si è difeso.
-	Nella GUI questa cosa non si vede, devo controllare se il messaggio c'è già in CLI, e se sì aggiungere un avviso.
-^^^^Quasi fatto
 
 
 __________________________________________________________
@@ -43,6 +43,10 @@ Notes about other tasks:
 (MM):
 Al momento le carte usate / scartate non vengono rimosse dall' ObjectCardsPanel
 (AL):Risolto
+
+La segnalazione di quando un Giocatore si è difeso.
+Nella GUI questa cosa non si vede, devo controllare se il messaggio c'è già in CLI, e se sì aggiungere un avviso.
+^^^^Fatto
 
 
 3)Problema del GameMaster: 

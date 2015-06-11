@@ -164,7 +164,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 		label3 = new JLabel("Status");
 		label3.setBackground(new Color(200, 100, 20));
 		
-		label4 = new JLabel("LastKnownAction");
+		label4 = new JLabel("LastKnownNoiseLocation");
 		label4.setBackground(new Color(50, 100, 200));
 		panel = createRowPanel(Arrays.asList(label2, label3, label4));
 		addSidePanel(panel);
@@ -399,7 +399,6 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
    	
 	/**This method receives an array of components and places them in a JPanel, 
 	 * using a GridBagLayout that places all components in the same row. 
-	 * Overloaded version works with an Array.
 	 * @param List<JComponent> components
 	 */
 	private JPanel createRowPanel(List<? extends JComponent> components) {
