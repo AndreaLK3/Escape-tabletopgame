@@ -112,7 +112,7 @@ public class Announcer extends Observable {
 		String newmsg = String.format(
 				StringRes.getString("messaging.winnerTeam"),
 				team.toString(),
-				new JoinPlayerList(members).join(", "));
+				new JoinPlayerList(members).join(StringRes.getString("messaging.playerListSeparator")));
 		announce(newmsg);
 	}
 	
