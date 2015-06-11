@@ -1,7 +1,8 @@
 Current tasks:
 
-(MM):
-1)Al momento le carte usate / scartate non vengono rimosse dall' ObjectCardsPanel
+1) Problema Server-side: l'automaticOverride non funziona come dovrebbe. Prova a far giocare 2 giocatori quasi completamente inattivi, 
+e spesso dopo 1 singolo override non riesce a fare i successivi.
+
 
 2)GUI - Gestione dei risultati finali e della disconnessione
 Quando un giocatore che usa la Swing GUI viene eliminato e la partita finisce, la GUI scompare di colpo... perchè si disconnette?
@@ -37,6 +38,11 @@ Per la maggior parte risolte.
 
 __________________________________________________________
 Notes about other tasks:
+
+(MM):
+Al momento le carte usate / scartate non vengono rimosse dall' ObjectCardsPanel
+(AL):Risolto
+
 
 3)Problema del GameMaster: 
 Tentando di riconnettersi a una nuova partita quando la precedente è stata completata, il numero del Players non va a 1 ma a 0.
