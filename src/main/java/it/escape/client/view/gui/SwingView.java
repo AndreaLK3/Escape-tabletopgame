@@ -198,6 +198,18 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 		
 	}
 	
+	private void focusOnLocationInstantly(String coord) {
+		try {
+			int pos[] = ((MapViewer)label5_map).cellToPixels(CoordinatesConverter.fromAlphaNumToOddq(coord));
+			int correct_X = ((MapViewer)label5_map).getCellWidth() / 2;
+			int correct_Y = ((MapViewer)label5_map).getCellHeight() / 2;
+			int map_x = ((MapViewer)label5_map).getTotalWidth();
+			int map_y = ((MapViewer)label5_map).getTotalHeight();
+			scrollMap((double) (pos[0] + correct_X) / map_x, (double) (pos[1] + correct_Y) / map_y);
+		} catch (BadCoordinatesException e) {
+		}
+	}
+	
 	/** Creation method: the map, on the upper right part of the screen*/
 	private void initializeMap() {
 
@@ -683,17 +695,16 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	public void clearOtherPlayersFromMap() {
 		((MapViewer)label5_map).clearOtherPlayerMarkers();
 	}
-
-	public void focusOnLocation(String coord) {
-		try {
-			int pos[] = ((MapViewer)label5_map).cellToPixels(CoordinatesConverter.fromAlphaNumToOddq(coord));
-			int correct_X = ((MapViewer)label5_map).getCellWidth() / 2;
-			int correct_Y = ((MapViewer)label5_map).getCellHeight() / 2;
-			int map_x = ((MapViewer)label5_map).getTotalWidth();
-			int map_y = ((MapViewer)label5_map).getTotalHeight();
-			scrollMap((double) (pos[0] + correct_X) / map_x, (double) (pos[1] + correct_Y) / map_y);
-		} catch (BadCoordinatesException e) {
-		}
+	public void focusOnLocation(final String coord, final int waitBefore) {
+		new Thread(
+				new Runnable() {
+					public void run() {
+						try {
+							Thread.sleep(waitBefore);
+						} catch (InterruptedException e) {
+						}
+						focusOnLocationInstantly(coord);
+					}}).start();
 	}
 	
 	
