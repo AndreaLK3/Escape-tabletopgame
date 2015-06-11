@@ -11,7 +11,9 @@ import it.escape.client.model.GameStatus;
 import it.escape.client.model.ModelForGUI;
 import it.escape.client.model.PlayerState;
 import it.escape.client.view.gui.maplabel.MapViewer;
+import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
+import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.strings.StringRes;
 import it.escape.utils.FilesHelper;
 
@@ -680,6 +682,17 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	}
 	public void clearOtherPlayersFromMap() {
 		((MapViewer)label5_map).clearOtherPlayerMarkers();
+	}
+
+	public void focusOnLocation(String coord) {
+		try {
+			int pos_x = CoordinatesConverter.fromAlphaNumToOddq(coord).getCol();
+			int pos_y = CoordinatesConverter.fromAlphaNumToOddq(coord).getCol();
+			int map_x = ((MapViewer)label5_map).getTotalWidth();
+			int map_y = ((MapViewer)label5_map).getTotalWidth();
+			scrollMap((double) pos_x / map_x, (double) pos_y / map_y);
+		} catch (BadCoordinatesException e) {
+		}
 	}
 	
 	
