@@ -22,6 +22,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -142,10 +143,12 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 		JPanel panel = new JPanel();
 		
 		label0_gameStatus = new JLabel("Game Status:");
+		label0_gameStatus.setHorizontalAlignment(SwingConstants.RIGHT);
 		gameStatusField = new JTextField(GameStatus.WAITING_FOR_PLAYERS.toString());
 		gameStatusField.setEditable(false);
 		
 		label1_turnNumber = new JLabel("Turn Number:");
+		label1_turnNumber.setHorizontalAlignment(SwingConstants.RIGHT);
 		turnNumberField = new JTextField("0");
 		turnNumberField.setEditable(false);
 		
@@ -159,13 +162,17 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	
 	    
 		label2 = new JLabel("Players");
-		label2.setBackground(new Color(200, 100, 200));
+		label2.setBackground(new Color(150, 130, 230));
+		label2.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		label3 = new JLabel("Status");
-		label3.setBackground(new Color(200, 100, 20));
+		label3.setBackground(new Color(110, 220, 220));
+		label3.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		label4 = new JLabel("LastKnownNoiseLocation");
+		
+		label4 = new JLabel("LastLocation");
 		label4.setBackground(new Color(50, 100, 200));
+		label4.setHorizontalAlignment(SwingConstants.CENTER);
 		panel = createRowPanel(Arrays.asList(label2, label3, label4));
 		addSidePanel(panel);
 	
@@ -253,13 +260,16 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
    		JPanel panel = new JPanel();
    		
 		label6 = new JLabel("MyName");
-		label6.setBackground(new Color(20, 100, 20));
+		label6.setHorizontalAlignment(SwingConstants.CENTER);
+		label6.setBackground(new Color(150, 200, 240));
 		
 		label7 = new JLabel("Status");
-		label7.setBackground(new Color(200, 100, 20));
+		label7.setHorizontalAlignment(SwingConstants.CENTER);
+		label7.setBackground(new Color(180, 130, 240));;
 		
 		label8 = new JLabel("Team");
-		label8.setBackground(new Color(50, 100, 200));
+		label8.setHorizontalAlignment(SwingConstants.CENTER);
+		label8.setBackground(new Color(150, 150, 220));
 		panel = createRowPanel(Arrays.asList(label6, label7, label8));
 		addSidePanel(panel);
 		
@@ -401,6 +411,22 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	 * using a GridBagLayout that places all components in the same row. 
 	 * @param List<JComponent> components
 	 */
+	/*private JPanel createRowPanel(List<? extends JComponent> components) {
+		int column=0;
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		for (JComponent c : components) {
+			constraints.gridx=column;
+			constraints.gridy=0;
+			constraints.weightx = 1;
+			panel.add(c, constraints);
+			column++;
+			resetConstraints(constraints);
+		}
+		return panel;
+	}*/
+	
+	
 	private JPanel createRowPanel(List<? extends JComponent> components) {
 		int column=0;
 		JPanel panel = new JPanel();
@@ -415,6 +441,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 		}
 		return panel;
 	}
+	
 	
 	/**
 	 * Reset a set of GridBagConstraints to a generic state.

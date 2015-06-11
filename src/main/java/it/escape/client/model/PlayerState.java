@@ -25,24 +25,27 @@ public class PlayerState {
 	}
 	
 	public PlayerState(String myName) {
-		this.myName = myName;
+		setMyName(myName);
 		myStatus = CurrentPlayerStatus.DISCONNECTED;
 		lastNoiseLocation = noNoise;
 	}
 	
 	public PlayerState(String myName, CurrentPlayerStatus status) {
-		this.myName = myName;
+		setMyName(myName);
 		myStatus = status;
 		//lastNoiseLocation = noNoise;
 	}
 	
 	public PlayerState(String myName, String noiseLocation) {
-		this.myName = myName;
+		setMyName(myName);
 		myStatus = CurrentPlayerStatus.ALIVE;  // if he makes a noise, then he must be alive!
 		lastNoiseLocation = noiseLocation;
 	}
 	
 	public void setMyName(String name) {
+		if(name==null || name.length()>30) {
+			name = "Unknown"; 
+		}
 		myName = name;
 	}
 	
