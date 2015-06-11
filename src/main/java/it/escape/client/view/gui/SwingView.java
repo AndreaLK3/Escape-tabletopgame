@@ -673,14 +673,14 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 		new Thread(
 			new Runnable() {
 				public void run() {
-					String options[] = {"option1, option2"};
+					String options[] = {option1, option2};
 					int n = JOptionPane.showOptionDialog
 							(null, question, null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);				
 					if (n==JOptionPane.YES_OPTION) {
-						relayRef.relayMessage("option1");
+						relayRef.relayMessage(option1);
 					}
 					else {
-						relayRef.relayMessage("option2");
+						relayRef.relayMessage(option2);
 					}
 				}}).start();
 		
