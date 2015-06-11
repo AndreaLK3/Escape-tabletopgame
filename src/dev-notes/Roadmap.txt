@@ -9,6 +9,7 @@ Quando un giocatore che usa la Swing GUI viene eliminato e la partita finisce, l
 
 3) La segnalazione di quando un Giocatore si è difeso.
 	Nella GUI questa cosa non si vede, devo controllare se il messaggio c'è già in CLI, e se sì aggiungere un avviso.
+^^^^Quasi fatto
 
 
 __________________________________________________________

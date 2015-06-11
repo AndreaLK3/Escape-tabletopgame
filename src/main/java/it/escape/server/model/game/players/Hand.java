@@ -17,7 +17,7 @@ public class Hand {
 	
 	
 	public List<ObjectCard> getHandOfCards() {
-		return handOfCards;
+		return new ArrayList<ObjectCard>(handOfCards);
 	}
 
 	/**Constructor**/
@@ -50,6 +50,14 @@ public class Hand {
 		}
 		else
 			return null;
+	}
+	
+	public String[] getAllCardNames() {
+		String [] cardNames = new String[MAXOBJECTS+1];
+		for(int i=0; i<handOfCards.size() ; i++) {
+			cardNames[i] = getCardName(i);
+		}
+		return cardNames;
 	}
 	
 	/** 

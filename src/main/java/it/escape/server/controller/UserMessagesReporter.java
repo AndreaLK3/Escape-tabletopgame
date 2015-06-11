@@ -103,7 +103,6 @@ public class UserMessagesReporter {
 			automaticOverriding = false;
 		}
 	}
-	
 	/**
 	 * Frequently used code
 	 * @param position
