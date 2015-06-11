@@ -3,6 +3,7 @@ Current tasks:
 (AL):
 1) Problema Server-side: l'automaticOverride non funziona come dovrebbe. Prova a far giocare su Client-testo 2 giocatori quasi completamente inattivi, 
 e spesso dopo 1 singolo override non riesce a fare i successivi.
+^^^^^ (MM): non sono riuscito a riprodurlo ora, ma ammetto che ogni tanto accadono "cose"
 
 2)GUI - Gestione di : 
 	Eliminazione 
@@ -10,10 +11,11 @@ e spesso dopo 1 singolo override non riesce a fare i successivi.
 	Disconnessione
 Un giocatore che viene eliminato ha la finestra GUI che scompare, perchè viene disconnesso; 
 A fine partita, gli altri restano con la finestra aperta[Questo è ok], lo status ALIVE [Cambiare a WINNER],
-e nessuna indicazione dei risultati finali [aggiungere pattern... multipli pattern per produrre un solo Dialog?] 
+e nessuna indicazione dei risultati finali [aggiungere pattern... multipli pattern per produrre un solo Dialog?]
+^^^^^ (MM): aggiunto al model un contenitore dei dati di vittoria / sconfitta
 
 3) Problemino con la GUI: non chiede all'utente umano PlayCardOrDiscard, anche se ho scritto buona parte del codice e in teoria dovrebbe funzionare.
-
+^^^^^ (MM): credo sia risolto, un paio di "" messe dove non dovevano
 
 
 
