@@ -408,36 +408,14 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	
    	
 	/**This method receives an array of components and places them in a JPanel, 
-	 * using a GridBagLayout that places all components in the same row. 
-	 * @param List<JComponent> components
-	 */
-	/*private JPanel createRowPanel(List<? extends JComponent> components) {
-		int column=0;
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridBagLayout());
-		for (JComponent c : components) {
-			constraints.gridx=column;
-			constraints.gridy=0;
-			constraints.weightx = 1;
-			panel.add(c, constraints);
-			column++;
-			resetConstraints(constraints);
-		}
-		return panel;
-	}*/
-	
-	
+	 * using a GridLayout that places all components in the same row, filling the row and giving them the same space. 
+	 * @param List<JComponent> components	 */
 	private JPanel createRowPanel(List<? extends JComponent> components) {
 		int column=0;
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridBagLayout());
+		panel.setLayout(new GridLayout());
 		for (JComponent c : components) {
-			constraints.gridx=column;
-			constraints.gridy=0;
-			constraints.weightx = 1;
-			panel.add(c, constraints);
-			column++;
-			resetConstraints(constraints);
+			panel.add(c);
 		}
 		return panel;
 	}

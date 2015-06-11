@@ -25,34 +25,21 @@ public class PlayerPanel extends JPanel {
 		playerArea = new JTextArea();
 		playerArea.setEditable(false);
 		playerArea.setText("Unknown");
-		/*constraints.gridx=0;
-		constraints.weightx=1;
-		this.add(playerArea, constraints);*/
 		this.add(playerArea);
 		
 		statusArea = new JTextArea();
 		statusArea.setEditable(false);
 		statusArea.setText("Unknown");
-		/*constraints.gridx=1;
-		constraints.weightx=1;
-		this.add(statusArea, constraints);*/
 		this.add(statusArea);
 		
 		lastKnownActionArea = new JTextArea();
 		lastKnownActionArea.setEditable(false);
 		lastKnownActionArea.setText("Unknown");
-		/*constraints.gridx=2;
-		constraints.weightx=1;
-		this.add(lastKnownActionArea, constraints);*/
 		this.add(lastKnownActionArea);
 	}
 	
 	
-	/*private void setAreaWidth(JTextArea area,int minWidth, int maxWidth) {
-		area.setMinimumSize(new Dimension(minWidth, area.getHeight()));
-		area.setMaximumSize(new Dimension(maxWidth, area.getHeight()));
-	}*/
-	
+
 	//Update methods for the text areas
 	public void updatePlayerArea (String s) {
 		playerArea.setText(s);
