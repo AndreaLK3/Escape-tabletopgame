@@ -6,7 +6,6 @@ import it.escape.strings.StringRes;
  * Name, Status, LastNoiseLocation of a Player.
  * It is updated by the UpdaterSwing in the Controller, 
  * according to the messages the Server sends.
- * POSSIBLE IMPLEMENTATION: The view observes this class and updates the Swing view.
  */
 public class PlayerState {
 	
@@ -20,15 +19,14 @@ public class PlayerState {
 	protected static final String noNoise = StringRes.getString("client.applogic.unknownCoordinates");
 
 	public PlayerState() {
-		myName = "Unknown";
+		this.myName = "Unknown";
 		myStatus = CurrentPlayerStatus.DISCONNECTED;
 		lastNoiseLocation = noNoise;
 	}
 	
 	public PlayerState(String myName) {
+		super();
 		this.myName = myName;
-		myStatus = CurrentPlayerStatus.CONNECTED;
-		lastNoiseLocation = noNoise;
 	}
 	
 	public PlayerState(String myName, CurrentPlayerStatus status) {
