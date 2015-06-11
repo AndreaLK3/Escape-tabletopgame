@@ -25,10 +25,10 @@ public class TurnHandlerHuman extends TurnHandler {
 		this.currentPlayer=(Human)currentPlayer;
 	}
 	
-	private void playObjectCard() {
+	private void playObjectCard(String defaultChoice) {
 		do {
 			try {
-				String key = reporter.askWhichObjectCard("none");
+				String key = reporter.askWhichObjectCard(defaultChoice);
 				if (key.equals("none")) {  // only used by the override mechanism
 					return;
 				}
@@ -102,7 +102,7 @@ public class TurnHandlerHuman extends TurnHandler {
 	public void turnBeforeMove() {
 		if (currentPlayer.hasPlayableCards()) {
 			if (reporter.askIfObjectCard(StringRes.getString("messaging.askPlayObjCardBeforeMove"))) {
-				playObjectCard();
+				playObjectCard("none");
 			}
 		}
 	}
@@ -134,15 +134,15 @@ public class TurnHandlerHuman extends TurnHandler {
 		if (currentPlayer.getMyHand().isOverFull()) {  // too many cards in my hand
 			reporter.relayMessage(StringRes.getString("messaging.tooManyCards"));
 			if (reporter.askPlayCardOrDiscard()) {  // user chose "play"
-				playObjectCard();
+				playObjectCard(currentPlayer.getMyHand().getCardName(0));
 			} else {  // user chose "discard"
-				discardObjectCard();
+				super.discardObjectCard();
 			}
 		}
 		else {  // normal circumstances
 			if (currentPlayer.hasPlayableCards()) {
 				if (reporter.askIfObjectCard(StringRes.getString("messaging.askPlayObjCardBeforeMove"))) {
-					playObjectCard();
+					playObjectCard("none");
 				}
 			}
 		}

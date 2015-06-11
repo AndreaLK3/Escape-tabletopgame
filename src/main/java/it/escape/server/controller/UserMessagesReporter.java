@@ -163,7 +163,6 @@ public class UserMessagesReporter {
 			log.finer("automaticOverriding: return false");
 			return false;
 		} else {
-			interfaceWithUser.writeToClient(StringRes.getString("messaging.tooManyCards"));
 			String answer = ioGetBinaryChoice(defaultChoice,"play","discard").toLowerCase();
 			if (answer.equals("yes")) {
 				return true;

@@ -42,6 +42,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern info_drawnObjectCard;
 	private Pattern info_whoIAm;
 	private Pattern info_whereIAm;
+	private Pattern info_discardedCard;
 	
 	private Pattern turn_askForAttack;
 	private Pattern turn_askForNoisePos;
@@ -97,6 +98,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		info_playerRenamed  = new FormatToPattern(StringRes.getString("messaging.announceRename")).convert();
 		info_whoIAm = new FormatToPattern(StringRes.getString("messaging.whoYouAre")).convert();
 		info_whereIAm = new FormatToPattern(StringRes.getString("messaging.hereYouAre")).convert();
+		info_discardedCard = new FormatToPattern(StringRes.getString("messaging.discardedCard")).convert();
 		
 		turn_askForObject = new FormatToPattern(StringRes.getString("messaging.askPlayObjectCard")).convert();
 		turn_askForAttack = new FormatToPattern(StringRes.getString("messaging.askIfAttack")).convert();
@@ -170,6 +172,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher myTeam = info_yourTeam.matcher(message);
 		Matcher myPosition = info_whereIAm.matcher(message);
 		Matcher drawncard = info_drawnObjectCard.matcher(message);
+		Matcher discardedCard = info_discardedCard.matcher(message);
 		
 		Matcher playerDisconnected = info_playerDisconnected.matcher(message);
 		Matcher playerConnected = info_playerConnected.matcher(message);
@@ -220,6 +223,12 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		} else if (playerDisconnected.matches()) {
 			model.getSpecificPlayerState(playerDisconnected.group(1)).setMyStatus(CurrentPlayerStatus.DISCONNECTED);
 			model.finishedUpdating();
+			return true;
+			
+		} else if (discardedCard.matches()) {
+			model.getMyPlayerState().removeCard(discardedCard.group(1));
+			model.finishedUpdating();
+			return true;
 		}
 		
 		return false;

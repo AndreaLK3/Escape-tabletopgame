@@ -87,10 +87,11 @@ public abstract class TurnHandler {
 	}
 	
 	protected void discardObjectCard() {
+		String key=null;
 		do {
 			try {
 				String defaultCardName = currentPlayer.getMyHand().getCardName(0);
-				String key = reporter.askWhichObjectCard(defaultCardName);
+				key = reporter.askWhichObjectCard(defaultCardName);
 				objectCard = currentPlayer.drawCard(key);  // card is removed from the player's hand	
 				endObjectCard = true;
 				
@@ -99,6 +100,7 @@ public abstract class TurnHandler {
 				endObjectCard = false;
 			}
 		} while (!endObjectCard);
+		reporter.relayMessage(String.format(StringRes.getString("messaging.discardedCard"),key));
 	}
 	
 	/**
