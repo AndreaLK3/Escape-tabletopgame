@@ -681,6 +681,11 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	public void clearOtherPlayersFromMap() {
 		((MapViewer)label5_map).clearOtherPlayerMarkers();
 	}
+
+
+	public void focusOnLocation(String coord) {
+		
+	}
 	
 	
 }

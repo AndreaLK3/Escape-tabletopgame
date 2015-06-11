@@ -39,4 +39,6 @@ public interface UpdaterSwingToViewInterface {
 	
 	public void clearOtherPlayersFromMap();
 	
+	public void focusOnLocation(String coord);
+	
 }
