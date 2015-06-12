@@ -68,6 +68,7 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 	 */
 	public void disconnected() {
 		label_serverStatus.setIcon(new ImageIcon(ImageScaler.resizeImage("resources/artwork/misc/wrong.png", CONN_ICON_SIZE, CONN_ICON_SIZE)));
+		label_serverStatus.setToolTipText("Closed by remote");
 	}
    	
 	/**

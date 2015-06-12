@@ -44,7 +44,8 @@ import javax.swing.SwingConstants;
  * Note: this class does actually carry on small 'active' roles, which are
  * Very closely aggregated to it and should not be moved elsewhere:
  * 1) Showing the object-cards display/choose dialog
- * 2) Attaching the relay to said cards-dialog and to the chat textfield
+ * 2) Handling a click on the disconnect button
+ * 3) Attaching the relay to said cards-dialog, and to the chat textfield
  * 
  * The class is made abstract, because it's useless on its own and should not be
  * directly instantiated
@@ -83,6 +84,8 @@ public abstract class DumbSwingView extends JFrame {
 	protected JTextField chatField;
 	protected JTextArea chatArea;
 	protected JButton showCardsButton;
+	
+	protected JButton buttonDisconnect;
 	
 	protected ObjectCardsPanel objectCardsPanel;
 	protected String chosenObjectCard;
@@ -125,7 +128,7 @@ public abstract class DumbSwingView extends JFrame {
    		
    		objectCardsPanel = new ObjectCardsPanel();
    		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-   		setSize(800, 600);
+   		setSize(950, 600);
 		setVisible(true);
    	}
    	
@@ -134,8 +137,12 @@ public abstract class DumbSwingView extends JFrame {
 		
 		JPanel panel = new JPanel();
 		
+		buttonDisconnect = new JButton("Disconnect");
+		buttonDisconnect.addActionListener(new ActionDisconnectButton());
+		
 		label_serverStatus = new JLabel(new ImageIcon(ImageScaler.resizeImage("resources/artwork/misc/check.png", CONN_ICON_SIZE, CONN_ICON_SIZE)));
 		label_serverStatus.setText("Connection: ");
+		label_serverStatus.setToolTipText("Online");
 		label_serverStatus.setHorizontalTextPosition(JLabel.LEFT);
 		label_serverStatus.setVerticalTextPosition(JLabel.CENTER);
 		
@@ -149,7 +156,7 @@ public abstract class DumbSwingView extends JFrame {
 		turnNumberField = new JTextField("0");
 		turnNumberField.setEditable(false);
 		
-		panel = createRowPanel(Arrays.asList(label_serverStatus, label0_gameStatus, gameStatusField, label1_turnNumber, turnNumberField));
+		panel = createRowPanel(Arrays.asList(buttonDisconnect, label_serverStatus, label0_gameStatus, gameStatusField, label1_turnNumber, turnNumberField));
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.gridx = 0;
 		constraints.gridy = 0;
@@ -447,6 +454,16 @@ public abstract class DumbSwingView extends JFrame {
 						}).start();
 			}
 		}
+	}
+	
+	private class ActionDisconnectButton implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			relayRef.disconnectNow();
+			label_serverStatus.setIcon(new ImageIcon(ImageScaler.resizeImage("resources/artwork/misc/stop.png", CONN_ICON_SIZE, CONN_ICON_SIZE)));
+			label_serverStatus.setToolTipText("Closed by user");
+		}
+
 	}
 
 }
