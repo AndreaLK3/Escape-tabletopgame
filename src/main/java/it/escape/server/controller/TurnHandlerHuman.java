@@ -146,6 +146,7 @@ public class TurnHandlerHuman extends TurnHandler {
 			}
 			else {	//I can't play any of the cards I own. I will have to discard some attack/defense
 				reporter.relayMessage(StringRes.getString("messaging.tooManyCardsAlien"));
+				super.discardObjectCard();
 			}
 		}
 		else {  // normal circumstances
