@@ -1,7 +1,5 @@
 package it.escape.client.view.gui;
 
-import it.escape.client.ClientInitializerGUI;
-import it.escape.client.controller.MessageCarrier;
 import it.escape.client.controller.Relay;
 import it.escape.client.controller.gui.ActionSendChat;
 import it.escape.client.controller.gui.ClickSendPositionListener;
@@ -14,7 +12,6 @@ import it.escape.client.view.gui.maplabel.MapViewer;
 import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
-import it.escape.strings.StringRes;
 import it.escape.utils.FilesHelper;
 
 import java.awt.Color;
@@ -30,6 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -43,8 +41,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
-import sun.misc.Lock;
 
 /**This class contains the Frame that is displayed for the Client that uses the GUI.
  * Responsibilities:
@@ -496,11 +492,8 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	
    	
    	public static void synchronousLaunch(final BindUpdaterInterface updater, final Relay relay, final Observable model) {
-   		final Lock l = new Lock();
-   		try {
-			l.lock();  // (1) set mutex once, so that the program flow will stop at (2)
-		} catch (InterruptedException e1) {
-		}
+   		final ReentrantLock l = new ReentrantLock();
+   		l.lock();  // (1) set mutex once, so that the program flow will stop at (2)
    		
 		EventQueue.invokeLater(
 				new Runnable() {
@@ -510,10 +503,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 					}
 				}
 		);
-		try {
-			l.lock();  // (2) try again setting the mutex, but it must be unlocked first
-		} catch (InterruptedException e) {
-		}
+		l.lock();  // (2) try again setting the mutex, but it must be unlocked first
 		
 		}
    	
