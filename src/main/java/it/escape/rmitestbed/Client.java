@@ -15,7 +15,10 @@ public class Client implements ClientRemote {
 	public Client() throws RemoteException {
         super();
     }
-
+	
+	/**
+	 * method called by the server
+	 */
 	public void askQuestion(String message) throws RemoteException {
 		System.out.println("Server asks: " + message);
 	}

@@ -10,17 +10,27 @@ public class Server implements ServerRemote {
 	
 	private ClientRemote client;
 
+	/**
+	 * method called by the client
+	 */
 	public void registerClient(ClientRemote client) throws RemoteException {
-		System.out.println("Clients registered");
+		System.out.println("Client registered");
 		this.client = client;
 		callBackMaybe();
 		client.harakiri();
 	}
-
+	
+	/**
+	 * method called by the client
+	 */
 	public void sendAnswer(String answer) throws RemoteException {
-		System.out.println("Clients says: " + answer);
+		System.out.println("Client says: " + answer);
 	}
 	
+	/**
+	 * Call a remote method in the client, even though technically
+	 * *we* are the server
+	 */
 	private void callBackMaybe() {
 		try {
 			client.askQuestion("What is the meaning of life?");
