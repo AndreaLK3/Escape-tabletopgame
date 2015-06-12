@@ -382,6 +382,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		} else if (endResults.matches()) {
 			// this is the end of the end (LOL)
 			// the final results dialog will be fired here
+			LOG.finer("Server sent results, printing recap screen");
 			view.spawnVictoryRecap(model);
 			return true;
 			
