@@ -177,6 +177,7 @@ public class UserMessagesReporter {
 	 * the cards in her possession.
 	 * @return string representing the chosen card	 */
 	public String askWhichObjectCard(String defaultCard) {
+		log.finer("Server is asking which object card the user intends to play/discard");
 		String defaultChoice = defaultCard;
 		
 		if (automaticOverriding) {
@@ -185,7 +186,7 @@ public class UserMessagesReporter {
 		} else {
 			interfaceWithUser.writeToClient(StringRes.getString("messaging.askWhichObjectCard"));
 			String cardNames[] = thePlayer.getMyHand().getAllCardNames();
-			return ioGetCardKey(cardNames);
+			return ioGetCardKey();
 		}
 	}
 	
@@ -228,13 +229,9 @@ public class UserMessagesReporter {
 		return location;
 	}
 	
-	public String ioGetCardKey(String cardNames[]) {
+	public String ioGetCardKey() {
 		interfaceWithUser.writeToClient(StringRes.getString("messaging.ownedCards"));
-		String cards=null;
-		for (int i=0; i<cardNames.length ; i++) {
-			 cards = cards.concat(cardNames[i]+",");
-		}
-		interfaceWithUser.writeToClient(cards);
+		interfaceWithUser.writeToClient(thePlayer.getMyHand().getAllCardNamesAsString());
 		interfaceWithUser.setDefaultOption("none");
 		interfaceWithUser.setContext(Arrays.asList("attack","defense","teleport", "lights", "sedatives", "adrenaline"));
 		return interfaceWithUser.readFromClient();

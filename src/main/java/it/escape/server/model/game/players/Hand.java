@@ -52,12 +52,24 @@ public class Hand {
 			return null;
 	}
 	
+	/**Returns an array with all the names of the currently owned cards*/
 	public String[] getAllCardNames() {
-		String [] cardNames = new String[MAXOBJECTS+1];
+		String [] cardNames = new String[handOfCards.size()];
 		for(int i=0; i<handOfCards.size() ; i++) {
 			cardNames[i] = getCardName(i);
 		}
 		return cardNames;
+	}
+	
+	/**Organizes the names of the owned cards, returned by getAllCardNames, as a printable String*/
+	public String getAllCardNamesAsString() {
+		String cards="";
+		String[] cardNames = getAllCardNames();
+		
+		for (int i=0; i< handOfCards.size() ; i++) {
+			cards = cards + cardNames[i] + " - ";
+		};
+		return cards;
 	}
 	
 	/** 
