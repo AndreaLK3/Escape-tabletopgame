@@ -56,7 +56,7 @@ import javax.swing.SwingConstants;
  * 
  * @author andrea, michele
  */
-public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Observer{
+public class LegacySwingView extends JFrame implements UpdaterSwingToViewInterface, Observer{
    	private static final long serialVersionUID = 1L;
    	private static final int MAXPLAYERS = 8;
   	
@@ -108,7 +108,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	 * note: removed, since we don't need this connection (see Client Diagram), and it creates a cycle too]
 	 * @param Relay (used to send data to the net)
 	 */
-   	public SwingView(String string, BindUpdaterInterface updater, Relay relay, Observable model) {
+   	public LegacySwingView(String string, BindUpdaterInterface updater, Relay relay, Observable model) {
    		super(string);
    		this.relayRef = relay;
    		myNameListener = new NameListener(relayRef);
@@ -503,7 +503,7 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 				new Runnable() {
 					public void run() {
 						l.lock();  // (1) set mutex once, so that the program flow will stop at (2)
-						SwingView playerFrame = new SwingView("Escape from the Aliens in Outer Space", updater, relay, model);	
+						LegacySwingView playerFrame = new LegacySwingView("Escape from the Aliens in Outer Space", updater, relay, model);	
 						l.unlock();  // unlock the mutex, let the synchronousLaunch return
 					}
 				}

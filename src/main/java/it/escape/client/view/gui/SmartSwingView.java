@@ -96,7 +96,7 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 				new Runnable() {
 					public void run() {
 						l.lock();  // (1) set mutex once, so that the program flow will stop at (2)
-						new SwingView("Escape from the Aliens in Outer Space", updater, relay, model);	
+						new SmartSwingView("Escape from the Aliens in Outer Space", updater, relay, model);	
 						l.unlock();  // unlock the mutex, let the synchronousLaunch return
 					}
 				}
