@@ -14,7 +14,7 @@ public class ModelForGUI extends Observable {
 	
 	private GameStatus gameStatus;
 	
-	private VictoryState victoryStatus;
+	private VictoryState victoryState;
 	
 	private int turnNumber;
 
@@ -22,7 +22,7 @@ public class ModelForGUI extends Observable {
 		super();
 		playerStates = new ArrayList<PlayerState>();
 		myPlayerState = new MyPlayerState();
-		victoryStatus = new VictoryState();
+		victoryState = new VictoryState();
 		nowPlaying = null;
 		setTurnNumber(0);
 		setGameStatus(GameStatus.WAITING_FOR_PLAYERS);
@@ -122,8 +122,8 @@ public class ModelForGUI extends Observable {
 	 * Update the player statuses so that they reflect
 	 * the data stored in victoryStatus 	 */
 	public void finalRefreshPlayerStatus() {
-		List<String> alienWinners = victoryStatus.getAlienWinners();
-		List<String> humanWinners = victoryStatus.getHumanWinners();
+		List<String> alienWinners = victoryState.getAlienWinners();
+		List<String> humanWinners = victoryState.getHumanWinners();
 		for (PlayerState p : playerStates) {
 			if (alienWinners.contains(p.getMyName()) || humanWinners.contains(p.getMyName())) {
 				p.setMyStatus(CurrentPlayerStatus.WINNER);
@@ -163,8 +163,8 @@ public class ModelForGUI extends Observable {
 		return nowPlaying;
 	}
 
-	public VictoryState getVictoryStatus() {
-		return victoryStatus;
+	public VictoryState getVictoryState() {
+		return victoryState;
 	}
 	
 }

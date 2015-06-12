@@ -5,6 +5,7 @@ import it.escape.client.controller.gui.ClickSendPositionListener;
 import it.escape.client.controller.gui.UpdaterSwingToViewInterface;
 import it.escape.client.model.ModelForGUI;
 import it.escape.client.model.PlayerState;
+import it.escape.client.model.VictoryState;
 import it.escape.client.view.BindDisconnectCallbackInterface;
 import it.escape.client.view.DisconnectedCallbackInterface;
 import it.escape.client.view.gui.maplabel.MapViewer;
@@ -13,6 +14,7 @@ import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 
 import java.awt.EventQueue;
+import java.awt.GridLayout;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
@@ -20,6 +22,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  * This is the only subclass of DumbSwingView;
@@ -366,13 +369,29 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 	 * won't instantly stop.
 	 * The model is passed as an argument
 	 */
-	public void spawnVictoryRecap(ModelForGUI model) {
+	public void spawnVictoryRecap(final ModelForGUI model) {
 		EventQueue.invokeLater(
 			new Runnable() {
 				public void run() {
-					// TODO: do something
+					createResultsPanel(model);
 				} 
 			});
+	}
+	
+	/***/
+	public void createResultsPanel(ModelForGUI model) {
+		JPanel resultsPanel = new JPanel();
+		VictoryState finalGameState= model.getVictoryState();
+		
+		TeamVictoryPanel panelHumans = new TeamVictoryPanel();
+		panelHumans.initializeTeamPanel("Humans");
+		panelHumans.fillVictoryPanel(finalGameState.isHumansDefeated(), finalGameState.getHumanWinners());
+		
+		TeamVictoryPanel panelAliens = new TeamVictoryPanel();
+		panelHumans.initializeTeamPanel("Aliens");
+		panelHumans.fillVictoryPanel(finalGameState.isAliensDefeated(), finalGameState.getAlienWinners());
+		
+		resultsPanel.setLayout(new GridLayout());
 	}
 	
 }

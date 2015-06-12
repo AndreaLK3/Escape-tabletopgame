@@ -244,13 +244,13 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			return true;
 			
 		} else if (winners.matches()) {
-			model.getVictoryStatus().addWinners(winners.group(1), winners.group(2));
+			model.getVictoryState().addWinners(winners.group(1), winners.group(2));
 			model.finalRefreshPlayerStatus();
 			model.finishedUpdating();
 			return true;
 			
 		} else if (losers.matches()) {
-			model.getVictoryStatus().setTeamDefeated(losers.group(1));
+			model.getVictoryState().setTeamDefeated(losers.group(1));
 			model.finalRefreshPlayerStatus();
 			model.finishedUpdating();
 			return true;
@@ -376,6 +376,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			
 		} else if (eventEndGame.matches()) {
 			model.setGameStatus(GameStatus.FINISHED);
+			model.finishedUpdating();
 			return true;
 			
 		} else if (endResults.matches()) {
