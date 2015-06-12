@@ -8,15 +8,6 @@ ed "allaga" lo spazio dedicato alla mappa
 e spesso dopo 1 singolo override non riesce a fare i successivi.
 ^^^^^ (MM): non sono riuscito a riprodurlo ora, ma ammetto che ogni tanto accadono "cose"
 
-2)GUI - Gestione di : 
-	Eliminazione 
-	Risultati finali
-	Disconnessione
-Un giocatore che viene eliminato ha la finestra GUI che scompare, perchè viene disconnesso; 
-A fine partita, gli altri restano con la finestra aperta[Questo è ok], lo status ALIVE [Cambiare a WINNER],
-e nessuna indicazione dei risultati finali [aggiungere pattern... multipli pattern per produrre un solo Dialog?]
-^^^^^ (MM): aggiunto al model un contenitore dei dati di vittoria / sconfitta
-
 3) Problemino con la GUI: non chiede all'utente umano PlayCardOrDiscard, anche se ho scritto buona parte del codice e in teoria dovrebbe funzionare.
 ^^^^^ (MM): credo sia risolto, un paio di "" messe dove non dovevano
 
@@ -40,6 +31,14 @@ Quando il server va giù, non libera la porta che usava
 ^^^^(MM): non starai mica terminando ancora il programma con ctrl-z? perchè ctrl-z lo manda solo in background. usa ctrl-c invece.
 ^^^^(AL): lol, se lo termino con CTRL+Z funziona. Con i crash mi pare di no, ma non è ad alta priorità per il momento.
 
+GUI - Gestione di : 
+	Eliminazione 
+	Risultati finali
+	Disconnessione
+Un giocatore che viene eliminato ha la finestra GUI che scompare, perchè viene disconnesso; 
+A fine partita, gli altri restano con la finestra aperta[Questo è ok], lo status ALIVE [Cambiare a WINNER],
+e nessuna indicazione dei risultati finali [aggiungere pattern... multipli pattern per produrre un solo Dialog?]
+^^^^^ (MM): aggiunto al model un contenitore dei dati di vittoria / sconfitta
 
 (AL)
 Esaminare i log delle partite e risolvere le issues indicate lì (che sono in buona parte Server-side)
