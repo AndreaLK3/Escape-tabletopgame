@@ -370,6 +370,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			
 		} else if (eventDeath.matches()) {
 			model.getSpecificPlayerState(eventDeath.group(1)).setMyStatus(CurrentPlayerStatus.DEAD);
+			model.finishedUpdating();
 			view.notifyUser(message);
 			return true;
 			

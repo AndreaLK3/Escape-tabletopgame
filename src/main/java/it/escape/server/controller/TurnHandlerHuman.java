@@ -131,12 +131,21 @@ public class TurnHandlerHuman extends TurnHandler {
 	@Override
 	public void turnAfterMove() {
 		
-		if (currentPlayer.getMyHand().isOverFull()) {  // too many cards in my hand
-			reporter.relayMessage(StringRes.getString("messaging.tooManyCardsHuman"));
-			if (reporter.askPlayCardOrDiscard()) {  // user chose "play"
+		if (currentPlayer.getMyHand().isOverFull()) {		// too many cards in my hand
+			
+			if (currentPlayer.hasPlayableCards()){ 	 //I have cards that I can play
+				
+				reporter.relayMessage(StringRes.getString("messaging.tooManyCardsHuman"));
+			
+				if (reporter.askPlayCardOrDiscard()) {  // user chose "play"
 				playObjectCard(currentPlayer.getMyHand().getCardName(0));
-			} else {  // user chose "discard"
+				} 
+				else {  // user chose "discard"
 				super.discardObjectCard();
+				}
+			}
+			else {	//I can't play any of the cards I own. I will have to discard some attack/defense
+				reporter.relayMessage(StringRes.getString("messaging.tooManyCardsAlien"));
 			}
 		}
 		else {  // normal circumstances

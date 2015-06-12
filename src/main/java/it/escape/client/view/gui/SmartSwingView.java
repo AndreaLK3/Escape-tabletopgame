@@ -156,6 +156,7 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
    	 * TODO: TurnStatus*/
    	private void updateMyStatusScreen(ModelForGUI model) {
    		nameField.setText(model.getMyPlayerState().getMyName());
+   		statusArea.setText(model.getMyPlayerState().getMyStatus().toString());
    		teamArea.setText(model.getMyPlayerState().getMyTeam());
    	}
    	
