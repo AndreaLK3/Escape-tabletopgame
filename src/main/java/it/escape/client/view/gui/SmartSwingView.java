@@ -13,7 +13,6 @@ import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -45,8 +44,9 @@ import javax.swing.JPanel;
 public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewInterface, Observer, DisconnectedCallbackInterface{
 
 	private static final long serialVersionUID = 1L;
-	private GridBagConstraints constraints;
+	
 	private ReentrantLock finalPhase;
+	private GridBagConstraints constraints;
 
 	/**
 	 * The constructor: initializes the window and all of its containers and components.
@@ -58,7 +58,6 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
    	public SmartSwingView(String string, Relay relay, ReentrantLock finalPhase) {
    		super(string, relay);
    		this.finalPhase = finalPhase;
-   		constraints = new GridBagConstraints();
    	}
    	
    	/**
@@ -379,7 +378,6 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 			new Runnable() {
 				public void run() {
 					JPanel resultsPanel = createResultsPanel(model);
-
 					JOptionPane.showMessageDialog
 						(null, resultsPanel, "End of the Game! Here are the results", JOptionPane.INFORMATION_MESSAGE);
 				} 
@@ -390,6 +388,7 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 	public JPanel createResultsPanel(ModelForGUI model) {
 		JPanel resultsPanel = new JPanel();
 		VictoryState finalGameState= model.getVictoryState();
+		GridBagConstraints panelConstraints = new GridBagConstraints();
 		
 		TeamVictoryPanel panelHumans = new TeamVictoryPanel();
 		panelHumans.initializeTeamPanel("Humans");
@@ -400,9 +399,12 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 		panelHumans.fillVictoryPanel(finalGameState.isAliensDefeated(), finalGameState.getAlienWinners());
 		
 		resultsPanel.setLayout(new GridBagLayout());
-		resultsPanel.add(panelHumans, BorderLayout.WEST);
-		resultsPanel.add(panelAliens, BorderLayout.EAST);
-		
+		panelConstraints.gridx=0;
+		panelConstraints.gridy=0;
+		resultsPanel.add(panelHumans, panelConstraints);
+		panelConstraints.gridx=1;
+		panelConstraints.gridy=0;
+		resultsPanel.add(panelAliens, panelConstraints);
 		return resultsPanel;
 	}
 	
