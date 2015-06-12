@@ -2,7 +2,8 @@ package it.escape.client;
 
 import it.escape.client.controller.ClientSocketChannelInterface;
 import it.escape.client.controller.MessageCarrier;
-import it.escape.client.view.cli.DisconnectedCallbackInterface;
+import it.escape.client.view.BindDisconnectCallbackInterface;
+import it.escape.client.view.DisconnectedCallbackInterface;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -13,7 +14,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
 
-public class ClientSocketChannel extends Observable implements Runnable, ClientSocketChannelInterface {
+public class ClientSocketChannel extends Observable implements Runnable, ClientSocketChannelInterface, BindDisconnectCallbackInterface {
 	
 	private Scanner in;
 	

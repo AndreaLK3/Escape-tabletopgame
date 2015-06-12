@@ -10,6 +10,7 @@ import it.escape.utils.FilesHelper;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -32,6 +33,7 @@ public class ClientInitializerGUI {
 	private static ModelForGUI model;
 	
 	public static void start(ClientLocalSettings Locals) {
+		ReentrantLock finalPhase = new ReentrantLock();
 		locals = Locals;
 		openProgressDialog();
 		
@@ -48,14 +50,14 @@ public class ClientInitializerGUI {
 			updater = new UpdaterSwing(model);
 			connection.addObserver(updater);
 			// start the view
-			SmartSwingView.synchronousLaunch((BindUpdaterInterface)updater, relay, model);
+			SmartSwingView.synchronousLaunch((BindUpdaterInterface)updater, relay, model, finalPhase, connection);
 			
 			// start reading from the network *only* once the gui is up
 			connectionThread = new Thread(connection);
 			connectionThread.start();
 			
+			finalPhase.lock();
 			// join connection thread, when the connection goes down, the program will stop
-			// TODO: we will probably change that later (i.e. display winners/losers)
 			try {
 				connectionThread.join();
 			} catch (InterruptedException e) {

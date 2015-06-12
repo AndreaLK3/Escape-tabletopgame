@@ -2,6 +2,7 @@ package it.escape.client.view.cli;
 
 import it.escape.client.controller.Relay;
 import it.escape.client.controller.cli.UpdaterCLItoTerminalInterface;
+import it.escape.client.view.DisconnectedCallbackInterface;
 import it.escape.strings.StringRes;
 
 import java.io.PrintStream;

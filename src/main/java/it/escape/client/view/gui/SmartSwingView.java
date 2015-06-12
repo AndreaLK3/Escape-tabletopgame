@@ -5,6 +5,8 @@ import it.escape.client.controller.gui.ClickSendPositionListener;
 import it.escape.client.controller.gui.UpdaterSwingToViewInterface;
 import it.escape.client.model.ModelForGUI;
 import it.escape.client.model.PlayerState;
+import it.escape.client.view.BindDisconnectCallbackInterface;
+import it.escape.client.view.DisconnectedCallbackInterface;
 import it.escape.client.view.gui.maplabel.MapViewer;
 import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
@@ -32,9 +34,11 @@ import javax.swing.JOptionPane;
  * @author michele, andrea
  *
  */
-public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewInterface, Observer{
+public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewInterface, Observer, DisconnectedCallbackInterface{
 
 	private static final long serialVersionUID = 1L;
+	
+	private ReentrantLock finalPhase;
 
 	/**
 	 * The constructor: initializes the window and all of its containers and components.
@@ -43,12 +47,28 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 	 * note: removed, since we don't need this connection (see Client Diagram), and it creates a cycle too]
 	 * @param Relay (used to send data to the net)
 	 */
-   	public SmartSwingView(String string, BindUpdaterInterface updater, Relay relay, Observable model) {
+   	public SmartSwingView(String string, Relay relay, ReentrantLock finalPhase) {
    		super(string, relay);
-   		
-   		updater.bindView(this);
-   		model.addObserver(this);
+   		this.finalPhase = finalPhase;
    	}
+   	
+   	/**
+   	 * To be called when we have finished all our work,
+   	 * including displaying the winners.
+   	 * It allows the program to stop when the connection
+   	 * falls.
+   	 */
+   	private void allowQuit() {
+   		finalPhase.unlock();
+   	}
+   	
+	/**
+	 * Called when a server-initiated disconnect is detected
+	 */
+	public void disconnected() {
+		// TODO Auto-generated method stub
+		
+	}
    	
 	/**
 	 * Programmatically scroll the map panel to a specified position
@@ -89,14 +109,20 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 		}
 	}
 
-	public static void synchronousLaunch(final BindUpdaterInterface updater, final Relay relay, final Observable model) {
+	public static void synchronousLaunch(final BindUpdaterInterface updater, 
+			final Relay relay, final Observable model, final ReentrantLock finalPhase, 
+			final BindDisconnectCallbackInterface connection) {
    		final ReentrantLock l = new ReentrantLock();
    		// launch phase
 		EventQueue.invokeLater(
 				new Runnable() {
 					public void run() {
 						l.lock();  // (1) set mutex once, so that the program flow will stop at (2)
-						new SmartSwingView("Escape from the Aliens in Outer Space", updater, relay, model);	
+						finalPhase.lock();  // this other mutex will prevent the program from quitting when the connection frops
+						SmartSwingView view = new SmartSwingView("Escape from the Aliens in Outer Space", relay, finalPhase);	
+						updater.bindView(view);
+				   		model.addObserver(view);
+				   		connection.bindDisconnCallback(view);
 						l.unlock();  // unlock the mutex, let the synchronousLaunch return
 					}
 				}
@@ -117,7 +143,6 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 			sync.join();
 		} catch (InterruptedException e) {
 		}
-		
 	}
    	
    	/**This method updates the current GameStatus and TurnNumber*/
