@@ -1,15 +1,13 @@
 Current tasks:
 
-(MM): problema nella gui: quando vengono aggiornate le info nel pannello a sinistra, questo cresce
-ed "allaga" lo spazio dedicato alla mappa
+
 
 (AL):
 1) Problema Server-side: l'automaticOverride non funziona come dovrebbe. Prova a far giocare su Client-testo 2 giocatori quasi completamente inattivi, 
 e spesso dopo 1 singolo override non riesce a fare i successivi.
 ^^^^^ (MM): non sono riuscito a riprodurlo ora, ma ammetto che ogni tanto accadono "cose"
 
-3) Problemino con la GUI: non chiede all'utente umano PlayCardOrDiscard, anche se ho scritto buona parte del codice e in teoria dovrebbe funzionare.
-^^^^^ (MM): credo sia risolto, un paio di "" messe dove non dovevano
+
 
 
 
@@ -48,6 +46,15 @@ Per la maggior parte risolte.
 
 __________________________________________________________
 Notes about other tasks:
+
+
+Problemino con la GUI: non chiede all'utente umano PlayCardOrDiscard, anche se ho scritto buona parte del codice e in teoria dovrebbe funzionare.
+^^^^^ (MM): credo sia risolto, un paio di "" messe dove non dovevano
+
+(MM): problema nella gui: quando vengono aggiornate le info nel pannello a sinistra, questo cresce
+ed "allaga" lo spazio dedicato alla mappa
+^^^^^(AL):Sistemato
+
 
 (MM):
 Al momento le carte usate / scartate non vengono rimosse dall' ObjectCardsPanel
