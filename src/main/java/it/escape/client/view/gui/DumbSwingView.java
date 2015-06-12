@@ -2,22 +2,15 @@ package it.escape.client.view.gui;
 
 import it.escape.client.controller.Relay;
 import it.escape.client.controller.gui.ActionSendChat;
-import it.escape.client.controller.gui.ClickSendPositionListener;
 import it.escape.client.controller.gui.MouseOnMapCell;
 import it.escape.client.controller.gui.NameListener;
-import it.escape.client.controller.gui.UpdaterSwingToViewInterface;
 import it.escape.client.model.GameStatus;
-import it.escape.client.model.ModelForGUI;
-import it.escape.client.model.PlayerState;
 import it.escape.client.view.gui.maplabel.MapViewer;
-import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
-import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.utils.FilesHelper;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -26,9 +19,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -43,60 +33,66 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+
 /**This class contains the Frame that is displayed for the Client that uses the GUI.
- * Responsibilities:
+ * This is a dumb class, responsible only for initialization / layout of the components,
+ * The 'active' role is delegated to the subclass SmartSwingView.
+ * Responsibilities
  * 1) Containing all the components
- * 2) Creating and initializing the components (n: this one could be transferred to another class)
- * 3) Observes PlayerStates/PlayerStateHandler and GameState, and is updated accordingly
- * 4) Can send messages to the Relay (ex: -chat messages , -send input obtained through dialogs)
+ * 2) Creating and initializing the components
  * 
+ * Note: this class does actually carry on small 'active' roles, which are
+ * Very closely aggregated to it and should not be moved elsewhere:
+ * 1) Showing the object-cards display/choose dialog
+ * 2) Attaching the relay to said cards-dialog and to the chat textfield
+ * 
+ * The class is made abstract, because it's useless on its own and should not be
+ * directly instantiated
  * @author andrea, michele
  */
-public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Observer{
-   	private static final long serialVersionUID = 1L;
-   	private static final int MAXPLAYERS = 8;
+public abstract class DumbSwingView extends JFrame {
+	private static final long serialVersionUID = 1L;
+	protected static final int MAXPLAYERS = 8;
   	
-   	private GridBagConstraints constraints;
+	protected GridBagConstraints constraints;
    	
-   	private JLabel label0_gameStatus;
-   	private JTextField gameStatusField;
-   	private JLabel label1_turnNumber;
-   	private JTextField turnNumberField;
-	private JLabel label2;
-	private JLabel label3;
-	private JLabel label4;
-	private JLabel label5_map;
-	private JLabel label6;
-	private JLabel label7;
-	private JLabel label8;
-	private JLabel label9_turnStatus;
-	private JLabel label10_chat;
-	private JLabel label11_card_notify;
-	private JScrollPane mapScrollPane;
+   	protected JLabel label0_gameStatus;
+   	protected JTextField gameStatusField;
+   	protected JLabel label1_turnNumber;
+   	protected JTextField turnNumberField;
+   	protected JLabel label2;
+   	protected JLabel label3;
+   	protected JLabel label4;
+   	protected JLabel label5_map;
+   	protected JLabel label6;
+   	protected JLabel label7;
+	protected JLabel label8;
+	protected JLabel label9_turnStatus;
+	protected JLabel label10_chat;
+	protected JLabel label11_card_notify;
+	protected JScrollPane mapScrollPane;
 	
-	private JTextField nameField;
-	private JTextField statusArea;
-	private JTextField teamArea;
-	private JTextField serverField;
-	private JTextField chatField;
-	private JTextArea chatArea;
-	private JButton showCardsButton;
+	protected JTextField nameField;
+	protected JTextField statusArea;
+	protected JTextField teamArea;
+	protected JTextField serverField;
+	protected JTextField chatField;
+	protected JTextArea chatArea;
+	protected JButton showCardsButton;
 	
-	private ObjectCardsPanel objectCardsPanel;
-	private String chosenObjectCard;
+	protected ObjectCardsPanel objectCardsPanel;
+	protected String chosenObjectCard;
 	
-	PlayerPanel playerPanels[] = new PlayerPanel[MAXPLAYERS];
-
-	private Relay relayRef;
+	protected PlayerPanel playerPanels[] = new PlayerPanel[MAXPLAYERS];
 	
-	NameListener myNameListener;
-	ButtonHandler buttonHandler;
+	protected NameListener myNameListener;
+	protected ButtonHandler buttonHandler;
+	protected Relay relayRef;
 	
-	int currentRow = 1;
+	protected boolean doRelayObjectCard;
 	
-	private boolean doRelayObjectCard;
+	protected int currentRow = 1;
 	
-   	
 	/**
 	 * The constructor: initializes the window and all of its containers and components.
 	 * @param string (the title of the window) 
@@ -104,9 +100,9 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	 * note: removed, since we don't need this connection (see Client Diagram), and it creates a cycle too]
 	 * @param Relay (used to send data to the net)
 	 */
-   	public SwingView(String string, BindUpdaterInterface updater, Relay relay, Observable model) {
+   	public DumbSwingView(String string, Relay relayRef) {
    		super(string);
-   		this.relayRef = relay;
+   		this.relayRef = relayRef;
    		myNameListener = new NameListener(relayRef);
    		buttonHandler = new ButtonHandler();
    		setLayout(new GridBagLayout());
@@ -121,9 +117,6 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
    		addCardNotifyZone();
    		initializeButtons();
    		setLabelsOpaque();
-   		
-   		updater.bindView(this);
-   		model.addObserver(this);
    		
    		objectCardsPanel = new ObjectCardsPanel();
    		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -175,47 +168,8 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	
 	}
 	
-	/**
-	 * Programmatically scroll the map panel to a specified position
-	 * (i.e. scrollMap(0.5, 0.5) centers the map)
-	 * @param x 0 - 1 position of the center of the horizontal slider
-	 * @param y 0 - 1 position of the center of the vertical slider
-	 */
-	private void scrollMap(double x, double y) {
-		// scrollbar ranges (in "scroll-pixels")
-		int maxWidth = mapScrollPane.getHorizontalScrollBar().getMaximum();
-		int maxHeight = mapScrollPane.getVerticalScrollBar().getMaximum();
-		// unrolled map size
-		int mapWidth = ((MapViewer)label5_map).getTotalWidth();
-		int mapHeight = ((MapViewer)label5_map).getTotalHeight();
-		// visible map size
-		int viewWidth = mapScrollPane.getWidth();
-		int viewHeight = mapScrollPane.getHeight();
-		
-		// size of the visible map in "scroll-pixels"
-		int relativeWidth = (viewWidth * maxWidth) / mapWidth;
-		int relativeHeight = (viewHeight * maxHeight) / mapHeight;
-		
-		// scroll the panel so that both sliders are perfectly centered on the specified positions
-		mapScrollPane.getHorizontalScrollBar().setValue((int)Math.round(maxWidth * x) - relativeWidth/2);
-		mapScrollPane.getVerticalScrollBar().setValue((int)Math.round(maxHeight * y) - relativeHeight/2);
-		
-	}
-	
-	private void focusOnLocationInstantly(String coord) {
-		try {
-			int pos[] = ((MapViewer)label5_map).cellToPixels(CoordinatesConverter.fromAlphaNumToOddq(coord));
-			int correct_X = ((MapViewer)label5_map).getCellWidth() / 2;
-			int correct_Y = ((MapViewer)label5_map).getCellHeight() / 2;
-			int map_x = ((MapViewer)label5_map).getTotalWidth();
-			int map_y = ((MapViewer)label5_map).getTotalHeight();
-			scrollMap((double) (pos[0] + correct_X) / map_x, (double) (pos[1] + correct_Y) / map_y);
-		} catch (BadCoordinatesException e) {
-		}
-	}
-	
 	/** Creation method: the map, on the upper right part of the screen*/
-	private void initializeMap() {
+	protected void initializeMap() {
 
 		try {
 			label5_map = new MapViewer();
@@ -408,7 +362,6 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 	 * using a GridLayout that places all components in the same row, filling the row and giving them the same space. 
 	 * @param List<JComponent> components	 */
 	private JPanel createRowPanel(List<? extends JComponent> components) {
-		int column=0;
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout());
 		for (JComponent c : components) {
@@ -488,269 +441,5 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
 			}
 		}
 	}
-	
-	
-	
-   	
-   	public static void synchronousLaunch(final BindUpdaterInterface updater, final Relay relay, final Observable model) {
-   		final ReentrantLock l = new ReentrantLock();
-   		// launch phase
-		EventQueue.invokeLater(
-				new Runnable() {
-					public void run() {
-						l.lock();  // (1) set mutex once, so that the program flow will stop at (2)
-						SwingView playerFrame = new SwingView("Escape from the Aliens in Outer Space", updater, relay, model);	
-						l.unlock();  // unlock the mutex, let the synchronousLaunch return
-					}
-				}
-		);
-		/*
-		 * synchronization phase.
-		 * We need another thread, because reentrantLock's lock() will
-		 * not work if the lock is held by the same thread (we're still in EDT)
-		 */
-		
-		Thread sync = new Thread(new Runnable() {
-			public void run() {
-				l.lock();  // (2) try again setting the mutex, but it must be unlocked first
-			}
-		});
-		sync.start();
-		try {
-			sync.join();
-		} catch (InterruptedException e) {
-		}
-		
-	}
-   	
-   	/**This method updates the current GameStatus and TurnNumber*/
-   	private void updateGameStatePanel(ModelForGUI model) {
-   		gameStatusField.setText(model.getGameStatus().toString());
-   		turnNumberField.setText(""+model.getTurnNumber());
-   	}
-   	
-   	/** This method updates my personal panel
-   	 * TODO: TurnStatus*/
-   	private void updateMyStatusScreen(ModelForGUI model) {
-   		nameField.setText(model.getMyPlayerState().getMyName());
-   		teamArea.setText(model.getMyPlayerState().getMyTeam());
-   	}
-   	
-   	/**This method updates the position of the player icon on the map*/
-   	private void updateMapMarkers(ModelForGUI model) {
-   		((MapViewer) label5_map).setPlayerMarkerPosition(model.getMyPlayerState().getLocation());
-   	}
-   	
-   	/**This method, depending on the info that are stored in the model,
-   	 * calls the method updateCards inside the objectCards panel, 
-   	 * to update the List of JRadioButtons that correspond to the cards*/
-   	private void updateObjectCardsPanel(ModelForGUI model) {
-   		objectCardsPanel.updateCards(model.getMyPlayerState().getObjectCards());
-   	}
-   	
-   	
-   	private void updatePlayerPanels(ModelForGUI model) {
-   		int currentPanel = 0;
-   		for (PlayerState pState : model.getPlayerStates()) {
-   			playerPanels[currentPanel].updatePlayerArea(pState.getMyName());
-   			playerPanels[currentPanel].updateStatusArea(pState.getMyStatus().toString());
-   			playerPanels[currentPanel].updateLastKnownActionArea(pState.getLastNoiseLocation());
-   			currentPanel++;
-   		}
-   	}
-   	
-   /**This method observes the model; upon any model changes, it 
-    * invokes the methods that update this View according to the data stored in the Model */
-   	public void update(Observable arg0, Object arg1) {
-   		if (arg0 instanceof ModelForGUI) {
-   			ModelForGUI model = (ModelForGUI) arg0;
-   			updateMyStatusScreen(model);
-   			updatePlayerPanels(model);
-   			updateMapMarkers(model);
-   			updateObjectCardsPanel(model);
-   			updateGameStatePanel(model);
-		}
-	}
-   	
-   	// functions belonging to the interface UpdaterSwingToViewInterface
-   	//(They are invoked by the UpdaterSwing)
 
-	public void setGameMap(final String name) {
-		EventQueue.invokeLater(
-				new Runnable() {
-					public void run() {
-						try {
-							((MapViewer)label5_map).setMap(
-									name,
-									new Runnable() { public void run() {
-										try {
-											Thread.sleep(100);
-										} catch (InterruptedException e) {
-										}
-										scrollMap(0.5, 0.5);}}
-									);
-						} catch (BadJsonFileException e) {
-							
-						} catch (IOException e) {
-							
-						} 
-					}});
-	}
-
-	/**This method uses a new thread to show the welcoming Dialog. */
-	public void displayServerMOTD(final String motd) {
-		new Thread(new Runnable() {
-			public void run() {
-				JOptionPane.showMessageDialog(null, 
-					    motd,
-					    "Welcome!",
-					    JOptionPane.PLAIN_MESSAGE);
-			}
-		}).start();
-	}
-
-	public void setTurnStatusString(String status) {
-		serverField.setText(status);
-	}
-	
-	public void notifyNewCard(String cardName) {
-		final int duration = 10000;
-		label11_card_notify.setText("You have drawn a new " + cardName + " card");
-		label11_card_notify.setVisible(true);
-		new Thread(
-			new Runnable() {
-				public void run() {
-					try {
-						Thread.sleep(duration);
-					} catch (InterruptedException e) {
-					}
-					label11_card_notify.setVisible(false);
-			}}).start();
-	}
-
-	/** This method receives a chat message, and it displays it inside
-	 * the chat TextArea appended after the previous messages.
-	 */
-	public void newChatMessage(String username, String message) {
-		String oldChatText = chatArea.getText();
-		StringBuilder newChatText = new StringBuilder();
-		if (oldChatText.length() > 0) {
-			newChatText.append(oldChatText);
-			newChatText.append("\n");
-		}
-		newChatText.append(username + ": ");
-		newChatText.append(message);
-		chatArea.setText(newChatText.toString());
-		// TODO: magari aggiungere un'icona 'new message' da qualche parte
-	}
-
-	public void discoverMyName() {
-		relayRef.sendWhoami();
-	}
-
-	public void bindPositionSender() {
-		ClickSendPositionListener listener = new ClickSendPositionListener(relayRef, this);
-		((MapViewer)label5_map).addCellListener(listener);
-	}
-	
-	public void unbindPositionSender(ClickSendPositionListener listener) {
-		((MapViewer)label5_map).removeCellListener(listener);
-	}
-
-
-
-	public void relayYesNoDialog(final String question) {
-		new Thread(
-			new Runnable() {
-				public void run() {
-					int n = JOptionPane.showConfirmDialog(null, question, null, JOptionPane.YES_NO_OPTION);
-					if (n==JOptionPane.OK_OPTION) {
-						relayRef.relayMessage("yes");
-					}
-					else {
-						relayRef.relayMessage("no");
-					}
-				}}).start();
-		
-	}
-	
-	/**Overloaded version of the binary dialog, using custom options instead of yes/no*/
-	public void relayYesNoDialog(final String question, final String option1, final String option2) {
-		new Thread(
-			new Runnable() {
-				public void run() {
-					String options[] = {option1, option2};
-					int n = JOptionPane.showOptionDialog
-							(null, question, null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);				
-					if (n==JOptionPane.YES_OPTION) {
-						relayRef.relayMessage(option1);
-					}
-					else {
-						relayRef.relayMessage(option2);
-					}
-				}}).start();
-		
-	}
-
-	/**This method causes a pop-up (messageDialog) that shows some message to the user
-	 * @param String message*/
-	public void notifyUser(final String message) {
-		new Thread(
-				new Runnable() {
-					public void run() {
-						JOptionPane.showMessageDialog(null, message, null, JOptionPane.PLAIN_MESSAGE);
-					}}).start();
-	}
-
-	/**This method is invoked by the UpdaterSwing when the Server requires 
-	 * the name of an ObjectCard*/
-	public void relayObjectCard() { 
-		doRelayObjectCard = true;
-		showCardsButton.doClick();
-	}
-
-	public void addNoiseToMap(String location) {
-		((MapViewer)label5_map).addNoiseMarker(location);
-	}
-	public void clearNoisesFromMap() {
-		((MapViewer)label5_map).clearNoiseMarkers();
-	}
-	public void addOtherPlayerToMap(String location, String name) {
-		((MapViewer)label5_map).addOtherPlayerMarker(location, name);
-	}
-	public void removeOtherPlayerFromMap(String name) {
-		((MapViewer)label5_map).removeSpecificPlayer(name);
-	}
-	public void clearOtherPlayersFromMap() {
-		((MapViewer)label5_map).clearOtherPlayerMarkers();
-	}
-	public void focusOnLocation(final String coord, final int waitBefore) {
-		new Thread(
-				new Runnable() {
-					public void run() {
-						try {
-							Thread.sleep(waitBefore);
-						} catch (InterruptedException e) {
-						}
-						focusOnLocationInstantly(coord);
-					}}).start();
-	}
-
-	/**
-	 * Spawn a dialog / panel / whatever to show the results of the match
-	 * The dialog is spawned from inside the EDT, so that the application
-	 * won't instantly stop.
-	 * The model is passed as an argument
-	 */
-	public void spawnVictoryRecap(ModelForGUI model) {
-		EventQueue.invokeLater(
-			new Runnable() {
-				public void run() {
-					// TODO: do something
-				} 
-			});
-	}
-	
-	
 }
-	
