@@ -127,7 +127,6 @@ public class GameMaster implements Runnable {
 			timeoutTicking.set(false);
 			startGameAndWait();
 			LOG.fine("GameMaster tasks completed, thread will now stop");
-			gameFinished = true;
 		} else {
 			// TODO: logging / inform users
 			ownThread = null;  // one last thing: erase the reference, so that the thread will be dead for good
@@ -387,7 +386,7 @@ public class GameMaster implements Runnable {
 	
 	/**
 	 * The game will end only when the worker threads terminate.
-	 * The will stop on their own
+	 * Once this is done, set the game state booleans
 	 */
 	private void waitForFinish() {
 		try {
@@ -399,6 +398,7 @@ public class GameMaster implements Runnable {
 		} catch (InterruptedException e) {
 		}
 		gameRunning = false;
+		gameFinished = true;
 	}
 	
 	/** announce the winners
