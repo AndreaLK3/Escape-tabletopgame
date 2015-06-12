@@ -5,7 +5,7 @@ import it.escape.client.controller.Relay;
 import it.escape.client.controller.gui.UpdaterSwing;
 import it.escape.client.model.ModelForGUI;
 import it.escape.client.view.gui.BindUpdaterInterface;
-import it.escape.client.view.gui.SwingView;
+import it.escape.client.view.gui.SmartSwingView;
 import it.escape.utils.FilesHelper;
 
 import java.io.IOException;
@@ -48,7 +48,7 @@ public class ClientInitializerGUI {
 			updater = new UpdaterSwing(model);
 			connection.addObserver(updater);
 			// start the view
-			SwingView.synchronousLaunch((BindUpdaterInterface)updater, relay, model);
+			SmartSwingView.synchronousLaunch((BindUpdaterInterface)updater, relay, model);
 			
 			// start reading from the network *only* once the gui is up
 			connectionThread = new Thread(connection);
