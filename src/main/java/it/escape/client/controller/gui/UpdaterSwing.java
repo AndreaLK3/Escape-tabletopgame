@@ -207,7 +207,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			return true;
 			
 		} else if (myName.matches()) {
-			LOG.finer("Read player name from server");
+			LOG.finer("Read player name from server: " + myName.group(1));
 			model.getMyPlayerState().setMyName(myName.group(1));
 			model.finishedUpdating();
 			return true;
@@ -244,12 +244,14 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			return true;
 			
 		} else if (winners.matches()) {
+			LOG.finer("Server listed the winners");
 			model.getVictoryState().addWinners(winners.group(1), winners.group(2));
 			model.finalRefreshPlayerStatus();
 			model.finishedUpdating();
 			return true;
 			
 		} else if (losers.matches()) {
+			LOG.finer("Server listed the losers");
 			model.getVictoryState().setTeamDefeated(losers.group(1));
 			model.finalRefreshPlayerStatus();
 			model.finishedUpdating();
