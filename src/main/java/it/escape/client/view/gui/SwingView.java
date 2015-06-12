@@ -493,19 +493,34 @@ public class SwingView extends JFrame implements UpdaterSwingToViewInterface, Ob
    	
    	public static void synchronousLaunch(final BindUpdaterInterface updater, final Relay relay, final Observable model) {
    		final ReentrantLock l = new ReentrantLock();
-   		l.lock();  // (1) set mutex once, so that the program flow will stop at (2)
-   		
+   		// launch phase
 		EventQueue.invokeLater(
 				new Runnable() {
 					public void run() {
+						l.lock();  // (1) set mutex once, so that the program flow will stop at (2)
 						SwingView playerFrame = new SwingView("Escape from the Aliens in Outer Space", updater, relay, model);	
 						l.unlock();  // unlock the mutex, let the synchronousLaunch return
 					}
 				}
 		);
-		l.lock();  // (2) try again setting the mutex, but it must be unlocked first
+		/*
+		 * synchronization phase.
+		 * We need another thread, because reentrantLock's lock() will
+		 * not work if the lock is held by the same thread (we're still in EDT)
+		 */
 		
+		Thread sync = new Thread(new Runnable() {
+			public void run() {
+				l.lock();  // (2) try again setting the mutex, but it must be unlocked first
+			}
+		});
+		sync.start();
+		try {
+			sync.join();
+		} catch (InterruptedException e) {
 		}
+		
+	}
    	
    	/**This method updates the current GameStatus and TurnNumber*/
    	private void updateGameStatePanel(ModelForGUI model) {
