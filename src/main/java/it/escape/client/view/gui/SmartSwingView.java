@@ -373,13 +373,15 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 		EventQueue.invokeLater(
 			new Runnable() {
 				public void run() {
-					createResultsPanel(model);
+					JPanel resultsPanel = createResultsPanel(model);
+					JOptionPane.showMessageDialog
+						(null, resultsPanel, "End of the Game! Here are the results", JOptionPane.INFORMATION_MESSAGE);
 				} 
 			});
 	}
 	
-	/***/
-	public void createResultsPanel(ModelForGUI model) {
+	/**This method creates panels with the final results for each team, depending on the results in VictoryState*/
+	public JPanel createResultsPanel(ModelForGUI model) {
 		JPanel resultsPanel = new JPanel();
 		VictoryState finalGameState= model.getVictoryState();
 		
@@ -392,6 +394,9 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 		panelHumans.fillVictoryPanel(finalGameState.isAliensDefeated(), finalGameState.getAlienWinners());
 		
 		resultsPanel.setLayout(new GridLayout());
+		resultsPanel.add(panelHumans);
+		resultsPanel.add(panelAliens);
+		return resultsPanel;
 	}
 	
 }

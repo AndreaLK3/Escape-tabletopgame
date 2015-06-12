@@ -25,6 +25,7 @@ public class TeamVictoryPanel extends JPanel {
 
 	public TeamVictoryPanel() {
 		setLayout(new GridBagLayout());
+		constraints = new GridBagConstraints();
 	}
 	
 	public void initializeTeamPanel(String teamName) {
