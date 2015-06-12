@@ -4,6 +4,7 @@ import it.escape.client.controller.Relay;
 import it.escape.client.controller.gui.ActionSendChat;
 import it.escape.client.controller.gui.ClickSendPositionListener;
 import it.escape.client.controller.gui.MouseOnMapCell;
+import it.escape.client.controller.gui.NameListener;
 import it.escape.client.controller.gui.UpdaterSwingToViewInterface;
 import it.escape.client.model.GameStatus;
 import it.escape.client.model.ModelForGUI;

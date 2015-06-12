@@ -1,25 +1,19 @@
 package it.escape.client.view.gui;
 
-import it.escape.utils.FilesHelper;
-
-import java.awt.Color;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 
 public class ObjectCardsPanel extends JPanel {
+
+	private static final long serialVersionUID = 1L;
 
 	private final static int NUMCARDTYPES = 6;
 	
