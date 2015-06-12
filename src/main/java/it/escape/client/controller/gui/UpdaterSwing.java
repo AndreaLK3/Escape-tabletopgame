@@ -162,6 +162,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			} else if (gameStartETA.matches()) {
 				LOG.finer("Setting game start ETA");
 				model.setGameStatus(GameStatus.GOING_TO_START);
+				model.finishedUpdating();
 				view.setTurnStatusString(message);
 				
 			}

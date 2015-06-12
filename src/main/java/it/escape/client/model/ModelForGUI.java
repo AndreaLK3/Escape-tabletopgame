@@ -14,7 +14,7 @@ public class ModelForGUI extends Observable {
 	
 	private GameStatus gameStatus;
 	
-	private VictoryStatus victoryStatus;
+	private VictoryState victoryStatus;
 	
 	private int turnNumber;
 
@@ -22,7 +22,7 @@ public class ModelForGUI extends Observable {
 		super();
 		playerStates = new ArrayList<PlayerState>();
 		myPlayerState = new MyPlayerState();
-		victoryStatus = new VictoryStatus();
+		victoryStatus = new VictoryState();
 		nowPlaying = null;
 		setTurnNumber(0);
 		setGameStatus(GameStatus.WAITING_FOR_PLAYERS);
@@ -120,8 +120,7 @@ public class ModelForGUI extends Observable {
 	/**
 	 * To be called after the end of the game.
 	 * Update the player statuses so that they reflect
-	 * the data stored in victoryStatus
-	 */
+	 * the data stored in victoryStatus 	 */
 	public void finalRefreshPlayerStatus() {
 		List<String> alienWinners = victoryStatus.getAlienWinners();
 		List<String> humanWinners = victoryStatus.getHumanWinners();
@@ -164,7 +163,7 @@ public class ModelForGUI extends Observable {
 		return nowPlaying;
 	}
 
-	public VictoryStatus getVictoryStatus() {
+	public VictoryState getVictoryStatus() {
 		return victoryStatus;
 	}
 	

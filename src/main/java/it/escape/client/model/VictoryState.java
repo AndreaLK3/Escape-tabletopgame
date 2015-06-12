@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class VictoryStatus {
+public class VictoryState {
 	
 	private List<String> humanWinners;
 	
@@ -17,7 +17,7 @@ public class VictoryStatus {
 	
 	private boolean humansDefeated;
 
-	public VictoryStatus() {
+	public VictoryState() {
 		humanWinners = new ArrayList<String>();
 		alienWinners = new ArrayList<String>();
 		aliensDefeated = false;
@@ -33,9 +33,9 @@ public class VictoryStatus {
 	}
 	
 	public void addWinners(String team, String list) {
-		if (team.equals(PlayerTeams.HUMANS.toString())) {
+		if (team.equalsIgnoreCase(PlayerTeams.HUMANS.toString())) {
 			addTeamWinners(list, humanWinners);
-		} else if (team.equals(PlayerTeams.ALIENS.toString())) {
+		} else if (team.equalsIgnoreCase(PlayerTeams.ALIENS.toString())) {
 			addTeamWinners(list, alienWinners);
 		}
 	}
