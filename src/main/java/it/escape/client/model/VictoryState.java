@@ -44,6 +44,8 @@ public class VictoryState {
 		String parts[] = list.split(StringRes.getString("messaging.playerListSeparator"));
 		dest.addAll(Arrays.asList(parts));
 	}
+	
+	
 
 	public List<String> getHumanWinners() {
 		return humanWinners;

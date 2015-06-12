@@ -51,20 +51,9 @@ public class TeamVictoryPanel extends JPanel {
 		constraints.gridwidth=2;
 		add(winnersArea,constraints);
 		
-		label3_losers = new JLabel("Losers:");
-		constraints.gridx=0;
-		constraints.gridy=3;
-		constraints.gridwidth=2;
-		add(label3_losers,constraints);
-		
-		losersArea = new JTextArea();
-		constraints.gridx=0;
-		constraints.gridy=4;
-		constraints.gridwidth=2;
-		add(losersArea,constraints);
 	}
 	
-	public void fillVictoryPanel(boolean teamDefeated, List<String> winners/*, List<String> losers*/) {
+	public void fillVictoryPanel(boolean teamDefeated, List<String> winners) {
 		String winnersString="";
 		
 		if (teamDefeated) {

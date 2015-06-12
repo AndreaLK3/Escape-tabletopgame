@@ -14,6 +14,9 @@ import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.io.IOException;
 import java.util.Observable;
@@ -43,6 +46,7 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 	private static final long serialVersionUID = 1L;
 	
 	private ReentrantLock finalPhase;
+	private GridBagConstraints constraints;
 
 	/**
 	 * The constructor: initializes the window and all of its containers and components.
@@ -393,9 +397,13 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 		panelHumans.initializeTeamPanel("Aliens");
 		panelHumans.fillVictoryPanel(finalGameState.isAliensDefeated(), finalGameState.getAlienWinners());
 		
-		resultsPanel.setLayout(new GridLayout());
-		resultsPanel.add(panelHumans);
-		resultsPanel.add(panelAliens);
+		resultsPanel.setLayout(new GridBagLayout());
+		constraints.gridx=0;
+		constraints.gridy=0;
+		resultsPanel.add(panelHumans, constraints);
+		constraints.gridx=1;
+		constraints.gridy=0;
+		resultsPanel.add(panelAliens, constraints);
 		return resultsPanel;
 	}
 	
