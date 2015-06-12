@@ -52,10 +52,14 @@ import javax.swing.SwingConstants;
  */
 public abstract class DumbSwingView extends JFrame {
 	private static final long serialVersionUID = 1L;
+	
 	protected static final int MAXPLAYERS = 8;
+	
+	protected static final int CONN_ICON_SIZE = 20;
   	
 	protected GridBagConstraints constraints;
    	
+	protected JLabel label_serverStatus;
    	protected JLabel label0_gameStatus;
    	protected JTextField gameStatusField;
    	protected JLabel label1_turnNumber;
@@ -108,6 +112,7 @@ public abstract class DumbSwingView extends JFrame {
    		setLayout(new GridBagLayout());
    		constraints = new GridBagConstraints();
    		
+   		
    		initializeGeneralLabels();
    		initializeMap();
    		initializeGeneralSidePanels();
@@ -124,13 +129,15 @@ public abstract class DumbSwingView extends JFrame {
 		setVisible(true);
    	}
    	
-   	
-  
-
    	/** Creation method: Labels in the upper part of the screen*/
 	private void initializeGeneralLabels() {
 		
 		JPanel panel = new JPanel();
+		
+		label_serverStatus = new JLabel(new ImageIcon(ImageScaler.resizeImage("resources/artwork/misc/check.png", CONN_ICON_SIZE, CONN_ICON_SIZE)));
+		label_serverStatus.setText("Connection: ");
+		label_serverStatus.setHorizontalTextPosition(JLabel.LEFT);
+		label_serverStatus.setVerticalTextPosition(JLabel.CENTER);
 		
 		label0_gameStatus = new JLabel("Game Status:");
 		label0_gameStatus.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -142,7 +149,7 @@ public abstract class DumbSwingView extends JFrame {
 		turnNumberField = new JTextField("0");
 		turnNumberField.setEditable(false);
 		
-		panel = createRowPanel(Arrays.asList(label0_gameStatus, gameStatusField, label1_turnNumber, turnNumberField));
+		panel = createRowPanel(Arrays.asList(label_serverStatus, label0_gameStatus, gameStatusField, label1_turnNumber, turnNumberField));
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.gridx = 0;
 		constraints.gridy = 0;

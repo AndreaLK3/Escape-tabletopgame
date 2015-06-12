@@ -18,6 +18,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.locks.ReentrantLock;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -66,8 +67,7 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 	 * Called when a server-initiated disconnect is detected
 	 */
 	public void disconnected() {
-		// TODO Auto-generated method stub
-		
+		label_serverStatus.setIcon(new ImageIcon(ImageScaler.resizeImage("resources/artwork/misc/wrong.png", CONN_ICON_SIZE, CONN_ICON_SIZE)));
 	}
    	
 	/**
