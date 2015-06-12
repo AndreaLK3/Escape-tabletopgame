@@ -1,5 +1,8 @@
 Current tasks:
 
+(MM): problema nella gui: quando vengono aggiornate le info nel pannello a sinistra, questo cresce
+ed "allaga" lo spazio dedicato alla mappa
+
 (AL):
 1) Problema Server-side: l'automaticOverride non funziona come dovrebbe. Prova a far giocare su Client-testo 2 giocatori quasi completamente inattivi, 
 e spesso dopo 1 singolo override non riesce a fare i successivi.
