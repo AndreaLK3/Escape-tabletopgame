@@ -134,7 +134,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	
-	/**The method that is invoked whenever this class receives a motifyObserves(),
+	/**The method that is invoked whenever this class receives a notifyObserves(),
 	 * because a new message has arrived to the Connection.
 	 * It checks if the message corresponds to some given patterns, and then
 	 * invokes the other 4 methods that check a specific kind of patterns
@@ -454,4 +454,13 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		}
 		return false;
 	}
+	
+	//Here are methods to perform the commands / modify the model/ get the answers
+	//Using the socket connection, these methods are invoked upon pattern recognition
+	//Using the RMI connection, these methods are invoked directly through RMI
+	
+	private void setMap() {
+		
+	}
+	
 }
