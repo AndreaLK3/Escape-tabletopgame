@@ -594,7 +594,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	
 	//da processException(msg) n:Not working properly right now
 	
-	private void movementException() {
+	private void movementException() { 
 		
 	}
 	
