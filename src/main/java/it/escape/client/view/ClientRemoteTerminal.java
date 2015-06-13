@@ -203,45 +203,10 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void setFreeState() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setObjectCardState() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setPositionState() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setYesNoState() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setMyTurn() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setNotMyTurn() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void showMessageInTerminal(String message) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
+	
 }
