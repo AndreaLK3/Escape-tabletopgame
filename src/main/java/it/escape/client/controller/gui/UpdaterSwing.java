@@ -460,7 +460,145 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	//Using the RMI connection, these methods are invoked directly through RMI
 	
 	private void setMap() {
+
+	}
+	
+	private void startReadingMotd() {
+
 		
 	}
 	
+	private void visualizeChatMsg() {
+		
+	}
+	
+	private void setStartETA() {
+		
+	}
+	
+	
+	//da processInfo(message)
+	
+	private void startTurn() {
+		
+	}
+	
+	private void renamePlayer() {
+		
+	}
+	
+	private void renameMyself() {
+		
+	}
+	
+	private void setMyPosition() {
+		
+	}
+	
+	private void setMyTeam() {
+		
+	}
+	
+	private void drawnCard() {
+		
+	}
+	
+	private void discardedCard() {
+		
+	}
+	
+	private void playerDisconnected() {
+		
+	}
+	
+	private void setWinners() {
+		
+	}
+	
+	private void setLoserTeam() {
+		
+	}
+	
+	//da processTurnRequest(msg)
+	
+	private void notMyTurn() {
+		
+	}
+	
+	private void myTurnStart() {
+		
+	}
+	
+	private void myMovement() {
+		
+	}
+	
+	private void askForAttack() {
+		
+	}
+	
+	private void askForNoisePosition() {
+		
+	}
+	
+	private void askForLightPosition() {
+		
+	}
+	
+	private void whichObjectCard() {
+		
+	}
+	
+	private void haveToDiscard() {
+		
+	}
+	
+	private void playOrDiscard() {
+		
+	}
+	
+	
+	//da processEvent(msg)
+	
+	private void eventObject() {
+		
+	}
+	
+	private void eventAttack() {
+		
+	}
+	
+	private void eventNoise() {
+		
+	}
+	
+	private void eventDeath() {
+		
+	}
+	
+	private void eventEndGame() {
+		
+	}
+	
+	private void endResults() {
+		
+	}
+	
+	private void eventFoundPlayer() {
+		
+	}
+	
+	private void eventDefense() {
+		
+	}
+	
+	//da processException(msg) n:Not working properly right now
+	
+	private void movementException() {
+		
+	}
+	
+	private void WrongCardException() {
+		
+	}
 }
