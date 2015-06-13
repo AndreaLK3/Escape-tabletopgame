@@ -2,11 +2,10 @@ package it.escape.client.controller.gui;
 
 import it.escape.client.model.ModelForGUI;
 
-/**
- * The updater will use this class to modify the view (swing)
- * @author michele
- *
- */
+/**This interface contains the methods in the Swing View that 
+ * can be invoked directly by the UpdaterSwing.
+ * UpdaterSwing uses this class to modify the Swing View.
+ * @author michele */
 public interface UpdaterSwingToViewInterface {
 	
 	public void setGameMap(String name);

@@ -1,9 +1,9 @@
 package it.escape.client.controller.cli;
 
 /**
- * Interface used by the controller to update the view
+/**This interface contains the methods in view.cli.Terminal that 
+ * can be invoked directly by the UpdaterCLI.
  * @author michele
- *
  */
 public interface UpdaterCLItoTerminalInterface {
 	
