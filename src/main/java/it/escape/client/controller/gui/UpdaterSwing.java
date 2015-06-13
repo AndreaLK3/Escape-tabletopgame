@@ -516,6 +516,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		view.setTurnStatusString("now is my turn to play");
 		model.getMyPlayerState().setMyName(myName);
 		model.getMyPlayerState().setLocation(myPos);
+		model.getMyPlayerState().setMyStatus(CurrentPlayerStatus.ALIVE);
 		model.finishedUpdating();
 		view.clearOtherPlayersFromMap();
 		view.focusOnLocation(model.getMyPlayerState().getLocation(), 2000);
@@ -590,6 +591,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	
 	private void eventDeath(String playerKilled, String message) {
 		model.getSpecificPlayerState(playerKilled).setMyStatus(CurrentPlayerStatus.DEAD);
+		if (isMe(playerKilled))
+			model.getMyPlayerState().setMyStatus(CurrentPlayerStatus.DEAD);
 		model.finishedUpdating();
 		view.notifyUser(message);
 	}
