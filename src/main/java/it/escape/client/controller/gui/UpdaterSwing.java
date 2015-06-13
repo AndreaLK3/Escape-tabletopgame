@@ -161,10 +161,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				visualizeChatMsg(author, msg);
 				
 			} else if (gameStartETA.matches()) {
-				LOG.finer("Setting game start ETA");
-				model.setGameStatus(GameStatus.GOING_TO_START);
-				model.finishedUpdating();
-				view.setTurnStatusString(message);
+				setStartETA(message);
 				
 			}
 			processInfo(message);
@@ -192,70 +189,56 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher losers = info_teamDefeated.matcher(message);
 		
 		if (currentTurnAndPlayer.matches()) {
-			LOG.finer("Someone's turn");
-			view.setTurnStatusString(currentTurnAndPlayer.group(2) + " is playing");
-			model.updateNowPlaying(currentTurnAndPlayer.group(2));
-			model.updatePlayerStatus(model.getNowPlaying().getMyName(), CurrentPlayerStatus.ALIVE);
-			model.setGameStatus(GameStatus.RUNNING);
-			model.setTurnNumber(Integer.parseInt(currentTurnAndPlayer.group(1)));
-			model.finishedUpdating();
+			int turnNumber = Integer.parseInt(currentTurnAndPlayer.group(1));
+			String playerName = currentTurnAndPlayer.group(2); 
+			startTurn(turnNumber, playerName);
 			return true;
 			
 		} else if (playerRename.matches()) {
-			LOG.finer("Someone renamed himself");
-			model.updatePlayerRename(playerRename.group(1), playerRename.group(2));
-			model.finishedUpdating();
+			String previousName = playerRename.group(1);
+			String newName = playerRename.group(2);
+			renamePlayer(previousName, newName);
 			return true;
 			
 		} else if (myName.matches()) {
-			LOG.finer("Read player name from server: " + myName.group(1));
-			model.getMyPlayerState().setMyName(myName.group(1));
-			model.finishedUpdating();
+			String myNewName = myName.group(1);
+			renameMyself(myNewName);
 			return true;
 			
 		} else if (myPosition.matches()) {
-			LOG.finer("Read player position from server: [" + myPosition.group(1) + "]");
-			model.getMyPlayerState().setLocation(myPosition.group(1));
-			model.finishedUpdating();
+			String myPos = myPosition.group(1);
+			setMyPosition(myPos);
 			return true;
 			
 		} else if (myTeam.matches()) {
-			LOG.finer("Read team name from server");
-			model.getMyPlayerState().setMyTeam(myTeam.group(1));
-			model.finishedUpdating();
-			view.discoverMyName();  // if someone else's playing we don't know it yet
+			String teamName = myTeam.group(1);
+			setMyTeam(teamName);
 			return true;
 			
 		} else if (drawncard.matches()) {
-			LOG.finer("Server reported new object card " + drawncard.group(1));
-			String cardKey = getCardGUIKey(drawncard.group(1));
-			model.getMyPlayerState().addCard(cardKey);
-			model.finishedUpdating();
-			view.notifyNewCard(cardKey);
+			String yyyCard =  drawncard.group(1);
+			drawnCard(yyyCard);
 			return true;
 			
 		} else if (playerDisconnected.matches()) {
-			model.getSpecificPlayerState(playerDisconnected.group(1)).setMyStatus(CurrentPlayerStatus.DISCONNECTED);
-			model.finishedUpdating();
+			String playerName = playerDisconnected.group(1);
+			playerDisconnected(playerName);
 			return true;
 			
 		} else if (discardedCard.matches()) {
-			model.getMyPlayerState().removeCard(discardedCard.group(1));
-			model.finishedUpdating();
+			String cardName = discardedCard.group(1);
+			discardedCard(cardName);
 			return true;
 			
 		} else if (winners.matches()) {
-			LOG.finer("Server listed the winners");
-			model.getVictoryState().addWinners(winners.group(1), winners.group(2));
-			model.finalRefreshPlayerStatus();
-			model.finishedUpdating();
+			String team = winners.group(1);
+			String winnersNames = winners.group(2);
+			setWinners(team, winnersNames);
 			return true;
 			
 		} else if (losers.matches()) {
-			LOG.finer("Server listed the losers");
-			model.getVictoryState().setTeamDefeated(losers.group(1));
-			model.finalRefreshPlayerStatus();
-			model.finishedUpdating();
+			String teamName = losers.group(1);
+			setLoserTeam(teamName);
 			return true;
 		} 
 		
@@ -474,51 +457,81 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		view.newChatMessage(author, msg);
 	}
 	
-	private void setStartETA() {
-		
+	private void setStartETA(String message) {
+		LOG.finer("Setting game start ETA");
+		model.setGameStatus(GameStatus.GOING_TO_START);
+		model.finishedUpdating();
+		view.setTurnStatusString(message);
 	}
 	
 	
 	//da processInfo(message)
 	
-	private void startTurn() {
-		
+	private void startTurn(int turnNumber, String playerName) {
+		LOG.finer("Someone's turn");
+		view.setTurnStatusString(playerName + " is playing");
+		model.updateNowPlaying(playerName);
+		model.updatePlayerStatus(model.getNowPlaying().getMyName(), CurrentPlayerStatus.ALIVE);
+		model.setGameStatus(GameStatus.RUNNING);
+		model.setTurnNumber(turnNumber);
+		model.finishedUpdating();
 	}
 	
-	private void renamePlayer() {
-		
+	private void renamePlayer(String previousName, String changedName) {
+		LOG.finer("Someone renamed himself");
+		model.updatePlayerRename(previousName, changedName);
+		model.finishedUpdating();
 	}
 	
-	private void renameMyself() {
-		
+	private void renameMyself(String myNewName) {
+		LOG.finer("Read player name from server: " +myNewName);
+		model.getMyPlayerState().setMyName(myNewName);
+		model.finishedUpdating();
 	}
 	
-	private void setMyPosition() {
-		
+	private void setMyPosition(String myPos) {
+		LOG.finer("Read player position from server: [" + myPos + "]");
+		model.getMyPlayerState().setLocation(myPos);
+		model.finishedUpdating();
 	}
 	
-	private void setMyTeam() {
-		
+	private void setMyTeam(String teamName) {
+		LOG.finer("Read team name from server");
+		model.getMyPlayerState().setMyTeam(teamName);
+		model.finishedUpdating();
+		view.discoverMyName();  // if someone else's playing we don't know it yet
 	}
 	
-	private void drawnCard() {
-		
+	private void drawnCard(String cardClassName) {
+		LOG.finer("Server reported new object card " + cardClassName);
+		String cardKey = getCardGUIKey(cardClassName);
+		model.getMyPlayerState().addCard(cardKey);
+		model.finishedUpdating();
+		view.notifyNewCard(cardKey);
 	}
 	
-	private void discardedCard() {
-		
+	private void discardedCard(String cardName) {
+		model.getMyPlayerState().removeCard(cardName);
+		model.finishedUpdating();
 	}
 	
-	private void playerDisconnected() {
-		
+	private void playerDisconnected(String playerName) {
+		model.getSpecificPlayerState(playerName).setMyStatus(CurrentPlayerStatus.DISCONNECTED);
+		model.finishedUpdating();
 	}
 	
-	private void setWinners() {
-		
+	private void setWinners(String team, String winnersNames) {
+		LOG.finer("Server listed the winners");
+		model.getVictoryState().addWinners(team, winnersNames);
+		model.finalRefreshPlayerStatus();
+		model.finishedUpdating();
 	}
 	
-	private void setLoserTeam() {
-		
+	private void setLoserTeam(String teamName) {
+		LOG.finer("Server listed the losers");
+		model.getVictoryState().setTeamDefeated(teamName);
+		model.finalRefreshPlayerStatus();
+		model.finishedUpdating();
 	}
 	
 	//da processTurnRequest(msg)
