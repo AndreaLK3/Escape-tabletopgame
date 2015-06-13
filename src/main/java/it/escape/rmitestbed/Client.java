@@ -35,6 +35,8 @@ public class Client implements ClientRemote {
 		try {
 			// for local testing, we must choose a port different from 1099,
 			//as the registry at 1099 is already set up by the server application
+			//note: we don't actually need 2 registries, since the
+			//client registers itself on the server, giving the remote reference
 			LocateRegistry.createRegistry(1098);
 			client = new Client();
 			UnicastRemoteObject.exportObject(client, 0);
