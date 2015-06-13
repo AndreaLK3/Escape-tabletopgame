@@ -33,9 +33,9 @@ public class Client implements ClientRemote {
 	
 	public static void main(String[] args) {
 		try {
-			// for local testing, we must comment this, as the registry is already
-			// set up by the server application
-			//LocateRegistry.createRegistry(1099);
+			// for local testing, we must choose a port different from 1099,
+			//as the registry at 1099 is already set up by the server application
+			LocateRegistry.createRegistry(1098);
 			client = new Client();
 			UnicastRemoteObject.exportObject(client, 0);
 			Naming.rebind("//localhost/Client", client);
