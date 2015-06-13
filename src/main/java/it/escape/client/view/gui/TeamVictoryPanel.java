@@ -13,7 +13,7 @@ import javax.swing.JTextArea;
 
 public class TeamVictoryPanel extends JPanel {
 
-	private GridBagConstraints constraints;
+	private GridBagConstraints teamPanelconstraints;
 	
 	private JLabel label1_team;
 	private JLabel label2_winners;
@@ -25,31 +25,31 @@ public class TeamVictoryPanel extends JPanel {
 
 	public TeamVictoryPanel() {
 		setLayout(new GridBagLayout());
-		constraints = new GridBagConstraints();
+		teamPanelconstraints = new GridBagConstraints();
 	}
 	
 	public void initializeTeamPanel(String teamName) {
 		label1_team = new JLabel(teamName);
-		constraints.gridx=0;
-		constraints.gridy=0;
-		add(label1_team,constraints);
+		teamPanelconstraints.gridx=0;
+		teamPanelconstraints.gridy=0;
+		add(label1_team,teamPanelconstraints);
 		
 		teamStatusArea = new JTextArea();
-		constraints.gridx=1;
-		constraints.gridy=0;
-		add(teamStatusArea,constraints);
+		teamPanelconstraints.gridx=1;
+		teamPanelconstraints.gridy=0;
+		add(teamStatusArea,teamPanelconstraints);
 		
 		label2_winners = new JLabel("Winners:");
-		constraints.gridx=0;
-		constraints.gridy=1;
-		constraints.gridwidth=2;
-		add(label2_winners,constraints);
+		teamPanelconstraints.gridx=0;
+		teamPanelconstraints.gridy=1;
+		teamPanelconstraints.gridwidth=2;
+		add(label2_winners,teamPanelconstraints);
 		
 		winnersArea = new JTextArea();
-		constraints.gridx=0;
-		constraints.gridy=2;
-		constraints.gridwidth=2;
-		add(winnersArea,constraints);
+		teamPanelconstraints.gridx=0;
+		teamPanelconstraints.gridy=2;
+		teamPanelconstraints.gridwidth=2;
+		add(winnersArea,teamPanelconstraints);
 		
 	}
 	
@@ -58,6 +58,9 @@ public class TeamVictoryPanel extends JPanel {
 		
 		if (teamDefeated) {
 			teamStatusArea.setText("Defeated");
+		}
+		else {
+			teamStatusArea.setText("Not Defeated!");
 		}
 		for (String winnerName : winners) {
 			winnersString = winnersString + winnerName + "\n";
