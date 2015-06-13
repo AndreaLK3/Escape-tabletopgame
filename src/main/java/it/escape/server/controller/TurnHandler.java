@@ -70,19 +70,19 @@ public abstract class TurnHandler {
 	
 	private void hailPlayer() {
 		if (currentPlayer.isAlive()) {
-			UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(String.format(
+			UserMessagesReporterSocket.getReporterInstance(currentPlayer).relayMessage(String.format(
 					StringRes.getString("messaging.hail.player"),
 					currentPlayer.getName(),
 					CoordinatesConverter.fromCubicToAlphaNum(map.getPlayerPosition(currentPlayer))));
 		} else {
-			UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(String.format(
+			UserMessagesReporterSocket.getReporterInstance(currentPlayer).relayMessage(String.format(
 					StringRes.getString("messaging.hail.deadPlayer"),
 					currentPlayer.getName()));
 		}
 	}
 	
 	private void farewellPlayer() {
-		UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(
+		UserMessagesReporterSocket.getReporterInstance(currentPlayer).relayMessage(
 				StringRes.getString("messaging.farewell"));
 	}
 	
@@ -158,7 +158,7 @@ public abstract class TurnHandler {
 			} while (!correctInput);
 		
 		// say where I am after the move
-		UserMessagesReporter.getReporterInstance(currentPlayer).reportMyUserPosition(
+		UserMessagesReporterSocket.getReporterInstance(currentPlayer).reportMyUserPosition(
 				map.getPlayerAlphaNumPosition(currentPlayer));
 	}
 	

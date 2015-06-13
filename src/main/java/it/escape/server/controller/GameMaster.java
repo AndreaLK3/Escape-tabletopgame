@@ -167,9 +167,9 @@ public class GameMaster implements Runnable {
 	private void addNewPlayer(MessagingChannel interfaceWithUser) {
 		Player newP = createPlayer("Guest-" + id + "-" + new Random().nextInt(USERID_RANDOMIZE));  // create the player
 		map.addNewPlayer(newP, newP.getTeam());  // tell the map to place our player
-		UserMessagesReporter.bindPlayer(newP, interfaceWithUser);  // bind him to its command interface
-		UserMessagesReporter.getReporterInstance(interfaceWithUser).bindAnnouncer(announcer);  // the player will also use our game-announcer
-		AsyncUserListener listener = new AsyncUserListener(newP, announcer, UserMessagesReporter.getReporterInstance(interfaceWithUser), this);
+		UserMessagesReporterSocket.bindPlayer(newP, interfaceWithUser);  // bind him to its command interface
+		UserMessagesReporterSocket.getReporterInstance(interfaceWithUser).bindAnnouncer(announcer);  // the player will also use our game-announcer
+		AsyncUserListener listener = new AsyncUserListener(newP, announcer, UserMessagesReporterSocket.getReporterInstance(interfaceWithUser), this);
 		listOfPlayers.add(newP);  // add him to our players list
 		interfaceWithUser.addObserver(listener);
 		listeners.add(listener);
@@ -177,17 +177,17 @@ public class GameMaster implements Runnable {
 	}
 	
 	private void announceNewPlayer(MessagingChannel interfaceWithUser) {
-		UserMessagesReporter.getReporterInstance(interfaceWithUser).relayMessage(String.format(
+		UserMessagesReporterSocket.getReporterInstance(interfaceWithUser).relayMessage(String.format(
 				StringRes.getString("messaging.serversMap"),
 				map.getName()));  // greet him
 		
 		announcer.announcePlayerConnected(numPlayers,GameMaster.MAXPLAYERS);  // notify the others
-		UserMessagesReporter.getReporterInstance(interfaceWithUser).relayMessage(String.format(
+		UserMessagesReporterSocket.getReporterInstance(interfaceWithUser).relayMessage(String.format(
 				StringRes.getString("messaging.othersWaiting"),
 				numPlayers,
 				GameMaster.MAXPLAYERS));  // tell him how many players are connected
 		if (timeoutTicking.get()) {  // if a game is about to start
-			UserMessagesReporter.getReporterInstance(interfaceWithUser).relayMessage(String.format(
+			UserMessagesReporterSocket.getReporterInstance(interfaceWithUser).relayMessage(String.format(
 					StringRes.getString("messaging.gameStartETA"),
 					getStartGameETA()));  // tell him how long until game starts
 		}
@@ -310,7 +310,7 @@ public class GameMaster implements Runnable {
 	 */
 	private void greetPlayers() {
 		for (Player p : listOfPlayers) {
-			UserMessagesReporter.getReporterInstance(p).relayMessage(String.format(
+			UserMessagesReporterSocket.getReporterInstance(p).relayMessage(String.format(
 					StringRes.getString("messaging.gamemaster.playAs"),
 					p.getTeam().toString()));
 		}
@@ -424,10 +424,10 @@ public class GameMaster implements Runnable {
 	
 	private synchronized void closeConnections() {
 		for (Player p : listOfPlayers) {
-			UserMessagesReporter.getReporterInstance(p).relayMessage(String.format(
+			UserMessagesReporterSocket.getReporterInstance(p).relayMessage(String.format(
 					StringRes.getString("messaging.goodbye"),
 					p.getName()));  // say goodbye
-			UserMessagesReporter.getReporterInstance(p).getInterfaceWithUser().killConnection();
+			UserMessagesReporterSocket.getReporterInstance(p).getInterfaceWithUser().killConnection();
 			numPlayers--;
 		}
 	}

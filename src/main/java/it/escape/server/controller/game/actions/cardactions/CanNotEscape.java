@@ -1,6 +1,6 @@
 package it.escape.server.controller.game.actions.cardactions;
 
-import it.escape.server.controller.UserMessagesReporter;
+import it.escape.server.controller.UserMessagesReporterSocket;
 import it.escape.server.controller.game.actions.CardAction;
 import it.escape.server.controller.game.actions.DecksHandlerInterface;
 import it.escape.server.controller.game.actions.MapActionInterface;
@@ -11,7 +11,7 @@ public class CanNotEscape  implements CardAction{
 
 
 	public void execute(PlayerActionInterface currentPlayer, MapActionInterface map, DecksHandlerInterface deck) {
-		UserMessagesReporter.getReporterInstance(currentPlayer).
+		UserMessagesReporterSocket.getReporterInstance(currentPlayer).
 			relayMessage(StringRes.getString("messaging.EscapeHatchDoesNotWork"));
 		
 	}

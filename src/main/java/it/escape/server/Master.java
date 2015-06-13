@@ -1,7 +1,7 @@
 package it.escape.server;
 
 import it.escape.server.controller.GameMaster;
-import it.escape.server.controller.UserMessagesReporter;
+import it.escape.server.controller.UserMessagesReporterSocket;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingChannel;
 import it.escape.utils.LogHelper;
@@ -70,7 +70,7 @@ public class Master {
 	}
 	
 	public static Player getPlayer(MessagingChannel interfaceWithUser) {
-		return UserMessagesReporter.getReporterInstance(interfaceWithUser).getThePlayer();
+		return UserMessagesReporterSocket.getReporterInstance(interfaceWithUser).getThePlayer();
 	}
 	
 	/**Given a Player, returns the GameMaster where the Player is in.

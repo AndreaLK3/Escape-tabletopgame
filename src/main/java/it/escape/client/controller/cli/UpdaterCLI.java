@@ -11,8 +11,8 @@ import java.util.regex.Matcher;
  * (n: that means it observes the MessageCarrier, that receives Strings from the Connection)(.
  * This class checks if the messages sent by the Server correspond
  * to one of the given patterns; if they do, the TurnInputState is set.
- * N: Possible implementation for RMI: the methods of the stateManager can be made public and invoked remotely
- */
+ * N: Possible implementation for RMI: the methods of the stateManager can be made public and invoked remotely*/
+
 public class UpdaterCLI extends Updater implements Observer {
 	
 	private StateManagerCLIInterface stateRef;

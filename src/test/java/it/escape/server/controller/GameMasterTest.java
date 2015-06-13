@@ -47,7 +47,7 @@ public class GameMasterTest {
 	
 	private void simulateConnect(AnnouncerObserverTest observer) {
 		MessagingChannel iface = new MessagingChannel();
-		UserMessagesReporter.createUMR(iface);
+		UserMessagesReporterSocket.createUMR(iface);
 		Master.newPlayerHasConnected(iface, new GlobalSettings());
 		Shorthand.announcer(iface).addObserver(observer);
 	}

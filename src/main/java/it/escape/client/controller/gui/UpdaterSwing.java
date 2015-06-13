@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  * Updates the GUIModel and/or sends commands to the GUIView when a new network message arrives
  * @author michele, andrea
  */
-public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterface {
+public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterface, ClientProceduresInterface {
 	
 	protected static final Logger LOG = Logger.getLogger( UpdaterSwing.class.getName() );
 
@@ -413,21 +413,37 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	//Using the socket connection, these methods are invoked upon pattern recognition
 	//Using the RMI connection, these methods are invoked directly through RMI
 	
-	private void setMap(String mapname) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#setMap(java.lang.String)
+	 */
+	@Override
+	public void setMap(String mapname) {
 		LOG.finer("Setting map to " +mapname);
 		view.setGameMap(mapname);
 	}
 	
-	private void startReadingMotd() {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#startReadingMotd()
+	 */
+	@Override
+	public void startReadingMotd() {
 		LOG.finer("Server has begun writing motd");
 		readingMotd = true;
 	}
 	
-	private void visualizeChatMsg(String author, String msg) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#visualizeChatMsg(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void visualizeChatMsg(String author, String msg) {
 		view.newChatMessage(author, msg);
 	}
 	
-	private void setStartETA(String message) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#setStartETA(java.lang.String)
+	 */
+	@Override
+	public void setStartETA(String message) {
 		LOG.finer("Setting game start ETA");
 		model.setGameStatus(GameStatus.GOING_TO_START);
 		model.finishedUpdating();
@@ -437,7 +453,11 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	
 	//da processInfo(message)
 	
-	private void startTurn(int turnNumber, String playerName) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#startTurn(int, java.lang.String)
+	 */
+	@Override
+	public void startTurn(int turnNumber, String playerName) {
 		LOG.finer("Someone's turn");
 		view.setTurnStatusString(playerName + " is playing");
 		model.updateNowPlaying(playerName);
@@ -447,32 +467,52 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		model.finishedUpdating();
 	}
 	
-	private void renamePlayer(String previousName, String changedName) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#renamePlayer(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void renamePlayer(String previousName, String changedName) {
 		LOG.finer("Someone renamed himself");
 		model.updatePlayerRename(previousName, changedName);
 		model.finishedUpdating();
 	}
 	
-	private void renameMyself(String myNewName) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#renameMyself(java.lang.String)
+	 */
+	@Override
+	public void renameMyself(String myNewName) {
 		LOG.finer("Read player name from server: " +myNewName);
 		model.getMyPlayerState().setMyName(myNewName);
 		model.finishedUpdating();
 	}
 	
-	private void setMyPosition(String myPos) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#setMyPosition(java.lang.String)
+	 */
+	@Override
+	public void setMyPosition(String myPos) {
 		LOG.finer("Read player position from server: [" + myPos + "]");
 		model.getMyPlayerState().setLocation(myPos);
 		model.finishedUpdating();
 	}
 	
-	private void setMyTeam(String teamName) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#setMyTeam(java.lang.String)
+	 */
+	@Override
+	public void setMyTeam(String teamName) {
 		LOG.finer("Read team name from server");
 		model.getMyPlayerState().setMyTeam(teamName);
 		model.finishedUpdating();
 		view.discoverMyName();  // if someone else's playing we don't know it yet
 	}
 	
-	private void drawnCard(String cardClassName) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#drawnCard(java.lang.String)
+	 */
+	@Override
+	public void drawnCard(String cardClassName) {
 		LOG.finer("Server reported new object card " + cardClassName);
 		String cardKey = getCardGUIKey(cardClassName);
 		model.getMyPlayerState().addCard(cardKey);
@@ -480,24 +520,40 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		view.notifyNewCard(cardKey);
 	}
 	
-	private void discardedCard(String cardName) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#discardedCard(java.lang.String)
+	 */
+	@Override
+	public void discardedCard(String cardName) {
 		model.getMyPlayerState().removeCard(cardName);
 		model.finishedUpdating();
 	}
 	
-	private void playerDisconnected(String playerName) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#playerDisconnected(java.lang.String)
+	 */
+	@Override
+	public void playerDisconnected(String playerName) {
 		model.getSpecificPlayerState(playerName).setMyStatus(CurrentPlayerStatus.DISCONNECTED);
 		model.finishedUpdating();
 	}
 	
-	private void setWinners(String team, String winnersNames) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#setWinners(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void setWinners(String team, String winnersNames) {
 		LOG.finer("Server listed the winners");
 		model.getVictoryState().addWinners(team, winnersNames);
 		model.finalRefreshPlayerStatus();
 		model.finishedUpdating();
 	}
 	
-	private void setLoserTeam(String teamName) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#setLoserTeam(java.lang.String)
+	 */
+	@Override
+	public void setLoserTeam(String teamName) {
 		LOG.finer("Server listed the losers");
 		model.getVictoryState().setTeamDefeated(teamName);
 		model.finalRefreshPlayerStatus();
@@ -506,12 +562,20 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	
 	//da processTurnRequest(msg)
 	
-	private void notMyTurn() {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#notMyTurn()
+	 */
+	@Override
+	public void notMyTurn() {
 		view.clearNoisesFromMap();
 		view.setTurnStatusString("waiting for my turn");
 	}
 	
-	private void startMyTurn(String myName, String myPos) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#startMyTurn(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void startMyTurn(String myName, String myPos) {
 		LOG.finer("My turn");
 		view.setTurnStatusString("now is my turn to play");
 		model.getMyPlayerState().setMyName(myName);
@@ -522,40 +586,68 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		view.focusOnLocation(model.getMyPlayerState().getLocation(), 2000);
 	}
 	
-	private void askForMovement() {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#askForMovement()
+	 */
+	@Override
+	public void askForMovement() {
 		LOG.finer("Server asked to move");
 		view.notifyUser("Please move your character: click where you want to go");
 		view.bindPositionSender();
 	}
 	
-	private void askForYesNo(String question) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#askForYesNo(java.lang.String)
+	 */
+	@Override
+	public void askForYesNo(String question) {
 		LOG.finer("Server asked yes/no question");
 		view.relayYesNoDialog(question);
 	}
 	
-	private void askForNoisePosition() {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#askForNoisePosition()
+	 */
+	@Override
+	public void askForNoisePosition() {
 		LOG.finer("Server asked to place a noise");
 		view.notifyUser("Select the sector you want to make a noise in");
 		view.bindPositionSender();
 	}
 	
-	private void askForLightsPosition() {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#askForLightsPosition()
+	 */
+	@Override
+	public void askForLightsPosition() {
 		LOG.finer("Server asked where to turn the Lights on");
 		view.notifyUser("Select the sector where you want to turn the lights on");
 		view.bindPositionSender();
 	}
 	
-	private void whichObjectCard() {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#whichObjectCard()
+	 */
+	@Override
+	public void whichObjectCard() {
 		LOG.finer("Server asked an object card");
 		view.relayObjectCard();
 	}
 	
-	private void haveToDiscard() {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#haveToDiscard()
+	 */
+	@Override
+	public void haveToDiscard() {
 		LOG.finer("Server asked to discard a card");
 		view.relayObjectCard();
 	}
 	
-	private void askPlayOrDiscard(String question) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#askPlayOrDiscard(java.lang.String)
+	 */
+	@Override
+	public void askPlayOrDiscard(String question) {
 		LOG.finer("Server asked to play or discard a card");
 		view.relayYesNoDialog(question, "play", "discard");
 	}
@@ -563,7 +655,11 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	
 	//da processEvent(msg)
 	
-	private void eventObject(String playerName, String cardClassName, String message) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#eventObject(java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void eventObject(String playerName, String cardClassName, String message) {
 		if (!isMe(playerName)) { // it's not me
 			view.notifyUser(message);
 		}
@@ -574,7 +670,11 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		}
 	}
 	
-	private void eventAttack(String attacker, String location, String message) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#eventAttack(java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void eventAttack(String attacker, String location, String message) {
 		if (!isMe(attacker)) { // it's not me
 			view.notifyUser(message);
 		}
@@ -582,14 +682,22 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		model.finishedUpdating();
 	}
 	
-	private void eventNoise(String location) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#eventNoise(java.lang.String)
+	 */
+	@Override
+	public void eventNoise(String location) {
 		model.getNowPlaying().setLastNoiseLocation(location);
 		model.finishedUpdating();
 		view.addNoiseToMap(location);
 		view.focusOnLocation(location, 0);
 	}
 	
-	private void eventDeath(String playerKilled, String message) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#eventDeath(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void eventDeath(String playerKilled, String message) {
 		model.getSpecificPlayerState(playerKilled).setMyStatus(CurrentPlayerStatus.DEAD);
 		if (isMe(playerKilled))
 			model.getMyPlayerState().setMyStatus(CurrentPlayerStatus.DEAD);
@@ -597,17 +705,29 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		view.notifyUser(message);
 	}
 	
-	private void eventEndGame() {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#eventEndGame()
+	 */
+	@Override
+	public void eventEndGame() {
 		model.setGameStatus(GameStatus.FINISHED);
 		model.finishedUpdating();
 	}
 	
-	private void endResults() {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#endResults()
+	 */
+	@Override
+	public void endResults() {
 		LOG.finer("Server sent results, printing recap screen");
 		view.spawnVictoryRecap(model);
 	}
 	
-	private void eventFoundPlayer(String playerName, String location) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#eventFoundPlayer(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void eventFoundPlayer(String playerName, String location) {
 		if (!isMe(playerName)) { // it's not me
 			view.addOtherPlayerToMap(location, playerName);
 			view.focusOnLocation(location, 0);
@@ -616,19 +736,31 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		}		
 	}
 	
-	private void eventDefense(String message) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#eventDefense(java.lang.String)
+	 */
+	@Override
+	public void eventDefense(String message) {
 		view.notifyUser(message);
 	}
 	
 	//da processException(msg) n:Not working properly right now
 	
-	private void showMovementException(String exceptionMessage) { 
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#showMovementException(java.lang.String)
+	 */
+	@Override
+	public void showMovementException(String exceptionMessage) { 
 		LOG.finer("Server reported : movement is impossible." );
 		view.notifyUser(exceptionMessage);
 		processMessage(StringRes.getString("messaging.timeToMove"));
 	}
 	
-	private void showWrongCardException(String exceptionMessage) {
+	/* (non-Javadoc)
+	 * @see it.escape.client.controller.gui.ClientProceduresInterface#showWrongCardException(java.lang.String)
+	 */
+	@Override
+	public void showWrongCardException(String exceptionMessage) {
 		LOG.finer("Server reported : that Card can't be played now." );
 		view.notifyUser(exceptionMessage);
 		processMessage(StringRes.getString("messaging.askPlayObjectCard"));

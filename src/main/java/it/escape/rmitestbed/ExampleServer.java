@@ -6,14 +6,14 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 
-public class Server implements ServerRemote {
+public class ExampleServer implements ExampleServerRemote {
 	
-	private ClientRemote client;
+	private ExampleClientRemote client;
 
 	/**
 	 * method called by the client
 	 */
-	public void registerClient(ClientRemote client) throws RemoteException {
+	public void registerClient(ExampleClientRemote client) throws RemoteException {
 		System.out.println("Client registered");
 		this.client = client;
 		callBackMaybe();
@@ -42,7 +42,7 @@ public class Server implements ServerRemote {
 	public static void main(String[] args) {
 		try {
 			LocateRegistry.createRegistry(1099);
-			ServerRemote server = new Server();
+			ExampleServerRemote server = new ExampleServer();
 			UnicastRemoteObject.exportObject(server, 0);
 			Naming.rebind("//localhost/Server", server);
 			System.out.println("Server started");

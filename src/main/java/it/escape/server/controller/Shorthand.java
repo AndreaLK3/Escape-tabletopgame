@@ -11,10 +11,10 @@ import it.escape.server.model.game.Announcer;
 public class Shorthand {
 	
 	public static Announcer announcer(MessagingChannelInterface interfaceWithUser) {
-		return UserMessagesReporter.getReporterInstance(interfaceWithUser).getAnnouncer();
+		return UserMessagesReporterSocket.getReporterInstance(interfaceWithUser).getAnnouncer();
 	}
 	
 	public static Announcer announcer(PlayerActionInterface player) {
-		return UserMessagesReporter.getReporterInstance(player).getAnnouncer();
+		return UserMessagesReporterSocket.getReporterInstance(player).getAnnouncer();
 	}
 }

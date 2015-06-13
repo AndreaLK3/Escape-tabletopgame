@@ -8,11 +8,11 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-public class Client implements ClientRemote {
+public class ExampleClient implements ExampleClientRemote {
 	
-	private static ClientRemote client;
+	private static ExampleClientRemote client;
 	
-	public Client() throws RemoteException {
+	public ExampleClient() throws RemoteException {
         super();
     }
 	
@@ -38,13 +38,13 @@ public class Client implements ClientRemote {
 			//note: we don't actually need 2 registries, since the
 			//client registers itself on the server, giving the remote reference
 			LocateRegistry.createRegistry(1098);
-			client = new Client();
+			client = new ExampleClient();
 			UnicastRemoteObject.exportObject(client, 0);
 			Naming.rebind("//localhost/Client", client);
 			System.out.println("Client started");
 			
 			Registry remote = LocateRegistry.getRegistry("127.0.0.1");
-			ServerRemote serverStub = (ServerRemote) remote.lookup("Server");
+			ExampleServerRemote serverStub = (ExampleServerRemote) remote.lookup("Server");
 			
 			System.out.println("Calling...");
 			serverStub.sendAnswer("Lol, ho risposto prima della domanda");;
