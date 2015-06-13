@@ -43,7 +43,7 @@ public class PlayerState {
 	}
 	
 	public void setMyName(String name) {
-		if(name==null || name.length()>30) {
+		if(name.equalsIgnoreCase(null)) {
 			name = "Unknown"; 
 		}
 		myName = name;

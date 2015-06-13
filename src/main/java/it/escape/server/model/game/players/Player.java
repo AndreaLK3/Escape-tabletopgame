@@ -91,17 +91,28 @@ public abstract class Player implements PlayerActionInterface {
 
 	/**This method checks if the Player has playable cards in his hand
 	 * It is invoked by the TurnHandlerHuman to decide if we have to ask the User to play an ObjectCard or not.
+	 * It also check the hasMoved variable of the Player to know which cards to look for.
 	 * @return boolean */
 	public boolean hasPlayableCards() {
-		String playableCardsNames[] = {"teleport", "lights", "sedatives","adrenaline"};
+		String playableBeforeMoveCardNames[] = {"teleport", "lights", "sedatives","adrenaline"};
+		String playableAfterMoveCardNames[] = {"teleport", "lights"};
 		
 		if (myHand.isEmpty()) {
 			return false;
 		}
 		else {
-			for (int i=0; i<playableCardsNames.length ; i++) {			//for each of the playable cards' names
-				if (myHand.getCardFromString(playableCardsNames[i])!=null) {	//if there is a corresponding card
-					return true;
+			if (!hasMoved) {                                                 //if the player has not moved yet
+				for (int i=0; i<playableBeforeMoveCardNames.length ; i++) {	      //for each of the playable cards' names
+					if (myHand.getCardFromString(playableBeforeMoveCardNames[i])!=null) {  //if there is a corresponding card
+						return true;
+					}
+				}
+			}
+			else {                                                             //if the player has already moved
+				for (int i=0; i<playableAfterMoveCardNames.length ; i++) {			//for each of the playable cards' names
+					if (myHand.getCardFromString(playableAfterMoveCardNames[i])!=null) {   //if there is a corresponding card
+						return true;
+					}
 				}
 			}
 		}
