@@ -13,7 +13,7 @@ public class MessagingChannelRMI {
 	}
 	
 	public String getAnswer() {
-		
+		return null;
 	}
 	
 	public void setDefaultOption(String option) {
