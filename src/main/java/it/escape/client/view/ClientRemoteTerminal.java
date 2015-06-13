@@ -1,9 +1,27 @@
 package it.escape.client.view;
 
 import it.escape.client.ClientRemoteInterface;
+import it.escape.client.controller.cli.StateManagerCLIInterface;
+import it.escape.client.controller.gui.ClientProceduresInterface;
+import it.escape.client.view.cli.Terminal;
 
+/**This class implements the ClientRemoteInterface.
+ * This object is exposed to the Server.
+ * In the Server, UserMessagesReporterRMI invokes remotely methods of this class.
+ * These methods, in turn, invoke the appropriate methods: 
+ * inside StateManager (to set up the TurnInputState for the format checks)
+ * inside Terminal (to show messages)*/
 public class ClientRemoteTerminal implements ClientRemoteInterface {
 
+	private StateManagerCLIInterface stateManager;
+	private Terminal terminal;
+	
+	/**The constructor; it initializes the stateManager and the Terminal references.*/
+	public ClientRemoteTerminal(StateManagerCLIInterface stateManager, Terminal terminal) {
+		this.stateManager = stateManager;
+		this.terminal = terminal;
+	}
+	
 	@Override
 	public void setMap(String mapname) {
 		

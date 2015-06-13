@@ -17,8 +17,10 @@ import it.escape.rmitestbed.ExampleClient;
 import it.escape.rmitestbed.ExampleServerRemote;
 import it.escape.server.view.ServerRemoteInterface;
 
-/**This class implements the ClientRemoteInterface, and it is the object that is 
- * exposed to the Server*/
+/**This class implements the ClientRemoteInterface.
+ * This object is exposed to the Server.
+ * In the Server, UserMessagesReporterRMI invokes remotely methods of this class.
+ * These methods, in turn, invoke the appropriate methods inside UpdaterSwing */
 public class ClientRemoteSwing implements ClientRemoteInterface {
 
 	

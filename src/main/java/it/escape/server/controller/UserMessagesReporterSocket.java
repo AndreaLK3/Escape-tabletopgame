@@ -24,36 +24,17 @@ import java.util.logging.Logger;
  * This class makes use of the Synchronous-communication facilities offered by MessagingChannel
  * @author andrea
  */
-public class UserMessagesReporterSocket implements UserMessagesReporter {
+public class UserMessagesReporterSocket extends UserMessagesReporter {
 	
 	protected static final Logger log = Logger.getLogger( UserMessagesReporterSocket.class.getName() );
 		
-	private static List<UserMessagesReporterSocket> reportersList = new ArrayList<UserMessagesReporterSocket>();
-	
-	private Player thePlayer;
 	private MessagingChannel interfaceWithUser;
 	
 	private boolean automaticOverriding = false;
 	
 	private Announcer announcerRef;
 	
-	//creation and access methods
-	
-	public static UserMessagesReporter getReporterInstance(PlayerActionInterface currentPlayer) {
-		for (UserMessagesReporter r : reportersList) {	
-			if (r.getThePlayer() == (Player)currentPlayer)
-			return r;
-		}
-		return null;
-	}
-	
-	public static UserMessagesReporter getReporterInstance(MessagingChannelInterface interfaceWithUser) {
-		for (UserMessagesReporter r : reportersList) {	
-			if (r.getInterfaceWithUser() == (MessagingChannel)interfaceWithUser)
-			return r;
-		}
-		return null;
-	}
+	//creation methods
 	
 	private UserMessagesReporterSocket(MessagingChannel interfaceWithUser) {
 		this.interfaceWithUser = interfaceWithUser;
@@ -66,19 +47,7 @@ public class UserMessagesReporterSocket implements UserMessagesReporter {
 		reportersList.add(new UserMessagesReporterSocket(interfaceWithUser));
 	}
 	
-	/**This method assigns a player (already initialized) to an existing
-	 * userMessagesReporter connected to an existing interface.
-	 * @param newP
-	 * @param interfaceWithUser
-	 */
-	public static void bindPlayer(Player newP,MessagingChannel interfaceWithUser) {
-		for (UserMessagesReporterSocket r : reportersList) {	
-			if (r.getInterfaceWithUser() == interfaceWithUser) {
-				r.setThePlayer(newP);
-				break;
-			}
-		}
-	}
+	
 	
 	@Override
 	public void bindAnnouncer(Announcer announcer) {
@@ -271,20 +240,13 @@ public class UserMessagesReporterSocket implements UserMessagesReporter {
 		interfaceWithUser.writeToClient(string);
 	}
 	
-	/* E' utile? TurnHandler ha già un riferimento al Player*/
-	@Override
-	public Player getThePlayer() {
-		return thePlayer;
-	}
+	
 
 	@Override
 	public MessagingChannel getInterfaceWithUser() {
 		return interfaceWithUser;
 	}
 
-	private void setThePlayer(Player thePlayer) {
-		this.thePlayer = thePlayer;
-	}
 
 	@Override
 	public Announcer getAnnouncer() {

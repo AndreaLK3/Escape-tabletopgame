@@ -13,69 +13,15 @@ import it.escape.server.view.MessagingChannelRMI;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
 
-public class UserMessagesReporterRMI implements UserMessagesReporter {
+public class UserMessagesReporterRMI extends UserMessagesReporter {
 
 
 	protected static final Logger log = Logger.getLogger(UserMessagesReporterRMI.class.getName() );
 	
-	private static List<UserMessagesReporterRMI> reportersList = new ArrayList<UserMessagesReporterRMI>();
+	
 	
 	private MessagingChannelRMI interfaceWithUser;
 	
-	private Player thePlayer;
-	
-	private boolean automaticOverriding = false;
-	
-	private Announcer announcerRef;
-	
-	//creation and access methods
-	
-	public static UserMessagesReporter getReporterInstance(PlayerActionInterface currentPlayer) {
-		for (UserMessagesReporter r : reportersList) {	
-			if (r.getThePlayer() == (Player)currentPlayer)
-			return r;
-		}
-		return null;
-	}
-	
-	public static UserMessagesReporter getReporterInstance(MessagingChannelInterface interfaceWithUser) {
-		for (UserMessagesReporter r : reportersList) {	
-			if (r.getInterfaceWithUser() == (MessagingChannel)interfaceWithUser)
-			return r;
-		}
-		return null;
-	}
-	
-	/**Constructor */
-	private UserMessagesReporterRMI(MessagingChannelRMI interfaceWithUser) {
-		this.interfaceWithUser = interfaceWithUser;
-	}
-
-	public static void createUMR(MessagingChannelRMI interfaceWithUser) {
-		if (reportersList.size() <= 0) {
-			LogHelper.setDefaultOptions(log);
-		}
-		reportersList.add(new UserMessagesReporterRMI(interfaceWithUser));
-	}
-	
-	
-	/**This method assigns a player (already initialized) to an existing
-	 * userMessagesReporter connected to an existing interface.
-	 * @param newP
-	 * @param interfaceWithUser
-	 */
-	public static void bindPlayer(Player newP,MessagingChannel interfaceWithUser) {
-		for (UserMessagesReporterRMI r : reportersList) {	
-			if (r.getInterfaceWithUser() == interfaceWithUser) {
-				r.setThePlayer(newP);
-				break;
-			}
-		}
-	}
-	
-	private void setThePlayer(Player thePlayer) {
-		this.thePlayer = thePlayer;
-	}
 
 	@Override
 	public void bindAnnouncer(Announcer announcer) {
