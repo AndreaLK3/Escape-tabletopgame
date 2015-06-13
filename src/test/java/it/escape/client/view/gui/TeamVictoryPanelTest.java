@@ -7,6 +7,7 @@ import it.escape.client.model.VictoryState;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JFrame;
@@ -62,7 +63,7 @@ public class TeamVictoryPanelTest {
 		
 		TeamVictoryPanel panelAliens = new TeamVictoryPanel();
 		panelAliens.initializeTeamPanel("Aliens");
-		panelAliens.fillVictoryPanel(false, Arrays.asList("David", "Elizabeth", "Francis"));
+		panelAliens.fillVictoryPanel(true, new ArrayList<String>());
 		
 		resultsPanel.setLayout(new GridBagLayout());
 		panelConstraints.gridx=0;

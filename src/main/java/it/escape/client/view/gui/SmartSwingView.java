@@ -395,8 +395,8 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 		panelHumans.fillVictoryPanel(finalGameState.isHumansDefeated(), finalGameState.getHumanWinners());
 		
 		TeamVictoryPanel panelAliens = new TeamVictoryPanel();
-		panelHumans.initializeTeamPanel("Aliens");
-		panelHumans.fillVictoryPanel(finalGameState.isAliensDefeated(), finalGameState.getAlienWinners());
+		panelAliens.initializeTeamPanel("Aliens");
+		panelAliens.fillVictoryPanel(finalGameState.isAliensDefeated(), finalGameState.getAlienWinners());
 		
 		resultsPanel.setLayout(new GridBagLayout());
 		panelConstraints.gridx=0;
