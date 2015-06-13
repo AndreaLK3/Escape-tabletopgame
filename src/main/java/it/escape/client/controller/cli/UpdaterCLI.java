@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
  * (n: that means it observes the MessageCarrier, that receives Strings from the Connection)(.
  * This class checks if the messages sent by the Server correspond
  * to one of the given patterns; if they do, the TurnInputState is set.
+ * N: Possible implementation for RMI: the methods of the stateManager can be made public and invoked remotely
  */
 public class UpdaterCLI extends Updater implements Observer {
 	
@@ -47,16 +48,16 @@ public class UpdaterCLI extends Updater implements Observer {
 	 * @param message
 	 */
 	protected void processMessage(String message) {
-		Matcher obj = input_ObjectCard.matcher(message);
-		Matcher pos = input_Position.matcher(message);
-		Matcher yesno = input_YesNo.matcher(message);
+		Matcher objectRequired = input_ObjectCard.matcher(message);
+		Matcher positionRequired = input_Position.matcher(message);
+		Matcher yesnoRequired = input_YesNo.matcher(message);
 		Matcher turnstart = turn_Start.matcher(message);
 		Matcher turnend = turn_End.matcher(message);
-		if (obj.matches()) {
+		if (objectRequired.matches()) {
 			stateRef.setObjectCardState();
-		} else if (pos.matches()) {
+		} else if (positionRequired.matches()) {
 			stateRef.setPositionState();
-		} else if (yesno.matches()) {
+		} else if (yesnoRequired.matches()) {
 			stateRef.setYesNoState();
 		} else if (turnstart.matches()) {
 			stateRef.setMyTurn();

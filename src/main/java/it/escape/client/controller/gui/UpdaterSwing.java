@@ -176,7 +176,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private boolean processInfo(String message) {
 		Matcher currentTurnAndPlayer = info_currentTurnAndPlayer.matcher(message);
 		Matcher playerRename = info_playerRenamed.matcher(message);
-		Matcher myName = info_whoIAm.matcher(message);
+		Matcher myRename = info_whoIAm.matcher(message);
 		Matcher myTeam = info_yourTeam.matcher(message);
 		Matcher myPosition = info_whereIAm.matcher(message);
 		Matcher drawncard = info_drawnObjectCard.matcher(message);
@@ -200,8 +200,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			renamePlayer(previousName, newName);
 			return true;
 			
-		} else if (myName.matches()) {
-			String myNewName = myName.group(1);
+		} else if (myRename.matches()) {
+			String myNewName = myRename.group(1);
 			renameMyself(myNewName);
 			return true;
 			
@@ -260,63 +260,50 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher playOrDiscard = turn_playOrDiscard.matcher(message);
 		
 		if (turnEnd.matches()) {
-			view.clearNoisesFromMap();
-			view.setTurnStatusString("waiting for my turn");
+			notMyTurn();
 			return true;
 			
 		} else if (turnStart.matches()) {
-			LOG.finer("My turn");
-			view.setTurnStatusString("now is my turn to play");
-			model.getMyPlayerState().setMyName(turnStart.group(1));
-			model.getMyPlayerState().setLocation(turnStart.group(2));
-			model.finishedUpdating();
-			view.clearOtherPlayersFromMap();
-			view.focusOnLocation(model.getMyPlayerState().getLocation(), 2000);
-			// we could do more (i.e. send a visual notification of some sort)
+			String myName = turnStart.group(1);
+			String myPos = turnStart.group(2);
+			startMyTurn(myName, myPos);
 			return true;
 			
 		}   else if (movement.matches()) {
-			LOG.finer("Server asked to move");
-			view.notifyUser("Please move your character: click where you want to go");
-			view.bindPositionSender();
+			askForMovement();
 			return true;
 			
 		}  else if (askForAttack.matches()|| askForObject.matches()) {
-			LOG.finer("Server asked yes/no question");
-			view.relayYesNoDialog(message);
+			askForYesNo(message);
 			return true;
 			
 		} else if (askForNoisePos.matches()) {
-			LOG.finer("Server asked to place a noise");
-			view.notifyUser("Select the sector you want to make a noise in");
-			view.bindPositionSender();
+			askForNoisePosition();
 			return true;
 			
 		} else if (askForLightsPos.matches()) {
-			LOG.finer("Server asked where to turn the Lights on");
-			view.notifyUser("Select the sector where you want to turn the lights on");
-			view.bindPositionSender();
+			askForLightsPosition();
 			return true;
 			
 		}else if (whichobjectCard.matches()) {
-			LOG.finer("Server asked an object card");
-			view.relayObjectCard();
+			whichObjectCard();
 			return true;
 			
 		} else if (discard.matches()) {
-			LOG.finer("Server asked to discard a card");
-			view.relayObjectCard();
+			haveToDiscard();
 			return true;
 			
 		} else if (playOrDiscard.matches()) {
-			LOG.finer("Server asked to play or discard a card");
-			view.relayYesNoDialog(message, "play", "discard");
+			askPlayOrDiscard(message);
 			return true;
 			
 		} 
 		return false;
 	}
+
+
 	
+
 	private boolean processEvent(String message) {
 		
 		Matcher eventNoise = event_Noise.matcher(message);
@@ -329,59 +316,45 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher endResults = event_EndOfResults.matcher(message);
 		
 		if (eventObject.matches()) {
-			if (!isMe(eventObject.group(1))) { // it's not me
-				view.notifyUser(message);
-			}
-			if(isMe(eventObject.group(1))) { 	//if it's me
-				String cardName = getCardGUIKey(eventObject.group(2));
-				model.getMyPlayerState().removeCard(cardName);	//remove the card from my hand in the Client
-				model.finishedUpdating();
-			}
+			String playerName = eventObject.group(1);
+			String yyyCard = eventObject.group(2);
+			eventObject(playerName, yyyCard, message);
 			return true;
 			
 		} else if (eventAttack.matches()) {
-			if (!isMe(eventAttack.group(1))) { // it's not me
-				view.notifyUser(message);
-			}
-			model.getNowPlaying().setLastNoiseLocation(eventAttack.group(2));
-			model.finishedUpdating();
+			String attacker = eventAttack.group(1);
+			String location = eventAttack.group(2);
+			eventAttack(attacker, location, message);
 			return true;
 			
 		} else if(eventNoise.matches()) {
-			model.getNowPlaying().setLastNoiseLocation(eventNoise.group(1));
-			model.finishedUpdating();
-			view.addNoiseToMap(eventNoise.group(1));
-			view.focusOnLocation(eventNoise.group(1), 0);
+			String location = eventNoise.group(1);
+			eventNoise(location);
 			return true;
 			
 		} else if (eventDeath.matches()) {
-			model.getSpecificPlayerState(eventDeath.group(1)).setMyStatus(CurrentPlayerStatus.DEAD);
-			model.finishedUpdating();
-			view.notifyUser(message);
+			String playerKilled = eventDeath.group(1);
+			eventDeath(playerKilled, message);
 			return true;
 			
 		} else if (eventEndGame.matches()) {
-			model.setGameStatus(GameStatus.FINISHED);
-			model.finishedUpdating();
+			eventEndGame();
 			return true;
 			
 		} else if (endResults.matches()) {
 			// this is the end of the end (LOL)
 			// the final results dialog will be fired here
-			LOG.finer("Server sent results, printing recap screen");
-			view.spawnVictoryRecap(model);
+			endResults();
 			return true;
 			
 		} else if (eventFoundPlr.matches()) {
-			if (!isMe(eventFoundPlr.group(1))) { // it's not me
-				view.addOtherPlayerToMap(eventFoundPlr.group(2), eventFoundPlr.group(1));
-				view.focusOnLocation(eventFoundPlr.group(2), 0);
-				model.getSpecificPlayerState(eventFoundPlr.group(1)).setLastNoiseLocation(eventFoundPlr.group(2));
-				model.finishedUpdating();
-			}		
+			String playerName = eventFoundPlr.group(1);
+			String location = eventFoundPlr.group(2);
+			eventFoundPlayer(playerName, location);
+			
 			return true;
 		} else if (eventDefense.matches()) {
-			view.notifyUser(message);
+			eventDefense(message);
 		}
 		
 		return false;
@@ -394,15 +367,12 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher wrongCard = exception_3.matcher(message);
 		
 		if (moveCanNotEnter.matches() || moveUnreachable.matches()) {
-			LOG.finer("Server reported : movement is impossible." );
-			view.notifyUser(message);
-			processMessage(StringRes.getString("messaging.timeToMove"));
+			showMovementException(message);
 			return true;
 		
 		} else if (wrongCard.matches()) {
-			LOG.finer("Server reported : that Card can't be played now." );
-			view.notifyUser(message);
-			processMessage(StringRes.getString("messaging.askPlayObjectCard"));
+			showWrongCardException(message);
+
 			return true;
 		}
 		return false;
@@ -537,83 +507,127 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	//da processTurnRequest(msg)
 	
 	private void notMyTurn() {
-		
+		view.clearNoisesFromMap();
+		view.setTurnStatusString("waiting for my turn");
 	}
 	
-	private void myTurnStart() {
-		
+	private void startMyTurn(String myName, String myPos) {
+		LOG.finer("My turn");
+		view.setTurnStatusString("now is my turn to play");
+		model.getMyPlayerState().setMyName(myName);
+		model.getMyPlayerState().setLocation(myPos);
+		model.finishedUpdating();
+		view.clearOtherPlayersFromMap();
+		view.focusOnLocation(model.getMyPlayerState().getLocation(), 2000);
 	}
 	
-	private void myMovement() {
-		
+	private void askForMovement() {
+		LOG.finer("Server asked to move");
+		view.notifyUser("Please move your character: click where you want to go");
+		view.bindPositionSender();
 	}
 	
-	private void askForAttack() {
-		
+	private void askForYesNo(String question) {
+		LOG.finer("Server asked yes/no question");
+		view.relayYesNoDialog(question);
 	}
 	
 	private void askForNoisePosition() {
-		
+		LOG.finer("Server asked to place a noise");
+		view.notifyUser("Select the sector you want to make a noise in");
+		view.bindPositionSender();
 	}
 	
-	private void askForLightPosition() {
-		
+	private void askForLightsPosition() {
+		LOG.finer("Server asked where to turn the Lights on");
+		view.notifyUser("Select the sector where you want to turn the lights on");
+		view.bindPositionSender();
 	}
 	
 	private void whichObjectCard() {
-		
+		LOG.finer("Server asked an object card");
+		view.relayObjectCard();
 	}
 	
 	private void haveToDiscard() {
-		
+		LOG.finer("Server asked to discard a card");
+		view.relayObjectCard();
 	}
 	
-	private void playOrDiscard() {
-		
+	private void askPlayOrDiscard(String question) {
+		LOG.finer("Server asked to play or discard a card");
+		view.relayYesNoDialog(question, "play", "discard");
 	}
 	
 	
 	//da processEvent(msg)
 	
-	private void eventObject() {
-		
+	private void eventObject(String playerName, String cardClassName, String message) {
+		if (!isMe(playerName)) { // it's not me
+			view.notifyUser(message);
+		}
+		if(isMe(playerName)) { 	//if it's me
+			String cardName = getCardGUIKey(cardClassName);
+			model.getMyPlayerState().removeCard(cardName);	//remove the card from my hand in the Client
+			model.finishedUpdating();
+		}
 	}
 	
-	private void eventAttack() {
-		
+	private void eventAttack(String attacker, String location, String message) {
+		if (!isMe(attacker)) { // it's not me
+			view.notifyUser(message);
+		}
+		model.getNowPlaying().setLastNoiseLocation(location);
+		model.finishedUpdating();
 	}
 	
-	private void eventNoise() {
-		
+	private void eventNoise(String location) {
+		model.getNowPlaying().setLastNoiseLocation(location);
+		model.finishedUpdating();
+		view.addNoiseToMap(location);
+		view.focusOnLocation(location, 0);
 	}
 	
-	private void eventDeath() {
-		
+	private void eventDeath(String playerKilled, String message) {
+		model.getSpecificPlayerState(playerKilled).setMyStatus(CurrentPlayerStatus.DEAD);
+		model.finishedUpdating();
+		view.notifyUser(message);
 	}
 	
 	private void eventEndGame() {
-		
+		model.setGameStatus(GameStatus.FINISHED);
+		model.finishedUpdating();
 	}
 	
 	private void endResults() {
-		
+		LOG.finer("Server sent results, printing recap screen");
+		view.spawnVictoryRecap(model);
 	}
 	
-	private void eventFoundPlayer() {
-		
+	private void eventFoundPlayer(String playerName, String location) {
+		if (!isMe(playerName)) { // it's not me
+			view.addOtherPlayerToMap(location, playerName);
+			view.focusOnLocation(location, 0);
+			model.getSpecificPlayerState(playerName).setLastNoiseLocation(location);
+			model.finishedUpdating();
+		}		
 	}
 	
-	private void eventDefense() {
-		
+	private void eventDefense(String message) {
+		view.notifyUser(message);
 	}
 	
 	//da processException(msg) n:Not working properly right now
 	
-	private void movementException() { 
-		
+	private void showMovementException(String exceptionMessage) { 
+		LOG.finer("Server reported : movement is impossible." );
+		view.notifyUser(exceptionMessage);
+		processMessage(StringRes.getString("messaging.timeToMove"));
 	}
 	
-	private void WrongCardException() {
-		
+	private void showWrongCardException(String exceptionMessage) {
+		LOG.finer("Server reported : that Card can't be played now." );
+		view.notifyUser(exceptionMessage);
+		processMessage(StringRes.getString("messaging.askPlayObjectCard"));
 	}
 }
