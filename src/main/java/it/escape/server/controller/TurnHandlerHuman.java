@@ -48,7 +48,7 @@ public class TurnHandlerHuman extends TurnHandler {
 				String exceptionMessage = e.getClass().getSimpleName() + " : " + e.getMessage();
 				LOG.finer(exceptionMessage);
 				reporter.relayMessage(exceptionMessage);
-				if (reporter.askIfObjectCard("Do you want to play an object card?")) {
+				if (reporter.askIfObjectCard()) {
 					endObjectCard = false;
 				} else {
 					endObjectCard = true; 
@@ -57,7 +57,7 @@ public class TurnHandlerHuman extends TurnHandler {
 				String exceptionMessage = e.getClass().getSimpleName();
 				LOG.finer(exceptionMessage);
 				reporter.relayMessage(exceptionMessage);
-				if (reporter.askIfObjectCard("Do you want to play an object card?")) {
+				if (reporter.askIfObjectCard()) {
 					endObjectCard = false;
 				} else {
 					endObjectCard = true;
@@ -101,7 +101,7 @@ public class TurnHandlerHuman extends TurnHandler {
 	@Override
 	public void turnBeforeMove() {
 		if (currentPlayer.hasPlayableCards()) {
-			if (reporter.askIfObjectCard(StringRes.getString("messaging.askPlayObjCardBeforeMove"))) {
+			if (reporter.askIfObjectCard()) {
 				playObjectCard("none");
 			}
 		}
@@ -151,7 +151,7 @@ public class TurnHandlerHuman extends TurnHandler {
 		}
 		else {  // normal circumstances
 			if (currentPlayer.hasPlayableCards()) {
-				if (reporter.askIfObjectCard(StringRes.getString("messaging.askPlayObjCardBeforeMove"))) {
+				if (reporter.askIfObjectCard()) {
 					playObjectCard("none");
 				}
 			}
