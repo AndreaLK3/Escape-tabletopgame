@@ -149,15 +149,16 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		if (!handlingMOTDspecialCase(message)) {
 			
 			if (map.matches()) {
-				LOG.finer("Setting map to " + map.group(1));
-				view.setGameMap(map.group(1));
+				String mapname = map.group(1);
+				setMap(mapname);
 				
 			} else if (startmotd.matches()) {
-				LOG.finer("Server has begun writing motd");
-				readingMotd = true;
+				startReadingMotd();
 				
 			} else if (chatMsg.matches()) {
-				view.newChatMessage(chatMsg.group(1), chatMsg.group(2));
+				String author = chatMsg.group(1);
+				String msg = chatMsg.group(2);
+				visualizeChatMsg(author, msg);
 				
 			} else if (gameStartETA.matches()) {
 				LOG.finer("Setting game start ETA");
@@ -459,17 +460,18 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	//Using the socket connection, these methods are invoked upon pattern recognition
 	//Using the RMI connection, these methods are invoked directly through RMI
 	
-	private void setMap() {
-
+	private void setMap(String mapname) {
+		LOG.finer("Setting map to " +mapname);
+		view.setGameMap(mapname);
 	}
 	
 	private void startReadingMotd() {
-
-		
+		LOG.finer("Server has begun writing motd");
+		readingMotd = true;
 	}
 	
-	private void visualizeChatMsg() {
-		
+	private void visualizeChatMsg(String author, String msg) {
+		view.newChatMessage(author, msg);
 	}
 	
 	private void setStartETA() {
