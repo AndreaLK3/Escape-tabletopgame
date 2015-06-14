@@ -1,230 +1,222 @@
-package it.escape.client.view;
+package it.escape.client.view.connection.rmi;
 
-import it.escape.client.ClientRemoteInterface;
-import it.escape.client.controller.cli.StateManagerCLIInterface;
 import it.escape.client.controller.gui.ClientProceduresInterface;
-import it.escape.client.view.cli.Terminal;
 
 /**This class implements the ClientRemoteInterface.
  * This object is exposed to the Server.
  * In the Server, UserMessagesReporterRMI invokes remotely methods of this class.
- * These methods, in turn, invoke the appropriate methods: 
- * inside StateManager (to set up the TurnInputState for the format checks)
- * inside Terminal (to show messages)*/
-public class ClientRemoteTerminal implements ClientRemoteInterface {
+ * These methods, in turn, invoke the appropriate methods inside UpdaterSwing */
+public class ClientRemoteSwing implements ClientRemoteInterface {
 
-	private StateManagerCLIInterface stateManager;
-	private Terminal terminal;
 	
-	/**The constructor; it initializes the stateManager and the Terminal references.*/
-	public ClientRemoteTerminal(StateManagerCLIInterface stateManager, Terminal terminal) {
-		this.stateManager = stateManager;
-		this.terminal = terminal;
+	private ClientProceduresInterface updaterSwing;
+	
+	public ClientRemoteSwing(ClientProceduresInterface updaterSwing) {
+		this.updaterSwing = updaterSwing;
 	}
 	
+	
+
 	@Override
 	public void setMap(String mapname) {
-		
+		updaterSwing.setMap(mapname);
+
 	}
 
 	@Override
 	public void startReadingMotd() {
-		// TODO Auto-generated method stub
+		updaterSwing.startReadingMotd();
 
 	}
 
 	@Override
 	public void visualizeChatMsg(String author, String msg) {
-		// TODO Auto-generated method stub
+		updaterSwing.visualizeChatMsg(author, msg);
 
 	}
 
 	@Override
 	public void setStartETA(String message) {
-		// TODO Auto-generated method stub
+		updaterSwing.setStartETA(message);
 
 	}
 
 	@Override
 	public void startTurn(int turnNumber, String playerName) {
-		// TODO Auto-generated method stub
-
+		updaterSwing.startTurn(turnNumber, playerName);
 	}
 
 	@Override
 	public void renamePlayer(String previousName, String changedName) {
-		// TODO Auto-generated method stub
+		updaterSwing.renamePlayer(previousName, changedName);
 
 	}
 
 	@Override
 	public void renameMyself(String myNewName) {
-		// TODO Auto-generated method stub
+		updaterSwing.renameMyself(myNewName);
 
 	}
 
 	@Override
 	public void setMyPosition(String myPos) {
-		// TODO Auto-generated method stub
+		updaterSwing.setMyPosition(myPos);
 
 	}
 
 	@Override
 	public void setMyTeam(String teamName) {
-		// TODO Auto-generated method stub
+		updaterSwing.setMyTeam(teamName);
 
 	}
 
 	@Override
 	public void drawnCard(String cardClassName) {
-		// TODO Auto-generated method stub
+		updaterSwing.drawnCard(cardClassName);
 
 	}
 
 	@Override
 	public void discardedCard(String cardName) {
-		// TODO Auto-generated method stub
+		updaterSwing.discardedCard(cardName);
 
 	}
 
 	@Override
 	public void playerDisconnected(String playerName) {
-		// TODO Auto-generated method stub
+		updaterSwing.playerDisconnected(playerName);
 
 	}
 
 	@Override
 	public void setWinners(String team, String winnersNames) {
-		// TODO Auto-generated method stub
+		updaterSwing.setWinners(team, winnersNames);
 
 	}
 
 	@Override
 	public void setLoserTeam(String teamName) {
-		// TODO Auto-generated method stub
+		updaterSwing.setLoserTeam(teamName);
 
 	}
 
 	@Override
 	public void notMyTurn() {
-		// TODO Auto-generated method stub
+		updaterSwing.notMyTurn();
 
 	}
 
 	@Override
 	public void startMyTurn(String myName, String myPos) {
-		// TODO Auto-generated method stub
+		updaterSwing.startMyTurn(myName, myPos);
 
 	}
 
 	@Override
 	public void askForMovement() {
-		// TODO Auto-generated method stub
+		updaterSwing.askForMovement();
 
 	}
 
 	@Override
 	public void askForYesNo(String question) {
-		// TODO Auto-generated method stub
+		updaterSwing.askForYesNo(question);
 
 	}
 
 	@Override
 	public void askForNoisePosition() {
-		// TODO Auto-generated method stub
+		updaterSwing.askForNoisePosition();
 
 	}
 
 	@Override
 	public void askForLightsPosition() {
-		// TODO Auto-generated method stub
-
+		updaterSwing.askForLightsPosition();
 	}
 
 	@Override
 	public void whichObjectCard() {
-		// TODO Auto-generated method stub
-
+		updaterSwing.whichObjectCard();
 	}
 
 	@Override
 	public void haveToDiscard() {
-		// TODO Auto-generated method stub
+		updaterSwing.haveToDiscard();
 
 	}
 
 	@Override
 	public void askPlayOrDiscard(String question) {
-		// TODO Auto-generated method stub
+		updaterSwing.askPlayOrDiscard(question);
 
 	}
 
 	@Override
 	public void eventObject(String playerName, String cardClassName,
 			String message) {
-		// TODO Auto-generated method stub
+		updaterSwing.eventObject(playerName, cardClassName, message);
 
 	}
 
 	@Override
 	public void eventAttack(String attacker, String location, String message) {
-		// TODO Auto-generated method stub
+		updaterSwing.eventAttack(attacker, location, message);
 
 	}
 
 	@Override
 	public void eventNoise(String location) {
-		// TODO Auto-generated method stub
+		updaterSwing.eventNoise(location);
 
 	}
 
 	@Override
 	public void eventDeath(String playerKilled, String message) {
-		// TODO Auto-generated method stub
+		updaterSwing.eventDeath(playerKilled, message);
 
 	}
 
 	@Override
 	public void eventEndGame() {
-		// TODO Auto-generated method stub
+		updaterSwing.eventEndGame();
 
 	}
 
 	@Override
 	public void endResults() {
-		// TODO Auto-generated method stub
+		updaterSwing.endResults();
 
 	}
 
 	@Override
 	public void eventFoundPlayer(String playerName, String location) {
-		// TODO Auto-generated method stub
+		updaterSwing.eventFoundPlayer(playerName, location);
 
 	}
 
 	@Override
 	public void eventDefense(String message) {
-		// TODO Auto-generated method stub
+		updaterSwing.eventDefense(message);
 
 	}
 
 	@Override
 	public void showMovementException(String exceptionMessage) {
-		// TODO Auto-generated method stub
+		updaterSwing.showMovementException(exceptionMessage);
 
 	}
 
 	@Override
 	public void showWrongCardException(String exceptionMessage) {
-		// TODO Auto-generated method stub
+		updaterSwing.showWrongCardException(exceptionMessage);
 
 	}
 
 	@Override
 	public void showMessageInTerminal(String message) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	
 }

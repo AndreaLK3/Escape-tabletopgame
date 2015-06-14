@@ -13,6 +13,17 @@ import it.escape.server.view.MessagingChannelStrings;
 import it.escape.server.view.MessagingChannelRMI;
 import it.escape.utils.LogHelper;
 
+/**
+ * Abstract user messages reporter, it holds the static logic
+ * which enroutes player<-->messagingChannel.
+ * This class will instantiate new UserMessagesReporter object,
+ * automatically from either the socket or the rmi subclasses.
+ * From that moment on, the rest of the program does not
+ * need to know which connection type we are using, and will
+ * just use methods from UserMessagesReporter or MessagingChannelInterface
+ * @author michele
+ *
+ */
 public abstract class UserMessagesReporter {
 
 	protected static final Logger log = Logger.getLogger( UserMessagesReporter.class.getName() );

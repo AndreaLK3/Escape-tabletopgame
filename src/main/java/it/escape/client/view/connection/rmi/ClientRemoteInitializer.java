@@ -1,7 +1,7 @@
-package it.escape.client;
+package it.escape.client.view.connection.rmi;
 
-import it.escape.client.view.ClientRemoteSwing;
-import it.escape.server.view.ServerRemoteInterface;
+import it.escape.client.ClientLocalSettings;
+import it.escape.server.view.rmispecific.ServerRemoteInterface;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;

@@ -1,6 +1,5 @@
 package it.escape.server.controller;
 
-import it.escape.GlobalSettings;
 import it.escape.server.ServerLocalSettings;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.PlayerActionInterface;
@@ -11,7 +10,6 @@ import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.server.view.MessagingChannelInterface;
-import it.escape.server.view.MessagingChannelStrings;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
 

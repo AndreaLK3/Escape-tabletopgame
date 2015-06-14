@@ -2,9 +2,10 @@ package it.escape.server.view;
 
 import java.util.Observer;
 
-import it.escape.client.ClientRemoteInterface;
+import it.escape.client.view.connection.rmi.ClientRemoteInterface;
+import it.escape.server.view.rmispecific.ServerRemoteInterface;
 
-public class MessagingChannelRMI implements ServerToChannelRMI, MessagingChannelInterface {
+public class MessagingChannelRMI implements MessagingChannelInterface {
 	
 	private ClientRemoteInterface client;
 	

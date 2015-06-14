@@ -1,6 +1,6 @@
-package it.escape.server.view;
+package it.escape.server.view.rmispecific;
 
-import it.escape.client.ClientRemoteInterface;
+import it.escape.client.view.connection.rmi.ClientRemoteInterface;
 import it.escape.rmitestbed.ExampleClientRemote;
 import it.escape.rmitestbed.ExampleServer;
 import it.escape.rmitestbed.ExampleServerRemote;
@@ -9,6 +9,8 @@ import it.escape.server.ServerLocalSettings;
 import it.escape.server.controller.UserMessagesReporter;
 import it.escape.server.controller.UserMessagesReporterRMI;
 import it.escape.server.controller.UserMessagesReporterSocket;
+import it.escape.server.view.MessagingChannelInterface;
+import it.escape.server.view.MessagingChannelRMI;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -19,6 +21,13 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * RMI server implementation. It exposes methods to be called by specific
+ * clients; a client will identify itself when calling such methods.
+ * TODO: add logic to broadcast to clients
+ * @author michele
+ *
+ */
 public class ServerRMI implements ServerRemoteInterface {
 
 	// it's more useful to list the MessagingChannelRMI, which match 1:1 to the active clients
@@ -79,7 +88,10 @@ public class ServerRMI implements ServerRemoteInterface {
 
 	@Override
 	public void setAnswer(String answer, ClientRemoteInterface client) {
-		//UserMessagesReporter.getReporterInstance(interfaceWithUser)
+		MessagingChannelRMI ans = findChannel(client);
+		if (ans != null) {
+			ans.setAnswer(answer);
+		}
 	}
 	
 	/**This method sets up the Registry and creates and exposes the Server Remote Object;

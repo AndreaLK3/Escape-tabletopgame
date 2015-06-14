@@ -1,6 +1,7 @@
 package it.escape.server.view;
 
 import it.escape.server.controller.MessagingHead;
+import it.escape.server.view.sockspecific.AsyncMessagingObservable;
 import it.escape.utils.LogHelper;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
-package it.escape.client;
+package it.escape.client.view.connection.rmi;
 
-import it.escape.server.view.ServerRemoteInterface;
+import it.escape.server.view.rmispecific.ServerRemoteInterface;
 
 /**
  * Proxy to the server remote methods, this middle class

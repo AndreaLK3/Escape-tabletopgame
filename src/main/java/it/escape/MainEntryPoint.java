@@ -5,7 +5,7 @@ import it.escape.client.ClientInitializerGUI;
 import it.escape.launcher.StartMenu;
 import it.escape.launcher.menucontroller.StartMenuInterface;
 import it.escape.launcher.menucontroller.StartSubsystemsInterface;
-import it.escape.server.ServerInitializer;
+import it.escape.server.SockServerInitializer;
 import it.escape.strings.StringRes;
 
 import java.awt.HeadlessException;
@@ -59,7 +59,7 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 		if (globals.isStartInTextClient()) {
 			ClientInitializerCLI.start(globals);
 		} else if (globals.isStartInTextServer()) {
-			new ServerInitializer(globals);
+			new SockServerInitializer(globals);
 		} else {
 			try {
 				lookAndFeel();
@@ -124,7 +124,7 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 		new Thread(
 			new Runnable() {
 				public void run() {
-					new ServerInitializer(globals);
+					new SockServerInitializer(globals);
 					startMenu.closeProgram();
 				}}).start();
 	}

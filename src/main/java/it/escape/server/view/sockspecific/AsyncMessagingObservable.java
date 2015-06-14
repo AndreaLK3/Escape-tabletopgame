@@ -1,4 +1,4 @@
-package it.escape.server.view;
+package it.escape.server.view.sockspecific;
 
 import java.util.Observable;
 

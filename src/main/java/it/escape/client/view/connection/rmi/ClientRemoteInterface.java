@@ -1,4 +1,4 @@
-package it.escape.client;
+package it.escape.client.view.connection.rmi;
 
 import it.escape.client.controller.cli.StateManagerCLIInterface;
 import it.escape.client.controller.gui.ClientProceduresInterface;

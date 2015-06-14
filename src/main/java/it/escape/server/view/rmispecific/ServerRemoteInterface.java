@@ -1,6 +1,6 @@
-package it.escape.server.view;
+package it.escape.server.view.rmispecific;
 
-import it.escape.client.ClientRemoteInterface;
+import it.escape.client.view.connection.rmi.ClientRemoteInterface;
 
 import java.rmi.Remote;
 

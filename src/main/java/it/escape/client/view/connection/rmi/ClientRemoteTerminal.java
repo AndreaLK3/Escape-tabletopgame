@@ -1,237 +1,229 @@
-package it.escape.client.view;
+package it.escape.client.view.connection.rmi;
 
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
-
-import it.escape.GlobalSettings;
-import it.escape.client.ClientLocalSettings;
-import it.escape.client.ClientRemoteInterface;
 import it.escape.client.controller.cli.StateManagerCLIInterface;
 import it.escape.client.controller.gui.ClientProceduresInterface;
-import it.escape.rmitestbed.ExampleClient;
-import it.escape.rmitestbed.ExampleServerRemote;
-import it.escape.server.view.ServerRemoteInterface;
+import it.escape.client.view.cli.Terminal;
 
 /**This class implements the ClientRemoteInterface.
  * This object is exposed to the Server.
  * In the Server, UserMessagesReporterRMI invokes remotely methods of this class.
- * These methods, in turn, invoke the appropriate methods inside UpdaterSwing */
-public class ClientRemoteSwing implements ClientRemoteInterface {
+ * These methods, in turn, invoke the appropriate methods: 
+ * inside StateManager (to set up the TurnInputState for the format checks)
+ * inside Terminal (to show messages)*/
+public class ClientRemoteTerminal implements ClientRemoteInterface {
 
+	private StateManagerCLIInterface stateManager;
+	private Terminal terminal;
 	
-	private ClientProceduresInterface updaterSwing;
-	
-	public ClientRemoteSwing(ClientProceduresInterface updaterSwing) {
-		this.updaterSwing = updaterSwing;
+	/**The constructor; it initializes the stateManager and the Terminal references.*/
+	public ClientRemoteTerminal(StateManagerCLIInterface stateManager, Terminal terminal) {
+		this.stateManager = stateManager;
+		this.terminal = terminal;
 	}
 	
-	
-
 	@Override
 	public void setMap(String mapname) {
-		updaterSwing.setMap(mapname);
-
+		
 	}
 
 	@Override
 	public void startReadingMotd() {
-		updaterSwing.startReadingMotd();
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void visualizeChatMsg(String author, String msg) {
-		updaterSwing.visualizeChatMsg(author, msg);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void setStartETA(String message) {
-		updaterSwing.setStartETA(message);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void startTurn(int turnNumber, String playerName) {
-		updaterSwing.startTurn(turnNumber, playerName);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void renamePlayer(String previousName, String changedName) {
-		updaterSwing.renamePlayer(previousName, changedName);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void renameMyself(String myNewName) {
-		updaterSwing.renameMyself(myNewName);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void setMyPosition(String myPos) {
-		updaterSwing.setMyPosition(myPos);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void setMyTeam(String teamName) {
-		updaterSwing.setMyTeam(teamName);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void drawnCard(String cardClassName) {
-		updaterSwing.drawnCard(cardClassName);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void discardedCard(String cardName) {
-		updaterSwing.discardedCard(cardName);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void playerDisconnected(String playerName) {
-		updaterSwing.playerDisconnected(playerName);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void setWinners(String team, String winnersNames) {
-		updaterSwing.setWinners(team, winnersNames);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void setLoserTeam(String teamName) {
-		updaterSwing.setLoserTeam(teamName);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void notMyTurn() {
-		updaterSwing.notMyTurn();
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void startMyTurn(String myName, String myPos) {
-		updaterSwing.startMyTurn(myName, myPos);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void askForMovement() {
-		updaterSwing.askForMovement();
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void askForYesNo(String question) {
-		updaterSwing.askForYesNo(question);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void askForNoisePosition() {
-		updaterSwing.askForNoisePosition();
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void askForLightsPosition() {
-		updaterSwing.askForLightsPosition();
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void whichObjectCard() {
-		updaterSwing.whichObjectCard();
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void haveToDiscard() {
-		updaterSwing.haveToDiscard();
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void askPlayOrDiscard(String question) {
-		updaterSwing.askPlayOrDiscard(question);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void eventObject(String playerName, String cardClassName,
 			String message) {
-		updaterSwing.eventObject(playerName, cardClassName, message);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void eventAttack(String attacker, String location, String message) {
-		updaterSwing.eventAttack(attacker, location, message);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void eventNoise(String location) {
-		updaterSwing.eventNoise(location);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void eventDeath(String playerKilled, String message) {
-		updaterSwing.eventDeath(playerKilled, message);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void eventEndGame() {
-		updaterSwing.eventEndGame();
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void endResults() {
-		updaterSwing.endResults();
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void eventFoundPlayer(String playerName, String location) {
-		updaterSwing.eventFoundPlayer(playerName, location);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void eventDefense(String message) {
-		updaterSwing.eventDefense(message);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void showMovementException(String exceptionMessage) {
-		updaterSwing.showMovementException(exceptionMessage);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void showWrongCardException(String exceptionMessage) {
-		updaterSwing.showWrongCardException(exceptionMessage);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void showMessageInTerminal(String message) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
+	
 }

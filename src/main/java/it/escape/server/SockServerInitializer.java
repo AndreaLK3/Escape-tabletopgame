@@ -1,20 +1,20 @@
 package it.escape.server;
 
-import it.escape.server.view.Server;
+import it.escape.server.view.sockspecific.Server;
 
 import java.io.IOException;
 import java.util.logging.Logger;
 
 /**The class that is used to start the Server*/
-public class ServerInitializer {
+public class SockServerInitializer {
 	
-	protected static final Logger log = Logger.getLogger( ServerInitializer.class.getName() );
+	protected static final Logger log = Logger.getLogger( SockServerInitializer.class.getName() );
 	
 	private ServerLocalSettings locals;
 	
 	private Server server;
 
-	public ServerInitializer(ServerLocalSettings locals) {
+	public SockServerInitializer(ServerLocalSettings locals) {
 		this.locals = locals;
 		try {
 			MapCreator mapCreator = new MapCreator("resources/Galilei.json");

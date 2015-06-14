@@ -1,4 +1,6 @@
-package it.escape.server.view;
+package it.escape.server.view.sockspecific;
+
+import it.escape.server.view.MessagingChannelStrings;
 
 import java.io.IOException;
 import java.io.PrintStream;
