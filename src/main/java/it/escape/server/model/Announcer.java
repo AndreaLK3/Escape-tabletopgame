@@ -1,4 +1,4 @@
-package it.escape.server.model.game;
+package it.escape.server.model;
 
 import it.escape.server.controller.game.actions.PlayerActionInterface;
 import it.escape.server.model.game.cards.ObjectCard;

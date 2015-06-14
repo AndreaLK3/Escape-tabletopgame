@@ -3,7 +3,7 @@ package it.escape.server.controller;
 import it.escape.server.ServerLocalSettings;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.PlayerActionInterface;
-import it.escape.server.model.game.Announcer;
+import it.escape.server.model.Announcer;
 import it.escape.server.model.game.cards.DecksHandler;
 import it.escape.server.model.game.players.Alien;
 import it.escape.server.model.game.players.Human;

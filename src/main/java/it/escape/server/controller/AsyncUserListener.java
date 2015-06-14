@@ -1,7 +1,7 @@
 package it.escape.server.controller;
 
 import it.escape.server.controller.game.actions.PlayerActionInterface;
-import it.escape.server.model.game.Announcer;
+import it.escape.server.model.Announcer;
 import it.escape.server.view.sockspecific.AsyncMessagingObservable;
 import it.escape.strings.FormatToPattern;
 import it.escape.strings.StringRes;

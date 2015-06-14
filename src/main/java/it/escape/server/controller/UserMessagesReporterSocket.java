@@ -2,7 +2,7 @@ package it.escape.server.controller;
 
 import it.escape.server.controller.game.actions.PlayerActionInterface;
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
-import it.escape.server.model.game.Announcer;
+import it.escape.server.model.Announcer;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingChannelStrings;
 import it.escape.strings.StringRes;

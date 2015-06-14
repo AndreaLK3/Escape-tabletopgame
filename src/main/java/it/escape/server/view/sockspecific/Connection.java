@@ -2,7 +2,7 @@ package it.escape.server.view.sockspecific;
 
 import it.escape.server.Master;
 import it.escape.server.controller.UserMessagesReporterSocket;
-import it.escape.server.model.game.Announcer;
+import it.escape.server.model.Announcer;
 import it.escape.server.view.MessagingChannelStrings;
 import it.escape.server.view.ServerInterface;
 import it.escape.strings.StringRes;
