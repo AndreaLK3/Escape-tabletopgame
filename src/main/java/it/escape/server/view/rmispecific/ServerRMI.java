@@ -46,6 +46,7 @@ public class ServerRMI implements ServerRemoteInterface {
 		clientsList.add((MessagingChannelRMI) channel);
 		UserMessagesReporterSocket.createUMR(channel);
 		Master.newPlayerHasConnected(channel, locals);
+		//TODO: announcer
 		//TODO: send motd 
 		
 	}

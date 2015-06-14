@@ -91,14 +91,14 @@ public class GameMaster implements Runnable {
 	private int numPlayers = 0;
 	
 	/** The constructor */
-	public GameMaster(MapActionInterface map, int id, ServerLocalSettings locals) {
+	public GameMaster(MapActionInterface map, int id, ServerLocalSettings locals, Announcer announcer) {
 		LogHelper.setDefaultOptions(LOG);
 		this.id = id;
 		this.map = map;
 		this.locals = locals;
+		this.announcer = announcer;
 		WAIT_TIMEOUT = this.locals.getGameMasterTimeout();
 		decksHandler = new DecksHandler();
-		announcer = new Announcer();
 		listOfPlayers = new ArrayList<Player>();
 		listeners = new ArrayList<AsyncUserListener>();
 		timeController =  new TimeController(listOfPlayers);
