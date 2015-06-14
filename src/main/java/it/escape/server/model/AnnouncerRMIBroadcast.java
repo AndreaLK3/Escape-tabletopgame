@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Announcer based on the RMI system, instead of being an observable
  * carrying a message string, it directly invokes specific
- * remote methods in its subscribers
+ * remote methods in every one of its subscribers
  * @author michele
  *
  */
