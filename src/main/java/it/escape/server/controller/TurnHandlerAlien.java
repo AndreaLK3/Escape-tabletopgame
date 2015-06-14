@@ -40,7 +40,7 @@ public class TurnHandlerAlien extends TurnHandler{
 	@Override
 	public void turnAfterMove() {
 		if (currentPlayer.getMyHand().isOverFull()) {  // too many cards in my hand
-			reporter.reportAskdiscard();
+			reporter.reportAskDiscard();
 			super.discardObjectCard();
 		}
 		return;

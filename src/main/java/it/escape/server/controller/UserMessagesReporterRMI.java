@@ -74,13 +74,13 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		}
 	}
 	
-	public void reportAskdiscard() {
+	public void reportAskDiscard() {
 		interfaceWithUser.getClient().haveToDiscard();
 	}
 
 	@Override
 	public String askWhichObjectCard(String defaultCard) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 

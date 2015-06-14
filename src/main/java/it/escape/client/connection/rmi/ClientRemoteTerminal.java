@@ -7,8 +7,8 @@ import it.escape.strings.StringRes;
 
 /**This class implements the ClientRemoteInterface. 
  * This object is exposed to the Server.
- * In the Server, UserMessagesReporterRMI invokes remotely methods of this class.
- * These methods, in turn, invoke the appropriate methods: 
+ * In the Server, UserMessagesReporterRMI invokes remotely methods of ClientRemoteInterface.
+ * In turn, the implementations of the remote interface methods in this class invoke the appropriate methods: 
  * inside StateManager (to set up the TurnInputState for the format checks)
  * inside Terminal (to show messages)*/
 public class ClientRemoteTerminal implements ClientRemoteInterface {
@@ -24,164 +24,170 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	
 	@Override
 	public void setMap(String mapname) {
-		
+		String message = String.format(StringRes.getString("messaging.serversMap"), mapname);
+		showMessageInTerminal(message);
 	}
 
 	@Override
 	public void setWholeMOTD(String text) {
-		// TODO Auto-generated method stub
-
+		showMessageInTerminal(text);
 	}
 
 	@Override
 	public void visualizeChatMsg(String author, String msg) {
-		// TODO Auto-generated method stub
-
+		String message = String.format(StringRes.getString("messaging.relayChat"), author, msg);
+		showMessageInTerminal(message);
 	}
 
 	@Override
 	public void setStartETA(String message) {
-		// TODO Auto-generated method stub
-
+		showMessageInTerminal(message);
 	}
 
 	@Override
 	public void startTurn(int turnNumber, String playerName) {
-		// TODO Auto-generated method stub
-
+		String message = String.format(StringRes.getString("messaging.timecontroller.turnNumber"), turnNumber, playerName);
+		terminal.visualizeMessage(message);
 	}
 
 	@Override
 	public void renamePlayer(String previousName, String changedName) {
-		// TODO Auto-generated method stub
+		String message = String.format(StringRes.getString("messaging.announceRename"), previousName, changedName);
+		terminal.visualizeMessage(message);
 
 	}
 
 	@Override
 	public void renameMyself(String myNewName) {
-		// TODO Auto-generated method stub
-
+		String message = String.format(StringRes.getString("messaging.whoYouAre"), myNewName);
+		terminal.visualizeMessage(message);
 	}
 
+	/**This method is not used here; it is used in ClientRemoteSwing to update the Client's Model*/
 	@Override
-	public void setMyPosition(String myPos) {
-		// TODO Auto-generated method stub
-
+	public void setMyPosition(String myPos){
+		//TODO: Is it ever invoked from outside in UpdaterSwing, or
+		//is it used only nternally, such as getGUICardKey? in that case, it can be removed from this interface
 	}
 
 	@Override
 	public void setMyTeam(String teamName) {
-		// TODO Auto-generated method stub
-
+		String message = String.format(StringRes.getString("messaging.gamemaster.playAs"), teamName);
+		showMessageInTerminal(message);
 	}
 
 	@Override
 	public void drawnCard(String cardClassName) {
-		// TODO Auto-generated method stub
-
+		String message = String.format(StringRes.getString("messaging.objectCardDrawn"), cardClassName);
+		showMessageInTerminal(message);
 	}
 
 	@Override
 	public void discardedCard(String cardName) {
-		// TODO Auto-generated method stub
+		String message = String.format(StringRes.getString("messaging.discardedCard"), cardName);
+		showMessageInTerminal(message);
 
 	}
 
 	@Override
 	public void playerDisconnected(String playerName) {
-		// TODO Auto-generated method stub
+		String message = String.format(StringRes.getString("messaging.playerDisconnected"), playerName);
+		showMessageInTerminal(message);
 
 	}
 
 	@Override
 	public void setWinners(String team, String winnersNames) {
-		// TODO Auto-generated method stub
+		// TODO : This method is not used at all here, if the end results are already printed...
+		//Otherwise, we can compose a message here and send it separately
 
 	}
 
 	@Override
 	public void setLoserTeam(String teamName) {
-		// TODO Auto-generated method stub
+		// TODO : This method is not used at all here, if the end results are already printed...
 
 	}
 
+	/**This method is not used at all when the client has the Terminal; in UpdaterSwing, it 
+	 * performs some operations on the Client's Model*/
 	@Override
 	public void notMyTurn() {
-		// TODO Auto-generated method stub
-
+		//TODO: Is it ever invoked from outside in UpdaterSwing, or
+		//is it used only internally, such as getGUICardKey? in that case, it can be removed from this interface
 	}
 
 	@Override
 	public void startMyTurn(String myName, String myPos) {
-		// TODO Auto-generated method stub
+		String message = String.format(StringRes.getString("messaging.hail.player"), myName, myPos);
+		showMessageInTerminal(message);
 
 	}
 
 	@Override
 	public void askForMovement() {
-		// TODO Auto-generated method stub
-
+		String message = StringRes.getString("messaging.timeToMove");
+		showMessageInTerminal(message);
 	}
 
 	@Override
 	public void askForYesNo(String question) {
-		// TODO Auto-generated method stub
+		stateManager.setYesNoState();
+		showMessageInTerminal(question);
 
 	}
 
 	@Override
 	public void askForNoisePosition() {
-		// TODO Auto-generated method stub
-
+		String message = StringRes.getString("messaging.askForNoisePosition");
+		stateManager.setPositionState();
+		showMessageInTerminal(message);
 	}
 
 	@Override
 	public void askForLightsPosition() {
-		// TODO Auto-generated method stub
-
+		stateManager.setPositionState();
+		showMessageInTerminal(StringRes.getString("messaging.askForLightsPosition"));
 	}
 
 	@Override
 	public void whichObjectCard() {
-		// TODO Auto-generated method stub
-
+		stateManager.setObjectCardState();
+		showMessageInTerminal(StringRes.getString("messaging.askWhichObjectCard"));
 	}
 
 	@Override
 	public void haveToDiscard() {
-		// TODO Auto-generated method stub
+		showMessageInTerminal(StringRes.getString("messaging.tooManyCardsAlien"));
 
 	}
 
 	@Override
 	public void askPlayOrDiscard(String question) {
-		// TODO Auto-generated method stub
-
+		stateManager.setYesNoState();
+		//TODO: How did we handle the Play vs Discard prompt and format, if we handled it at all?
+		showMessageInTerminal(question);
 	}
 
 	@Override
-	public void eventObject(String playerName, String cardClassName,
-			String message) {
-		// TODO Auto-generated method stub
-
+	public void eventObject(String playerName, String cardClassName, String message) {
+		showMessageInTerminal(message);
 	}
 
 	@Override
 	public void eventAttack(String attacker, String location, String message) {
-		// TODO Auto-generated method stub
-
+		showMessageInTerminal(message);
 	}
 
 	@Override
 	public void eventNoise(String location) {
-		// TODO Auto-generated method stub
-
+		String msg = String.format(StringRes.getString("messaging.noise"), location);
+		showMessageInTerminal(msg);
 	}
 
 	@Override
 	public void eventDeath(String playerKilled, String message) {
-		// TODO Auto-generated method stub
-
+		showMessageInTerminal(message);
 	}
 
 	@Override
@@ -198,25 +204,24 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 
 	@Override
 	public void eventFoundPlayer(String playerName, String location) {
-		// TODO Auto-generated method stub
-
+		String msg = String.format(StringRes.getString("messaging.disclosePlayerPosition"), playerName, location);
+		showMessageInTerminal(msg);
 	}
 
 	@Override
 	public void eventDefense(String message) {
-		// TODO Auto-generated method stub
-
+		showMessageInTerminal(message);
 	}
 
 	@Override
 	public void showMovementException(String exceptionMessage) {
-		// TODO Auto-generated method stub
+		showMessageInTerminal(exceptionMessage);
 
 	}
 
 	@Override
 	public void showWrongCardException(String exceptionMessage) {
-		// TODO Auto-generated method stub
+		showMessageInTerminal(exceptionMessage);
 
 	}
 
