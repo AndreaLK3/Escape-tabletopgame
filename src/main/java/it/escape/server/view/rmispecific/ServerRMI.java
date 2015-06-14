@@ -5,10 +5,15 @@ import it.escape.server.Master;
 import it.escape.server.ServerLocalSettings;
 import it.escape.server.controller.UserMessagesReporter;
 import it.escape.server.controller.UserMessagesReporterSocket;
+import it.escape.server.model.AnnouncerRMIBroadcast;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingChannelInterface;
 import it.escape.server.view.MessagingChannelRMI;
+import it.escape.strings.StringRes;
+import it.escape.utils.FilesHelper;
+import it.escape.utils.LogHelper;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -16,6 +21,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * RMI server implementation. It exposes methods to be called by specific
@@ -25,6 +31,8 @@ import java.util.List;
  *
  */
 public class ServerRMI implements ServerRemoteInterface {
+	
+	protected static final Logger LOG = Logger.getLogger( ServerRMI.class.getName() );
 
 	// it's more useful to list the MessagingChannelRMI, which match 1:1 to the active clients
 	private List<MessagingChannelRMI> clientsList;
@@ -40,14 +48,27 @@ public class ServerRMI implements ServerRemoteInterface {
 		return null;
 	}
 	
+	/**
+	 * Basically does the same things that Connection used to
+	 * do upon establishing
+	 */
 	@Override
 	public void registerClient(ClientRemoteInterface client) {
 		MessagingChannelInterface channel = new MessagingChannelRMI(client, this);
 		clientsList.add((MessagingChannelRMI) channel);
 		UserMessagesReporterSocket.createUMR(channel);
 		Master.newPlayerHasConnected(channel, locals);
-		//TODO: announcer
-		//TODO: send motd 
+		AnnouncerRMIBroadcast announcer = (AnnouncerRMIBroadcast) UserMessagesReporterSocket.getReporterInstance(channel).getAnnouncer();
+		announcer.subscribe(client);
+		try {
+			client.setWholeMOTD(StringRes.getString("messaging.motd.start") + "\n" + 
+						FilesHelper.streamToString(
+								FilesHelper.getResourceFile("resources/MOTD.txt")
+								) + "\n" +
+						StringRes.getString("messaging.motd.end"));
+		} catch (IOException e) {
+			LOG.warning(StringRes.getString("view.connection.cantWelcome"));
+		}
 		
 	}
 
@@ -56,6 +77,7 @@ public class ServerRMI implements ServerRemoteInterface {
 		MessagingChannelRMI del = findChannel(client);
 		if (del != null) {
 			clientsList.remove(del);
+			((AnnouncerRMIBroadcast) UserMessagesReporter.getReporterInstance(del).getAnnouncer()).unSubscribe(client);
 		}
 	}
 
@@ -126,6 +148,7 @@ public class ServerRMI implements ServerRemoteInterface {
 	
 	/**Constructor for the object*/
 	public ServerRMI(ServerLocalSettings locals) {
+		LogHelper.setDefaultOptions(LOG);
 		this.locals = locals;
 		clientsList = new ArrayList<MessagingChannelRMI>();
 	}

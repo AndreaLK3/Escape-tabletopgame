@@ -4,7 +4,7 @@ public interface ClientProceduresInterface {
 
 	public abstract void setMap(String mapname);
 
-	public abstract void startReadingMotd();
+	public abstract void setWholeMOTD(String text);
 
 	public abstract void visualizeChatMsg(String author, String msg);
 
@@ -23,6 +23,8 @@ public interface ClientProceduresInterface {
 	public abstract void drawnCard(String cardClassName);
 
 	public abstract void discardedCard(String cardName);
+	
+	public abstract void playerConnected(int current, int maximum);
 
 	public abstract void playerDisconnected(String playerName);
 
@@ -70,5 +72,5 @@ public interface ClientProceduresInterface {
 
 	public abstract void showWrongCardException(String exceptionMessage);
 	
-
+	
 }

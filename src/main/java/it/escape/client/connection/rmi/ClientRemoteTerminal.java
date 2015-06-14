@@ -2,6 +2,7 @@ package it.escape.client.connection.rmi;
 
 import it.escape.client.controller.cli.StateManagerCLIInterface;
 import it.escape.client.view.cli.Terminal;
+import it.escape.strings.StringRes;
 
 /**This class implements the ClientRemoteInterface.
  * This object is exposed to the Server.
@@ -26,7 +27,7 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void startReadingMotd() {
+	public void setWholeMOTD(String text) {
 		// TODO Auto-generated method stub
 
 	}
@@ -221,6 +222,14 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	@Override
 	public void showMessageInTerminal(String message) {
 		terminal.visualizeMessage(message);
+	}
+
+	@Override
+	public void playerConnected(int current, int maximum) {
+		String msg = String.format(StringRes.getString("messaging.playerConnected"),
+				current,
+				maximum);
+		terminal.visualizeMessage(msg);
 	}
 
 	

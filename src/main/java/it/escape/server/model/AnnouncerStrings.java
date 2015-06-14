@@ -114,7 +114,6 @@ public class AnnouncerStrings extends Observable implements Announcer {
 	/* (non-Javadoc)
 	 * @see it.escape.server.model.Announcer#getMessage()
 	 */
-	@Override
 	public String getMessage() {
 		return message;
 	}

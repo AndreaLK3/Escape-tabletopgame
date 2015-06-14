@@ -1,14 +1,12 @@
 package it.escape.server.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import it.escape.server.model.AnnouncerStrings;
 
 import java.util.Observable;
 import java.util.Observer;
 
 import org.junit.Test;
-
-import it.escape.server.model.Announcer;
-import it.escape.server.model.AnnouncerStrings;
 
 public class AnnouncerObserverTest implements Observer {
 	
@@ -19,7 +17,7 @@ public class AnnouncerObserverTest implements Observer {
 
 	public void update(Observable o, Object arg) {
 		if (o instanceof AnnouncerStrings) {
-			Announcer a = (Announcer) o;
+			AnnouncerStrings a = (AnnouncerStrings) o;
 			last_message = a.getMessage();
 		}
 	}

@@ -1,9 +1,8 @@
 package it.escape.server.controller;
 
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
-import it.escape.server.model.game.players.Player;
+import it.escape.server.view.MessagingChannelInterface;
 import it.escape.server.view.MessagingChannelRMI;
-import it.escape.server.view.MessagingChannelStrings;
 import it.escape.strings.StringRes;
 
 public class UserMessagesReporterRMI extends UserMessagesReporter {
@@ -12,6 +11,11 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 	
 	public UserMessagesReporterRMI(MessagingChannelRMI interfaceWithUser) {
 		this.interfaceWithUser = interfaceWithUser;
+	}
+	
+	@Override
+	public MessagingChannelInterface getInterfaceWithUser() {
+		return interfaceWithUser;
 	}
 
 	@Override
@@ -94,20 +98,19 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 
 	@Override
 	public void relayMessage(String string) {
-		// TODO Auto-generated method stub
-
+		interfaceWithUser.getClient().showMessageInTerminal(string);
 	}
 
 	@Override
-	public Player getThePlayer() {
-		// TODO Auto-generated method stub
-		return null;
+	public void reportMapName(String map) {
+		interfaceWithUser.getClient().setMap(map);
 	}
 
 	@Override
-	public MessagingChannelStrings getInterfaceWithUser() {
-		// TODO Auto-generated method stub
-		return null;
+	public void reportGameStartETA(int seconds) {
+		interfaceWithUser.getClient().setStartETA(String.format(
+					StringRes.getString("messaging.gameStartETA"),
+					seconds));
 	}
 
 }

@@ -24,8 +24,8 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void startReadingMotd() {
-		updaterSwing.startReadingMotd();
+	public void setWholeMOTD(String text) {
+		updaterSwing.setWholeMOTD(null);
 
 	}
 
@@ -216,6 +216,12 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	@Override
 	public void showMessageInTerminal(String message) {
 		// do nothing
+	}
+
+	@Override
+	public void playerConnected(int current, int maximum) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -34,8 +34,6 @@ public interface Announcer {
 
 	public void announce(String message);
 
-	public String getMessage();
-
 	public void announcePlayerPosition(PlayerActionInterface p,
 			PositionCubic position);
 
@@ -54,5 +52,6 @@ public interface Announcer {
 	public void announceChatMessage(PlayerActionInterface player, String message);
 
 	public void announceGameStartETA(int seconds);
+	
 
 }

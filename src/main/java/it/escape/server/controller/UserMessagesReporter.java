@@ -96,6 +96,8 @@ public abstract class UserMessagesReporter {
 		return announcerRef;
 	}
 	
+	public abstract MessagingChannelInterface getInterfaceWithUser();
+	
 	public abstract void fillinDefaultOnce();
 
 	/**
@@ -146,12 +148,14 @@ public abstract class UserMessagesReporter {
 	public abstract String askForNoisePosition(String playerCurrentPos);
 
 	public abstract String askForLightsPosition(String playerCurrentPos);
+	
+	public abstract void reportMapName(String map);
+	
+	public abstract void reportGameStartETA(int seconds);
 
 	/**This method is used when we just need to send a message to the user.
 	 * We have no special questions to ask.
 	 * @param string */
 	public abstract void relayMessage(String string);
-
-	public abstract MessagingChannelInterface getInterfaceWithUser();
 
 }

@@ -153,7 +153,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				setMap(mapname);
 				
 			} else if (startmotd.matches()) {
-				startReadingMotd();
+				LOG.finer("Server has begun writing motd");
+				readingMotd = true;
 				
 			} else if (chatMsg.matches()) {
 				String author = chatMsg.group(1);
@@ -223,6 +224,12 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		} else if (playerDisconnected.matches()) {
 			String playerName = playerDisconnected.group(1);
 			playerDisconnected(playerName);
+			return true;
+			
+		} else if (playerConnected.matches()) {
+			int current = Integer.parseInt(playerConnected.group(1));
+			int max = Integer.parseInt(playerConnected.group(2));
+			playerConnected(current, max);
 			return true;
 			
 		} else if (discardedCard.matches()) {
@@ -400,7 +407,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			if (endmotd.matches()) {
 				LOG.finer("Server has stopped writing motd");
 				readingMotd = false;
-				view.displayServerMOTD(loadedMotd);;
+				view.displayServerMOTD(loadedMotd);
 			} else {
 				loadedMotd = loadedMotd + "\n" + message;
 			}
@@ -426,9 +433,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#startReadingMotd()
 	 */
 	@Override
-	public void startReadingMotd() {
-		LOG.finer("Server has begun writing motd");
-		readingMotd = true;
+	public void setWholeMOTD(String text) {
+		LOG.finer("Server sent the motd");
+		loadedMotd = text;
+		view.displayServerMOTD(loadedMotd);
 	}
 	
 	/* (non-Javadoc)
@@ -764,5 +772,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		LOG.finer("Server reported : that Card can't be played now." );
 		view.notifyUser(exceptionMessage);
 		processMessage(StringRes.getString("messaging.askPlayObjectCard"));
+	}
+
+	@Override
+	public void playerConnected(int current, int maximum) {
+		// TODO show something
 	}
 }

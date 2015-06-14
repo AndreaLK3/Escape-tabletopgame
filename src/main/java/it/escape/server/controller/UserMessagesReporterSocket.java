@@ -1,6 +1,7 @@
 package it.escape.server.controller;
 
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
+import it.escape.server.view.MessagingChannelInterface;
 import it.escape.server.view.MessagingChannelStrings;
 import it.escape.strings.StringRes;
 
@@ -29,6 +30,10 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 		this.interfaceWithUser = interfaceWithUser;
 	}
 	
+	@Override
+	public MessagingChannelInterface getInterfaceWithUser() {
+		return interfaceWithUser;
+	}
 	
 	@Override
 	public void fillinDefaultOnce() {
@@ -215,10 +220,19 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 	public void relayMessage(String string) {
 		interfaceWithUser.writeToClient(string);
 	}
-	
+
 	@Override
-	public MessagingChannelStrings getInterfaceWithUser() {
-		return interfaceWithUser;
+	public void reportMapName(String map) {
+		relayMessage(String.format(
+				StringRes.getString("messaging.serversMap"),
+				map));
+	}
+
+	@Override
+	public void reportGameStartETA(int seconds) {
+		relayMessage(String.format(
+				StringRes.getString("messaging.gameStartETA"),
+				seconds));
 	}
 	
 }

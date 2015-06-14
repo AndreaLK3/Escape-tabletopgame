@@ -2,7 +2,6 @@ package it.escape.server.view.sockspecific;
 
 import it.escape.server.Master;
 import it.escape.server.controller.UserMessagesReporterSocket;
-import it.escape.server.model.Announcer;
 import it.escape.server.model.AnnouncerStrings;
 import it.escape.server.view.MessagingChannelStrings;
 import it.escape.server.view.ServerInterface;
@@ -99,7 +98,7 @@ public class Connection implements Observer, Runnable {
 
 	public void update(Observable arg0, Object arg1) {
 		if (arg0 instanceof AnnouncerStrings) {
-			Announcer a = (Announcer) arg0;
+			AnnouncerStrings a = (AnnouncerStrings) arg0;
 			PrintStream out;
 			try {
 				out = new PrintStream(clientSocket.getOutputStream());
