@@ -177,12 +177,8 @@ public class GameMaster implements Runnable {
 	
 	private void announceNewPlayer(MessagingChannelInterface interfaceWithUser) {
 		UserMessagesReporter.getReporterInstance(interfaceWithUser).reportMapName(map.getName());  // greet him
-		
 		announcer.announcePlayerConnected(numPlayers,GameMaster.MAXPLAYERS);  // notify the others
-		UserMessagesReporter.getReporterInstance(interfaceWithUser).relayMessage(String.format(
-				StringRes.getString("messaging.othersWaiting"),
-				numPlayers,
-				GameMaster.MAXPLAYERS));  // tell him how many players are connected
+		UserMessagesReporter.getReporterInstance(interfaceWithUser).reportOthersConnected(numPlayers, GameMaster.MAXPLAYERS);;  // tell him how many players are connected
 		if (timeoutTicking.get()) {  // if a game is about to start
 			UserMessagesReporter.getReporterInstance(interfaceWithUser).reportGameStartETA(getStartGameETA());  // tell him how long until game starts
 		}

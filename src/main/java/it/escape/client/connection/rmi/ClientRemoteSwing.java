@@ -220,8 +220,12 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 
 	@Override
 	public void playerConnected(int current, int maximum) {
-		// TODO Auto-generated method stub
-		
+		updaterSwing.playerConnected(current, maximum);
+	}
+
+	@Override
+	public void playersInLobby(int current, int maximum) {
+		updaterSwing.playersInLobby(current, maximum);
 	}
 
 }

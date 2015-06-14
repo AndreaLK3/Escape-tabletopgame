@@ -234,6 +234,14 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 				StringRes.getString("messaging.gameStartETA"),
 				seconds));
 	}
+
+	@Override
+	public void reportOthersConnected(int current, int maximum) {
+		relayMessage(String.format(
+				StringRes.getString("messaging.othersWaiting"),
+				current,
+				maximum));
+	}
 	
 }
 

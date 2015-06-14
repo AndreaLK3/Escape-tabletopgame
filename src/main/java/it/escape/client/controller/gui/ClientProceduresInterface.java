@@ -25,6 +25,8 @@ public interface ClientProceduresInterface {
 	public abstract void discardedCard(String cardName);
 	
 	public abstract void playerConnected(int current, int maximum);
+	
+	public abstract void playersInLobby(int current, int maximum);
 
 	public abstract void playerDisconnected(String playerName);
 

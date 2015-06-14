@@ -2,6 +2,7 @@ package it.escape.client.connection.rmi;
 
 import it.escape.client.controller.cli.StateManagerCLIInterface;
 import it.escape.client.view.cli.Terminal;
+import it.escape.server.controller.GameMaster;
 import it.escape.strings.StringRes;
 
 /**This class implements the ClientRemoteInterface.
@@ -232,5 +233,13 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 		terminal.visualizeMessage(msg);
 	}
 
-	
+	@Override
+	public void playersInLobby(int current, int maximum) {
+		String msg = String.format(
+				StringRes.getString("messaging.othersWaiting"),
+				current,
+				maximum);
+		terminal.visualizeMessage(msg);
+	}
+
 }

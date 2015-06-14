@@ -176,6 +176,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	
 	private boolean processInfo(String message) {
 		Matcher currentTurnAndPlayer = info_currentTurnAndPlayer.matcher(message);
+		Matcher lobbyPlr = info_numLobbyPlayers.matcher(message);
 		Matcher playerRename = info_playerRenamed.matcher(message);
 		Matcher myRename = info_whoIAm.matcher(message);
 		Matcher myTeam = info_yourTeam.matcher(message);
@@ -199,6 +200,12 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			String previousName = playerRename.group(1);
 			String newName = playerRename.group(2);
 			renamePlayer(previousName, newName);
+			return true;
+			
+		} else if (lobbyPlr.matches()) {
+			int current = Integer.parseInt(lobbyPlr.group(1));
+			int max = Integer.parseInt(lobbyPlr.group(2));
+			playersInLobby(current, max);
 			return true;
 			
 		} else if (myRename.matches()) {
@@ -778,4 +785,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	public void playerConnected(int current, int maximum) {
 		// TODO show something
 	}
+
+	@Override
+	public void playersInLobby(int current, int maximum) {
+		// TODO show something
+	}
+	
 }

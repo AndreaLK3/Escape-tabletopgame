@@ -113,4 +113,9 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 					seconds));
 	}
 
+	@Override
+	public void reportOthersConnected(int current, int maximum) {
+		interfaceWithUser.getClient().playersInLobby(current, maximum);
+	}
+
 }

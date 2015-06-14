@@ -154,6 +154,8 @@ public abstract class UserMessagesReporter {
 	public abstract void reportMapName(String map);
 	
 	public abstract void reportGameStartETA(int seconds);
+	
+	public abstract void reportOthersConnected(int current, int maximum);
 
 	/**This method is used when we just need to send a message to the user.
 	 * We have no special questions to ask.
