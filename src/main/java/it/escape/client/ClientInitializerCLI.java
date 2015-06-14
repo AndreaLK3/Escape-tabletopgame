@@ -1,12 +1,12 @@
 package it.escape.client;
 
+import it.escape.client.connection.socket.ClientSocketChannel;
 import it.escape.client.controller.Relay;
 import it.escape.client.controller.cli.StateManagerCLIInterface;
 import it.escape.client.controller.cli.UpdaterCLI;
 import it.escape.client.controller.cli.UpdaterCLItoTerminalInterface;
 import it.escape.client.view.cli.StateManagerCLI;
 import it.escape.client.view.cli.Terminal;
-import it.escape.client.view.connection.socket.ClientSocketChannel;
 import it.escape.strings.StringRes;
 
 import java.io.IOException;

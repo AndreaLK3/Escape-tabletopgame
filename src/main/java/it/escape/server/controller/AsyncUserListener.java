@@ -83,15 +83,11 @@ public class AsyncUserListener implements Observer{
 	}
 
 	private void chatProcedure(String message) {
-		announcer.announceChatMessage(subject, message);
+		gameMaster.globalChat(subject, message);
 	}
 	
 	private void renameProcedure(String newname) {
-		if (!gameMaster.hasPlayerNamed(newname)) {
-			announcer.announcePlayerRename(subject.getName(),newname);
-			subject.changeName(newname);
-		}
-		
+		gameMaster.renamePlayer(subject, newname);	
 	}
 	
 	private void whoAmIProcedure() {

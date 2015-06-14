@@ -1,11 +1,10 @@
 package it.escape.client;
 
+import it.escape.client.connection.socket.ClientSocketChannel;
 import it.escape.client.controller.ClientSocketChannelInterface;
 import it.escape.client.controller.Relay;
 import it.escape.client.controller.gui.UpdaterSwing;
 import it.escape.client.model.ModelForGUI;
-import it.escape.client.view.connection.socket.ClientSocketChannel;
-import it.escape.client.view.gui.BindUpdaterInterface;
 import it.escape.client.view.gui.SmartSwingView;
 import it.escape.utils.FilesHelper;
 

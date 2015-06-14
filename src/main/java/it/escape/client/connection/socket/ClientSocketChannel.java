@@ -1,9 +1,9 @@
-package it.escape.client.view.connection.socket;
+package it.escape.client.connection.socket;
 
+import it.escape.client.connection.BindDisconnectCallbackInterface;
+import it.escape.client.connection.DisconnectedCallbackInterface;
 import it.escape.client.controller.ClientSocketChannelInterface;
 import it.escape.client.controller.MessageCarrier;
-import it.escape.client.view.connection.BindDisconnectCallbackInterface;
-import it.escape.client.view.connection.DisconnectedCallbackInterface;
 
 import java.io.IOException;
 import java.io.PrintStream;

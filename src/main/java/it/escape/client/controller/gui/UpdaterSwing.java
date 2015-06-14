@@ -1,11 +1,11 @@
 package it.escape.client.controller.gui;
 
+import it.escape.client.BindUpdaterInterface;
 import it.escape.client.controller.MessageCarrier;
 import it.escape.client.controller.Updater;
 import it.escape.client.model.CurrentPlayerStatus;
 import it.escape.client.model.GameStatus;
 import it.escape.client.model.ModelForGUI;
-import it.escape.client.view.gui.BindUpdaterInterface;
 import it.escape.strings.FormatToPattern;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;

@@ -2,7 +2,7 @@ package it.escape.server.view;
 
 import java.util.Observer;
 
-import it.escape.client.view.connection.rmi.ClientRemoteInterface;
+import it.escape.client.connection.rmi.ClientRemoteInterface;
 import it.escape.server.view.rmispecific.ServerRemoteInterface;
 
 public class MessagingChannelRMI implements MessagingChannelInterface {
@@ -46,7 +46,7 @@ public class MessagingChannelRMI implements MessagingChannelInterface {
 		notify();
 	}
 
-	/** here for compatibility across MessagingChannels, it doesn't
+	/** here for compatibility across MessagingChannel(s), it doesn't
 	 * actually do anything. */
 	public void addObserver(Observer o) {
 	}

@@ -356,6 +356,17 @@ public class GameMaster implements Runnable {
 		return false;
 	}
 	
+	public void renamePlayer(PlayerActionInterface subject, String newname) {
+		if (!hasPlayerNamed(newname)) {
+			announcer.announcePlayerRename(subject.getName(),newname);
+			subject.changeName(newname);
+		}
+	}
+	
+	public void globalChat(PlayerActionInterface subject, String message) {
+		announcer.announceChatMessage(subject, message);
+	}
+	
 	public String getPlayerPosition(PlayerActionInterface p) {
 		return map.getPlayerAlphaNumPosition(p);
 	}

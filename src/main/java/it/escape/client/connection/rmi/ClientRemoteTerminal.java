@@ -1,7 +1,6 @@
-package it.escape.client.view.connection.rmi;
+package it.escape.client.connection.rmi;
 
 import it.escape.client.controller.cli.StateManagerCLIInterface;
-import it.escape.client.controller.gui.ClientProceduresInterface;
 import it.escape.client.view.cli.Terminal;
 
 /**This class implements the ClientRemoteInterface.
@@ -221,8 +220,7 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 
 	@Override
 	public void showMessageInTerminal(String message) {
-		// TODO Auto-generated method stub
-		
+		terminal.visualizeMessage(message);
 	}
 
 	

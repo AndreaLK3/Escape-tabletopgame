@@ -1,4 +1,4 @@
-package it.escape.client.view.connection.rmi;
+package it.escape.client.connection.rmi;
 
 import it.escape.client.controller.gui.ClientProceduresInterface;
 
@@ -215,8 +215,7 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 
 	@Override
 	public void showMessageInTerminal(String message) {
-		// TODO Auto-generated method stub
-
+		// do nothing
 	}
 
 }

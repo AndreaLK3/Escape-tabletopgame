@@ -1,4 +1,4 @@
-package it.escape.client.view.connection;
+package it.escape.client.connection;
 
 
 public interface BindDisconnectCallbackInterface {

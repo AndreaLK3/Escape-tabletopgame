@@ -1,4 +1,4 @@
-package it.escape.client.view.gui;
+package it.escape.client;
 
 import it.escape.client.controller.gui.UpdaterSwingToViewInterface;
 

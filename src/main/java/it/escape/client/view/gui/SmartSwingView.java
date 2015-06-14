@@ -1,13 +1,14 @@
 package it.escape.client.view.gui;
 
+import it.escape.client.BindUpdaterInterface;
+import it.escape.client.connection.BindDisconnectCallbackInterface;
+import it.escape.client.connection.DisconnectedCallbackInterface;
 import it.escape.client.controller.Relay;
 import it.escape.client.controller.gui.ClickSendPositionListener;
 import it.escape.client.controller.gui.UpdaterSwingToViewInterface;
 import it.escape.client.model.ModelForGUI;
 import it.escape.client.model.PlayerState;
 import it.escape.client.model.VictoryState;
-import it.escape.client.view.connection.BindDisconnectCallbackInterface;
-import it.escape.client.view.connection.DisconnectedCallbackInterface;
 import it.escape.client.view.gui.maplabel.MapViewer;
 import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.BadJsonFileException;

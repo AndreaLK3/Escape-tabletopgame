@@ -1,20 +1,16 @@
 package it.escape.server.view.rmispecific;
 
-import it.escape.client.view.connection.rmi.ClientRemoteInterface;
-import it.escape.rmitestbed.ExampleClientRemote;
-import it.escape.rmitestbed.ExampleServer;
-import it.escape.rmitestbed.ExampleServerRemote;
+import it.escape.client.connection.rmi.ClientRemoteInterface;
 import it.escape.server.Master;
 import it.escape.server.ServerLocalSettings;
 import it.escape.server.controller.UserMessagesReporter;
-import it.escape.server.controller.UserMessagesReporterRMI;
 import it.escape.server.controller.UserMessagesReporterSocket;
+import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingChannelInterface;
 import it.escape.server.view.MessagingChannelRMI;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
@@ -65,25 +61,42 @@ public class ServerRMI implements ServerRemoteInterface {
 	@Override
 	public void rename(String message, ClientRemoteInterface client) {
 		// get the player reference from UMR
-		// get the 
+		// get the gamemaster
+		// call the rename procedure in gamemaster
+		// all the other methods work in a similar way
+		MessagingChannelInterface pla = (MessagingChannelInterface) findChannel(client);
+		if (pla != null) {
+			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
+			Master.getGameMasterOfPlayer(player).renamePlayer(player, message);
+		}
 	}
 
 	@Override
 	public void globalChat(String message, ClientRemoteInterface client) {
-		// TODO Auto-generated method stub
-		
+		MessagingChannelInterface pla = (MessagingChannelInterface) findChannel(client);
+		if (pla != null) {
+			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
+			Master.getGameMasterOfPlayer(player).globalChat(player, message);
+		}
 	}
 
 	@Override
 	public void whoAmI(ClientRemoteInterface client) {
-		// TODO Auto-generated method stub
-		
+		MessagingChannelInterface pla = (MessagingChannelInterface) findChannel(client);
+		if (pla != null) {
+			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
+			((MessagingChannelRMI) pla).getClient().renameMyself(player.getName());
+		}
 	}
 
 	@Override
 	public void whereAmI(ClientRemoteInterface client) {
-		// TODO Auto-generated method stub
-		
+		MessagingChannelInterface pla = (MessagingChannelInterface) findChannel(client);
+		if (pla != null) {
+			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
+			String myPos = Master.getGameMasterOfPlayer(player).getPlayerPosition(player);
+			((MessagingChannelRMI) pla).getClient().setMyPosition(myPos);
+		}
 	}
 
 	@Override

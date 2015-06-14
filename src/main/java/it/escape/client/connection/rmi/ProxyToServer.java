@@ -1,4 +1,4 @@
-package it.escape.client.view.connection.rmi;
+package it.escape.client.connection.rmi;
 
 import it.escape.server.view.rmispecific.ServerRemoteInterface;
 
