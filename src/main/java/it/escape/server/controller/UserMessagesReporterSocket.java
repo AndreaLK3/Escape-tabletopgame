@@ -42,22 +42,6 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 	}
 	
 	/**
-	 * if this is set, the message reporter will always choose
-	 * the default option, without bothering to interact
-	 * with the user
-	 */
-	@Override
-	public void fillinDefaultAlways() {
-		automaticOverriding = true;
-	}
-	
-	@Override
-	public void stopFillingDefault() {
-		if (automaticOverriding) {
-			automaticOverriding = false;
-		}
-	}
-	/**
 	 * Frequently used code
 	 * @param position
 	 */
@@ -112,12 +96,13 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 	@Override
 	public boolean askPlayCardOrDiscard() {
 		String defaultChoice = "discard";
+		relayMessage(StringRes.getString("messaging.tooManyCardsHuman"));
 		if (automaticOverriding) {
 			log.finer("automaticOverriding: return false");
 			return false;
 		} else {
 			String answer = ioGetBinaryChoice(defaultChoice,"play","discard").toLowerCase();
-			if (answer.equals("yes")) {
+			if (answer.equals("play")) {
 				return true;
 			}
 			return false;
@@ -142,6 +127,10 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 			String cardNames[] = thePlayer.getMyHand().getAllCardNames();
 			return ioGetCardKey();
 		}
+	}
+	
+	public void reportAskdiscard() {
+		relayMessage(StringRes.getString("messaging.tooManyCardsAlien"));
 	}
 	
 	/**

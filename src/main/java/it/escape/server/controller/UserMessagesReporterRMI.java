@@ -20,30 +20,21 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 
 	@Override
 	public void fillinDefaultOnce() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void fillinDefaultAlways() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void stopFillingDefault() {
-		// TODO Auto-generated method stub
-
+		log.finer("Overriding default once...");
+		interfaceWithUser.overrideDefault();
 	}
 
 	@Override
 	public void reportMyUserPosition(String position) {
-		// TODO Auto-generated method stub
-
+		interfaceWithUser.getClient().setMyPosition(position);
 	}
 
 	@Override
 	public boolean askIfObjectCard() {
+		return askYesNo(StringRes.getString("messaging.askPlayObjectCard"));
+	}
+	
+	private boolean askYesNo(String message) {
 		String defaultChoice = "no";
 		
 		if (automaticOverriding) {
@@ -51,7 +42,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 			return false;
 		} else {
 			interfaceWithUser.setDefaultOption(defaultChoice);
-			interfaceWithUser.getClient().askForYesNo(StringRes.getString("messaging.askPlayObjectCard"));
+			interfaceWithUser.getClient().askForYesNo(message);
 			String answer = interfaceWithUser.getAnswer();
 			if (answer.equals("yes")) {
 				return true;
@@ -62,14 +53,29 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 
 	@Override
 	public boolean askIfAttack() {
-		// TODO Auto-generated method stub
-		return false;
+		return askYesNo(StringRes.getString("messaging.askIfAttack"));
 	}
 
 	@Override
 	public boolean askPlayCardOrDiscard() {
-		// TODO Auto-generated method stub
-		return false;
+		String defaultChoice = "discard";
+		
+		if (automaticOverriding) {
+			log.finer("automaticOverriding: return false");
+			return false;
+		} else {
+			interfaceWithUser.setDefaultOption(defaultChoice);
+			interfaceWithUser.getClient().askPlayOrDiscard(StringRes.getString("messaging.tooManyCardsHuman"));
+			String answer = interfaceWithUser.getAnswer();
+			if (answer.equals("play")) {
+				return true;
+			}
+			return false;
+		}
+	}
+	
+	public void reportAskdiscard() {
+		interfaceWithUser.getClient().haveToDiscard();
 	}
 
 	@Override

@@ -107,9 +107,15 @@ public abstract class UserMessagesReporter {
 	 * the default option, without bothering to interact
 	 * with the user
 	 */
-	public abstract void fillinDefaultAlways();
-
-	public abstract void stopFillingDefault();
+	public void fillinDefaultAlways() {
+		automaticOverriding = true;
+	}
+	
+	public void stopFillingDefault() {
+		if (automaticOverriding) {
+			automaticOverriding = false;
+		}
+	}
 
 	/**
 	 * Frequently used code
@@ -132,6 +138,8 @@ public abstract class UserMessagesReporter {
 	 * @return true for play, false for discard
 	 */
 	public abstract boolean askPlayCardOrDiscard();
+	
+	public abstract void reportAskdiscard();
 
 	/**
 	 * Queries the user for an object card to play / discard
