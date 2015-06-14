@@ -242,6 +242,20 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 				current,
 				maximum));
 	}
+
+	@Override
+	public void reportTeam(String team) {
+		relayMessage(String.format(
+				StringRes.getString("messaging.gamemaster.playAs"),
+				team));
+	}
+
+	@Override
+	public void reportObjectCardDrawn(String cardname) {
+		relayMessage(String.format(
+				StringRes.getString("messaging.objectCardDrawn"),
+				cardname));
+	}
 	
 }
 

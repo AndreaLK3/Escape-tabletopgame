@@ -301,9 +301,7 @@ public class GameMaster implements Runnable {
 	 */
 	private void greetPlayers() {
 		for (Player p : listOfPlayers) {
-			UserMessagesReporter.getReporterInstance(p).relayMessage(String.format(
-					StringRes.getString("messaging.gamemaster.playAs"),
-					p.getTeam().toString()));
+			UserMessagesReporter.getReporterInstance(p).reportTeam(p.getTeam().toString());
 		}
 	}
 	

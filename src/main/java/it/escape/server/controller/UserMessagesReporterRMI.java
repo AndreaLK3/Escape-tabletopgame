@@ -118,4 +118,14 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		interfaceWithUser.getClient().playersInLobby(current, maximum);
 	}
 
+	@Override
+	public void reportTeam(String team) {
+		interfaceWithUser.getClient().setMyTeam(team);
+	}
+
+	@Override
+	public void reportObjectCardDrawn(String cardname) {
+		interfaceWithUser.getClient().drawnCard(cardname);
+	}
+
 }

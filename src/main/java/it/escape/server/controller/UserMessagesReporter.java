@@ -156,6 +156,11 @@ public abstract class UserMessagesReporter {
 	public abstract void reportGameStartETA(int seconds);
 	
 	public abstract void reportOthersConnected(int current, int maximum);
+	
+	// sounds just like the ending of a typical Dota2 match ;)
+	public abstract void reportTeam(String team);
+	
+	public abstract void reportObjectCardDrawn(String cardname);
 
 	/**This method is used when we just need to send a message to the user.
 	 * We have no special questions to ask.

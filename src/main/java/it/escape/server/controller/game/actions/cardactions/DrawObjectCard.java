@@ -12,9 +12,8 @@ public class DrawObjectCard implements CardAction{
 
 	public void execute(PlayerActionInterface currentPlayer, MapActionInterface map, DecksHandlerInterface deck) {
 		ObjectCard card = (ObjectCard) deck.drawObjectCard();
-		UserMessagesReporterSocket.getReporterInstance(currentPlayer).relayMessage(String.format(
-				StringRes.getString("messaging.objectCardDrawn"),
-				card.getClass().getSimpleName()));
+		UserMessagesReporterSocket.getReporterInstance(currentPlayer).reportObjectCardDrawn(
+				card.getClass().getSimpleName());
 		currentPlayer.addCard(card);
 	}
 
