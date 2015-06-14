@@ -5,7 +5,7 @@ import it.escape.client.view.cli.Terminal;
 import it.escape.server.controller.GameMaster;
 import it.escape.strings.StringRes;
 
-/**This class implements the ClientRemoteInterface.
+/**This class implements the ClientRemoteInterface. 
  * This object is exposed to the Server.
  * In the Server, UserMessagesReporterRMI invokes remotely methods of this class.
  * These methods, in turn, invoke the appropriate methods: 
