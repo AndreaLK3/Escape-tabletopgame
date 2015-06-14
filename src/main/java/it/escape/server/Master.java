@@ -2,7 +2,7 @@ package it.escape.server;
 
 import it.escape.server.controller.GameMaster;
 import it.escape.server.controller.UserMessagesReporterSocket;
-import it.escape.server.model.Announcer;
+import it.escape.server.model.AnnouncerStrings;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingChannelInterface;
 import it.escape.server.view.MessagingChannelStrings;
@@ -36,7 +36,7 @@ public class Master {
 		reaper();
 		if (currentGameMaster == null) {
 			LogHelper.setDefaultOptions(LOG);
-			currentGameMaster = new GameMaster(mapCreator.getMap(), gmUniqueId, locals, new Announcer());
+			currentGameMaster = new GameMaster(mapCreator.getMap(), gmUniqueId, locals, new AnnouncerStrings());
 			LOG.info("Creating new gamemaster (id=" + gmUniqueId + ")");
 			gmUniqueId++;
 			gameMasters.add(currentGameMaster);
@@ -45,7 +45,7 @@ public class Master {
 			LOG.info("Routing user to existing gamemaster (id=" + (gmUniqueId-1) + ")");
 			currentGameMaster.newPlayerMayCauseStart(interfaceWithUser);
 		} else {
-			currentGameMaster = new GameMaster(mapCreator.getMap(), gmUniqueId, locals, new Announcer());
+			currentGameMaster = new GameMaster(mapCreator.getMap(), gmUniqueId, locals, new AnnouncerStrings());
 			LOG.info("Creating new gamemaster (id=" + gmUniqueId + ")");
 			gmUniqueId++;
 			gameMasters.add(currentGameMaster);

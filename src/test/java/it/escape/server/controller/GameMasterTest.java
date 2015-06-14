@@ -4,11 +4,13 @@ import static org.junit.Assert.assertEquals;
 import it.escape.GlobalSettings;
 import it.escape.server.MapCreator;
 import it.escape.server.Master;
+import it.escape.server.model.AnnouncerStrings;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.server.view.MessagingChannelStrings;
 import it.escape.strings.StringRes;
 import it.escape.server.controller.AnnouncerObserverTest;
+
 import java.util.List;
 
 import org.junit.Test;
@@ -49,7 +51,7 @@ public class GameMasterTest {
 		MessagingChannelStrings iface = new MessagingChannelStrings();
 		UserMessagesReporterSocket.createUMR(iface);
 		Master.newPlayerHasConnected(iface, new GlobalSettings());
-		Shorthand.announcer(iface).addObserver(observer);
+		((AnnouncerStrings)Shorthand.announcer(iface)).addObserver(observer);
 	}
 
 }

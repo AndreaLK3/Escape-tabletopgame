@@ -1,7 +1,6 @@
 package it.escape.server.controller;
 
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
-import it.escape.server.model.Announcer;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingChannelRMI;
 import it.escape.server.view.MessagingChannelStrings;
@@ -13,12 +12,6 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 	
 	public UserMessagesReporterRMI(MessagingChannelRMI interfaceWithUser) {
 		this.interfaceWithUser = interfaceWithUser;
-	}
-
-	@Override
-	public void bindAnnouncer(Announcer announcer) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -113,12 +106,6 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 
 	@Override
 	public MessagingChannelStrings getInterfaceWithUser() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Announcer getAnnouncer() {
 		// TODO Auto-generated method stub
 		return null;
 	}

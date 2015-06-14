@@ -3,6 +3,7 @@ package it.escape.server.view.sockspecific;
 import it.escape.server.Master;
 import it.escape.server.controller.UserMessagesReporterSocket;
 import it.escape.server.model.Announcer;
+import it.escape.server.model.AnnouncerStrings;
 import it.escape.server.view.MessagingChannelStrings;
 import it.escape.server.view.ServerInterface;
 import it.escape.strings.StringRes;
@@ -29,7 +30,7 @@ public class Connection implements Observer, Runnable {
 	
 	private ServerInterface server;
 	
-	private Announcer announcer;
+	private AnnouncerStrings announcer;
 
 	public Connection(Socket clientSocket, ServerInterface server) {
 		LogHelper.setDefaultOptions(log);
@@ -45,7 +46,7 @@ public class Connection implements Observer, Runnable {
 			messagingInterface = new SocketInterface(clientSocket);
 			UserMessagesReporterSocket.createUMR(messagingInterface);
 			Master.newPlayerHasConnected(messagingInterface, server.getLocals());
-			announcer = UserMessagesReporterSocket.getReporterInstance(messagingInterface).getAnnouncer();
+			announcer = (AnnouncerStrings) UserMessagesReporterSocket.getReporterInstance(messagingInterface).getAnnouncer();
 			announcer.addObserver(this);
 			
 			// loop continuo: riempire la coda di ricezione
@@ -97,7 +98,7 @@ public class Connection implements Observer, Runnable {
 	}
 
 	public void update(Observable arg0, Object arg1) {
-		if (arg0 instanceof Announcer) {
+		if (arg0 instanceof AnnouncerStrings) {
 			Announcer a = (Announcer) arg0;
 			PrintStream out;
 			try {

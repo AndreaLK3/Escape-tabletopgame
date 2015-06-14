@@ -1,17 +1,10 @@
 package it.escape.server.controller;
 
-import it.escape.server.controller.game.actions.PlayerActionInterface;
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
-import it.escape.server.model.Announcer;
-import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingChannelStrings;
 import it.escape.strings.StringRes;
-import it.escape.utils.LogHelper;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Logger;
 
 /** 
  * This class is located at the border of the controller package,
@@ -30,18 +23,12 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 	
 	private boolean automaticOverriding = false;
 	
-	private Announcer announcerRef;
-	
 	//creation methods
 	
 	public UserMessagesReporterSocket(MessagingChannelStrings interfaceWithUser) {
 		this.interfaceWithUser = interfaceWithUser;
 	}
 	
-	@Override
-	public void bindAnnouncer(Announcer announcer) {
-		this.announcerRef = announcer;
-	}
 	
 	@Override
 	public void fillinDefaultOnce() {
@@ -229,17 +216,9 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 		interfaceWithUser.writeToClient(string);
 	}
 	
-	
-
 	@Override
 	public MessagingChannelStrings getInterfaceWithUser() {
 		return interfaceWithUser;
-	}
-
-
-	@Override
-	public Announcer getAnnouncer() {
-		return announcerRef;
 	}
 	
 }

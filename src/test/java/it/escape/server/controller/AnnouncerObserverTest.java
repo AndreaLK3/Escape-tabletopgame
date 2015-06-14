@@ -8,6 +8,7 @@ import java.util.Observer;
 import org.junit.Test;
 
 import it.escape.server.model.Announcer;
+import it.escape.server.model.AnnouncerStrings;
 
 public class AnnouncerObserverTest implements Observer {
 	
@@ -17,7 +18,7 @@ public class AnnouncerObserverTest implements Observer {
 	}
 
 	public void update(Observable o, Object arg) {
-		if (o instanceof Announcer) {
+		if (o instanceof AnnouncerStrings) {
 			Announcer a = (Announcer) o;
 			last_message = a.getMessage();
 		}

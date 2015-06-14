@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  * 		a)bind his message interface to a Player
  * 		b)add him to the Player List of a GameMaster object
  * 		c)tell the GameMap to place a new Player
- * 		d)tell the Announcer to announce that a new Player has connected
+ * 		d)tell the AnnouncerStrings to announce that a new Player has connected
  * 2) Handle the disconnection of a Player, depending on the current state of the game (started/in progress/finished).
  * 3) Keeping the List of Players.
  * 4) Initialize TimeController and ExecutiveController.

@@ -1,17 +1,17 @@
 package it.escape.server.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
-
 import it.escape.server.controller.game.actions.PlayerActionInterface;
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
 import it.escape.server.model.Announcer;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingChannelInterface;
-import it.escape.server.view.MessagingChannelStrings;
 import it.escape.server.view.MessagingChannelRMI;
+import it.escape.server.view.MessagingChannelStrings;
 import it.escape.utils.LogHelper;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Abstract user messages reporter, it holds the static logic
@@ -33,6 +33,8 @@ public abstract class UserMessagesReporter {
 	protected  Player thePlayer;
 	
 	protected boolean automaticOverriding = false;
+	
+	protected Announcer announcerRef;
 	
 	/**General creation/access method n.1*/
 	public static UserMessagesReporter getReporterInstance(PlayerActionInterface currentPlayer) {
@@ -86,8 +88,14 @@ public abstract class UserMessagesReporter {
 		return thePlayer;
 	}
 	
-	public abstract void bindAnnouncer(Announcer announcer);
+	public void bindAnnouncer(Announcer announcer) {
+		this.announcerRef = announcer;
+	}
 
+	public Announcer getAnnouncer() {
+		return announcerRef;
+	}
+	
 	public abstract void fillinDefaultOnce();
 
 	/**
@@ -145,7 +153,5 @@ public abstract class UserMessagesReporter {
 	public abstract void relayMessage(String string);
 
 	public abstract MessagingChannelInterface getInterfaceWithUser();
-
-	public abstract Announcer getAnnouncer();
 
 }
