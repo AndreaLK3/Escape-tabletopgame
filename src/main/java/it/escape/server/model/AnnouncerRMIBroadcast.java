@@ -3,17 +3,20 @@ package it.escape.server.model;
 import it.escape.client.connection.rmi.ClientRemoteInterface;
 import it.escape.server.controller.game.actions.PlayerActionInterface;
 import it.escape.server.model.game.cards.ObjectCard;
+import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
+import it.escape.server.model.game.players.JoinPlayerList;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
+import it.escape.strings.StringRes;
 
 import java.util.List;
 
 /**
  * Announcer based on the RMI system, instead of being an observable
  * carrying a message string, it directly invokes specific
- * remote methods in every one of its subscribers
- * @author michele
+ * remote methods in everyone among its subscribers.
+ * @author michele, andrea
  *
  */
 public class AnnouncerRMIBroadcast implements Announcer {
@@ -41,100 +44,144 @@ public class AnnouncerRMIBroadcast implements Announcer {
 
 	@Override
 	public void announcePlayerDisconnected(PlayerActionInterface player) {
-		// TODO Auto-generated method stub
+		for (ClientRemoteInterface client : subscribed) {
+			
+		}
 
 	}
 
 	@Override
-	public void announceAttack(PlayerActionInterface player,
-			PositionCubic position) {
-		// TODO Auto-generated method stub
+	public void announceAttack(PlayerActionInterface player,PositionCubic position) {
+		
+		String message = StringRes.getString("messaging.playerAttacking");
+		String attacker = player.getName();
+		String location = CoordinatesConverter.fromCubicToAlphaNum(position);
+		
+		for (ClientRemoteInterface client : subscribed) {
+			client.eventAttack(attacker, location, message);
+		}
 
 	}
 
 	@Override
 	public void announceNoise(String location) {
-		// TODO Auto-generated method stub
+		location = CoordinatesConverter.prettifyAlphaNum(location);
+		for (ClientRemoteInterface client : subscribed) {
+			client.eventNoise(location);
+		}
 
 	}
 
 	@Override
-	public void announceObjectCard(PlayerActionInterface player,
-			ObjectCard theCard) {
-		// TODO Auto-generated method stub
+	public void announceObjectCard(PlayerActionInterface player, ObjectCard theCard) {
+		String playerName = player.getName();
+		String cardClassName = theCard.getClass().getSimpleName();
+		String message = StringRes.getString("messaging.playerIsUsingObjCard");
+		for (ClientRemoteInterface client : subscribed) {
+			client.eventObject(playerName, cardClassName, message);
+		}
 
 	}
 
 	@Override
 	public void announceDeath(PlayerActionInterface victim) {
-		// TODO Auto-generated method stub
+		String message = StringRes.getString("messaging.playerDied");
+		String playerKilled = victim.getName();
+		for (ClientRemoteInterface client : subscribed) {
+			client.eventDeath(playerKilled, message);
+		}
 
 	}
 
 	@Override
 	public void announceDefense(PositionCubic position) {
-		// TODO Auto-generated method stub
+		String msg = String.format(StringRes.getString("messaging.playerDefended"), 
+				CoordinatesConverter.fromCubicToAlphaNum(position));
+		for (ClientRemoteInterface client : subscribed) {
+			client.eventDefense(msg);
+		}
 
 	}
 
+	/**Currently not used in the AnnouncerRMI; it is here because it is needed in the interface implementation*/
 	@Override
-	public void announce(String message) {
-		// TODO Auto-generated method stub
-
-	}
+	public void announce(String message) {}
 
 	@Override
-	public void announcePlayerPosition(PlayerActionInterface p,
-			PositionCubic position) {
-		// TODO Auto-generated method stub
+	public void announcePlayerPosition(PlayerActionInterface p,	PositionCubic position) {
+		String playerName = p.getName();
+		String location = CoordinatesConverter.fromCubicToAlphaNum(position);
+		for (ClientRemoteInterface client : subscribed) {
+			client.eventFoundPlayer(playerName, location);
+		}
 
 	}
 
 	@Override
 	public void announceEscape(PlayerActionInterface currentPlayer) {
-		// TODO Auto-generated method stub
+		//TODO: We have nothing to handle a playerEscaped in UpdaterSwing
 
 	}
 
 	@Override
 	public void announceGameEnd() {
-		// TODO Auto-generated method stub
+		for (ClientRemoteInterface client : subscribed) {
+			client.eventEndGame();;
+		}
 
 	}
 
 	@Override
 	public void announceEndOfResults() {
-		// TODO Auto-generated method stub
+		for (ClientRemoteInterface client : subscribed) {
+			client.endResults();
+		}
 
 	}
 
 	@Override
 	public void announceTeamVictory(PlayerTeams team, List<Player> members) {
-		// TODO Auto-generated method stub
+		String teamName = team.toString();
+		String winnersNames = new JoinPlayerList(members).join(StringRes.getString("messaging.playerListSeparator"));
+		for (ClientRemoteInterface client : subscribed) {
+			client.setWinners(teamName, winnersNames);
+			
+		}
 
 	}
 
 	@Override
 	public void announceTeamDefeat(PlayerTeams team) {
-		// TODO Auto-generated method stub
+		String teamName = team.toString();
+		for (ClientRemoteInterface client : subscribed) {
+			client.setLoserTeam(teamName);
+		}
 
 	}
 
 	@Override
 	public void announcePlayerRename(String oldname, String newname) {
-		// TODO Auto-generated method stub
+		for (ClientRemoteInterface client : subscribed) {
+			client.renamePlayer(oldname, newname);;
+		}
 
 	}
 
 	@Override
 	public void announceChatMessage(PlayerActionInterface player, String message) {
-		// TODO Auto-generated method stub
+		String author = player.toString();
+		for (ClientRemoteInterface client : subscribed) {
+			client.visualizeChatMsg(author, message);
+		}
 
 	}
 
 	@Override
 	public void announceGameStartETA(int seconds) {
-		// TODO Auto-generated method stub
+		String message = String.format(	StringRes.getString("messaging.gameStartETA"),seconds);
+		for (ClientRemoteInterface client : subscribed) {
+			client.setStartETA(message);
+		}
 
 	}
 
