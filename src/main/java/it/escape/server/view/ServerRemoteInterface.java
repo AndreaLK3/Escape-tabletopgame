@@ -10,13 +10,13 @@ public interface ServerRemoteInterface extends Remote {
 	
 	public void unregisterClient (ClientRemoteInterface client);
 	
-	public void rename(String message);
+	public void rename(String message, ClientRemoteInterface client);
 	
-	public void globalChat(String message);
+	public void globalChat(String message, ClientRemoteInterface client);
 	
-	public void whoAmI();
+	public void whoAmI(ClientRemoteInterface client);
 	
-	public void whereAmI();
+	public void whereAmI(ClientRemoteInterface client);
 	
-	public void setAnswer(String answer);
+	public void setAnswer(String answer, ClientRemoteInterface client);
 }

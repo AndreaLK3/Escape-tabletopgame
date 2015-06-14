@@ -1,7 +1,6 @@
-package it.escape.client.view;
+package it.escape.client;
 
-import it.escape.client.ClientLocalSettings;
-import it.escape.client.ClientRemoteInterface;
+import it.escape.client.view.ClientRemoteSwing;
 import it.escape.server.view.ServerRemoteInterface;
 
 import java.net.MalformedURLException;
@@ -28,7 +27,10 @@ public class ClientRemoteInitializer {
 			Registry remoteRegistry = LocateRegistry.getRegistry(ipAddress);
 			ServerRemoteInterface serverStub = (ServerRemoteInterface) remoteRegistry.lookup("Server");
 
-			serverStub.registerClient(client);
+			// now we will only use this proxy to talk to the server
+			ProxyToServer serverProxy = new ProxyToServer(client, serverStub);
+			
+			serverProxy.registerClient(client);
 			
 			
 		} catch (RemoteException e) {

@@ -33,31 +33,31 @@ public class ServerRMI implements ServerRemoteInterface {
 	}
 
 	@Override
-	public void rename(String message) {
+	public void rename(String message, ClientRemoteInterface client) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void globalChat(String message) {
+	public void globalChat(String message, ClientRemoteInterface client) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void whoAmI() {
+	public void whoAmI(ClientRemoteInterface client) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void whereAmI() {
+	public void whereAmI(ClientRemoteInterface client) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setAnswer(String answer) {
+	public void setAnswer(String answer, ClientRemoteInterface client) {
 		// TODO Auto-generated method stub
 		
 	}
