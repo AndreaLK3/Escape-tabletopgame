@@ -2,9 +2,12 @@ package it.escape.server;
 
 import it.escape.server.controller.GameMaster;
 import it.escape.server.controller.UserMessagesReporterSocket;
+import it.escape.server.model.Announcer;
+import it.escape.server.model.AnnouncerRMIBroadcast;
 import it.escape.server.model.AnnouncerStrings;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingChannelInterface;
+import it.escape.server.view.MessagingChannelRMI;
 import it.escape.server.view.MessagingChannelStrings;
 import it.escape.utils.LogHelper;
 
@@ -17,6 +20,10 @@ import java.util.logging.Logger;
  * 1) Connection of a new player, checking if a GameMaster has free spots and
  * invoking the proper functions inside the GameMaster so that thePlayer is added to the List. 
  * 2) Disconnection of a player, passing the handling request to the proper GameMaster
+ * 
+ * If there are no gamemasters avaible, a new one will be created, along with its own
+ * Announcer.
+ * If there are unused gamemasters, they will be automatically removed
  * @author michele, andrea
  */
 public class Master {
@@ -36,7 +43,8 @@ public class Master {
 		reaper();
 		if (currentGameMaster == null) {
 			LogHelper.setDefaultOptions(LOG);
-			currentGameMaster = new GameMaster(mapCreator.getMap(), gmUniqueId, locals, new AnnouncerStrings());
+			Announcer nuovo = createAnnouncer(interfaceWithUser);
+			currentGameMaster = new GameMaster(mapCreator.getMap(), gmUniqueId, locals, nuovo);
 			LOG.info("Creating new gamemaster (id=" + gmUniqueId + ")");
 			gmUniqueId++;
 			gameMasters.add(currentGameMaster);
@@ -45,12 +53,28 @@ public class Master {
 			LOG.info("Routing user to existing gamemaster (id=" + (gmUniqueId-1) + ")");
 			currentGameMaster.newPlayerMayCauseStart(interfaceWithUser);
 		} else {
-			currentGameMaster = new GameMaster(mapCreator.getMap(), gmUniqueId, locals, new AnnouncerStrings());
+			Announcer nuovo = createAnnouncer(interfaceWithUser);
+			currentGameMaster = new GameMaster(mapCreator.getMap(), gmUniqueId, locals, nuovo);
 			LOG.info("Creating new gamemaster (id=" + gmUniqueId + ")");
 			gmUniqueId++;
 			gameMasters.add(currentGameMaster);
 			currentGameMaster.newPlayerMayCauseStart(interfaceWithUser);
 		}
+	}
+	
+	/**
+	 * Create a new announcer, automatically deciding to
+	 * use Strings or RMI
+	 * @param interfaceWithUser
+	 * @return
+	 */
+	private static Announcer createAnnouncer(MessagingChannelInterface interfaceWithUser) {
+		if (interfaceWithUser instanceof MessagingChannelStrings) {
+			return new AnnouncerStrings();
+		} else if (interfaceWithUser instanceof MessagingChannelRMI) {
+			return new AnnouncerRMIBroadcast();
+		}
+		return null;
 	}
 	
 	public static GameMaster getInstanceByIndex(int index) {

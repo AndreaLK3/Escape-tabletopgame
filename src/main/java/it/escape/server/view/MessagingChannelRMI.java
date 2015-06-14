@@ -5,6 +5,18 @@ import java.util.Observer;
 import it.escape.client.connection.rmi.ClientRemoteInterface;
 import it.escape.server.view.rmispecific.ServerRemoteInterface;
 
+/**
+ * The class must be used this way:
+ * The initialization is performed by the serverRMI
+ * (1) The utilizer class will get the client reference,
+ * and call its remote methods to ask questions,
+ * (2) The the utilizer will call getAnswer(), which will
+ * block the execution flow until the server has set the answer.
+ * 
+ * The override default mechanism works as usual.
+ * @author michele
+ *
+ */
 public class MessagingChannelRMI implements MessagingChannelInterface {
 	
 	private ClientRemoteInterface client;

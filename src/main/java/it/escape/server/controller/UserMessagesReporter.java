@@ -18,9 +18,11 @@ import java.util.logging.Logger;
  * which enroutes player<-->messagingChannel.
  * This class will instantiate new UserMessagesReporter object,
  * automatically from either the socket or the rmi subclasses.
- * From that moment on, the rest of the program does not
+ * From that moment on, the rest of the program does not [1]
  * need to know which connection type we are using, and will
- * just use methods from UserMessagesReporter or MessagingChannelInterface
+ * just use methods from UserMessagesReporter or MessagingChannelInterface.
+ * 
+ * [1] Actually, Master performs a similar procedure to initialize Announcer
  * @author michele
  *
  */
