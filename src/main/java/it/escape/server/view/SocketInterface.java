@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
- * A MessagingChannel which make use of a socket.
+ * A MessagingChannelStrings which make use of a socket.
  * The socket is opened / closed[1] elsewhere, we only
  * make use of it.
  * 
@@ -15,7 +15,7 @@ import java.util.Scanner;
  * @author michele
  *
  */
-public class SocketInterface extends MessagingChannel {
+public class SocketInterface extends MessagingChannelStrings {
 	
 	private Socket clientSocket;
 	

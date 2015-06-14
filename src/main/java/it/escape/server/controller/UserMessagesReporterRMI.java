@@ -1,27 +1,19 @@
 package it.escape.server.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
-
-import it.escape.server.controller.game.actions.PlayerActionInterface;
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
 import it.escape.server.model.game.Announcer;
 import it.escape.server.model.game.players.Player;
-import it.escape.server.view.MessagingChannel;
 import it.escape.server.view.MessagingChannelRMI;
+import it.escape.server.view.MessagingChannelStrings;
 import it.escape.strings.StringRes;
-import it.escape.utils.LogHelper;
 
 public class UserMessagesReporterRMI extends UserMessagesReporter {
-
-
-	protected static final Logger log = Logger.getLogger(UserMessagesReporterRMI.class.getName() );
-	
-	
 	
 	private MessagingChannelRMI interfaceWithUser;
 	
+	public UserMessagesReporterRMI(MessagingChannelRMI interfaceWithUser) {
+		this.interfaceWithUser = interfaceWithUser;
+	}
 
 	@Override
 	public void bindAnnouncer(Announcer announcer) {
@@ -120,7 +112,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 	}
 
 	@Override
-	public MessagingChannel getInterfaceWithUser() {
+	public MessagingChannelStrings getInterfaceWithUser() {
 		// TODO Auto-generated method stub
 		return null;
 	}

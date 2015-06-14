@@ -15,15 +15,14 @@ public class ProxyToServer implements ServerRemoteInterface {
 	
 	private ServerRemoteInterface server;
 	
-	
-	
 	public ProxyToServer(ClientRemoteInterface self,
 			ServerRemoteInterface server) {
 		this.self = self;
 		this.server = server;
 	}
 
-	// inherited by ServerRemoteInterface
+	// encapsule and enrich the inherited methods
+	
 	public void registerClient() {
 		registerClient(self);
 	}

@@ -2,6 +2,7 @@ package it.escape.server.controller;
 
 import it.escape.server.controller.game.actions.PlayerActionInterface;
 import it.escape.server.model.game.Announcer;
+import it.escape.server.view.MessagingChannelInterface;
 
 /**
  * Static class used to shadow long and unwieldy method chains

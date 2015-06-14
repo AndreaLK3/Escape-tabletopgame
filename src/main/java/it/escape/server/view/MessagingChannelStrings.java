@@ -1,6 +1,5 @@
 package it.escape.server.view;
 
-import it.escape.server.controller.MessagingChannelInterface;
 import it.escape.server.controller.MessagingHead;
 import it.escape.utils.LogHelper;
 
@@ -16,8 +15,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * MessagingChannel manages a single per-user communication channel.
- * All communications to and from a specific user pass through his MessagingChannel.
+ * MessagingChannelStrings manages a single per-user communication channel.
+ * All communications to and from a specific user pass through his MessagingChannelStrings.
  * The "Head" side is the server, the "Tail" side is a socket connection
  * to the client (the user).
  * Server-to-client messages are instantly submitted,
@@ -38,9 +37,9 @@ import java.util.regex.Pattern;
  * 
  * @author michele, andrea
  */
-public class MessagingChannel extends Observable implements MessagingHead, MessagingTail, MessagingChannelInterface {
+public class MessagingChannelStrings extends Observable implements MessagingHead, MessagingTail, MessagingChannelInterface {
 	
-	protected static final Logger log = Logger.getLogger( MessagingChannel.class.getName() );
+	protected static final Logger log = Logger.getLogger( MessagingChannelStrings.class.getName() );
 	
 	private Queue<String> serverToClientQueue;
 	private Queue<String> clientToServerQueue;
@@ -53,10 +52,10 @@ public class MessagingChannel extends Observable implements MessagingHead, Messa
 	
 	private AtomicBoolean override;
 	
-	// MessagingChannel is simply a proxy to this Observable
+	// MessagingChannelStrings is simply a proxy to this Observable
 	private AsyncMessagingObservable asyncInterface;
 	
-	public MessagingChannel() {
+	public MessagingChannelStrings() {
 		LogHelper.setDefaultOptions(log);
 		serverToClientQueue = new ConcurrentLinkedQueue<String>();
 		clientToServerQueue = new ConcurrentLinkedQueue<String>();
@@ -81,7 +80,7 @@ public class MessagingChannel extends Observable implements MessagingHead, Messa
 	}
 	
 	/**
-	 * to be overridden by the class extending MessagingChannel
+	 * to be overridden by the class extending MessagingChannelStrings
 	 * this function must process an atomic message string (i.e.
 	 * writing it to a socket)
 	 * This function is actually driven by the Head-side, which
@@ -102,7 +101,7 @@ public class MessagingChannel extends Observable implements MessagingHead, Messa
 	}
 	
 	/**
-	 * To be overridden by the class extending MessagingChannel.
+	 * To be overridden by the class extending MessagingChannelStrings.
 	 * This function must append one or more message strings by calling
 	 * the method enqueueFacility(String), then finally call afterTailWrite()
 	 * Calling said function is MANDATORY
@@ -115,10 +114,10 @@ public class MessagingChannel extends Observable implements MessagingHead, Messa
 	}
 	
 	/**
-	 * To be overridden by the class extending MessagingChannel.
+	 * To be overridden by the class extending MessagingChannelStrings.
 	 * This function will permanently terminate the connection
 	 * with the client.
-	 * If the class extending MessagingChannel does not employ
+	 * If the class extending MessagingChannelStrings does not employ
 	 * anything like connections, the method will do nothing.
 	 */
 	public void killConnection() {

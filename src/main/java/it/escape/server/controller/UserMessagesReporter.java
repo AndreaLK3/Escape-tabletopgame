@@ -2,15 +2,21 @@ package it.escape.server.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import it.escape.server.controller.game.actions.PlayerActionInterface;
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
 import it.escape.server.model.game.Announcer;
 import it.escape.server.model.game.players.Player;
-import it.escape.server.view.MessagingChannel;
+import it.escape.server.view.MessagingChannelInterface;
+import it.escape.server.view.MessagingChannelStrings;
+import it.escape.server.view.MessagingChannelRMI;
+import it.escape.utils.LogHelper;
 
 public abstract class UserMessagesReporter {
 
+	protected static final Logger log = Logger.getLogger( UserMessagesReporter.class.getName() );
+	
 	protected static List<UserMessagesReporter> reportersList = new ArrayList<UserMessagesReporter>();
 	
 	protected  Player thePlayer;
@@ -28,10 +34,22 @@ public abstract class UserMessagesReporter {
 	/**General creation/access method n.2*/
 	public static UserMessagesReporter getReporterInstance(MessagingChannelInterface interfaceWithUser) {
 		for (UserMessagesReporter r : reportersList) {	
-			if (r.getInterfaceWithUser() == (MessagingChannel)interfaceWithUser)
+			if (r.getInterfaceWithUser() == interfaceWithUser)
 			return r;
 		}
 		return null;
+	}
+	/** Create a new UMR, dynamically deciding if it will be Socket or RMI */
+	public static void createUMR(MessagingChannelInterface interfaceWithUser) {
+		if (reportersList.size() <= 0) {
+			LogHelper.setDefaultOptions(log);
+		}
+		if (interfaceWithUser instanceof MessagingChannelRMI) {
+			reportersList.add(new UserMessagesReporterRMI((MessagingChannelRMI) interfaceWithUser));
+		} else if (interfaceWithUser instanceof MessagingChannelStrings) {
+			reportersList.add(new UserMessagesReporterSocket((MessagingChannelStrings) interfaceWithUser));
+		}
+		
 	}
 	
 	/**This method assigns a player (already initialized) to an existing
@@ -39,7 +57,7 @@ public abstract class UserMessagesReporter {
 	 * @param newP
 	 * @param interfaceWithUser
 	 */
-	public static void bindPlayer(Player newP,MessagingChannel interfaceWithUser) {
+	public static void bindPlayer(Player newP,MessagingChannelInterface interfaceWithUser) {
 		for (UserMessagesReporter r : reportersList) {	
 			if (r.getInterfaceWithUser() == interfaceWithUser) {
 				r.setThePlayer(newP);
@@ -115,7 +133,7 @@ public abstract class UserMessagesReporter {
 	 * @param string */
 	public abstract void relayMessage(String string);
 
-	public abstract MessagingChannel getInterfaceWithUser();
+	public abstract MessagingChannelInterface getInterfaceWithUser();
 
 	public abstract Announcer getAnnouncer();
 

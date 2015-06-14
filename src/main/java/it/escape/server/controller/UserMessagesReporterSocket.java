@@ -4,7 +4,7 @@ import it.escape.server.controller.game.actions.PlayerActionInterface;
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
 import it.escape.server.model.game.Announcer;
 import it.escape.server.model.game.players.Player;
-import it.escape.server.view.MessagingChannel;
+import it.escape.server.view.MessagingChannelStrings;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
 
@@ -16,19 +16,17 @@ import java.util.logging.Logger;
 /** 
  * This class is located at the border of the controller package,
  * it communicates with the classes inside the View;
- * This class statically links a player in the game to a MessagingChannel,
+ * This class statically links a player in the game to a MessagingChannelStrings,
  * thus automatically routing any user-specific communications.
  * The TurnHandler issues requests to this class.
  * N: The check on the syntax is not performed by this class, it is done by the interface
  * The check on the semantics is performed by TurnHandler.
- * This class makes use of the Synchronous-communication facilities offered by MessagingChannel
+ * This class makes use of the Synchronous-communication facilities offered by MessagingChannelStrings
  * @author andrea
  */
 public class UserMessagesReporterSocket extends UserMessagesReporter {
-	
-	protected static final Logger log = Logger.getLogger( UserMessagesReporterSocket.class.getName() );
 		
-	private MessagingChannel interfaceWithUser;
+	private MessagingChannelStrings interfaceWithUser;
 	
 	private boolean automaticOverriding = false;
 	
@@ -36,18 +34,9 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 	
 	//creation methods
 	
-	private UserMessagesReporterSocket(MessagingChannel interfaceWithUser) {
+	public UserMessagesReporterSocket(MessagingChannelStrings interfaceWithUser) {
 		this.interfaceWithUser = interfaceWithUser;
 	}
-
-	public static void createUMR(MessagingChannel interfaceWithUser) {
-		if (reportersList.size() <= 0) {
-			LogHelper.setDefaultOptions(log);
-		}
-		reportersList.add(new UserMessagesReporterSocket(interfaceWithUser));
-	}
-	
-	
 	
 	@Override
 	public void bindAnnouncer(Announcer announcer) {
@@ -243,7 +232,7 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 	
 
 	@Override
-	public MessagingChannel getInterfaceWithUser() {
+	public MessagingChannelStrings getInterfaceWithUser() {
 		return interfaceWithUser;
 	}
 

@@ -22,7 +22,7 @@ public class Connection implements Observer, Runnable {
 	
 	private boolean running;
 	
-	private MessagingChannel messagingInterface;
+	private MessagingChannelStrings messagingInterface;
 	
 	private ServerInterface server;
 	

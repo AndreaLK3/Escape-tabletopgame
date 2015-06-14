@@ -60,10 +60,10 @@ public class AsyncUserListener implements Observer{
 		
 		if (ren.matches()) {
 			LOG.finer("Rename command detected");
-			renameProcedure(ren);
+			renameProcedure(ren.group(1));
 		} else if (cha.matches()) {
 			LOG.finer("Chat message detected");
-			chatProcedure(cha);
+			chatProcedure(cha.group(1).trim());
 		} else if (me.matches()) {
 			LOG.finer("Whoami message detected");
 			whoAmIProcedure();
@@ -78,13 +78,11 @@ public class AsyncUserListener implements Observer{
 				gameMaster.getPlayerPosition(subject));
 	}
 
-	private void chatProcedure(Matcher match) {
-		String message = match.group(1).trim();  // also remove initial/trailing blank spaces
+	private void chatProcedure(String message) {
 		announcer.announceChatMessage(subject, message);
 	}
 	
-	private void renameProcedure(Matcher match) {
-		String newname = match.group(1);
+	private void renameProcedure(String newname) {
 		if (!gameMaster.hasPlayerNamed(newname)) {
 			announcer.announcePlayerRename(subject.getName(),newname);
 			subject.changeName(newname);

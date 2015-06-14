@@ -10,7 +10,8 @@ import it.escape.server.model.game.players.Alien;
 import it.escape.server.model.game.players.Human;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
-import it.escape.server.view.MessagingChannel;
+import it.escape.server.view.MessagingChannelInterface;
+import it.escape.server.view.MessagingChannelStrings;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
 
@@ -157,37 +158,37 @@ public class GameMaster implements Runnable {
 	 * Invoked by Master, sequence of action to perform when a new user connects
 	 * @param interfaceWithUser
 	 */
-	public void newPlayerMayCauseStart(MessagingChannel interfaceWithUser) {
+	public void newPlayerMayCauseStart(MessagingChannelInterface interfaceWithUser) {
 		addNewPlayer(interfaceWithUser);
 		announceNewPlayer(interfaceWithUser);
 		gameStartLogic();
 	}
 	
 	/* The interface is used to find the right UMR.*/
-	private void addNewPlayer(MessagingChannel interfaceWithUser) {
+	private void addNewPlayer(MessagingChannelInterface interfaceWithUser) {
 		Player newP = createPlayer("Guest-" + id + "-" + new Random().nextInt(USERID_RANDOMIZE));  // create the player
 		map.addNewPlayer(newP, newP.getTeam());  // tell the map to place our player
-		UserMessagesReporterSocket.bindPlayer(newP, interfaceWithUser);  // bind him to its command interface
-		UserMessagesReporterSocket.getReporterInstance(interfaceWithUser).bindAnnouncer(announcer);  // the player will also use our game-announcer
-		AsyncUserListener listener = new AsyncUserListener(newP, announcer, UserMessagesReporterSocket.getReporterInstance(interfaceWithUser), this);
+		UserMessagesReporter.bindPlayer(newP, interfaceWithUser);  // bind him to its command interface
+		UserMessagesReporter.getReporterInstance(interfaceWithUser).bindAnnouncer(announcer);  // the player will also use our game-announcer
+		AsyncUserListener listener = new AsyncUserListener(newP, announcer, UserMessagesReporter.getReporterInstance(interfaceWithUser), this);
 		listOfPlayers.add(newP);  // add him to our players list
 		interfaceWithUser.addObserver(listener);
 		listeners.add(listener);
 		numPlayers++;  // update the player counter
 	}
 	
-	private void announceNewPlayer(MessagingChannel interfaceWithUser) {
-		UserMessagesReporterSocket.getReporterInstance(interfaceWithUser).relayMessage(String.format(
+	private void announceNewPlayer(MessagingChannelInterface interfaceWithUser) {
+		UserMessagesReporter.getReporterInstance(interfaceWithUser).relayMessage(String.format(
 				StringRes.getString("messaging.serversMap"),
 				map.getName()));  // greet him
 		
 		announcer.announcePlayerConnected(numPlayers,GameMaster.MAXPLAYERS);  // notify the others
-		UserMessagesReporterSocket.getReporterInstance(interfaceWithUser).relayMessage(String.format(
+		UserMessagesReporter.getReporterInstance(interfaceWithUser).relayMessage(String.format(
 				StringRes.getString("messaging.othersWaiting"),
 				numPlayers,
 				GameMaster.MAXPLAYERS));  // tell him how many players are connected
 		if (timeoutTicking.get()) {  // if a game is about to start
-			UserMessagesReporterSocket.getReporterInstance(interfaceWithUser).relayMessage(String.format(
+			UserMessagesReporter.getReporterInstance(interfaceWithUser).relayMessage(String.format(
 					StringRes.getString("messaging.gameStartETA"),
 					getStartGameETA()));  // tell him how long until game starts
 		}
@@ -310,7 +311,7 @@ public class GameMaster implements Runnable {
 	 */
 	private void greetPlayers() {
 		for (Player p : listOfPlayers) {
-			UserMessagesReporterSocket.getReporterInstance(p).relayMessage(String.format(
+			UserMessagesReporter.getReporterInstance(p).relayMessage(String.format(
 					StringRes.getString("messaging.gamemaster.playAs"),
 					p.getTeam().toString()));
 		}
@@ -424,10 +425,10 @@ public class GameMaster implements Runnable {
 	
 	private synchronized void closeConnections() {
 		for (Player p : listOfPlayers) {
-			UserMessagesReporterSocket.getReporterInstance(p).relayMessage(String.format(
+			UserMessagesReporter.getReporterInstance(p).relayMessage(String.format(
 					StringRes.getString("messaging.goodbye"),
 					p.getName()));  // say goodbye
-			UserMessagesReporterSocket.getReporterInstance(p).getInterfaceWithUser().killConnection();
+			UserMessagesReporter.getReporterInstance(p).getInterfaceWithUser().killConnection();
 			numPlayers--;
 		}
 	}

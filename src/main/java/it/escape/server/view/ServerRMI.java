@@ -4,6 +4,11 @@ import it.escape.client.ClientRemoteInterface;
 import it.escape.rmitestbed.ExampleClientRemote;
 import it.escape.rmitestbed.ExampleServer;
 import it.escape.rmitestbed.ExampleServerRemote;
+import it.escape.server.Master;
+import it.escape.server.ServerLocalSettings;
+import it.escape.server.controller.UserMessagesReporter;
+import it.escape.server.controller.UserMessagesReporterRMI;
+import it.escape.server.controller.UserMessagesReporterSocket;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -16,26 +21,42 @@ import java.util.List;
 
 public class ServerRMI implements ServerRemoteInterface {
 
-	private List<ClientRemoteInterface> clientsList;
+	// it's more useful to list the MessagingChannelRMI, which match 1:1 to the active clients
+	private List<MessagingChannelRMI> clientsList;
 	
+	private ServerLocalSettings locals;
+	
+	private MessagingChannelRMI findChannel(ClientRemoteInterface client) {
+		for (MessagingChannelRMI c : clientsList) {
+			if (c.getClient() == client) {
+				return c;
+			}
+		}
+		return null;
+	}
 	
 	@Override
 	public void registerClient(ClientRemoteInterface client) {
-		clientsList.add(client);
+		MessagingChannelInterface channel = new MessagingChannelRMI(client, this);
+		clientsList.add((MessagingChannelRMI) channel);
+		UserMessagesReporterSocket.createUMR(channel);
+		Master.newPlayerHasConnected(channel, locals);
 		//TODO: send motd 
 		
 	}
 
 	@Override
 	public void unregisterClient(ClientRemoteInterface client) {
-		clientsList.remove(client);
-		
+		MessagingChannelRMI del = findChannel(client);
+		if (del != null) {
+			clientsList.remove(del);
+		}
 	}
 
 	@Override
 	public void rename(String message, ClientRemoteInterface client) {
-		// TODO Auto-generated method stub
-		
+		// get the player reference from UMR
+		// get the 
 	}
 
 	@Override
@@ -58,16 +79,15 @@ public class ServerRMI implements ServerRemoteInterface {
 
 	@Override
 	public void setAnswer(String answer, ClientRemoteInterface client) {
-		// TODO Auto-generated method stub
-		
+		//UserMessagesReporter.getReporterInstance(interfaceWithUser)
 	}
 	
 	/**This method sets up the Registry and creates and exposes the Server Remote Object;
 	 *  after the Server invoked this, the clients using RMI will be able to invoke functions.*/
-	public static void initializer() {
+	public static void initializer(ServerLocalSettings locals) {
 		try {
 			LocateRegistry.createRegistry(1099);
-			ServerRemoteInterface server = new ServerRMI();
+			ServerRemoteInterface server = new ServerRMI(locals);
 			UnicastRemoteObject.exportObject(server, 0);
 			Naming.rebind("//localhost/Server", server);
 			
@@ -79,8 +99,9 @@ public class ServerRMI implements ServerRemoteInterface {
 	}
 	
 	/**Constructor for the object*/
-	public ServerRMI() {
-		clientsList = new ArrayList<ClientRemoteInterface>();
+	public ServerRMI(ServerLocalSettings locals) {
+		this.locals = locals;
+		clientsList = new ArrayList<MessagingChannelRMI>();
 	}
 
 }

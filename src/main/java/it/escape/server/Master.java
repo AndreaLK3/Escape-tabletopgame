@@ -3,7 +3,8 @@ package it.escape.server;
 import it.escape.server.controller.GameMaster;
 import it.escape.server.controller.UserMessagesReporterSocket;
 import it.escape.server.model.game.players.Player;
-import it.escape.server.view.MessagingChannel;
+import it.escape.server.view.MessagingChannelInterface;
+import it.escape.server.view.MessagingChannelStrings;
 import it.escape.utils.LogHelper;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class Master {
 	private static MapCreator mapCreator;
 	private static ServerLocalSettings locals = null;
 		
-	public static void newPlayerHasConnected(MessagingChannel interfaceWithUser, ServerLocalSettings Locals) {
+	public static void newPlayerHasConnected(MessagingChannelInterface interfaceWithUser, ServerLocalSettings Locals) {
 		if (locals == null) {
 			locals = Locals;
 		}
@@ -60,7 +61,7 @@ public class Master {
 	 * It finds the Master of her game, and tells it to handle this event.
 	 * @param interfaceWithUser
 	 */
-	public static void playerHasDisconnected(MessagingChannel interfaceWithUser) {
+	public static void playerHasDisconnected(MessagingChannelInterface interfaceWithUser) {
 			
 		Player offender = getPlayer(interfaceWithUser);
 		GameMaster gm = getGameMasterOfPlayer(offender);
@@ -69,7 +70,7 @@ public class Master {
 		}
 	}
 	
-	public static Player getPlayer(MessagingChannel interfaceWithUser) {
+	public static Player getPlayer(MessagingChannelInterface interfaceWithUser) {
 		return UserMessagesReporterSocket.getReporterInstance(interfaceWithUser).getThePlayer();
 	}
 	

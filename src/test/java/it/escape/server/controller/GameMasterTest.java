@@ -6,7 +6,7 @@ import it.escape.server.MapCreator;
 import it.escape.server.Master;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
-import it.escape.server.view.MessagingChannel;
+import it.escape.server.view.MessagingChannelStrings;
 import it.escape.strings.StringRes;
 import it.escape.server.controller.AnnouncerObserverTest;
 import java.util.List;
@@ -46,7 +46,7 @@ public class GameMasterTest {
 	}
 	
 	private void simulateConnect(AnnouncerObserverTest observer) {
-		MessagingChannel iface = new MessagingChannel();
+		MessagingChannelStrings iface = new MessagingChannelStrings();
 		UserMessagesReporterSocket.createUMR(iface);
 		Master.newPlayerHasConnected(iface, new GlobalSettings());
 		Shorthand.announcer(iface).addObserver(observer);
