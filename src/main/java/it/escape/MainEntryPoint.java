@@ -60,7 +60,7 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 	
 	private void initialize() {
 		// this is just for initialization via command line
-		// please don't touch this
+		// if you want to start rmi here, add a switch in the command line
 		if (globals.isStartInTextClient()) {
 			ClientInitializerCLI.start(globals);
 		} else if (globals.isStartInTextServer()) {
