@@ -49,13 +49,11 @@ public class ServerRMI implements ServerRemoteInterface {
 	}
 	
 	/**Basically does the same things that Connection used to do upon establishing:
-	 * 1)
-	 * 2)
-	 * 3)
-	 * 4)
-	 * 5)
-	 * 
-	 */
+	 * 1)binds a MessagingChannel to the client connection(here, ClientRemoteInterface)
+	 * 2)add a Client to the list of clients that use RMI
+	 * 3)creates the appropriate UserMessagesReporter (UMR_RMI)
+	 * 4)invokes: Master.newPlayerHasConnected(channel, locals);
+	 * 5)sets up the Client as a subscriber of the appropriate Announcer(here, AnnouncerRMIBroadcast) */
 	@Override
 	public void registerClient(ClientRemoteInterface client) throws RemoteException {
 		MessagingChannelInterface channel = new MessagingChannelRMI(client, this);
