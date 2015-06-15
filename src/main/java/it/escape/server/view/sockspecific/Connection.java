@@ -1,8 +1,10 @@
 package it.escape.server.view.sockspecific;
 
 import it.escape.server.Master;
+import it.escape.server.controller.UserMessagesReporter;
 import it.escape.server.controller.UserMessagesReporterSocket;
 import it.escape.server.model.AnnouncerStrings;
+import it.escape.server.model.SuperAnnouncer;
 import it.escape.server.view.MessagingChannelStrings;
 import it.escape.server.view.ServerInterface;
 import it.escape.strings.StringRes;
@@ -43,9 +45,10 @@ public class Connection implements Observer, Runnable {
 			sendWelcomeMessage();  // welcomes new player
 			// setup required objects for a player to work properly
 			messagingInterface = new SocketInterface(clientSocket);
-			UserMessagesReporterSocket.createUMR(messagingInterface);
+			UserMessagesReporter.createUMR(messagingInterface);
 			Master.newPlayerHasConnected(messagingInterface, server.getLocals());
-			announcer = (AnnouncerStrings) UserMessagesReporterSocket.getReporterInstance(messagingInterface).getAnnouncer();
+			SuperAnnouncer superAnnouncer = (SuperAnnouncer) UserMessagesReporter.getReporterInstance(messagingInterface).getAnnouncer();
+			announcer = superAnnouncer.getSockAnnouncer();
 			announcer.addObserver(this);
 			
 			// loop continuo: riempire la coda di ricezione

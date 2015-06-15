@@ -5,6 +5,7 @@ import it.escape.server.controller.UserMessagesReporterSocket;
 import it.escape.server.model.Announcer;
 import it.escape.server.model.AnnouncerRMIBroadcast;
 import it.escape.server.model.AnnouncerStrings;
+import it.escape.server.model.SuperAnnouncer;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingChannelInterface;
 import it.escape.server.view.MessagingChannelRMI;
@@ -50,6 +51,8 @@ public class Master {
 			gameMasters.add(currentGameMaster);
 		}
 		if (currentGameMaster.newPlayerAllowed()) {
+			SuperAnnouncer existing = (SuperAnnouncer) currentGameMaster.getGameWideAnnouncer();
+			updateExistingSuperAnnouncer(existing, interfaceWithUser);
 			LOG.info("Routing user to existing gamemaster (id=" + (gmUniqueId-1) + ")");
 			currentGameMaster.newPlayerMayCauseStart(interfaceWithUser);
 		} else {
@@ -63,18 +66,24 @@ public class Master {
 	}
 	
 	/**
-	 * Create a new announcer, automatically deciding to
-	 * use Strings or RMI
+	 * Creates a new SuperAnnouncer,
+	 * and adds a RMIAnnouncer or SocketAnnuncer depending on the 
+	 * kind of connection the client has.
 	 * @param interfaceWithUser
 	 * @return
 	 */
 	private static Announcer createAnnouncer(MessagingChannelInterface interfaceWithUser) {
+		SuperAnnouncer superAnnouncer = new SuperAnnouncer();
+		updateExistingSuperAnnouncer(superAnnouncer, interfaceWithUser);
+		return superAnnouncer;
+	}
+	
+	private static void updateExistingSuperAnnouncer(SuperAnnouncer superAnnouncer, MessagingChannelInterface interfaceWithUser) {
 		if (interfaceWithUser instanceof MessagingChannelStrings) {
-			return new AnnouncerStrings();
+			superAnnouncer.createSockAnnouncerIfNeeded();
 		} else if (interfaceWithUser instanceof MessagingChannelRMI) {
-			return new AnnouncerRMIBroadcast();
+			superAnnouncer.createRMIAnnouncerIfNeeded();
 		}
-		return null;
 	}
 	
 	public static GameMaster getInstanceByIndex(int index) {

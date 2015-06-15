@@ -432,4 +432,8 @@ public class GameMaster implements Runnable {
 		}
 	}
 	
+	public Announcer getGameWideAnnouncer() {
+		return announcer;
+	}
+	
 }

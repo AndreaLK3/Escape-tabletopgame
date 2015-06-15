@@ -6,6 +6,7 @@ import it.escape.server.ServerLocalSettings;
 import it.escape.server.controller.UserMessagesReporter;
 import it.escape.server.controller.UserMessagesReporterSocket;
 import it.escape.server.model.AnnouncerRMIBroadcast;
+import it.escape.server.model.SuperAnnouncer;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingChannelInterface;
 import it.escape.server.view.MessagingChannelRMI;
@@ -55,9 +56,10 @@ public class ServerRMI implements ServerRemoteInterface {
 	public void registerClient(ClientRemoteInterface client) throws RemoteException {
 		MessagingChannelInterface channel = new MessagingChannelRMI(client, this);
 		clientsList.add((MessagingChannelRMI) channel);
-		UserMessagesReporterSocket.createUMR(channel);
+		UserMessagesReporter.createUMR(channel);
 		Master.newPlayerHasConnected(channel, locals);
-		AnnouncerRMIBroadcast announcer = (AnnouncerRMIBroadcast) UserMessagesReporterSocket.getReporterInstance(channel).getAnnouncer();
+		SuperAnnouncer superAnnouncer = (SuperAnnouncer) UserMessagesReporter.getReporterInstance(channel).getAnnouncer();
+		AnnouncerRMIBroadcast announcer = superAnnouncer.getRMIAnnouncer();
 		announcer.subscribe(client);
 		try {
 			client.setWholeMOTD(StringRes.getString("messaging.motd.start") + "\n" + 
