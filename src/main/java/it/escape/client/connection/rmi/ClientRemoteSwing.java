@@ -37,7 +37,7 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void setStartETA(String message) {
+	public void setStartETA(String message) throws RemoteException {
 		updaterSwing.setStartETA(message);
 
 	}

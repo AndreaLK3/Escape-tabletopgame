@@ -124,9 +124,13 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 
 	@Override
 	public void reportGameStartETA(int seconds) {
-		interfaceWithUser.getClient().setStartETA(String.format(
-					StringRes.getString("messaging.gameStartETA"),
-					seconds));
+		try {
+			interfaceWithUser.getClient().setStartETA(String.format(
+						StringRes.getString("messaging.gameStartETA"),
+						seconds));
+		} catch (RemoteException e) {
+			log.warning("Cannot report game start ETA: " + e.getMessage());
+		}
 	}
 
 	@Override

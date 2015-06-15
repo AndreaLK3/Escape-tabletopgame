@@ -179,7 +179,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 			try {
 				client.visualizeChatMsg(author, message);
 			} catch (RemoteException e) {
-				LOG.warning("cannot visualize chat message: " + e.getMessage());
+				LOG.warning("cannot announce chat message: " + e.getMessage());
 			}
 		}
 
@@ -189,7 +189,11 @@ public class AnnouncerRMIBroadcast implements Announcer {
 	public void announceGameStartETA(int seconds) {
 		String message = String.format(	StringRes.getString("messaging.gameStartETA"),seconds);
 		for (ClientRemoteInterface client : subscribed) {
-			client.setStartETA(message);
+			try {
+				client.setStartETA(message);
+			} catch (RemoteException e) {
+				LOG.warning("cannot announce game start ETA: " + e.getMessage());
+			}
 		}
 
 	}

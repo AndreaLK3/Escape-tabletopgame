@@ -461,7 +461,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#setStartETA(java.lang.String)
 	 */
 	@Override
-	public void setStartETA(String message) {
+	public void setStartETA(String message) throws RemoteException {
 		LOG.finer("Setting game start ETA");
 		model.setGameStatus(GameStatus.GOING_TO_START);
 		model.finishedUpdating();

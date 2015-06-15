@@ -43,7 +43,7 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void setStartETA(String message) {
+	public void setStartETA(String message) throws RemoteException {
 		terminal.visualizeMessage(message);
 	}
 
