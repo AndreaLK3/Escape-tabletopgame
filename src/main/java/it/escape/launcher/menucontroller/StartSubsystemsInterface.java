@@ -8,9 +8,11 @@ public interface StartSubsystemsInterface {
 	 */
 	public void startTextSocketClient(StartMenuInterface startMenu);
 	
-	public void startTextSocketServer(StartMenuInterface startMenu);
+	public void startTextServer(StartMenuInterface startMenu);
 	
 	public void startGUISocketClient(StartMenuInterface startMenu);
 	
-	public void startTextRMIServer(final StartMenuInterface startMenu);
+	//TODO: public void public void startTextRMIClient(StartMenuInterface startMenu),
+	//public void startGUIRMIClient(StartMenuInterface startMenu);
+	
 }

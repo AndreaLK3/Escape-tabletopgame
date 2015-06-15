@@ -48,8 +48,13 @@ public class ServerRMI implements ServerRemoteInterface {
 		return null;
 	}
 	
-	/**
-	 * Basically does the same things that Connection used to do upon establishing
+	/**Basically does the same things that Connection used to do upon establishing:
+	 * 1)
+	 * 2)
+	 * 3)
+	 * 4)
+	 * 5)
+	 * 
 	 */
 	@Override
 	public void registerClient(ClientRemoteInterface client) throws RemoteException {

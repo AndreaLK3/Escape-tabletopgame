@@ -5,7 +5,12 @@ import it.escape.server.view.sockspecific.Server;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-/**The class that is used to start the Server*/
+/** Our Server is actually composed of 2 classes:
+ * Server that uses the Socket connection +
+ * Server that handles the RMI connection.
+ * This is the class that is used to start the Server that receives Socket connections.
+ * [note: Users who utilize different connection types can play at the same game;
+ * There is only one Master that handles all the connections and redirects the user to the gameMasters.]*/
 public class SockServerInitializer {
 	
 	protected static final Logger log = Logger.getLogger( SockServerInitializer.class.getName() );
