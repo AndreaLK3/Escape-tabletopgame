@@ -390,7 +390,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		return false;
 	}
 	
-	private boolean processException(String message) {
+	private boolean processException(String message) throws RemoteException {
 		
 		Matcher moveCanNotEnter = exception_1.matcher(message);
 		Matcher moveUnreachable = exception_2.matcher(message);
@@ -790,7 +790,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#showMovementException(java.lang.String)
 	 */
 	@Override
-	public void showMovementException(String exceptionMessage) { 
+	public void showMovementException(String exceptionMessage) throws RemoteException { 
 		LOG.finer("Server reported : movement is impossible." );
 		view.notifyUser(exceptionMessage);
 		askForMovement();
@@ -800,7 +800,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#showWrongCardException(java.lang.String)
 	 */
 	@Override
-	public void showWrongCardException(String exceptionMessage) {
+	public void showWrongCardException(String exceptionMessage) throws RemoteException {
 		LOG.finer("Server reported : that Card can't be played now." );
 		view.notifyUser(exceptionMessage);
 		askForYesNo(StringRes.getString("messaging.askPlayObjectCard"));

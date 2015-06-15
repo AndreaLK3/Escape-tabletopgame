@@ -79,10 +79,11 @@ public interface ClientProceduresInterface {
 	
 	public void eventPlayerEscaped(String playerName, String message);
 
-	public abstract void showMovementException(String exceptionMessage);
+	public abstract void showMovementException(String exceptionMessage) throws RemoteException;
 
-	public abstract void showWrongCardException(String exceptionMessage);
+	public abstract void showWrongCardException(String exceptionMessage) throws RemoteException;
 
+	// TODO: how does it differ from eventPlayerEscaped()?
 	public abstract void escaped() throws RemoteException;
 	
 	

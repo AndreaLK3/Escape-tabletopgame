@@ -208,13 +208,13 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void showMovementException(String exceptionMessage) {
+	public void showMovementException(String exceptionMessage) throws RemoteException {
 		updaterSwing.showMovementException(exceptionMessage);
 
 	}
 
 	@Override
-	public void showWrongCardException(String exceptionMessage) {
+	public void showWrongCardException(String exceptionMessage) throws RemoteException {
 		updaterSwing.showWrongCardException(exceptionMessage);
 
 	}

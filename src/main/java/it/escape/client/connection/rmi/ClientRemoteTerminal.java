@@ -218,13 +218,13 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void showMovementException(String exceptionMessage) {
+	public void showMovementException(String exceptionMessage) throws RemoteException {
 		terminal.visualizeMessage(exceptionMessage);
 
 	}
 
 	@Override
-	public void showWrongCardException(String exceptionMessage) {
+	public void showWrongCardException(String exceptionMessage) throws RemoteException {
 		terminal.visualizeMessage(exceptionMessage);
 
 	}
