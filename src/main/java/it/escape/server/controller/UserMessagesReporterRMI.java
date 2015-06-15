@@ -1,5 +1,7 @@
 package it.escape.server.controller;
 
+import java.rmi.RemoteException;
+
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
 import it.escape.server.view.MessagingChannelInterface;
 import it.escape.server.view.MessagingChannelRMI;
@@ -104,12 +106,20 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 
 	@Override
 	public void relayMessage(String string) {
-		interfaceWithUser.getClient().showMessageInTerminal(string);
+		try {
+			interfaceWithUser.getClient().showMessageInTerminal(string);
+		} catch (RemoteException e) {
+			log.warning("Cannot relay the message: " + e.getMessage());
+		}
 	}
 
 	@Override
 	public void reportMapName(String map) {
-		interfaceWithUser.getClient().setMap(map);
+		try {
+			interfaceWithUser.getClient().setMap(map);
+		} catch (RemoteException e) {
+			log.warning("Cannot set the map: " + e.getMessage());
+		}
 	}
 
 	@Override

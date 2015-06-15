@@ -1,5 +1,7 @@
 package it.escape.client.connection.rmi;
 
+import java.rmi.RemoteException;
+
 import it.escape.client.controller.cli.StateManagerCLIInterface;
 import it.escape.client.view.cli.Terminal;
 import it.escape.server.controller.GameMaster;
@@ -24,25 +26,25 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 	
 	@Override
-	public void setMap(String mapname) {
+	public void setMap(String mapname) throws RemoteException {
 		String message = String.format(StringRes.getString("messaging.serversMap"), mapname);
-		showMessageInTerminal(message);
+		terminal.visualizeMessage(message);
 	}
 
 	@Override
 	public void setWholeMOTD(String text) {
-		showMessageInTerminal(text);
+		terminal.visualizeMessage(text);
 	}
 
 	@Override
 	public void visualizeChatMsg(String author, String msg) {
 		String message = String.format(StringRes.getString("messaging.relayChat"), author, msg);
-		showMessageInTerminal(message);
+		terminal.visualizeMessage(message);
 	}
 
 	@Override
 	public void setStartETA(String message) {
-		showMessageInTerminal(message);
+		terminal.visualizeMessage(message);
 	}
 
 	@Override
@@ -72,32 +74,32 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 		String message =  String.format(
 				StringRes.getString("messaging.hereYouAre"),
 				myPos);
-		showMessageInTerminal(message);
+		terminal.visualizeMessage(message);
 	}
 
 	@Override
 	public void setMyTeam(String teamName) {
 		String message = String.format(StringRes.getString("messaging.gamemaster.playAs"), teamName);
-		showMessageInTerminal(message);
+		terminal.visualizeMessage(message);
 	}
 
 	@Override
 	public void drawnCard(String cardClassName) {
 		String message = String.format(StringRes.getString("messaging.objectCardDrawn"), cardClassName);
-		showMessageInTerminal(message);
+		terminal.visualizeMessage(message);
 	}
 
 	@Override
 	public void discardedCard(String cardName) {
 		String message = String.format(StringRes.getString("messaging.discardedCard"), cardName);
-		showMessageInTerminal(message);
+		terminal.visualizeMessage(message);
 
 	}
 
 	@Override
 	public void playerDisconnected(String playerName) {
 		String message = String.format(StringRes.getString("messaging.playerDisconnected"), playerName);
-		showMessageInTerminal(message);
+		terminal.visualizeMessage(message);
 
 	}
 
@@ -110,7 +112,7 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 				team,
 				winnersNames
 				);
-		showMessageInTerminal(message);
+		terminal.visualizeMessage(message);
 	}
 
 	@Override
@@ -119,7 +121,7 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 		// ANSWER: same as above
 		String message = String.format(StringRes.getString("messaging.loserTeam"),
 				teamName);
-		showMessageInTerminal(message);
+		terminal.visualizeMessage(message);
 	}
 
 	@Override
@@ -132,20 +134,20 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	@Override
 	public void startMyTurn(String myName, String myPos) {
 		String message = String.format(StringRes.getString("messaging.hail.player"), myName, myPos);
-		showMessageInTerminal(message);
+		terminal.visualizeMessage(message);
 
 	}
 
 	@Override
 	public void askForMovement() {
 		String message = StringRes.getString("messaging.timeToMove");
-		showMessageInTerminal(message);
+		terminal.visualizeMessage(message);
 	}
 
 	@Override
 	public void askForYesNo(String question) {
 		stateManager.setYesNoState();
-		showMessageInTerminal(question);
+		terminal.visualizeMessage(question);
 
 	}
 
@@ -153,91 +155,91 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	public void askForNoisePosition() {
 		String message = StringRes.getString("messaging.askForNoisePosition");
 		stateManager.setPositionState();
-		showMessageInTerminal(message);
+		terminal.visualizeMessage(message);
 	}
 
 	@Override
 	public void askForLightsPosition() {
 		stateManager.setPositionState();
-		showMessageInTerminal(StringRes.getString("messaging.askForLightsPosition"));
+		terminal.visualizeMessage(StringRes.getString("messaging.askForLightsPosition"));
 	}
 
 	@Override
 	public void whichObjectCard() {
 		stateManager.setObjectCardState();
-		showMessageInTerminal(StringRes.getString("messaging.askWhichObjectCard"));
+		terminal.visualizeMessage(StringRes.getString("messaging.askWhichObjectCard"));
 	}
 
 	@Override
 	public void haveToDiscard() {
-		showMessageInTerminal(StringRes.getString("messaging.tooManyCardsAlien"));
+		terminal.visualizeMessage(StringRes.getString("messaging.tooManyCardsAlien"));
 
 	}
 
 	@Override
 	public void askPlayOrDiscard(String question) {
 		stateManager.setOtherChoice();  // now we can handle it too
-		showMessageInTerminal(question);
+		terminal.visualizeMessage(question);
 	}
 
 	@Override
 	public void eventObject(String playerName, String cardClassName, String message) {
-		showMessageInTerminal(message);
+		terminal.visualizeMessage(message);
 	}
 
 	@Override
 	public void eventAttack(String attacker, String location, String message) {
-		showMessageInTerminal(message);
+		terminal.visualizeMessage(message);
 	}
 
 	@Override
 	public void eventNoise(String location) {
 		String msg = String.format(StringRes.getString("messaging.noise"), location);
-		showMessageInTerminal(msg);
+		terminal.visualizeMessage(msg);
 	}
 
 	@Override
 	public void eventDeath(String playerKilled, String message) {
-		showMessageInTerminal(message);
+		terminal.visualizeMessage(message);
 	}
 
 	@Override
 	public void eventEndGame() {
-		// TODO Auto-generated method stub
+		// TODO print something
 
 	}
 
 	@Override
 	public void endResults() {
-		// TODO Auto-generated method stub
+		// TODO print something
 
 	}
 
 	@Override
 	public void eventFoundPlayer(String playerName, String location) {
 		String msg = String.format(StringRes.getString("messaging.disclosePlayerPosition"), playerName, location);
-		showMessageInTerminal(msg);
+		terminal.visualizeMessage(msg);
 	}
 
 	@Override
 	public void eventDefense(String message) {
-		showMessageInTerminal(message);
+		terminal.visualizeMessage(message);
 	}
 
 	@Override
 	public void showMovementException(String exceptionMessage) {
-		showMessageInTerminal(exceptionMessage);
+		terminal.visualizeMessage(exceptionMessage);
 
 	}
 
 	@Override
 	public void showWrongCardException(String exceptionMessage) {
-		showMessageInTerminal(exceptionMessage);
+		terminal.visualizeMessage(exceptionMessage);
 
 	}
 
 	@Override
-	public void showMessageInTerminal(String message) {
+	public void showMessageInTerminal(String message) throws RemoteException {
 		terminal.visualizeMessage(message);
 	}
 

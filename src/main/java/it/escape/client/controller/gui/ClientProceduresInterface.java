@@ -1,8 +1,11 @@
 package it.escape.client.controller.gui;
 
+import java.rmi.RemoteException;
+// TODO: very big: all those methods must throw RemoteException to
+// be exported by RMI
 public interface ClientProceduresInterface {
 
-	public abstract void setMap(String mapname);
+	public abstract void setMap(String mapname) throws RemoteException;
 
 	public abstract void setWholeMOTD(String text);
 

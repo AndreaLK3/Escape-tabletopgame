@@ -1,5 +1,7 @@
 package it.escape.client.connection.rmi;
 
+import java.rmi.RemoteException;
+
 import it.escape.client.controller.gui.ClientProceduresInterface;
 
 /**This class implements the ClientRemoteInterface.
@@ -18,7 +20,7 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	
 
 	@Override
-	public void setMap(String mapname) {
+	public void setMap(String mapname) throws RemoteException {
 		updaterSwing.setMap(mapname);
 
 	}
@@ -213,7 +215,7 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void showMessageInTerminal(String message) {
+	public void showMessageInTerminal(String message) throws RemoteException {
 		// do nothing
 	}
 
