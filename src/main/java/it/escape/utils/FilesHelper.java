@@ -27,7 +27,6 @@ public class FilesHelper {
 		        }
 		        ret.append(line);
 		    }
-			// TODO: save newlines
 			
 			return ret.toString();
 		} catch (NullPointerException e) {

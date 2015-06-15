@@ -25,8 +25,7 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 
 	@Override
 	public void setWholeMOTD(String text) {
-		updaterSwing.setWholeMOTD(null);
-		//TODO: why is it null?
+		updaterSwing.setWholeMOTD(text);
 	}
 
 	@Override
