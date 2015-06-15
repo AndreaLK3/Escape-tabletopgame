@@ -14,17 +14,20 @@ public interface ClientProceduresInterface {
 
 	public abstract void setStartETA(String message) throws RemoteException;
 
-	public abstract void startTurn(int turnNumber, String playerName);
+	public abstract void startTurn(int turnNumber, String playerName) throws RemoteException;
 
-	public abstract void renamePlayer(String previousName, String changedName);
+	public abstract void renamePlayer(String previousName, String changedName) throws RemoteException;
 
-	public abstract void renameMyself(String myNewName);
+	public abstract void renameMyself(String myNewName) throws RemoteException;
 
-	public abstract void setMyPosition(String myPos);
+	/** This is used to receive my position from the server.
+	 * It's called directly after a successfule move or
+	 * whoami command */
+	public abstract void setMyPosition(String myPos) throws RemoteException;
 
-	public abstract void setMyTeam(String teamName);
+	public abstract void setMyTeam(String teamName) throws RemoteException;
 
-	public abstract void drawnCard(String cardClassName);
+	public abstract void drawnCard(String cardClassName) throws RemoteException;
 
 	public abstract void discardedCard(String cardName);
 	

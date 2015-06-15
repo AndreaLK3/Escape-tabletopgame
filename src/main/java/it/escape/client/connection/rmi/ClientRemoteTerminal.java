@@ -48,29 +48,26 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void startTurn(int turnNumber, String playerName) {
+	public void startTurn(int turnNumber, String playerName) throws RemoteException {
 		String message = String.format(StringRes.getString("messaging.timecontroller.turnNumber"), turnNumber, playerName);
 		terminal.visualizeMessage(message);
 	}
 
 	@Override
-	public void renamePlayer(String previousName, String changedName) {
+	public void renamePlayer(String previousName, String changedName) throws RemoteException {
 		String message = String.format(StringRes.getString("messaging.announceRename"), previousName, changedName);
 		terminal.visualizeMessage(message);
 
 	}
 
 	@Override
-	public void renameMyself(String myNewName) {
+	public void renameMyself(String myNewName) throws RemoteException {
 		String message = String.format(StringRes.getString("messaging.whoYouAre"), myNewName);
 		terminal.visualizeMessage(message);
 	}
 
 	@Override
-	public void setMyPosition(String myPos){
-		//TODO: Is it ever invoked from outside in UpdaterSwing, or
-		//is it used only nternally, such as getGUICardKey? in that case, it can be removed from this interface
-		// this method prints the current position, basically it comfirms the movement was succesful
+	public void setMyPosition(String myPos) throws RemoteException{
 		String message =  String.format(
 				StringRes.getString("messaging.hereYouAre"),
 				myPos);
@@ -78,13 +75,13 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void setMyTeam(String teamName) {
+	public void setMyTeam(String teamName) throws RemoteException {
 		String message = String.format(StringRes.getString("messaging.gamemaster.playAs"), teamName);
 		terminal.visualizeMessage(message);
 	}
 
 	@Override
-	public void drawnCard(String cardClassName) {
+	public void drawnCard(String cardClassName) throws RemoteException {
 		String message = String.format(StringRes.getString("messaging.objectCardDrawn"), cardClassName);
 		terminal.visualizeMessage(message);
 	}
@@ -105,8 +102,6 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 
 	@Override
 	public void setWinners(String team, String winnersNames) {
-		// TODO : This method is not used at all here, if the end results are -already printed-...
-		// ANSWER: it's this method the one doing the printing
 		String message = String.format(
 				StringRes.getString("messaging.winnerTeam"),
 				team,
@@ -117,8 +112,6 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 
 	@Override
 	public void setLoserTeam(String teamName) {
-		// TODO : This method is not used at all here, if the end results are already printed...
-		// ANSWER: same as above
 		String message = String.format(StringRes.getString("messaging.loserTeam"),
 				teamName);
 		terminal.visualizeMessage(message);
@@ -126,9 +119,7 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 
 	@Override
 	public void notMyTurn() {
-		//TODO: Is it ever invoked from outside in UpdaterSwing, or
-		//is it used only internally, such as getGUICardKey? in that case, it can be removed from this interface
-		stateManager.setFreeState();  // <-- should do this when my turn is over
+		stateManager.setFreeState();
 	}
 
 	@Override

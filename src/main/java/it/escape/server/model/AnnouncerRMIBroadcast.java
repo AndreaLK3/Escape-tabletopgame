@@ -167,7 +167,11 @@ public class AnnouncerRMIBroadcast implements Announcer {
 	@Override
 	public void announcePlayerRename(String oldname, String newname) {
 		for (ClientRemoteInterface client : subscribed) {
-			client.renamePlayer(oldname, newname);;
+			try {
+				client.renamePlayer(oldname, newname);
+			} catch (RemoteException e) {
+				LOG.warning("cannot announce player name: " + e.getMessage());
+			};
 		}
 
 	}

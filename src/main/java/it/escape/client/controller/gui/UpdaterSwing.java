@@ -177,7 +177,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		
 	}
 	
-	private boolean processInfo(String message) {
+	private boolean processInfo(String message) throws RemoteException {
 		Matcher currentTurnAndPlayer = info_currentTurnAndPlayer.matcher(message);
 		Matcher lobbyPlr = info_numLobbyPlayers.matcher(message);
 		Matcher playerRename = info_playerRenamed.matcher(message);
@@ -475,7 +475,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#startTurn(int, java.lang.String)
 	 */
 	@Override
-	public void startTurn(int turnNumber, String playerName) {
+	public void startTurn(int turnNumber, String playerName) throws RemoteException {
 		LOG.finer("Someone's turn");
 		view.setTurnStatusString(playerName + " is playing");
 		model.updateNowPlaying(playerName);
@@ -489,7 +489,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#renamePlayer(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void renamePlayer(String previousName, String changedName) {
+	public void renamePlayer(String previousName, String changedName) throws RemoteException {
 		LOG.finer("Someone renamed himself");
 		model.updatePlayerRename(previousName, changedName);
 		model.finishedUpdating();
@@ -499,7 +499,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#renameMyself(java.lang.String)
 	 */
 	@Override
-	public void renameMyself(String myNewName) {
+	public void renameMyself(String myNewName) throws RemoteException {
 		LOG.finer("Read player name from server: " +myNewName);
 		model.getMyPlayerState().setMyName(myNewName);
 		model.finishedUpdating();
@@ -509,7 +509,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#setMyPosition(java.lang.String)
 	 */
 	@Override
-	public void setMyPosition(String myPos) {
+	public void setMyPosition(String myPos) throws RemoteException {
 		LOG.finer("Read player position from server: [" + myPos + "]");
 		model.getMyPlayerState().setLocation(myPos);
 		model.finishedUpdating();
@@ -519,7 +519,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#setMyTeam(java.lang.String)
 	 */
 	@Override
-	public void setMyTeam(String teamName) {
+	public void setMyTeam(String teamName) throws RemoteException {
 		LOG.finer("Read team name from server");
 		model.getMyPlayerState().setMyTeam(teamName);
 		model.finishedUpdating();
@@ -530,7 +530,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#drawnCard(java.lang.String)
 	 */
 	@Override
-	public void drawnCard(String cardClassName) {
+	public void drawnCard(String cardClassName) throws RemoteException {
 		LOG.finer("Server reported new object card " + cardClassName);
 		String cardKey = getCardGUIKey(cardClassName);
 		model.getMyPlayerState().addCard(cardKey);

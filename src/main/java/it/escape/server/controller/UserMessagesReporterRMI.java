@@ -28,7 +28,11 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 
 	@Override
 	public void reportMyUserPosition(String position) {
-		interfaceWithUser.getClient().setMyPosition(position);
+		try {
+			interfaceWithUser.getClient().setMyPosition(position);
+		} catch (RemoteException e) {
+			log.warning("Cannot report my user position: " + e.getMessage());
+		}
 	}
 
 	@Override
@@ -140,12 +144,20 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 
 	@Override
 	public void reportTeam(String team) {
-		interfaceWithUser.getClient().setMyTeam(team);
+		try {
+			interfaceWithUser.getClient().setMyTeam(team);
+		} catch (RemoteException e) {
+			log.warning("Cannot report team name: " + e.getMessage());
+		}
 	}
 
 	@Override
 	public void reportObjectCardDrawn(String cardname) {
-		interfaceWithUser.getClient().drawnCard(cardname);
+		try {
+			interfaceWithUser.getClient().drawnCard(cardname);
+		} catch (RemoteException e) {
+			log.warning("Cannot report object card drawn: " + e.getMessage());
+		}
 	}
 
 }

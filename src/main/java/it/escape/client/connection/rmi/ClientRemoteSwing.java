@@ -43,36 +43,36 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void startTurn(int turnNumber, String playerName) {
+	public void startTurn(int turnNumber, String playerName) throws RemoteException {
 		updaterSwing.startTurn(turnNumber, playerName);
 	}
 
 	@Override
-	public void renamePlayer(String previousName, String changedName) {
+	public void renamePlayer(String previousName, String changedName) throws RemoteException {
 		updaterSwing.renamePlayer(previousName, changedName);
 
 	}
 
 	@Override
-	public void renameMyself(String myNewName) {
+	public void renameMyself(String myNewName) throws RemoteException {
 		updaterSwing.renameMyself(myNewName);
 
 	}
 
 	@Override
-	public void setMyPosition(String myPos) {
+	public void setMyPosition(String myPos) throws RemoteException {
 		updaterSwing.setMyPosition(myPos);
 
 	}
 
 	@Override
-	public void setMyTeam(String teamName) {
+	public void setMyTeam(String teamName) throws RemoteException {
 		updaterSwing.setMyTeam(teamName);
 
 	}
 
 	@Override
-	public void drawnCard(String cardClassName) {
+	public void drawnCard(String cardClassName) throws RemoteException {
 		updaterSwing.drawnCard(cardClassName);
 
 	}
