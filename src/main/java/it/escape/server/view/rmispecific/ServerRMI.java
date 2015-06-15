@@ -139,8 +139,8 @@ public class ServerRMI implements ServerRemoteInterface {
 		LocateRegistry.createRegistry(1099);
 		LOG.info("Created RMI registry on port 1099");
 		ServerRemoteInterface server = new ServerRMI(locals);
-		UnicastRemoteObject.exportObject(server, 0);
-		LOG.info("Exported server interface");
+		UnicastRemoteObject.exportObject(server, port);
+		LOG.info("Exported server interface on port " + port);
 		Naming.rebind("//localhost/Server", server);
 		LOG.info("Server interface bound to name: \"" + "//localhost/Server" + "\"");
 	}
