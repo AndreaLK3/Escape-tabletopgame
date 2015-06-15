@@ -85,8 +85,10 @@ public class TimeController implements Runnable {
 					 * the executiveController will now conclude the turn
 					 * properly, and notify our timeController; we catch the
 					 * notify and go on as usual.
+					 * The timeout will prevent the thread from stalling if
+					 * executor fires its notify "too soon"
 					 */
-					wait();
+					wait(100);
 				} catch (InterruptedException e) {
 				}
 			}
