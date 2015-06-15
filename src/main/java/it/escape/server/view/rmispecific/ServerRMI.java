@@ -26,7 +26,6 @@ import java.util.logging.Logger;
 /**
  * RMI server implementation. It exposes methods to be called by specific
  * clients; a client will identify itself when calling such methods.
- * TODO: add logic to broadcast to clients
  * @author michele
  *
  */

@@ -3,6 +3,7 @@ package it.escape.client.connection.rmi;
 import it.escape.client.controller.cli.StateManagerCLIInterface;
 import it.escape.client.view.cli.Terminal;
 import it.escape.server.controller.GameMaster;
+import it.escape.server.model.game.players.JoinPlayerList;
 import it.escape.strings.StringRes;
 
 /**This class implements the ClientRemoteInterface. 
@@ -63,11 +64,15 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 		terminal.visualizeMessage(message);
 	}
 
-	/**This method is not used here; it is used in ClientRemoteSwing to update the Client's Model*/
 	@Override
 	public void setMyPosition(String myPos){
 		//TODO: Is it ever invoked from outside in UpdaterSwing, or
 		//is it used only nternally, such as getGUICardKey? in that case, it can be removed from this interface
+		// this method prints the current position, basically it comfirms the movement was succesful
+		String message =  String.format(
+				StringRes.getString("messaging.hereYouAre"),
+				myPos);
+		showMessageInTerminal(message);
 	}
 
 	@Override
@@ -98,23 +103,30 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 
 	@Override
 	public void setWinners(String team, String winnersNames) {
-		// TODO : This method is not used at all here, if the end results are already printed...
-		//Otherwise, we can compose a message here and send it separately
-
+		// TODO : This method is not used at all here, if the end results are -already printed-...
+		// ANSWER: it's this method the one doing the printing
+		String message = String.format(
+				StringRes.getString("messaging.winnerTeam"),
+				team,
+				winnersNames
+				);
+		showMessageInTerminal(message);
 	}
 
 	@Override
 	public void setLoserTeam(String teamName) {
 		// TODO : This method is not used at all here, if the end results are already printed...
-
+		// ANSWER: same as above
+		String message = String.format(StringRes.getString("messaging.loserTeam"),
+				teamName);
+		showMessageInTerminal(message);
 	}
 
-	/**This method is not used at all when the client has the Terminal; in UpdaterSwing, it 
-	 * performs some operations on the Client's Model*/
 	@Override
 	public void notMyTurn() {
 		//TODO: Is it ever invoked from outside in UpdaterSwing, or
 		//is it used only internally, such as getGUICardKey? in that case, it can be removed from this interface
+		stateManager.setFreeState();  // <-- should do this when my turn is over
 	}
 
 	@Override
@@ -164,8 +176,7 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 
 	@Override
 	public void askPlayOrDiscard(String question) {
-		stateManager.setYesNoState();
-		//TODO: How did we handle the Play vs Discard prompt and format, if we handled it at all?
+		stateManager.setOtherChoice();  // now we can handle it too
 		showMessageInTerminal(question);
 	}
 

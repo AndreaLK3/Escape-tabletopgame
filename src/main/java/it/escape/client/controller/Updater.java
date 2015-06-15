@@ -14,6 +14,7 @@ public abstract class Updater implements Observer {
 	protected Pattern input_YesNo;
 	protected Pattern turn_Start;
 	protected Pattern turn_End;
+	protected Pattern turn_playOrDiscard;
 	protected Pattern setGameMap;
 	protected Pattern getMOTDstart;
 	protected Pattern getMOTDend;
@@ -45,9 +46,7 @@ public abstract class Updater implements Observer {
 		getMOTDend = new FormatToPattern(StringRes.getString("messaging.motd.end")).convert();
 		startInXSeconds = new FormatToPattern(StringRes.getString("messaging.gameStartETA")).convert();
 		inboundChatMessage = new FormatToPattern(StringRes.getString("messaging.relayChat")).convert();
-		
-		
-		
+		turn_playOrDiscard =  new FormatToPattern(StringRes.getString("messaging.tooManyCardsHuman")).convert();
 		
 	};
 	

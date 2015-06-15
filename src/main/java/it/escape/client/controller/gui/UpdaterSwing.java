@@ -51,7 +51,6 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern turn_askForObject;
 	private Pattern turn_askForLightsPos;
 	private Pattern turn_discard;
-	private Pattern turn_playOrDiscard;
 	
 	private Pattern event_Noise;
 	private Pattern event_ObjectUsed;
@@ -106,14 +105,12 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		info_teamWinners = new FormatToPattern(StringRes.getString("messaging.winnerTeam")).convert();
 		info_teamDefeated = new FormatToPattern(StringRes.getString("messaging.loserTeam")).convert();
 		
-		
 		turn_askForObject = new FormatToPattern(StringRes.getString("messaging.askPlayObjectCard")).convert();
 		turn_askForAttack = new FormatToPattern(StringRes.getString("messaging.askIfAttack")).convert();
 		turn_askForNoisePos = new FormatToPattern(StringRes.getString("messaging.askForNoisePosition")).convert();
 		turn_movement = new FormatToPattern(StringRes.getString("messaging.timeToMove")).convert();
 		turn_askForLightsPos = new FormatToPattern(StringRes.getString("messaging.askForLightsPosition")).convert();
 		turn_discard = new FormatToPattern(StringRes.getString("messaging.tooManyCardsAlien")).convert();
-		turn_playOrDiscard =  new FormatToPattern(StringRes.getString("messaging.tooManyCardsHuman")).convert();
 		
 		event_ObjectUsed = new FormatToPattern(StringRes.getString("messaging.playerIsUsingObjCard")).convert();
 		event_Noise = new FormatToPattern(StringRes.getString("messaging.noise")).convert();

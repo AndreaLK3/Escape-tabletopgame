@@ -2,7 +2,8 @@ package it.escape.client.view.cli;
 
 public enum TurnInputStates {
 	
-	FREE("free-action"), OBJECTCARD("object-card"), POSITION("coordinates"), YES_NO("yes/no");
+	FREE("free-action"), OBJECTCARD("object-card"), 
+	POSITION("coordinates"), YES_NO("yes/no"), OTHER_CHOICE("enter choice");
 	
 	private String prompt;
 

@@ -53,6 +53,7 @@ public class UpdaterCLI extends Updater implements Observer {
 		Matcher yesnoRequired = input_YesNo.matcher(message);
 		Matcher turnstart = turn_Start.matcher(message);
 		Matcher turnend = turn_End.matcher(message);
+		Matcher playvsdiscard = turn_playOrDiscard.matcher(message);
 		if (objectRequired.matches()) {
 			stateRef.setObjectCardState();
 		} else if (positionRequired.matches()) {
@@ -63,6 +64,8 @@ public class UpdaterCLI extends Updater implements Observer {
 			stateRef.setMyTurn();
 		} else if (turnend.matches()) {
 			stateRef.setNotMyTurn();
+		} else if (playvsdiscard.matches()) {
+			stateRef.setOtherChoice();;
 		}
 	}
 

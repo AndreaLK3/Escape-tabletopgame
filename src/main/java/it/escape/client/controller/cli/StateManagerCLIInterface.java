@@ -13,4 +13,6 @@ public interface StateManagerCLIInterface {
 	public void setMyTurn();
 	
 	public void setNotMyTurn();
+	
+	public void setOtherChoice();
 }

@@ -53,7 +53,9 @@ public class StateManagerCLI implements StateManagerCLIInterface {
 		currentState = TurnInputStates.YES_NO;
 	}
 	
-
+	public void setOtherChoice() {
+		currentState = TurnInputStates.OTHER_CHOICE;
+	}
 	
 	public TurnInputStates getCurrentState() {
 		return currentState;
