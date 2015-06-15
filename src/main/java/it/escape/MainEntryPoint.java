@@ -59,11 +59,13 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 	
 	
 	private void initialize() {
+		// this is just for initialization via command line
+		// please don't touch this
 		if (globals.isStartInTextClient()) {
 			ClientInitializerCLI.start(globals);
 		} else if (globals.isStartInTextServer()) {
 			new SockServerInitializer().startSocketServer(globals);
-			new RMIServerInitializer().startRMIServer(globals);
+			//new RMIServerInitializer().startRMIServer(globals);
 		} else {
 			try {
 				lookAndFeel();
@@ -118,7 +120,38 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 		}
 		globals.setDestinationServerAddress(newAddr);
 	}
-
+	
+	public void startTextRMIServer(final StartMenuInterface startMenu) {
+		new Thread(
+			new Runnable() {
+				public void run() {
+					new RMIServerInitializer().startRMIServer(globals);
+					//startMenu.closeProgram();
+				}}).start();
+	}
+	
+	@Override
+	public void startTextSocketServer(final StartMenuInterface startMenu) {
+		new Thread(
+			new Runnable() {
+				public void run() {
+					new SockServerInitializer().startSocketServer(globals);
+					startMenu.closeProgram();
+				}}).start();
+	}
+	
+	
+	public void startTextComboServer(final StartMenuInterface startMenu) {
+		new Thread(
+			new Runnable() {
+				public void run() {
+					// MUST be run in this exact order
+					new RMIServerInitializer().startRMIServer(globals);
+					new SockServerInitializer().startSocketServer(globals);
+					startMenu.closeProgram();
+				}}).start();
+	}
+	
 	public void startTextSocketClient(final StartMenuInterface startMenu) {
 		new Thread(
 			new Runnable() {
@@ -127,17 +160,6 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 					startMenu.closeProgram();
 				}}).start();
 	}
-
-	public void startTextServer(final StartMenuInterface startMenu) {
-		new Thread(
-			new Runnable() {
-				public void run() {
-					new SockServerInitializer().startSocketServer(globals);
-					new RMIServerInitializer().startRMIServer(globals);
-					startMenu.closeProgram();
-				}}).start();
-	}
-	
 
 	public void startGUISocketClient(final StartMenuInterface startMenu) {
 		new Thread(

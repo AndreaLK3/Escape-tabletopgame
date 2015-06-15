@@ -27,10 +27,10 @@ public class ActionStartServer implements ActionListener {
 		String net = launcherState.getNetMode();
 		if (ui.equals(StringRes.getString("launcher.option.experience.textual"))) {
 			if (net.equals(StringRes.getString("launcher.option.netmode.socket"))) {
-				startMenu.getStarter().startTextServer(startMenu);
+				startMenu.getStarter().startTextSocketServer(startMenu);
 				startMenu.closeMenu();
 			} else if (net.equals(StringRes.getString("launcher.option.netmode.RMI"))) {
-				startMenu.getStarter().startTextServer(startMenu);
+				startMenu.getStarter().startTextRMIServer(startMenu);
 				startMenu.closeMenu();
 			} else {
 				startMenu.tbiMessage();

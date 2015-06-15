@@ -1,5 +1,6 @@
 package it.escape.launcher.menucontroller;
 
+// TODO: keep the methods for starting rmi and socket _indipendently_
 public interface StartSubsystemsInterface {
 	
 	/*
@@ -8,11 +9,14 @@ public interface StartSubsystemsInterface {
 	 */
 	public void startTextSocketClient(StartMenuInterface startMenu);
 	
-	public void startTextServer(StartMenuInterface startMenu);
-	
 	public void startGUISocketClient(StartMenuInterface startMenu);
 	
-	//TODO: public void public void startTextRMIClient(StartMenuInterface startMenu),
+	public void startTextComboServer(StartMenuInterface startMenu);
+	
+	public void startTextRMIServer(StartMenuInterface startMenu);
+	
+	public void startTextSocketServer(StartMenuInterface startMenu);
+	
 	//public void startGUIRMIClient(StartMenuInterface startMenu);
 	
 }
