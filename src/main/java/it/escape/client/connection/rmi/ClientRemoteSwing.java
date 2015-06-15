@@ -152,6 +152,11 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 		updaterSwing.askPlayOrDiscard(question);
 
 	}
+	
+	@Override 
+	public void escaped()throws RemoteException  {
+		updaterSwing.escaped();
+	}
 
 	@Override
 	public void eventObject(String playerName, String cardClassName,
@@ -228,5 +233,14 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	public void playersInLobby(int current, int maximum) {
 		updaterSwing.playersInLobby(current, maximum);
 	}
+
+
+	@Override
+	public void eventPlayerEscaped(String playerName, String message) {
+		updaterSwing.eventPlayerEscaped(playerName, message);
+		
+	}
+	
+
 
 }

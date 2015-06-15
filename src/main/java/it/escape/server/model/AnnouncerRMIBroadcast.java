@@ -124,7 +124,14 @@ public class AnnouncerRMIBroadcast implements Announcer {
 
 	@Override
 	public void announceEscape(PlayerActionInterface currentPlayer) {
-		//TODO: We have nothing to handle a playerEscaped in UpdaterSwing
+		String playerName = currentPlayer.getName();
+		String message = String.format(StringRes.getString("messaging.playerEscaped"),
+										currentPlayer.getName(),
+										StringRes.getString("ship_name"));
+		for (ClientRemoteInterface client : subscribed) {
+			client.eventPlayerEscaped(playerName, message);
+		}
+		
 
 	}
 

@@ -159,6 +159,8 @@ public abstract class UserMessagesReporter {
 
 	public abstract String askForLightsPosition(String playerCurrentPos);
 	
+	public abstract void reportSuccessfulEscape();
+	
 	public abstract void reportMapName(String map);
 	
 	public abstract void reportGameStartETA(int seconds);

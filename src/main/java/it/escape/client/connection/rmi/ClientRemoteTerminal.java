@@ -251,4 +251,17 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 		terminal.visualizeMessage(msg);
 	}
 
+	@Override
+	public void eventPlayerEscaped(String playerName, String message) {
+		stateManager.setFreeState();
+		terminal.visualizeMessage(message);
+		
+	}
+
+	@Override
+	public void escaped() throws RemoteException {
+		terminal.visualizeMessage(StringRes.getString("messaging.EscapedSuccessfully"));
+		
+	}
+
 }

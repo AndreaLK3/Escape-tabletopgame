@@ -52,6 +52,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern turn_askForObject;
 	private Pattern turn_askForLightsPos;
 	private Pattern turn_discard;
+	private Pattern turn_escaped;
 	
 	private Pattern event_Noise;
 	private Pattern event_ObjectUsed;
@@ -61,6 +62,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern event_Defense;
 	private Pattern event_EndGame;
 	private Pattern event_EndOfResults;
+	
+	private Pattern event_PlayerEscaped;
 	
 	private Pattern exception_1;
 	private Pattern exception_2;
@@ -116,6 +119,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		turn_movement = new FormatToPattern(StringRes.getString("messaging.timeToMove")).convert();
 		turn_askForLightsPos = new FormatToPattern(StringRes.getString("messaging.askForLightsPosition")).convert();
 		turn_discard = new FormatToPattern(StringRes.getString("messaging.tooManyCardsAlien")).convert();
+		turn_escaped = new FormatToPattern(StringRes.getString("messaging.EscapedSuccessfully")).convert();
 		
 		event_ObjectUsed = new FormatToPattern(StringRes.getString("messaging.playerIsUsingObjCard")).convert();
 		event_Noise = new FormatToPattern(StringRes.getString("messaging.noise")).convert();
@@ -125,6 +129,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		event_EndGame = new FormatToPattern(StringRes.getString("messaging.endOfTheGame")).convert();
 		event_Defense = new FormatToPattern(StringRes.getString("messaging.playerDefended")).convert();
 		event_EndOfResults = new FormatToPattern(StringRes.getString("messaging.endOfResults")).convert();
+		event_PlayerEscaped = new FormatToPattern(StringRes.getString("messaging.playerEscaped")).convert();
 		
 		//These ones are necessary so that we can display the JInputDialog (ex, for the position) again.
 		//There will be a dialog that displays the exception message (whatever it is) and
@@ -275,6 +280,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher askForLightsPos = turn_askForLightsPos.matcher(message);
 		Matcher discard = turn_discard.matcher(message);
 		Matcher playOrDiscard = turn_playOrDiscard.matcher(message);
+		Matcher escaped = turn_escaped.matcher(message);
 		
 		if (turnEnd.matches()) {
 			notMyTurn();
@@ -314,14 +320,16 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			askPlayOrDiscard(message);
 			return true;
 			
-		} 
+		} else if (escaped.matches()) {
+			escaped();
+		}
 		return false;
 	}
 
 
 	
 
-	private boolean processEvent(String message) {
+	private boolean processEvent (String message) throws RemoteException {
 		
 		Matcher eventNoise = event_Noise.matcher(message);
 		Matcher eventObject = event_ObjectUsed.matcher(message);
@@ -331,6 +339,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher eventFoundPlr = event_PlayerLocated.matcher(message);
 		Matcher eventDefense = event_Defense.matcher(message);
 		Matcher endResults = event_EndOfResults.matcher(message);
+		Matcher eventPlayerEscaped = event_PlayerEscaped.matcher(message);
 		
 		if (eventObject.matches()) {
 			String playerName = eventObject.group(1);
@@ -373,6 +382,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		} else if (eventDefense.matches()) {
 			eventDefense(message);
 		}
+		 else if (eventPlayerEscaped.matches()) {
+				String playerName = eventPlayerEscaped.group(1);
+				eventPlayerEscaped(playerName, message);
+			}
 		
 		return false;
 	}
@@ -762,6 +775,15 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		view.notifyUser(message);
 	}
 	
+	public void eventPlayerEscaped(String playerName, String message) {
+		model.getSpecificPlayerState(playerName).setMyStatus(CurrentPlayerStatus.WINNER);
+		model.finishedUpdating();
+		if (!isMe(playerName)) {
+			view.notifyUser(message);
+		}
+		
+	}
+	
 	//da processException(msg) n:Not working properly right now
 	
 	/* (non-Javadoc)
@@ -792,6 +814,12 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	@Override
 	public void playersInLobby(int current, int maximum) {
 		// TODO show something
+	}
+
+	@Override
+	public void escaped() {
+		model.getMyPlayerState().setMyStatus(CurrentPlayerStatus.WINNER);
+		model.finishedUpdating();
 	}
 	
 }

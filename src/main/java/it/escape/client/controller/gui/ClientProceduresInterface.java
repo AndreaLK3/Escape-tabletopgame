@@ -76,10 +76,14 @@ public interface ClientProceduresInterface {
 	public abstract void eventFoundPlayer(String playerName, String location);
 
 	public abstract void eventDefense(String message);
+	
+	public void eventPlayerEscaped(String playerName, String message);
 
 	public abstract void showMovementException(String exceptionMessage);
 
 	public abstract void showWrongCardException(String exceptionMessage);
+
+	public abstract void escaped() throws RemoteException;
 	
 	
 }

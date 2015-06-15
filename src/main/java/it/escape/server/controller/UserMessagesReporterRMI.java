@@ -160,4 +160,14 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		}
 	}
 
+	@Override
+	public void reportSuccessfulEscape() {
+		try {
+			interfaceWithUser.getClient().escaped();
+		} catch (RemoteException e) {
+			log.warning("Cannot report object card drawn: " + e.getMessage());
+		}
+		
+	}
+
 }

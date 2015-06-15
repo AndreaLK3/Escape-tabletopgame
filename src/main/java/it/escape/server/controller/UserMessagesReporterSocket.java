@@ -245,6 +245,11 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 				StringRes.getString("messaging.objectCardDrawn"),
 				cardname));
 	}
+
+	@Override
+	public void reportSuccessfulEscape() {
+		relayMessage(StringRes.getString("messaging.EscapedSuccessfully"));
+	}
 	
 }
 
