@@ -1,25 +1,23 @@
 Current tasks:
 
-
-
 (AL):
-1) Problema Server-side: l'automaticOverride non funziona come dovrebbe. Prova a far giocare su Client-testo 2 giocatori quasi completamente inattivi, 
-e spesso dopo 1 singolo override non riesce a fare i successivi.
-^^^^^ (MM): non sono riuscito a riprodurlo ora, ma ammetto che ogni tanto accadono "cose"
+1) Completare e far funzionare RMI
 
+2) Aggiustare il funzionamento dell'override, che non funziona ancora come dovrebbe. Prova del 9: far giocare 2 giocatori inattivi
 
+3) Modificare il launcher: le opzioni devono riferirsi solo al Client (Il Server non deve fare differenza tra RMI e Socket, e se in seguito avrà una 
+	interfaccia grafica minima si potrà sempre aggiungere un JDialog per scegliere)
 
+4) Print dei risultati: fornire informazioni più complete al Client-Model, e mostrarle poi nel VictoryPanel di Swing 
 
+5) Aggiungere test ( e commentarli)
 
-__________________________________________________________
+________________________________________________________
 Prossimamente su questo schermo:
 
-RMI. Idea preliminare: il Server, che ha la logica di controllo, fa partire delle chiamate RMI su metodi del Client,
-es: RMI+UpdaterRMICLI, metodo Movimento =  richiedi Stringa+controllaFormato
-	RMI+UpdaterRMIGUI, metodo Movimento =  bindPositionSender e richiedi click su Cella + aggiorna Model a seconda di quello che ti manda il Server
+Preparare il Documento di presentazione con : lista dei Design pattern utilizzati, 
++  breve commento e diagrammi di sequenza (aggiornati) e diagrammi delle classi per ciascuna parte del progetto 
 
-Quando saremo più avanti, dovremo iniziare a fare un Documento di presentazione, che contenga: 
-tutti i pattern che abbiamo usato + Diagrammi di classe e diagrammi di sequenza e spiegazione per ogni parte significativa.
 
 
 __________________________________________________________
@@ -94,3 +92,7 @@ mandare dei messaggi all'utente quando inserisce un nome di ObjectCard inesisten
 ^^^^^^^^^
 (MM) Il fatto è che il meccanismo context di MessagingInterface già ignora i nomi di objectcard inesistenti.
 IMHO questo tipo di controllo così fine andrebbe delegato al programma client.
+
+ Problema Server-side: l'automaticOverride non funziona come dovrebbe. Prova a far giocare su Client-testo 2 giocatori quasi completamente inattivi, 
+e spesso dopo 1 singolo override non riesce a fare i successivi.
+^^^^^ (MM): non sono riuscito a riprodurlo ora, ma ammetto che ogni tanto accadono "cose"
