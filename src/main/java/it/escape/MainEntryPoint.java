@@ -52,11 +52,12 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 		
 		new CliParser(args).parse(globals);
 		
-		new MainEntryPoint();
+		MainEntryPoint ourMain = new MainEntryPoint();
+		ourMain.initialize();
 		
 	}
 	
-	private MainEntryPoint() {
+	private void initialize() {
 		if (globals.isStartInTextClient()) {
 			ClientInitializerCLI.start(globals);
 		} else if (globals.isStartInTextServer()) {
@@ -72,6 +73,10 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 						StringRes.getString("cliparser.option.long.textserver")));
 			}
 		}
+	}
+
+	private MainEntryPoint() {
+		
 	}
 	
 	private static void lookAndFeel() {
