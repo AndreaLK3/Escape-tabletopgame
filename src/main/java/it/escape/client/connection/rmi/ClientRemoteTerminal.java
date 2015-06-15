@@ -32,12 +32,12 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void setWholeMOTD(String text) {
+	public void setWholeMOTD(String text) throws RemoteException {
 		terminal.visualizeMessage(text);
 	}
 
 	@Override
-	public void visualizeChatMsg(String author, String msg) {
+	public void visualizeChatMsg(String author, String msg) throws RemoteException {
 		String message = String.format(StringRes.getString("messaging.relayChat"), author, msg);
 		terminal.visualizeMessage(message);
 	}

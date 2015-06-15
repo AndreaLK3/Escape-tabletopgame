@@ -3,6 +3,7 @@ package it.escape.client.controller;
 import it.escape.strings.FormatToPattern;
 import it.escape.strings.StringRes;
 
+import java.rmi.RemoteException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.regex.Pattern;
@@ -30,7 +31,7 @@ public abstract class Updater implements Observer {
 
 	public abstract void update(Observable arg0, Object arg1);
 	
-	protected abstract void processMessage(String message);
+	protected abstract void processMessage(String message) throws RemoteException;
 	
 	protected void initPatterns() {
 		input_ObjectCard = new FormatToPattern(StringRes.getString("messaging.askWhichObjectCard")).convert();

@@ -26,12 +26,12 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void setWholeMOTD(String text) {
+	public void setWholeMOTD(String text) throws RemoteException {
 		updaterSwing.setWholeMOTD(text);
 	}
 
 	@Override
-	public void visualizeChatMsg(String author, String msg) {
+	public void visualizeChatMsg(String author, String msg) throws RemoteException {
 		updaterSwing.visualizeChatMsg(author, msg);
 
 	}

@@ -1,6 +1,7 @@
 package it.escape.server.model;
 
 import it.escape.client.connection.rmi.ClientRemoteInterface;
+import it.escape.client.controller.gui.UpdaterSwing;
 import it.escape.server.controller.game.actions.PlayerActionInterface;
 import it.escape.server.model.game.cards.ObjectCard;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
@@ -10,7 +11,9 @@ import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.strings.StringRes;
 
+import java.rmi.RemoteException;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Announcer based on the RMI system, instead of being an observable
@@ -20,6 +23,8 @@ import java.util.List;
  *
  */
 public class AnnouncerRMIBroadcast implements Announcer {
+	
+	private static final Logger LOG = Logger.getLogger( AnnouncerRMIBroadcast.class.getName() );
 	
 	private List<ClientRemoteInterface> subscribed;
 	
@@ -171,7 +176,11 @@ public class AnnouncerRMIBroadcast implements Announcer {
 	public void announceChatMessage(PlayerActionInterface player, String message) {
 		String author = player.toString();
 		for (ClientRemoteInterface client : subscribed) {
-			client.visualizeChatMsg(author, message);
+			try {
+				client.visualizeChatMsg(author, message);
+			} catch (RemoteException e) {
+				LOG.warning("cannot visualize chat message: " + e.getMessage());
+			}
 		}
 
 	}

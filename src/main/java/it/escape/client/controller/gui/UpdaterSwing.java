@@ -10,6 +10,7 @@ import it.escape.strings.FormatToPattern;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
 
+import java.rmi.RemoteException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Logger;
@@ -84,7 +85,11 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	public void update(Observable arg0, Object arg1) {
 		if (arg0 instanceof MessageCarrier) {
 			MessageCarrier msg = (MessageCarrier) arg0;
-			processMessage(msg.getMessage());
+			try {
+				processMessage(msg.getMessage());
+			} catch (RemoteException e) {
+				LOG.severe("RemoteException was thrown while RMI was NOT supposed to be running: " + e.getMessage());
+			}
 		}
 	}
 	
@@ -135,9 +140,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * because a new message has arrived to the Connection.
 	 * It checks if the message corresponds to some given patterns, and then
 	 * invokes the other 4 methods that check a specific kind of patterns
-	 *(info, TurnRequests, events, exceptions) */
+	 *(info, TurnRequests, events, exceptions) 
+	 * @throws RemoteException */
 	@Override
-	protected void processMessage(String message) {
+	protected void processMessage(String message) throws RemoteException {
 		Matcher map = setGameMap.matcher(message);
 		Matcher startmotd = getMOTDstart.matcher(message);
 		Matcher gameStartETA = startInXSeconds.matcher(message);
@@ -437,7 +443,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#startReadingMotd()
 	 */
 	@Override
-	public void setWholeMOTD(String text) {
+	public void setWholeMOTD(String text) throws RemoteException {
 		LOG.finer("Server sent the motd");
 		loadedMotd = text;
 		view.displayServerMOTD(loadedMotd);
@@ -447,7 +453,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#visualizeChatMsg(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void visualizeChatMsg(String author, String msg) {
+	public void visualizeChatMsg(String author, String msg) throws RemoteException {
 		view.newChatMessage(author, msg);
 	}
 	
@@ -765,7 +771,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	public void showMovementException(String exceptionMessage) { 
 		LOG.finer("Server reported : movement is impossible." );
 		view.notifyUser(exceptionMessage);
-		processMessage(StringRes.getString("messaging.timeToMove"));
+		askForMovement();
 	}
 	
 	/* (non-Javadoc)
@@ -775,7 +781,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	public void showWrongCardException(String exceptionMessage) {
 		LOG.finer("Server reported : that Card can't be played now." );
 		view.notifyUser(exceptionMessage);
-		processMessage(StringRes.getString("messaging.askPlayObjectCard"));
+		askForYesNo(StringRes.getString("messaging.askPlayObjectCard"));
 	}
 
 	@Override

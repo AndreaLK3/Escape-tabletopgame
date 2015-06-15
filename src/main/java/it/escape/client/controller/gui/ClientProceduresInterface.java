@@ -7,9 +7,9 @@ public interface ClientProceduresInterface {
 
 	public abstract void setMap(String mapname) throws RemoteException;
 
-	public abstract void setWholeMOTD(String text);
+	public abstract void setWholeMOTD(String text) throws RemoteException;
 
-	public abstract void visualizeChatMsg(String author, String msg);
+	public abstract void visualizeChatMsg(String author, String msg) throws RemoteException;
 
 	public abstract void setStartETA(String message);
 
