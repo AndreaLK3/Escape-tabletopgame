@@ -49,8 +49,7 @@ public class ServerRMI implements ServerRemoteInterface {
 	}
 	
 	/**
-	 * Basically does the same things that Connection used to
-	 * do upon establishing
+	 * Basically does the same things that Connection used to do upon establishing
 	 */
 	@Override
 	public void registerClient(ClientRemoteInterface client) throws RemoteException {

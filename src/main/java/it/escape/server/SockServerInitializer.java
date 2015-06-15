@@ -14,7 +14,11 @@ public class SockServerInitializer {
 	
 	private Server server;
 
-	public SockServerInitializer(ServerLocalSettings locals) {
+	public SockServerInitializer() {
+		
+	}
+	
+	public void startSocketServer(ServerLocalSettings locals) {
 		this.locals = locals;
 		try {
 			MapCreator mapCreator = new MapCreator("resources/Galilei.json");

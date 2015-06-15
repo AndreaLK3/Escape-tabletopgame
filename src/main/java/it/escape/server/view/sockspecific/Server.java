@@ -51,6 +51,8 @@ public class Server implements ServerInterface{
 		log.info("Server is now listening on port " + PORT);
 	}
 	
+	/**This is the main server loop: it listens to the incoming Socket connections, 
+	 * when a new user connects it handles the initialization to a new thread */
 	public void run(){
 		while(true){
 			try {

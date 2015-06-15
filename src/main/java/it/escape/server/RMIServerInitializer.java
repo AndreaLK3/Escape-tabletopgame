@@ -11,7 +11,10 @@ protected static final Logger log = Logger.getLogger( RMIServerInitializer.class
 	
 	private ServerLocalSettings locals;
 
-	public RMIServerInitializer(ServerLocalSettings locals) {
+	public RMIServerInitializer() {			
+	}
+	
+	public void startRMIServer(ServerLocalSettings locals) {
 		this.locals = locals;	
 		try {
 			MapCreator mapCreator = new MapCreator("resources/Galilei.json");
@@ -23,7 +26,6 @@ protected static final Logger log = Logger.getLogger( RMIServerInitializer.class
 		} catch (MalformedURLException e) {
 			crash("MalformedURLException " + e.getMessage());
 		}
-			
 	}
 	
 	/**

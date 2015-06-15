@@ -61,7 +61,8 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 		if (globals.isStartInTextClient()) {
 			ClientInitializerCLI.start(globals);
 		} else if (globals.isStartInTextServer()) {
-			new SockServerInitializer(globals);
+			new SockServerInitializer().startSocketServer(globals);
+			new RMIServerInitializer().startRMIServer(globals);
 		} else {
 			try {
 				lookAndFeel();
@@ -130,7 +131,7 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 		new Thread(
 			new Runnable() {
 				public void run() {
-					new SockServerInitializer(globals);
+					new SockServerInitializer().startSocketServer(globals);
 					startMenu.closeProgram();
 				}}).start();
 	}
@@ -139,7 +140,7 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 		new Thread(
 			new Runnable() {
 				public void run() {
-					new RMIServerInitializer(globals);
+					new RMIServerInitializer().startRMIServer(globals);
 					//startMenu.closeProgram();
 				}}).start();
 	}
