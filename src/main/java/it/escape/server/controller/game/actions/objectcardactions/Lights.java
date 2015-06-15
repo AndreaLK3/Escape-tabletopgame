@@ -1,6 +1,7 @@
 package it.escape.server.controller.game.actions.objectcardactions;
 
 import it.escape.server.controller.Shorthand;
+import it.escape.server.controller.UserMessagesReporter;
 import it.escape.server.controller.UserMessagesReporterSocket;
 import it.escape.server.controller.game.actions.HumanActionInterface;
 import it.escape.server.controller.game.actions.MapActionInterface;
@@ -33,7 +34,7 @@ public class Lights implements ObjectCardAction {
 				correctInput = true;
 			}
 			catch (BadCoordinatesException e) {
-				UserMessagesReporterSocket.getReporterInstance(currentPlayer).relayMessage(
+				UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(
 						StringRes.getString("messaging.exceptions.badCoordinatesFormat"));
 				//NOTE: It would be better to transfer the format check either to the client or to the UMR 
 				correctInput = false;

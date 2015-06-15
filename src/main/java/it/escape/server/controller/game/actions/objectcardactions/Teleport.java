@@ -1,6 +1,6 @@
 package it.escape.server.controller.game.actions.objectcardactions;
 
-import it.escape.server.controller.UserMessagesReporterSocket;
+import it.escape.server.controller.UserMessagesReporter;
 import it.escape.server.controller.game.actions.HumanActionInterface;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.ObjectCardAction;
@@ -15,7 +15,7 @@ public class Teleport implements ObjectCardAction {
 		map.updatePlayerPosition(currentPlayer, c);
 		
 		// say where I am after the move
-		UserMessagesReporterSocket.getReporterInstance(currentPlayer).reportMyUserPosition(
+		UserMessagesReporter.getReporterInstance(currentPlayer).reportMyUserPosition(
 				map.getPlayerAlphaNumPosition(currentPlayer));
 	}
 
