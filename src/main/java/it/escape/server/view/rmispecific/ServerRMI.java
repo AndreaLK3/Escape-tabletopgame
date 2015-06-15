@@ -52,7 +52,7 @@ public class ServerRMI implements ServerRemoteInterface {
 	 * do upon establishing
 	 */
 	@Override
-	public void registerClient(ClientRemoteInterface client) {
+	public void registerClient(ClientRemoteInterface client) throws RemoteException {
 		MessagingChannelInterface channel = new MessagingChannelRMI(client, this);
 		clientsList.add((MessagingChannelRMI) channel);
 		UserMessagesReporterSocket.createUMR(channel);
@@ -72,7 +72,7 @@ public class ServerRMI implements ServerRemoteInterface {
 	}
 
 	@Override
-	public void unregisterClient(ClientRemoteInterface client) {
+	public void unregisterClient(ClientRemoteInterface client) throws RemoteException {
 		MessagingChannelRMI del = findChannel(client);
 		if (del != null) {
 			clientsList.remove(del);
@@ -81,7 +81,7 @@ public class ServerRMI implements ServerRemoteInterface {
 	}
 
 	@Override
-	public void rename(String message, ClientRemoteInterface client) {
+	public void rename(String message, ClientRemoteInterface client) throws RemoteException {
 		// get the player reference from UMR
 		// get the gamemaster
 		// call the rename procedure in gamemaster
@@ -94,7 +94,7 @@ public class ServerRMI implements ServerRemoteInterface {
 	}
 
 	@Override
-	public void globalChat(String message, ClientRemoteInterface client) {
+	public void globalChat(String message, ClientRemoteInterface client) throws RemoteException {
 		MessagingChannelInterface pla = (MessagingChannelInterface) findChannel(client);
 		if (pla != null) {
 			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
@@ -103,7 +103,7 @@ public class ServerRMI implements ServerRemoteInterface {
 	}
 
 	@Override
-	public void whoAmI(ClientRemoteInterface client) {
+	public void whoAmI(ClientRemoteInterface client) throws RemoteException {
 		MessagingChannelInterface pla = (MessagingChannelInterface) findChannel(client);
 		if (pla != null) {
 			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
@@ -112,7 +112,7 @@ public class ServerRMI implements ServerRemoteInterface {
 	}
 
 	@Override
-	public void whereAmI(ClientRemoteInterface client) {
+	public void whereAmI(ClientRemoteInterface client) throws RemoteException {
 		MessagingChannelInterface pla = (MessagingChannelInterface) findChannel(client);
 		if (pla != null) {
 			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
@@ -122,7 +122,7 @@ public class ServerRMI implements ServerRemoteInterface {
 	}
 
 	@Override
-	public void setAnswer(String answer, ClientRemoteInterface client) {
+	public void setAnswer(String answer, ClientRemoteInterface client) throws RemoteException {
 		MessagingChannelRMI ans = findChannel(client);
 		if (ans != null) {
 			ans.setAnswer(answer);
@@ -130,24 +130,23 @@ public class ServerRMI implements ServerRemoteInterface {
 	}
 	
 	/**This method sets up the Registry and creates and exposes the Server Remote Object;
-	 *  after the Server invoked this, the clients using RMI will be able to invoke functions.*/
-	public static void initializer(ServerLocalSettings locals) {
-		try {
-			LocateRegistry.createRegistry(1099);
-			ServerRemoteInterface server = new ServerRMI(locals);
-			UnicastRemoteObject.exportObject(server, 0);
-			Naming.rebind("//localhost/Server", server);
-			
-		} catch (RemoteException e) {
-			System.out.println("Remote exception " + e.getMessage());
-		} catch (MalformedURLException e) {
-			System.out.println("Malformed URL exception " + e.getMessage());
-		}
+	 *  after the Server invoked this, the clients using RMI will be able to invoke functions.
+	 * @throws RemoteException 
+	 * @throws MalformedURLException */
+	public static void initializer(ServerLocalSettings locals, int port) throws RemoteException, MalformedURLException {
+		LogHelper.setDefaultOptions(LOG);
+		LOG.info("Creating local registry");
+		LocateRegistry.createRegistry(1099);
+		LOG.info("Created RMI registry on port 1099");
+		ServerRemoteInterface server = new ServerRMI(locals);
+		UnicastRemoteObject.exportObject(server, 0);
+		LOG.info("Exported server interface");
+		Naming.rebind("//localhost/Server", server);
+		LOG.info("Server interface bound to name: \"" + "//localhost/Server" + "\"");
 	}
 	
 	/**Constructor for the object*/
 	public ServerRMI(ServerLocalSettings locals) {
-		LogHelper.setDefaultOptions(LOG);
 		this.locals = locals;
 		clientsList = new ArrayList<MessagingChannelRMI>();
 	}

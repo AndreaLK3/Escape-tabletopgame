@@ -1,9 +1,12 @@
 package it.escape.server.view;
 
+import java.rmi.RemoteException;
 import java.util.Observer;
+import java.util.logging.Logger;
 
 import it.escape.client.connection.rmi.ClientRemoteInterface;
 import it.escape.server.view.rmispecific.ServerRemoteInterface;
+import it.escape.utils.LogHelper;
 
 /**
  * The class must be used this way:
@@ -19,6 +22,8 @@ import it.escape.server.view.rmispecific.ServerRemoteInterface;
  */
 public class MessagingChannelRMI implements MessagingChannelInterface {
 	
+	protected static final Logger LOG = Logger.getLogger( MessagingChannelRMI.class.getName() );
+	
 	private ClientRemoteInterface client;
 	
 	private ServerRemoteInterface server;
@@ -28,6 +33,7 @@ public class MessagingChannelRMI implements MessagingChannelInterface {
 	private String answer;
 	
 	public MessagingChannelRMI(ClientRemoteInterface client, ServerRemoteInterface server) {
+		LogHelper.setDefaultOptions(LOG);
 		this.client = client;
 		this.server = server;
 	}
@@ -64,6 +70,10 @@ public class MessagingChannelRMI implements MessagingChannelInterface {
 	}
 
 	public void killConnection() {
-		server.unregisterClient(client);
+		try {
+			server.unregisterClient(client);
+		} catch (RemoteException e) {
+			LOG.warning("Cannot kill the connection: " + e.getMessage());
+		}
 	}
 }

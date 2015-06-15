@@ -3,20 +3,21 @@ package it.escape.server.view.rmispecific;
 import it.escape.client.connection.rmi.ClientRemoteInterface;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 public interface ServerRemoteInterface extends Remote {
 	
-	public void registerClient (ClientRemoteInterface client);
+	public void registerClient (ClientRemoteInterface client) throws RemoteException;
 	
-	public void unregisterClient (ClientRemoteInterface client);
+	public void unregisterClient (ClientRemoteInterface client) throws RemoteException;
 	
-	public void rename(String message, ClientRemoteInterface client);
+	public void rename(String message, ClientRemoteInterface client) throws RemoteException;
 	
-	public void globalChat(String message, ClientRemoteInterface client);
+	public void globalChat(String message, ClientRemoteInterface client) throws RemoteException;
 	
-	public void whoAmI(ClientRemoteInterface client);
+	public void whoAmI(ClientRemoteInterface client) throws RemoteException;
 	
-	public void whereAmI(ClientRemoteInterface client);
+	public void whereAmI(ClientRemoteInterface client) throws RemoteException;
 	
-	public void setAnswer(String answer, ClientRemoteInterface client);
+	public void setAnswer(String answer, ClientRemoteInterface client) throws RemoteException;
 }

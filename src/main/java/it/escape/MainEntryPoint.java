@@ -5,6 +5,7 @@ import it.escape.client.ClientInitializerGUI;
 import it.escape.launcher.StartMenu;
 import it.escape.launcher.menucontroller.StartMenuInterface;
 import it.escape.launcher.menucontroller.StartSubsystemsInterface;
+import it.escape.server.RMIServerInitializer;
 import it.escape.server.SockServerInitializer;
 import it.escape.strings.StringRes;
 
@@ -126,6 +127,15 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 				public void run() {
 					new SockServerInitializer(globals);
 					startMenu.closeProgram();
+				}}).start();
+	}
+	
+	public void startTextRMIServer(final StartMenuInterface startMenu) {
+		new Thread(
+			new Runnable() {
+				public void run() {
+					new RMIServerInitializer(globals);
+					//startMenu.closeProgram();
 				}}).start();
 	}
 

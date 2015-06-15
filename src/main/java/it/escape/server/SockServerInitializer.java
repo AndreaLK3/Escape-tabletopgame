@@ -19,7 +19,7 @@ public class SockServerInitializer {
 		try {
 			MapCreator mapCreator = new MapCreator("resources/Galilei.json");
 			Master.setMapCreator(mapCreator);
-			server = Server.createServerInstance(locals);
+			server = Server.createServerInstance(this.locals);
 			server.run();
 			
 		} catch (IOException e) {
