@@ -16,7 +16,7 @@ protected static final Logger log = Logger.getLogger( RMIServerInitializer.class
 		try {
 			MapCreator mapCreator = new MapCreator("resources/Galilei.json");
 			Master.setMapCreator(mapCreator);
-			ServerRMI.initializer(this.locals, locals.getServerPort());
+			ServerRMI.initializer(this.locals);
 			
 		} catch (RemoteException e) {
 			crash("RemoteException " + e.getMessage());

@@ -133,14 +133,14 @@ public class ServerRMI implements ServerRemoteInterface {
 	 *  after the Server invoked this, the clients using RMI will be able to invoke functions.
 	 * @throws RemoteException 
 	 * @throws MalformedURLException */
-	public static void initializer(ServerLocalSettings locals, int port) throws RemoteException, MalformedURLException {
+	public static void initializer(ServerLocalSettings locals) throws RemoteException, MalformedURLException {
 		LogHelper.setDefaultOptions(LOG);
 		LOG.info("Creating local registry");
 		LocateRegistry.createRegistry(1099);
 		LOG.info("Created RMI registry on port 1099");
 		ServerRemoteInterface server = new ServerRMI(locals);
-		UnicastRemoteObject.exportObject(server, port);
-		LOG.info("Exported server interface on port " + port);
+		UnicastRemoteObject.exportObject(server, 0);
+		LOG.info("Exported server interface");
 		Naming.rebind("//localhost/Server", server);
 		LOG.info("Server interface bound to name: \"" + "//localhost/Server" + "\"");
 	}
