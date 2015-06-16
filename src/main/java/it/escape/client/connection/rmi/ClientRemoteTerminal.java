@@ -179,7 +179,10 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void eventAttack(String attacker, String location, String message) throws RemoteException {
+	public void eventAttack(String attacker, String location) throws RemoteException {
+		String message = String.format(StringRes.getString("messaging.playerAttacking"),
+				attacker,
+				location);
 		terminal.visualizeMessage(message);
 	}
 
@@ -190,7 +193,9 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void eventDeath(String playerKilled, String message) throws RemoteException {
+	public void eventDeath(String playerKilled) throws RemoteException {
+		String message = String.format(StringRes.getString("messaging.playerDied"),
+				playerKilled);
 		terminal.visualizeMessage(message);
 	}
 
@@ -252,16 +257,24 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void eventPlayerEscaped(String playerName, String message) throws RemoteException {
+	public void eventPlayerEscaped(String playerName) throws RemoteException {
+		String message = String.format(StringRes.getString("messaging.playerEscaped"),
+				playerName,
+				StringRes.getString("ship_name"));
 		stateManager.setFreeState();
 		terminal.visualizeMessage(message);
 		
 	}
 
 	@Override
-	public void escaped() throws RemoteException {
+	public void youEscaped() throws RemoteException {
 		terminal.visualizeMessage(StringRes.getString("messaging.EscapedSuccessfully"));
 		
+	}
+
+	@Override
+	public void failedEscape() throws RemoteException {
+		terminal.visualizeMessage(StringRes.getString("messaging.EscapeHatchDoesNotWork"));
 	}
 
 }

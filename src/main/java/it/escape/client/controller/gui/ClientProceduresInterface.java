@@ -62,12 +62,11 @@ public interface ClientProceduresInterface {
 	public abstract void eventObject(String playerName, String cardClassName,
 			String message) throws RemoteException;
 
-	public abstract void eventAttack(String attacker, String location,
-			String message) throws RemoteException;
+	public abstract void eventAttack(String attacker, String location) throws RemoteException;
 
 	public abstract void eventNoise(String location) throws RemoteException;
 
-	public abstract void eventDeath(String playerKilled, String message) throws RemoteException;
+	public abstract void eventDeath(String playerKilled) throws RemoteException;
 
 	public abstract void eventEndGame() throws RemoteException;
 
@@ -77,14 +76,15 @@ public interface ClientProceduresInterface {
 
 	public abstract void eventDefense(String message) throws RemoteException;
 	
-	public void eventPlayerEscaped(String playerName, String message) throws RemoteException;
+	public void eventPlayerEscaped(String playerName) throws RemoteException;
 
 	public abstract void showMovementException(String exceptionMessage) throws RemoteException;
 
 	public abstract void showWrongCardException(String exceptionMessage) throws RemoteException;
 
-	// TODO: how does it differ from eventPlayerEscaped()?
-	public abstract void escaped() throws RemoteException;
+	public abstract void youEscaped() throws RemoteException;
+	
+	public abstract void failedEscape() throws RemoteException;
 	
 	
 }

@@ -63,13 +63,12 @@ public class AnnouncerRMIBroadcast implements Announcer {
 	@Override
 	public void announceAttack(PlayerActionInterface player,PositionCubic position) {
 		
-		String message = StringRes.getString("messaging.playerAttacking");
 		String attacker = player.getName();
 		String location = CoordinatesConverter.fromCubicToAlphaNum(position);
 		
 		for (ClientRemoteInterface client : subscribed) {
 			try {
-				client.eventAttack(attacker, location, message);
+				client.eventAttack(attacker, location);
 			} catch (RemoteException e) {
 				LOG.warning("cannot announce attack: " + e.getMessage());
 			}
@@ -107,11 +106,10 @@ public class AnnouncerRMIBroadcast implements Announcer {
 
 	@Override
 	public void announceDeath(PlayerActionInterface victim) {
-		String message = StringRes.getString("messaging.playerDied");
 		String playerKilled = victim.getName();
 		for (ClientRemoteInterface client : subscribed) {
 			try {
-				client.eventDeath(playerKilled, message);
+				client.eventDeath(playerKilled);
 			} catch (RemoteException e) {
 				LOG.warning("cannot announce player's death: " + e.getMessage());
 			}
@@ -154,12 +152,9 @@ public class AnnouncerRMIBroadcast implements Announcer {
 	@Override
 	public void announceEscape(PlayerActionInterface currentPlayer) {
 		String playerName = currentPlayer.getName();
-		String message = String.format(StringRes.getString("messaging.playerEscaped"),
-										currentPlayer.getName(),
-										StringRes.getString("ship_name"));
 		for (ClientRemoteInterface client : subscribed) {
 			try {
-				client.eventPlayerEscaped(playerName, message);
+				client.eventPlayerEscaped(playerName);
 			} catch (RemoteException e) {
 				LOG.warning("cannot announce player escaped: " + e.getMessage());
 			}

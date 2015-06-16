@@ -110,8 +110,21 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 
 	@Override
 	public String askForNoisePosition(String playerCurrentPos) {
-		// TODO Auto-generated method stub
-		return null;
+		String defaultChoice = playerCurrentPos;
+		
+		if (automaticOverriding) {
+			log.finer("automaticOverriding: return " + defaultChoice);
+			return defaultChoice;
+		} else {
+			interfaceWithUser.setDefaultOption(defaultChoice);
+			try {
+				interfaceWithUser.getClient().askForNoisePosition();
+			} catch (RemoteException e) {
+				log.warning("Cannot ask 'yes or no': " + e.getMessage());
+			}
+			String answer = interfaceWithUser.getAnswer();
+			return answer;
+		}
 	}
 
 	@Override
@@ -179,7 +192,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 	@Override
 	public void reportSuccessfulEscape() {
 		try {
-			interfaceWithUser.getClient().escaped();
+			interfaceWithUser.getClient().youEscaped();
 		} catch (RemoteException e) {
 			log.warning("Cannot report object card drawn: " + e.getMessage());
 		}

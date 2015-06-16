@@ -53,6 +53,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern turn_askForLightsPos;
 	private Pattern turn_discard;
 	private Pattern turn_escaped;
+	private Pattern turn_failedEscape;
 	
 	private Pattern event_Noise;
 	private Pattern event_ObjectUsed;
@@ -120,6 +121,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		turn_askForLightsPos = new FormatToPattern(StringRes.getString("messaging.askForLightsPosition")).convert();
 		turn_discard = new FormatToPattern(StringRes.getString("messaging.tooManyCardsAlien")).convert();
 		turn_escaped = new FormatToPattern(StringRes.getString("messaging.EscapedSuccessfully")).convert();
+		turn_failedEscape = new FormatToPattern(StringRes.getString("messaging.EscapeHatchDoesNotWork")).convert();
 		
 		event_ObjectUsed = new FormatToPattern(StringRes.getString("messaging.playerIsUsingObjCard")).convert();
 		event_Noise = new FormatToPattern(StringRes.getString("messaging.noise")).convert();
@@ -281,6 +283,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher discard = turn_discard.matcher(message);
 		Matcher playOrDiscard = turn_playOrDiscard.matcher(message);
 		Matcher escaped = turn_escaped.matcher(message);
+		Matcher failedEscape = turn_failedEscape.matcher(message);
 		
 		if (turnEnd.matches()) {
 			notMyTurn();
@@ -321,7 +324,12 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			return true;
 			
 		} else if (escaped.matches()) {
-			escaped();
+			youEscaped();
+			return true;
+			
+		} else if (failedEscape.matches()) {
+			failedEscape();
+			return true;
 		}
 		return false;
 	}
@@ -350,7 +358,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		} else if (eventAttack.matches()) {
 			String attacker = eventAttack.group(1);
 			String location = eventAttack.group(2);
-			eventAttack(attacker, location, message);
+			eventAttack(attacker, location);
 			return true;
 			
 		} else if(eventNoise.matches()) {
@@ -360,7 +368,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			
 		} else if (eventDeath.matches()) {
 			String playerKilled = eventDeath.group(1);
-			eventDeath(playerKilled, message);
+			eventDeath(playerKilled);
 			return true;
 			
 		} else if (eventEndGame.matches()) {
@@ -384,7 +392,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		}
 		 else if (eventPlayerEscaped.matches()) {
 				String playerName = eventPlayerEscaped.group(1);
-				eventPlayerEscaped(playerName, message);
+				eventPlayerEscaped(playerName);
 			}
 		
 		return false;
@@ -705,7 +713,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#eventAttack(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void eventAttack(String attacker, String location, String message) throws RemoteException {
+	public void eventAttack(String attacker, String location) throws RemoteException {
+		String message = String.format(StringRes.getString("messaging.playerAttacking"),
+				attacker,
+				location);
 		if (!isMe(attacker)) { // it's not me
 			view.notifyUser(message);
 		}
@@ -728,7 +739,9 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#eventDeath(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void eventDeath(String playerKilled, String message) throws RemoteException {
+	public void eventDeath(String playerKilled) throws RemoteException {
+		String message = String.format(StringRes.getString("messaging.playerDied"),
+				playerKilled);
 		model.getSpecificPlayerState(playerKilled).setMyStatus(CurrentPlayerStatus.DEAD);
 		if (isMe(playerKilled))
 			model.getMyPlayerState().setMyStatus(CurrentPlayerStatus.DEAD);
@@ -775,7 +788,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		view.notifyUser(message);
 	}
 	
-	public void eventPlayerEscaped(String playerName, String message) throws RemoteException {
+	public void eventPlayerEscaped(String playerName) throws RemoteException {
+		String message = String.format(StringRes.getString("messaging.playerEscaped"),
+				playerName,
+				StringRes.getString("ship_name"));
 		model.getSpecificPlayerState(playerName).setMyStatus(CurrentPlayerStatus.WINNER);
 		model.finishedUpdating();
 		if (!isMe(playerName)) {
@@ -815,9 +831,13 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	public void playersInLobby(int current, int maximum) throws RemoteException {
 		// TODO show something
 	}
+	
+	public void failedEscape() throws RemoteException {
+		// TODO show something
+	}
 
 	@Override
-	public void escaped() {
+	public void youEscaped() {
 		model.getMyPlayerState().setMyStatus(CurrentPlayerStatus.WINNER);
 		model.finishedUpdating();
 	}

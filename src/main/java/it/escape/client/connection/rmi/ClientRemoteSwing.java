@@ -128,7 +128,6 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	@Override
 	public void askForNoisePosition() throws RemoteException {
 		updaterSwing.askForNoisePosition();
-
 	}
 
 	@Override
@@ -154,8 +153,8 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	}
 	
 	@Override 
-	public void escaped()throws RemoteException  {
-		updaterSwing.escaped();
+	public void youEscaped()throws RemoteException  {
+		updaterSwing.youEscaped();
 	}
 
 	@Override
@@ -166,8 +165,8 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void eventAttack(String attacker, String location, String message) throws RemoteException {
-		updaterSwing.eventAttack(attacker, location, message);
+	public void eventAttack(String attacker, String location) throws RemoteException {
+		updaterSwing.eventAttack(attacker, location);
 
 	}
 
@@ -178,8 +177,8 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void eventDeath(String playerKilled, String message) throws RemoteException {
-		updaterSwing.eventDeath(playerKilled, message);
+	public void eventDeath(String playerKilled) throws RemoteException {
+		updaterSwing.eventDeath(playerKilled);
 
 	}
 
@@ -236,9 +235,14 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 
 
 	@Override
-	public void eventPlayerEscaped(String playerName, String message) throws RemoteException {
-		updaterSwing.eventPlayerEscaped(playerName, message);
+	public void eventPlayerEscaped(String playerName) throws RemoteException {
+		updaterSwing.eventPlayerEscaped(playerName);
 		
+	}
+
+	@Override
+	public void failedEscape() throws RemoteException {
+		// TODO do something
 	}
 	
 
