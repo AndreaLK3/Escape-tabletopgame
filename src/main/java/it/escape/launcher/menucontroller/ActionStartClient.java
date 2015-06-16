@@ -40,7 +40,8 @@ public class ActionStartClient implements ActionListener {
 				startMenu.getStarter().startGUISocketClient(startMenu);
 				startMenu.closeMenu();
 			} else if (net.equals(StringRes.getString("launcher.option.netmode.RMI"))) {
-				startMenu.tbiMessage();
+				startMenu.getStarter().startGUIRMIClient(startMenu);
+				startMenu.closeMenu();
 			} else {
 				startMenu.tbiMessage();
 			}
