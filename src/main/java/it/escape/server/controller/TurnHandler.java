@@ -70,10 +70,9 @@ public abstract class TurnHandler {
 	
 	private void hailPlayer() {
 		if (currentPlayer.isAlive()) {
-			UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(String.format(
-					StringRes.getString("messaging.hail.player"),
+			UserMessagesReporter.getReporterInstance(currentPlayer).reportStartMyTurn(
 					currentPlayer.getName(),
-					CoordinatesConverter.fromCubicToAlphaNum(map.getPlayerPosition(currentPlayer))));
+					CoordinatesConverter.fromCubicToAlphaNum(map.getPlayerPosition(currentPlayer)));
 		} else {
 			UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(String.format(
 					StringRes.getString("messaging.hail.deadPlayer"),

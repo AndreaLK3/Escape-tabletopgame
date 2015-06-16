@@ -66,7 +66,7 @@ public class TimeController implements Runnable {
 		while (runGame) {
 			turnCompleted = false;
 			Player current = turnOrder.get(nowPlaying);
-			Shorthand.announcer(current).announce(String.format(StringRes.getString("messaging.timecontroller.turnNumber"),turnNumber,current.getName()));
+			Shorthand.announcer(current).announceNewTurn(turnNumber,current.getName());
 			log.fine("Issuing startTurn command");
 			executorRef.startTurn(current);  // run current player's turn
 			
