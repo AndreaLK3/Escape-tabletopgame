@@ -156,7 +156,8 @@ public abstract class DumbSwingView extends JFrame {
 		turnNumberField = new JTextField("0");
 		turnNumberField.setEditable(false);
 		
-		panel = createRowPanel(Arrays.asList(buttonDisconnect, label_serverStatus, label0_gameStatus, gameStatusField, label1_turnNumber, turnNumberField));
+		panel = createRowPanel(Arrays.asList(buttonDisconnect, label_serverStatus,
+											label0_gameStatus, gameStatusField, label1_turnNumber, turnNumberField));
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.gridx = 0;
 		constraints.gridy = 0;
@@ -401,7 +402,8 @@ public abstract class DumbSwingView extends JFrame {
 	}
 	
 	private void setLabelsOpaque() {
-		List<JLabel> labelsList = Arrays.asList(label0_gameStatus,label1_turnNumber,label2,label3,label4,label5_map, label6, label7, label8, label10_chat);
+		List<JLabel> labelsList = Arrays.asList(label0_gameStatus,label1_turnNumber,
+												label2,label3,label4,label5_map, label6, label7, label8, label10_chat);
 		   for (JLabel l : labelsList){
 			   l.setOpaque(true);
 			}
@@ -424,6 +426,7 @@ public abstract class DumbSwingView extends JFrame {
 						public void run() {
 							if (doRelayObjectCard) {
 								chosenObjectCard = "none";
+								do {
 								JOptionPane.showConfirmDialog(null, objectCardsPanel.getPlayableButtonsAsArray(), 
 										"Your object cards", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
 								chosenObjectCard = objectCardsPanel.getChosenCardName();
@@ -433,8 +436,10 @@ public abstract class DumbSwingView extends JFrame {
 								else {
 									JOptionPane.showMessageDialog(null, "You have chosen the " + chosenObjectCard  + " card.");
 								}
-								relayRef.relayMessage(chosenObjectCard);	
-								doRelayObjectCard = false;
+								}while(chosenObjectCard.equals("none"));	//note: the user must choose a valid object card name
+																			//(even an unplayable one).
+								relayRef.relayMessage(chosenObjectCard);	//This line sends the name of the chosen objectCard to the Server
+								doRelayObjectCard = false;					//This line resets the variable.
 							}
 							else {
 								JOptionPane.showConfirmDialog(null, objectCardsPanel.getButtonsAsArray(), 
