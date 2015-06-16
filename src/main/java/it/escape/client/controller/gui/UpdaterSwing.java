@@ -394,7 +394,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			
 			return true;
 		} else if (eventDefense.matches()) {
-			eventDefense(message);
+			String location = eventDefense.group(1);
+			eventDefense(location);
 		}
 		 else if (eventPlayerEscaped.matches()) {
 				String playerName = eventPlayerEscaped.group(1);
