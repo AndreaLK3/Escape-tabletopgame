@@ -2,13 +2,16 @@ package it.escape.server.controller.game.actions;
 
 import java.util.List;
 
+import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.CellNotExistsException;
+import it.escape.server.model.game.exceptions.DestinationUnreachableException;
+import it.escape.server.model.game.exceptions.PlayerCanNotEnterException;
 import it.escape.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.server.model.game.players.PlayerTeams;
 
 public interface MapActionInterface {
 
-	public CellAction move(PlayerActionInterface curPlayer , String destination) throws Exception;
+	public CellAction move(PlayerActionInterface curPlayer , String destination) throws BadCoordinatesException, DestinationUnreachableException, CellNotExistsException, PlayerCanNotEnterException;
 	
 	public void updatePlayerPosition(PlayerActionInterface curPlayer, PositionCubic dest);
 	

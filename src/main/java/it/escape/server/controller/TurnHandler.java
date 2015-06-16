@@ -7,7 +7,11 @@ import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.cardactions.DrawObjectCard;
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
 import it.escape.server.model.game.cards.ObjectCard;
+import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.CardNotPresentException;
+import it.escape.server.model.game.exceptions.CellNotExistsException;
+import it.escape.server.model.game.exceptions.DestinationUnreachableException;
+import it.escape.server.model.game.exceptions.PlayerCanNotEnterException;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.server.model.game.players.Player;
 import it.escape.strings.StringRes;
@@ -148,11 +152,23 @@ public abstract class TurnHandler {
 					cellAction = moveCommand.execute(currentPlayer, map);
 					correctInput = true;
 					currentPlayer.setHasMoved(true);
-				} catch (Exception e) {
+				} catch (PlayerCanNotEnterException e) {
 					String exceptionMessage = e.getClass().getSimpleName() + " : " + e.getMessage();
 					LOG.finer(exceptionMessage);
 					reporter.relayMessage(exceptionMessage);
-				}
+				} catch (BadCoordinatesException e) {
+					String exceptionMessage = e.getClass().getSimpleName() + " : " + e.getMessage();
+					LOG.finer(exceptionMessage);
+					reporter.relayMessage(exceptionMessage);
+				} catch (CellNotExistsException e) {
+					String exceptionMessage = e.getClass().getSimpleName() + " : " + e.getMessage();
+					LOG.finer(exceptionMessage);
+					reporter.relayMessage(exceptionMessage);
+				} catch (DestinationUnreachableException e) {
+					String exceptionMessage = e.getClass().getSimpleName() + " : " + e.getMessage();
+					LOG.finer(exceptionMessage);
+					reporter.relayMessage(exceptionMessage);
+				} 
 			
 			} while (!correctInput);
 		
