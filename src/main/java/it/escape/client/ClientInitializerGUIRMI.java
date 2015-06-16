@@ -12,6 +12,7 @@ import it.escape.utils.FilesHelper;
 import java.io.IOException;
 import java.util.concurrent.locks.ReentrantLock;
 
+import javax.annotation.PostConstruct;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -42,12 +43,15 @@ public class ClientInitializerGUIRMI {
 		ClientRemoteInitializer.setSwingMode(updater);
 		remoteServer = ClientRemoteInitializer.initializer(locals);
 		
+		// start the view
+		SmartSwingView.synchronousLaunch((BindUpdaterInterface)updater, relay, model, finalPhase, remoteServer);		
+		
+		// register to server and start the actual communication
+		ClientRemoteInitializer.postponedStart();
+		
 		pleaseWait.dispose();  // remove the "connecting..." dialog
 		// initialize other stuff, like the controller
 		relay = new Relay((ClientStringChannelInterface) remoteServer);
-		
-		// start the view
-		SmartSwingView.synchronousLaunch((BindUpdaterInterface)updater, relay, model, finalPhase, remoteServer);
 		
 		finalPhase.lock();
 		

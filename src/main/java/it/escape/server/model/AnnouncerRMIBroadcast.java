@@ -12,6 +12,7 @@ import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.strings.StringRes;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -29,7 +30,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 	private List<ClientRemoteInterface> subscribed;
 	
 	public AnnouncerRMIBroadcast() {
-		
+		subscribed = new ArrayList<ClientRemoteInterface>();
 	}
 	
 	public void subscribe(ClientRemoteInterface client) {

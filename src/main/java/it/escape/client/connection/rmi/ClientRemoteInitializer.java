@@ -30,6 +30,10 @@ public class ClientRemoteInitializer {
 	
 	private static ClientProceduresInterface updater = null;
 	
+	private static ProxyToServer serverProxy;
+	
+	private static ClientRemoteInterface client;
+	
 	public static void setSwingMode(ClientProceduresInterface Updater) {
 		updater = Updater;
 		terminal = null;
@@ -56,7 +60,7 @@ public class ClientRemoteInitializer {
 	public static ProxyToServer initializer(ClientLocalSettings localSettings) {
 		try {
 			ipAddress = localSettings.getDestinationServerAddress();
-			ClientRemoteInterface client = createClient();
+			client = createClient();
 			UnicastRemoteObject.exportObject(client, 0);
 			Naming.rebind("//localhost/Client", client);
 			
@@ -64,9 +68,7 @@ public class ClientRemoteInitializer {
 			ServerRemoteInterface serverStub = (ServerRemoteInterface) remoteRegistry.lookup("Server");
 
 			// now we will only use this proxy to talk to the server
-			ProxyToServer serverProxy = new ProxyToServer(client, serverStub);
-			
-			serverProxy.registerClient(client);
+			serverProxy = new ProxyToServer(client, serverStub);
 			
 			return serverProxy;
 			
@@ -78,6 +80,14 @@ public class ClientRemoteInitializer {
 			crash("Not Bound exception " + e.getMessage());
 		}
 		return null;
+	}
+	
+	public static void postponedStart() {
+		try {
+			serverProxy.registerClient(client);
+		} catch (RemoteException e) {
+			crash("cannot register to server! " + e.getMessage());
+		}
 	}
 	
 	/**
