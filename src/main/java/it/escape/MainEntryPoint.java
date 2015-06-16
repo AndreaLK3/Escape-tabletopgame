@@ -1,6 +1,7 @@
 package it.escape;
 
 import it.escape.client.ClientInitializerCLISocket;
+import it.escape.client.ClientInitializerGUIRMI;
 import it.escape.client.ClientInitializerGUISocket;
 import it.escape.launcher.StartMenu;
 import it.escape.launcher.menucontroller.StartMenuInterface;
@@ -167,6 +168,16 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 				public void run() {
 					graphicalEnterIp();
 					ClientInitializerGUISocket.start(globals);
+					startMenu.closeProgram();
+				}}).start();
+	}
+	
+	public void startGUIRMIClient(final StartMenuInterface startMenu) {
+		new Thread(
+			new Runnable() {
+				public void run() {
+					graphicalEnterIp();
+					ClientInitializerGUIRMI.start(globals);
 					startMenu.closeProgram();
 				}}).start();
 	}

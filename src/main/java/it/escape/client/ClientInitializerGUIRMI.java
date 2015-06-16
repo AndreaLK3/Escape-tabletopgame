@@ -49,7 +49,8 @@ public class ClientInitializerGUIRMI {
 		// start the view
 		SmartSwingView.synchronousLaunch((BindUpdaterInterface)updater, relay, model, finalPhase, remoteServer);
 		
-		// the program will now run until the rmi object is unexported
+		finalPhase.lock();
+		
 	}
 	
 	private static void openProgressDialog() {
