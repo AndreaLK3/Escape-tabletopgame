@@ -17,9 +17,9 @@ import it.escape.strings.StringRes;
  */
 public class Relay {
 	
-	private ClientSocketChannelInterface communication;
+	private ClientStringChannelInterface communication;
 
-	public Relay(ClientSocketChannelInterface communication) {
+	public Relay(ClientStringChannelInterface communication) {
 		this.communication = communication;
 	}
 	

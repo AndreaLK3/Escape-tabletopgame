@@ -3,16 +3,23 @@ package it.escape.client.connection.rmi;
 import java.rmi.RemoteException;
 import java.util.logging.Logger;
 
+import it.escape.client.connection.BindDisconnectCallbackInterface;
+import it.escape.client.connection.DisconnectedCallbackInterface;
+import it.escape.client.controller.ClientStringChannelInterface;
 import it.escape.server.view.rmispecific.ServerRemoteInterface;
 
 /**
  * Proxy to the server remote methods, this middle class
  * is necessary, as it provides autenthication (needed by
  * the server to know which client is talking)
+ * This class will also act as an interface for Relay to
+ * send strings to.
+ * This class will interpret any rmi errors as a server-side
+ * disconnetion, and will notify the subscriber
  * @author michele
  *
  */
-public class ProxyToServer implements ServerRemoteInterface {
+public class ProxyToServer implements ServerRemoteInterface, ClientStringChannelInterface, BindDisconnectCallbackInterface {
 	
 	protected static final Logger LOG = Logger.getLogger( ProxyToServer.class.getName() );
 
@@ -20,10 +27,29 @@ public class ProxyToServer implements ServerRemoteInterface {
 	
 	private ServerRemoteInterface server;
 	
+	private DisconnectedCallbackInterface disconnectCallback;
+	
 	public ProxyToServer(ClientRemoteInterface self,
 			ServerRemoteInterface server) {
 		this.self = self;
 		this.server = server;
+	}
+	
+	public void bindDisconnCallback(
+			DisconnectedCallbackInterface disconnectCallback) {
+		this.disconnectCallback = disconnectCallback;
+	}
+	
+	private void notifyDisconnected() {
+		disconnectCallback.disconnected();
+	}
+	
+	public void killConnection() {
+		// TODO Unsubscribe from server
+	}
+
+	public void sendMessage(String msg) {
+		setAnswer(msg);
 	}
 
 	// encapsule and enrich the inherited methods
@@ -32,6 +58,7 @@ public class ProxyToServer implements ServerRemoteInterface {
 		try {
 			registerClient(self);
 		} catch (RemoteException e) {
+			notifyDisconnected();
 			LOG.warning("Cannot register the client: " + e.getMessage());
 		}
 	}
@@ -40,6 +67,7 @@ public class ProxyToServer implements ServerRemoteInterface {
 		try {
 			unregisterClient(self);
 		} catch (RemoteException e) {
+			notifyDisconnected();
 			LOG.warning("Cannot unregister the client: " + e.getMessage());
 		}
 	}
@@ -48,6 +76,7 @@ public class ProxyToServer implements ServerRemoteInterface {
 		try {
 			rename(message, self);
 		} catch (RemoteException e) {
+			notifyDisconnected();
 			LOG.warning("Cannot rename: " + e.getMessage());
 		}
 	}
@@ -56,6 +85,7 @@ public class ProxyToServer implements ServerRemoteInterface {
 		try {
 			globalChat(message, self);
 		} catch (RemoteException e) {
+			notifyDisconnected();
 			LOG.warning("Cannot send chat message: " + e.getMessage());
 		}
 	}
@@ -64,6 +94,7 @@ public class ProxyToServer implements ServerRemoteInterface {
 		try {
 			whoAmI(self);
 		} catch (RemoteException e) {
+			notifyDisconnected();
 			LOG.warning("Cannot send whoami: " + e.getMessage());
 		}
 	}
@@ -72,6 +103,7 @@ public class ProxyToServer implements ServerRemoteInterface {
 		try {
 			whereAmI(self);
 		} catch (RemoteException e) {
+			notifyDisconnected();
 			LOG.warning("Cannot send whereami: " + e.getMessage());
 		}
 	}
@@ -80,6 +112,7 @@ public class ProxyToServer implements ServerRemoteInterface {
 		try {
 			setAnswer(answer, self);
 		} catch (RemoteException e) {
+			notifyDisconnected();
 			LOG.warning("Cannot set the answer: " + e.getMessage());
 		}
 	}
