@@ -74,7 +74,7 @@ public interface ClientProceduresInterface {
 
 	public abstract void eventFoundPlayer(String playerName, String location) throws RemoteException;
 
-	public abstract void eventDefense(String message) throws RemoteException;
+	public abstract void eventDefense(String location) throws RemoteException;
 	
 	public void eventPlayerEscaped(String playerName) throws RemoteException;
 

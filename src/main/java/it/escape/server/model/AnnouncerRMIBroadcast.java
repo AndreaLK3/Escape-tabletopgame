@@ -119,11 +119,10 @@ public class AnnouncerRMIBroadcast implements Announcer {
 
 	@Override
 	public void announceDefense(PositionCubic position) {
-		String msg = String.format(StringRes.getString("messaging.playerDefended"), 
-				CoordinatesConverter.fromCubicToAlphaNum(position));
+		String alphaNumPos = CoordinatesConverter.fromCubicToAlphaNum(position);
 		for (ClientRemoteInterface client : subscribed) {
 			try {
-				client.eventDefense(msg);
+				client.eventDefense(alphaNumPos);
 			} catch (RemoteException e) {
 				LOG.warning("cannot announce player's defense: " + e.getMessage());
 			}

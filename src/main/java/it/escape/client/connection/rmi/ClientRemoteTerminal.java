@@ -218,7 +218,9 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void eventDefense(String message) throws RemoteException {
+	public void eventDefense(String location) throws RemoteException {
+		String message = String.format(StringRes.getString("messaging.playerDefended"),
+				location);
 		terminal.visualizeMessage(message);
 	}
 

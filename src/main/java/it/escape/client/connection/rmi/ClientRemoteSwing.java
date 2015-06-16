@@ -201,8 +201,8 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void eventDefense(String message) throws RemoteException {
-		updaterSwing.eventDefense(message);
+	public void eventDefense(String location) throws RemoteException {
+		updaterSwing.eventDefense(location);
 
 	}
 

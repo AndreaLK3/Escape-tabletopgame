@@ -784,7 +784,9 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#eventDefense(java.lang.String)
 	 */
 	@Override
-	public void eventDefense(String message) throws RemoteException {
+	public void eventDefense(String location) throws RemoteException {
+		String message = String.format(StringRes.getString("messaging.playerDefended"),
+				location);
 		view.notifyUser(message);
 	}
 	
