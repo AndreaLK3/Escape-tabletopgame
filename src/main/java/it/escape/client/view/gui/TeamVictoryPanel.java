@@ -15,6 +15,8 @@ import javax.swing.border.LineBorder;
 
 public class TeamVictoryPanel extends JPanel {
 
+	private static final long serialVersionUID = 5L;
+
 	private GridBagConstraints teamPanelconstraints;
 	
 	private JLabel label1_team;

@@ -408,15 +408,6 @@ public abstract class DumbSwingView extends JFrame {
 	}
 	
 	
-	private PlayerPanel findPlayerPanel(String playerName) {
-		for (PlayerPanel p : playerPanels) {
-			if (playerName == p.getPlayer())
-				return p;
-		}
-		return null;
-			
-	}
-	
 	/**This private inner class listens to the JButton ShowCardsButton.
 	 * 1) When the user clicks it, it shows a dialog with objectCardsPanel,
 	 * which contains the object Cards currently owned.
@@ -432,18 +423,18 @@ public abstract class DumbSwingView extends JFrame {
 					new Runnable() {
 						public void run() {
 							if (doRelayObjectCard) {
+								chosenObjectCard = "none";
 								JOptionPane.showConfirmDialog(null, objectCardsPanel.getPlayableButtonsAsArray(), 
 										"Your object cards", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
 								chosenObjectCard = objectCardsPanel.getChosenCardName();
-								if (chosenObjectCard==null){
+								if (chosenObjectCard.equals("none")){
 									JOptionPane.showMessageDialog(null, "You haven't chosen any card.");
 								}
 								else {
 									JOptionPane.showMessageDialog(null, "You have chosen the " + chosenObjectCard  + " card.");
-									relayRef.relayMessage(chosenObjectCard);	
 								}
+								relayRef.relayMessage(chosenObjectCard);	
 								objectCardsPanel.getGroup().clearSelection();
-								chosenObjectCard = null;
 								doRelayObjectCard = false;
 							}
 							else {
