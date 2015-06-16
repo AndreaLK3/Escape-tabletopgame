@@ -1,7 +1,7 @@
 package it.escape;
 
-import it.escape.client.ClientInitializerCLI;
-import it.escape.client.ClientInitializerGUI;
+import it.escape.client.ClientInitializerCLISocket;
+import it.escape.client.ClientInitializerGUISocket;
 import it.escape.launcher.StartMenu;
 import it.escape.launcher.menucontroller.StartMenuInterface;
 import it.escape.launcher.menucontroller.StartSubsystemsInterface;
@@ -62,7 +62,7 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 		// this is just for initialization via command line
 		// if you want to start rmi here, add a switch in the command line
 		if (globals.isStartInTextClient()) {
-			ClientInitializerCLI.start(globals);
+			ClientInitializerCLISocket.start(globals);
 		} else if (globals.isStartInTextServer()) {
 			new SockServerInitializer().startSocketServer(globals);
 			//new RMIServerInitializer().startRMIServer(globals);
@@ -156,7 +156,7 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 		new Thread(
 			new Runnable() {
 				public void run() {
-					ClientInitializerCLI.start(globals);
+					ClientInitializerCLISocket.start(globals);
 					startMenu.closeProgram();
 				}}).start();
 	}
@@ -166,7 +166,7 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 			new Runnable() {
 				public void run() {
 					graphicalEnterIp();
-					ClientInitializerGUI.start(globals);
+					ClientInitializerGUISocket.start(globals);
 					startMenu.closeProgram();
 				}}).start();
 	}
