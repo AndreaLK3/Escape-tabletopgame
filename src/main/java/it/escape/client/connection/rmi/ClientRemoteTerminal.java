@@ -170,7 +170,7 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 
 	@Override
 	public void askPlayOrDiscard(String question) throws RemoteException {
-		stateManager.setOtherChoice();  // now we can handle it too
+		stateManager.setOtherChoice(); 
 		terminal.visualizeMessage(question);
 	}
 
