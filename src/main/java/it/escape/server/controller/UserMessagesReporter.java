@@ -178,5 +178,8 @@ public abstract class UserMessagesReporter {
 	 * We have no special questions to ask.
 	 * @param string */
 	public abstract void relayMessage(String string);
+	
+	public abstract void reportEndTurn();
+	
 
 }

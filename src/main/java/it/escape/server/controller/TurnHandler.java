@@ -85,8 +85,7 @@ public abstract class TurnHandler {
 	}
 	
 	private void farewellPlayer() {
-		UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(
-				StringRes.getString("messaging.farewell"));
+		UserMessagesReporter.getReporterInstance(currentPlayer).reportEndTurn();
 	}
 	
 	protected void discardObjectCard() {

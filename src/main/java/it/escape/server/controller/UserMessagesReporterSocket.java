@@ -259,6 +259,11 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 				myname,
 				mypos));
 	}
+
+	@Override
+	public void reportEndTurn() {
+		relayMessage(StringRes.getString("messaging.farewell"));	
+	}
 	
 }
 

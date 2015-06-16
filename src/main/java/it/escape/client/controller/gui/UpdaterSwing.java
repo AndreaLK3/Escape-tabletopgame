@@ -826,8 +826,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	@Override
 	public void showMovementException(String exceptionMessage) throws RemoteException { 
 		LOG.finer("Server reported : movement is impossible." );
-		askForMovement();	//TODO: I have to check if it is necessary
 		view.notifyUser(exceptionMessage);
+		askForMovement();	//TODO: I have to check if it is necessary
 		
 	}
 	
@@ -843,7 +843,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 
 	
 	public void failedEscape() throws RemoteException {
-		// TODO show something
+		String message = StringRes.getString("messaging.EscapeHatchDoesNotWork");
+		view.notifyUser(message);
 	}
 
 	@Override

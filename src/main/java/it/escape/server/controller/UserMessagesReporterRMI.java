@@ -247,4 +247,15 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		}
 	}
 
+	@Override
+	public void reportEndTurn() {
+		try {
+			interfaceWithUser.getClient().notMyTurn();
+		} catch (RemoteException e) {
+			log.warning("Cannot report: my Turn has ended: " + e.getMessage());
+		}
+		
+		
+	}
+
 }
