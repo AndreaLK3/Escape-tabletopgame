@@ -139,7 +139,11 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 
 	@Override
 	public void reportOthersConnected(int current, int maximum) {
-		interfaceWithUser.getClient().playersInLobby(current, maximum);
+		try {
+			interfaceWithUser.getClient().playersInLobby(current, maximum);
+		} catch (RemoteException e) {
+			log.warning("Cannot report number of connectd players: " + e.getMessage());
+		}
 	}
 
 	@Override

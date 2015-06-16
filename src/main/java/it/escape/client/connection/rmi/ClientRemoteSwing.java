@@ -78,43 +78,43 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void discardedCard(String cardName) {
+	public void discardedCard(String cardName) throws RemoteException {
 		updaterSwing.discardedCard(cardName);
 
 	}
 
 	@Override
-	public void playerDisconnected(String playerName) {
+	public void playerDisconnected(String playerName) throws RemoteException {
 		updaterSwing.playerDisconnected(playerName);
 
 	}
 
 	@Override
-	public void setWinners(String team, String winnersNames) {
+	public void setWinners(String team, String winnersNames) throws RemoteException {
 		updaterSwing.setWinners(team, winnersNames);
 
 	}
 
 	@Override
-	public void setLoserTeam(String teamName) {
+	public void setLoserTeam(String teamName) throws RemoteException {
 		updaterSwing.setLoserTeam(teamName);
 
 	}
 
 	@Override
-	public void notMyTurn() {
+	public void notMyTurn() throws RemoteException {
 		updaterSwing.notMyTurn();
 
 	}
 
 	@Override
-	public void startMyTurn(String myName, String myPos) {
+	public void startMyTurn(String myName, String myPos) throws RemoteException {
 		updaterSwing.startMyTurn(myName, myPos);
 
 	}
 
 	@Override
-	public void askForMovement() {
+	public void askForMovement() throws RemoteException {
 		updaterSwing.askForMovement();
 
 	}
@@ -225,12 +225,12 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void playerConnected(int current, int maximum) {
+	public void playerConnected(int current, int maximum) throws RemoteException {
 		updaterSwing.playerConnected(current, maximum);
 	}
 
 	@Override
-	public void playersInLobby(int current, int maximum) {
+	public void playersInLobby(int current, int maximum) throws RemoteException {
 		updaterSwing.playersInLobby(current, maximum);
 	}
 

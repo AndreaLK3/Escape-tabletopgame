@@ -268,7 +268,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	
-	private boolean processTurnRequest(String message) {
+	private boolean processTurnRequest(String message) throws RemoteException {
 		
 		Matcher turnStart = turn_Start.matcher(message);
 		Matcher movement = turn_movement.matcher(message);
@@ -555,7 +555,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#discardedCard(java.lang.String)
 	 */
 	@Override
-	public void discardedCard(String cardName) {
+	public void discardedCard(String cardName) throws RemoteException {
 		model.getMyPlayerState().removeCard(cardName);
 		model.finishedUpdating();
 	}
@@ -564,7 +564,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#playerDisconnected(java.lang.String)
 	 */
 	@Override
-	public void playerDisconnected(String playerName) {
+	public void playerDisconnected(String playerName) throws RemoteException {
 		model.getSpecificPlayerState(playerName).setMyStatus(CurrentPlayerStatus.DISCONNECTED);
 		model.finishedUpdating();
 	}
@@ -573,7 +573,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#setWinners(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void setWinners(String team, String winnersNames) {
+	public void setWinners(String team, String winnersNames) throws RemoteException {
 		LOG.finer("Server listed the winners");
 		model.getVictoryState().addWinners(team, winnersNames);
 		model.finalRefreshPlayerStatus();
@@ -584,7 +584,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#setLoserTeam(java.lang.String)
 	 */
 	@Override
-	public void setLoserTeam(String teamName) {
+	public void setLoserTeam(String teamName) throws RemoteException {
 		LOG.finer("Server listed the losers");
 		model.getVictoryState().setTeamDefeated(teamName);
 		model.finalRefreshPlayerStatus();
@@ -597,7 +597,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#notMyTurn()
 	 */
 	@Override
-	public void notMyTurn() {
+	public void notMyTurn() throws RemoteException {
 		view.clearNoisesFromMap();
 		view.setTurnStatusString("waiting for my turn");
 	}
@@ -606,7 +606,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#startMyTurn(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void startMyTurn(String myName, String myPos) {
+	public void startMyTurn(String myName, String myPos) throws RemoteException {
 		LOG.finer("My turn");
 		view.setTurnStatusString("now is my turn to play");
 		model.getMyPlayerState().setMyName(myName);
@@ -621,7 +621,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#askForMovement()
 	 */
 	@Override
-	public void askForMovement() {
+	public void askForMovement() throws RemoteException {
 		LOG.finer("Server asked to move");
 		view.notifyUser("Please move your character: click where you want to go");
 		view.bindPositionSender();
@@ -807,12 +807,12 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 
 	@Override
-	public void playerConnected(int current, int maximum) {
+	public void playerConnected(int current, int maximum) throws RemoteException {
 		// TODO show something
 	}
 
 	@Override
-	public void playersInLobby(int current, int maximum) {
+	public void playersInLobby(int current, int maximum) throws RemoteException {
 		// TODO show something
 	}
 

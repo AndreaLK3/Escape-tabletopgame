@@ -87,21 +87,21 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void discardedCard(String cardName) {
+	public void discardedCard(String cardName) throws RemoteException {
 		String message = String.format(StringRes.getString("messaging.discardedCard"), cardName);
 		terminal.visualizeMessage(message);
 
 	}
 
 	@Override
-	public void playerDisconnected(String playerName) {
+	public void playerDisconnected(String playerName) throws RemoteException {
 		String message = String.format(StringRes.getString("messaging.playerDisconnected"), playerName);
 		terminal.visualizeMessage(message);
 
 	}
 
 	@Override
-	public void setWinners(String team, String winnersNames) {
+	public void setWinners(String team, String winnersNames) throws RemoteException {
 		String message = String.format(
 				StringRes.getString("messaging.winnerTeam"),
 				team,
@@ -111,26 +111,26 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void setLoserTeam(String teamName) {
+	public void setLoserTeam(String teamName) throws RemoteException {
 		String message = String.format(StringRes.getString("messaging.loserTeam"),
 				teamName);
 		terminal.visualizeMessage(message);
 	}
 
 	@Override
-	public void notMyTurn() {
+	public void notMyTurn() throws RemoteException {
 		stateManager.setFreeState();
 	}
 
 	@Override
-	public void startMyTurn(String myName, String myPos) {
+	public void startMyTurn(String myName, String myPos) throws RemoteException {
 		String message = String.format(StringRes.getString("messaging.hail.player"), myName, myPos);
 		terminal.visualizeMessage(message);
 
 	}
 
 	@Override
-	public void askForMovement() {
+	public void askForMovement() throws RemoteException {
 		String message = StringRes.getString("messaging.timeToMove");
 		terminal.visualizeMessage(message);
 	}
@@ -235,7 +235,7 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void playerConnected(int current, int maximum) {
+	public void playerConnected(int current, int maximum) throws RemoteException {
 		String msg = String.format(StringRes.getString("messaging.playerConnected"),
 				current,
 				maximum);
@@ -243,7 +243,7 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void playersInLobby(int current, int maximum) {
+	public void playersInLobby(int current, int maximum) throws RemoteException {
 		String msg = String.format(
 				StringRes.getString("messaging.othersWaiting"),
 				current,

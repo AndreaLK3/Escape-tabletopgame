@@ -43,7 +43,11 @@ public class AnnouncerRMIBroadcast implements Announcer {
 	@Override
 	public void announcePlayerConnected(int connected, int maximum) {
 		for (ClientRemoteInterface client : subscribed) {
-			client.playerConnected(connected, maximum);
+			try {
+				client.playerConnected(connected, maximum);
+			} catch (RemoteException e) {
+				LOG.warning("cannot announce player connection: " + e.getMessage());
+			}
 		}
 	}
 
@@ -156,7 +160,11 @@ public class AnnouncerRMIBroadcast implements Announcer {
 		String teamName = team.toString();
 		String winnersNames = new JoinPlayerList(members).join(StringRes.getString("messaging.playerListSeparator"));
 		for (ClientRemoteInterface client : subscribed) {
-			client.setWinners(teamName, winnersNames);
+			try {
+				client.setWinners(teamName, winnersNames);
+			} catch (RemoteException e) {
+				LOG.warning("cannot announce winner team: " + e.getMessage());
+			}
 			
 		}
 
@@ -166,7 +174,11 @@ public class AnnouncerRMIBroadcast implements Announcer {
 	public void announceTeamDefeat(PlayerTeams team) {
 		String teamName = team.toString();
 		for (ClientRemoteInterface client : subscribed) {
-			client.setLoserTeam(teamName);
+			try {
+				client.setLoserTeam(teamName);
+			} catch (RemoteException e) {
+				LOG.warning("cannot announce loser team: " + e.getMessage());
+			}
 		}
 
 	}

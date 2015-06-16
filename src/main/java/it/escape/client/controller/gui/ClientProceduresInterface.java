@@ -29,23 +29,23 @@ public interface ClientProceduresInterface {
 
 	public abstract void drawnCard(String cardClassName) throws RemoteException;
 
-	public abstract void discardedCard(String cardName);
+	public abstract void discardedCard(String cardName) throws RemoteException;
 	
-	public abstract void playerConnected(int current, int maximum);
+	public abstract void playerConnected(int current, int maximum) throws RemoteException;
 	
-	public abstract void playersInLobby(int current, int maximum);
+	public abstract void playersInLobby(int current, int maximum) throws RemoteException;
 
-	public abstract void playerDisconnected(String playerName);
+	public abstract void playerDisconnected(String playerName) throws RemoteException;
 
-	public abstract void setWinners(String team, String winnersNames);
+	public abstract void setWinners(String team, String winnersNames) throws RemoteException;
 
-	public abstract void setLoserTeam(String teamName);
+	public abstract void setLoserTeam(String teamName) throws RemoteException;
 
-	public abstract void notMyTurn();
+	public abstract void notMyTurn() throws RemoteException;
 
-	public abstract void startMyTurn(String myName, String myPos);
+	public abstract void startMyTurn(String myName, String myPos) throws RemoteException;
 
-	public abstract void askForMovement();
+	public abstract void askForMovement() throws RemoteException;
 
 	public abstract void askForYesNo(String question);
 
