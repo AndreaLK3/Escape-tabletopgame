@@ -10,14 +10,12 @@ Current tasks:
 
 4) Print dei risultati: fornire informazioni più complete al Client-Model, e mostrarle poi nel VictoryPanel di Swing 
 
-5) Gestire la notifica delle eccezioni in UpdaterSwing
+5) Aggiungere test ( e commentarli)
 
-6) Aggiungere test ( e commentarli)
+6) Sistemare un numero considerevole di issues e cicli di Sonar
+n: chiamare il log LOGGER
 
-________________________________________________________
-Prossimamente su questo schermo:
-
-Preparare il Documento di presentazione con : lista dei Design pattern utilizzati, 
+7) Preparare il Documento di presentazione con : lista dei Design pattern utilizzati, 
 +  breve commento e diagrammi di sequenza (aggiornati) e diagrammi delle classi per ciascuna parte del progetto 
 
 

@@ -605,6 +605,16 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		model.finishedUpdating();
 	}
 	
+	@Override
+	public void playerConnected(int current, int maximum) throws RemoteException {
+		// TODO show something
+	}
+
+	@Override
+	public void playersInLobby(int current, int maximum) throws RemoteException {
+		// TODO show something
+	}
+	
 	//da processTurnRequest(msg)
 	
 	/* (non-Javadoc)
@@ -808,7 +818,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		
 	}
 	
-	//da processException(msg) n:Not working properly right now
+	//da processException(msg)
 	
 	/* (non-Javadoc)
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#showMovementException(java.lang.String)
@@ -831,15 +841,6 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		askForYesNo(StringRes.getString("messaging.askPlayObjectCard"));
 	}
 
-	@Override
-	public void playerConnected(int current, int maximum) throws RemoteException {
-		// TODO show something
-	}
-
-	@Override
-	public void playersInLobby(int current, int maximum) throws RemoteException {
-		// TODO show something
-	}
 	
 	public void failedEscape() throws RemoteException {
 		// TODO show something
@@ -849,6 +850,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	public void youEscaped() {
 		model.getMyPlayerState().setMyStatus(CurrentPlayerStatus.WINNER);
 		model.finishedUpdating();
+		String message = StringRes.getString("messaging.EscapedSuccessfully");
+		view.notifyUser(message);
 	}
 	
 }
