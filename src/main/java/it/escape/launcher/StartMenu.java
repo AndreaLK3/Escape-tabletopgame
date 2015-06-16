@@ -19,6 +19,8 @@ import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
 import javax.swing.Icon;
@@ -51,11 +53,13 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 	private String[] buttons = {
 			StringRes.getString("launcher.button.client"),
 			StringRes.getString("launcher.button.server"),
+			StringRes.getString("launcher.button.wizard"),
 			StringRes.getString("launcher.button.quit")};
 	
 	private String[] icons = {
 			"resources/artwork/launcher/icon-play.png",
 			"resources/artwork/launcher/icon-server.png",
+			"resources/artwork/launcher/icon-setup.png",
 			"resources/artwork/launcher/icon-quit.png"};
 	
 	private String[] netmodes = {
@@ -94,15 +98,24 @@ public class StartMenu extends JFrame implements StartMenuInterface {
    			client.addActionListener(new ActionStartClient(state, this));
    		JButton server = setButton(1);
    			server.addActionListener(new ActionStartServer(state, this));
-   		JComboBox<String> net = setCBox(netmodes);
+   			
+   		/*JComboBox<String> net = setCBox(netmodes);
    			net.addActionListener(new ActionSetNetMode(state));
    		JComboBox<String> ui = setCBox(experience);
-   			ui.addActionListener(new ActionSetUserExperience(state));
+   			ui.addActionListener(new ActionSetUserExperience(state));*/
+   			
+   		JButton wizard = setButton(2);
+   			wizard.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					new SetupWizard(state);
+				}
+			});
+   			
    		setLabelBeforeTextField("Port:");
    		JTextField portno = setTextField("" + locals.getServerPort());
    		JButton acceptPort = setAcceptButton("Change port number");
    			acceptPort.addActionListener(new ActionAcceptNewPortNumber(portno, locals));
-   		JButton quit = setButton(2);
+   		JButton quit = setButton(3);
    			quit.addActionListener(new ActionQuit(this));
 	}
 
