@@ -2,7 +2,6 @@ package it.escape.server.controller.game.actions.objectcardactions;
 
 import it.escape.server.controller.Shorthand;
 import it.escape.server.controller.UserMessagesReporter;
-import it.escape.server.controller.UserMessagesReporterSocket;
 import it.escape.server.controller.game.actions.HumanActionInterface;
 import it.escape.server.controller.game.actions.MapActionInterface;
 import it.escape.server.controller.game.actions.ObjectCardAction;
@@ -26,7 +25,7 @@ public class Lights implements ObjectCardAction {
 		boolean correctInput;
 		
 		do{
-			posAlphaNum =  UserMessagesReporterSocket.getReporterInstance(currentPlayer).askForLightsPosition(map.getPlayerAlphaNumPosition(currentPlayer));
+			posAlphaNum =  UserMessagesReporter.getReporterInstance(currentPlayer).askForLightsPosition(map.getPlayerAlphaNumPosition(currentPlayer));
 			try {
 				pos3D = CoordinatesConverter.fromAlphaNumToCubic(posAlphaNum);
 				sectors = map.getNeighborPositions(pos3D);
@@ -40,7 +39,7 @@ public class Lights implements ObjectCardAction {
 				correctInput = false;
 			}
 			catch (CellNotExistsException e) {
-				UserMessagesReporterSocket.getReporterInstance(currentPlayer).relayMessage(
+				UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(
 						StringRes.getString("messaging.exceptions.cellNotExists"));
 				correctInput=false;
 			}
