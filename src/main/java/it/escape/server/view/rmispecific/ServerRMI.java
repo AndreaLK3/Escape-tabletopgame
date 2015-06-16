@@ -33,7 +33,7 @@ import java.util.logging.Logger;
  */
 public class ServerRMI implements ServerRemoteInterface {
 	
-	protected static final Logger LOG = Logger.getLogger( ServerRMI.class.getName() );
+	protected static final Logger LOGGER = Logger.getLogger( ServerRMI.class.getName() );
 
 	// it's more useful to list the MessagingChannelRMI, which match 1:1 to the active clients
 	private List<MessagingChannelRMI> clientsList;
@@ -47,7 +47,7 @@ public class ServerRMI implements ServerRemoteInterface {
 					return c;
 				}
 			} catch (RemoteException e) {
-				LOG.warning("Could not ask the client for its ID");
+				LOGGER.warning("Could not ask the client for its ID");
 			}
 		}
 		return null;
@@ -76,9 +76,9 @@ public class ServerRMI implements ServerRemoteInterface {
 								) + "\n" +
 						StringRes.getString("messaging.motd.end"));
 		} catch (IOException e) {
-			LOG.warning(StringRes.getString("view.connection.cantWelcome"));
+			LOGGER.warning(StringRes.getString("view.connection.cantWelcome"));
 		}
-		LOG.info("Client " + client.toString() + " registered");
+		LOGGER.info("Client " + client.toString() + " registered");
 	}
 
 	@Override
@@ -90,12 +90,15 @@ public class ServerRMI implements ServerRemoteInterface {
 			if (clientRMIAnnouncer instanceof AnnouncerRMIBroadcast) {
 				((AnnouncerRMIBroadcast)clientRMIAnnouncer).unSubscribe(client);
 			}
+			else {
+				LOGGER.warning("Could not unsubscribe client properly from AnnouncerRMIBroadcast");
+			}
 			
 		}
 	}
 
 	private AnnouncerRMIBroadcast Announcer(AnnouncerRMIBroadcast announcer) {
-		// TODO Auto-generated method stub
+		// TODO: What is this?
 		return null;
 	}
 
@@ -110,8 +113,8 @@ public class ServerRMI implements ServerRemoteInterface {
 			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
 			Master.getGameMasterOfPlayer(player).renamePlayer(player, message);
 		} else
-			LOG.warning("MessagingChannelInterface is missing");
-		LOG.info("Client " + client.toString() + " renamed himself");
+			LOGGER.warning("MessagingChannelInterface is missing");
+		LOGGER.info("Client " + client.toString() + " renamed himself");
 	}
 
 	@Override
@@ -121,8 +124,8 @@ public class ServerRMI implements ServerRemoteInterface {
 			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
 			Master.getGameMasterOfPlayer(player).globalChat(player, message);
 		} else
-			LOG.warning("MessagingChannelInterface is missing");
-		LOG.info("Client " + client.toString() + " sent a chat message");
+			LOGGER.warning("MessagingChannelInterface is missing");
+		LOGGER.info("Client " + client.toString() + " sent a chat message");
 	}
 
 	@Override
@@ -132,8 +135,8 @@ public class ServerRMI implements ServerRemoteInterface {
 			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
 			((MessagingChannelRMI) pla).getClient().renameMyself(player.getName());
 		} else
-			LOG.warning("MessagingChannelInterface is missing");
-		LOG.info("Client " + client.toString() + " sent whoami");
+			LOGGER.warning("MessagingChannelInterface is missing");
+		LOGGER.info("Client " + client.toString() + " sent whoami");
 	}
 
 	@Override
@@ -144,8 +147,8 @@ public class ServerRMI implements ServerRemoteInterface {
 			String myPos = Master.getGameMasterOfPlayer(player).getPlayerPosition(player);
 			((MessagingChannelRMI) pla).getClient().setMyPosition(myPos);
 		} else
-			LOG.warning("MessagingChannelInterface is missing");
-		LOG.info("Client " + client.toString() + " sent whereami");
+			LOGGER.warning("MessagingChannelInterface is missing");
+		LOGGER.info("Client " + client.toString() + " sent whereami");
 	}
 
 	@Override
@@ -154,8 +157,8 @@ public class ServerRMI implements ServerRemoteInterface {
 		if (chan != null) {
 			chan.setAnswer(answer);
 		} else
-			LOG.warning("MessagingChannelInterface is missing");
-		LOG.info("Client " + client.toString() + " sent answer: " + answer);
+			LOGGER.warning("MessagingChannelInterface is missing");
+		LOGGER.info("Client " + client.toString() + " sent answer: " + answer);
 	}
 	
 	/**This method sets up the Registry and creates and exposes the Server Remote Object;
@@ -163,15 +166,15 @@ public class ServerRMI implements ServerRemoteInterface {
 	 * @throws RemoteException 
 	 * @throws MalformedURLException */
 	public static void initializer(ServerLocalSettings locals) throws RemoteException, MalformedURLException {
-		LogHelper.setDefaultOptions(LOG);
-		LOG.info("Creating local registry");
+		LogHelper.setDefaultOptions(LOGGER);
+		LOGGER.info("Creating local registry");
 		LocateRegistry.createRegistry(1099);
-		LOG.info("Created RMI registry on port 1099");
+		LOGGER.info("Created RMI registry on port 1099");
 		ServerRemoteInterface server = new ServerRMI(locals);
 		UnicastRemoteObject.exportObject(server, 0);
-		LOG.info("Exported server interface");
+		LOGGER.info("Exported server interface");
 		Naming.rebind("//localhost/Server", server);
-		LOG.info("Server interface bound to name: \"" + "//localhost/Server" + "\"");
+		LOGGER.info("Server interface bound to name: \"" + "//localhost/Server" + "\"");
 	}
 	
 	/**Constructor for the object*/

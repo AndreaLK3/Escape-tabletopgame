@@ -22,7 +22,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 
 	@Override
 	public void fillinDefaultOnce() {
-		log.finer("Overriding default once...");
+		LOGGER.finer("Overriding default once...");
 		interfaceWithUser.overrideDefault();
 	}
 
@@ -31,7 +31,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().setMyPosition(position);
 		} catch (RemoteException e) {
-			log.warning("Cannot report my user position: " + e.getMessage());
+			LOGGER.warning("Cannot report my user position: " + e.getMessage());
 		}
 	}
 
@@ -44,14 +44,14 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		String defaultChoice = "no";
 		
 		if (automaticOverriding) {
-			log.finer("automaticOverriding: return false");
+			LOGGER.finer("automaticOverriding: return false");
 			return false;
 		} else {
 			interfaceWithUser.setDefaultOption(defaultChoice);
 			try {
 				interfaceWithUser.getClient().askForYesNo(message);
 			} catch (RemoteException e) {
-				log.warning("Cannot ask 'yes or no': " + e.getMessage());
+				LOGGER.warning("Cannot ask 'yes or no': " + e.getMessage());
 			}
 			String answer = interfaceWithUser.getAnswer();
 			if (answer.equals("yes")) {
@@ -71,14 +71,14 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		String defaultChoice = "discard";
 		
 		if (automaticOverriding) {
-			log.finer("automaticOverriding: return false");
+			LOGGER.finer("automaticOverriding: return false");
 			return false;
 		} else {
 			interfaceWithUser.setDefaultOption(defaultChoice);
 			try {
 				interfaceWithUser.getClient().askPlayOrDiscard(StringRes.getString("messaging.tooManyCardsHuman"));
 			} catch (RemoteException e) {
-				log.warning("Cannot ask 'play or discard': " + e.getMessage());
+				LOGGER.warning("Cannot ask 'play or discard': " + e.getMessage());
 			}
 			String answer = interfaceWithUser.getAnswer();
 			if (answer.equals("play")) {
@@ -92,7 +92,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().haveToDiscard();
 		} catch (RemoteException e) {
-			log.warning("Cannot ask to discard a card: " + e.getMessage());
+			LOGGER.warning("Cannot ask to discard a card: " + e.getMessage());
 		}
 	}
 
@@ -101,14 +101,14 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		String defaultChoice = defaultCard;
 		
 		if (automaticOverriding) {
-			log.finer("automaticOverriding: return " + defaultChoice);
+			LOGGER.finer("automaticOverriding: return " + defaultChoice);
 			return defaultChoice;
 		} else {
 			String card;
 			try {
 				interfaceWithUser.getClient().askWhichObjectCard();
 			} catch (RemoteException e) {
-				log.warning("Cannot ask for object card: " + e.getMessage());
+				LOGGER.warning("Cannot ask for object card: " + e.getMessage());
 			}
 			card = interfaceWithUser.getAnswer();
 			return card;
@@ -120,14 +120,14 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		String defaultChoice = playerCurrentPos;
 		
 		if (automaticOverriding) {
-			log.finer("automaticOverriding: return " + defaultChoice);
+			LOGGER.finer("automaticOverriding: return " + defaultChoice);
 			return new MoveCommand(defaultChoice);
 		} else {
 			String destination;
 			try {
 				interfaceWithUser.getClient().askForMovement();
 			} catch (RemoteException e) {
-				log.warning("Cannot ask for movement: " + e.getMessage());
+				LOGGER.warning("Cannot ask for movement: " + e.getMessage());
 			}
 			destination = interfaceWithUser.getAnswer();
 			return new MoveCommand(destination);
@@ -139,14 +139,14 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		String defaultChoice = playerCurrentPos;
 		
 		if (automaticOverriding) {
-			log.finer("automaticOverriding: return " + defaultChoice);
+			LOGGER.finer("automaticOverriding: return " + defaultChoice);
 			return defaultChoice;
 		} else {
 			interfaceWithUser.setDefaultOption(defaultChoice);
 			try {
 				interfaceWithUser.getClient().askForNoisePosition();
 			} catch (RemoteException e) {
-				log.warning("Cannot ask for noise: " + e.getMessage());
+				LOGGER.warning("Cannot ask for noise: " + e.getMessage());
 			}
 			String answer = interfaceWithUser.getAnswer();
 			return answer;
@@ -158,14 +158,14 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		String defaultChoice = playerCurrentPos;
 		
 		if (automaticOverriding) {
-			log.finer("automaticOverriding: return " + defaultChoice);
+			LOGGER.finer("automaticOverriding: return " + defaultChoice);
 			return defaultChoice;
 		} else {
 			interfaceWithUser.setDefaultOption(defaultChoice);
 			try {
 				interfaceWithUser.getClient().askForLightsPosition();
 			} catch (RemoteException e) {
-				log.warning("Cannot ask for lights: " + e.getMessage());
+				LOGGER.warning("Cannot ask for lights: " + e.getMessage());
 			}
 			String answer = interfaceWithUser.getAnswer();
 			return answer;
@@ -177,7 +177,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().showMessageInTerminal(string);
 		} catch (RemoteException e) {
-			log.warning("Cannot relay the message: " + e.getMessage());
+			LOGGER.warning("Cannot relay the message: " + e.getMessage());
 		}
 	}
 
@@ -186,7 +186,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().setMap(map);
 		} catch (RemoteException e) {
-			log.warning("Cannot set the map: " + e.getMessage());
+			LOGGER.warning("Cannot set the map: " + e.getMessage());
 		}
 	}
 
@@ -197,7 +197,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 						StringRes.getString("messaging.gameStartETA"),
 						seconds));
 		} catch (RemoteException e) {
-			log.warning("Cannot report game start ETA: " + e.getMessage());
+			LOGGER.warning("Cannot report game start ETA: " + e.getMessage());
 		}
 	}
 
@@ -206,7 +206,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().playersInLobby(current, maximum);
 		} catch (RemoteException e) {
-			log.warning("Cannot report number of connectd players: " + e.getMessage());
+			LOGGER.warning("Cannot report number of connectd players: " + e.getMessage());
 		}
 	}
 
@@ -215,7 +215,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().setMyTeam(team);
 		} catch (RemoteException e) {
-			log.warning("Cannot report team name: " + e.getMessage());
+			LOGGER.warning("Cannot report team name: " + e.getMessage());
 		}
 	}
 
@@ -224,7 +224,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().drawnCard(cardname);
 		} catch (RemoteException e) {
-			log.warning("Cannot report object card drawn: " + e.getMessage());
+			LOGGER.warning("Cannot report object card drawn: " + e.getMessage());
 		}
 	}
 
@@ -233,7 +233,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().youEscaped();
 		} catch (RemoteException e) {
-			log.warning("Cannot report object card drawn: " + e.getMessage());
+			LOGGER.warning("Cannot report object card drawn: " + e.getMessage());
 		}
 		
 	}
@@ -243,7 +243,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().startMyTurn(myname, mypos);;
 		} catch (RemoteException e) {
-			log.warning("Cannot report start my turn: " + e.getMessage());
+			LOGGER.warning("Cannot report start my turn: " + e.getMessage());
 		}
 	}
 
@@ -252,9 +252,28 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().notMyTurn();
 		} catch (RemoteException e) {
-			log.warning("Cannot report: my Turn has ended: " + e.getMessage());
+			LOGGER.warning("Cannot report: my Turn has ended: " + e.getMessage());
 		}
 		
+	}
+
+	@Override
+	public void reportMovementException(String exceptionMessage) {
+		try {
+			interfaceWithUser.getClient().showMovementException(exceptionMessage);
+		} catch (RemoteException e) {
+			LOGGER.warning("Could not report: movement Exception: " + e.getMessage());
+		}
+		
+	}
+
+	@Override
+	public void reportCardException(String exceptionMessage) {
+		try {
+			interfaceWithUser.getClient().showWrongCardException(exceptionMessage);
+		} catch (RemoteException e) {
+			LOGGER.warning("Could not report: card Exception: " + e.getMessage());
+		}
 		
 	}
 

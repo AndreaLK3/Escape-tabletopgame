@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
  */
 public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterface, ClientProceduresInterface {
 	
-	protected static final Logger LOG = Logger.getLogger( UpdaterSwing.class.getName() );
+	protected static final Logger LOGGER = Logger.getLogger( UpdaterSwing.class.getName() );
 
 	private UpdaterSwingToViewInterface view;
 	
@@ -80,7 +80,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 
 	public UpdaterSwing(ModelForGUI model) {
 		super();
-		LogHelper.setDefaultOptions(LOG);
+		LogHelper.setDefaultOptions(LOGGER);
 		this.model = model;
 	}
 
@@ -95,7 +95,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			try {
 				processMessage(msg.getMessage());
 			} catch (RemoteException e) {
-				LOG.severe("RemoteException was thrown while RMI was NOT supposed to be running: " + e.getMessage());
+				LOGGER.severe("RemoteException was thrown while RMI was NOT supposed to be running: " + e.getMessage());
 			}
 		}
 	}
@@ -169,7 +169,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				setMap(mapname);
 				
 			} else if (startmotd.matches()) {
-				LOG.finer("Server has begun writing motd");
+				LOGGER.finer("Server has begun writing motd");
 				readingMotd = true;
 				
 			} else if (chatMsg.matches()) {
@@ -443,7 +443,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher endmotd = getMOTDend.matcher(message);
 		if (readingMotd) {
 			if (endmotd.matches()) {
-				LOG.finer("Server has stopped writing motd");
+				LOGGER.finer("Server has stopped writing motd");
 				readingMotd = false;
 				view.displayServerMOTD(loadedMotd);
 			} else {
@@ -463,7 +463,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void setMap(String mapname) {
-		LOG.finer("Setting map to " +mapname);
+		LOGGER.finer("Setting map to " +mapname);
 		view.setGameMap(mapname);
 	}
 	
@@ -472,7 +472,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void setWholeMOTD(String text) throws RemoteException {
-		LOG.finer("Server sent the motd");
+		LOGGER.finer("Server sent the motd");
 		loadedMotd = text;
 		view.displayServerMOTD(loadedMotd);
 	}
@@ -490,7 +490,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void setStartETA(String message) throws RemoteException {
-		LOG.finer("Setting game start ETA");
+		LOGGER.finer("Setting game start ETA");
 		model.setGameStatus(GameStatus.GOING_TO_START);
 		model.finishedUpdating();
 		view.setTurnStatusString(message);
@@ -504,7 +504,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void startTurn(int turnNumber, String playerName) throws RemoteException {
-		LOG.finer("Someone's turn");
+		LOGGER.finer("Someone's turn");
 		view.setTurnStatusString(playerName + " is playing");
 		model.updateNowPlaying(playerName);
 		model.updatePlayerStatus(model.getNowPlaying().getMyName(), CurrentPlayerStatus.ALIVE);
@@ -518,7 +518,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void renamePlayer(String previousName, String changedName) throws RemoteException {
-		LOG.finer("Someone renamed himself");
+		LOGGER.finer("Someone renamed himself");
 		model.updatePlayerRename(previousName, changedName);
 		model.finishedUpdating();
 	}
@@ -528,7 +528,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void renameMyself(String myNewName) throws RemoteException {
-		LOG.finer("Read player name from server: " +myNewName);
+		LOGGER.finer("Read player name from server: " +myNewName);
 		model.getMyPlayerState().setMyName(myNewName);
 		model.finishedUpdating();
 	}
@@ -538,7 +538,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void setMyPosition(String myPos) throws RemoteException {
-		LOG.finer("Read player position from server: [" + myPos + "]");
+		LOGGER.finer("Read player position from server: [" + myPos + "]");
 		model.getMyPlayerState().setLocation(myPos);
 		model.finishedUpdating();
 	}
@@ -548,7 +548,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void setMyTeam(String teamName) throws RemoteException {
-		LOG.finer("Read team name from server");
+		LOGGER.finer("Read team name from server");
 		model.getMyPlayerState().setMyTeam(teamName);
 		model.finishedUpdating();
 		view.discoverMyName();  // if someone else's playing we don't know it yet
@@ -559,7 +559,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void drawnCard(String cardClassName) throws RemoteException {
-		LOG.finer("Server reported new object card " + cardClassName);
+		LOGGER.finer("Server reported new object card " + cardClassName);
 		String cardKey = getCardGUIKey(cardClassName);
 		model.getMyPlayerState().addCard(cardKey);
 		model.finishedUpdating();
@@ -589,7 +589,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void setWinners(String team, String winnersNames) throws RemoteException {
-		LOG.finer("Server listed the winners");
+		LOGGER.finer("Server listed the winners");
 		model.getVictoryState().addWinners(team, winnersNames);
 		model.finalRefreshPlayerStatus();
 		model.finishedUpdating();
@@ -600,7 +600,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void setLoserTeam(String teamName) throws RemoteException {
-		LOG.finer("Server listed the losers");
+		LOGGER.finer("Server listed the losers");
 		model.getVictoryState().setTeamDefeated(teamName);
 		model.finalRefreshPlayerStatus();
 		model.finishedUpdating();
@@ -632,7 +632,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void startMyTurn(String myName, String myPos) throws RemoteException {
-		LOG.finer("My turn");
+		LOGGER.finer("My turn");
 		view.setTurnStatusString("now is my turn to play");
 		model.getMyPlayerState().setMyName(myName);
 		model.getMyPlayerState().setLocation(myPos);
@@ -647,7 +647,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void askForMovement() throws RemoteException {
-		LOG.finer("Server asked to move");
+		LOGGER.finer("Server asked to move");
 		view.notifyUser("Please move your character: click where you want to go");
 		view.bindPositionSender();
 	}
@@ -657,7 +657,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void askForYesNo(String question) throws RemoteException {
-		LOG.finer("Server asked yes/no question");
+		LOGGER.finer("Server asked yes/no question");
 		view.relayYesNoDialog(question);
 	}
 	
@@ -666,7 +666,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void askForNoisePosition() throws RemoteException {
-		LOG.finer("Server asked to place a noise");
+		LOGGER.finer("Server asked to place a noise");
 		view.notifyUser("Select the sector you want to make a noise in");
 		view.bindPositionSender();
 	}
@@ -676,7 +676,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void askForLightsPosition() throws RemoteException {
-		LOG.finer("Server asked where to turn the Lights on");
+		LOGGER.finer("Server asked where to turn the Lights on");
 		view.notifyUser("Select the sector where you want to turn the lights on");
 		view.bindPositionSender();
 	}
@@ -686,7 +686,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void askWhichObjectCard() throws RemoteException {
-		LOG.finer("Server asked an object card");
+		LOGGER.finer("Server asked an object card");
 		view.relayObjectCard();
 	}
 	
@@ -695,7 +695,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void haveToDiscard() throws RemoteException {
-		LOG.finer("Server asked to discard a card");
+		LOGGER.finer("Server asked to discard a card");
 		view.relayObjectCard();
 	}
 	
@@ -704,7 +704,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void askPlayOrDiscard(String question) throws RemoteException {
-		LOG.finer("Server asked to play or discard a card");
+		LOGGER.finer("Server asked to play or discard a card");
 		view.relayYesNoDialog(question, "play", "discard");
 	}
 	
@@ -782,7 +782,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void endResults() throws RemoteException {
-		LOG.finer("Server sent results, printing recap screen");
+		LOGGER.finer("Server sent results, printing recap screen");
 		view.spawnVictoryRecap(model);
 	}
 	
@@ -828,7 +828,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void showMovementException(String exceptionMessage) throws RemoteException { 
-		LOG.finer("Server reported : movement is impossible." );
+		LOGGER.finer("Server reported : movement is impossible." );
 		view.notifyUser(exceptionMessage);
 		askForMovement();	//TODO: I have to check if it is necessary
 		
@@ -839,7 +839,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void showWrongCardException(String exceptionMessage) throws RemoteException {
-		LOG.finer("Server reported : that Card can't be played now." );
+		LOGGER.finer("Server reported : that Card can't be played now." );
 		view.notifyUser(exceptionMessage);
 		askForYesNo(StringRes.getString("messaging.askPlayObjectCard"));
 	}

@@ -38,7 +38,7 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 	
 	@Override
 	public void fillinDefaultOnce() {
-		log.finer("Overriding default once...");
+		LOGGER.finer("Overriding default once...");
 		interfaceWithUser.overrideDefaultOption();
 	}
 	
@@ -76,7 +76,7 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 	private boolean askForYesNoChoice(String question) {
 		String defaultChoice = "no";
 		if (automaticOverriding) {
-			log.finer("automaticOverriding: return false");
+			LOGGER.finer("automaticOverriding: return false");
 			return false;
 		} else {
 			interfaceWithUser.writeToClient(question);
@@ -99,7 +99,7 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 		String defaultChoice = "discard";
 		relayMessage(StringRes.getString("messaging.tooManyCardsHuman"));
 		if (automaticOverriding) {
-			log.finer("automaticOverriding: return false");
+			LOGGER.finer("automaticOverriding: return false");
 			return false;
 		} else {
 			String answer = ioGetBinaryChoice(defaultChoice,"play","discard").toLowerCase();
@@ -117,11 +117,11 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 	 * @return string representing the chosen card	 */
 	@Override
 	public String askWhichObjectCard(String defaultCard) {
-		log.finer("Server is asking which object card the user intends to play/discard");
+		LOGGER.finer("Server is asking which object card the user intends to play/discard");
 		String defaultChoice = defaultCard;
 		
 		if (automaticOverriding) {
-			log.finer("automaticOverriding: return " + defaultChoice);
+			LOGGER.finer("automaticOverriding: return " + defaultChoice);
 			return defaultChoice;		
 		} else {
 			interfaceWithUser.writeToClient(StringRes.getString("messaging.askWhichObjectCard"));
@@ -142,7 +142,7 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 	@Override
 	public MoveCommand askForMovement(String playerCurrentPos) {
 		if (automaticOverriding) {
-			log.finer("automaticOverriding: return MoveCommand(" + playerCurrentPos + ")");
+			LOGGER.finer("automaticOverriding: return MoveCommand(" + playerCurrentPos + ")");
 			return new MoveCommand(playerCurrentPos);		
 		}
 		interfaceWithUser.writeToClient(StringRes.getString("messaging.timeToMove"));
@@ -155,7 +155,7 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 	@Override
 	public String askForNoisePosition(String playerCurrentPos) {
 		if (automaticOverriding) {
-			log.finer("automaticOverriding: return " + playerCurrentPos);
+			LOGGER.finer("automaticOverriding: return " + playerCurrentPos);
 			return playerCurrentPos;		
 		}
 		String location;
@@ -167,7 +167,7 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 	@Override
 	public String askForLightsPosition(String playerCurrentPos) {
 		if (automaticOverriding) {
-			log.finer("automaticOverriding: return " + playerCurrentPos);
+			LOGGER.finer("automaticOverriding: return " + playerCurrentPos);
 			return playerCurrentPos;		
 		}
 		String location;
@@ -263,6 +263,16 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 	@Override
 	public void reportEndTurn() {
 		relayMessage(StringRes.getString("messaging.farewell"));	
+	}
+
+	@Override
+	public void reportMovementException(String exceptionMessage) {
+		relayMessage(exceptionMessage);	
+	}
+	
+	@Override
+	public void reportCardException(String exceptionMessage) {
+		relayMessage(exceptionMessage);	
 	}
 	
 }

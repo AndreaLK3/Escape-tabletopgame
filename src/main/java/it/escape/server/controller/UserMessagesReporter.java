@@ -23,12 +23,12 @@ import java.util.logging.Logger;
  * just use methods from UserMessagesReporter or MessagingChannelInterface.
  * 
  * [1] Actually, Master performs a similar procedure to initialize Announcer
- * @author michele
+ * @author michele, andrea
  *
  */
 public abstract class UserMessagesReporter {
 
-	protected static final Logger log = Logger.getLogger( UserMessagesReporter.class.getName() );
+	protected static final Logger LOGGER = Logger.getLogger( UserMessagesReporter.class.getName() );
 	
 	protected static List<UserMessagesReporter> reportersList = new ArrayList<UserMessagesReporter>();
 	
@@ -57,7 +57,7 @@ public abstract class UserMessagesReporter {
 	/** Create a new UMR, dynamically deciding if it will be Socket or RMI */
 	public static void createUMR(MessagingChannelInterface interfaceWithUser) {
 		if (reportersList.size() <= 0) {
-			LogHelper.setDefaultOptions(log);
+			LogHelper.setDefaultOptions(LOGGER);
 		}
 		if (interfaceWithUser instanceof MessagingChannelRMI) {
 			reportersList.add(new UserMessagesReporterRMI((MessagingChannelRMI) interfaceWithUser));
@@ -180,6 +180,10 @@ public abstract class UserMessagesReporter {
 	public abstract void relayMessage(String string);
 	
 	public abstract void reportEndTurn();
+	
+	public abstract void reportMovementException(String exceptionMessage);
+	
+	public abstract void reportCardException(String exceptionMessage);
 	
 
 }
