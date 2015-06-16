@@ -32,6 +32,9 @@ public class ActionStartServer implements ActionListener {
 			} else if (net.equals(StringRes.getString("launcher.option.netmode.RMI"))) {
 				startMenu.getStarter().startTextRMIServer(startMenu);
 				startMenu.closeMenu();
+			} else if (net.equals(StringRes.getString("launcher.option.netmode.combo"))){
+				startMenu.getStarter().startTextComboServer(startMenu);
+				startMenu.closeMenu();
 			} else {
 				startMenu.tbiMessage();
 			}

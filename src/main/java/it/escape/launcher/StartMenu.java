@@ -4,8 +4,6 @@ import it.escape.client.view.gui.ImageAutoFit;
 import it.escape.client.view.gui.ImageScaler;
 import it.escape.launcher.menucontroller.ActionAcceptNewPortNumber;
 import it.escape.launcher.menucontroller.ActionQuit;
-import it.escape.launcher.menucontroller.ActionSetNetMode;
-import it.escape.launcher.menucontroller.ActionSetUserExperience;
 import it.escape.launcher.menucontroller.ActionStartClient;
 import it.escape.launcher.menucontroller.ActionStartServer;
 import it.escape.launcher.menucontroller.LauncherLocalSettings;
@@ -98,11 +96,6 @@ public class StartMenu extends JFrame implements StartMenuInterface {
    			client.addActionListener(new ActionStartClient(state, this));
    		JButton server = setButton(1);
    			server.addActionListener(new ActionStartServer(state, this));
-   			
-   		/*JComboBox<String> net = setCBox(netmodes);
-   			net.addActionListener(new ActionSetNetMode(state));
-   		JComboBox<String> ui = setCBox(experience);
-   			ui.addActionListener(new ActionSetUserExperience(state));*/
    			
    		JButton wizard = setButton(2);
    			wizard.addActionListener(new ActionListener() {
