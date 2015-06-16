@@ -93,10 +93,10 @@ public class AnnouncerRMIBroadcast implements Announcer {
 	public void announceObjectCard(PlayerActionInterface player, ObjectCard theCard) {
 		String playerName = player.getName();
 		String cardClassName = theCard.getClass().getSimpleName();
-		String message = StringRes.getString("messaging.playerIsUsingObjCard");
+		
 		for (ClientRemoteInterface client : subscribed) {
 			try {
-				client.eventObject(playerName, cardClassName, message);
+				client.eventObject(playerName, cardClassName);
 			} catch (RemoteException e) {
 				LOG.warning("cannot announce player using object card: " + e.getMessage());
 			}

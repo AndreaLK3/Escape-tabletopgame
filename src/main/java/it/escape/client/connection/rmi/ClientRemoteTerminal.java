@@ -157,7 +157,7 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void whichObjectCard() throws RemoteException {
+	public void askWhichObjectCard() throws RemoteException {
 		stateManager.setObjectCardState();
 		terminal.visualizeMessage(StringRes.getString("messaging.askWhichObjectCard"));
 	}
@@ -175,7 +175,9 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void eventObject(String playerName, String cardClassName, String message) throws RemoteException {
+	public void eventObject(String playerName, String cardClassName) throws RemoteException {
+		String message = String.format(StringRes.getString("messaging.playerIsUsingObjCard"),
+				playerName,cardClassName,playerName);
 		terminal.visualizeMessage(message);
 	}
 

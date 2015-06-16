@@ -318,7 +318,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			return true;
 			
 		}else if (whichobjectCard.matches()) {
-			whichObjectCard();
+			askWhichObjectCard();
 			return true;
 			
 		} else if (discard.matches()) {
@@ -358,7 +358,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		if (eventObject.matches()) {
 			String playerName = eventObject.group(1);
 			String yyyCard = eventObject.group(2);
-			eventObject(playerName, yyyCard, message);
+			eventObject(playerName, yyyCard);
 			return true;
 			
 		} else if (eventAttack.matches()) {
@@ -684,7 +684,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#whichObjectCard()
 	 */
 	@Override
-	public void whichObjectCard() throws RemoteException {
+	public void askWhichObjectCard() throws RemoteException {
 		LOG.finer("Server asked an object card");
 		view.relayObjectCard();
 	}
@@ -714,9 +714,11 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#eventObject(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void eventObject(String playerName, String cardClassName, String message) throws RemoteException {
+	public void eventObject(String playerName, String cardClassName) throws RemoteException {
 		if (!isMe(playerName)) { // it's not me
-			view.notifyUser(message);
+			String newMsg = String.format(StringRes.getString("messaging.playerIsUsingObjCard"),
+					playerName,cardClassName,playerName);
+			view.notifyUser(newMsg);
 		}
 		if(isMe(playerName)) { 	//if it's me
 			String cardName = getCardGUIKey(cardClassName);

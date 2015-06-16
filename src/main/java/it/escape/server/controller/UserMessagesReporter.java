@@ -139,7 +139,7 @@ public abstract class UserMessagesReporter {
 	 */
 	public abstract boolean askPlayCardOrDiscard();
 	
-	public abstract void reportAskDiscard();
+	public abstract void reportHaveToDiscard();
 
 	/**
 	 * Queries the user for an object card to play / discard

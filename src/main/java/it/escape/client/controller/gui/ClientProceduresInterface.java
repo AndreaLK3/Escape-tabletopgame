@@ -53,14 +53,13 @@ public interface ClientProceduresInterface {
 
 	public abstract void askForLightsPosition() throws RemoteException;
 
-	public abstract void whichObjectCard() throws RemoteException;
+	public abstract void askWhichObjectCard() throws RemoteException;
 
 	public abstract void haveToDiscard() throws RemoteException;
 
 	public abstract void askPlayOrDiscard(String question) throws RemoteException;
 
-	public abstract void eventObject(String playerName, String cardClassName,
-			String message) throws RemoteException;
+	public abstract void eventObject(String playerName, String cardClassName) throws RemoteException;
 
 	public abstract void eventAttack(String attacker, String location) throws RemoteException;
 

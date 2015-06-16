@@ -137,8 +137,8 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void whichObjectCard() throws RemoteException {
-		updaterSwing.whichObjectCard();
+	public void askWhichObjectCard() throws RemoteException {
+		updaterSwing.askWhichObjectCard();
 	}
 
 	@Override
@@ -159,9 +159,8 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void eventObject(String playerName, String cardClassName,
-			String message) throws RemoteException {
-		updaterSwing.eventObject(playerName, cardClassName, message);
+	public void eventObject(String playerName, String cardClassName) throws RemoteException {
+		updaterSwing.eventObject(playerName, cardClassName);
 
 	}
 

@@ -130,7 +130,7 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 		}
 	}
 	
-	public void reportAskDiscard() {
+	public void reportHaveToDiscard() {
 		relayMessage(StringRes.getString("messaging.tooManyCardsAlien"));
 	}
 	

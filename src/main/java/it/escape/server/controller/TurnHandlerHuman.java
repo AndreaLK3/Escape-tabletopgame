@@ -143,7 +143,7 @@ public class TurnHandlerHuman extends TurnHandler {
 				}
 			}
 			else {	//I can't play any of the cards I own. I will have to discard some attack/defense
-				reporter.reportAskDiscard();
+				reporter.reportHaveToDiscard();
 				super.discardObjectCard();
 			}
 		}

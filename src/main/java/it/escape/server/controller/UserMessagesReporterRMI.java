@@ -88,7 +88,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		}
 	}
 	
-	public void reportAskDiscard() {
+	public void reportHaveToDiscard() {
 		try {
 			interfaceWithUser.getClient().haveToDiscard();
 		} catch (RemoteException e) {
@@ -106,7 +106,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		} else {
 			String card;
 			try {
-				interfaceWithUser.getClient().whichObjectCard();
+				interfaceWithUser.getClient().askWhichObjectCard();
 			} catch (RemoteException e) {
 				log.warning("Cannot ask for object card: " + e.getMessage());
 			}
