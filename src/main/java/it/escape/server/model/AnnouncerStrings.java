@@ -214,4 +214,12 @@ public class AnnouncerStrings extends Observable implements Announcer {
 				seconds);
 		announce(newmsg);
 	}
+
+	@Override
+	public void announceNewTurn(int turnNumber, String playerName) {
+		String newmsg = String.format(StringRes.getString("messaging.timecontroller.turnNumber"),
+				turnNumber,
+				playerName);
+		announce(newmsg);
+	}
 }

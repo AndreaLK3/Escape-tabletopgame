@@ -150,4 +150,10 @@ public class SuperAnnouncer implements Announcer {
 		if (socketAnnouncer != null) socketAnnouncer.announceGameStartETA(seconds);
 	}
 
+	@Override
+	public void announceNewTurn(int turnNumber, String playerName) {
+		if (rmiAnnouncer != null) rmiAnnouncer.announceNewTurn(turnNumber, playerName);
+		if (socketAnnouncer != null) socketAnnouncer.announceNewTurn(turnNumber, playerName);
+	}
+
 }

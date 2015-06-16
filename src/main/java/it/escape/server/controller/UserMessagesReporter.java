@@ -148,6 +148,8 @@ public abstract class UserMessagesReporter {
 	 * @return string representing the chosen card	 */
 	public abstract String askWhichObjectCard(String defaultCard);
 
+	public abstract void reportStartMyTurn(String myname, String mypos);
+	
 	/**
 	 * Queries the user for a position to move to
 	 * @param playerCurrentPos 

@@ -120,7 +120,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 			try {
 				interfaceWithUser.getClient().askForNoisePosition();
 			} catch (RemoteException e) {
-				log.warning("Cannot ask 'yes or no': " + e.getMessage());
+				log.warning("Cannot ask for noise: " + e.getMessage());
 			}
 			String answer = interfaceWithUser.getAnswer();
 			return answer;
@@ -129,8 +129,21 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 
 	@Override
 	public String askForLightsPosition(String playerCurrentPos) {
-		// TODO Auto-generated method stub
-		return null;
+		String defaultChoice = playerCurrentPos;
+		
+		if (automaticOverriding) {
+			log.finer("automaticOverriding: return " + defaultChoice);
+			return defaultChoice;
+		} else {
+			interfaceWithUser.setDefaultOption(defaultChoice);
+			try {
+				interfaceWithUser.getClient().askForLightsPosition();
+			} catch (RemoteException e) {
+				log.warning("Cannot ask for lights: " + e.getMessage());
+			}
+			String answer = interfaceWithUser.getAnswer();
+			return answer;
+		}
 	}
 
 	@Override
@@ -197,6 +210,15 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 			log.warning("Cannot report object card drawn: " + e.getMessage());
 		}
 		
+	}
+
+	@Override
+	public void reportStartMyTurn(String myname, String mypos) {
+		try {
+			interfaceWithUser.getClient().startMyTurn(myname, mypos);;
+		} catch (RemoteException e) {
+			log.warning("Cannot report start my turn: " + e.getMessage());
+		}
 	}
 
 }

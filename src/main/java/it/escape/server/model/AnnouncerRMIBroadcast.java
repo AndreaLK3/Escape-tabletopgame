@@ -252,4 +252,15 @@ public class AnnouncerRMIBroadcast implements Announcer {
 
 	}
 
+	@Override
+	public void announceNewTurn(int turnNumber, String playerName) {
+		for (ClientRemoteInterface client : subscribed) {
+			try {
+				client.startTurn(turnNumber, playerName);;
+			} catch (RemoteException e) {
+				LOG.warning("cannot announce game start ETA: " + e.getMessage());
+			}
+		}
+	}
+
 }

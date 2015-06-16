@@ -33,6 +33,8 @@ public interface Announcer {
 	public void announceDefense(PositionCubic position);
 
 	public void announce(String message);
+	
+	public void announceNewTurn(int turnNumber, String playerName);
 
 	public void announcePlayerPosition(PlayerActionInterface p,
 			PositionCubic position);

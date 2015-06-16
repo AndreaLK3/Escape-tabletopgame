@@ -1,6 +1,7 @@
 package it.escape.server.controller;
 
 import it.escape.server.controller.game.actions.playercommands.MoveCommand;
+import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.server.view.MessagingChannelInterface;
 import it.escape.server.view.MessagingChannelStrings;
 import it.escape.strings.StringRes;
@@ -249,6 +250,14 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 	@Override
 	public void reportSuccessfulEscape() {
 		relayMessage(StringRes.getString("messaging.EscapedSuccessfully"));
+	}
+
+	@Override
+	public void reportStartMyTurn(String myname, String mypos) {
+		relayMessage(String.format(
+				StringRes.getString("messaging.hail.player"),
+				myname,
+				mypos));
 	}
 	
 }

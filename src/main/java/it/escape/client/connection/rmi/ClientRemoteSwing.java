@@ -197,7 +197,6 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	@Override
 	public void eventFoundPlayer(String playerName, String location) throws RemoteException {
 		updaterSwing.eventFoundPlayer(playerName, location);
-
 	}
 
 	@Override
