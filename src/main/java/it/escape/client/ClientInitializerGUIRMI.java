@@ -42,6 +42,7 @@ public class ClientInitializerGUIRMI {
 		// connect to server
 		ClientRemoteInitializer.setSwingMode(updater);
 		remoteServer = ClientRemoteInitializer.initializer(locals);
+		relay = new Relay((ClientStringChannelInterface) remoteServer);
 		
 		// start the view
 		SmartSwingView.synchronousLaunch((BindUpdaterInterface)updater, relay, model, finalPhase, remoteServer);		
@@ -49,9 +50,7 @@ public class ClientInitializerGUIRMI {
 		// register to server and start the actual communication
 		ClientRemoteInitializer.postponedStart();
 		
-		pleaseWait.dispose();  // remove the "connecting..." dialog
-		// initialize other stuff, like the controller
-		relay = new Relay((ClientStringChannelInterface) remoteServer);
+		pleaseWait.dispose();  // remove the "connecting..." dialog	
 		
 		finalPhase.lock();
 		

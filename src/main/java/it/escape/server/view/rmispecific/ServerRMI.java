@@ -72,7 +72,7 @@ public class ServerRMI implements ServerRemoteInterface {
 		} catch (IOException e) {
 			LOG.warning(StringRes.getString("view.connection.cantWelcome"));
 		}
-		
+		LOG.info("Client " + client.toString() + " registered");
 	}
 
 	@Override
@@ -95,6 +95,7 @@ public class ServerRMI implements ServerRemoteInterface {
 			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
 			Master.getGameMasterOfPlayer(player).renamePlayer(player, message);
 		}
+		LOG.info("Client " + client.toString() + " renamed himself");
 	}
 
 	@Override
@@ -104,6 +105,7 @@ public class ServerRMI implements ServerRemoteInterface {
 			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
 			Master.getGameMasterOfPlayer(player).globalChat(player, message);
 		}
+		LOG.info("Client " + client.toString() + " sent a chat message");
 	}
 
 	@Override
@@ -113,6 +115,7 @@ public class ServerRMI implements ServerRemoteInterface {
 			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
 			((MessagingChannelRMI) pla).getClient().renameMyself(player.getName());
 		}
+		LOG.info("Client " + client.toString() + " sent whoami");
 	}
 
 	@Override
@@ -123,14 +126,16 @@ public class ServerRMI implements ServerRemoteInterface {
 			String myPos = Master.getGameMasterOfPlayer(player).getPlayerPosition(player);
 			((MessagingChannelRMI) pla).getClient().setMyPosition(myPos);
 		}
+		LOG.info("Client " + client.toString() + " sent whereami");
 	}
 
 	@Override
 	public void setAnswer(String answer, ClientRemoteInterface client) throws RemoteException {
-		MessagingChannelRMI ans = findChannel(client);
-		if (ans != null) {
-			ans.setAnswer(answer);
+		MessagingChannelRMI chan = findChannel(client);
+		if (chan != null) {
+			chan.setAnswer(answer);
 		}
+		LOG.info("Client " + client.toString() + " sent answer: " + answer);
 	}
 	
 	/**This method sets up the Registry and creates and exposes the Server Remote Object;
