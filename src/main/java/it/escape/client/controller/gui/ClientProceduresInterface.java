@@ -47,37 +47,37 @@ public interface ClientProceduresInterface {
 
 	public abstract void askForMovement() throws RemoteException;
 
-	public abstract void askForYesNo(String question);
+	public abstract void askForYesNo(String question) throws RemoteException;
 
-	public abstract void askForNoisePosition();
+	public abstract void askForNoisePosition() throws RemoteException;
 
-	public abstract void askForLightsPosition();
+	public abstract void askForLightsPosition() throws RemoteException;
 
-	public abstract void whichObjectCard();
+	public abstract void whichObjectCard() throws RemoteException;
 
-	public abstract void haveToDiscard();
+	public abstract void haveToDiscard() throws RemoteException;
 
-	public abstract void askPlayOrDiscard(String question);
+	public abstract void askPlayOrDiscard(String question) throws RemoteException;
 
 	public abstract void eventObject(String playerName, String cardClassName,
-			String message);
+			String message) throws RemoteException;
 
 	public abstract void eventAttack(String attacker, String location,
-			String message);
+			String message) throws RemoteException;
 
-	public abstract void eventNoise(String location);
+	public abstract void eventNoise(String location) throws RemoteException;
 
-	public abstract void eventDeath(String playerKilled, String message);
+	public abstract void eventDeath(String playerKilled, String message) throws RemoteException;
 
-	public abstract void eventEndGame();
+	public abstract void eventEndGame() throws RemoteException;
 
-	public abstract void endResults();
+	public abstract void endResults() throws RemoteException;
 
-	public abstract void eventFoundPlayer(String playerName, String location);
+	public abstract void eventFoundPlayer(String playerName, String location) throws RemoteException;
 
-	public abstract void eventDefense(String message);
+	public abstract void eventDefense(String message) throws RemoteException;
 	
-	public void eventPlayerEscaped(String playerName, String message);
+	public void eventPlayerEscaped(String playerName, String message) throws RemoteException;
 
 	public abstract void showMovementException(String exceptionMessage) throws RemoteException;
 

@@ -48,7 +48,11 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 			return false;
 		} else {
 			interfaceWithUser.setDefaultOption(defaultChoice);
-			interfaceWithUser.getClient().askForYesNo(message);
+			try {
+				interfaceWithUser.getClient().askForYesNo(message);
+			} catch (RemoteException e) {
+				log.warning("Cannot ask 'yes or no': " + e.getMessage());
+			}
 			String answer = interfaceWithUser.getAnswer();
 			if (answer.equals("yes")) {
 				return true;
@@ -71,7 +75,11 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 			return false;
 		} else {
 			interfaceWithUser.setDefaultOption(defaultChoice);
-			interfaceWithUser.getClient().askPlayOrDiscard(StringRes.getString("messaging.tooManyCardsHuman"));
+			try {
+				interfaceWithUser.getClient().askPlayOrDiscard(StringRes.getString("messaging.tooManyCardsHuman"));
+			} catch (RemoteException e) {
+				log.warning("Cannot ask 'play or discard': " + e.getMessage());
+			}
 			String answer = interfaceWithUser.getAnswer();
 			if (answer.equals("play")) {
 				return true;
@@ -81,7 +89,11 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 	}
 	
 	public void reportAskDiscard() {
-		interfaceWithUser.getClient().haveToDiscard();
+		try {
+			interfaceWithUser.getClient().haveToDiscard();
+		} catch (RemoteException e) {
+			log.warning("Cannot ask to discard a card: " + e.getMessage());
+		}
 	}
 
 	@Override

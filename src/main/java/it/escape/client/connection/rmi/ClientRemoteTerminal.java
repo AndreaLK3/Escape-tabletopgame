@@ -136,84 +136,84 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void askForYesNo(String question) {
+	public void askForYesNo(String question) throws RemoteException {
 		stateManager.setYesNoState();
 		terminal.visualizeMessage(question);
 
 	}
 
 	@Override
-	public void askForNoisePosition() {
+	public void askForNoisePosition() throws RemoteException {
 		String message = StringRes.getString("messaging.askForNoisePosition");
 		stateManager.setPositionState();
 		terminal.visualizeMessage(message);
 	}
 
 	@Override
-	public void askForLightsPosition() {
+	public void askForLightsPosition() throws RemoteException {
 		stateManager.setPositionState();
 		terminal.visualizeMessage(StringRes.getString("messaging.askForLightsPosition"));
 	}
 
 	@Override
-	public void whichObjectCard() {
+	public void whichObjectCard() throws RemoteException {
 		stateManager.setObjectCardState();
 		terminal.visualizeMessage(StringRes.getString("messaging.askWhichObjectCard"));
 	}
 
 	@Override
-	public void haveToDiscard() {
+	public void haveToDiscard() throws RemoteException {
 		terminal.visualizeMessage(StringRes.getString("messaging.tooManyCardsAlien"));
 
 	}
 
 	@Override
-	public void askPlayOrDiscard(String question) {
+	public void askPlayOrDiscard(String question) throws RemoteException {
 		stateManager.setOtherChoice();  // now we can handle it too
 		terminal.visualizeMessage(question);
 	}
 
 	@Override
-	public void eventObject(String playerName, String cardClassName, String message) {
+	public void eventObject(String playerName, String cardClassName, String message) throws RemoteException {
 		terminal.visualizeMessage(message);
 	}
 
 	@Override
-	public void eventAttack(String attacker, String location, String message) {
+	public void eventAttack(String attacker, String location, String message) throws RemoteException {
 		terminal.visualizeMessage(message);
 	}
 
 	@Override
-	public void eventNoise(String location) {
+	public void eventNoise(String location) throws RemoteException {
 		String msg = String.format(StringRes.getString("messaging.noise"), location);
 		terminal.visualizeMessage(msg);
 	}
 
 	@Override
-	public void eventDeath(String playerKilled, String message) {
+	public void eventDeath(String playerKilled, String message) throws RemoteException {
 		terminal.visualizeMessage(message);
 	}
 
 	@Override
-	public void eventEndGame() {
+	public void eventEndGame() throws RemoteException {
 		// TODO print something
 
 	}
 
 	@Override
-	public void endResults() {
+	public void endResults() throws RemoteException {
 		// TODO print something
 
 	}
 
 	@Override
-	public void eventFoundPlayer(String playerName, String location) {
+	public void eventFoundPlayer(String playerName, String location) throws RemoteException {
 		String msg = String.format(StringRes.getString("messaging.disclosePlayerPosition"), playerName, location);
 		terminal.visualizeMessage(msg);
 	}
 
 	@Override
-	public void eventDefense(String message) {
+	public void eventDefense(String message) throws RemoteException {
 		terminal.visualizeMessage(message);
 	}
 
@@ -252,7 +252,7 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void eventPlayerEscaped(String playerName, String message) {
+	public void eventPlayerEscaped(String playerName, String message) throws RemoteException {
 		stateManager.setFreeState();
 		terminal.visualizeMessage(message);
 		

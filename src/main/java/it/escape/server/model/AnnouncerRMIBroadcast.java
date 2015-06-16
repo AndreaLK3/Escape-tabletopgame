@@ -67,7 +67,11 @@ public class AnnouncerRMIBroadcast implements Announcer {
 		String location = CoordinatesConverter.fromCubicToAlphaNum(position);
 		
 		for (ClientRemoteInterface client : subscribed) {
-			client.eventAttack(attacker, location, message);
+			try {
+				client.eventAttack(attacker, location, message);
+			} catch (RemoteException e) {
+				LOG.warning("cannot announce attack: " + e.getMessage());
+			}
 		}
 
 	}
@@ -76,7 +80,11 @@ public class AnnouncerRMIBroadcast implements Announcer {
 	public void announceNoise(String location) {
 		location = CoordinatesConverter.prettifyAlphaNum(location);
 		for (ClientRemoteInterface client : subscribed) {
-			client.eventNoise(location);
+			try {
+				client.eventNoise(location);
+			} catch (RemoteException e) {
+				LOG.warning("cannot announce noise: " + e.getMessage());
+			}
 		}
 
 	}
@@ -87,7 +95,11 @@ public class AnnouncerRMIBroadcast implements Announcer {
 		String cardClassName = theCard.getClass().getSimpleName();
 		String message = StringRes.getString("messaging.playerIsUsingObjCard");
 		for (ClientRemoteInterface client : subscribed) {
-			client.eventObject(playerName, cardClassName, message);
+			try {
+				client.eventObject(playerName, cardClassName, message);
+			} catch (RemoteException e) {
+				LOG.warning("cannot announce player using object card: " + e.getMessage());
+			}
 		}
 
 	}
@@ -97,7 +109,11 @@ public class AnnouncerRMIBroadcast implements Announcer {
 		String message = StringRes.getString("messaging.playerDied");
 		String playerKilled = victim.getName();
 		for (ClientRemoteInterface client : subscribed) {
-			client.eventDeath(playerKilled, message);
+			try {
+				client.eventDeath(playerKilled, message);
+			} catch (RemoteException e) {
+				LOG.warning("cannot announce player's death: " + e.getMessage());
+			}
 		}
 
 	}
@@ -107,7 +123,11 @@ public class AnnouncerRMIBroadcast implements Announcer {
 		String msg = String.format(StringRes.getString("messaging.playerDefended"), 
 				CoordinatesConverter.fromCubicToAlphaNum(position));
 		for (ClientRemoteInterface client : subscribed) {
-			client.eventDefense(msg);
+			try {
+				client.eventDefense(msg);
+			} catch (RemoteException e) {
+				LOG.warning("cannot announce player's defense: " + e.getMessage());
+			}
 		}
 
 	}
@@ -121,7 +141,11 @@ public class AnnouncerRMIBroadcast implements Announcer {
 		String playerName = p.getName();
 		String location = CoordinatesConverter.fromCubicToAlphaNum(position);
 		for (ClientRemoteInterface client : subscribed) {
-			client.eventFoundPlayer(playerName, location);
+			try {
+				client.eventFoundPlayer(playerName, location);
+			} catch (RemoteException e) {
+				LOG.warning("cannot announce player's position: " + e.getMessage());
+			}
 		}
 
 	}
@@ -133,7 +157,11 @@ public class AnnouncerRMIBroadcast implements Announcer {
 										currentPlayer.getName(),
 										StringRes.getString("ship_name"));
 		for (ClientRemoteInterface client : subscribed) {
-			client.eventPlayerEscaped(playerName, message);
+			try {
+				client.eventPlayerEscaped(playerName, message);
+			} catch (RemoteException e) {
+				LOG.warning("cannot announce player escaped: " + e.getMessage());
+			}
 		}
 		
 
@@ -142,7 +170,11 @@ public class AnnouncerRMIBroadcast implements Announcer {
 	@Override
 	public void announceGameEnd() {
 		for (ClientRemoteInterface client : subscribed) {
-			client.eventEndGame();;
+			try {
+				client.eventEndGame();
+			} catch (RemoteException e) {
+				LOG.warning("cannot announce game end: " + e.getMessage());
+			};
 		}
 
 	}
@@ -150,7 +182,11 @@ public class AnnouncerRMIBroadcast implements Announcer {
 	@Override
 	public void announceEndOfResults() {
 		for (ClientRemoteInterface client : subscribed) {
-			client.endResults();
+			try {
+				client.endResults();
+			} catch (RemoteException e) {
+				LOG.warning("cannot announce end of results: " + e.getMessage());
+			}
 		}
 
 	}

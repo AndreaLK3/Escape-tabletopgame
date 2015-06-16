@@ -120,35 +120,35 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	}
 
 	@Override
-	public void askForYesNo(String question) {
+	public void askForYesNo(String question) throws RemoteException {
 		updaterSwing.askForYesNo(question);
 
 	}
 
 	@Override
-	public void askForNoisePosition() {
+	public void askForNoisePosition() throws RemoteException {
 		updaterSwing.askForNoisePosition();
 
 	}
 
 	@Override
-	public void askForLightsPosition() {
+	public void askForLightsPosition() throws RemoteException {
 		updaterSwing.askForLightsPosition();
 	}
 
 	@Override
-	public void whichObjectCard() {
+	public void whichObjectCard() throws RemoteException {
 		updaterSwing.whichObjectCard();
 	}
 
 	@Override
-	public void haveToDiscard() {
+	public void haveToDiscard() throws RemoteException {
 		updaterSwing.haveToDiscard();
 
 	}
 
 	@Override
-	public void askPlayOrDiscard(String question) {
+	public void askPlayOrDiscard(String question) throws RemoteException {
 		updaterSwing.askPlayOrDiscard(question);
 
 	}
@@ -160,49 +160,49 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 
 	@Override
 	public void eventObject(String playerName, String cardClassName,
-			String message) {
+			String message) throws RemoteException {
 		updaterSwing.eventObject(playerName, cardClassName, message);
 
 	}
 
 	@Override
-	public void eventAttack(String attacker, String location, String message) {
+	public void eventAttack(String attacker, String location, String message) throws RemoteException {
 		updaterSwing.eventAttack(attacker, location, message);
 
 	}
 
 	@Override
-	public void eventNoise(String location) {
+	public void eventNoise(String location) throws RemoteException {
 		updaterSwing.eventNoise(location);
 
 	}
 
 	@Override
-	public void eventDeath(String playerKilled, String message) {
+	public void eventDeath(String playerKilled, String message) throws RemoteException {
 		updaterSwing.eventDeath(playerKilled, message);
 
 	}
 
 	@Override
-	public void eventEndGame() {
+	public void eventEndGame() throws RemoteException {
 		updaterSwing.eventEndGame();
 
 	}
 
 	@Override
-	public void endResults() {
+	public void endResults() throws RemoteException {
 		updaterSwing.endResults();
 
 	}
 
 	@Override
-	public void eventFoundPlayer(String playerName, String location) {
+	public void eventFoundPlayer(String playerName, String location) throws RemoteException {
 		updaterSwing.eventFoundPlayer(playerName, location);
 
 	}
 
 	@Override
-	public void eventDefense(String message) {
+	public void eventDefense(String message) throws RemoteException {
 		updaterSwing.eventDefense(message);
 
 	}
@@ -236,7 +236,7 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 
 
 	@Override
-	public void eventPlayerEscaped(String playerName, String message) {
+	public void eventPlayerEscaped(String playerName, String message) throws RemoteException {
 		updaterSwing.eventPlayerEscaped(playerName, message);
 		
 	}

@@ -631,7 +631,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#askForYesNo(java.lang.String)
 	 */
 	@Override
-	public void askForYesNo(String question) {
+	public void askForYesNo(String question) throws RemoteException {
 		LOG.finer("Server asked yes/no question");
 		view.relayYesNoDialog(question);
 	}
@@ -640,7 +640,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#askForNoisePosition()
 	 */
 	@Override
-	public void askForNoisePosition() {
+	public void askForNoisePosition() throws RemoteException {
 		LOG.finer("Server asked to place a noise");
 		view.notifyUser("Select the sector you want to make a noise in");
 		view.bindPositionSender();
@@ -650,7 +650,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#askForLightsPosition()
 	 */
 	@Override
-	public void askForLightsPosition() {
+	public void askForLightsPosition() throws RemoteException {
 		LOG.finer("Server asked where to turn the Lights on");
 		view.notifyUser("Select the sector where you want to turn the lights on");
 		view.bindPositionSender();
@@ -660,7 +660,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#whichObjectCard()
 	 */
 	@Override
-	public void whichObjectCard() {
+	public void whichObjectCard() throws RemoteException {
 		LOG.finer("Server asked an object card");
 		view.relayObjectCard();
 	}
@@ -669,7 +669,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#haveToDiscard()
 	 */
 	@Override
-	public void haveToDiscard() {
+	public void haveToDiscard() throws RemoteException {
 		LOG.finer("Server asked to discard a card");
 		view.relayObjectCard();
 	}
@@ -678,7 +678,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#askPlayOrDiscard(java.lang.String)
 	 */
 	@Override
-	public void askPlayOrDiscard(String question) {
+	public void askPlayOrDiscard(String question) throws RemoteException {
 		LOG.finer("Server asked to play or discard a card");
 		view.relayYesNoDialog(question, "play", "discard");
 	}
@@ -690,7 +690,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#eventObject(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void eventObject(String playerName, String cardClassName, String message) {
+	public void eventObject(String playerName, String cardClassName, String message) throws RemoteException {
 		if (!isMe(playerName)) { // it's not me
 			view.notifyUser(message);
 		}
@@ -705,7 +705,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#eventAttack(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void eventAttack(String attacker, String location, String message) {
+	public void eventAttack(String attacker, String location, String message) throws RemoteException {
 		if (!isMe(attacker)) { // it's not me
 			view.notifyUser(message);
 		}
@@ -717,7 +717,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#eventNoise(java.lang.String)
 	 */
 	@Override
-	public void eventNoise(String location) {
+	public void eventNoise(String location) throws RemoteException {
 		model.getNowPlaying().setLastNoiseLocation(location);
 		model.finishedUpdating();
 		view.addNoiseToMap(location);
@@ -728,7 +728,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#eventDeath(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void eventDeath(String playerKilled, String message) {
+	public void eventDeath(String playerKilled, String message) throws RemoteException {
 		model.getSpecificPlayerState(playerKilled).setMyStatus(CurrentPlayerStatus.DEAD);
 		if (isMe(playerKilled))
 			model.getMyPlayerState().setMyStatus(CurrentPlayerStatus.DEAD);
@@ -740,7 +740,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#eventEndGame()
 	 */
 	@Override
-	public void eventEndGame() {
+	public void eventEndGame() throws RemoteException {
 		model.setGameStatus(GameStatus.FINISHED);
 		model.finishedUpdating();
 	}
@@ -749,7 +749,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#endResults()
 	 */
 	@Override
-	public void endResults() {
+	public void endResults() throws RemoteException {
 		LOG.finer("Server sent results, printing recap screen");
 		view.spawnVictoryRecap(model);
 	}
@@ -758,7 +758,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#eventFoundPlayer(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void eventFoundPlayer(String playerName, String location) {
+	public void eventFoundPlayer(String playerName, String location) throws RemoteException {
 		if (!isMe(playerName)) { // it's not me
 			view.addOtherPlayerToMap(location, playerName);
 			view.focusOnLocation(location, 0);
@@ -771,11 +771,11 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.client.controller.gui.ClientProceduresInterface#eventDefense(java.lang.String)
 	 */
 	@Override
-	public void eventDefense(String message) {
+	public void eventDefense(String message) throws RemoteException {
 		view.notifyUser(message);
 	}
 	
-	public void eventPlayerEscaped(String playerName, String message) {
+	public void eventPlayerEscaped(String playerName, String message) throws RemoteException {
 		model.getSpecificPlayerState(playerName).setMyStatus(CurrentPlayerStatus.WINNER);
 		model.finishedUpdating();
 		if (!isMe(playerName)) {
