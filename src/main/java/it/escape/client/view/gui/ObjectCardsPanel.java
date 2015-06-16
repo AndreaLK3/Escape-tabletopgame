@@ -19,8 +19,6 @@ public class ObjectCardsPanel extends JPanel {
 	
 	private List<JRadioButton> objectCardsButtons;
 	private ButtonGroup group;
-	
-
 
 	private ItemListener radioListener;
 	private String chosenCardName;
@@ -42,6 +40,7 @@ public class ObjectCardsPanel extends JPanel {
 		for (String cardName : cards) {
 			addCardButton(cardName);
 		}
+	
 	}
 	
 	/**This method creates a JRadioButton with the given cardName and the corresponding image.
@@ -55,9 +54,7 @@ public class ObjectCardsPanel extends JPanel {
 
 		cardButton.addItemListener(radioListener);
 		objectCardsButtons.add(cardButton);
-		group.add(cardButton);
-		
-		
+		group.add(cardButton);	
 	}
 	
 	
@@ -130,9 +127,8 @@ public class ObjectCardsPanel extends JPanel {
 			if (event.getSource() instanceof JRadioButton) {
 				JRadioButton button = (JRadioButton) event.getSource();
 				chosenCardName = button.getText();
+				group.clearSelection();
 				}
-			
-			
 		}
 	}
 	

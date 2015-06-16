@@ -434,7 +434,6 @@ public abstract class DumbSwingView extends JFrame {
 									JOptionPane.showMessageDialog(null, "You have chosen the " + chosenObjectCard  + " card.");
 								}
 								relayRef.relayMessage(chosenObjectCard);	
-								objectCardsPanel.getGroup().clearSelection();
 								doRelayObjectCard = false;
 							}
 							else {
