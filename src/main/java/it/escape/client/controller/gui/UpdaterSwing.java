@@ -6,6 +6,9 @@ import it.escape.client.controller.Updater;
 import it.escape.client.model.CurrentPlayerStatus;
 import it.escape.client.model.GameStatus;
 import it.escape.client.model.ModelForGUI;
+import it.escape.server.model.game.exceptions.DestinationUnreachableException;
+import it.escape.server.model.game.exceptions.PlayerCanNotEnterException;
+import it.escape.server.model.game.exceptions.WrongCardException;
 import it.escape.strings.FormatToPattern;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
@@ -134,11 +137,14 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		event_PlayerEscaped = new FormatToPattern(StringRes.getString("messaging.playerEscaped")).convert();
 		
 		//These ones are necessary so that we can display the JInputDialog (ex, for the position) again.
-		//There will be a dialog that displays the exception message (whatever it is) and
-		//the view will have to repeat the last dialog display...
-		exception_1 = new FormatToPattern(StringRes.getString("messaging.exceptions.playerCanNotEnter")).convert();
-		exception_2 = new FormatToPattern(StringRes.getString("messaging.exceptions.destinationUnreachable")).convert();
-		exception_3 = new FormatToPattern(StringRes.getString("messaging.exceptions.wrongCard")).convert();
+		//There is a dialog that displays the exception message (whatever it is) and
+		//then the view will have to repeat the last dialog display.
+		Exception exception1 = new PlayerCanNotEnterException();
+		Exception exception2 = new DestinationUnreachableException();
+		Exception exception3 = new WrongCardException();
+		exception_1 = new FormatToPattern(exception1.getClass().getSimpleName() + " : " + StringRes.getString("messaging.exceptions.playerCanNotEnter")).convert();
+		exception_2 = new FormatToPattern(exception2.getClass().getSimpleName() + " : " + StringRes.getString("messaging.exceptions.destinationUnreachable")).convert();
+		exception_3 = new FormatToPattern(exception3.getClass().getSimpleName() + " : " + StringRes.getString("messaging.exceptions.wrongCard")).convert();
 		
 	}
 	
@@ -810,8 +816,9 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	@Override
 	public void showMovementException(String exceptionMessage) throws RemoteException { 
 		LOG.finer("Server reported : movement is impossible." );
+		askForMovement();	//TODO: I have to check if it is necessary
 		view.notifyUser(exceptionMessage);
-		askForMovement();
+		
 	}
 	
 	/* (non-Javadoc)
