@@ -425,7 +425,7 @@ public abstract class DumbSwingView extends JFrame {
 					new Runnable() {
 						public void run() {
 							if (doRelayObjectCard) {
-								chosenObjectCard = "none";
+								chosenObjectCard = null;
 								do {
 								JOptionPane.showConfirmDialog(null, objectCardsPanel.getPlayableButtonsAsArray(), 
 										"Your object cards", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -436,7 +436,7 @@ public abstract class DumbSwingView extends JFrame {
 								else {
 									JOptionPane.showMessageDialog(null, "You have chosen the " + chosenObjectCard  + " card.");
 								}
-								}while(chosenObjectCard.equals("none"));	//note: the user must choose a valid object card name
+								}while(chosenObjectCard == null);	//note: the user must choose a valid object card name
 																			//(even an unplayable one).
 								relayRef.relayMessage(chosenObjectCard);	//This line sends the name of the chosen objectCard to the Server
 								doRelayObjectCard = false;					//This line resets the variable.

@@ -492,6 +492,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	public void setStartETA(String message) throws RemoteException {
 		LOGGER.finer("Setting game start ETA");
 		model.setGameStatus(GameStatus.GOING_TO_START);
+		model.getMyPlayerState().setMyStatus(CurrentPlayerStatus.CONNECTED);
 		model.finishedUpdating();
 		view.setTurnStatusString(message);
 	}
