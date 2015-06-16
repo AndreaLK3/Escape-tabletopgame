@@ -98,14 +98,40 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 
 	@Override
 	public String askWhichObjectCard(String defaultCard) {
-
-		return null;
+		String defaultChoice = defaultCard;
+		
+		if (automaticOverriding) {
+			log.finer("automaticOverriding: return " + defaultChoice);
+			return defaultChoice;
+		} else {
+			String card;
+			try {
+				interfaceWithUser.getClient().whichObjectCard();
+			} catch (RemoteException e) {
+				log.warning("Cannot ask for object card: " + e.getMessage());
+			}
+			card = interfaceWithUser.getAnswer();
+			return card;
+		}
 	}
 
 	@Override
 	public MoveCommand askForMovement(String playerCurrentPos) {
-		// TODO Auto-generated method stub
-		return null;
+		String defaultChoice = playerCurrentPos;
+		
+		if (automaticOverriding) {
+			log.finer("automaticOverriding: return " + defaultChoice);
+			return new MoveCommand(defaultChoice);
+		} else {
+			String destination;
+			try {
+				interfaceWithUser.getClient().askForMovement();
+			} catch (RemoteException e) {
+				log.warning("Cannot ask for movement: " + e.getMessage());
+			}
+			destination = interfaceWithUser.getAnswer();
+			return new MoveCommand(destination);
+		}
 	}
 
 	@Override

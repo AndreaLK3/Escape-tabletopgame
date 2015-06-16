@@ -228,7 +228,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 
 	@Override
 	public void announceChatMessage(PlayerActionInterface player, String message) {
-		String author = player.toString();
+		String author = player.getName();
 		for (ClientRemoteInterface client : subscribed) {
 			try {
 				client.visualizeChatMsg(author, message);

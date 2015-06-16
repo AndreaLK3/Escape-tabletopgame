@@ -15,17 +15,15 @@ import it.escape.strings.StringRes;
  * The method relayMessage(String message) gives the connection the order to send a message.
  * The method disconnectNow() gives the connection the order to terminate.
  */
-public class Relay {
+public abstract class Relay {
 	
-	private ClientStringChannelInterface communication;
+	protected ClientStringChannelInterface communication;
 
 	public Relay(ClientStringChannelInterface communication) {
 		this.communication = communication;
 	}
 	
-	public void relayMessage(String message) {
-		communication.sendMessage(message);
-	}
+	public abstract void relayMessage(String message);
 	
 	public void disconnectNow() {
 		communication.killConnection();

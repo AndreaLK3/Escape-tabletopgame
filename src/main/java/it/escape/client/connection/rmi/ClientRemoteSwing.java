@@ -10,6 +10,7 @@ import it.escape.client.controller.gui.ClientProceduresInterface;
  * These methods, in turn, invoke the appropriate methods inside UpdaterSwing */
 public class ClientRemoteSwing implements ClientRemoteInterface {
 
+	private int id;
 	
 	private ClientProceduresInterface updaterSwing;
 	
@@ -242,6 +243,17 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 	@Override
 	public void failedEscape() throws RemoteException {
 		// TODO do something
+	}
+
+
+	@Override
+	public void setID(int clientID) throws RemoteException {
+		this.id = clientID;
+	}
+
+	@Override
+	public int getID() throws RemoteException {
+		return id;
 	}
 	
 

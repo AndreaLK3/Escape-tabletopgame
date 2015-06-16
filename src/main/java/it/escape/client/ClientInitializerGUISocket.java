@@ -3,6 +3,7 @@ package it.escape.client;
 import it.escape.client.connection.socket.ClientSocketChannel;
 import it.escape.client.controller.ClientStringChannelInterface;
 import it.escape.client.controller.Relay;
+import it.escape.client.controller.RelayForSocket;
 import it.escape.client.controller.gui.UpdaterSwing;
 import it.escape.client.model.ModelForGUI;
 import it.escape.client.view.gui.SmartSwingView;
@@ -45,7 +46,7 @@ public class ClientInitializerGUISocket {
 			
 			pleaseWait.dispose();  // remove the "connecting..." dialog
 			// initialize other stuff, like the controller
-			relay = new Relay((ClientStringChannelInterface) connection);
+			relay = new RelayForSocket((ClientStringChannelInterface) connection);
 			model = new ModelForGUI();
 			updater = new UpdaterSwing(model);
 			connection.addObserver(updater);

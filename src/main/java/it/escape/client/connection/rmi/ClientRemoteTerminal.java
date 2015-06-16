@@ -18,6 +18,7 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 
 	private StateManagerCLIInterface stateManager;
 	private Terminal terminal;
+	private int id;
 	
 	/**The constructor; it initializes the stateManager and the Terminal references.*/
 	public ClientRemoteTerminal(StateManagerCLIInterface stateManager, Terminal terminal) {
@@ -277,6 +278,16 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	@Override
 	public void failedEscape() throws RemoteException {
 		terminal.visualizeMessage(StringRes.getString("messaging.EscapeHatchDoesNotWork"));
+	}
+	
+	@Override
+	public void setID(int clientID) throws RemoteException {
+		this.id = clientID;
+	}
+
+	@Override
+	public int getID() throws RemoteException {
+		return id;
 	}
 
 }

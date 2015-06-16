@@ -32,14 +32,24 @@ public class MessagingChannelRMI implements MessagingChannelInterface {
 	
 	private String answer;
 	
+	private static int idGenerator = 0;
+	
+	private int clientIdentifier;
+	
 	public MessagingChannelRMI(ClientRemoteInterface client, ServerRemoteInterface server) {
 		LogHelper.setDefaultOptions(LOG);
 		this.client = client;
 		this.server = server;
+		this.clientIdentifier = idGenerator;
+		idGenerator++;
 	}
 
 	public ClientRemoteInterface getClient() {
 		return client;
+	}
+	
+	public int getID() {
+		return clientIdentifier;
 	}
 	
 	public synchronized String getAnswer() {

@@ -9,4 +9,8 @@ public interface ClientRemoteInterface extends Remote, ClientProceduresInterface
 
 	public abstract void showMessageInTerminal (String message) throws RemoteException;
 	
+	public abstract void setID(int clientID) throws RemoteException;
+	
+	public abstract int getID() throws RemoteException;
+	
 }

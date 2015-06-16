@@ -2,6 +2,7 @@ package it.escape.client;
 
 import it.escape.client.connection.socket.ClientSocketChannel;
 import it.escape.client.controller.Relay;
+import it.escape.client.controller.RelayForSocket;
 import it.escape.client.controller.cli.StateManagerCLIInterface;
 import it.escape.client.controller.cli.UpdaterCLI;
 import it.escape.client.controller.cli.UpdaterCLItoTerminalInterface;
@@ -40,7 +41,7 @@ public class ClientInitializerCLISocket {
 					locals.getDestinationServerAddress(),
 					locals.getServerPort());
 			stateManager = new StateManagerCLI();
-			relay = new Relay(connection);
+			relay = new RelayForSocket(connection);
 			view = new Terminal(relay, stateManager, in, out);
 			updater = new UpdaterCLI((StateManagerCLIInterface)stateManager,
 					(UpdaterCLItoTerminalInterface)view);

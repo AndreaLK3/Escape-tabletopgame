@@ -41,8 +41,12 @@ public class ServerRMI implements ServerRemoteInterface {
 	
 	private MessagingChannelRMI findChannel(ClientRemoteInterface client) {
 		for (MessagingChannelRMI c : clientsList) {
-			if (c.getClient() == client) {
-				return c;
+			try {
+				if (c.getClient().getID() == client.getID()) {
+					return c;
+				}
+			} catch (RemoteException e) {
+				LOG.warning("Could not ask the client for its ID");
 			}
 		}
 		return null;
@@ -58,6 +62,7 @@ public class ServerRMI implements ServerRemoteInterface {
 	public void registerClient(ClientRemoteInterface client) throws RemoteException {
 		MessagingChannelInterface channel = new MessagingChannelRMI(client, this);
 		clientsList.add((MessagingChannelRMI) channel);
+		client.setID(((MessagingChannelRMI) channel).getID());
 		UserMessagesReporter.createUMR(channel);
 		Master.newPlayerHasConnected(channel, locals);
 		SuperAnnouncer superAnnouncer = (SuperAnnouncer) UserMessagesReporter.getReporterInstance(channel).getAnnouncer();
@@ -94,7 +99,8 @@ public class ServerRMI implements ServerRemoteInterface {
 		if (pla != null) {
 			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
 			Master.getGameMasterOfPlayer(player).renamePlayer(player, message);
-		}
+		} else
+			LOG.warning("MessagingChannelInterface is missing");
 		LOG.info("Client " + client.toString() + " renamed himself");
 	}
 
@@ -104,7 +110,8 @@ public class ServerRMI implements ServerRemoteInterface {
 		if (pla != null) {
 			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
 			Master.getGameMasterOfPlayer(player).globalChat(player, message);
-		}
+		} else
+			LOG.warning("MessagingChannelInterface is missing");
 		LOG.info("Client " + client.toString() + " sent a chat message");
 	}
 
@@ -114,7 +121,8 @@ public class ServerRMI implements ServerRemoteInterface {
 		if (pla != null) {
 			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
 			((MessagingChannelRMI) pla).getClient().renameMyself(player.getName());
-		}
+		} else
+			LOG.warning("MessagingChannelInterface is missing");
 		LOG.info("Client " + client.toString() + " sent whoami");
 	}
 
@@ -125,7 +133,8 @@ public class ServerRMI implements ServerRemoteInterface {
 			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
 			String myPos = Master.getGameMasterOfPlayer(player).getPlayerPosition(player);
 			((MessagingChannelRMI) pla).getClient().setMyPosition(myPos);
-		}
+		} else
+			LOG.warning("MessagingChannelInterface is missing");
 		LOG.info("Client " + client.toString() + " sent whereami");
 	}
 
@@ -134,7 +143,8 @@ public class ServerRMI implements ServerRemoteInterface {
 		MessagingChannelRMI chan = findChannel(client);
 		if (chan != null) {
 			chan.setAnswer(answer);
-		}
+		} else
+			LOG.warning("MessagingChannelInterface is missing");
 		LOG.info("Client " + client.toString() + " sent answer: " + answer);
 	}
 	
