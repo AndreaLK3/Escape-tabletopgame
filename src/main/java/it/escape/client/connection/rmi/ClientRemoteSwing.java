@@ -241,7 +241,7 @@ public class ClientRemoteSwing implements ClientRemoteInterface {
 
 	@Override
 	public void failedEscape() throws RemoteException {
-		// TODO do something
+		updaterSwing.failedEscape();
 	}
 
 

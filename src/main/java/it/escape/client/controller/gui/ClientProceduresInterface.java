@@ -1,9 +1,14 @@
 package it.escape.client.controller.gui;
 
 import java.rmi.RemoteException;
-// TODO: very big: all those methods must throw RemoteException to be exported by RMI;
-// this won't change anything in the socket routines (except adding a 
-// very paranoid try-catch in UpdaterSwing)
+
+
+/**This interface contains the methods that are in UpdaterSwing.
+ * ClientRemoteInterface extends this interface.
+ * Note: all those methods must throw RemoteException to be exported by RMI;
+ * this doesn't change anything in the socket routines (except adding a 
+ * very paranoid try-catch in UpdaterSwing)
+ * @author andrea, michele */
 public interface ClientProceduresInterface {
 
 	public abstract void setMap(String mapname) throws RemoteException;

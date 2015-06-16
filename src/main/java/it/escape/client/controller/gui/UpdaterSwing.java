@@ -830,8 +830,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	public void showMovementException(String exceptionMessage) throws RemoteException { 
 		LOGGER.finer("Server reported : movement is impossible." );
 		view.notifyUser(exceptionMessage);
-		askForMovement();	//TODO: I have to check if it is necessary
-		
+		//Since the Server sends the String "You have to move your character on the map" again,
+		//it is not necessary to invoke askForMovement
 	}
 	
 	/* (non-Javadoc)
@@ -841,7 +841,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	public void showWrongCardException(String exceptionMessage) throws RemoteException {
 		LOGGER.finer("Server reported : that Card can't be played now." );
 		view.notifyUser(exceptionMessage);
-		askForYesNo(StringRes.getString("messaging.askPlayObjectCard"));
+		//Since the Server sends the String with the question "Do you want to play an Object Card?" again,
+		//it is not necessary to invoke askForObjectCard
 	}
 
 	
