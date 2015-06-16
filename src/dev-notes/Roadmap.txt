@@ -1,12 +1,22 @@
 Current tasks:
 
 (AL):
-1) Giocare qualche partita per vedere se RMI funziona.
+1) Il Funzionamento di RMI:
+	a) Le Carte Oggetto non funzionano come dovrebbero. chosenObjectCard non viene resettata nè aggiornata come dovrebbe...
+	Sto pensando di usare una lista (JComboBox? Poi vedo) invece dei RadioButtons sul Panel.
+	
+	b) Gestire la disconnessione RMI, invece di avere "Connection refused" che continua all'infinito.
+
+	c) Il codice per i metodi delle eccezioni è lì, ma le eccezioni non vengono mostrate su Swing :( .
+
+	d) aggiungere ClientTextRMIInitializer, per far partire il Client di testo con RMI
+
+	e) BUG: Nel funzionamento di base (Socket + testo), quando un giocatore si disconnette *durante il suo turno* il Server non riporta la fine e i risultati correttamente.
+	Potrebbe essere collegato al bug dell'override.
 
 2) Aggiustare il funzionamento dell'override, che non funziona ancora come dovrebbe.(Forse serve un Sequence Diagram) Prova del 9: far giocare 2 giocatori inattivi
 
-3) Modificare il launcher: un unico dialogo per le opzioni Socket vs. RMI e Text vs. Swing. 
-(Come alternativa potrebbe anche essere mostrato quando si clicca il bottone "StartClient", invece che avere uno Wizard)
+3) Modificare il launcher: un unico dialogo per le opzioni Socket vs. RMI e Text vs. Swing. [MM]
 
 4) Print dei risultati: fornire informazioni più complete al Client-Model, e mostrarle poi nel VictoryPanel di Swing 
 
@@ -18,6 +28,12 @@ n: chiamare il log LOGGER
 7) Preparare il Documento di presentazione con : lista dei Design pattern utilizzati, 
 +  breve commento e diagrammi di sequenza (aggiornati) e diagrammi delle classi per ciascuna parte del progetto 
 
+
+
+
+
+/*Mi sa che in questo modo si finisce alla settimana prossima, ma va bene lo stesso. 
+Per 1 punto di differenza (e per principio), meglio consegnare dopo una cosa fatta bene e ripulita.*/
 
 
 __________________________________________________________
@@ -36,15 +52,14 @@ A fine partita, gli altri restano con la finestra aperta[Questo è ok], lo statu
 e nessuna indicazione dei risultati finali [aggiungere pattern... multipli pattern per produrre un solo Dialog?]
 ^^^^^ (MM): aggiunto al model un contenitore dei dati di vittoria / sconfitta
 
-(AL)
-Esaminare i log delle partite e risolvere le issues indicate lì (che sono in buona parte Server-side)
-^^^^^^^^
-Per la maggior parte risolte.
-
 
 __________________________________________________________
 Notes about other tasks:
 
+(AL)
+Esaminare i log delle partite e risolvere le issues indicate lì (che sono in buona parte Server-side)
+^^^^^^^^
+Per la maggior parte risolte.
 
 Problemino con la GUI: non chiede all'utente umano PlayCardOrDiscard, anche se ho scritto buona parte del codice e in teoria dovrebbe funzionare.
 ^^^^^ (MM): credo sia risolto, un paio di "" messe dove non dovevano
