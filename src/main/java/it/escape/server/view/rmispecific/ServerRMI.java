@@ -7,6 +7,7 @@ import it.escape.server.controller.UserMessagesReporter;
 import it.escape.server.controller.UserMessagesReporterSocket;
 import it.escape.server.model.AnnouncerRMIBroadcast;
 import it.escape.server.model.SuperAnnouncer;
+import it.escape.server.model.Announcer;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingChannelInterface;
 import it.escape.server.view.MessagingChannelRMI;
@@ -85,8 +86,17 @@ public class ServerRMI implements ServerRemoteInterface {
 		MessagingChannelRMI del = findChannel(client);
 		if (del != null) {
 			clientsList.remove(del);
-			((AnnouncerRMIBroadcast) UserMessagesReporter.getReporterInstance(del).getAnnouncer()).unSubscribe(client);
+			Announcer clientRMIAnnouncer =  UserMessagesReporter.getReporterInstance(del).getAnnouncer();
+			if (clientRMIAnnouncer instanceof AnnouncerRMIBroadcast) {
+				((AnnouncerRMIBroadcast)clientRMIAnnouncer).unSubscribe(client);
+			}
+			
 		}
+	}
+
+	private AnnouncerRMIBroadcast Announcer(AnnouncerRMIBroadcast announcer) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

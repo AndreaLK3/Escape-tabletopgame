@@ -44,7 +44,7 @@ import java.util.logging.Logger;
 
 public class GameMaster implements Runnable {
 
-	private static final Logger LOG = Logger.getLogger( GameMaster.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( GameMaster.class.getName() );
 	
 	private final int id; 
 	
@@ -92,7 +92,7 @@ public class GameMaster implements Runnable {
 	
 	/** The constructor */
 	public GameMaster(MapActionInterface map, int id, ServerLocalSettings locals, Announcer announcer) {
-		LogHelper.setDefaultOptions(LOG);
+		LogHelper.setDefaultOptions(LOGGER);
 		this.id = id;
 		this.map = map;
 		this.locals = locals;
@@ -116,7 +116,7 @@ public class GameMaster implements Runnable {
 	public synchronized void run() {
 		timeoutTicking.set(true);
 		started_countdown = (int) System.currentTimeMillis();
-		LOG.fine(String.format(StringRes.getString("controller.gamemaster.gameStartTimeout"), WAIT_TIMEOUT/1000));
+		LOGGER.fine(String.format(StringRes.getString("controller.gamemaster.gameStartTimeout"), WAIT_TIMEOUT/1000));
 		announcer.announceGameStartETA(WAIT_TIMEOUT / 1000);
 		try {
 			wait(WAIT_TIMEOUT);
@@ -125,7 +125,7 @@ public class GameMaster implements Runnable {
 		if (numPlayers >= GameMaster.MINPLAYERS) {  // someone disconnected in the meantime? no? good.
 			timeoutTicking.set(false);
 			startGameAndWait();
-			LOG.fine("GameMaster tasks completed, thread will now stop");
+			LOGGER.fine("GameMaster tasks completed, thread will now stop");
 		} else {
 			// TODO: logging / inform users
 			ownThread = null;  // one last thing: erase the reference, so that the thread will be dead for good
@@ -143,10 +143,10 @@ public class GameMaster implements Runnable {
 		shufflePlayers();
 		greetPlayers();
 		gameRunning = true;
-		LOG.info(StringRes.getString("controller.gamemaster.startingGame"));
+		LOGGER.info(StringRes.getString("controller.gamemaster.startingGame"));
 		launchWorkerThreads();
 		waitForFinish();
-		LOG.info(StringRes.getString("controller.gamemaster.gameFinished"));
+		LOGGER.info(StringRes.getString("controller.gamemaster.gameFinished"));
 		finalVictoryCheck();
 		// TODO: if we had a persistent scoreboard, here's where we would update it
 		closeConnections();
@@ -208,17 +208,17 @@ public class GameMaster implements Runnable {
 		if (!isFinished()) {
 			announcer.announcePlayerDisconnected(player);
 			if (!isRunning()) {
-				LOG.info("Player disconnected while the game was not up");
+				LOGGER.info("Player disconnected while the game was not up");
 				listOfPlayers.remove(player);
 				numPlayers--;
 			}
 			else {
 				player.setUserIdle(true);
 				if (getNumActivePlayers() < GameMaster.MINPLAYERS) {
-					LOG.info("Too few players left. Terminating game.");
+					LOGGER.info("Too few players left. Terminating game.");
 					this.timeController.extraordinaryGameKill();
 				} else if (victoryChecker.entireTeamDisconnected()) {
-					LOG.info("Team disconnected. Terminating game.");
+					LOGGER.info("Team disconnected. Terminating game.");
 					this.timeController.extraordinaryGameKill();
 				}
 			}
@@ -231,15 +231,15 @@ public class GameMaster implements Runnable {
 	 */
 	public void instaStopGame() {
 		if (isRunning()) {
-			LOG.info("Terminating game now!");
+			LOGGER.info("Terminating game now!");
 			this.timeController.extraordinaryGameKill();
 			try {
 				ownThread.join();  // wait for the thread to actually terminate
 			} catch (InterruptedException e) {
 			}
-			LOG.fine("Game terminated.");
+			LOGGER.fine("Game terminated.");
 		} else {
-			LOG.info("No running game to terminate");
+			LOGGER.info("No running game to terminate");
 		}
 	}
 	

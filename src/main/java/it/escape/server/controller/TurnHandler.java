@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  */
 public abstract class TurnHandler {
 	
-	protected static final Logger LOG = Logger.getLogger( TurnHandler.class.getName() );
+	protected static final Logger LOGGER = Logger.getLogger( TurnHandler.class.getName() );
 	
 	protected UserMessagesReporter reporter;
 	protected CardAction cardAction;
@@ -56,7 +56,7 @@ public abstract class TurnHandler {
 	public void executeTurnSequence() {
 		hailPlayer();
 		if (currentPlayer.isUserIdle()) {  // player idle
-			LOG.fine(StringRes.getString("controller.turnhandler.skipIdle"));
+			LOGGER.fine(StringRes.getString("controller.turnhandler.skipIdle"));
 		} else {
 			if (currentPlayer.isAlive()) {  // player respondind and alive
 				initialize();  // step 0
@@ -66,7 +66,7 @@ public abstract class TurnHandler {
 				turnAfterMove();  // step 3
 				deInitialize();  // cleanup (stop filling default options)
 			} else {  // player responding but dead
-				LOG.fine(StringRes.getString("controller.turnhandler.skipDead"));
+				LOGGER.fine(StringRes.getString("controller.turnhandler.skipDead"));
 			}
 		}
 		farewellPlayer();
@@ -98,7 +98,7 @@ public abstract class TurnHandler {
 				endObjectCard = true;
 				
 			} catch (CardNotPresentException e) {	//CardNotExistingException
-				LOG.finer(e.getClass().getSimpleName() + " " + e.getMessage());
+				LOGGER.finer(e.getClass().getSimpleName() + " " + e.getMessage());
 				endObjectCard = false;
 			}
 		} while (!endObjectCard);
@@ -113,7 +113,7 @@ public abstract class TurnHandler {
 	 */
 	protected void commonLandingLogic() {
 		cardAction = cellAction.execute(currentPlayer, map, decks);
-		LOG.finer(currentPlayer.getName() + " has drawn: " + cardAction.getClass().getSimpleName());
+		LOGGER.finer(currentPlayer.getName() + " has drawn: " + cardAction.getClass().getSimpleName());
 		cardAction.execute(currentPlayer, map, decks);  // make noise/silence/whatever
 		if (cardAction.hasObjectCard()) {
 			cardAction = new DrawObjectCard();
@@ -153,19 +153,19 @@ public abstract class TurnHandler {
 					currentPlayer.setHasMoved(true);
 				} catch (PlayerCanNotEnterException e) {
 					String exceptionMessage = e.getClass().getSimpleName() + " : " + e.getMessage();
-					LOG.finer(exceptionMessage);
+					LOGGER.finer(exceptionMessage);
 					reporter.relayMessage(exceptionMessage);
 				} catch (BadCoordinatesException e) {
 					String exceptionMessage = e.getClass().getSimpleName() + " : " + e.getMessage();
-					LOG.finer(exceptionMessage);
+					LOGGER.finer(exceptionMessage);
 					reporter.relayMessage(exceptionMessage);
 				} catch (CellNotExistsException e) {
 					String exceptionMessage = e.getClass().getSimpleName() + " : " + e.getMessage();
-					LOG.finer(exceptionMessage);
+					LOGGER.finer(exceptionMessage);
 					reporter.relayMessage(exceptionMessage);
 				} catch (DestinationUnreachableException e) {
 					String exceptionMessage = e.getClass().getSimpleName() + " : " + e.getMessage();
-					LOG.finer(exceptionMessage);
+					LOGGER.finer(exceptionMessage);
 					reporter.relayMessage(exceptionMessage);
 				} 
 			

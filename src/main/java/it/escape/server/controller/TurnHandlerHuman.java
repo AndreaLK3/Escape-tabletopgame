@@ -33,7 +33,7 @@ public class TurnHandlerHuman extends TurnHandler {
 					return;
 				}
 				objectCard = currentPlayer.drawCard(key);  // this card is removed from the player's hand									   			
-				LOG.finer("User selected card: " + objectCard.getClass().getSimpleName());
+				LOGGER.finer("User selected card: " + objectCard.getClass().getSimpleName());
 				
 					if (canPlayObjectCard(objectCard)) {
 						objectCardAction = objectCard.getObjectAction();
@@ -46,7 +46,7 @@ public class TurnHandlerHuman extends TurnHandler {
 					}
 			} catch (WrongCardException e) {
 				String exceptionMessage = e.getClass().getSimpleName() + " : " + e.getMessage();
-				LOG.finer(exceptionMessage);
+				LOGGER.finer(exceptionMessage);
 				reporter.relayMessage(exceptionMessage);
 				if (reporter.askIfObjectCard()) {
 					endObjectCard = false;
@@ -55,7 +55,7 @@ public class TurnHandlerHuman extends TurnHandler {
 				}
 			} catch (CardNotPresentException e) {	
 				String exceptionMessage = e.getClass().getSimpleName();
-				LOG.finer(exceptionMessage);
+				LOGGER.finer(exceptionMessage);
 				reporter.relayMessage(exceptionMessage);
 				if (reporter.askIfObjectCard()) {
 					endObjectCard = false;
