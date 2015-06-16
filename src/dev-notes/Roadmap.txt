@@ -1,16 +1,18 @@
 Current tasks:
 
 (AL):
-1) Completare e far funzionare RMI
+1) Giocare qualche partita per vedere se RMI funziona.
 
-2) Aggiustare il funzionamento dell'override, che non funziona ancora come dovrebbe. Prova del 9: far giocare 2 giocatori inattivi
+2) Aggiustare il funzionamento dell'override, che non funziona ancora come dovrebbe.(Forse serve un Sequence Diagram) Prova del 9: far giocare 2 giocatori inattivi
 
-3) Modificare il launcher: le opzioni devono riferirsi solo al Client (Il Server non deve fare differenza tra RMI e Socket, e se in seguito avrà una 
-	interfaccia grafica minima si potrà sempre aggiungere un JDialog per scegliere)
+3) Modificare il launcher: un unico dialogo per le opzioni Socket vs. RMI e Text vs. Swing. 
+(Come alternativa potrebbe anche essere mostrato quando si clicca il bottone "StartClient", invece che avere uno Wizard)
 
 4) Print dei risultati: fornire informazioni più complete al Client-Model, e mostrarle poi nel VictoryPanel di Swing 
 
-5) Aggiungere test ( e commentarli)
+5) Gestire la notifica delle eccezioni in UpdaterSwing
+
+6) Aggiungere test ( e commentarli)
 
 ________________________________________________________
 Prossimamente su questo schermo:
