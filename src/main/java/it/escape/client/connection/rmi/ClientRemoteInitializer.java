@@ -69,6 +69,8 @@ public class ClientRemoteInitializer {
 
 			// now we will only use this proxy to talk to the server
 			serverProxy = new ProxyToServer(client, serverStub);
+			// 
+			((RMIPingBack) client).bindServer(serverProxy);
 			
 			return serverProxy;
 			

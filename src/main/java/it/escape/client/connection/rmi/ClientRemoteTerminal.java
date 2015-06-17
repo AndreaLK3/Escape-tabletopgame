@@ -14,7 +14,7 @@ import it.escape.strings.StringRes;
  * In turn, the implementations of the remote interface methods in this class invoke the appropriate methods: 
  * inside StateManager (to set up the TurnInputState for the format checks)
  * inside Terminal (to show messages)*/
-public class ClientRemoteTerminal implements ClientRemoteInterface {
+public class ClientRemoteTerminal extends RMIPingBack implements ClientRemoteInterface {
 
 	private StateManagerCLIInterface stateManager;
 	private Terminal terminal;
@@ -22,6 +22,7 @@ public class ClientRemoteTerminal implements ClientRemoteInterface {
 	
 	/**The constructor; it initializes the stateManager and the Terminal references.*/
 	public ClientRemoteTerminal(StateManagerCLIInterface stateManager, Terminal terminal) {
+		super();
 		this.stateManager = stateManager;
 		this.terminal = terminal;
 	}

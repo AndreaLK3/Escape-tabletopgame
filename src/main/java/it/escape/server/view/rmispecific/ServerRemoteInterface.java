@@ -20,4 +20,6 @@ public interface ServerRemoteInterface extends Remote {
 	public void whereAmI(ClientRemoteInterface client) throws RemoteException;
 	
 	public void setAnswer(String answer, ClientRemoteInterface client) throws RemoteException;
+	
+	public void pong(ClientRemoteInterface client) throws RemoteException;
 }

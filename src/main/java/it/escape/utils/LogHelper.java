@@ -20,10 +20,10 @@ public class LogHelper {
 		
 		logger.setUseParentHandlers(false);
 		if (!handlers.contains(consoleOutput)) { // add handler only if missing
-			logger.addHandler(consoleOutput);  // log all messages to standard error
+			logger.addHandler(consoleOutput);  // LOGGER all messages to standard error
 		}
-		logger.setLevel(Level.ALL);  // write every message to log
-		consoleOutput.setLevel(Level.ALL);  // write every log message to console
+		logger.setLevel(Level.ALL);  // write every message to LOGGER
+		consoleOutput.setLevel(Level.ALL);  // write every LOGGER message to console
 		if (!consoleOutput.getFormatter().equals(simpleFormatter)) {  // add formatter only if missing
 			consoleOutput.setFormatter(simpleFormatter);
 		}

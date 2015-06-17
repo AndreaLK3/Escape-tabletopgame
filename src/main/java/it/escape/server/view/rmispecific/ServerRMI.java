@@ -42,7 +42,9 @@ public class ServerRMI implements ServerRemoteInterface {
 	
 	private ServerLocalSettings locals;
 	
-	private MessagingChannelRMI findChannel(ClientRemoteInterface client) {
+	private PingSender pinger;
+	
+	public MessagingChannelRMI findChannel(ClientRemoteInterface client) {
 		for (MessagingChannelRMI c : clientsList) {
 			try {
 				if (c.getClient().getID() == client.getID()) {
@@ -53,6 +55,10 @@ public class ServerRMI implements ServerRemoteInterface {
 			}
 		}
 		return null;
+	}
+	
+	public void clientLost(MessagingChannelRMI channel) {
+		unregisterChannel(channel);
 	}
 	
 	/**Basically does the same things that Connection used to do upon establishing:
@@ -72,44 +78,39 @@ public class ServerRMI implements ServerRemoteInterface {
 		AnnouncerRMIBroadcast announcer = superAnnouncer.getRMIAnnouncer();
 		announcer.subscribe(client);
 		try {
-			client.setWholeMOTD(StringRes.getString("messaging.motd.start") + "\n" + 
-						FilesHelper.streamToString(
-								FilesHelper.getResourceFile("resources/MOTD.txt")
-								) + "\n" +
-						StringRes.getString("messaging.motd.end"));
+			client.setWholeMOTD(FilesHelper.streamToString(
+					FilesHelper.getResourceFile("resources/MOTD.txt")));
 		} catch (IOException e) {
 			LOGGER.warning(StringRes.getString("view.connection.cantWelcome"));
 		}
 		LOGGER.info("Client " + client.toString() + " registered");
+		tryStartPinging();
 	}
-
+	
+	private void unregisterChannel(MessagingChannelRMI channel) {
+		clientsList.remove(channel);
+		tryStopPinging();
+		SuperAnnouncer clientSuperAnnouncer =  (SuperAnnouncer) UserMessagesReporter.getReporterInstance(channel).getAnnouncer();
+		AnnouncerRMIBroadcast clientRMIAnnouncer = clientSuperAnnouncer.getRMIAnnouncer();
+		if (clientRMIAnnouncer != null) {
+			clientRMIAnnouncer.unSubscribe(channel.getClient());
+		}
+		else {
+			LOGGER.warning("Could not unsubscribe client properly from AnnouncerRMIBroadcast");
+		}
+		Master.playerHasDisconnected((MessagingChannelInterface) channel);
+	}
+	
 	@Override
 	public void unregisterClient(ClientRemoteInterface client) throws RemoteException {
 		MessagingChannelRMI del = findChannel(client);
 		if (del != null) {
-			clientsList.remove(del);
-			Announcer clientRMIAnnouncer =  UserMessagesReporter.getReporterInstance(del).getAnnouncer();
-			if (clientRMIAnnouncer instanceof AnnouncerRMIBroadcast) {
-				((AnnouncerRMIBroadcast)clientRMIAnnouncer).unSubscribe(client);
-			}
-			else {
-				LOGGER.warning("Could not unsubscribe client properly from AnnouncerRMIBroadcast");
-			}
-			
+			unregisterChannel(del);
 		}
-	}
-
-	private AnnouncerRMIBroadcast Announcer(AnnouncerRMIBroadcast announcer) {
-		// TODO: What is this?
-		return null;
 	}
 
 	@Override
 	public void rename(String message, ClientRemoteInterface client) throws RemoteException {
-		// get the player reference from UMR
-		// get the gamemaster
-		// call the rename procedure in gamemaster
-		// all the other methods work in a similar way
 		MessagingChannelInterface pla = (MessagingChannelInterface) findChannel(client);
 		if (pla != null) {
 			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
@@ -163,6 +164,15 @@ public class ServerRMI implements ServerRemoteInterface {
 		LOGGER.info("Client " + client.toString() + " sent answer: " + answer);
 	}
 	
+	@Override
+	public void pong(ClientRemoteInterface client) throws RemoteException {
+		MessagingChannelRMI chan = findChannel(client);
+		if (chan != null) {
+			pinger.getPong(client);
+		} else
+			LOGGER.warning("MessagingChannelInterface is missing");
+	}
+	
 	/**This method sets up the Registry and creates and exposes the Server Remote Object;
 	 *  after the Server invoked this, the clients using RMI will be able to invoke functions.
 	 * @throws RemoteException 
@@ -184,5 +194,22 @@ public class ServerRMI implements ServerRemoteInterface {
 		this.locals = locals;
 		clientsList = new ArrayList<MessagingChannelRMI>();
 	}
-
+	
+	private void tryStartPinging() {
+		if (clientsList.size() > 0 && pinger == null) {
+			pinger = new PingSender(clientsList, this);
+			new Thread(pinger).start();
+			LOGGER.info("Started pinger thread");
+		} else {
+			pinger.restart();
+		}
+	}
+	
+	private void tryStopPinging() {
+		if (clientsList.size() <= 0) {
+			pinger.stopPinging();
+			LOGGER.info("Stopped pinger thread");
+			pinger = null;
+		}
+	}
 }

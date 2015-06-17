@@ -8,13 +8,14 @@ import it.escape.client.controller.gui.ClientProceduresInterface;
  * This object is exposed to the Server.
  * In the Server, UserMessagesReporterRMI invokes remotely methods of this class.
  * These methods, in turn, invoke the appropriate methods inside UpdaterSwing */
-public class ClientRemoteSwing implements ClientRemoteInterface {
+public class ClientRemoteSwing extends RMIPingBack implements ClientRemoteInterface {
 
 	private int id;
 	
 	private ClientProceduresInterface updaterSwing;
 	
 	public ClientRemoteSwing(ClientProceduresInterface updaterSwing) {
+		super();
 		this.updaterSwing = updaterSwing;
 	}
 	

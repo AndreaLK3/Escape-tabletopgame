@@ -13,14 +13,27 @@ import java.util.logging.Logger;
  * There is only one Master that handles all the connections and redirects the user to the gameMasters.]*/
 public class SockServerInitializer {
 	
-	protected static final Logger log = Logger.getLogger( SockServerInitializer.class.getName() );
+	protected static final Logger LOGGER = Logger.getLogger( SockServerInitializer.class.getName() );
 	
 	private ServerLocalSettings locals;
 	
+	private static final int MAX_RETRIES = 5;
+	
 	private Server server;
+	
+	private int retries;
 
 	public SockServerInitializer() {
-		
+		retries = 0;
+	}
+	
+	private void retry_start(IOException e) {
+		if (retries > MAX_RETRIES) {
+			crash(e.getMessage());
+		}
+		locals.setServerPort(locals.getServerPort() + 1);
+		startSocketServer(locals);
+		retries++;
 	}
 	
 	public void startSocketServer(ServerLocalSettings locals) {
@@ -32,7 +45,8 @@ public class SockServerInitializer {
 			server.run();
 			
 		} catch (IOException e) {
-			crash(e.getMessage());
+			LOGGER.warning("Unsuccessfule server startup, trying again with a different port...");
+			retry_start(e);
 		}
 	}
 	
@@ -41,7 +55,7 @@ public class SockServerInitializer {
 	 * @param message
 	 */
 	private void crash(String message) {
-		log.severe(message);
+		LOGGER.severe(message);
 		throw new AssertionError();
 	}
 }

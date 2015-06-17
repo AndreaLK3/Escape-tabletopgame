@@ -13,4 +13,6 @@ public interface ClientRemoteInterface extends Remote, ClientProceduresInterface
 	
 	public abstract int getID() throws RemoteException;
 	
+	public abstract void ping() throws RemoteException;
+	
 }

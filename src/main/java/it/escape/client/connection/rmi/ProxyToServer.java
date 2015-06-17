@@ -45,7 +45,7 @@ public class ProxyToServer implements ServerRemoteInterface, ClientStringChannel
 	}
 	
 	public void killConnection() {
-		// TODO Unsubscribe from server
+		unregisterClient();
 	}
 
 	public void sendMessage(String msg) {
@@ -117,6 +117,15 @@ public class ProxyToServer implements ServerRemoteInterface, ClientStringChannel
 		}
 	}
 	
+	public void pong(){
+		try {
+			pong(self);
+		} catch (RemoteException e) {
+			notifyDisconnected();
+			LOG.warning("Cannot pong the server: " + e.getMessage());
+		}
+	}
+	
 	// inherited by ServerRemoteInterface
 	public void registerClient(ClientRemoteInterface client) throws RemoteException {
 		server.registerClient(client);
@@ -144,6 +153,10 @@ public class ProxyToServer implements ServerRemoteInterface, ClientStringChannel
 
 	public void setAnswer(String answer, ClientRemoteInterface client) throws RemoteException {
 		server.setAnswer(answer, client);
+	}
+
+	public void pong(ClientRemoteInterface client) throws RemoteException {
+		server.pong(client);
 	}
 
 }
