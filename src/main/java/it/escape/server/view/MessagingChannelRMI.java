@@ -71,6 +71,7 @@ public class MessagingChannelRMI implements MessagingChannelInterface {
 	
 	public synchronized void overrideDefault() {
 		answer = defaultOption;
+		LOG.fine("Overriding with default: \"" + defaultOption + "\"");
 		notify();
 	}
 

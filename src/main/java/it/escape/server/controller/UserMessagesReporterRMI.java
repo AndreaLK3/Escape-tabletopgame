@@ -104,6 +104,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 			LOGGER.finer("automaticOverriding: return " + defaultChoice);
 			return defaultChoice;
 		} else {
+			interfaceWithUser.setDefaultOption(defaultChoice);
 			String card;
 			try {
 				interfaceWithUser.getClient().askWhichObjectCard();
@@ -123,6 +124,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 			LOGGER.finer("automaticOverriding: return " + defaultChoice);
 			return new MoveCommand(defaultChoice);
 		} else {
+			interfaceWithUser.setDefaultOption(defaultChoice);
 			String destination;
 			try {
 				interfaceWithUser.getClient().askForMovement();
