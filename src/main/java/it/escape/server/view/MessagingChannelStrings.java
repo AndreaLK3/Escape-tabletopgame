@@ -167,6 +167,7 @@ public class MessagingChannelStrings extends Observable implements MessagingHead
 	private String readingFromClient() {
 		if (override.get()) {
 			override.set(false);
+			log.fine("Reading end of the override mechanism was triggered");
 			return defaultOption;
 		} else {
 			do { 	

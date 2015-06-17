@@ -4,8 +4,10 @@ Current tasks:
 1) Il Funzionamento di RMI:
 	a) Le Carte Oggetto non funzionano come dovrebbero. chosenObjectCard non viene resettata nè aggiornata come dovrebbe...
 	Sto pensando di usare una lista (JComboBox? Poi vedo) invece dei RadioButtons sul Panel.
+	^^^^ (MM) Quindi è un difetto nel client?
 	
 	b) Gestire la disconnessione RMI, invece di avere "Connection refused" che continua all'infinito.
+	^^^^ (MM) Ho aggiunto un thread che continua a 'pingare' i client, da testare per bene.
 
 	c) Il codice per i metodi delle eccezioni è lì, ma le eccezioni non vengono mostrate su Swing :( .
 
