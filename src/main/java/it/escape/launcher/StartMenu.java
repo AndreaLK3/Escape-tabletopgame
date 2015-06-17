@@ -4,11 +4,13 @@ import it.escape.client.view.gui.ImageAutoFit;
 import it.escape.client.view.gui.ImageScaler;
 import it.escape.launcher.menucontroller.ActionAcceptNewPortNumber;
 import it.escape.launcher.menucontroller.ActionQuit;
+import it.escape.launcher.menucontroller.ActionSetOption;
 import it.escape.launcher.menucontroller.ActionStartClient;
 import it.escape.launcher.menucontroller.ActionStartServer;
 import it.escape.launcher.menucontroller.LauncherLocalSettings;
 import it.escape.launcher.menucontroller.StartMenuInterface;
 import it.escape.launcher.menucontroller.StartSubsystemsInterface;
+import it.escape.server.view.rmispecific.ServerRMI;
 import it.escape.strings.StringRes;
 
 import java.awt.Color;
@@ -60,7 +62,12 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 			"resources/artwork/launcher/icon-setup.png",
 			"resources/artwork/launcher/icon-quit.png"};
 	
-	private String[] netmodes = {
+	private String[] netmodesServer = {
+			StringRes.getString("launcher.option.netmode.socket"),
+			StringRes.getString("launcher.option.netmode.RMI"),
+			StringRes.getString("launcher.option.netmode.combo")};
+	
+	private String[] netmodesClient = {
 			StringRes.getString("launcher.option.netmode.socket"),
 			StringRes.getString("launcher.option.netmode.RMI")};
 	
@@ -70,13 +77,16 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 	
 	private int growMenu;
 	
-	private LauncherState state;
+	private LauncherState stateForClient;
+	
+	private LauncherState stateForServer;
 	
 	public StartMenu(String string, LauncherLocalSettings locals, StartSubsystemsInterface starter) {
    		super(string);
    		this.locals = locals;
    		this.starter = starter;
-   		state = new LauncherState();
+   		stateForClient = new LauncherState();
+   		stateForServer = new LauncherState();
    		setLayout(new GridBagLayout());
    		c = new GridBagConstraints();
    		
@@ -93,20 +103,29 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 	private void createMenu() {
 		setTopImage();
    		JButton client = setButton(0);
-   			client.addActionListener(new ActionStartClient(state, this));
+   			client.addActionListener(new ActionStartClient(stateForClient, this));
    		JButton server = setButton(1);
-   			server.addActionListener(new ActionStartServer(state, this));
+   			server.addActionListener(new ActionStartServer(stateForServer, this));
    			
-   		JButton wizard = setButton(2);
-   			wizard.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					new SetupWizard(state);
-				}
-			});
+   		JLabel labelCliOpt = setLabelBeforeField("Client settings:");
+   			labelCliOpt.setToolTipText("Client-only settings");
+   		JComboBox<String> cliNet = setCBox(netmodesClient, 1);
+   			cliNet.addActionListener(new ActionSetOption(stateForClient, true));
+   		JComboBox<String> cliUI = setCBox(experience, 2);
+   			cliUI.addActionListener(new ActionSetOption(stateForClient, false));
    			
-   		setLabelBeforeTextField("Port:");
+   		JLabel labelSrvOpt = setLabelBeforeField("Server settings:");
+   			labelSrvOpt.setToolTipText("Server-only settings");
+   		JComboBox<String> srvNet = setCBox(netmodesServer, 1);
+   			srvNet.addActionListener(new ActionSetOption(stateForServer, true));
+   		JComboBox<String> srvUI = setCBox(experience, 2);
+   			srvUI.addActionListener(new ActionSetOption(stateForServer, false));
+   			
+   		JLabel portOption = setLabelBeforeField("Port:");
+   			portOption.setToolTipText("Port to listen on / to connect to. "
+   					+ "note: the regisrty (RMI only) will listen on the default port " + ServerRMI.REGISRTY_PORT);
    		JTextField portno = setTextField("" + locals.getServerPort());
-   		JButton acceptPort = setAcceptButton("Change port number");
+   		JButton acceptPort = setAcceptButton("Set port");
    			acceptPort.addActionListener(new ActionAcceptNewPortNumber(portno, locals));
    		JButton quit = setButton(3);
    			quit.addActionListener(new ActionQuit(this));
@@ -166,13 +185,13 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		return bt;
 	}
 	
-	private JComboBox<String> setCBox(String[] items) {
+	private JComboBox<String> setCBox(String[] items, int pos) {
 		JComboBox<String> box = new JComboBox<String>(items);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = growMenu;
-		c.gridwidth = 3;
+		c.gridx = pos;
+		c.gridy = growMenu-pos;
+		c.gridwidth = 1;
 		c.ipady = 0;
 		c.weightx = 1;
 		c.weighty = 0;
@@ -182,7 +201,7 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		return box;
 	}
 	
-	private JLabel setLabelBeforeTextField(String value) {
+	private JLabel setLabelBeforeField(String value) {
 		JLabel lab = new JLabel(value);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;

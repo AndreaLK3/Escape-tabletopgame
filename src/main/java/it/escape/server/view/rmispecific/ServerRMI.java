@@ -34,6 +34,8 @@ import java.util.logging.Logger;
 public class ServerRMI implements ServerRemoteInterface {
 	
 	protected static final Logger LOGGER = Logger.getLogger( ServerRMI.class.getName() );
+	
+	public static final int REGISRTY_PORT = 1099;
 
 	// it's more useful to list the MessagingChannelRMI, which match 1:1 to the active clients
 	private List<MessagingChannelRMI> clientsList;
@@ -168,10 +170,10 @@ public class ServerRMI implements ServerRemoteInterface {
 	public static void initializer(ServerLocalSettings locals) throws RemoteException, MalformedURLException {
 		LogHelper.setDefaultOptions(LOGGER);
 		LOGGER.info("Creating local registry");
-		LocateRegistry.createRegistry(1099);
-		LOGGER.info("Created RMI registry on port 1099");
+		LocateRegistry.createRegistry(REGISRTY_PORT);
+		LOGGER.info("Created RMI registry on port " + REGISRTY_PORT);
 		ServerRemoteInterface server = new ServerRMI(locals);
-		UnicastRemoteObject.exportObject(server, 0);
+		UnicastRemoteObject.exportObject(server, locals.getServerPort());
 		LOGGER.info("Exported server interface");
 		Naming.rebind("//localhost/Server", server);
 		LOGGER.info("Server interface bound to name: \"" + "//localhost/Server" + "\"");

@@ -33,6 +33,7 @@ public class ActionAcceptNewPortNumber implements ActionListener {
 					throw new NumberFormatException();
 				}
 				locals.setServerPort(newPortInt);
+				confirmed(newPortInt < 1024);
 			} catch (NumberFormatException e1) {
 				outOfRange();
 				field.setText("" + locals.getServerPort());
@@ -41,6 +42,18 @@ public class ActionAcceptNewPortNumber implements ActionListener {
 			invalidInt();
 			field.setText("" + locals.getServerPort());
 		}
+	}
+	
+	private void confirmed(boolean warn) {
+		String message = "";
+		if (warn) {
+			message = "\nkeep in mind that opening ports lower than 1024\n"
+					+ "may require root privilege on some systems";
+		}
+		JOptionPane.showMessageDialog(null,
+			    "Port number successfully set to " + locals.getServerPort() + message,
+			    "Success",
+			    JOptionPane.PLAIN_MESSAGE);
 	}
 	
 	private void outOfRange() {
