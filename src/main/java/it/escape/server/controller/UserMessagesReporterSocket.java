@@ -123,7 +123,6 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 			return defaultChoice;		
 		} else {
 			interfaceWithUser.writeToClient(StringRes.getString("messaging.askWhichObjectCard"));
-			String cardNames[] = thePlayer.getMyHand().getAllCardNames();
 			return ioGetCardKey();
 		}
 	}
@@ -271,6 +270,12 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 	@Override
 	public void reportCardException(String exceptionMessage) {
 		relayMessage(exceptionMessage);	
+	}
+
+	@Override
+	public void reportDefense() {
+		relayMessage(StringRes.getString("messaging.defendedSuccessfully"));
+		
 	}
 	
 }

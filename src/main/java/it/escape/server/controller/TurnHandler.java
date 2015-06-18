@@ -162,19 +162,19 @@ public abstract class TurnHandler {
 				} catch (PlayerCanNotEnterException e) {
 					String exceptionMessage = e.getClass().getSimpleName() + " : " + e.getMessage();
 					LOGGER.finer(exceptionMessage);
-					reporter.relayMessage(exceptionMessage);
+					reporter.reportMovementException(exceptionMessage);
 				} catch (BadCoordinatesException e) {
 					String exceptionMessage = e.getClass().getSimpleName() + " : " + e.getMessage();
 					LOGGER.finer(exceptionMessage);
-					reporter.relayMessage(exceptionMessage);
+					reporter.reportMovementException(exceptionMessage);
 				} catch (CellNotExistsException e) {
 					String exceptionMessage = e.getClass().getSimpleName() + " : " + e.getMessage();
 					LOGGER.finer(exceptionMessage);
-					reporter.relayMessage(exceptionMessage);
+					reporter.reportMovementException(exceptionMessage);
 				} catch (DestinationUnreachableException e) {
 					String exceptionMessage = e.getClass().getSimpleName() + " : " + e.getMessage();
 					LOGGER.finer(exceptionMessage);
-					reporter.relayMessage(exceptionMessage);
+					reporter.reportMovementException(exceptionMessage);
 				} 
 			
 			} while (!correctInput);

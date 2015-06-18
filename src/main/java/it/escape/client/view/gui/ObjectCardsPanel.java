@@ -1,23 +1,32 @@
 package it.escape.client.view.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
+import javax.swing.JToggleButton;
 
+/**This class contains a Panel with a sequence of JToggleButtons corresponding to the ObjectCards.
+ * This panel is shown in a custom dialog in DumbSwingView, when the showObjectCards button 
+ * is pressed (either by the user or as a consequence of a Server message).
+ * @author andrea*/
 public class ObjectCardsPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
 	private final static int NUMCARDTYPES = 6;
 	
-	private List<JRadioButton> objectCardsButtons;
+	private List<JToggleButton> objectCardsButtons;
 	private ButtonGroup group;
 
 	private ItemListener radioListener;
@@ -26,13 +35,13 @@ public class ObjectCardsPanel extends JPanel {
 	
 	/** The constructor */
 	public ObjectCardsPanel () {
-		objectCardsButtons = new ArrayList<JRadioButton>();
+		objectCardsButtons = new ArrayList<JToggleButton>();
 		group = new ButtonGroup();
 		radioListener = new RadioListener();
 	}
 	
 	
-	/** This method updates the List of JRadioButtons, 
+	/** This method updates the List of JToggleButtons, 
 	 * according to the List<String> of cardNames received
 	 * @param List<String> cards */
 	public void updateCards(List<String> cards) {
@@ -40,15 +49,16 @@ public class ObjectCardsPanel extends JPanel {
 		for (String cardName : cards) {
 			addCardButton(cardName);
 		}
+		chosenCardName = null;
 	
 	}
 	
-	/**This method creates a JRadioButton with the given cardName and the corresponding image.
+	/**This method creates a JToggleButton with the given cardName and the corresponding image.
 	 * (n:The check on the cardName (that should always be correct anyways, since it is sent by the Server)
 	 * has already been done by either the Connection or PlayerState).
 	 * @param cardName */
 	private void addCardButton(String cardName) {
-		JRadioButton cardButton  = new JRadioButton();
+		JToggleButton cardButton  = new JToggleButton();
 		cardButton.setText(cardName);
 		cardButton.setIcon(new ImageIcon(getImage(cardName)));
 
@@ -73,24 +83,24 @@ public class ObjectCardsPanel extends JPanel {
 		return null;
 	}
 	
-	/**Returns an array of JRadioButtons, that correspond to the cards currently owned.
+	/**Returns an array of JToggleButtons, that correspond to the cards currently owned.
 	 * The array is used inside a JDialog in the View */
-	public JRadioButton[] getButtonsAsArray() {
+	public JToggleButton[] getButtonsAsArray() {
 		int x = 0;
-		JRadioButton buttonsArray[] = new JRadioButton[NUMCARDTYPES];
-		for (JRadioButton b : objectCardsButtons) {
+		JToggleButton buttonsArray[] = new JToggleButton[NUMCARDTYPES];
+		for (JToggleButton b : objectCardsButtons) {
 			buttonsArray[x]=b;
 			x++;
 		}
 		return buttonsArray;
 	}
 	
-	/**Returns an array of JRadioButtons, that correspond to the Playable cards currently owned.
+	/**Returns an array of JToggleButtons, that correspond to the Playable cards currently owned.
 	 * The array is used inside a JDialog in the View */
-	public JRadioButton[] getPlayableButtonsAsArray() {
+	public JToggleButton[] getPlayableButtonsAsArray() {
 		int x = 0;
-		JRadioButton buttonsArray[] = new JRadioButton[NUMCARDTYPES];
-		for (JRadioButton b : objectCardsButtons) {
+		JToggleButton buttonsArray[] = new JToggleButton[NUMCARDTYPES];
+		for (JToggleButton b : objectCardsButtons) {
 			if (!(b.getText().equalsIgnoreCase("attack")) || !(b.getText().equalsIgnoreCase("defense"))) {
 				buttonsArray[x]=b;
 			}
@@ -106,34 +116,26 @@ public class ObjectCardsPanel extends JPanel {
 	public ButtonGroup getGroup() {
 		return group;
 	}
-
-	public void getButtonsAsStringArray() {
-		int x = 0;
-		String buttonsArray[] = new String[4];
-		for (JRadioButton b : objectCardsButtons) {
-			buttonsArray[x]=b.getActionCommand();
-			x++;
-		}
-	}
 	
 	
-	/** This class listens for changes performed on the JRadioButtons 
+	/** This class listens for changes performed on the JToggleButtons 
 	 * (i.e. if they are selected), and it assigns the button's text
 	 * to the String chosenCardName.
 	 * @author andrea */
 	private class RadioListener implements ItemListener {
 
 		public void itemStateChanged(ItemEvent event) {
-			if (event.getSource() instanceof JRadioButton) {
-				JRadioButton button = (JRadioButton) event.getSource();
-				chosenCardName = button.getText();
-				group.clearSelection();
+			if (event.getSource() instanceof JToggleButton ) { 
+				JToggleButton button = (JToggleButton) event.getSource();
+				if (button.isSelected())
+				{	chosenCardName = button.getText();
+					group.clearSelection();
 				}
+			}
 		}
 	}
 	
-	
-	
+
 }
 
 

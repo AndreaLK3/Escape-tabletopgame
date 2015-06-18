@@ -89,6 +89,8 @@ public interface ClientProceduresInterface {
 	public abstract void youEscaped() throws RemoteException;
 	
 	public abstract void failedEscape() throws RemoteException;
+
+	public abstract void youDefended() throws RemoteException;
 	
 	
 }

@@ -134,6 +134,7 @@ public class ClientRemoteTerminal extends RMIPingBack implements ClientRemoteInt
 
 	@Override
 	public void askForMovement() throws RemoteException {
+		stateManager.setPositionState();
 		String message = StringRes.getString("messaging.timeToMove");
 		terminal.visualizeMessage(message);
 	}
@@ -292,6 +293,12 @@ public class ClientRemoteTerminal extends RMIPingBack implements ClientRemoteInt
 	@Override
 	public int getID() throws RemoteException {
 		return id;
+	}
+
+	@Override
+	public void youDefended() throws RemoteException {
+		terminal.visualizeMessage(StringRes.getString("messaging.defendedSuccessfully"));
+		
 	}
 
 }

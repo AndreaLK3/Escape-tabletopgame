@@ -181,9 +181,12 @@ public abstract class UserMessagesReporter {
 	
 	public abstract void reportEndTurn();
 	
+	public abstract void reportDefense();
+	
 	public abstract void reportMovementException(String exceptionMessage);
 	
 	public abstract void reportCardException(String exceptionMessage);
+	
 	
 
 }
