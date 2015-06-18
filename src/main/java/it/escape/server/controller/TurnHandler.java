@@ -15,6 +15,7 @@ import it.escape.server.model.game.exceptions.PlayerCanNotEnterException;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.server.model.game.players.Player;
 import it.escape.strings.StringRes;
+import it.escape.utils.LogHelper;
 
 import java.util.logging.Logger;
 
@@ -45,6 +46,7 @@ public abstract class TurnHandler {
 	protected DecksHandlerInterface decks;
 	
 	public TurnHandler (MapActionInterface map, DecksHandlerInterface decks) {
+		LogHelper.setDefaultOptions(LOGGER);
 		this.map = map;
 		this.decks = decks;
 	}
@@ -59,11 +61,17 @@ public abstract class TurnHandler {
 			LOGGER.fine(StringRes.getString("controller.turnhandler.skipIdle"));
 		} else {
 			if (currentPlayer.isAlive()) {  // player respondind and alive
+				LOGGER.finer("entering initialization phase");
 				initialize();  // step 0
+				LOGGER.finer("entering pre-movement phase");
 				turnBeforeMove();  // step 1
+				LOGGER.finer("entering movement phase");
 				turnMove();  // step 2
+				LOGGER.finer("entering landing phase");
 				turnLand();  // also step 2
+				LOGGER.finer("entering post-movement phase");
 				turnAfterMove();  // step 3
+				LOGGER.finer("entering de-initialization phase");
 				deInitialize();  // cleanup (stop filling default options)
 			} else {  // player responding but dead
 				LOGGER.fine(StringRes.getString("controller.turnhandler.skipDead"));
