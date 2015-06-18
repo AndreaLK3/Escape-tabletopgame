@@ -123,7 +123,9 @@ public class StartMenu extends JFrame implements StartMenuInterface {
    			
    		JLabel portOption = setLabelBeforeField("Port:");
    			portOption.setToolTipText("Port to listen on / to connect to. "
-   					+ "note: the regisrty (RMI only) will listen on the default port " + ServerRMI.REGISRTY_PORT);
+   					+ "note: the regisrty (RMI only) will listen on the default port " + ServerRMI.REGISRTY_PORT
+   					+ "; if the combo Socket + RMI mode is selected, rmi will take over"
+   					+ " this port, and Socket will get the next avaible port");
    		JTextField portno = setTextField("" + locals.getServerPort());
    		JButton acceptPort = setAcceptButton("Set port");
    			acceptPort.addActionListener(new ActionAcceptNewPortNumber(portno, locals));
