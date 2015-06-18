@@ -1,8 +1,13 @@
 package it.escape.client.view.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +16,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+/**This class contains a Panel with a sequence of JRadioButtons corresponding to the ObjectCards.
+ * This panel is shown in a custom dialog in DumbSwingView, when the showObjectCards button 
+ * is pressed (either by the user or as a consequence of a Server message).
+ * @author andrea*/
 public class ObjectCardsPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -40,6 +49,7 @@ public class ObjectCardsPanel extends JPanel {
 		for (String cardName : cards) {
 			addCardButton(cardName);
 		}
+		chosenCardName = null;
 	
 	}
 	
@@ -106,15 +116,6 @@ public class ObjectCardsPanel extends JPanel {
 	public ButtonGroup getGroup() {
 		return group;
 	}
-
-	public void getButtonsAsStringArray() {
-		int x = 0;
-		String buttonsArray[] = new String[4];
-		for (JRadioButton b : objectCardsButtons) {
-			buttonsArray[x]=b.getActionCommand();
-			x++;
-		}
-	}
 	
 	
 	/** This class listens for changes performed on the JRadioButtons 
@@ -124,16 +125,17 @@ public class ObjectCardsPanel extends JPanel {
 	private class RadioListener implements ItemListener {
 
 		public void itemStateChanged(ItemEvent event) {
-			if (event.getSource() instanceof JRadioButton) {
+			if (event.getSource() instanceof JRadioButton ) { //toadd: change state on selection
 				JRadioButton button = (JRadioButton) event.getSource();
-				chosenCardName = button.getText();
-				group.clearSelection();
+				if (button.isSelected())
+				{	chosenCardName = button.getText();
+					group.clearSelection();
 				}
+			}
 		}
 	}
 	
-	
-	
+
 }
 
 

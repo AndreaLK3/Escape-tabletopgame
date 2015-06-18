@@ -430,7 +430,7 @@ public abstract class DumbSwingView extends JFrame {
 								JOptionPane.showConfirmDialog(null, objectCardsPanel.getPlayableButtonsAsArray(), 
 										"Your object cards", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
 								chosenObjectCard = objectCardsPanel.getChosenCardName();
-								if (chosenObjectCard.equals("none")){
+								if (chosenObjectCard == null){
 									JOptionPane.showMessageDialog(null, "You haven't chosen any card.");
 								}
 								else {
