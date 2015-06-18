@@ -37,6 +37,8 @@ public class GlobalSettings implements ServerLocalSettings, ClientLocalSettings,
 	
 	private String DestinationServerAddress = "localhost";
 	
+	private String[] Maprotation = {"Galilei"};
+	
 	public GlobalSettings(GlobalSettings old) {
 		LogHelper.setDefaultOptions(LOG);
 		ServerPort = old.getServerPort();
@@ -117,6 +119,24 @@ public class GlobalSettings implements ServerLocalSettings, ClientLocalSettings,
 	public void setGameTurnDuration(int gameTurnDuration) {
 		LOG.finer("Setting GameTurnDuration to " + gameTurnDuration + " (default: " + GameTurnDuration + ")");
 		GameTurnDuration = gameTurnDuration;
+	}
+
+	public String[] getMaprotation() {
+		return Maprotation;
+	}
+
+	public void setMaprotation(String[] maprotation) {
+		StringBuilder rot = new StringBuilder();
+		rot.append("Setting maprotation to:\n");
+		for (String name : maprotation) {
+			rot.append(name + "\n");
+		}
+		rot.append("Default maprotation was:\n");
+		for (String name : this.Maprotation) {
+			rot.append(name + "\n");
+		}
+		LOG.finer(rot.toString());
+		this.Maprotation = maprotation;
 	}
 	
 	

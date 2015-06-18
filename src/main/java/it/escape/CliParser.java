@@ -1,5 +1,6 @@
 package it.escape;
 
+import it.escape.server.MapCreator;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
 
@@ -26,7 +27,8 @@ public class CliParser {
 			StringRes.getString("cliparser.option.long.gmtimeout"),
 			StringRes.getString("cliparser.option.long.serverport"),
 			StringRes.getString("cliparser.option.long.defaultserver"),
-			StringRes.getString("cliparser.option.long.turnduration")
+			StringRes.getString("cliparser.option.long.turnduration"),
+			StringRes.getString("cliparser.option.long.maprotation")
 			);
 	
 	// options in the format "-switch"
@@ -97,6 +99,9 @@ public class CliParser {
 			globals.setDestinationServerAddress(value);
 		} else if (key.equals(StringRes.getString("cliparser.option.long.turnduration"))) {
 			globals.setGameTurnDuration(Integer.parseInt(value));
-		}
+		} else if (key.equals(StringRes.getString("cliparser.option.long.maprotation"))) {
+			globals.setMaprotation(
+					MapCreator.stringToMapRotation(value));
+		} 
 	}
 }

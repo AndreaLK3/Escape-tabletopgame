@@ -17,7 +17,7 @@ protected static final Logger log = Logger.getLogger( RMIServerInitializer.class
 	public void startRMIServer(ServerLocalSettings locals) {
 		this.locals = locals;	
 		try {
-			MapCreator mapCreator = new MapCreator("resources/Galilei.json");
+			MapCreator mapCreator = new MapCreator(locals.getMaprotation());
 			Master.setMapCreator(mapCreator);
 			ServerRMI.initializer(this.locals);
 			

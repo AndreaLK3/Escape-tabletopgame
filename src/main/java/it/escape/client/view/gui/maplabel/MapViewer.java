@@ -97,7 +97,7 @@ public class MapViewer extends JLabel {
 	}
 	
 	public void setMap(String name, Runnable runAfterDraw) throws BadJsonFileException, IOException {
-		map = new MapLoader(FilesHelper.getResourceFile("resources/" + name + ".json"));
+		map = new MapLoader(FilesHelper.getResourceFile(FilesHelper.mapFileFromName(name)));
 		Position2D mapsize = map.getMapSize();
 		int max[] = cellToPixels(mapsize);
 		totalWidth = max[0] + cellWidth;

@@ -39,7 +39,7 @@ public class SockServerInitializer {
 	public void startSocketServer(ServerLocalSettings locals) {
 		this.locals = locals;
 		try {
-			MapCreator mapCreator = new MapCreator("resources/Galilei.json");
+			MapCreator mapCreator = new MapCreator(locals.getMaprotation());
 			Master.setMapCreator(mapCreator);
 			server = Server.createServerInstance(this.locals);
 			server.run();

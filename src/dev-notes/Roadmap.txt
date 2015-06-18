@@ -1,5 +1,9 @@
 Current tasks:
 
+(MM):
+Aggiunta mappa "Galilei_test" per testare gli escape hatch.
+Si carica mettendo l'argument da riga di comando "--map-rotation Galilei_test"
+
 (AL):
 1) Il Funzionamento di RMI:
 	a) Le Carte Oggetto non funzionano come dovrebbero. chosenObjectCard non viene resettata nè aggiornata come dovrebbe...

@@ -78,4 +78,8 @@ public class FilesHelper {
 		out.print(data);
 		out.close();
 	}
+	
+	public static String mapFileFromName(String name) {
+		return "resources/maps/" + name + ".json";
+	}
 }

@@ -29,8 +29,8 @@ public class TurnHandlerHumanTest {
 	public void initializeTest() {
 		currentPlayer = new Human("Kirk");
 		acquireCards(currentPlayer);
-		
-		MapCreator mapCreator = new MapCreator("resources/Galilei.json");
+		String[] maps = {"Galilei"};
+		MapCreator mapCreator = new MapCreator(maps);
 		map = mapCreator.getMap();
 		deck = new DecksHandler();
 		turnHandlerHuman = new TurnHandlerHuman(currentPlayer, map, deck);

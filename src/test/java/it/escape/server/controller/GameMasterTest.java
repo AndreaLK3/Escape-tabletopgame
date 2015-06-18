@@ -21,7 +21,8 @@ public class GameMasterTest {
 
 	@Test
 	public void testNewPlayerTeamAssignation() {
-		MapCreator stubMapCreator = new MapCreator("resources/Test_map.json");
+		String[] maps = {"Galilei"};
+		MapCreator stubMapCreator = new MapCreator(maps);
 		AnnouncerObserverTest observer = new AnnouncerObserverTest();
 		Master.setMapCreator(stubMapCreator);
 		

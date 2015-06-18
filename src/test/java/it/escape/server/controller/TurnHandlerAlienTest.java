@@ -30,8 +30,8 @@ public class TurnHandlerAlienTest {
 	public void initializeTest() {
 		currentPlayer = new Alien("Ackbar");
 		acquireCards(currentPlayer);
-		
-		MapCreator mapCreator = new MapCreator("resources/Galilei.json");
+		String[] maps = {"Galilei"};
+		MapCreator mapCreator = new MapCreator(maps);
 		map = mapCreator.getMap();
 		deck = new DecksHandler();
 		turnHandlerAlien = new TurnHandlerAlien(currentPlayer, map, deck);
