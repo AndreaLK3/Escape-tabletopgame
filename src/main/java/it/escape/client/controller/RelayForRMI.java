@@ -30,6 +30,10 @@ public class RelayForRMI extends Relay {
 		processMessage(message);
 	}
 	
+	/**This method reads the String parameter and invokes 
+	 * the corresponding method in the ServerRemote.
+	 * (Alternatives: rename, globalChat, whoAmI, whereAmI that use the Server Asynchronous communication,
+	 * and setAnswer that is employed to send a String that the Server is waiting for*/
 	private void processMessage(String msg) {
 		Matcher ren = rename.matcher(msg);
 		Matcher cha = chat.matcher(msg);

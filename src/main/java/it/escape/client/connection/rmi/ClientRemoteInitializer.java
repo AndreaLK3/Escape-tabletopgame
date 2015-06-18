@@ -17,7 +17,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.logging.Logger;
 
-/**This static class initializes one of the 2 kinds of ClientRemote, 
+/**This static class initializes one of the 2 kinds of ClientRemote for RMI, 
  * which can use the Swing View or the Terminal View */
 public class ClientRemoteInitializer {
 	
@@ -35,18 +35,23 @@ public class ClientRemoteInitializer {
 	
 	private static ClientRemoteInterface client;
 	
+	/**This method, invoked by ClientInitializerGUIRMI, stores the reference
+	 * to the UpdaterSwing object.*/
 	public static void setSwingMode(ClientProceduresInterface Updater) {
 		updater = Updater;
 		terminal = null;
 		stateManager = null;
 	}
 	
+	/**This method, invoked by ClientInitializerCLIRMI, stores the reference
+	 * to the Terminal object and the StateManager object.*/
 	public static void setCLIMode(StateManagerCLIInterface StateManager, Terminal Terminal) {
 		updater = null;
 		terminal = Terminal;
 		stateManager = StateManager;
 	}
 	
+	/***/
 	private static ClientRemoteInterface createClient() {
 		if (updater == null) {
 			return new ClientRemoteTerminal(stateManager, terminal);
