@@ -17,10 +17,12 @@ Si carica mettendo l'argument da riga di comando "--map-rotation Galilei_test"
 	c) BUG: Nel funzionamento di base (Socket + testo), quando un giocatore si disconnette *durante il suo turno* il Server non riporta la fine e i risultati correttamente.
 	Potrebbe essere collegato al bug dell'override.
 	^^^^ (MM): mi servirebbe un log di partita per lavorare su questo 
+	^^^^(AL): Su RMI-Text, alla fine l'override scatta e risolve la situazione. Se resta 1 giocatore, il gioco finisce come deve;
+				Ho aggiunto il log di una partita bloccata in questo modo, e sembra ancora dovuto al punto 2) (Override)
+				  
 
 2) Aggiustare il funzionamento dell'override, che non funziona ancora come dovrebbe.(Forse serve un Sequence Diagram) Prova del 9: far giocare 2 giocatori inattivi
 ^^^^^ (MM): risolto!
-
 
 3) Print dei risultati: fornire informazioni più complete al Client-Model, e mostrarle poi nel VictoryPanel di Swing 
 
