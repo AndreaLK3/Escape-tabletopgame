@@ -35,7 +35,7 @@ public class ClientRemoteInitializer {
 	
 	private static ClientRemoteInterface client;
 	
-	/**This method, invoked by ClientInitializerGUIRMI, gives the reference
+	/**This method, invoked by ClientInitializerGUIRMI, stores the reference
 	 * to the UpdaterSwing object.*/
 	public static void setSwingMode(ClientProceduresInterface Updater) {
 		updater = Updater;
@@ -43,7 +43,7 @@ public class ClientRemoteInitializer {
 		stateManager = null;
 	}
 	
-	/**This method, invoked by ClientInitializerCLIRMI, gives the reference
+	/**This method, invoked by ClientInitializerCLIRMI, stores the reference
 	 * to the Terminal object and the StateManager object.*/
 	public static void setCLIMode(StateManagerCLIInterface StateManager, Terminal Terminal) {
 		updater = null;

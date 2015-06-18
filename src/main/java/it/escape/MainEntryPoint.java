@@ -165,6 +165,7 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 				}}).start();
 	}
 	
+	/**This method spawns a new thread and invokes ClientInitializerCLISocket.start(globals);*/
 	public void startTextSocketClient(final StartMenuInterface startMenu) {
 		new Thread(
 			new Runnable() {
@@ -174,6 +175,7 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 				}}).start();
 	}
 
+	/**This method spawns a new thread and invokes ClientInitializerGUISocket.start(globals);*/
 	public void startGUISocketClient(final StartMenuInterface startMenu) {
 		new Thread(
 			new Runnable() {
@@ -184,6 +186,7 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 				}}).start();
 	}
 	
+	/**This method spawns a new thread and invokes ClientInitializerGUIRMI.start(globals);*/
 	public void startGUIRMIClient(final StartMenuInterface startMenu) {
 		new Thread(
 			new Runnable() {
@@ -195,6 +198,7 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 	}
 
 
+	/**This method spawns a new thread and invokes ClientInitializerCLIRMI.start(globals);*/
 	public void startTextRMIClient(final StartMenuInterface startMenu) {
 		new Thread(
 				new Runnable() {
