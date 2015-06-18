@@ -26,7 +26,7 @@ public class TimeController implements Runnable {
 	
 	private final int TIMEOUT;  // milliseconds
 	
-	private final static int MAX_TURNS = 40;
+	private final static int MAX_TURNS = 39;
 	
 	private ExecutiveController executorRef;
 	

@@ -416,6 +416,7 @@ public class GameMaster implements Runnable {
 		} else if (victoryChecker.areThereHumanWinners()) {
 			vic.partialHumanWin();
 		} else {
+			victoryChecker.setOutOfTurns();
 			vic.totalAlienWin();
 		}
 		

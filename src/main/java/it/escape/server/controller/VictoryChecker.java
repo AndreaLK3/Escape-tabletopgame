@@ -14,9 +14,12 @@ public class VictoryChecker {
 	private List<Human> humans;
 	
 	private List<Alien> aliens;
+	
+	private boolean outOfTurns;
 
 	public VictoryChecker(List<Player> players) {
 		this.players = players;
+		outOfTurns = false;
 		humans = new ArrayList<Human>();
 		aliens = new ArrayList<Alien>();
 		for (Player p : this.players) {
@@ -152,7 +155,7 @@ public class VictoryChecker {
 	}
 
 	public List<Player> getAlienWinners() {
-		if (allAliensWin() || allHumansDisconnected()) {  // all aliens are winners
+		if (allAliensWin() || allHumansDisconnected() || isOutOfTurns()) {  // all aliens are winners
 			List<Player> ret = new ArrayList<Player>();
 			for (Alien a : aliens) {
 				ret.add(a);
@@ -161,5 +164,13 @@ public class VictoryChecker {
 		} else {  // no alien winners
 			return new ArrayList<Player>();
 		}
+	}
+
+	public boolean isOutOfTurns() {
+		return outOfTurns;
+	}
+
+	public void setOutOfTurns() {
+		this.outOfTurns = true;
 	}
 }
