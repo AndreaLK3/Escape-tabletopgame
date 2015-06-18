@@ -23,8 +23,6 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 		
 	private MessagingChannelStrings interfaceWithUser;
 	
-	private boolean automaticOverriding = false;
-	
 	//creation methods
 	
 	public UserMessagesReporterSocket(MessagingChannelStrings interfaceWithUser) {
