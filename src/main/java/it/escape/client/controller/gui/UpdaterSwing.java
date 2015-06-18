@@ -734,11 +734,12 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void eventAttack(String attacker, String location) throws RemoteException {
-		String message = String.format(StringRes.getString("messaging.playerAttacking"),
-				attacker,
-				location);
-		if (!isMe(attacker)) { // it's not me
+		String message = String.format(StringRes.getString("messaging.playerAttacking"),attacker,location);
+		if (!isMe(attacker)) {
 			view.notifyUser(message);
+		}
+		if (isMe(attacker) && model.getMyPlayerState().getMyTeam().equals("humans")) {
+			model.getMyPlayerState().removeCard("attack");
 		}
 		model.getNowPlaying().setLastNoiseLocation(location);
 		model.finishedUpdating();
@@ -760,8 +761,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void eventDeath(String playerKilled) throws RemoteException {
-		String message = String.format(StringRes.getString("messaging.playerDied"),
-				playerKilled);
+		String message = String.format(StringRes.getString("messaging.playerDied"),	playerKilled);
 		model.getSpecificPlayerState(playerKilled).setMyStatus(CurrentPlayerStatus.DEAD);
 		if (isMe(playerKilled))
 			model.getMyPlayerState().setMyStatus(CurrentPlayerStatus.DEAD);

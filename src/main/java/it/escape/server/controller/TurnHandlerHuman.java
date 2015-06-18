@@ -47,7 +47,7 @@ public class TurnHandlerHuman extends TurnHandler {
 			} catch (WrongCardException e) {
 				String exceptionMessage = e.getClass().getSimpleName() + " : " + e.getMessage();
 				LOGGER.finer(exceptionMessage);
-				reporter.relayMessage(exceptionMessage);
+				reporter.reportCardException(exceptionMessage);
 				if (reporter.askIfObjectCard()) {
 					endObjectCard = false;
 				} else {

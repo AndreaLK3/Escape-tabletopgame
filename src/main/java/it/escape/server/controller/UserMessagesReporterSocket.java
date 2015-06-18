@@ -123,7 +123,6 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 			return defaultChoice;		
 		} else {
 			interfaceWithUser.writeToClient(StringRes.getString("messaging.askWhichObjectCard"));
-			String cardNames[] = thePlayer.getMyHand().getAllCardNames();
 			return ioGetCardKey();
 		}
 	}
