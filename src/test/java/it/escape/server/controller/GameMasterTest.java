@@ -5,6 +5,7 @@ import it.escape.GlobalSettings;
 import it.escape.server.MapCreator;
 import it.escape.server.Master;
 import it.escape.server.model.AnnouncerStrings;
+import it.escape.server.model.SuperAnnouncer;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
 import it.escape.server.view.MessagingChannelStrings;
@@ -17,8 +18,12 @@ import org.junit.Test;
 
 public class GameMasterTest {
 	
-	private final static int MAXPLAYERS = 8;
-
+	private final static int MAXPLAYERS = GameMaster.MAXPLAYERS;
+	/**
+	 * Simulate the connection of new players, intercepting
+	 * the "new player has connected" message, and considering
+	 * the connection successful if said message is generated
+	 */
 	@Test
 	public void testNewPlayerTeamAssignation() {
 		String[] maps = {"Galilei"};
@@ -26,7 +31,7 @@ public class GameMasterTest {
 		AnnouncerObserverTest observer = new AnnouncerObserverTest();
 		Master.setMapCreator(stubMapCreator);
 		
-		simulateConnect(observer);
+		simulateConnect(observer); // the message isn't generated because the server *was* empty
 		simulateConnect(observer);
 		assertEquals(
 				String.format(StringRes.getString("messaging.playerConnected"), 2, MAXPLAYERS),
@@ -52,7 +57,9 @@ public class GameMasterTest {
 		MessagingChannelStrings iface = new MessagingChannelStrings();
 		UserMessagesReporterSocket.createUMR(iface);
 		Master.newPlayerHasConnected(iface, new GlobalSettings());
-		((AnnouncerStrings)Shorthand.announcer(iface)).addObserver(observer);
+		SuperAnnouncer superAnnouncer = (SuperAnnouncer)Shorthand.announcer(iface);
+		AnnouncerStrings announcer = superAnnouncer.getSockAnnouncer();
+		announcer.addObserver(observer);
 	}
 
 }

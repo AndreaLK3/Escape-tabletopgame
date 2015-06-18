@@ -12,6 +12,7 @@ import it.escape.server.model.game.exceptions.PlayerCanNotEnterException;
 import it.escape.server.model.game.players.Alien;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.model.game.players.PlayerTeams;
+import it.escape.utils.FilesHelper;
 
 import java.io.IOException;
 
@@ -28,7 +29,7 @@ public class GameMapTest {
 	@Before
 	public void initializeMap() {
 		try {
-			testMap = new GameMap("resources/Test_map.json");
+			testMap = new GameMap(FilesHelper.mapFileFromName("Test_map"));
 		} catch (BadJsonFileException e) {
 			fail("problem loading test map");
 		} catch (IOException e) {

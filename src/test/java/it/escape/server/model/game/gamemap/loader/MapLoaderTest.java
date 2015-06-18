@@ -25,12 +25,18 @@ import org.junit.Test;
 
 public class MapLoaderTest {
 
+	/**
+	 * Try to load the test map, and make sure that:
+	 * all the specified cells are included,
+	 * the starting cells are in the right position,
+	 * the map size is right
+	 */
 	@Test
 	public void testLoader() {
 		try {
 			List<Cell> loadedCells = new ArrayList<Cell>();
 			List<Cell> testCells = assignTestCells();
-			MapLoader loader = new MapLoader(FilesHelper.getResourceFile("resources/Test_map.json"));
+			MapLoader loader = new MapLoader(FilesHelper.getResourceFile(FilesHelper.mapFileFromName("Test_map")));
 			
 			assertThat(loader, is("prova",new Position2D(25,14))); // check map's name and size
 			for (Cell lc : loader) {
