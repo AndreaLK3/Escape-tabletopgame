@@ -2,7 +2,7 @@ package it.escape.client;
 
 import it.escape.client.connection.rmi.ClientRemoteInitializer;
 import it.escape.client.connection.rmi.ProxyToServer;
-import it.escape.client.controller.ClientStringChannelInterface;
+import it.escape.client.controller.ClientChannelInterface;
 import it.escape.client.controller.Relay;
 import it.escape.client.controller.RelayForRMI;
 import it.escape.client.controller.gui.UpdaterSwing;
@@ -43,7 +43,7 @@ public class ClientInitializerGUIRMI {
 		// connect to server
 		ClientRemoteInitializer.setSwingMode(updater);
 		remoteServer = ClientRemoteInitializer.initializer(locals);
-		relay = new RelayForRMI((ClientStringChannelInterface) remoteServer);
+		relay = new RelayForRMI((ClientChannelInterface) remoteServer);
 		
 		// start the view
 		SmartSwingView.synchronousLaunch((BindUpdaterInterface)updater, relay, model, finalPhase, remoteServer);		

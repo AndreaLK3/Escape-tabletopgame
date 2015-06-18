@@ -29,6 +29,11 @@ public class Terminal implements DisconnectedCallbackInterface, UpdaterCLItoTerm
 		this.out = out;
 		this.relayRef = relay;
 		this.stateManager = stateManager;
+		prompt = "";
+	}
+	
+	public void bindRelay(Relay relay) {
+		this.relayRef = relay;
 	}
 	
 	/**

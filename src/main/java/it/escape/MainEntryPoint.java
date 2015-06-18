@@ -1,5 +1,6 @@
 package it.escape;
 
+import it.escape.client.ClientInitializerCLIRMI;
 import it.escape.client.ClientInitializerCLISocket;
 import it.escape.client.ClientInitializerGUIRMI;
 import it.escape.client.ClientInitializerGUISocket;
@@ -182,4 +183,15 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 				}}).start();
 	}
 
+
+	public void startTextRMIClient(final StartMenuInterface startMenu) {
+		new Thread(
+				new Runnable() {
+					public void run() {
+						ClientInitializerCLIRMI.start(globals);
+						startMenu.closeProgram();
+					}}).start();
+	}
+
+	
 }

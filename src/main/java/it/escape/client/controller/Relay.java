@@ -17,9 +17,9 @@ import it.escape.strings.StringRes;
  */
 public abstract class Relay {
 	
-	protected ClientStringChannelInterface communication;
+	protected ClientChannelInterface communication;
 
-	public Relay(ClientStringChannelInterface communication) {
+	public Relay(ClientChannelInterface communication) {
 		this.communication = communication;
 	}
 	

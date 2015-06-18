@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 import it.escape.client.connection.BindDisconnectCallbackInterface;
 import it.escape.client.connection.DisconnectedCallbackInterface;
-import it.escape.client.controller.ClientStringChannelInterface;
+import it.escape.client.controller.ClientChannelInterface;
 import it.escape.server.view.rmispecific.ServerRemoteInterface;
 
 /**
@@ -19,7 +19,7 @@ import it.escape.server.view.rmispecific.ServerRemoteInterface;
  * @author michele
  *
  */
-public class ProxyToServer implements ServerRemoteInterface, ClientStringChannelInterface, BindDisconnectCallbackInterface {
+public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterface, BindDisconnectCallbackInterface {
 	
 	protected static final Logger LOG = Logger.getLogger( ProxyToServer.class.getName() );
 

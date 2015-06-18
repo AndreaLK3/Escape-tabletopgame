@@ -16,7 +16,7 @@ public class RelayForRMI extends Relay {
 	
 	private ProxyToServer server;
 
-	public RelayForRMI(ClientStringChannelInterface communication) {
+	public RelayForRMI(ClientChannelInterface communication) {
 		super(communication);
 		server = (ProxyToServer) communication;
 		rename = new FormatToPattern(StringRes.getString("messaging.renameMyself")).convert();

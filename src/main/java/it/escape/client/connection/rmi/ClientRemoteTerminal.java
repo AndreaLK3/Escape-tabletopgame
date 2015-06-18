@@ -127,6 +127,7 @@ public class ClientRemoteTerminal extends RMIPingBack implements ClientRemoteInt
 	@Override
 	public void startMyTurn(String myName, String myPos) throws RemoteException {
 		String message = String.format(StringRes.getString("messaging.hail.player"), myName, myPos);
+		stateManager.setMyTurn();
 		terminal.visualizeMessage(message);
 
 	}

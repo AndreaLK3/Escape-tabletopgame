@@ -1,6 +1,6 @@
 package it.escape.client.controller;
 
-public interface ClientStringChannelInterface {
+public interface ClientChannelInterface {
 	
 	public void killConnection();
 	

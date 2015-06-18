@@ -107,6 +107,7 @@ public class ServerRMI implements ServerRemoteInterface {
 		if (del != null) {
 			unregisterChannel(del);
 		}
+		LOGGER.info("Client " + client.toString() + " unregistered");
 	}
 
 	@Override
@@ -115,8 +116,11 @@ public class ServerRMI implements ServerRemoteInterface {
 		if (pla != null) {
 			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
 			Master.getGameMasterOfPlayer(player).renamePlayer(player, message);
-		} else
+		} else {
 			LOGGER.warning("MessagingChannelInterface is missing");
+			throw new RemoteException("You should have registered first");
+		}
+			
 		LOGGER.info("Client " + client.toString() + " renamed himself");
 	}
 
@@ -126,8 +130,10 @@ public class ServerRMI implements ServerRemoteInterface {
 		if (pla != null) {
 			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
 			Master.getGameMasterOfPlayer(player).globalChat(player, message);
-		} else
+		} else {
 			LOGGER.warning("MessagingChannelInterface is missing");
+			throw new RemoteException("You should have registered first");
+		}
 		LOGGER.info("Client " + client.toString() + " sent a chat message");
 	}
 
@@ -137,8 +143,10 @@ public class ServerRMI implements ServerRemoteInterface {
 		if (pla != null) {
 			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
 			((MessagingChannelRMI) pla).getClient().renameMyself(player.getName());
-		} else
+		} else {
 			LOGGER.warning("MessagingChannelInterface is missing");
+			throw new RemoteException("You should have registered first");
+		}
 		LOGGER.info("Client " + client.toString() + " sent whoami");
 	}
 
@@ -149,8 +157,10 @@ public class ServerRMI implements ServerRemoteInterface {
 			Player player = UserMessagesReporter.getReporterInstance(pla).getThePlayer();
 			String myPos = Master.getGameMasterOfPlayer(player).getPlayerPosition(player);
 			((MessagingChannelRMI) pla).getClient().setMyPosition(myPos);
-		} else
+		} else {
 			LOGGER.warning("MessagingChannelInterface is missing");
+			throw new RemoteException("You should have registered first");
+		}
 		LOGGER.info("Client " + client.toString() + " sent whereami");
 	}
 
@@ -159,8 +169,10 @@ public class ServerRMI implements ServerRemoteInterface {
 		MessagingChannelRMI chan = findChannel(client);
 		if (chan != null) {
 			chan.setAnswer(answer);
-		} else
+		} else {
 			LOGGER.warning("MessagingChannelInterface is missing");
+			throw new RemoteException("You should have registered first");
+		}
 		LOGGER.info("Client " + client.toString() + " sent answer: " + answer);
 	}
 	
@@ -169,8 +181,10 @@ public class ServerRMI implements ServerRemoteInterface {
 		MessagingChannelRMI chan = findChannel(client);
 		if (chan != null) {
 			pinger.getPong(client);
-		} else
+		} else {
 			LOGGER.warning("MessagingChannelInterface is missing");
+			throw new RemoteException("You should have registered first");
+		}
 	}
 	
 	/**This method sets up the Registry and creates and exposes the Server Remote Object;

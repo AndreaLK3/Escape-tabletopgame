@@ -93,7 +93,11 @@ public class PingSender implements Runnable {
 		boolean esit;
 		List<MessagingChannelRMI> temp = new ArrayList<MessagingChannelRMI>(clientsList);
 		for (MessagingChannelRMI chan : temp) {
-			esit = answered.get(chan);
+			try {
+				esit = answered.get(chan);
+			} catch (NullPointerException e) {
+				esit = false;
+			}
 			if (!esit) {
 				LOGGER.warning("client " + chan.getClient().toString() + " didn't ping back");
 				server.clientLost(chan);
