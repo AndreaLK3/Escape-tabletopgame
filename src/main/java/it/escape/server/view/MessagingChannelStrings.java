@@ -209,7 +209,12 @@ public class MessagingChannelStrings extends Observable implements MessagingHead
 	
 	private boolean contextMatch(String s) {
 		for (Pattern p : context) {
-			Matcher m = p.matcher(s);
+			Matcher m;
+			try {
+				m = p.matcher(s);
+			} catch (NullPointerException e) {
+				return false;
+			}
 			if (m.matches()) {
 				return true;
 			}
