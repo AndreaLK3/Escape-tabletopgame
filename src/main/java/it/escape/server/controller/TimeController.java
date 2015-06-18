@@ -1,5 +1,6 @@
 package it.escape.server.controller;
 
+import it.escape.server.ServerLocalSettings;
 import it.escape.server.model.game.players.Player;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
@@ -23,7 +24,7 @@ public class TimeController implements Runnable {
 	
 	protected static final Logger log = Logger.getLogger( TimeController.class.getName() );
 	
-	private final static Integer TIMEOUT = 60000;  // milliseconds
+	private final int TIMEOUT;  // milliseconds
 	
 	private final static int MAX_TURNS = 40;
 	
@@ -32,6 +33,8 @@ public class TimeController implements Runnable {
 	private boolean runGame;
 	
 	private boolean turnCompleted;
+	
+	private final ServerLocalSettings locals;
 	
 	private List<Player> turnOrder; // reference to the *ordered* list of players
 	private int nowPlaying;
@@ -50,8 +53,10 @@ public class TimeController implements Runnable {
 		log.fine(StringRes.getString("controller.time.finish"));
 	}
 
-	public TimeController(List<Player> turnOrder) {
+	public TimeController(List<Player> turnOrder, ServerLocalSettings locals) {
 		LogHelper.setDefaultOptions(log);
+		this.locals = locals;
+		TIMEOUT = locals.getGameTurnDuration();
 		this.turnOrder = turnOrder;
 		nowPlaying = 0;
 		this.runGame = true;

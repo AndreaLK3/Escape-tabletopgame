@@ -24,6 +24,8 @@ public class GlobalSettings implements ServerLocalSettings, ClientLocalSettings,
 	private int ServerPort = 1337;
 	
 	private int GameMasterTimeout = 60000;
+	
+	private int GameTurnDuration = 60000;
 
 	private boolean StartInTextClient = false;
 	
@@ -106,6 +108,15 @@ public class GlobalSettings implements ServerLocalSettings, ClientLocalSettings,
 
 	public void setStartInTextRMIMode(boolean startInTextRMIMode) {
 		StartInTextRMIMode = startInTextRMIMode;
+	}
+
+	public int getGameTurnDuration() {
+		return GameTurnDuration;
+	}
+
+	public void setGameTurnDuration(int gameTurnDuration) {
+		LOG.finer("Setting GameTurnDuration to " + gameTurnDuration + " (default: " + GameTurnDuration + ")");
+		GameTurnDuration = gameTurnDuration;
 	}
 	
 	

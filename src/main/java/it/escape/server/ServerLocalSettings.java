@@ -22,4 +22,6 @@ public interface ServerLocalSettings {
 	public void setDestinationServerAddress(
 			String destinationServerAddress);
 
+	public int getGameTurnDuration();
+
 }

@@ -101,7 +101,7 @@ public class GameMaster implements Runnable {
 		decksHandler = new DecksHandler();
 		listOfPlayers = new ArrayList<Player>();
 		listeners = new ArrayList<AsyncUserListener>();
-		timeController =  new TimeController(listOfPlayers);
+		timeController =  new TimeController(listOfPlayers, locals);
 		executor = new ExecutiveController(timeController, map, decksHandler);
 		timeController.bindExecutor(executor);
 		executorThread = new Thread(executor);
