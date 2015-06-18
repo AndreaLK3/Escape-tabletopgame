@@ -12,9 +12,11 @@ Current tasks:
 	c) Il codice per i metodi delle eccezioni è lì, ma le eccezioni non vengono mostrate su Swing :( .
 
 	d) aggiungere ClientTextRMIInitializer, per far partire il Client di testo con RMI
-
+        ^^^^ (MM): fatto
+        
 	e) BUG: Nel funzionamento di base (Socket + testo), quando un giocatore si disconnette *durante il suo turno* il Server non riporta la fine e i risultati correttamente.
 	Potrebbe essere collegato al bug dell'override.
+	^^^^ (MM): mi servirebbe un log di partita per lavorare su questo 
 
 2) Aggiustare il funzionamento dell'override, che non funziona ancora come dovrebbe.(Forse serve un Sequence Diagram) Prova del 9: far giocare 2 giocatori inattivi
 ^^^^^ (MM): risolto!
