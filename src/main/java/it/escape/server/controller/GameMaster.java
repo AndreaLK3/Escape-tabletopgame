@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Logger;
 
 /**Responsibilities:
@@ -68,7 +69,7 @@ public class GameMaster implements Runnable {
 	
 	private Announcer announcer;
 	
-	VictoryChecker victoryChecker;
+	private VictoryChecker victoryChecker;
 	
 	private boolean gameRunning;  // true if the game is taking place
 	
@@ -380,7 +381,7 @@ public class GameMaster implements Runnable {
 
 	
 	private void launchWorkerThreads() {
-		executorThread.start();
+		executorThread.start();		
 		timerThread.start();
 	}
 	

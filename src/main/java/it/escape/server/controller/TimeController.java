@@ -24,7 +24,9 @@ public class TimeController implements Runnable {
 	
 	protected static final Logger log = Logger.getLogger( TimeController.class.getName() );
 	
-	private final int TIMEOUT;  // milliseconds
+	private final int TIMEOUT;
+	
+	private final static int SYNCHRO_SCAN_TIME = 10;
 	
 	private final static int MAX_TURNS = 39;
 	
@@ -49,8 +51,26 @@ public class TimeController implements Runnable {
 	public void run() {
 		log.fine(StringRes.getString("controller.time.start"));
 		turnNumber = 1;
+		synchroStart();
 		mainLoop();
 		log.fine(StringRes.getString("controller.time.finish"));
+	}
+	
+	/**
+	 * Stop the program flow until the executor goes into
+	 * sleeping mode (ready to receive startTurn).
+	 * It's way less convoluted to do it this way that to use
+	 * multiple locks
+	 */
+	private void synchroStart() {
+		boolean asleep = executorRef.isAsleep();
+		while (!asleep) {
+			try {
+				Thread.sleep(SYNCHRO_SCAN_TIME);
+			} catch (InterruptedException e) {
+			}
+			asleep = executorRef.isAsleep();
+		}
 	}
 
 	public TimeController(List<Player> turnOrder, ServerLocalSettings locals) {

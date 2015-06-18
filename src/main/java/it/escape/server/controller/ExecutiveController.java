@@ -7,6 +7,8 @@ import it.escape.server.model.game.players.Player;
 import it.escape.strings.StringRes;
 import it.escape.utils.LogHelper;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Logger;
 
 /**
@@ -31,6 +33,8 @@ public class ExecutiveController implements Runnable {
 	private TurnHandler turnHandler;
 	
 	private boolean runGame;
+	
+	private AtomicBoolean sleeping;
 	
 	private MapActionInterface map;
 	
@@ -60,16 +64,22 @@ public class ExecutiveController implements Runnable {
 	private synchronized void gameLoop() {
 		while (runGame) {
 			try {
+				sleeping.set(true);
 				LOG.finer("sleeping");
 				wait();  // wait to be awakened by startTurn() or endGame()
 			} catch (InterruptedException e) {
 			}
+			sleeping.set(false);
 			LOG.finer(StringRes.getString("controller.executor.awaken"));
 			if (runGame) {  // was awaken by startTurn()
 				gameTurn();
 				timeControllerRef.endTurn();  // wake up timeController, prevents timeout
 			}
 		}
+	}
+	
+	public synchronized boolean isAsleep() {
+		return sleeping.get();
 	}
 
 	private void gameTurn() {
@@ -91,7 +101,8 @@ public class ExecutiveController implements Runnable {
 		this.map = map;
 		this.deck = deck;
 		this.timeControllerRef = timeControllerRef;
-		runGame = true;		
+		runGame = true;
+		sleeping = new AtomicBoolean(false);
 	}
 	
 	/**
