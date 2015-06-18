@@ -11,6 +11,7 @@ import it.escape.server.model.Announcer;
 import it.escape.server.model.game.players.Player;
 import it.escape.server.view.MessagingChannelInterface;
 import it.escape.server.view.MessagingChannelRMI;
+import it.escape.server.view.ServerShutdownHook;
 import it.escape.strings.StringRes;
 import it.escape.utils.FilesHelper;
 import it.escape.utils.LogHelper;
@@ -193,6 +194,7 @@ public class ServerRMI implements ServerRemoteInterface {
 	 * @throws MalformedURLException */
 	public static void initializer(ServerLocalSettings locals) throws RemoteException, MalformedURLException {
 		LogHelper.setDefaultOptions(LOGGER);
+		Runtime.getRuntime().addShutdownHook(new Thread(new ServerShutdownHook()));
 		LOGGER.info("Creating local registry");
 		LocateRegistry.createRegistry(REGISRTY_PORT);
 		LOGGER.info("Created RMI registry on port " + REGISRTY_PORT);
