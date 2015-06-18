@@ -255,6 +255,14 @@ public class ClientRemoteSwing extends RMIPingBack implements ClientRemoteInterf
 	public int getID() throws RemoteException {
 		return id;
 	}
+
+
+
+	@Override
+	public void youDefended() throws RemoteException {
+		updaterSwing.youDefended();
+		
+	}
 	
 
 

@@ -48,6 +48,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern info_discardedCard;
 	private Pattern info_teamWinners;
 	private Pattern info_teamDefeated;
+	private Pattern info_myDefense;
 	
 	private Pattern turn_askForAttack;
 	private Pattern turn_askForNoisePos;
@@ -116,6 +117,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		info_discardedCard = new FormatToPattern(StringRes.getString("messaging.discardedCard")).convert();
 		info_teamWinners = new FormatToPattern(StringRes.getString("messaging.winnerTeam")).convert();
 		info_teamDefeated = new FormatToPattern(StringRes.getString("messaging.loserTeam")).convert();
+		info_myDefense = new FormatToPattern(StringRes.getString("messaging.defendedSuccessfully")).convert();
 		
 		turn_askForObject = new FormatToPattern(StringRes.getString("messaging.askPlayObjectCard")).convert();
 		turn_askForAttack = new FormatToPattern(StringRes.getString("messaging.askIfAttack")).convert();
@@ -199,6 +201,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher myPosition = info_whereIAm.matcher(message);
 		Matcher drawncard = info_drawnObjectCard.matcher(message);
 		Matcher discardedCard = info_discardedCard.matcher(message);
+		Matcher myDefense = info_myDefense.matcher(message);
 		
 		Matcher playerDisconnected = info_playerDisconnected.matcher(message);
 		Matcher playerConnected = info_playerConnected.matcher(message);
@@ -270,12 +273,17 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			String teamName = losers.group(1);
 			setLoserTeam(teamName);
 			return true;
+		} else if (myDefense.matches()) {
+			youDefended();
+			return true;
 		} 
 		
 		return false;
 	}
 	
 	
+	
+
 	private boolean processTurnRequest(String message) throws RemoteException {
 		
 		Matcher turnStart = turn_Start.matcher(message);
@@ -738,7 +746,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		if (!isMe(attacker)) {
 			view.notifyUser(message);
 		}
-		if (isMe(attacker) && model.getMyPlayerState().getMyTeam().equals("humans")) {
+		if (isMe(attacker) && model.getMyPlayerState().getMyTeam().equalsIgnoreCase("humans")) {
 			model.getMyPlayerState().removeCard("attack");
 		}
 		model.getNowPlaying().setLastNoiseLocation(location);
@@ -858,6 +866,14 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		model.finishedUpdating();
 		String message = StringRes.getString("messaging.EscapedSuccessfully");
 		view.notifyUser(message);
+	}
+	
+	@Override
+	public void youDefended() {
+		String message = StringRes.getString("messaging.defendedSuccessfully");
+		view.notifyUser(message);
+		model.getMyPlayerState().removeCard("defense");
+		model.finishedUpdating();
 	}
 	
 }

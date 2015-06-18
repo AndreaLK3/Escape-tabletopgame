@@ -279,4 +279,14 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		
 	}
 
+	@Override
+	public void reportDefense() {
+		try {
+			interfaceWithUser.getClient().youDefended();
+		} catch (RemoteException e) {
+			LOGGER.warning("Could not report: a player defended himselfs " + e.getMessage());
+		}
+		
+	}
+
 }

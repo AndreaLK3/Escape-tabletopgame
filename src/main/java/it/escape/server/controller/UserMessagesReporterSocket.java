@@ -271,6 +271,12 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 	public void reportCardException(String exceptionMessage) {
 		relayMessage(exceptionMessage);	
 	}
+
+	@Override
+	public void reportDefense() {
+		relayMessage(StringRes.getString("messaging.defendedSuccessfully"));
+		
+	}
 	
 }
 

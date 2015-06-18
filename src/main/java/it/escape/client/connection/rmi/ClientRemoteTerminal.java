@@ -294,4 +294,10 @@ public class ClientRemoteTerminal extends RMIPingBack implements ClientRemoteInt
 		return id;
 	}
 
+	@Override
+	public void youDefended() throws RemoteException {
+		terminal.visualizeMessage(StringRes.getString("messaging.defendedSuccessfully"));
+		
+	}
+
 }
