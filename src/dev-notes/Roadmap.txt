@@ -17,8 +17,10 @@ Current tasks:
 	Potrebbe essere collegato al bug dell'override.
 
 2) Aggiustare il funzionamento dell'override, che non funziona ancora come dovrebbe.(Forse serve un Sequence Diagram) Prova del 9: far giocare 2 giocatori inattivi
+^^^^^ (MM): risolto!
 
 3) Modificare il launcher: un unico dialogo per le opzioni Socket vs. RMI e Text vs. Swing. [MM]
+^^^^^ (MM): fatto.
 
 4) Print dei risultati: fornire informazioni più complete al Client-Model, e mostrarle poi nel VictoryPanel di Swing 
 
