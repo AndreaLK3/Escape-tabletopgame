@@ -9,33 +9,27 @@ Si carica mettendo l'argument da riga di comando "--map-rotation Galilei_test"
 	a) Le Carte Oggetto non funzionano come dovrebbero. chosenObjectCard non viene resettata nè aggiornata come dovrebbe...
 	Sto pensando di usare una lista (JComboBox? Poi vedo) invece dei RadioButtons sul Panel.
 	^^^^ (MM) Quindi è un difetto nel client?
+	^^^^(AL) Sì; ora la variabile viene aggiornata come si deve, l'unica cosa che rimane è illuminare i JRadioButtons quando cliccati
 	
 	b) Gestire la disconnessione RMI, invece di avere "Connection refused" che continua all'infinito.
 	^^^^ (MM) Ho aggiunto un thread che continua a 'pingare' i client, da testare per bene.
-
-	c) Il codice per i metodi delle eccezioni è lì, ma le eccezioni non vengono mostrate su Swing :( .
-
-	d) aggiungere ClientTextRMIInitializer, per far partire il Client di testo con RMI
-        ^^^^ (MM): fatto
         
-	e) BUG: Nel funzionamento di base (Socket + testo), quando un giocatore si disconnette *durante il suo turno* il Server non riporta la fine e i risultati correttamente.
+	c) BUG: Nel funzionamento di base (Socket + testo), quando un giocatore si disconnette *durante il suo turno* il Server non riporta la fine e i risultati correttamente.
 	Potrebbe essere collegato al bug dell'override.
 	^^^^ (MM): mi servirebbe un log di partita per lavorare su questo 
 
 2) Aggiustare il funzionamento dell'override, che non funziona ancora come dovrebbe.(Forse serve un Sequence Diagram) Prova del 9: far giocare 2 giocatori inattivi
 ^^^^^ (MM): risolto!
 
-3) Modificare il launcher: un unico dialogo per le opzioni Socket vs. RMI e Text vs. Swing. [MM]
-^^^^^ (MM): fatto.
 
-4) Print dei risultati: fornire informazioni più complete al Client-Model, e mostrarle poi nel VictoryPanel di Swing 
+3) Print dei risultati: fornire informazioni più complete al Client-Model, e mostrarle poi nel VictoryPanel di Swing 
 
-5) Aggiungere test ( e commentarli)
+4) Aggiungere test ( e commentarli)
 
-6) Sistemare un numero considerevole di issues e cicli di Sonar
+5) Sistemare un numero considerevole di issues e cicli di Sonar
 n: chiamare il log LOGGER
 
-7) Preparare il Documento di presentazione con : lista dei Design pattern utilizzati, 
+6) Preparare il Documento di presentazione con : lista dei Design pattern utilizzati, 
 +  breve commento e diagrammi di sequenza (aggiornati) e diagrammi delle classi per ciascuna parte del progetto 
 
 
@@ -65,6 +59,15 @@ e nessuna indicazione dei risultati finali [aggiungere pattern... multipli patte
 
 __________________________________________________________
 Notes about other tasks:
+
+c) Il codice per i metodi delle eccezioni è lì, ma le eccezioni non vengono mostrate su Swing :( .
+^^^^(AL): Risolto
+
+d) aggiungere ClientTextRMIInitializer, per far partire il Client di testo con RMI
+^^^^ (MM): fatto
+
+3) Modificare il launcher: un unico dialogo per le opzioni Socket vs. RMI e Text vs. Swing. [MM]
+^^^^^ (MM): fatto.
 
 (AL)
 Esaminare i log delle partite e risolvere le issues indicate lì (che sono in buona parte Server-side)
