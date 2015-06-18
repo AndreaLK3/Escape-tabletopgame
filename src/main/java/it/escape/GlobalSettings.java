@@ -29,6 +29,10 @@ public class GlobalSettings implements ServerLocalSettings, ClientLocalSettings,
 	
 	private boolean StartInTextServer = false;
 	
+	private boolean StartInTextRMIMode = false;
+	
+	private boolean StartInTextComboMode = false;
+	
 	private String DestinationServerAddress = "localhost";
 	
 	public GlobalSettings(GlobalSettings old) {
@@ -86,6 +90,22 @@ public class GlobalSettings implements ServerLocalSettings, ClientLocalSettings,
 			String destinationServerAddress) {
 		LOG.finer("Setting DestinationServerAddress to " + destinationServerAddress + " (default: " + DestinationServerAddress + ")");
 		DestinationServerAddress = destinationServerAddress;
+	}
+
+	public boolean isStartInTextComboMode() {
+		return StartInTextComboMode;
+	}
+
+	public void setStartInTextComboMode(boolean startInTextComboMode) {
+		StartInTextComboMode = startInTextComboMode;
+	}
+
+	public boolean isStartInTextRMIMode() {
+		return StartInTextRMIMode;
+	}
+
+	public void setStartInTextRMIMode(boolean startInTextRMIMode) {
+		StartInTextRMIMode = startInTextRMIMode;
 	}
 	
 	

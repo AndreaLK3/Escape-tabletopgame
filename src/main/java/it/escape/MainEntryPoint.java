@@ -61,13 +61,21 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 	
 	
 	private void initialize() {
-		// this is just for initialization via command line
-		// if you want to start rmi here, add a switch in the command line
 		if (globals.isStartInTextClient()) {
-			ClientInitializerCLISocket.start(globals);
+			if (globals.isStartInTextRMIMode()) {
+				ClientInitializerCLIRMI.start(globals);
+			} else {
+				ClientInitializerCLISocket.start(globals);
+			}
 		} else if (globals.isStartInTextServer()) {
-			new SockServerInitializer().startSocketServer(globals);
-			//new RMIServerInitializer().startRMIServer(globals);
+			if (globals.isStartInTextRMIMode()) {
+				new RMIServerInitializer().startRMIServer(globals);
+			} else if (globals.isStartInTextComboMode()) {
+				new SockServerInitializer().startSocketServer(globals);
+				new RMIServerInitializer().startRMIServer(globals);
+			} else {
+				new SockServerInitializer().startSocketServer(globals);
+			}
 		} else {
 			try {
 				lookAndFeel();
@@ -76,7 +84,10 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 				out.println(String.format(
 						StringRes.getString("launcher.warn.headless"),
 						StringRes.getString("cliparser.option.long.textclient"),
-						StringRes.getString("cliparser.option.long.textserver")));
+						StringRes.getString("cliparser.option.long.textserver"),
+						StringRes.getString("cliparser.option.long.netrmi"),
+						StringRes.getString("cliparser.option.long.netcomboserver")
+						));
 			}
 		}
 	}

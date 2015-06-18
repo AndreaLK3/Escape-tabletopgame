@@ -31,7 +31,9 @@ public class CliParser {
 	// options in the format "-switch"
 	private List<String> singleOptions = Arrays.asList(
 			StringRes.getString("cliparser.option.long.textclient"),
-			StringRes.getString("cliparser.option.long.textserver")
+			StringRes.getString("cliparser.option.long.textserver"),
+			StringRes.getString("cliparser.option.long.netrmi"),
+			StringRes.getString("cliparser.option.long.netcomboserver")
 			);
 
 	public CliParser(String[] arrayOptions) {
@@ -62,7 +64,11 @@ public class CliParser {
 			globals.setStartInTextClient(true);
 		} else if (opt.equals(StringRes.getString("cliparser.option.long.textserver"))) {
 			globals.setStartInTextServer(true);
-		}
+		} else if (opt.equals(StringRes.getString("cliparser.option.long.netrmi"))) {
+			globals.setStartInTextRMIMode(true);
+		} else if (opt.equals(StringRes.getString("cliparser.option.long.netcomboserver"))) {
+			globals.setStartInTextComboMode(true);
+		} 
 	}
 	
 	private void parseCouples() {
