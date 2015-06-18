@@ -9,6 +9,7 @@ import it.escape.server.view.rmispecific.ServerRemoteInterface;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NoSuchObjectException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -82,6 +83,14 @@ public class ClientRemoteInitializer {
 			crash("Not Bound exception " + e.getMessage());
 		}
 		return null;
+	}
+	
+	public static void stopRMI() {
+		try {
+			UnicastRemoteObject.unexportObject(client, true);
+		} catch (NoSuchObjectException e) {
+			crash("Could not unexport the client: " + e.getMessage());
+		}
 	}
 	
 	public static void postponedStart() {

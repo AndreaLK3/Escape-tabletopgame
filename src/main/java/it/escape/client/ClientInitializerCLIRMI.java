@@ -53,6 +53,9 @@ public class ClientInitializerCLIRMI {
 		ClientRemoteInitializer.postponedStart();
 		
 		view.mainLoop();
+		
+		// unexport the client; the program will stop shortly after
+		ClientRemoteInitializer.stopRMI();
 	}
 	
 	private static void enterServerAddress() {
