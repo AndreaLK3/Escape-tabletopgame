@@ -6,7 +6,11 @@ import java.util.Arrays;
 import org.junit.Test;
 
 public class MessagingInterfaceTest {
-
+	
+	/**
+	 * Make sure that messages go through the
+	 * server-to-client queue
+	 */
 	@Test
 	public void testSynchronousSend() {
 		TestingInterface iface = new TestingInterface();
@@ -28,6 +32,12 @@ public class MessagingInterfaceTest {
 		assertEquals(test, iface.getLast_message());
 	}
 	
+	/**
+	 * Feed the client-to-server with both garbage and
+	 * expected input.
+	 * Make sure that the garbage is ignored, and the
+	 * expected input is recived by the serve end
+	 */
 	@Test
 	public void testSynchronousReceive() {
 		String wanted = "my precious message";
@@ -47,6 +57,11 @@ public class MessagingInterfaceTest {
 		assertEquals(wanted, ret);
 	}
 
+	/**
+	 * Test the client-to-server asynchronous communication.
+	 * The client side is fed with messages, and the stub
+	 * observer should catch them all (lol).
+	 */
 	@Test
 	public void testAsynchronousReceive() {
 		TestingInterface iface = new TestingInterface();

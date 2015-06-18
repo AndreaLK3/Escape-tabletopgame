@@ -9,6 +9,11 @@ import org.junit.Test;
 
 public class FormatToPatternTest {
 	
+	/**
+	 * convert a format string into a regexp, then use
+	 * said regexp to match the original strings, should
+	 * always return true
+	 */
 	@Test
 	public void testPlayObj() {
 		Pattern conv;
