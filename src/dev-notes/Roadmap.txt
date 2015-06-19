@@ -1,24 +1,20 @@
 Current tasks:
 
-(MM): Jenkins si lamenta per quei test che richiedono di aprire una finestra GUI, cosa che lui
-non può fare. Se vuoi una fix astuta, guarda il metodo statico detectTextOnlyEnvironment() in StartMenu,
-così magari puoi fare skippare quei test se serve.
-
-(MM):
-Aggiunta mappa "Galilei_test" per testare gli escape hatch.
-Si carica mettendo l'argument da riga di comando "--map-rotation Galilei_test"
-(EDIT): sembra tutto in ordine sul versante escape hatch
 
 (AL):
 1) Il Funzionamento di RMI:
 
-	a) Gestire la disconnessione RMI, invece di avere "Connection refused" che continua all'infinito.
+	a) Il prompt del Client con Text+RMI è un po' sbagliato / appare quando non dovrebbe (v. log: PartitaUmanoRMIText)
+
+	b) Gestire la disconnessione RMI, invece di avere "Connection refused" che continua all'infinito.
 	^^^^ (MM) Ho aggiunto un thread che continua a 'pingare' i client, da testare per bene.
         		  
 
+
 2) Aggiustare il funzionamento dell'override, che non funziona ancora come dovrebbe.(Forse serve un Sequence Diagram) Prova del 9: far giocare 2 giocatori inattivi
 ^^^^^ (MM): risolto!
-^^^^(AL): Ok, in condizioni standard è ora possibile fare giocare 2 o più giocatori quasi inattivi. L'unico problema che ho visto esserci ancora penso sia dovuto alla disconnessione di un intero team.
+^^^^(AL): Ok, in condizioni standard è ora possibile fare giocare 2 o più giocatori quasi inattivi. 
+Occorre solo fare un po' di partite / logs per verificare la cosa.
 
 3) Print dei risultati: fornire informazioni più complete al Client-Model, e mostrarle poi nel VictoryPanel di Swing 
 
@@ -34,8 +30,17 @@ n: chiamare il log LOGGER
 
 
 
-/*Mi sa che in questo modo si finisce alla settimana prossima, ma va bene lo stesso. 
-Per 1 punto di differenza (e per principio), meglio consegnare dopo una cosa fatta bene e ripulita.*/
+(MM): Jenkins si lamenta per quei test che richiedono di aprire una finestra GUI, cosa che lui
+non può fare. Se vuoi una fix astuta, guarda il metodo statico detectTextOnlyEnvironment() in StartMenu,
+così magari puoi fare skippare quei test se serve.
+(AL):Fatto. Se va tutto bene, non dovremmo ricevere altri avvisi da Jenkins.
+
+
+(MM):
+Aggiunta mappa "Galilei_test" per testare gli escape hatch.
+Si carica mettendo l'argument da riga di comando "--map-rotation Galilei_test"
+(EDIT): sembra tutto in ordine sul versante escape hatch
+
 
 
 __________________________________________________________
