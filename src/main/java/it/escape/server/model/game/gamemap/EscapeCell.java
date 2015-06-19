@@ -29,11 +29,12 @@ public class EscapeCell extends Cell {
 	
 	@Override
 		public boolean canEnter(Player player) {
-		if (player instanceof Human )
+		if (player instanceof Human) {
 			return true;
-			else
-			{	log.info("An alien can't use an escape shuttle!");
-				return false;}
+		} else {
+			log.info("An alien can't use an escape shuttle!");
+			return false;
+			}
 	}
 
 	/**Since this is the EscapeCell that is used playing the Complete Mode,
@@ -47,9 +48,9 @@ public class EscapeCell extends Cell {
 		if (!alreadyUsed) {
 			alreadyUsed = true;
 			return new GetEscapeCardAction();
-		}
-		else 
+		} else {
 			return new NoCellAction();
+		}
 	}
 	
 	

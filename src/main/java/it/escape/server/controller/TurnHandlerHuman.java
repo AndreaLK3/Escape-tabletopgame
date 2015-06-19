@@ -162,6 +162,11 @@ public class TurnHandlerHuman extends TurnHandler {
 		reporter.stopFillingDefault();
 	}
 
+	@Override
+	public boolean mustNotMove() {
+		return ((Human)currentPlayer).hasEscaped();
+	}
+
 	
 
 }

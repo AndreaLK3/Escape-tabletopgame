@@ -46,4 +46,12 @@ public interface UpdaterSwingToViewInterface {
 	
 	public void spawnVictoryRecap(ModelForGUI model);
 	
+	public void addAttackToMap(String location);
+	
+	public void clearAttacksFromMap();
+	
+	public void addBonesToMap(String location);
+	
+	public void clearBonesFromMap();
+	
 }

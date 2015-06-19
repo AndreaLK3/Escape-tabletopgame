@@ -81,6 +81,10 @@ public class MapViewer extends JLabel {
 	
 	private OtherPlayerMarker strangerManager;
 	
+	private AttackMarkManager attackManager;
+	
+	private KillMarkManager bonesManager;
+	
 	public MapViewer(int cellWidth, int cellHeight) throws BadJsonFileException, IOException {
 		super();
 		this.cellWidth = cellWidth;
@@ -114,9 +118,15 @@ public class MapViewer extends JLabel {
 		}
 	}
 	
-	private void initialize() {
+	private void initOverlayManagers() {
 		noiseManager = new NoiseMarkManager();
 		strangerManager = new OtherPlayerMarker(this);
+		attackManager = new AttackMarkManager();
+		bonesManager = new KillMarkManager();
+	}
+	
+	private void initialize() {
+		initOverlayManagers();
 		playerHere = new ImageIcon(ImageScaler.resizeImage("resources/artwork/celle/player-here.png", cellWidth, cellHeight));
 		cellHighlight = new ImageIcon(ImageScaler.resizeImage("resources/artwork/celle/highlight.png", cellWidth, cellHeight));
 		highlightOverlay = new JLabel(cellHighlight);
@@ -345,12 +355,28 @@ public class MapViewer extends JLabel {
 		strangerManager.addPlayer(location, name, this);
 	}
 	
+	public void removeSpecificPlayer(String name) {
+		strangerManager.removeSpecificPlayer(name, this);
+	}
+	
 	public void clearOtherPlayerMarkers() {
 		strangerManager.clearPlayers(this);
 	}
 	
-	public void removeSpecificPlayer(String name) {
-		strangerManager.removeSpecificPlayer(name, this);
+	public void addAttackMarker(String location) {
+		attackManager.addFight(location, this);
+	}
+	
+	public void clearAttackMarkers() {
+		attackManager.clearFights(this);
+	}
+	
+	public void addBonesMarker(String location) {
+		bonesManager.addBones(location, this);
+	}
+	
+	public void clearBonesMarkers() {
+		bonesManager.clearBones(this);
 	}
 	
 	public int getTotalWidth() {

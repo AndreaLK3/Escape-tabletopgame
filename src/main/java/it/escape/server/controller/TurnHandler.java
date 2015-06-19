@@ -59,6 +59,8 @@ public abstract class TurnHandler {
 		hailPlayer();
 		if (currentPlayer.isUserIdle()) {  // player idle
 			LOGGER.fine(StringRes.getString("controller.turnhandler.skipIdle"));
+		} else if (mustNotMove()) {  // special conditions apply
+			LOGGER.fine(StringRes.getString("controller.turnhandler.skipSpecial"));
 		} else {
 			if (currentPlayer.isAlive()) {  // player respondind and alive
 				LOGGER.finer("entering initialization phase");
@@ -81,7 +83,7 @@ public abstract class TurnHandler {
 	}
 	
 	private void hailPlayer() {
-		if (currentPlayer.isAlive()) {
+		if (currentPlayer.isAlive() && !mustNotMove()) {
 			UserMessagesReporter.getReporterInstance(currentPlayer).reportStartMyTurn(
 					currentPlayer.getName(),
 					CoordinatesConverter.fromCubicToAlphaNum(map.getPlayerPosition(currentPlayer)));
@@ -137,6 +139,12 @@ public abstract class TurnHandler {
 		reporter.fillinDefaultOnce();  // free us from the block we're currently stuck in
 		reporter.fillinDefaultAlways();  // free us from future blocks
 	}
+	
+	/**
+	 * Humans marked as escaped will skip their turn until the end.
+	 * It has no effect on the aliens
+	 */
+	public abstract boolean mustNotMove();
 	
 	/**
 	 * prepare the turn-handler (setup Reporter, prepare currentPlayer)

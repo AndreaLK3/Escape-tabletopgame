@@ -158,7 +158,9 @@ public class VictoryChecker {
 		if (allAliensWin() || allHumansDisconnected() || isOutOfTurns()) {  // all aliens are winners
 			List<Player> ret = new ArrayList<Player>();
 			for (Alien a : aliens) {
-				ret.add(a);
+				if (a.isAlive() && !a.isUserIdle()) {
+					ret.add(a);
+				}
 			}
 			return ret;
 		} else {  // no alien winners

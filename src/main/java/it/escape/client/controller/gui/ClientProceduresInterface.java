@@ -46,6 +46,8 @@ public interface ClientProceduresInterface {
 
 	public abstract void setLoserTeam(String teamName) throws RemoteException;
 
+	/** things to do here: clear the markers from the map,
+	 * as they'll become outdated as soon as any player moves*/
 	public abstract void notMyTurn() throws RemoteException;
 
 	public abstract void startMyTurn(String myName, String myPos) throws RemoteException;

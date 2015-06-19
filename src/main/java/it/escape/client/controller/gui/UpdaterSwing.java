@@ -632,7 +632,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void notMyTurn() throws RemoteException {
+		view.clearOtherPlayersFromMap();
+		view.clearBonesFromMap();
 		view.clearNoisesFromMap();
+		view.clearAttacksFromMap();
 		view.setTurnStatusString("waiting for my turn");
 	}
 	
@@ -647,7 +650,6 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		model.getMyPlayerState().setLocation(myPos);
 		model.getMyPlayerState().setMyStatus(CurrentPlayerStatus.ALIVE);
 		model.finishedUpdating();
-		view.clearOtherPlayersFromMap();
 		view.focusOnLocation(model.getMyPlayerState().getLocation(), 2000);
 	}
 	
@@ -742,9 +744,9 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void eventAttack(String attacker, String location) throws RemoteException {
-		String message = String.format(StringRes.getString("messaging.playerAttacking"),attacker,location);
 		if (!isMe(attacker)) {
-			view.notifyUser(message);
+			view.addAttackToMap(location);
+			view.focusOnLocation(location, 0);
 		}
 		if (isMe(attacker) && model.getMyPlayerState().getMyTeam().equalsIgnoreCase("humans")) {
 			model.getMyPlayerState().removeCard("attack");
@@ -771,10 +773,13 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	public void eventDeath(String playerKilled) throws RemoteException {
 		String message = String.format(StringRes.getString("messaging.playerDied"),	playerKilled);
 		model.getSpecificPlayerState(playerKilled).setMyStatus(CurrentPlayerStatus.DEAD);
-		if (isMe(playerKilled))
+		if (isMe(playerKilled)) {
 			model.getMyPlayerState().setMyStatus(CurrentPlayerStatus.DEAD);
+		}
 		model.finishedUpdating();
 		view.notifyUser(message);
+		// the model is smart enough to display the bones in the right position
+		view.addBonesToMap(model.getNowPlaying().getLastNoiseLocation());
 	}
 	
 	/* (non-Javadoc)
