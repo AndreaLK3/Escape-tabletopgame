@@ -1,6 +1,5 @@
-package it.escape.server.view;
+package it.escape.server;
 
-import it.escape.server.Master;
 import it.escape.utils.LogHelper;
 
 import java.util.logging.Logger;

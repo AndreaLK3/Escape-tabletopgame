@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Logger;
 
 /**Responsibilities:
@@ -90,8 +91,6 @@ public class GameMaster implements Runnable {
 	public final static int MINPLAYERS = 2;
 	private int numPlayers = 0;
 	
-	private boolean readyToStart;
-	
 	/** The constructor */
 	public GameMaster(MapActionInterface map, int id, ServerLocalSettings locals, Announcer announcer) {
 		LogHelper.setDefaultOptions(LOGGER);
@@ -112,7 +111,6 @@ public class GameMaster implements Runnable {
 		gameRunning = false;
 		gameFinished = false;
 		timeoutTicking = new AtomicBoolean(false);
-		readyToStart = false;
 	}
 	
 	
@@ -122,14 +120,11 @@ public class GameMaster implements Runnable {
 		LOGGER.fine(String.format(StringRes.getString("controller.gamemaster.gameStartTimeout"), WAIT_TIMEOUT/1000));
 		announcer.announceGameStartETA(WAIT_TIMEOUT / 1000);
 		try {
-			do {
 			wait(WAIT_TIMEOUT);
-			} while (!readyToStart);
 		} catch (InterruptedException e) {
 		}
 		if (numPlayers >= GameMaster.MINPLAYERS) {  // someone disconnected in the meantime? no? good.
 			timeoutTicking.set(false);
-			readyToStart = false; //resets the variable, in case there is a new game
 			startGameAndWait();
 			LOGGER.fine("GameMaster tasks completed, thread will now stop");
 		} else {
@@ -169,7 +164,7 @@ public class GameMaster implements Runnable {
 	}
 	
 	/* The interface is used to find the right UMR.*/
-	private void addNewPlayer(MessagingChannelInterface interfaceWithUser) {
+	private synchronized void addNewPlayer(MessagingChannelInterface interfaceWithUser) {
 		Player newP = createPlayer("Guest-" + id + "-" + new Random().nextInt(USERID_RANDOMIZE));  // create the player
 		map.addNewPlayer(newP, newP.getTeam());  // tell the map to place our player
 		UserMessagesReporter.bindPlayer(newP, interfaceWithUser);  // bind him to its command interface
@@ -197,11 +192,9 @@ public class GameMaster implements Runnable {
 		if (numPlayers >= GameMaster.MINPLAYERS) {
 			if (!timeoutTicking.get()) {  // start the subthread only if necessary
 				ownThread = new Thread(this);
-				//TODO: is a readyToStart = false necessary here?
 				ownThread.start();
 			}
 		} else if (numPlayers >= GameMaster.MAXPLAYERS) {
-			readyToStart = true;
 			notify();
 		}
 	}

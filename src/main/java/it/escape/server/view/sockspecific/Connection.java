@@ -1,12 +1,12 @@
 package it.escape.server.view.sockspecific;
 
 import it.escape.server.Master;
+import it.escape.server.ServerInterface;
 import it.escape.server.controller.UserMessagesReporter;
 import it.escape.server.controller.UserMessagesReporterSocket;
 import it.escape.server.model.AnnouncerStrings;
 import it.escape.server.model.SuperAnnouncer;
 import it.escape.server.view.MessagingChannelStrings;
-import it.escape.server.view.ServerInterface;
 import it.escape.strings.StringRes;
 import it.escape.utils.FilesHelper;
 import it.escape.utils.LogHelper;

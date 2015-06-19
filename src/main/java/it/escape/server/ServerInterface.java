@@ -1,6 +1,5 @@
-package it.escape.server.view;
+package it.escape.server;
 
-import it.escape.server.ServerLocalSettings;
 import it.escape.server.view.sockspecific.Connection;
 
 public interface ServerInterface {
