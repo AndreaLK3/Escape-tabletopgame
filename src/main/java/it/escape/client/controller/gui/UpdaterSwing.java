@@ -455,7 +455,10 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				readingMotd = false;
 				view.displayServerMOTD(loadedMotd);
 			} else {
-				loadedMotd = loadedMotd + "\n" + message;
+				if (loadedMotd != "") {
+					loadedMotd = loadedMotd + "\n";
+				}
+				loadedMotd = loadedMotd + message;
 			}
 			return true;
 		}
