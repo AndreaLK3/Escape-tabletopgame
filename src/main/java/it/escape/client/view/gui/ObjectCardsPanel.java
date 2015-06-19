@@ -101,7 +101,7 @@ public class ObjectCardsPanel extends JPanel {
 		int x = 0;
 		JToggleButton buttonsArray[] = new JToggleButton[NUMCARDTYPES];
 		for (JToggleButton b : objectCardsButtons) {
-			if (!(b.getText().equalsIgnoreCase("attack")) || !(b.getText().equalsIgnoreCase("defense"))) {
+			if (!(b.getText().equalsIgnoreCase("attack")) && !(b.getText().equalsIgnoreCase("defense"))) {
 				buttonsArray[x]=b;
 			}
 			x++;

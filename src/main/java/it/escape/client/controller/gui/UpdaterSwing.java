@@ -542,6 +542,9 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	public void renameMyself(String myNewName) throws RemoteException {
 		LOGGER.finer("Read player name from server: " +myNewName);
 		model.getMyPlayerState().setMyName(myNewName);
+		if (model.getMyPlayerState().getMyStatus() == CurrentPlayerStatus.DISCONNECTED) {
+			model.getMyPlayerState().setMyStatus(CurrentPlayerStatus.CONNECTED);
+		}
 		model.finishedUpdating();
 	}
 	
