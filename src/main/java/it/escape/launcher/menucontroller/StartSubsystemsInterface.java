@@ -19,4 +19,6 @@ public interface StartSubsystemsInterface {
 	public void startGUIRMIClient(StartMenuInterface startMenu);
 	
 	public void startTextRMIClient(StartMenuInterface startMenu);
+	
+	public void startGUISocketServer(StartMenuInterface startMenu);
 }

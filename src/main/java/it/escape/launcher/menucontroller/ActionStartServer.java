@@ -1,5 +1,6 @@
 package it.escape.launcher.menucontroller;
 
+import it.escape.server.swinglogviewer.Monitor;
 import it.escape.strings.StringRes;
 
 import java.awt.event.ActionEvent;
@@ -40,7 +41,20 @@ public class ActionStartServer implements ActionListener {
 			}
 			
 		} else if (ui.equals(StringRes.getString("launcher.option.experience.graphical"))) {
-			startMenu.tbiMessage();
+			if (net.equals(StringRes.getString("launcher.option.netmode.socket"))) {
+				startMenu.getStarter().startGUISocketServer(startMenu);
+				startMenu.closeMenu();
+			} else if (net.equals(StringRes.getString("launcher.option.netmode.RMI"))) {
+				Monitor.synchronousLaunch(true, false, startMenu);
+				startMenu.getStarter().startTextRMIServer(startMenu);
+				startMenu.closeMenu();
+			} else if (net.equals(StringRes.getString("launcher.option.netmode.combo"))){
+				Monitor.synchronousLaunch(true, true, startMenu);
+				startMenu.getStarter().startTextComboServer(startMenu);
+				startMenu.closeMenu();
+			} else {
+				startMenu.tbiMessage();
+			}
 		} else {
 			startMenu.tbiMessage();
 		}

@@ -11,22 +11,29 @@ import java.util.logging.SimpleFormatter;
 
 public class LogHelper {
 	
-	private static Handler consoleOutput = new ConsoleHandler();
+	private static Handler defaultHandler = new ConsoleHandler();
 	
-	private static Formatter simpleFormatter = new SimpleFormatter();
+	private static Formatter defaultFormatter = new SimpleFormatter();
 	
 	public static void setDefaultOptions(Logger logger) {
 		List<Handler> handlers = Arrays.asList(logger.getHandlers());
 		
 		logger.setUseParentHandlers(false);
-		if (!handlers.contains(consoleOutput)) { // add handler only if missing
-			logger.addHandler(consoleOutput);  // LOGGER all messages to standard error
+		if (!handlers.contains(defaultHandler)) { // add handler only if missing
+			logger.addHandler(defaultHandler);  // LOGGER all messages to standard error
 		}
 		logger.setLevel(Level.ALL);  // write every message to LOGGER
-		consoleOutput.setLevel(Level.ALL);  // write every LOGGER message to console
-		if (!consoleOutput.getFormatter().equals(simpleFormatter)) {  // add formatter only if missing
-			consoleOutput.setFormatter(simpleFormatter);
+		defaultHandler.setLevel(Level.ALL);  // write every LOGGER message to console
+		if (!defaultHandler.getFormatter().equals(defaultFormatter)) {  // add formatter only if missing
+			defaultHandler.setFormatter(defaultFormatter);
 		}
 	}
 	
+	public static void setDefaultHandler(Handler DefaultHandler) {
+		defaultHandler = DefaultHandler;
+	}
+	
+	public static Formatter getDefaultFormatter() {
+		return defaultFormatter;
+	}
 }

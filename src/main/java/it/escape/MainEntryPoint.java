@@ -9,6 +9,7 @@ import it.escape.launcher.menucontroller.StartMenuInterface;
 import it.escape.launcher.menucontroller.StartSubsystemsInterface;
 import it.escape.server.RMIServerInitializer;
 import it.escape.server.SockServerInitializer;
+import it.escape.server.swinglogviewer.Monitor;
 import it.escape.strings.StringRes;
 
 import java.awt.HeadlessException;
@@ -143,7 +144,6 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 				}}).start();
 	}
 	
-	@Override
 	public void startTextSocketServer(final StartMenuInterface startMenu) {
 		new Thread(
 			new Runnable() {
@@ -153,13 +153,22 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 				}}).start();
 	}
 	
-	
 	public void startTextComboServer(final StartMenuInterface startMenu) {
 		new Thread(
 			new Runnable() {
 				public void run() {
 					// MUST be run in this exact order
 					new RMIServerInitializer().startRMIServer(globals);
+					new SockServerInitializer().startSocketServer(globals);
+					startMenu.closeProgram();
+				}}).start();
+	}
+	
+	public void startGUISocketServer(final StartMenuInterface startMenu) {
+		new Thread(
+			new Runnable() {
+				public void run() {
+					Monitor.synchronousLaunch(false, true, startMenu);
 					new SockServerInitializer().startSocketServer(globals);
 					startMenu.closeProgram();
 				}}).start();

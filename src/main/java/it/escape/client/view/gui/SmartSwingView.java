@@ -13,15 +13,15 @@ import it.escape.client.view.gui.maplabel.MapViewer;
 import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
+import it.escape.server.swinglogviewer.SwingSynchroLauncher;
 
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.ImageIcon;
@@ -47,7 +47,6 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 	private static final long serialVersionUID = 1L;
 	
 	private ReentrantLock finalPhase;
-	private GridBagConstraints constraints;
 
 	/**
 	 * The constructor: initializes the window and all of its containers and components.
@@ -121,37 +120,17 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 	public static void synchronousLaunch(final BindUpdaterInterface updater, 
 			final Relay relay, final Observable model, final ReentrantLock finalPhase, 
 			final BindDisconnectCallbackInterface connection) {
-   		final ReentrantLock l = new ReentrantLock();
-   		// launch phase
-		EventQueue.invokeLater(
-				new Runnable() {
+		SwingSynchroLauncher.synchronousLaunch(new Runnable() {
 					public void run() {
-						l.lock();  // (1) set mutex once, so that the program flow will stop at (2)
-						finalPhase.lock();  // this other mutex will prevent the program from quitting when the connection frops
+						finalPhase.lock();  // this mutex will prevent the program from quitting when the connection frops
 						SmartSwingView view = new SmartSwingView("Escape from the Aliens in Outer Space", relay, finalPhase);	
 						updater.bindView(view);
 				   		model.addObserver(view);
 				   		connection.bindDisconnCallback(view);
-						l.unlock();  // unlock the mutex, let the synchronousLaunch return
 					}
 				}
 		);
-		/*
-		 * synchronization phase.
-		 * We need another thread, because reentrantLock's lock() will
-		 * not work if the lock is held by the same thread (we're still in EDT)
-		 */
-		
-		Thread sync = new Thread(new Runnable() {
-			public void run() {
-				l.lock();  // (2) try again setting the mutex, but it must be unlocked first
-			}
-		});
-		sync.start();
-		try {
-			sync.join();
-		} catch (InterruptedException e) {
-		}
+
 	}
    	
    	/**This method updates the current GameStatus and TurnNumber*/
