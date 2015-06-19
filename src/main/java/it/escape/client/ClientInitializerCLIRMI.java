@@ -34,6 +34,7 @@ public class ClientInitializerCLIRMI {
 	public static void start(ClientLocalSettings Locals) {
 		locals = Locals;
 		enterServerAddress();
+		out.println("Connecting...");
 		
 		stateManager = new StateManagerCLI();
 		

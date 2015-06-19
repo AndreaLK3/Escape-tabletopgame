@@ -73,17 +73,17 @@ public class ServerRMI implements ServerRemoteInterface {
 		MessagingChannelInterface channel = new MessagingChannelRMI(client, this);
 		clientsList.add((MessagingChannelRMI) channel);
 		client.setID(((MessagingChannelRMI) channel).getID());
-		UserMessagesReporter.createUMR(channel);
-		Master.newPlayerHasConnected(channel, locals);
-		SuperAnnouncer superAnnouncer = (SuperAnnouncer) UserMessagesReporter.getReporterInstance(channel).getAnnouncer();
-		AnnouncerRMIBroadcast announcer = superAnnouncer.getRMIAnnouncer();
-		announcer.subscribe(client);
 		try {
 			client.setWholeMOTD(FilesHelper.streamToString(
 					FilesHelper.getResourceFile("resources/MOTD.txt")));
 		} catch (IOException e) {
 			LOGGER.warning(StringRes.getString("view.connection.cantWelcome"));
 		}
+		UserMessagesReporter.createUMR(channel);
+		Master.newPlayerHasConnected(channel, locals);
+		SuperAnnouncer superAnnouncer = (SuperAnnouncer) UserMessagesReporter.getReporterInstance(channel).getAnnouncer();
+		AnnouncerRMIBroadcast announcer = superAnnouncer.getRMIAnnouncer();
+		announcer.subscribe(client);
 		LOGGER.info("Client " + client.toString() + " registered");
 		tryStartPinging();
 	}
