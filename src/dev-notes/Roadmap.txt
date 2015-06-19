@@ -1,5 +1,16 @@
 Current tasks:
 
+(MM): in GameMaster, righe da 122:
+   do {
+         wait(WAIT_TIMEOUT);
+   } while (numPlayers < GameMaster.MINPLAYERS);
+   
+penso che sia inutile mettere quel do-while li, dato che il gioco torna automaticamente in modalità
+"attesa giocatori" quando scade il timeout (ed il thread "avvio in XX secondi" viene ricreato se serve).
+In più quel while bypassa gameStartLogic(), dato che il gioco rimane sempre in modalità "avvio in XX secondi", anche quando non ci sono abbastanza giocatori; la cosa corretta sarebbe che tornasse
+nello stato "attesa giocatori".
+C'è qualche bug che quel do-while risolve? Se così, lo teniamo.
+Altrimenti, vorrei che sparisse, pretty please.
 
 (AL):
 
@@ -8,6 +19,7 @@ Current tasks:
 2) Il Funzionamento di RMI:
 
 	a) Il prompt del Client con Text+RMI è un po' sbagliato / appare quando non dovrebbe (v. log: PartitaUmanoRMIText)
+	^^^^ (MM): fixed, credo.
 
 	b) Gestire la disconnessione RMI, invece di avere "Connection refused" che continua all'infinito.
 	^^^^ (MM) Ho aggiunto un thread che continua a 'pingare' i client, da testare per bene.

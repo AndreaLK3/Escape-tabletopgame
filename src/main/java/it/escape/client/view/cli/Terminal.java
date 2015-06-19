@@ -36,10 +36,7 @@ public class Terminal implements DisconnectedCallbackInterface, UpdaterCLItoTerm
 		this.relayRef = relay;
 	}
 	
-	/**
-	 * draw a nice prompt dos-style
-	 */
-	private void printPrompt() {
+	private void buildPrompt() {
 		String whoseTurn;
 		
 		if (stateManager.isMyTurn()) {
@@ -52,13 +49,19 @@ public class Terminal implements DisconnectedCallbackInterface, UpdaterCLItoTerm
 				StringRes.getString("client.text.prompt"),
 				whoseTurn,
 				stateManager.getCurrentState().getPrompt());
-		
+	}
+	
+	/**
+	 * draw a nice prompt dos-style
+	 */
+	private void printPrompt() {
+		buildPrompt();
 		out.print(prompt);
 	}
 	
 	public void mainLoop() {
 		while (running) {
-			printPrompt();
+			refreshPrompt();
 			userInput = in.nextLine();
 			
 			boolean localcommand = checkAndRunLocalCommands();
@@ -130,12 +133,20 @@ public class Terminal implements DisconnectedCallbackInterface, UpdaterCLItoTerm
 				out.print(" ");  // cover up remaining 'old' characters
 			}
 		}
-		
+	}
+	
+	private void cleanPromptAndPrintln(String message) {
+		cleanPromptAndPrint(message);
 		out.println();  // newline
 	}
 	
+	public void refreshPrompt() {
+		buildPrompt();
+		cleanPromptAndPrint(prompt);
+	}
+	
 	public void visualizeMessage(String message) {
-		cleanPromptAndPrint(message);
+		cleanPromptAndPrintln(message);
 		printPrompt();  // re-create the prompt string
 	}
 
