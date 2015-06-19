@@ -115,6 +115,7 @@ public abstract class UserMessagesReporter {
 	public void stopFillingDefault() {
 		if (automaticOverriding) {
 			automaticOverriding = false;
+		LOGGER.fine("authomatic Override is set to false");
 		}
 	}
 

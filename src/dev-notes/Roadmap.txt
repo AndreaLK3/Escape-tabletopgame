@@ -11,23 +11,14 @@ Si carica mettendo l'argument da riga di comando "--map-rotation Galilei_test"
 
 (AL):
 1) Il Funzionamento di RMI:
-	a) Le Carte Oggetto non funzionano come dovrebbero. chosenObjectCard non viene resettata nè aggiornata come dovrebbe...
-	Sto pensando di usare una lista (JComboBox? Poi vedo) invece dei RadioButtons sul Panel.
-	^^^^ (MM) Quindi è un difetto nel client?
-	^^^^(AL) Sì; ora la variabile viene aggiornata come si deve, l'unica cosa che rimane è illuminare i JRadioButtons quando cliccati
-	
-	b) Gestire la disconnessione RMI, invece di avere "Connection refused" che continua all'infinito.
+
+	a) Gestire la disconnessione RMI, invece di avere "Connection refused" che continua all'infinito.
 	^^^^ (MM) Ho aggiunto un thread che continua a 'pingare' i client, da testare per bene.
-        
-	c) BUG: Nel funzionamento di base (Socket + testo), quando un giocatore si disconnette *durante il suo turno* il Server non riporta la fine e i risultati correttamente.
-	Potrebbe essere collegato al bug dell'override.
-	^^^^ (MM): mi servirebbe un log di partita per lavorare su questo 
-	^^^^(AL): Su RMI-Text, alla fine l'override scatta e risolve la situazione. Se resta 1 giocatore, il gioco finisce come deve;
-				Ho aggiunto il log di una partita bloccata in questo modo, e sembra ancora dovuto al punto 2) (Override)
-				  
+        		  
 
 2) Aggiustare il funzionamento dell'override, che non funziona ancora come dovrebbe.(Forse serve un Sequence Diagram) Prova del 9: far giocare 2 giocatori inattivi
 ^^^^^ (MM): risolto!
+^^^^(AL): Ok, in condizioni standard è ora possibile fare giocare 2 o più giocatori quasi inattivi. L'unico problema che ho visto esserci ancora penso sia dovuto alla disconnessione di un intero team.
 
 3) Print dei risultati: fornire informazioni più complete al Client-Model, e mostrarle poi nel VictoryPanel di Swing 
 
@@ -66,6 +57,17 @@ e nessuna indicazione dei risultati finali [aggiungere pattern... multipli patte
 
 __________________________________________________________
 Notes about other tasks:
+
+BUG: Nel funzionamento di base (Socket + testo), quando un giocatore si disconnette *durante il suo turno* il Server non riporta la fine e i risultati correttamente.
+Potrebbe essere collegato al bug dell'override.
+^^^^ (MM): mi servirebbe un log di partita per lavorare su questo 
+^^^^(AL): [update]: alla fine l'override scatta e risolve la situazione
+
+a) Le Carte Oggetto non funzionano come dovrebbero. chosenObjectCard non viene resettata nè aggiornata come dovrebbe...
+	Sto pensando di usare una lista (JComboBox? Poi vedo) invece dei RadioButtons sul Panel.
+	^^^^ (MM) Quindi è un difetto nel client?
+	^^^^(AL) Sì; ora la variabile viene aggiornata come si deve, l'unica cosa che rimane è illuminare i JRadioButtons quando cliccati
+
 
 c) Il codice per i metodi delle eccezioni è lì, ma le eccezioni non vengono mostrate su Swing :( .
 ^^^^(AL): Risolto
