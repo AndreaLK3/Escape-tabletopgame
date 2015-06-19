@@ -138,7 +138,7 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		top.setOpaque(true);
 		top.setBackground(new Color(0, 0, 0));
 		
-		new ImageAutoFit(top, "resources/artwork/launcher/splash-logo.jpg");
+		new ImageAutoFit(top, "resources/artwork/launcher/splash-logo.jpg").setUpAutoFittingImage();
 		
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;

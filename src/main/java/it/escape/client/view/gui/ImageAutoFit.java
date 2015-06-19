@@ -24,14 +24,22 @@ public class ImageAutoFit implements Runnable {
 	
 	private int oldY;
 
+	/**The constructor*/
 	public ImageAutoFit(JLabel label, String image) {
 		this.label = label;
 		this.image = image;
 		oldX = 0;
 		oldY = 0;
+		
+	}
+	
+	/**Starts this object's thread, that after a predefined timespan calls the private method update()*/
+	public void setUpAutoFittingImage() {
 		new Thread(this).start();
 	}
 	
+	/**If the new dimensions of the label are different from the memorized ones,
+	 * invoke ImageScaler.resizeImage on the Icon and reapply it on the JLabel*/
 	private void update() {
 		if (label.getWidth() != oldX || label.getHeight() != oldY) {
 			icon = new ImageIcon(ImageScaler.resizeImage(image, label.getWidth(), -1));
