@@ -3,10 +3,12 @@ package it.escape.client.view.gui;
 import static org.junit.Assert.*;
 import it.escape.client.model.ModelForGUI;
 import it.escape.client.model.VictoryState;
+import it.escape.launcher.StartMenu;
 
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -44,9 +46,13 @@ public class TeamVictoryPanelTest {
 			new Runnable() {
 				public void run() {
 					JPanel resultsPanel = createResultsPanel();
-					JOptionPane.showMessageDialog
+						try {
+						StartMenu.detectTextOnlyEnvironment();
+						JOptionPane.showMessageDialog
 						(null, resultsPanel, "End of the Game! Here are the results", JOptionPane.INFORMATION_MESSAGE);
-				
+						} 
+						catch (HeadlessException e) {
+						}
 				} 
 			});
 	}
