@@ -90,6 +90,8 @@ public class GameMaster implements Runnable {
 	public final static int MINPLAYERS = 2;
 	private int numPlayers = 0;
 	
+	private boolean readyToStart;
+	
 	/** The constructor */
 	public GameMaster(MapActionInterface map, int id, ServerLocalSettings locals, Announcer announcer) {
 		LogHelper.setDefaultOptions(LOGGER);
@@ -110,6 +112,7 @@ public class GameMaster implements Runnable {
 		gameRunning = false;
 		gameFinished = false;
 		timeoutTicking = new AtomicBoolean(false);
+		readyToStart = false;
 	}
 	
 	
@@ -121,11 +124,12 @@ public class GameMaster implements Runnable {
 		try {
 			do {
 			wait(WAIT_TIMEOUT);
-			} while (numPlayers < GameMaster.MINPLAYERS);
+			} while (!readyToStart);
 		} catch (InterruptedException e) {
 		}
 		if (numPlayers >= GameMaster.MINPLAYERS) {  // someone disconnected in the meantime? no? good.
 			timeoutTicking.set(false);
+			readyToStart = false; //resets the variable, in case there is a new game
 			startGameAndWait();
 			LOGGER.fine("GameMaster tasks completed, thread will now stop");
 		} else {
@@ -193,9 +197,11 @@ public class GameMaster implements Runnable {
 		if (numPlayers >= GameMaster.MINPLAYERS) {
 			if (!timeoutTicking.get()) {  // start the subthread only if necessary
 				ownThread = new Thread(this);
+				//TODO: is a readyToStart = false necessary here?
 				ownThread.start();
 			}
 		} else if (numPlayers >= GameMaster.MAXPLAYERS) {
+			readyToStart = true;
 			notify();
 		}
 	}
