@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class ExecutiveController implements Runnable {
 	
-	protected static final Logger LOG = Logger.getLogger( ExecutiveController.class.getName() );
+	protected static final Logger LOGGER = Logger.getLogger( ExecutiveController.class.getName() );
 	
 	private Player currentPlayer;
 	
@@ -55,22 +55,24 @@ public class ExecutiveController implements Runnable {
 	}
 
 	public void run() {
-		LOG.fine(StringRes.getString("controller.executor.start"));
+		LOGGER.fine(StringRes.getString("controller.executor.start"));
 		gameLoop();
-		LOG.fine(StringRes.getString("controller.executor.finish"));
+		LOGGER.fine(StringRes.getString("controller.executor.finish"));
 	}
 	
-	/** Note: adding "synchronize" in a code block where there is a wait() or notify() function is mandatory*/
+	/**This method is executed by executorThread. It has a wait(), 
+	 * and it is awakened by 2 functions invoked by timeController thread: startTurn(), or endGame() 
+	 * Note: adding "synchronize" in a code block where there is a wait() or notify() function is mandatory*/
 	private synchronized void gameLoop() {
 		while (runGame) {
 			try {
 				sleeping.set(true);
-				LOG.finer("sleeping");
+				LOGGER.finer("sleeping");
 				wait();  // wait to be awakened by startTurn() or endGame()
 			} catch (InterruptedException e) {
 			}
 			sleeping.set(false);
-			LOG.finer(StringRes.getString("controller.executor.awaken"));
+			LOGGER.finer(StringRes.getString("controller.executor.awaken"));
 			if (runGame) {  // was awaken by startTurn()
 				gameTurn();
 				timeControllerRef.endTurn();  // wake up timeController, prevents timeout
@@ -90,14 +92,14 @@ public class ExecutiveController implements Runnable {
 		else {
 			turnHandler = new TurnHandlerAlien(currentPlayer, map, deck);
 		}
-		LOG.fine("Executing turn sequence");
+		LOGGER.fine("Executing turn sequence");
 		turnHandler.executeTurnSequence();
-		LOG.fine("Turn sequence completed");
+		LOGGER.fine("Turn sequence completed");
 	}
 
 
 	public ExecutiveController(TimeController timeControllerRef, MapActionInterface map, DecksHandlerInterface deck) {
-		LogHelper.setDefaultOptions(LOG);
+		LogHelper.setDefaultOptions(LOGGER);
 		this.map = map;
 		this.deck = deck;
 		this.timeControllerRef = timeControllerRef;

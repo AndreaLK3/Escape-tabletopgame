@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class TimeController implements Runnable {
 	
-	protected static final Logger log = Logger.getLogger( TimeController.class.getName() );
+	protected static final Logger LOGGER = Logger.getLogger( TimeController.class.getName() );
 	
 	private final int TIMEOUT;
 	
@@ -49,11 +49,11 @@ public class TimeController implements Runnable {
 	}
 
 	public void run() {
-		log.fine(StringRes.getString("controller.time.start"));
+		LOGGER.fine(StringRes.getString("controller.time.start"));
 		turnNumber = 1;
 		synchroStart();
 		mainLoop();
-		log.fine(StringRes.getString("controller.time.finish"));
+		LOGGER.fine(StringRes.getString("controller.time.finish"));
 	}
 	
 	/**
@@ -74,7 +74,7 @@ public class TimeController implements Runnable {
 	}
 
 	public TimeController(List<Player> turnOrder, ServerLocalSettings locals) {
-		LogHelper.setDefaultOptions(log);
+		LogHelper.setDefaultOptions(LOGGER);
 		this.locals = locals;
 		TIMEOUT = locals.getGameTurnDuration();
 		this.turnOrder = turnOrder;
@@ -92,17 +92,17 @@ public class TimeController implements Runnable {
 			turnCompleted = false;
 			Player current = turnOrder.get(nowPlaying);
 			Shorthand.announcer(current).announceNewTurn(turnNumber,current.getName());
-			log.fine("Issuing startTurn command");
+			LOGGER.fine("Issuing startTurn command");
 			executorRef.startTurn(current);  // run current player's turn
 			
 			try {
 				wait(TIMEOUT);  // wait for it to end
 			} catch (InterruptedException e) {
 			}
-			log.finer("Awaken");
+			LOGGER.finer("Awaken");
 			
 			if (!turnCompleted) {  // didn't end in time? End it for him
-				log.fine(StringRes.getString("controller.time.forcingDefaults"));
+				LOGGER.fine(StringRes.getString("controller.time.forcingDefaults"));
 				executorRef.fillInDefaultChoices();
 				
 				try {
