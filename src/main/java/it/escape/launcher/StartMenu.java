@@ -277,12 +277,20 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		return starter;
 	}
 	
-	public static void launch(final LauncherLocalSettings locals, final StartSubsystemsInterface starter) throws HeadlessException {
-
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment(); 
-		if (ge.isHeadless()) {
+	/**
+	 * Throws HeadlessException if the GUI in unavailable,
+	 * otherwise, id doesn't do anything
+	 * @throws HeadlessException
+	 */
+	public static void detectTextOnlyEnvironment() throws HeadlessException {
+		if (GraphicsEnvironment.isHeadless()) {
 			throw new HeadlessException();
 		}
+	}
+	
+	public static void launch(final LauncherLocalSettings locals, final StartSubsystemsInterface starter) throws HeadlessException {
+
+		detectTextOnlyEnvironment();
 		
 		EventQueue.invokeLater(
 			new Runnable() {

@@ -1,8 +1,13 @@
 Current tasks:
 
+(MM): Jenkins si lamenta per quei test che richiedono di aprire una finestra GUI, cosa che lui
+non può fare. Se vuoi una fix astuta, guarda il metodo statico detectTextOnlyEnvironment() in StartMenu,
+così magari puoi fare skippare quei test se serve.
+
 (MM):
 Aggiunta mappa "Galilei_test" per testare gli escape hatch.
 Si carica mettendo l'argument da riga di comando "--map-rotation Galilei_test"
+(EDIT): sembra tutto in ordine sul versante escape hatch
 
 (AL):
 1) Il Funzionamento di RMI:
