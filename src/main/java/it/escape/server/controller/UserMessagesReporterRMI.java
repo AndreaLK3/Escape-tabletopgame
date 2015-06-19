@@ -284,7 +284,17 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().youDefended();
 		} catch (RemoteException e) {
-			LOGGER.warning("Could not report: a player defended himselfs " + e.getMessage());
+			LOGGER.warning("Could not report: a player defended himself " + e.getMessage());
+		}
+		
+	}
+
+	@Override
+	public void reportDiscardedCard(String cardName) {
+		try {
+			interfaceWithUser.getClient().discardedCard(cardName);
+		} catch (RemoteException e) {
+			LOGGER.warning("Could not report: a player discarded a card " + e.getMessage());
 		}
 		
 	}

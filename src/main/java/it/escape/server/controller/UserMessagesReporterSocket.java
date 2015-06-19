@@ -277,6 +277,12 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 		relayMessage(StringRes.getString("messaging.defendedSuccessfully"));
 		
 	}
+
+	@Override
+	public void reportDiscardedCard(String cardName) {
+		relayMessage(String.format(StringRes.getString("messaging.discardedCard"),cardName));
+		
+	}
 	
 }
 

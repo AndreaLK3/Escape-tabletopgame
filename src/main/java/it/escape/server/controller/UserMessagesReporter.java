@@ -189,6 +189,8 @@ public abstract class UserMessagesReporter {
 	
 	public abstract void reportCardException(String exceptionMessage);
 	
+	public abstract  void reportDiscardedCard(String cardName);
+	
 	
 
 }

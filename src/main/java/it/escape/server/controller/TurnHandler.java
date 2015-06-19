@@ -112,7 +112,7 @@ public abstract class TurnHandler {
 				endObjectCard = false;
 			}
 		} while (!endObjectCard);
-		reporter.relayMessage(String.format(StringRes.getString("messaging.discardedCard"),key));
+		reporter.reportDiscardedCard(key);
 	}
 	
 	/**
