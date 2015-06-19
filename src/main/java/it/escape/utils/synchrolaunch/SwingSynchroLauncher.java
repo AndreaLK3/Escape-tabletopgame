@@ -1,4 +1,4 @@
-package it.escape.server.swinglogviewer;
+package it.escape.utils.synchrolaunch;
 
 import java.awt.EventQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -17,7 +17,7 @@ public class SwingSynchroLauncher {
 	
 	private static final int QUANTUM = 200;
 	
-	public static void synchronousLaunch(final Runnable toRun) {
+	public static void synchronousLaunch(final SynchroLaunchInterface toRun) {
 		final AtomicBoolean ready = new AtomicBoolean(false);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

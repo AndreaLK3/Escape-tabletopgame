@@ -13,7 +13,8 @@ import it.escape.client.view.gui.maplabel.MapViewer;
 import it.escape.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.server.model.game.exceptions.BadJsonFileException;
 import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
-import it.escape.server.swinglogviewer.SwingSynchroLauncher;
+import it.escape.utils.synchrolaunch.SwingSynchroLauncher;
+import it.escape.utils.synchrolaunch.SynchroLaunchInterface;
 
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
@@ -21,7 +22,6 @@ import java.awt.GridBagLayout;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.ImageIcon;
@@ -120,7 +120,7 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 	public static void synchronousLaunch(final BindUpdaterInterface updater, 
 			final Relay relay, final Observable model, final ReentrantLock finalPhase, 
 			final BindDisconnectCallbackInterface connection) {
-		SwingSynchroLauncher.synchronousLaunch(new Runnable() {
+		SwingSynchroLauncher.synchronousLaunch(new SynchroLaunchInterface() {
 					public void run() {
 						finalPhase.lock();  // this mutex will prevent the program from quitting when the connection frops
 						SmartSwingView view = new SmartSwingView("Escape from the Aliens in Outer Space", relay, finalPhase);	

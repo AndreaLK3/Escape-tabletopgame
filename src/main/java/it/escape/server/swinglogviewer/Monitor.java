@@ -3,6 +3,8 @@ package it.escape.server.swinglogviewer;
 import it.escape.launcher.menucontroller.StartMenuInterface;
 import it.escape.utils.FilesHelper;
 import it.escape.utils.LogHelper;
+import it.escape.utils.synchrolaunch.SwingSynchroLauncher;
+import it.escape.utils.synchrolaunch.SynchroLaunchInterface;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -132,7 +134,7 @@ public class Monitor extends JFrame {
 	}
 	
 	public static void synchronousLaunch(final boolean rmi, final boolean sock, final StartMenuInterface startMenu) {
-		SwingSynchroLauncher.synchronousLaunch(new Runnable() {
+		SwingSynchroLauncher.synchronousLaunch(new SynchroLaunchInterface() {
 			public void run() {
 				new Monitor("Server log",rmi,sock, startMenu);
 			}});
