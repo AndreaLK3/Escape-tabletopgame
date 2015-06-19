@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Logger;
 
 /**Responsibilities:
@@ -120,7 +119,9 @@ public class GameMaster implements Runnable {
 		LOGGER.fine(String.format(StringRes.getString("controller.gamemaster.gameStartTimeout"), WAIT_TIMEOUT/1000));
 		announcer.announceGameStartETA(WAIT_TIMEOUT / 1000);
 		try {
+			do {
 			wait(WAIT_TIMEOUT);
+			} while (numPlayers < GameMaster.MINPLAYERS);
 		} catch (InterruptedException e) {
 		}
 		if (numPlayers >= GameMaster.MINPLAYERS) {  // someone disconnected in the meantime? no? good.
