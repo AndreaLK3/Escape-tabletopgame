@@ -140,7 +140,6 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 			new Runnable() {
 				public void run() {
 					new RMIServerInitializer().startRMIServer(globals);
-					//startMenu.closeProgram();
 				}}).start();
 	}
 	
@@ -169,6 +168,28 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 			new Runnable() {
 				public void run() {
 					Monitor.synchronousLaunch(false, true, startMenu);
+					new SockServerInitializer().startSocketServer(globals);
+					startMenu.closeProgram();
+				}}).start();
+	}
+	
+	public void startGUIRMIServer(final StartMenuInterface startMenu) {
+		new Thread(
+			new Runnable() {
+				public void run() {
+					Monitor.synchronousLaunch(false, true, startMenu);
+					new RMIServerInitializer().startRMIServer(globals);
+					startMenu.closeProgram();
+				}}).start();
+	}
+	
+	public void startGUIComboServer(final StartMenuInterface startMenu) {
+		new Thread(
+			new Runnable() {
+				public void run() {
+					Monitor.synchronousLaunch(false, true, startMenu);
+					// MUST be run in this exact order
+					new RMIServerInitializer().startRMIServer(globals);
 					new SockServerInitializer().startSocketServer(globals);
 					startMenu.closeProgram();
 				}}).start();
