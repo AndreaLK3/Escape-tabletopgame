@@ -1,8 +1,9 @@
 package it.escape;
 
-import it.escape.server.MapCreator;
-import it.escape.strings.StringRes;
-import it.escape.utils.LogHelper;
+import it.escape.core.server.MapCreator;
+import it.escape.tools.GlobalSettings;
+import it.escape.tools.strings.StringRes;
+import it.escape.tools.utils.LogHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;

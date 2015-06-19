@@ -1,9 +1,10 @@
 package it.escape.client.controller.gui;
 
 import static org.junit.Assert.*;
-import it.escape.client.model.ModelForGUI;
-import it.escape.server.model.game.cards.ObjectCard;
-import it.escape.server.model.game.cards.objectcards.SedativesCard;
+import it.escape.core.client.controller.gui.UpdaterSwing;
+import it.escape.core.client.model.ModelForGUI;
+import it.escape.core.server.model.game.cards.ObjectCard;
+import it.escape.core.server.model.game.cards.objectcards.SedativesCard;
 
 import org.junit.Test;
 

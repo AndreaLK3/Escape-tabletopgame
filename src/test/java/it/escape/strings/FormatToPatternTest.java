@@ -1,6 +1,8 @@
 package it.escape.strings;
 
 import static org.junit.Assert.*;
+import it.escape.tools.strings.FormatToPattern;
+import it.escape.tools.strings.StringRes;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

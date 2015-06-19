@@ -1,6 +1,6 @@
 package it.escape.server.model.game.gamemap;
 
-import it.escape.server.controller.game.actions.cellactions.GetSectorCardAction;
+import it.escape.core.server.controller.game.actions.cellactions.GetSectorCardAction;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;

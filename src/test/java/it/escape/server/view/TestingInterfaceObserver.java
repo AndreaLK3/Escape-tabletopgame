@@ -1,6 +1,6 @@
 package it.escape.server.view;
 
-import it.escape.server.view.sockspecific.AsyncMessagingObservable;
+import it.escape.core.server.view.sockspecific.AsyncMessagingObservable;
 
 import java.util.Observable;
 import java.util.Observer;

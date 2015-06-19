@@ -1,6 +1,6 @@
 package it.escape.server.model.game.gamemap.loader;
 
-import it.escape.server.model.game.gamemap.Cell;
+import it.escape.core.server.model.game.gamemap.Cell;
 
 import java.util.List;
 

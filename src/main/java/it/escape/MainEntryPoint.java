@@ -1,16 +1,17 @@
 package it.escape;
 
-import it.escape.client.ClientInitializerCLIRMI;
-import it.escape.client.ClientInitializerCLISocket;
-import it.escape.client.ClientInitializerGUIRMI;
-import it.escape.client.ClientInitializerGUISocket;
-import it.escape.launcher.StartMenu;
-import it.escape.launcher.menucontroller.StartMenuInterface;
-import it.escape.launcher.menucontroller.StartSubsystemsInterface;
-import it.escape.server.RMIServerInitializer;
-import it.escape.server.SockServerInitializer;
-import it.escape.server.swinglogviewer.Monitor;
-import it.escape.strings.StringRes;
+import it.escape.core.client.ClientInitializerCLIRMI;
+import it.escape.core.client.ClientInitializerCLISocket;
+import it.escape.core.client.ClientInitializerGUIRMI;
+import it.escape.core.client.ClientInitializerGUISocket;
+import it.escape.core.launcher.StartMenu;
+import it.escape.core.launcher.menucontroller.StartMenuInterface;
+import it.escape.core.launcher.menucontroller.StartSubsystemsInterface;
+import it.escape.core.server.RMIServerInitializer;
+import it.escape.core.server.SockServerInitializer;
+import it.escape.core.server.swinglogviewer.Monitor;
+import it.escape.tools.GlobalSettings;
+import it.escape.tools.strings.StringRes;
 
 import java.awt.HeadlessException;
 import java.io.PrintStream;

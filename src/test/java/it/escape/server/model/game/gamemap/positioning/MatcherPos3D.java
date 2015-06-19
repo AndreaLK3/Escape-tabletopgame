@@ -1,6 +1,6 @@
 package it.escape.server.model.game.gamemap.positioning;
 
-import it.escape.server.model.game.gamemap.positioning.PositionCubic;
+import it.escape.core.server.model.game.gamemap.positioning.PositionCubic;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;

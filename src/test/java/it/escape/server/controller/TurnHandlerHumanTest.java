@@ -1,17 +1,18 @@
 package it.escape.server.controller;
 
 import static org.junit.Assert.*;
-import it.escape.server.MapCreator;
-import it.escape.server.model.game.cards.DecksHandler;
-import it.escape.server.model.game.cards.objectcards.AdrenalineCard;
-import it.escape.server.model.game.cards.objectcards.AttackCard;
-import it.escape.server.model.game.cards.objectcards.DefenseCard;
-import it.escape.server.model.game.cards.objectcards.LightsCard;
-import it.escape.server.model.game.cards.objectcards.SedativesCard;
-import it.escape.server.model.game.cards.objectcards.TeleportCard;
-import it.escape.server.model.game.gamemap.GameMap;
-import it.escape.server.model.game.players.Human;
-import it.escape.server.model.game.players.Player;
+import it.escape.core.server.MapCreator;
+import it.escape.core.server.controller.TurnHandlerHuman;
+import it.escape.core.server.model.game.cards.DecksHandler;
+import it.escape.core.server.model.game.cards.objectcards.AdrenalineCard;
+import it.escape.core.server.model.game.cards.objectcards.AttackCard;
+import it.escape.core.server.model.game.cards.objectcards.DefenseCard;
+import it.escape.core.server.model.game.cards.objectcards.LightsCard;
+import it.escape.core.server.model.game.cards.objectcards.SedativesCard;
+import it.escape.core.server.model.game.cards.objectcards.TeleportCard;
+import it.escape.core.server.model.game.gamemap.GameMap;
+import it.escape.core.server.model.game.players.Human;
+import it.escape.core.server.model.game.players.Player;
 
 import org.junit.Before;
 import org.junit.Test;

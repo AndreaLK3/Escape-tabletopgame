@@ -1,5 +1,8 @@
 package it.escape.server.model.game.cards;
 
+import it.escape.core.server.model.game.cards.Card;
+import it.escape.core.server.model.game.cards.Deck;
+
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 
@@ -17,9 +20,9 @@ public class DeckMatcher extends BaseMatcher<Object> {
 		boolean sameCards = true;
 		
 		if (arg0 instanceof Deck) {
-			for (Card c : secondDeck.theDeck)	
+			for (Card c : secondDeck.getTheDeck())	
 			{	c = secondDeck.drawCard();
-				if (!((Deck) arg0).theDeck.remove(c))
+				if (!((Deck) arg0).getTheDeck().remove(c))
 					sameCards = false;
 			}
 		

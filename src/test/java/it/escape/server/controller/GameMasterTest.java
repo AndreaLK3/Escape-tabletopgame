@@ -1,16 +1,19 @@
 package it.escape.server.controller;
 
 import static org.junit.Assert.assertEquals;
-import it.escape.GlobalSettings;
-import it.escape.server.MapCreator;
-import it.escape.server.Master;
-import it.escape.server.model.AnnouncerStrings;
-import it.escape.server.model.SuperAnnouncer;
-import it.escape.server.model.game.players.Player;
-import it.escape.server.model.game.players.PlayerTeams;
-import it.escape.server.view.MessagingChannelStrings;
-import it.escape.strings.StringRes;
+import it.escape.core.server.MapCreator;
+import it.escape.core.server.Master;
+import it.escape.core.server.controller.GameMaster;
+import it.escape.core.server.controller.Shorthand;
+import it.escape.core.server.controller.UserMessagesReporterSocket;
+import it.escape.core.server.model.AnnouncerStrings;
+import it.escape.core.server.model.SuperAnnouncer;
+import it.escape.core.server.model.game.players.Player;
+import it.escape.core.server.model.game.players.PlayerTeams;
+import it.escape.core.server.view.MessagingChannelStrings;
 import it.escape.server.controller.AnnouncerObserverTest;
+import it.escape.tools.GlobalSettings;
+import it.escape.tools.strings.StringRes;
 
 import java.util.List;
 

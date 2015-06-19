@@ -1,9 +1,10 @@
 package it.escape.server.controller;
 
 import static org.junit.Assert.*;
-import it.escape.server.model.game.players.Alien;
-import it.escape.server.model.game.players.Human;
-import it.escape.server.model.game.players.Player;
+import it.escape.core.server.controller.VictoryChecker;
+import it.escape.core.server.model.game.players.Alien;
+import it.escape.core.server.model.game.players.Human;
+import it.escape.core.server.model.game.players.Player;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,17 +2,18 @@ package it.escape.server.model.game.gamemap;
 
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
-import it.escape.server.controller.game.actions.CellAction;
-import it.escape.server.model.game.exceptions.BadCoordinatesException;
-import it.escape.server.model.game.exceptions.BadJsonFileException;
-import it.escape.server.model.game.exceptions.CellNotExistsException;
-import it.escape.server.model.game.exceptions.DestinationUnreachableException;
-import it.escape.server.model.game.exceptions.MalformedStartingCells;
-import it.escape.server.model.game.exceptions.PlayerCanNotEnterException;
-import it.escape.server.model.game.players.Alien;
-import it.escape.server.model.game.players.Player;
-import it.escape.server.model.game.players.PlayerTeams;
-import it.escape.utils.FilesHelper;
+import it.escape.core.server.controller.game.actions.CellAction;
+import it.escape.core.server.model.game.exceptions.BadCoordinatesException;
+import it.escape.core.server.model.game.exceptions.BadJsonFileException;
+import it.escape.core.server.model.game.exceptions.CellNotExistsException;
+import it.escape.core.server.model.game.exceptions.DestinationUnreachableException;
+import it.escape.core.server.model.game.exceptions.MalformedStartingCells;
+import it.escape.core.server.model.game.exceptions.PlayerCanNotEnterException;
+import it.escape.core.server.model.game.gamemap.GameMap;
+import it.escape.core.server.model.game.players.Alien;
+import it.escape.core.server.model.game.players.Player;
+import it.escape.core.server.model.game.players.PlayerTeams;
+import it.escape.tools.utils.FilesHelper;
 
 import java.io.IOException;
 

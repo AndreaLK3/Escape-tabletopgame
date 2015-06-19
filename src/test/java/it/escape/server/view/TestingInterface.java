@@ -1,5 +1,7 @@
 package it.escape.server.view;
 
+import it.escape.core.server.view.MessagingChannelStrings;
+
 public class TestingInterface extends MessagingChannelStrings {
 	
 	private String last_message;

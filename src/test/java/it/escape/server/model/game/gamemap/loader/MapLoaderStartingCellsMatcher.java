@@ -1,9 +1,9 @@
 package it.escape.server.model.game.gamemap.loader;
 
-import it.escape.server.model.game.gamemap.Cell;
-import it.escape.server.model.game.gamemap.StartingCell;
-import it.escape.server.model.game.gamemap.positioning.PositionCubic;
-import it.escape.server.model.game.players.PlayerTeams;
+import it.escape.core.server.model.game.gamemap.Cell;
+import it.escape.core.server.model.game.gamemap.StartingCell;
+import it.escape.core.server.model.game.gamemap.positioning.PositionCubic;
+import it.escape.core.server.model.game.players.PlayerTeams;
 
 import java.util.List;
 

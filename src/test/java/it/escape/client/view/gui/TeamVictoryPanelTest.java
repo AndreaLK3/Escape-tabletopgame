@@ -1,9 +1,10 @@
 package it.escape.client.view.gui;
 
 import static org.junit.Assert.*;
-import it.escape.client.model.ModelForGUI;
-import it.escape.client.model.VictoryState;
-import it.escape.launcher.StartMenu;
+import it.escape.core.client.model.ModelForGUI;
+import it.escape.core.client.model.VictoryState;
+import it.escape.core.client.view.gui.TeamVictoryPanel;
+import it.escape.core.launcher.StartMenu;
 
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;

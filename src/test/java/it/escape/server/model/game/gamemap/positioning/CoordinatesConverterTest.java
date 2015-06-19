@@ -8,12 +8,12 @@ import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 
-import it.escape.server.model.game.exceptions.BadCoordinatesException;
-import it.escape.server.model.game.gamemap.positioning.CoordinatesConverter;
-import it.escape.server.model.game.gamemap.positioning.Position2D;
+import it.escape.core.server.model.game.exceptions.BadCoordinatesException;
+import it.escape.core.server.model.game.gamemap.positioning.CoordinatesConverter;
+import it.escape.core.server.model.game.gamemap.positioning.Position2D;
+import it.escape.core.server.model.game.gamemap.positioning.PositionCubic;
 import it.escape.server.model.game.gamemap.positioning.Position2DMatcher;
-import it.escape.server.model.game.gamemap.positioning.PositionCubic;
-import it.escape.utils.LogHelper;
+import it.escape.tools.utils.LogHelper;
 
 public class CoordinatesConverterTest {
 

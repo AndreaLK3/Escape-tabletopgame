@@ -1,7 +1,7 @@
 package it.escape.server.controller;
 
 import static org.junit.Assert.assertTrue;
-import it.escape.server.model.AnnouncerStrings;
+import it.escape.core.server.model.AnnouncerStrings;
 
 import java.util.Observable;
 import java.util.Observer;

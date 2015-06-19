@@ -2,6 +2,8 @@ package it.escape.server.model.game.cards;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import it.escape.core.server.model.game.cards.Card;
+import it.escape.core.server.model.game.cards.Deck;
 
 import org.hamcrest.Matcher;
 import org.junit.Test;
@@ -38,7 +40,7 @@ public class DeckTest {
 
 	@Test
 	public void testDrawCard() {
-		for (Card c : myDeckObject.theDeck) {
+		for (Card c : myDeckObject.getTheDeck()) {
 			assertNotNull(myDeckObject.drawCard());
 			assertNotNull(myDeckObject.drawCard().toString());
 		}
