@@ -113,7 +113,7 @@ public class StartMenu extends JFrame implements StartMenuInterface {
    			cliUI.addActionListener(new ActionSetOption(stateForClient, false));
    			
    		JLabel labelSrvOpt = setLabelBeforeField("Server settings:");
-   			labelSrvOpt.setToolTipText("ServerS-only settings");
+   			labelSrvOpt.setToolTipText("Server-only settings");
    		JComboBox<String> srvNet = setCBox(netmodesServer, 1);
    			srvNet.addActionListener(new ActionSetOption(stateForServer, true));
    		JComboBox<String> srvUI = setCBox(experience, 2);
