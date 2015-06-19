@@ -18,13 +18,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
-public class ClientInitializerGUIRMI {
+public class ClientInitializerGUIRMI extends ClientInitializerGUI{
 	
 	private static ProxyToServer remoteServer;
-	
-	private static ClientLocalSettings locals;
-	
-	private static JDialog pleaseWait;
 	
 	private static Relay relay;
 	
@@ -57,32 +53,5 @@ public class ClientInitializerGUIRMI {
 		
 	}
 	
-	private static void openProgressDialog() {
-		JOptionPane optionPane;
-		try {
-			optionPane = new JOptionPane(
-					"Connecting to " + locals.getDestinationServerAddress() + ":" + locals.getServerPort(),
-					JOptionPane.INFORMATION_MESSAGE, 
-					JOptionPane.DEFAULT_OPTION,
-					new ImageIcon(FilesHelper.getResourceAsByteArray("resources/artwork/launcher/connecting.gif")),
-					new Object[]{},
-					null);
-			pleaseWait = new JDialog();
-			pleaseWait.setTitle("Connecting...");
-			pleaseWait.setLocationRelativeTo(null);
-			pleaseWait.setContentPane(optionPane);
-			pleaseWait.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			pleaseWait.pack();
-			pleaseWait.setVisible(true);
-		} catch (IOException e) {
-			popupError("Cannot initialize dialog");
-		}
-	}
 	
-	private static void popupError(String message) {
-		JOptionPane.showMessageDialog(null,
-			    message,
-			    "Network error",
-			    JOptionPane.WARNING_MESSAGE);
-	}
 }
