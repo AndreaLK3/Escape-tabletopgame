@@ -22,7 +22,7 @@ import it.escape.utils.LogHelper;
  */
 public class MessagingChannelRMI implements MessagingChannelInterface {
 	
-	protected static final Logger LOG = Logger.getLogger( MessagingChannelRMI.class.getName() );
+	protected static final Logger LOGGER = Logger.getLogger( MessagingChannelRMI.class.getName() );
 	
 	private ClientRemoteInterface client;
 	
@@ -36,12 +36,15 @@ public class MessagingChannelRMI implements MessagingChannelInterface {
 	
 	private int clientIdentifier;
 	
+	private boolean answerArrived;
+	
 	public MessagingChannelRMI(ClientRemoteInterface client, ServerRemoteInterface server) {
-		LogHelper.setDefaultOptions(LOG);
+		LogHelper.setDefaultOptions(LOGGER);
 		this.client = client;
 		this.server = server;
 		this.clientIdentifier = idGenerator;
 		idGenerator++;
+		answerArrived = false;
 	}
 
 	public ClientRemoteInterface getClient() {
@@ -53,10 +56,14 @@ public class MessagingChannelRMI implements MessagingChannelInterface {
 	}
 	
 	public synchronized String getAnswer() {
+		
 		try {
-			wait();
+			do {
+				wait();
+			}while (!answerArrived);
 		} catch (InterruptedException e) {
 		}
+		answerArrived = false;	//sets up the variable to false, so we'll be ready to listen again
 		return answer;
 	}
 	
@@ -66,12 +73,13 @@ public class MessagingChannelRMI implements MessagingChannelInterface {
 
 	public synchronized void setAnswer(String answer) {
 		this.answer = answer;
+		answerArrived = true;
 		notify();
 	}
 	
 	public synchronized void overrideDefault() {
 		answer = defaultOption;
-		LOG.fine("Overriding with default: \"" + defaultOption + "\"");
+		LOGGER.fine("Overriding with default: \"" + defaultOption + "\"");
 		notify();
 	}
 
@@ -84,7 +92,7 @@ public class MessagingChannelRMI implements MessagingChannelInterface {
 		try {
 			server.unregisterClient(client);
 		} catch (RemoteException e) {
-			LOG.warning("Cannot kill the connection: " + e.getMessage());
+			LOGGER.warning("Cannot kill the connection: " + e.getMessage());
 		}
 	}
 }
