@@ -53,6 +53,8 @@ public class MessagingChannelStrings extends Observable implements MessagingHead
 	
 	private AtomicBoolean override;
 	
+	private boolean inputProvided;
+	
 	// MessagingChannelStrings is simply a proxy to this Observable
 	private AsyncMessagingObservable asyncInterface;
 	
@@ -65,9 +67,13 @@ public class MessagingChannelStrings extends Observable implements MessagingHead
 		asyncInterface = new AsyncMessagingObservable();
 		override.set(false);
 		connectionAlive.set(true);
+		inputProvided = false;
 	}
 	
+	/**This is the method that is invoked by the subclasses to notify a message from
+	 * the user has been received.*/
 	protected synchronized void afterTailWrite() {
+		inputProvided = true;
 		notify();
 	}
 	
@@ -147,15 +153,20 @@ public class MessagingChannelStrings extends Observable implements MessagingHead
 	
 	/**This method is executed by the ExecutiveController's thread,
 	 * it is invoked by methods in UserMessagesReporter.
-	 * Once input arrives and the user awakes the thread with the notify() in afterTailWrite(),
-	 * It invokes readFromClient.
-	 */
+	 * Once input arrives and the user awakes the thread with the notify() in afterTailWrite(), it invokes readFromClient().
+	 * It can also be awakened by overrideDefaultOption(), invoked by TimeController's thread. */
 	public synchronized String readFromClient() {
+		String clientInput;
+		
+		inputProvided = false;	//the variable will be set to true by afterTailWrite() or overrideDefaultOption()
 			try {
-				wait();
+				do {
+					wait();
+				} while (!inputProvided);
 			} catch (InterruptedException e) {
 			}
-			return readingFromClient();		
+			clientInput = readingFromClient();	
+			return clientInput;
 	}
 	
 	/**
@@ -182,7 +193,6 @@ public class MessagingChannelStrings extends Observable implements MessagingHead
 					}
 				
 				} while(!clientToServerQueue.isEmpty());
-			
 			return readFromClient();
 		}
 	}
@@ -235,6 +245,7 @@ public class MessagingChannelStrings extends Observable implements MessagingHead
 	public synchronized void overrideDefaultOption() {
 		LOGGER.fine("Overriding with default: \"" + defaultOption + "\"");
 		override.set(true);
+		inputProvided = true;
 		notify();
 	}
 

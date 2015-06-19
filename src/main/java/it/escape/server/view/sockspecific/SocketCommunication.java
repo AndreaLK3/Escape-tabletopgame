@@ -17,7 +17,7 @@ import java.util.Scanner;
  * @author michele
  *
  */
-public class SocketInterface extends MessagingChannelStrings {
+public class SocketCommunication extends MessagingChannelStrings {
 	
 	private Socket clientSocket;
 	
@@ -25,7 +25,7 @@ public class SocketInterface extends MessagingChannelStrings {
 	
 	private PrintStream out;
 
-	public SocketInterface(Socket clientSocket) throws IOException {
+	public SocketCommunication(Socket clientSocket) throws IOException {
 		this.clientSocket = clientSocket;
 		in = new Scanner(clientSocket.getInputStream());
 		out = new PrintStream(clientSocket.getOutputStream());

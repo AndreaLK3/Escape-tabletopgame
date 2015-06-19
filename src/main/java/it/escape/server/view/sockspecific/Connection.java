@@ -44,7 +44,7 @@ public class Connection implements Observer, Runnable {
 		try {
 			sendWelcomeMessage();  // welcomes new player
 			// setup required objects for a player to work properly
-			messagingInterface = new SocketInterface(clientSocket);
+			messagingInterface = new SocketCommunication(clientSocket);
 			UserMessagesReporter.createUMR(messagingInterface);
 			Master.newPlayerHasConnected(messagingInterface, server.getLocals());
 			SuperAnnouncer superAnnouncer = (SuperAnnouncer) UserMessagesReporter.getReporterInstance(messagingInterface).getAnnouncer();
