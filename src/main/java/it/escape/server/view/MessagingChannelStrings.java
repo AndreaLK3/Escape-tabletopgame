@@ -40,7 +40,7 @@ import java.util.regex.Pattern;
  */
 public class MessagingChannelStrings extends Observable implements MessagingHead, MessagingTail, MessagingChannelInterface {
 	
-	protected static final Logger log = Logger.getLogger( MessagingChannelStrings.class.getName() );
+	protected static final Logger LOGGER = Logger.getLogger( MessagingChannelStrings.class.getName() );
 	
 	private Queue<String> serverToClientQueue;
 	private Queue<String> clientToServerQueue;
@@ -57,7 +57,7 @@ public class MessagingChannelStrings extends Observable implements MessagingHead
 	private AsyncMessagingObservable asyncInterface;
 	
 	public MessagingChannelStrings() {
-		LogHelper.setDefaultOptions(log);
+		LogHelper.setDefaultOptions(LOGGER);
 		serverToClientQueue = new ConcurrentLinkedQueue<String>();
 		clientToServerQueue = new ConcurrentLinkedQueue<String>();
 		override = new AtomicBoolean();
@@ -167,11 +167,12 @@ public class MessagingChannelStrings extends Observable implements MessagingHead
 	private String readingFromClient() {
 		if (override.get()) {
 			override.set(false);
-			log.fine("Reading end of the override mechanism was triggered");
+			LOGGER.fine("Reading end of the override mechanism was triggered");
 			return defaultOption;
 		} else {
 			do { 	
 				String next = clientToServerQueue.poll();
+				LOGGER.finer("I am extracting a String from the ClientToServer queue");
 				if (context == null || context.isEmpty()) {
 						return next;
 					} else {
@@ -179,7 +180,7 @@ public class MessagingChannelStrings extends Observable implements MessagingHead
 							return next;
 						}
 					}
-					
+				
 				} while(!clientToServerQueue.isEmpty());
 			
 			return readFromClient();
@@ -232,7 +233,7 @@ public class MessagingChannelStrings extends Observable implements MessagingHead
 	}
 
 	public synchronized void overrideDefaultOption() {
-		log.fine("Overriding with default: \"" + defaultOption + "\"");
+		LOGGER.fine("Overriding with default: \"" + defaultOption + "\"");
 		override.set(true);
 		notify();
 	}
