@@ -45,11 +45,9 @@ public class ActionStartServer implements ActionListener {
 				startMenu.getStarter().startGUISocketServer(startMenu);
 				startMenu.closeMenu();
 			} else if (net.equals(StringRes.getString("launcher.option.netmode.RMI"))) {
-				Monitor.synchronousLaunch(true, false, startMenu);
 				startMenu.getStarter().startGUIRMIServer(startMenu);
 				startMenu.closeMenu();
 			} else if (net.equals(StringRes.getString("launcher.option.netmode.combo"))){
-				Monitor.synchronousLaunch(true, true, startMenu);
 				startMenu.getStarter().startGUIComboServer(startMenu);
 				startMenu.closeMenu();
 			} else {

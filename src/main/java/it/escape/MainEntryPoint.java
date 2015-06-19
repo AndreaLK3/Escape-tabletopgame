@@ -177,7 +177,7 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 		new Thread(
 			new Runnable() {
 				public void run() {
-					Monitor.synchronousLaunch(false, true, startMenu);
+					Monitor.synchronousLaunch(true, false, startMenu);
 					new RMIServerInitializer().startRMIServer(globals);
 					startMenu.closeProgram();
 				}}).start();
@@ -187,7 +187,7 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 		new Thread(
 			new Runnable() {
 				public void run() {
-					Monitor.synchronousLaunch(false, true, startMenu);
+					Monitor.synchronousLaunch(true, true, startMenu);
 					// MUST be run in this exact order
 					new RMIServerInitializer().startRMIServer(globals);
 					new SockServerInitializer().startSocketServer(globals);
