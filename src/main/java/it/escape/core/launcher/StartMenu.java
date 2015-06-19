@@ -112,8 +112,8 @@ public class StartMenu extends JFrame implements StartMenuInterface {
    		JComboBox<String> cliUI = setCBox(experience, 2);
    			cliUI.addActionListener(new ActionSetOption(stateForClient, false));
    			
-   		JLabel labelSrvOpt = setLabelBeforeField("ServerSocketCore settings:");
-   			labelSrvOpt.setToolTipText("ServerSocketCore-only settings");
+   		JLabel labelSrvOpt = setLabelBeforeField("Server settings:");
+   			labelSrvOpt.setToolTipText("ServerS-only settings");
    		JComboBox<String> srvNet = setCBox(netmodesServer, 1);
    			srvNet.addActionListener(new ActionSetOption(stateForServer, true));
    		JComboBox<String> srvUI = setCBox(experience, 2);
