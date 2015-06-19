@@ -31,10 +31,9 @@ public class ClientInitializerCLIRMI {
 	
 	private static Terminal view;
 	
-	public static void start(ClientLocalSettings Locals) {
-		locals = Locals;
+	public static void start(ClientLocalSettings locals) {
+		locals = locals;
 		enterServerAddress();
-		out.println("Connecting...");
 		
 		stateManager = new StateManagerCLI();
 		
