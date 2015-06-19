@@ -12,6 +12,9 @@ nello stato "attesa giocatori".
 C'è qualche bug che quel do-while risolve? Se così, lo teniamo.
 Altrimenti, vorrei che sparisse, pretty please.
 
+(AL): Io di mio non ce l'avrei messo, ma Sonar lo richiede altrimenti invia una critical issue. 
+Si potrebbe fare... while (notStartingGameYet), e chi fa la notify pone la variabile booleana a true. Procedo adesso in questo modo
+
 (AL):
 
 1) (Server-side) "Team disconnected. Terminating game."... Non conclude il gioco come si dovrebbe
