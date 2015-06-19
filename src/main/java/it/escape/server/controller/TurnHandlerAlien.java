@@ -51,4 +51,10 @@ public class TurnHandlerAlien extends TurnHandler{
 		// if we didn't enable it first, this won't do anything
 		reporter.stopFillingDefault();
 	}
+
+
+	@Override
+	public boolean mustNotMove() {
+		return false;
+	}
 }

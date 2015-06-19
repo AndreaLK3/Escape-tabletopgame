@@ -355,6 +355,18 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 	public void clearOtherPlayersFromMap() {
 		((MapViewer)label5_map).clearOtherPlayerMarkers();
 	}
+	public void addAttackToMap(String location) {
+		((MapViewer)label5_map).addAttackMarker(location);
+	}
+	public void clearAttacksFromMap() {
+		((MapViewer)label5_map).clearAttackMarkers();
+	}
+	public void addBonesToMap(String location) {
+		((MapViewer)label5_map).addBonesMarker(location);
+	}
+	public void clearBonesFromMap() {
+		((MapViewer)label5_map).clearBonesMarkers();
+	}
 	public void focusOnLocation(final String coord, final int waitBefore) {
 		new Thread(
 				new Runnable() {
