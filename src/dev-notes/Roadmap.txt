@@ -1,11 +1,5 @@
 Current tasks:
 
-(MM): riguardo a sonar & "Exception handlers should preserve the original exception":
-il formato che lui vuole è questo:
-LOGGER.log(Level.WARNING, "Cannot report game start ETA", e);
-^^^^^^                                                    ^
-qualunque nome va bene qui         non basta stamparla, bisogna passarla come parametro
-
 (AL):
 
 1) (Server-side) "Team disconnected. Terminating game."... Non conclude il gioco come si dovrebbe
@@ -16,8 +10,7 @@ qualunque nome va bene qui         non basta stamparla, bisogna passarla come pa
 	^^^^ (MM): fixed, credo.
 
 	b) Gestire la disconnessione RMI, invece di avere "Connection refused" che continua all'infinito.
-	^^^^ (MM) Ho aggiunto un thread che continua a 'pingare' i client, da testare per bene.
-        		  
+	^^^^ (MM) Ho aggiunto un thread che continua a 'pingare' i client, da testare per bene.	  
 
 
 3) Aggiustare il funzionamento dell'override, che non funziona ancora come dovrebbe.(Forse serve un Sequence Diagram) Prova del 9: far giocare 2 giocatori inattivi
@@ -25,35 +18,29 @@ qualunque nome va bene qui         non basta stamparla, bisogna passarla come pa
 ^^^^(AL): Ok, in condizioni standard è ora possibile fare giocare 2 o più giocatori quasi inattivi. 
 Occorre solo fare un po' di partite / logs per verificare la cosa.
 
-4) Print dei risultati: fornire informazioni più complete al Client-Model, e mostrarle poi nel VictoryPanel di Swing 
 
-5) Aggiungere test ( e commentarli)
+4) Aggiungere test ( e commentarli)
 
-6) Sistemare un numero considerevole di issues e cicli di Sonar
-n: chiamare il log LOGGER
+5) Sistemare un numero considerevole di issues e cicli di Sonar
 
-7) Preparare il Documento di presentazione con : lista dei Design pattern utilizzati, 
+(MM): riguardo a sonar & "Exception handlers should preserve the original exception":
+il formato che lui vuole è questo:
+LOGGER.log(Level.WARNING, "Cannot report game start ETA", e);
+^^^^^^                                                    ^
+qualunque nome va bene qui         non basta stamparla, bisogna passarla come parametro
+
+6) Preparare il Documento di presentazione con : lista dei Design pattern utilizzati, 
 +  breve commento e diagrammi di sequenza (aggiornati) e diagrammi delle classi per ciascuna parte del progetto 
 
 
 
 
 
-(MM): Jenkins si lamenta per quei test che richiedono di aprire una finestra GUI, cosa che lui
-non può fare. Se vuoi una fix astuta, guarda il metodo statico detectTextOnlyEnvironment() in StartMenu,
-così magari puoi fare skippare quei test se serve.
-(AL):Fatto. Se va tutto bene, non dovremmo ricevere altri avvisi da Jenkins.
-
-
-(MM):
-Aggiunta mappa "Galilei_test" per testare gli escape hatch.
-Si carica mettendo l'argument da riga di comando "--map-rotation Galilei_test"
-(EDIT): sembra tutto in ordine sul versante escape hatch
-
-
 
 __________________________________________________________
 Lower priority:
+
+)Print dei risultati: fornire informazioni più complete al Client-Model, e mostrarle poi nel VictoryPanel di Swing 
 
 Quando il server va giù, non libera la porta che usava
 ^^^^(MM): non starai mica terminando ancora il programma con ctrl-z? perchè ctrl-z lo manda solo in background. usa ctrl-c invece.
@@ -76,6 +63,38 @@ BUG: Nel funzionamento di base (Socket + testo), quando un giocatore si disconne
 Potrebbe essere collegato al bug dell'override.
 ^^^^ (MM): mi servirebbe un log di partita per lavorare su questo 
 ^^^^(AL): [update]: alla fine l'override scatta e risolve la situazione
+
+
+
+
+
+
+
+
+(MM): Jenkins si lamenta per quei test che richiedono di aprire una finestra GUI, cosa che lui
+non può fare. Se vuoi una fix astuta, guarda il metodo statico detectTextOnlyEnvironment() in StartMenu,
+così magari puoi fare skippare quei test se serve.
+(AL):Fatto. Se va tutto bene, non dovremmo ricevere altri avvisi da Jenkins.
+
+
+(MM):
+Aggiunta mappa "Galilei_test" per testare gli escape hatch.
+Si carica mettendo l'argument da riga di comando "--map-rotation Galilei_test"
+(EDIT): sembra tutto in ordine sul versante escape hatch
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 __________________________________________________________
