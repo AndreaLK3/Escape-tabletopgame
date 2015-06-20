@@ -7,6 +7,7 @@ import it.escape.core.client.view.gui.TeamVictoryPanel;
 import it.escape.core.launcher.StartMenu;
 
 import java.awt.EventQueue;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
@@ -24,14 +25,15 @@ public class TeamVictoryPanelTest {
 	/**This graphic test must be run using the Debugging tool*/
 	@Test
 	public void test() {
-		JFrame frame = new JFrame("Test victory panel");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-   		frame.setSize(950, 600);
-		frame.setVisible(true);
-		createResultsPanel();
-		spawnVictoryRecap();
-		lastAction();
-		
+		if (!GraphicsEnvironment.isHeadless()) {  // skip the test if no X11 is avaible
+			JFrame frame = new JFrame("Test victory panel");
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	   		frame.setSize(950, 600);
+			frame.setVisible(true);
+			createResultsPanel();
+			spawnVictoryRecap();
+			lastAction();
+		}
 	}
 	
 	
