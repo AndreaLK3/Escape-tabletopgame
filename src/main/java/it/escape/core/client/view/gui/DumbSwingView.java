@@ -4,6 +4,7 @@ import it.escape.core.client.controller.Relay;
 import it.escape.core.client.controller.gui.ActionSendChat;
 import it.escape.core.client.controller.gui.MouseOnMapCell;
 import it.escape.core.client.controller.gui.NameListener;
+import it.escape.core.client.controller.gui.UpdaterSwing;
 import it.escape.core.client.model.GameStatus;
 import it.escape.core.client.view.gui.maplabel.MapViewer;
 import it.escape.core.server.model.game.exceptions.BadJsonFileException;
@@ -19,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -53,6 +55,7 @@ import javax.swing.SwingConstants;
  */
 public abstract class DumbSwingView extends JFrame {
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = Logger.getLogger( DumbSwingView.class.getName() );
 	
 	protected static final int MAXPLAYERS = 8;
 	
@@ -60,21 +63,21 @@ public abstract class DumbSwingView extends JFrame {
   	
 	protected GridBagConstraints constraints;
    	
-	protected JLabel label_serverStatus;
-   	protected JLabel label0_gameStatus;
+	protected JLabel labelServerStatus;
+   	protected JLabel label0GameStatus;
    	protected JTextField gameStatusField;
-   	protected JLabel label1_turnNumber;
+   	protected JLabel label1TurnNumber;
    	protected JTextField turnNumberField;
    	protected JLabel label2;
    	protected JLabel label3;
    	protected JLabel label4;
-   	protected JLabel label5_map;
+   	protected JLabel label5Map;
    	protected JLabel label6;
    	protected JLabel label7;
 	protected JLabel label8;
-	protected JLabel label9_turnStatus;
-	protected JLabel label10_chat;
-	protected JLabel label11_card_notify;
+	protected JLabel label9TurnStatus;
+	protected JLabel label10Chat;
+	protected JLabel label11CardNotify;
 	protected JScrollPane mapScrollPane;
 	
 	protected JTextField nameField;
@@ -92,9 +95,10 @@ public abstract class DumbSwingView extends JFrame {
 	
 	protected PlayerPanel playerPanels[] = new PlayerPanel[MAXPLAYERS];
 	
-	protected NameListener myNameListener;
-	protected ButtonHandler buttonHandler;
-	protected Relay relayRef;
+	/**Note: this reference is made transient, since JFrame is serializable but the feature is not used. */
+	protected transient NameListener myNameListener;
+	protected transient ButtonHandler buttonHandler;
+	protected transient Relay relayRef;
 	
 	protected boolean doRelayObjectCard;
 	
@@ -140,24 +144,24 @@ public abstract class DumbSwingView extends JFrame {
 		buttonDisconnect = new JButton("Disconnect");
 		buttonDisconnect.addActionListener(new ActionDisconnectButton());
 		
-		label_serverStatus = new JLabel(new ImageIcon(ImageScaler.resizeImage("resources/artwork/misc/check.png", CONN_ICON_SIZE, CONN_ICON_SIZE)));
-		label_serverStatus.setText("Connection: ");
-		label_serverStatus.setToolTipText("Online");
-		label_serverStatus.setHorizontalTextPosition(JLabel.LEFT);
-		label_serverStatus.setVerticalTextPosition(JLabel.CENTER);
+		labelServerStatus = new JLabel(new ImageIcon(ImageScaler.resizeImage("resources/artwork/misc/check.png", CONN_ICON_SIZE, CONN_ICON_SIZE)));
+		labelServerStatus.setText("Connection: ");
+		labelServerStatus.setToolTipText("Online");
+		labelServerStatus.setHorizontalTextPosition(JLabel.LEFT);
+		labelServerStatus.setVerticalTextPosition(JLabel.CENTER);
 		
-		label0_gameStatus = new JLabel("Game Status:");
-		label0_gameStatus.setHorizontalAlignment(SwingConstants.RIGHT);
+		label0GameStatus = new JLabel("Game Status:");
+		label0GameStatus.setHorizontalAlignment(SwingConstants.RIGHT);
 		gameStatusField = new JTextField(GameStatus.WAITING_FOR_PLAYERS.toString());
 		gameStatusField.setEditable(false);
 		
-		label1_turnNumber = new JLabel("Turn Number:");
-		label1_turnNumber.setHorizontalAlignment(SwingConstants.RIGHT);
+		label1TurnNumber = new JLabel("Turn Number:");
+		label1TurnNumber.setHorizontalAlignment(SwingConstants.RIGHT);
 		turnNumberField = new JTextField("0");
 		turnNumberField.setEditable(false);
 		
-		panel = createRowPanel(Arrays.asList(buttonDisconnect, label_serverStatus,
-											label0_gameStatus, gameStatusField, label1_turnNumber, turnNumberField));
+		panel = createRowPanel(Arrays.asList(buttonDisconnect, labelServerStatus,
+											label0GameStatus, gameStatusField, label1TurnNumber, turnNumberField));
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.gridx = 0;
 		constraints.gridy = 0;
@@ -187,14 +191,16 @@ public abstract class DumbSwingView extends JFrame {
 	protected void initializeMap() {
 
 		try {
-			label5_map = new MapViewer();
+			label5Map = new MapViewer();
 		} catch (BadJsonFileException e) {
-			label5_map = new JLabel("Bad json map file");
+			label5Map = new JLabel("Bad json map file");
+			LOGGER.warning("Bad Json map file" + e.getMessage());
 		} catch (IOException e) {
-			label5_map = new JLabel("Cannot open map file");
+			label5Map = new JLabel("Cannot open map file");
+			LOGGER.warning("Can not open map file" + e.getMessage());
 		}
-		((MapViewer)label5_map).addCellListener(new MouseOnMapCell((MapViewer)label5_map));
-		mapScrollPane = new JScrollPane(label5_map);
+		((MapViewer)label5Map).addCellListener(new MouseOnMapCell((MapViewer)label5Map));
+		mapScrollPane = new JScrollPane(label5Map);
 		mapScrollPane.setPreferredSize(new Dimension(400,400));
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.gridx = 1;
@@ -231,7 +237,7 @@ public abstract class DumbSwingView extends JFrame {
 		
 		label7 = new JLabel("Status");
 		label7.setHorizontalAlignment(SwingConstants.CENTER);
-		label7.setBackground(new Color(180, 130, 240));;
+		label7.setBackground(new Color(180, 130, 240));
 		
 		label8 = new JLabel("Team");
 		label8.setHorizontalAlignment(SwingConstants.CENTER);
@@ -256,8 +262,8 @@ public abstract class DumbSwingView extends JFrame {
    	
    	/** Creation method: chat text area and text field*/
    	private void addTurnStatusPanel() {
-   		label9_turnStatus = new JLabel("Turn Status");
-   		label9_turnStatus.setBackground(new Color(150, 100, 150));
+   		label9TurnStatus = new JLabel("Turn Status");
+   		label9TurnStatus.setBackground(new Color(150, 100, 150));
 		
    		serverField = new JTextField();
    		serverField.setText("Waiting for the game to start");
@@ -269,7 +275,7 @@ public abstract class DumbSwingView extends JFrame {
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.fill = GridBagConstraints.NONE;
-		panel.add(label9_turnStatus, constraints);
+		panel.add(label9TurnStatus, constraints);
 		
 		constraints.gridx = 0;
 		constraints.gridy = 1;
@@ -286,8 +292,8 @@ public abstract class DumbSwingView extends JFrame {
    	
 	/** Creation method: chat text area and text field*/
    	private void addChatPanel() {
-   		label10_chat = new JLabel("Chat");
-		label10_chat.setBackground(new Color(150, 100, 150));
+   		label10Chat = new JLabel("Chat");
+		label10Chat.setBackground(new Color(150, 100, 150));
 		
 		chatArea = new JTextArea();
 		chatArea.setText("Ingame chat");
@@ -308,7 +314,7 @@ public abstract class DumbSwingView extends JFrame {
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.fill = GridBagConstraints.NONE;
-		panel.add(label10_chat, constraints);
+		panel.add(label10Chat, constraints);
 		
 		constraints.gridx = 0;
 		constraints.gridy = 1;
@@ -334,15 +340,16 @@ public abstract class DumbSwingView extends JFrame {
    		try {
 			newcard = new ImageIcon(FilesHelper.getResourceAsByteArray("resources/artwork/new.gif"));
 		} catch (IOException e) {
+			LOGGER.warning("Could not read resources/artwork/new.gif" + e.getMessage());
 		}
-   		label11_card_notify = new JLabel(newcard);
-   		label11_card_notify.setHorizontalTextPosition(JLabel.LEFT);
-		label11_card_notify.setVerticalTextPosition(JLabel.CENTER);
-		label11_card_notify.setVisible(false);
+   		label11CardNotify = new JLabel(newcard);
+   		label11CardNotify.setHorizontalTextPosition(JLabel.LEFT);
+		label11CardNotify.setVerticalTextPosition(JLabel.CENTER);
+		label11CardNotify.setVisible(false);
    		constraints.gridx = 0;
 		constraints.gridy = 14;
 		constraints.weightx = 1;
-		add(label11_card_notify, constraints);
+		add(label11CardNotify, constraints);
 		resetConstraints(constraints);
    	}
    	
@@ -402,8 +409,8 @@ public abstract class DumbSwingView extends JFrame {
 	}
 	
 	private void setLabelsOpaque() {
-		List<JLabel> labelsList = Arrays.asList(label0_gameStatus,label1_turnNumber,
-												label2,label3,label4,label5_map, label6, label7, label8, label10_chat);
+		List<JLabel> labelsList = Arrays.asList(label0GameStatus,label1TurnNumber,
+												label2,label3,label4,label5Map, label6, label7, label8, label10Chat);
 		   for (JLabel l : labelsList){
 			   l.setOpaque(true);
 			}
@@ -455,8 +462,8 @@ public abstract class DumbSwingView extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			relayRef.disconnectNow();
-			label_serverStatus.setIcon(new ImageIcon(ImageScaler.resizeImage("resources/artwork/misc/stop.png", CONN_ICON_SIZE, CONN_ICON_SIZE)));
-			label_serverStatus.setToolTipText("Closed by user");
+			labelServerStatus.setIcon(new ImageIcon(ImageScaler.resizeImage("resources/artwork/misc/stop.png", CONN_ICON_SIZE, CONN_ICON_SIZE)));
+			labelServerStatus.setToolTipText("Closed by user");
 		}
 
 	}

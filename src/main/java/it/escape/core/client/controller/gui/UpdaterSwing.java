@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
  */
 public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterface, ClientProceduresInterface {
 	
-	protected static final Logger LOGGER = Logger.getLogger( UpdaterSwing.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( UpdaterSwing.class.getName() );
 
 	private UpdaterSwingToViewInterface view;
 	

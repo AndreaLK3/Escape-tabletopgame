@@ -74,8 +74,8 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 	 * Called when a server-initiated disconnect is detected
 	 */
 	public void disconnected() {
-		label_serverStatus.setIcon(new ImageIcon(ImageScaler.resizeImage("resources/artwork/misc/wrong.png", CONN_ICON_SIZE, CONN_ICON_SIZE)));
-		label_serverStatus.setToolTipText("Closed by remote");
+		labelServerStatus.setIcon(new ImageIcon(ImageScaler.resizeImage("resources/artwork/misc/wrong.png", CONN_ICON_SIZE, CONN_ICON_SIZE)));
+		labelServerStatus.setToolTipText("Closed by remote");
 	}
    	
 	/**
@@ -89,8 +89,8 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 		int maxWidth = mapScrollPane.getHorizontalScrollBar().getMaximum();
 		int maxHeight = mapScrollPane.getVerticalScrollBar().getMaximum();
 		// unrolled map size
-		int mapWidth = ((MapViewer)label5_map).getTotalWidth();
-		int mapHeight = ((MapViewer)label5_map).getTotalHeight();
+		int mapWidth = ((MapViewer)label5Map).getTotalWidth();
+		int mapHeight = ((MapViewer)label5Map).getTotalHeight();
 		// visible map size
 		int viewWidth = mapScrollPane.getWidth();
 		int viewHeight = mapScrollPane.getHeight();
@@ -107,11 +107,11 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 	
 	private void focusOnLocationInstantly(String coord) {
 		try {
-			int pos[] = ((MapViewer)label5_map).cellToPixels(CoordinatesConverter.fromAlphaNumToOddq(coord));
-			int correct_X = ((MapViewer)label5_map).getCellWidth() / 2;
-			int correct_Y = ((MapViewer)label5_map).getCellHeight() / 2;
-			int map_x = ((MapViewer)label5_map).getTotalWidth();
-			int map_y = ((MapViewer)label5_map).getTotalHeight();
+			int pos[] = ((MapViewer)label5Map).cellToPixels(CoordinatesConverter.fromAlphaNumToOddq(coord));
+			int correct_X = ((MapViewer)label5Map).getCellWidth() / 2;
+			int correct_Y = ((MapViewer)label5Map).getCellHeight() / 2;
+			int map_x = ((MapViewer)label5Map).getTotalWidth();
+			int map_y = ((MapViewer)label5Map).getTotalHeight();
 			scrollMap((double) (pos[0] + correct_X) / map_x, (double) (pos[1] + correct_Y) / map_y);
 		} catch (BadCoordinatesException e) {
 		}
@@ -148,7 +148,7 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
    	
    	/**This method updates the position of the player icon on the map*/
    	private void updateMapMarkers(ModelForGUI model) {
-   		((MapViewer) label5_map).setPlayerMarkerPosition(model.getMyPlayerState().getLocation());
+   		((MapViewer) label5Map).setPlayerMarkerPosition(model.getMyPlayerState().getLocation());
    	}
    	
    	/**This method, depending on the info that are stored in the model,
@@ -190,7 +190,7 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 				new Runnable() {
 					public void run() {
 						try {
-							((MapViewer)label5_map).setMap(
+							((MapViewer)label5Map).setMap(
 									name,
 									new Runnable() { public void run() {
 										try {
@@ -225,8 +225,8 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 	
 	public void notifyNewCard(String cardName) {
 		final int duration = 10000;
-		label11_card_notify.setText("You have drawn a new " + cardName + " card");
-		label11_card_notify.setVisible(true);
+		label11CardNotify.setText("You have drawn a new " + cardName + " card");
+		label11CardNotify.setVisible(true);
 		new Thread(
 			new Runnable() {
 				public void run() {
@@ -234,7 +234,7 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 						Thread.sleep(duration);
 					} catch (InterruptedException e) {
 					}
-					label11_card_notify.setVisible(false);
+					label11CardNotify.setVisible(false);
 			}}).start();
 	}
 
@@ -260,11 +260,11 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 
 	public void bindPositionSender() {
 		ClickSendPositionListener listener = new ClickSendPositionListener(relayRef, this);
-		((MapViewer)label5_map).addCellListener(listener);
+		((MapViewer)label5Map).addCellListener(listener);
 	}
 	
 	public void unbindPositionSender(ClickSendPositionListener listener) {
-		((MapViewer)label5_map).removeCellListener(listener);
+		((MapViewer)label5Map).removeCellListener(listener);
 	}
 
 
@@ -320,31 +320,31 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 	}
 
 	public void addNoiseToMap(String location) {
-		((MapViewer)label5_map).addNoiseMarker(location);
+		((MapViewer)label5Map).addNoiseMarker(location);
 	}
 	public void clearNoisesFromMap() {
-		((MapViewer)label5_map).clearNoiseMarkers();
+		((MapViewer)label5Map).clearNoiseMarkers();
 	}
 	public void addOtherPlayerToMap(String location, String name) {
-		((MapViewer)label5_map).addOtherPlayerMarker(location, name);
+		((MapViewer)label5Map).addOtherPlayerMarker(location, name);
 	}
 	public void removeOtherPlayerFromMap(String name) {
-		((MapViewer)label5_map).removeSpecificPlayer(name);
+		((MapViewer)label5Map).removeSpecificPlayer(name);
 	}
 	public void clearOtherPlayersFromMap() {
-		((MapViewer)label5_map).clearOtherPlayerMarkers();
+		((MapViewer)label5Map).clearOtherPlayerMarkers();
 	}
 	public void addAttackToMap(String location) {
-		((MapViewer)label5_map).addAttackMarker(location);
+		((MapViewer)label5Map).addAttackMarker(location);
 	}
 	public void clearAttacksFromMap() {
-		((MapViewer)label5_map).clearAttackMarkers();
+		((MapViewer)label5Map).clearAttackMarkers();
 	}
 	public void addBonesToMap(String location) {
-		((MapViewer)label5_map).addBonesMarker(location);
+		((MapViewer)label5Map).addBonesMarker(location);
 	}
 	public void clearBonesFromMap() {
-		((MapViewer)label5_map).clearBonesMarkers();
+		((MapViewer)label5Map).clearBonesMarkers();
 	}
 	public void focusOnLocation(final String coord, final int waitBefore) {
 		new Thread(
