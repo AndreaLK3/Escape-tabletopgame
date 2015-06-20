@@ -17,6 +17,13 @@ Si potrebbe fare... while (notStartingGameYet), e chi fa la notify pone la varia
 
 (MM): Il mio sonar non segnala alcun problema li, intanto ho riportato GM alla versione stabile & collaudata
 
+(AL): Il mio sonar dà: Critical issue - <<Remove this call to "wait" or move it into a "while" loop.>>.
+Posto che hai ragione (non ha senso bypassare gameStartLogic()), io aggiungerei una variabile booleana,
+ come ho già fatto da altre parti senza alterare il funzionamento (es. MessagingChannelRMI). Se vuoi lo sistemiamo in 5 minuti quando ci vediamo.
+
+
+
+
 (AL):
 
 1) (Server-side) "Team disconnected. Terminating game."... Non conclude il gioco come si dovrebbe

@@ -192,10 +192,17 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		
 	}
 	
+	/**This method is invoked by processMessage(String message)*/
 	private boolean processInfo(String message) throws RemoteException {
-		Matcher currentTurnAndPlayer = info_currentTurnAndPlayer.matcher(message);
-		Matcher lobbyPlr = info_numLobbyPlayers.matcher(message);
-		Matcher playerRename = info_playerRenamed.matcher(message);
+		boolean messageMatched = false;
+		
+		messageMatched = processInfoAboutMe(message);
+		messageMatched = processInfoAboutTheGame(message);
+		
+		return messageMatched;
+	}
+	
+	private boolean processInfoAboutMe (String message) throws RemoteException  {
 		Matcher myRename = info_whoIAm.matcher(message);
 		Matcher myTeam = info_yourTeam.matcher(message);
 		Matcher myPosition = info_whereIAm.matcher(message);
@@ -203,9 +210,47 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher discardedCard = info_discardedCard.matcher(message);
 		Matcher myDefense = info_myDefense.matcher(message);
 		
+		
+		if (myRename.matches()) {
+			String myNewName = myRename.group(1);
+			renameMyself(myNewName);
+			return true;
+			
+		} else if (myPosition.matches()) {
+			String myPos = myPosition.group(1);
+			setMyPosition(myPos);
+			return true;
+			
+		} else if (myTeam.matches()) {
+			String teamName = myTeam.group(1);
+			setMyTeam(teamName);
+			return true;
+			
+		} else if (drawncard.matches()) {
+			String yyyCard =  drawncard.group(1);
+			drawnCard(yyyCard);
+			return true;
+			
+		} else if (discardedCard.matches()) {
+			String cardName = discardedCard.group(1);
+			discardedCard(cardName);
+			return true;
+			
+		} else if (myDefense.matches()) {
+			youDefended();
+			return true;
+		} 
+		
+		return false;
+	}
+	
+
+	private boolean processInfoAboutTheGame(String message) throws RemoteException {
+		Matcher currentTurnAndPlayer = info_currentTurnAndPlayer.matcher(message);
+		Matcher lobbyPlr = info_numLobbyPlayers.matcher(message);
+		Matcher playerRename = info_playerRenamed.matcher(message);
 		Matcher playerDisconnected = info_playerDisconnected.matcher(message);
 		Matcher playerConnected = info_playerConnected.matcher(message);
-		
 		Matcher winners = info_teamWinners.matcher(message);
 		Matcher losers = info_teamDefeated.matcher(message);
 		
@@ -227,26 +272,6 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			playersInLobby(current, max);
 			return true;
 			
-		} else if (myRename.matches()) {
-			String myNewName = myRename.group(1);
-			renameMyself(myNewName);
-			return true;
-			
-		} else if (myPosition.matches()) {
-			String myPos = myPosition.group(1);
-			setMyPosition(myPos);
-			return true;
-			
-		} else if (myTeam.matches()) {
-			String teamName = myTeam.group(1);
-			setMyTeam(teamName);
-			return true;
-			
-		} else if (drawncard.matches()) {
-			String yyyCard =  drawncard.group(1);
-			drawnCard(yyyCard);
-			return true;
-			
 		} else if (playerDisconnected.matches()) {
 			String playerName = playerDisconnected.group(1);
 			playerDisconnected(playerName);
@@ -258,12 +283,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			playerConnected(current, max);
 			return true;
 			
-		} else if (discardedCard.matches()) {
-			String cardName = discardedCard.group(1);
-			discardedCard(cardName);
-			return true;
-			
-		} else if (winners.matches()) {
+		}  else if (winners.matches()) {
 			String team = winners.group(1);
 			String winnersNames = winners.group(2);
 			setWinners(team, winnersNames);
@@ -273,17 +293,12 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			String teamName = losers.group(1);
 			setLoserTeam(teamName);
 			return true;
-		} else if (myDefense.matches()) {
-			youDefended();
-			return true;
 		} 
 		
 		return false;
 	}
 	
-	
-	
-
+	/**This method is invoked by processMessage(String message)*/
 	private boolean processTurnRequest(String message) throws RemoteException {
 		
 		Matcher turnStart = turn_Start.matcher(message);
@@ -350,7 +365,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 
 
 	
-
+	/**This method is invoked by processMessage(String message)*/
 	private boolean processEvent (String message) throws RemoteException {
 		
 		Matcher eventNoise = event_Noise.matcher(message);
@@ -413,6 +428,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		return false;
 	}
 	
+	/**This method is invoked by processMessage(String message)*/
 	private boolean processException(String message) throws RemoteException {
 		
 		Matcher moveCanNotEnter = exception_1.matcher(message);
@@ -754,7 +770,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			view.addAttackToMap(location);
 			view.focusOnLocation(location, 0);
 		}
-		if (isMe(attacker) && model.getMyPlayerState().getMyTeam().equalsIgnoreCase("humans")) {
+		if (isMe(attacker) && "humans".equalsIgnoreCase(model.getMyPlayerState().getMyTeam())) {
 			model.getMyPlayerState().removeCard("attack");
 		}
 		model.getNowPlaying().setLastNoiseLocation(location);
