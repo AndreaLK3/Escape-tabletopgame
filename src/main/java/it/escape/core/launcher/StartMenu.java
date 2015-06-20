@@ -3,6 +3,7 @@ package it.escape.core.launcher;
 import it.escape.core.client.view.gui.ImageAutoFit;
 import it.escape.core.client.view.gui.ImageScaler;
 import it.escape.core.launcher.menucontroller.ActionAcceptNewPortNumber;
+import it.escape.core.launcher.menucontroller.ActionPrintHelp;
 import it.escape.core.launcher.menucontroller.ActionQuit;
 import it.escape.core.launcher.menucontroller.ActionSetOption;
 import it.escape.core.launcher.menucontroller.ActionStartClient;
@@ -51,13 +52,13 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 	private String[] buttons = {
 			StringRes.getString("launcher.button.client"),
 			StringRes.getString("launcher.button.server"),
-			StringRes.getString("launcher.button.wizard"),
+			StringRes.getString("launcher.button.help"),
 			StringRes.getString("launcher.button.quit")};
 	
 	private String[] icons = {
 			"resources/artwork/launcher/icon-play.png",
 			"resources/artwork/launcher/icon-server.png",
-			"resources/artwork/launcher/icon-setup.png",
+			"resources/artwork/launcher/icon-help.png",
 			"resources/artwork/launcher/icon-quit.png"};
 	
 	private String[] netmodesServer = {
@@ -104,6 +105,8 @@ public class StartMenu extends JFrame implements StartMenuInterface {
    			client.addActionListener(new ActionStartClient(stateForClient, this));
    		JButton server = setButton(1);
    			server.addActionListener(new ActionStartServer(stateForServer, this));
+   		JButton help = setButton(2);
+   			help.addActionListener(new ActionPrintHelp());
    			
    		JLabel labelCliOpt = setLabelBeforeField("Client settings:");
    			labelCliOpt.setToolTipText("Client-only settings");
