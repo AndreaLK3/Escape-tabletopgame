@@ -17,7 +17,7 @@ import it.escape.tools.utils.LogHelper;
  * block the execution flow until the server has set the answer.
  * 
  * The override default mechanism works as usual.
- * @author michele
+ * @author michele, andrea
  *
  */
 public class MessagingChannelRMI implements MessagingChannelInterface {
@@ -38,6 +38,8 @@ public class MessagingChannelRMI implements MessagingChannelInterface {
 	
 	private boolean answerArrived;
 	
+	/**The constructor; sets up clientRemote for communication, serverRemote to unregister clients,
+	 * a unique numeric ID, and the logger.*/
 	public MessagingChannelRMI(ClientRemoteInterface client, ServerRemoteInterface server) {
 		LogHelper.setDefaultOptions(LOGGER);
 		this.client = client;
@@ -55,8 +57,10 @@ public class MessagingChannelRMI implements MessagingChannelInterface {
 		return clientIdentifier;
 	}
 	
+	/**This method is invoked by the Server, and it waits for an answer (String) to be provided.
+	 * The answer will be provided either by setAnswer(String answer) (invoked by the Client),
+	 * or by overrideDefault() (invoked by TimeController's thread)*/
 	public synchronized String getAnswer() {
-		
 		try {
 			do {
 				wait();
@@ -71,6 +75,8 @@ public class MessagingChannelRMI implements MessagingChannelInterface {
 		defaultOption = option;
 	}
 
+	/**This method is invoked by the method setAnswer(String answer, ClientRemoteInterface client) in ServerRMICore,
+	 * which is invoked by the client. */
 	public synchronized void setAnswer(String answer) {
 		this.answer = answer;
 		answerArrived = true;
@@ -79,6 +85,7 @@ public class MessagingChannelRMI implements MessagingChannelInterface {
 	
 	public synchronized void overrideDefault() {
 		answer = defaultOption;
+		answerArrived = true;
 		LOGGER.fine("Overriding with default: \"" + defaultOption + "\"");
 		notify();
 	}
