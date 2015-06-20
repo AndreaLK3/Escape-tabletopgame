@@ -6,32 +6,6 @@ LOGGER.log(Level.WARNING, "Cannot report game start ETA", e);
 ^^^^^^                                                    ^
 qualunque nome va bene qui         non basta stamparla, bisogna passarla come parametro
 
-(MM): in GameMaster, righe da 122:
-   do {
-         wait(WAIT_TIMEOUT);
-   } while (numPlayers < GameMaster.MINPLAYERS);
-   
-penso che sia inutile mettere quel do-while li, dato che il gioco torna automaticamente in modalità
-"attesa giocatori" quando scade il timeout (ed il thread "avvio in XX secondi" viene ricreato se serve).
-In più quel while bypassa gameStartLogic(), dato che il gioco rimane sempre in modalità "avvio in XX secondi", anche quando non ci sono abbastanza giocatori; la cosa corretta sarebbe che tornasse
-nello stato "attesa giocatori".
-C'è qualche bug che quel do-while risolve? Se così, lo teniamo.
-Altrimenti, vorrei che sparisse, pretty please.
-
-(AL): Io di mio non ce l'avrei messo, ma Sonar lo richiede altrimenti invia una critical issue. 
-Si potrebbe fare... while (notStartingGameYet), e chi fa la notify pone la variabile booleana a true. Procedo adesso in questo modo
-
-(MM): Il mio sonar non segnala alcun problema li, intanto ho riportato GM alla versione stabile & collaudata
-
-(AL): Il mio sonar dà: Critical issue - <<Remove this call to "wait" or move it into a "while" loop.>>.
-Posto che hai ragione (non ha senso bypassare gameStartLogic()), io aggiungerei una variabile booleana,
- come ho già fatto da altre parti senza alterare il funzionamento (es. MessagingChannelRMI). Se vuoi lo sistemiamo in 5 minuti quando ci vediamo.
-
-(MM): Ho letto le motivazioni on the net, a sentire stackoverflow lo scopo è solo assicurarsi che
-il thread non sia risvegliato dalle persone sbagliate, ho aggiunto un semplice boolean verifiedWakeupNotifier, che è sempre false tranne durante la fase di notify, è dovrebbe fare da
-'autenticatore' per il notifier.
-
-
 (AL):
 
 1) (Server-side) "Team disconnected. Terminating game."... Non conclude il gioco come si dovrebbe
@@ -102,6 +76,35 @@ BUG: Nel funzionamento di base (Socket + testo), quando un giocatore si disconne
 Potrebbe essere collegato al bug dell'override.
 ^^^^ (MM): mi servirebbe un log di partita per lavorare su questo 
 ^^^^(AL): [update]: alla fine l'override scatta e risolve la situazione
+
+
+__________________________________________________________
+(MM): in GameMaster, righe da 122:
+   do {
+         wait(WAIT_TIMEOUT);
+   } while (numPlayers < GameMaster.MINPLAYERS);
+   
+penso che sia inutile mettere quel do-while li, dato che il gioco torna automaticamente in modalità
+"attesa giocatori" quando scade il timeout (ed il thread "avvio in XX secondi" viene ricreato se serve).
+In più quel while bypassa gameStartLogic(), dato che il gioco rimane sempre in modalità "avvio in XX secondi", anche quando non ci sono abbastanza giocatori; la cosa corretta sarebbe che tornasse
+nello stato "attesa giocatori".
+C'è qualche bug che quel do-while risolve? Se così, lo teniamo.
+Altrimenti, vorrei che sparisse, pretty please.
+
+(AL): Io di mio non ce l'avrei messo, ma Sonar lo richiede altrimenti invia una critical issue. 
+Si potrebbe fare... while (notStartingGameYet), e chi fa la notify pone la variabile booleana a true. Procedo adesso in questo modo
+
+(MM): Il mio sonar non segnala alcun problema li, intanto ho riportato GM alla versione stabile & collaudata
+
+(AL): Il mio sonar dà: Critical issue - <<Remove this call to "wait" or move it into a "while" loop.>>.
+Posto che hai ragione (non ha senso bypassare gameStartLogic()), io aggiungerei una variabile booleana,
+ come ho già fatto da altre parti senza alterare il funzionamento (es. MessagingChannelRMI). Se vuoi lo sistemiamo in 5 minuti quando ci vediamo.
+
+(MM): Ho letto le motivazioni on the net, a sentire stackoverflow lo scopo è solo assicurarsi che
+il thread non sia risvegliato dalle persone sbagliate, ho aggiunto un semplice boolean verifiedWakeupNotifier, che è sempre false tranne durante la fase di notify, è dovrebbe fare da
+'autenticatore' per il notifier.
+__________________________________________________________
+
 
 a) Le Carte Oggetto non funzionano come dovrebbero. chosenObjectCard non viene resettata nè aggiornata come dovrebbe...
 	Sto pensando di usare una lista (JComboBox? Poi vedo) invece dei RadioButtons sul Panel.
