@@ -1,6 +1,8 @@
 package it.escape.core.server.controller;
 
 import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import it.escape.core.server.controller.game.actions.playercommands.MoveCommand;
 import it.escape.core.server.view.MessagingChannelInterface;
@@ -31,7 +33,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().setMyPosition(position);
 		} catch (RemoteException e) {
-			LOGGER.warning("Cannot report my user position: " + e.getMessage());
+			LOGGER.log(Level.WARNING, "Cannot report my user position", e);
 		}
 	}
 
@@ -51,7 +53,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 			try {
 				interfaceWithUser.getClient().askForYesNo(message);
 			} catch (RemoteException e) {
-				LOGGER.warning("Cannot ask 'yes or no': " + e.getMessage());
+				LOGGER.log(Level.WARNING, "Cannot ask 'yes or no'", e);
 			}
 			String answer = interfaceWithUser.getAnswer();
 			if (answer.equals("yes")) {
@@ -78,7 +80,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 			try {
 				interfaceWithUser.getClient().askPlayOrDiscard(StringRes.getString("messaging.tooManyCardsHuman"));
 			} catch (RemoteException e) {
-				LOGGER.warning("Cannot ask 'play or discard': " + e.getMessage());
+				LOGGER.log(Level.WARNING, "Cannot ask 'play or discard'", e);
 			}
 			String answer = interfaceWithUser.getAnswer();
 			if (answer.equals("play")) {
@@ -92,7 +94,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().haveToDiscard();
 		} catch (RemoteException e) {
-			LOGGER.warning("Cannot ask to discard a card: " + e.getMessage());
+			LOGGER.log(Level.WARNING, "Cannot ask to discard a card", e);
 		}
 	}
 
@@ -109,7 +111,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 			try {
 				interfaceWithUser.getClient().askWhichObjectCard();
 			} catch (RemoteException e) {
-				LOGGER.warning("Cannot ask for object card: " + e.getMessage());
+				LOGGER.log(Level.WARNING, "Cannot ask for object card", e);
 			}
 			card = interfaceWithUser.getAnswer();
 			return card;
@@ -129,7 +131,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 			try {
 				interfaceWithUser.getClient().askForMovement();
 			} catch (RemoteException e) {
-				LOGGER.warning("Cannot ask for movement: " + e.getMessage());
+				LOGGER.log(Level.WARNING, "Cannot ask for movement", e);
 			}
 			destination = interfaceWithUser.getAnswer();
 			return new MoveCommand(destination);
@@ -148,7 +150,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 			try {
 				interfaceWithUser.getClient().askForNoisePosition();
 			} catch (RemoteException e) {
-				LOGGER.warning("Cannot ask for noise: " + e.getMessage());
+				LOGGER.log(Level.WARNING, "Cannot ask for noise", e);
 			}
 			String answer = interfaceWithUser.getAnswer();
 			return answer;
@@ -167,7 +169,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 			try {
 				interfaceWithUser.getClient().askForLightsPosition();
 			} catch (RemoteException e) {
-				LOGGER.warning("Cannot ask for lights: " + e.getMessage());
+				LOGGER.log(Level.WARNING, "Cannot ask for lights", e);
 			}
 			String answer = interfaceWithUser.getAnswer();
 			return answer;
@@ -179,7 +181,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().showMessageInTerminal(string);
 		} catch (RemoteException e) {
-			LOGGER.warning("Cannot relay the message: " + e.getMessage());
+			LOGGER.log(Level.WARNING, "Cannot relay the message", e);
 		}
 	}
 
@@ -188,7 +190,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().setMap(map);
 		} catch (RemoteException e) {
-			LOGGER.warning("Cannot set the map: " + e.getMessage());
+			LOGGER.log(Level.WARNING, "Cannot set the map", e);
 		}
 	}
 
@@ -199,7 +201,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 						StringRes.getString("messaging.gameStartETA"),
 						seconds));
 		} catch (RemoteException e) {
-			LOGGER.warning("Cannot report game start ETA: " + e.getMessage());
+			LOGGER.log(Level.WARNING, "Cannot report game start ETA", e);
 		}
 	}
 
@@ -208,7 +210,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().playersInLobby(current, maximum);
 		} catch (RemoteException e) {
-			LOGGER.warning("Cannot report number of connectd players: " + e.getMessage());
+			LOGGER.log(Level.WARNING, "Cannot report number of connectd players", e);
 		}
 	}
 
@@ -217,7 +219,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().setMyTeam(team);
 		} catch (RemoteException e) {
-			LOGGER.warning("Cannot report team name: " + e.getMessage());
+			LOGGER.log(Level.WARNING, "Cannot report team name", e);
 		}
 	}
 
@@ -226,7 +228,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().drawnCard(cardname);
 		} catch (RemoteException e) {
-			LOGGER.warning("Cannot report object card drawn: " + e.getMessage());
+			LOGGER.log(Level.WARNING, "Cannot report object card draw", e);
 		}
 	}
 
@@ -235,7 +237,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().youEscaped();
 		} catch (RemoteException e) {
-			LOGGER.warning("Cannot report object card drawn: " + e.getMessage());
+			LOGGER.log(Level.WARNING, "Cannot report object card drawn", e);
 		}
 		
 	}
@@ -245,7 +247,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().startMyTurn(myname, mypos);;
 		} catch (RemoteException e) {
-			LOGGER.warning("Cannot report start my turn: " + e.getMessage());
+			LOGGER.log(Level.WARNING, "Cannot report start my turn", e);
 		}
 	}
 
@@ -254,7 +256,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().notMyTurn();
 		} catch (RemoteException e) {
-			LOGGER.warning("Cannot report: my Turn has ended: " + e.getMessage());
+			LOGGER.log(Level.WARNING, "Cannot report: my Turn has ended", e);
 		}
 		
 	}
@@ -264,7 +266,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().showMovementException(exceptionMessage);
 		} catch (RemoteException e) {
-			LOGGER.warning("Could not report: movement Exception: " + e.getMessage());
+			LOGGER.log(Level.WARNING, "Could not report: movement Exception", e);
 		}
 		
 	}
@@ -274,7 +276,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().showWrongCardException(exceptionMessage);
 		} catch (RemoteException e) {
-			LOGGER.warning("Could not report: card Exception: " + e.getMessage());
+			LOGGER.log(Level.WARNING, "Could not report: card Exception", e);
 		}
 		
 	}
@@ -284,7 +286,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().youDefended();
 		} catch (RemoteException e) {
-			LOGGER.warning("Could not report: a player defended himself " + e.getMessage());
+			LOGGER.log(Level.WARNING, "Could not report: a player defended himself", e);
 		}
 		
 	}
@@ -294,7 +296,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 		try {
 			interfaceWithUser.getClient().discardedCard(cardName);
 		} catch (RemoteException e) {
-			LOGGER.warning("Could not report: a player discarded a card " + e.getMessage());
+			LOGGER.log(Level.WARNING, "Could not report: a player discarded a card", e);
 		}
 		
 	}

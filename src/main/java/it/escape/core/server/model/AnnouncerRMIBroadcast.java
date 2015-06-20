@@ -55,7 +55,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 	@Override
 	public void announcePlayerDisconnected(PlayerActionInterface player) {
 		for (ClientRemoteInterface client : subscribed) {
-			
+			//TODO: do something
 		}
 
 	}

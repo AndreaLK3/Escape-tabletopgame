@@ -1,5 +1,11 @@
 Current tasks:
 
+(MM): riguardo a sonar & "Exception handlers should preserve the original exception":
+il formato che lui vuole è questo:
+LOGGER.log(Level.WARNING, "Cannot report game start ETA", e);
+^^^^^^                                                    ^
+qualunque nome va bene qui         non basta stamparla, bisogna passarla come parametro
+
 (MM): in GameMaster, righe da 122:
    do {
          wait(WAIT_TIMEOUT);
