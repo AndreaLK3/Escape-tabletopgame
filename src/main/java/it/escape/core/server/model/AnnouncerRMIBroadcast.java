@@ -14,6 +14,7 @@ import it.escape.tools.strings.StringRes;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -47,7 +48,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 			try {
 				client.playerConnected(connected, maximum);
 			} catch (RemoteException e) {
-				LOG.warning("cannot announce player connection: " + e.getMessage());
+				LOG.log(Level.WARNING, "cannot announce player connection", e);
 			}
 		}
 	}
@@ -70,7 +71,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 			try {
 				client.eventAttack(attacker, location);
 			} catch (RemoteException e) {
-				LOG.warning("cannot announce attack: " + e.getMessage());
+				LOG.log(Level.WARNING, "cannot announce attack", e);
 			}
 		}
 
@@ -83,7 +84,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 			try {
 				client.eventNoise(location);
 			} catch (RemoteException e) {
-				LOG.warning("cannot announce noise: " + e.getMessage());
+				LOG.log(Level.WARNING, "cannot announce noise", e);
 			}
 		}
 
@@ -98,7 +99,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 			try {
 				client.eventObject(playerName, cardClassName);
 			} catch (RemoteException e) {
-				LOG.warning("cannot announce player using object card: " + e.getMessage());
+				LOG.log(Level.WARNING, "cannot announce player using object card", e);
 			}
 		}
 
@@ -111,7 +112,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 			try {
 				client.eventDeath(playerKilled);
 			} catch (RemoteException e) {
-				LOG.warning("cannot announce player's death: " + e.getMessage());
+				LOG.log(Level.WARNING, "cannot announce player's death", e);
 			}
 		}
 
@@ -124,7 +125,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 			try {
 				client.eventDefense(alphaNumPos);
 			} catch (RemoteException e) {
-				LOG.warning("cannot announce player's defense: " + e.getMessage());
+				LOG.log(Level.WARNING, "cannot announce player's defense", e);
 			}
 		}
 
@@ -142,7 +143,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 			try {
 				client.eventFoundPlayer(playerName, location);
 			} catch (RemoteException e) {
-				LOG.warning("cannot announce player's position: " + e.getMessage());
+				LOG.log(Level.WARNING, "cannot announce player's position", e);
 			}
 		}
 
@@ -155,7 +156,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 			try {
 				client.eventPlayerEscaped(playerName);
 			} catch (RemoteException e) {
-				LOG.warning("cannot announce player escaped: " + e.getMessage());
+				LOG.log(Level.WARNING, "cannot announce player escaped", e);
 			}
 		}
 		
@@ -168,7 +169,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 			try {
 				client.eventEndGame();
 			} catch (RemoteException e) {
-				LOG.warning("cannot announce game end: " + e.getMessage());
+				LOG.log(Level.WARNING, "cannot announce game end", e);
 			};
 		}
 
@@ -180,7 +181,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 			try {
 				client.endResults();
 			} catch (RemoteException e) {
-				LOG.warning("cannot announce end of results: " + e.getMessage());
+				LOG.log(Level.WARNING, "cannot announce end of results", e);
 			}
 		}
 
@@ -194,7 +195,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 			try {
 				client.setWinners(teamName, winnersNames);
 			} catch (RemoteException e) {
-				LOG.warning("cannot announce winner team: " + e.getMessage());
+				LOG.log(Level.WARNING, "cannot announce winner team", e);
 			}
 			
 		}
@@ -208,7 +209,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 			try {
 				client.setLoserTeam(teamName);
 			} catch (RemoteException e) {
-				LOG.warning("cannot announce loser team: " + e.getMessage());
+				LOG.log(Level.WARNING, "cannot announce loser team", e);
 			}
 		}
 
@@ -220,7 +221,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 			try {
 				client.renamePlayer(oldname, newname);
 			} catch (RemoteException e) {
-				LOG.warning("cannot announce player name: " + e.getMessage());
+				LOG.log(Level.WARNING, "cannot announce player name", e);
 			};
 		}
 
@@ -233,7 +234,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 			try {
 				client.visualizeChatMsg(author, message);
 			} catch (RemoteException e) {
-				LOG.warning("cannot announce chat message: " + e.getMessage());
+				LOG.log(Level.WARNING, "cannot announce chat message", e);
 			}
 		}
 
@@ -246,7 +247,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 			try {
 				client.setStartETA(message);
 			} catch (RemoteException e) {
-				LOG.warning("cannot announce game start ETA: " + e.getMessage());
+				LOG.log(Level.WARNING, "cannot announce game start ETA", e);
 			}
 		}
 
@@ -258,7 +259,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 			try {
 				client.startTurn(turnNumber, playerName);;
 			} catch (RemoteException e) {
-				LOG.warning("cannot announce game start ETA: " + e.getMessage());
+				LOG.log(Level.WARNING, "cannot announce game start ETA", e);
 			}
 		}
 	}
