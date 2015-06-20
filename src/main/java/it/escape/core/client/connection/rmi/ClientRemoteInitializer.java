@@ -21,15 +21,15 @@ import java.util.logging.Logger;
  * which can use the Swing View or the Terminal View */
 public class ClientRemoteInitializer {
 	
-	private static final Logger LOG = Logger.getLogger( ClientRemoteInitializer.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( ClientRemoteInitializer.class.getName() );
 	
 	private static String ipAddress;
 	
-	private static Terminal terminal = null;
+	private static Terminal ourTerminal = null;
 	
-	private static StateManagerCLIInterface stateManager = null;
+	private static StateManagerCLIInterface ourStateManager = null;
 	
-	private static ClientProceduresInterface updater = null;
+	private static ClientProceduresInterface ourUpdater = null;
 	
 	private static ProxyToServer serverProxy;
 	
@@ -37,26 +37,26 @@ public class ClientRemoteInitializer {
 	
 	/**This method, invoked by ClientInitializerGUIRMI, stores the reference
 	 * to the UpdaterSwing object.*/
-	public static void setSwingMode(ClientProceduresInterface Updater) {
-		updater = Updater;
-		terminal = null;
-		stateManager = null;
+	public static void setSwingMode(ClientProceduresInterface updater) {
+		ourUpdater = updater;
+		ourTerminal = null;
+		ourStateManager = null;
 	}
 	
 	/**This method, invoked by ClientInitializerCLIRMI, stores the reference
 	 * to the Terminal object and the StateManager object.*/
-	public static void setCLIMode(StateManagerCLIInterface StateManager, Terminal Terminal) {
-		updater = null;
-		terminal = Terminal;
-		stateManager = StateManager;
+	public static void setCLIMode(StateManagerCLIInterface stateManager, Terminal terminal) {
+		ourUpdater = null;
+		ourTerminal = terminal;
+		ourStateManager = stateManager;
 	}
 	
 	/***/
 	private static ClientRemoteInterface createClient() {
-		if (updater == null) {
-			return new ClientRemoteTerminal(stateManager, terminal);
-		} else if (terminal == null && stateManager == null) {
-			return new ClientRemoteSwing(updater);
+		if (ourUpdater == null) {
+			return new ClientRemoteTerminal(ourStateManager, ourTerminal);
+		} else if (ourTerminal == null && ourStateManager == null) {
+			return new ClientRemoteSwing(ourUpdater);
 		} else {
 			crash("Invalid rmi-launcher state");
 		}
@@ -111,7 +111,7 @@ public class ClientRemoteInitializer {
 	 * @param message
 	 */
 	private static void crash(String message) {
-		LOG.severe(message);
+		LOGGER.severe(message);
 		throw new AssertionError();
 	}
 

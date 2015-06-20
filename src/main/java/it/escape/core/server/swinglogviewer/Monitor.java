@@ -50,7 +50,6 @@ public class Monitor extends JFrame {
    		c = new GridBagConstraints();
    		
    		createMenu();
-   		redirectLog();
    		
    		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    		setSize(600, 450);
@@ -136,7 +135,7 @@ public class Monitor extends JFrame {
 	public static void synchronousLaunch(final boolean rmi, final boolean sock, final StartMenuInterface startMenu) {
 		SwingSynchroLauncher.synchronousLaunch(new SynchroLaunchInterface() {
 			public void run() {
-				new Monitor("ServerSocketCore log",rmi,sock, startMenu);
+				new Monitor("ServerSocketCore log",rmi,sock, startMenu).redirectLog();
 			}});
 	}
 }

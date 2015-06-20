@@ -21,7 +21,7 @@ import it.escape.core.server.view.rmispecific.ServerRemoteInterface;
  */
 public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterface, BindDisconnectCallbackInterface {
 	
-	protected static final Logger LOG = Logger.getLogger( ProxyToServer.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( ProxyToServer.class.getName() );
 
 	private ClientRemoteInterface self;
 	
@@ -59,7 +59,7 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			registerClient(self);
 		} catch (RemoteException e) {
 			notifyDisconnected();
-			LOG.warning("Cannot register the client: " + e.getMessage());
+			LOGGER.warning("Cannot register the client: " + e.getMessage());
 		}
 	}
 
@@ -68,7 +68,7 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			unregisterClient(self);
 		} catch (RemoteException e) {
 			notifyDisconnected();
-			LOG.warning("Cannot unregister the client: " + e.getMessage());
+			LOGGER.warning("Cannot unregister the client: " + e.getMessage());
 		}
 	}
 
@@ -77,7 +77,7 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			rename(message, self);
 		} catch (RemoteException e) {
 			notifyDisconnected();
-			LOG.warning("Cannot rename: " + e.getMessage());
+			LOGGER.warning("Cannot rename: " + e.getMessage());
 		}
 	}
 
@@ -86,7 +86,7 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			globalChat(message, self);
 		} catch (RemoteException e) {
 			notifyDisconnected();
-			LOG.warning("Cannot send chat message: " + e.getMessage());
+			LOGGER.warning("Cannot send chat message: " + e.getMessage());
 		}
 	}
 
@@ -95,7 +95,7 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			whoAmI(self);
 		} catch (RemoteException e) {
 			notifyDisconnected();
-			LOG.warning("Cannot send whoami: " + e.getMessage());
+			LOGGER.warning("Cannot send whoami: " + e.getMessage());
 		}
 	}
 
@@ -104,7 +104,7 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			whereAmI(self);
 		} catch (RemoteException e) {
 			notifyDisconnected();
-			LOG.warning("Cannot send whereami: " + e.getMessage());
+			LOGGER.warning("Cannot send whereami: " + e.getMessage());
 		}
 	}
 
@@ -113,7 +113,7 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			setAnswer(answer, self);
 		} catch (RemoteException e) {
 			notifyDisconnected();
-			LOG.warning("Cannot set the answer: " + e.getMessage());
+			LOGGER.warning("Cannot set the answer: " + e.getMessage());
 		}
 	}
 	
@@ -122,7 +122,7 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			pong(self);
 		} catch (RemoteException e) {
 			notifyDisconnected();
-			LOG.warning("Cannot pong the server: " + e.getMessage());
+			LOGGER.warning("Cannot pong the server: " + e.getMessage());
 		}
 	}
 	
