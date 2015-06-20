@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class ActionPrintHelp implements ActionListener {
 	
-	private static final String filename = "EFTAIOS_help.html";
+	private static final String filename = "EFTAIOS_help_en.html";
 	
 	private void extractHelpFile() {
 		try {
