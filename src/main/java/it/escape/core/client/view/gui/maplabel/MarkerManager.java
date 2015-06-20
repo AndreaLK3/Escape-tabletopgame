@@ -12,6 +12,13 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+/**
+ * This class defines the basic behaviour for
+ * "displaying nifty overlays on the map".
+ * It may be subclassed to extend its capabilities
+ * @author michele
+ *
+ */
 public abstract class MarkerManager {
 	
 	protected static final Logger LOG = Logger.getLogger( MarkerManager.class.getName() );
