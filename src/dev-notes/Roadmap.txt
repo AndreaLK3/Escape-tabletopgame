@@ -21,7 +21,9 @@ Si potrebbe fare... while (notStartingGameYet), e chi fa la notify pone la varia
 Posto che hai ragione (non ha senso bypassare gameStartLogic()), io aggiungerei una variabile booleana,
  come ho già fatto da altre parti senza alterare il funzionamento (es. MessagingChannelRMI). Se vuoi lo sistemiamo in 5 minuti quando ci vediamo.
 
-
+(MM): Ho letto le motivazioni on the net, a sentire stackoverflow lo scopo è solo assicurarsi che
+il thread non sia risvegliato dalle persone sbagliate, ho aggiunto un semplice boolean verifiedWakeupNotifier, che è sempre false tranne durante la fase di notify, è dovrebbe fare da
+'autenticatore' per il notifier.
 
 
 (AL):

@@ -74,7 +74,8 @@ public class GameMaster implements Runnable {
 	
 	private boolean gameFinished;  // true if the game has concluded normally
 	
-	private AtomicBoolean timeoutTicking;  // true if the starting timeout is up andd running
+	private AtomicBoolean timeoutTicking;  // true if the starting timeout is up and running
+	private AtomicBoolean verifiedWakeupNotifier;
 	
 	private Thread ownThread = null;
 	
@@ -110,6 +111,7 @@ public class GameMaster implements Runnable {
 		gameRunning = false;
 		gameFinished = false;
 		timeoutTicking = new AtomicBoolean(false);
+		verifiedWakeupNotifier = new AtomicBoolean(false);
 	}
 	
 	
@@ -118,10 +120,15 @@ public class GameMaster implements Runnable {
 		started_countdown = (int) System.currentTimeMillis();
 		LOGGER.fine(String.format(StringRes.getString("controller.gamemaster.gameStartTimeout"), WAIT_TIMEOUT/1000));
 		announcer.announceGameStartETA(WAIT_TIMEOUT / 1000);
-		try {
-			wait(WAIT_TIMEOUT);
-		} catch (InterruptedException e) {
-		}
+		
+		do {
+			try {
+				wait(WAIT_TIMEOUT);
+			} catch (InterruptedException e) {
+			}
+		} while (!verifiedWakeupNotifier.get());
+		verifiedWakeupNotifier.set(false);
+		
 		if (numPlayers >= GameMaster.MINPLAYERS) {  // someone disconnected in the meantime? no? good.
 			timeoutTicking.set(false);
 			startGameAndWait();
@@ -194,6 +201,7 @@ public class GameMaster implements Runnable {
 				ownThread.start();
 			}
 		} else if (numPlayers >= GameMaster.MAXPLAYERS) {
+			verifiedWakeupNotifier.set(true);
 			notify();
 		}
 	}
