@@ -36,43 +36,43 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	
 	private String loadedMotd = "";
 	
-	private Pattern info_numLobbyPlayers;
-	private Pattern info_playerConnected;
-	private Pattern info_playerDisconnected;
-	private Pattern info_yourTeam;
-	private Pattern info_currentTurnAndPlayer;
-	private Pattern info_playerRenamed;
-	private Pattern info_drawnObjectCard;
-	private Pattern info_whoIAm;
-	private Pattern info_whereIAm;
-	private Pattern info_discardedCard;
-	private Pattern info_teamWinners;
-	private Pattern info_teamDefeated;
-	private Pattern info_myDefense;
+	private Pattern pINFOnumLobbyPlayers;
+	private Pattern pINFOplayerConnected;
+	private Pattern pINFOplayerDisconnected;
+	private Pattern pINFOyourTeam;
+	private Pattern pINFOcurrentTurnAndPlayer;
+	private Pattern pINFOplayerRenamed;
+	private Pattern pINFOdrawnObjectCard;
+	private Pattern pINFOwhoIAm;
+	private Pattern pINFOwhereIAm;
+	private Pattern pINFOdiscardedCard;
+	private Pattern pINFOteamWinners;
+	private Pattern pINFOteamDefeated;
+	private Pattern pINFOmyDefense;
 	
-	private Pattern turn_askForAttack;
-	private Pattern turn_askForNoisePos;
-	private Pattern turn_movement;
-	private Pattern turn_askForObject;
-	private Pattern turn_askForLightsPos;
-	private Pattern turn_discard;
-	private Pattern turn_escaped;
-	private Pattern turn_failedEscape;
+	private Pattern pTURNaskForAttack;
+	private Pattern pTURNaskForNoisePos;
+	private Pattern pTURNmovement;
+	private Pattern pTURNaskForObject;
+	private Pattern pTURNaskForLightsPos;
+	private Pattern pTURNdiscard;
+	private Pattern pTURNescaped;
+	private Pattern pTURNfailedEscape;
 	
-	private Pattern event_Noise;
-	private Pattern event_ObjectUsed;
-	private Pattern event_PlayerLocated;
-	private Pattern event_Attack;
-	private Pattern event_Death;
-	private Pattern event_Defense;
-	private Pattern event_EndGame;
-	private Pattern event_EndOfResults;
+	private Pattern pEVENTnoise;
+	private Pattern pEVENTobjectUsed;
+	private Pattern pEVENTplayerLocated;
+	private Pattern pEVENTattack;
+	private Pattern pEVENTdeath;
+	private Pattern pEVENTdefense;
+	private Pattern pEVENTendGame;
+	private Pattern pEVENTendOfResults;
 	
-	private Pattern event_PlayerEscaped;
+	private Pattern pEVENTPlayerEscaped;
 	
-	private Pattern exception_1;
-	private Pattern exception_2;
-	private Pattern exception_3;
+	private Pattern pEXCEPTIONcanNotEnter;
+	private Pattern pEXCEPTIONdestUnreachable;
+	private Pattern pEXCEPTIONwrongCard;
 
 	
 
@@ -105,38 +105,38 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	protected void initPatterns() {
 		super.initPatterns();
 		
-		info_numLobbyPlayers = new FormatToPattern(StringRes.getString("messaging.othersWaiting")).convert();
-		info_playerConnected = new FormatToPattern(StringRes.getString("messaging.playerConnected")).convert();
-		info_playerDisconnected =  new FormatToPattern(StringRes.getString("messaging.playerDisconnected")).convert();
-		info_yourTeam = new FormatToPattern(StringRes.getString("messaging.gamemaster.playAs")).convert();
-		info_currentTurnAndPlayer = new FormatToPattern(StringRes.getString("messaging.timecontroller.turnNumber")).convert();
-		info_drawnObjectCard = new FormatToPattern(StringRes.getString("messaging.objectCardDrawn")).convert();
-		info_playerRenamed  = new FormatToPattern(StringRes.getString("messaging.announceRename")).convert();
-		info_whoIAm = new FormatToPattern(StringRes.getString("messaging.whoYouAre")).convert();
-		info_whereIAm = new FormatToPattern(StringRes.getString("messaging.hereYouAre")).convert();
-		info_discardedCard = new FormatToPattern(StringRes.getString("messaging.discardedCard")).convert();
-		info_teamWinners = new FormatToPattern(StringRes.getString("messaging.winnerTeam")).convert();
-		info_teamDefeated = new FormatToPattern(StringRes.getString("messaging.loserTeam")).convert();
-		info_myDefense = new FormatToPattern(StringRes.getString("messaging.defendedSuccessfully")).convert();
+		pINFOnumLobbyPlayers = new FormatToPattern(StringRes.getString("messaging.othersWaiting")).convert();
+		pINFOplayerConnected = new FormatToPattern(StringRes.getString("messaging.playerConnected")).convert();
+		pINFOplayerDisconnected =  new FormatToPattern(StringRes.getString("messaging.playerDisconnected")).convert();
+		pINFOyourTeam = new FormatToPattern(StringRes.getString("messaging.gamemaster.playAs")).convert();
+		pINFOcurrentTurnAndPlayer = new FormatToPattern(StringRes.getString("messaging.timecontroller.turnNumber")).convert();
+		pINFOdrawnObjectCard = new FormatToPattern(StringRes.getString("messaging.objectCardDrawn")).convert();
+		pINFOplayerRenamed  = new FormatToPattern(StringRes.getString("messaging.announceRename")).convert();
+		pINFOwhoIAm = new FormatToPattern(StringRes.getString("messaging.whoYouAre")).convert();
+		pINFOwhereIAm = new FormatToPattern(StringRes.getString("messaging.hereYouAre")).convert();
+		pINFOdiscardedCard = new FormatToPattern(StringRes.getString("messaging.discardedCard")).convert();
+		pINFOteamWinners = new FormatToPattern(StringRes.getString("messaging.winnerTeam")).convert();
+		pINFOteamDefeated = new FormatToPattern(StringRes.getString("messaging.loserTeam")).convert();
+		pINFOmyDefense = new FormatToPattern(StringRes.getString("messaging.defendedSuccessfully")).convert();
 		
-		turn_askForObject = new FormatToPattern(StringRes.getString("messaging.askPlayObjectCard")).convert();
-		turn_askForAttack = new FormatToPattern(StringRes.getString("messaging.askIfAttack")).convert();
-		turn_askForNoisePos = new FormatToPattern(StringRes.getString("messaging.askForNoisePosition")).convert();
-		turn_movement = new FormatToPattern(StringRes.getString("messaging.timeToMove")).convert();
-		turn_askForLightsPos = new FormatToPattern(StringRes.getString("messaging.askForLightsPosition")).convert();
-		turn_discard = new FormatToPattern(StringRes.getString("messaging.tooManyCardsAlien")).convert();
-		turn_escaped = new FormatToPattern(StringRes.getString("messaging.EscapedSuccessfully")).convert();
-		turn_failedEscape = new FormatToPattern(StringRes.getString("messaging.EscapeHatchDoesNotWork")).convert();
+		pTURNaskForObject = new FormatToPattern(StringRes.getString("messaging.askPlayObjectCard")).convert();
+		pTURNaskForAttack = new FormatToPattern(StringRes.getString("messaging.askIfAttack")).convert();
+		pTURNaskForNoisePos = new FormatToPattern(StringRes.getString("messaging.askForNoisePosition")).convert();
+		pTURNmovement = new FormatToPattern(StringRes.getString("messaging.timeToMove")).convert();
+		pTURNaskForLightsPos = new FormatToPattern(StringRes.getString("messaging.askForLightsPosition")).convert();
+		pTURNdiscard = new FormatToPattern(StringRes.getString("messaging.tooManyCardsAlien")).convert();
+		pTURNescaped = new FormatToPattern(StringRes.getString("messaging.EscapedSuccessfully")).convert();
+		pTURNfailedEscape = new FormatToPattern(StringRes.getString("messaging.EscapeHatchDoesNotWork")).convert();
 		
-		event_ObjectUsed = new FormatToPattern(StringRes.getString("messaging.playerIsUsingObjCard")).convert();
-		event_Noise = new FormatToPattern(StringRes.getString("messaging.noise")).convert();
-		event_PlayerLocated = new FormatToPattern(StringRes.getString("messaging.disclosePlayerPosition")).convert();
-		event_Attack = new FormatToPattern(StringRes.getString("messaging.playerAttacking")).convert();
-		event_Death = new FormatToPattern(StringRes.getString("messaging.playerDied")).convert(); 
-		event_EndGame = new FormatToPattern(StringRes.getString("messaging.endOfTheGame")).convert();
-		event_Defense = new FormatToPattern(StringRes.getString("messaging.playerDefended")).convert();
-		event_EndOfResults = new FormatToPattern(StringRes.getString("messaging.endOfResults")).convert();
-		event_PlayerEscaped = new FormatToPattern(StringRes.getString("messaging.playerEscaped")).convert();
+		pEVENTobjectUsed = new FormatToPattern(StringRes.getString("messaging.playerIsUsingObjCard")).convert();
+		pEVENTnoise = new FormatToPattern(StringRes.getString("messaging.noise")).convert();
+		pEVENTplayerLocated = new FormatToPattern(StringRes.getString("messaging.disclosePlayerPosition")).convert();
+		pEVENTattack = new FormatToPattern(StringRes.getString("messaging.playerAttacking")).convert();
+		pEVENTdeath = new FormatToPattern(StringRes.getString("messaging.playerDied")).convert(); 
+		pEVENTendGame = new FormatToPattern(StringRes.getString("messaging.endOfTheGame")).convert();
+		pEVENTdefense = new FormatToPattern(StringRes.getString("messaging.playerDefended")).convert();
+		pEVENTendOfResults = new FormatToPattern(StringRes.getString("messaging.endOfResults")).convert();
+		pEVENTPlayerEscaped = new FormatToPattern(StringRes.getString("messaging.playerEscaped")).convert();
 		
 		//These ones are necessary so that we can display the JInputDialog (ex, for the position) again.
 		//There is a dialog that displays the exception message (whatever it is) and
@@ -144,9 +144,9 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Exception exception1 = new PlayerCanNotEnterException();
 		Exception exception2 = new DestinationUnreachableException();
 		Exception exception3 = new WrongCardException();
-		exception_1 = new FormatToPattern(exception1.getClass().getSimpleName() + " : " + StringRes.getString("messaging.exceptions.playerCanNotEnter")).convert();
-		exception_2 = new FormatToPattern(exception2.getClass().getSimpleName() + " : " + StringRes.getString("messaging.exceptions.destinationUnreachable")).convert();
-		exception_3 = new FormatToPattern(exception3.getClass().getSimpleName() + " : " + StringRes.getString("messaging.exceptions.wrongCard")).convert();
+		pEXCEPTIONcanNotEnter = new FormatToPattern(exception1.getClass().getSimpleName() + " : " + StringRes.getString("messaging.exceptions.playerCanNotEnter")).convert();
+		pEXCEPTIONdestUnreachable = new FormatToPattern(exception2.getClass().getSimpleName() + " : " + StringRes.getString("messaging.exceptions.destinationUnreachable")).convert();
+		pEXCEPTIONwrongCard = new FormatToPattern(exception3.getClass().getSimpleName() + " : " + StringRes.getString("messaging.exceptions.wrongCard")).convert();
 		
 	}
 	
@@ -203,12 +203,12 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	private boolean processInfoAboutMe (String message) throws RemoteException  {
-		Matcher myRename = info_whoIAm.matcher(message);
-		Matcher myTeam = info_yourTeam.matcher(message);
-		Matcher myPosition = info_whereIAm.matcher(message);
-		Matcher drawncard = info_drawnObjectCard.matcher(message);
-		Matcher discardedCard = info_discardedCard.matcher(message);
-		Matcher myDefense = info_myDefense.matcher(message);
+		Matcher myRename = pINFOwhoIAm.matcher(message);
+		Matcher myTeam = pINFOyourTeam.matcher(message);
+		Matcher myPosition = pINFOwhereIAm.matcher(message);
+		Matcher drawncard = pINFOdrawnObjectCard.matcher(message);
+		Matcher discardedCard = pINFOdiscardedCard.matcher(message);
+		Matcher myDefense = pINFOmyDefense.matcher(message);
 		
 		
 		if (myRename.matches()) {
@@ -246,13 +246,13 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	
 
 	private boolean processInfoAboutTheGame(String message) throws RemoteException {
-		Matcher currentTurnAndPlayer = info_currentTurnAndPlayer.matcher(message);
-		Matcher lobbyPlr = info_numLobbyPlayers.matcher(message);
-		Matcher playerRename = info_playerRenamed.matcher(message);
-		Matcher playerDisconnected = info_playerDisconnected.matcher(message);
-		Matcher playerConnected = info_playerConnected.matcher(message);
-		Matcher winners = info_teamWinners.matcher(message);
-		Matcher losers = info_teamDefeated.matcher(message);
+		Matcher currentTurnAndPlayer = pINFOcurrentTurnAndPlayer.matcher(message);
+		Matcher lobbyPlr = pINFOnumLobbyPlayers.matcher(message);
+		Matcher playerRename = pINFOplayerRenamed.matcher(message);
+		Matcher playerDisconnected = pINFOplayerDisconnected.matcher(message);
+		Matcher playerConnected = pINFOplayerConnected.matcher(message);
+		Matcher winners = pINFOteamWinners.matcher(message);
+		Matcher losers = pINFOteamDefeated.matcher(message);
 		
 		if (currentTurnAndPlayer.matches()) {
 			int turnNumber = Integer.parseInt(currentTurnAndPlayer.group(1));
@@ -302,17 +302,17 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private boolean processTurnRequest(String message) throws RemoteException {
 		
 		Matcher turnStart = turn_Start.matcher(message);
-		Matcher movement = turn_movement.matcher(message);
-		Matcher askForAttack = turn_askForAttack.matcher(message);
-		Matcher askForObject = turn_askForObject.matcher(message);
+		Matcher movement = pTURNmovement.matcher(message);
+		Matcher askForAttack = pTURNaskForAttack.matcher(message);
+		Matcher askForObject = pTURNaskForObject.matcher(message);
 		Matcher whichobjectCard = input_ObjectCard.matcher(message);
-		Matcher askForNoisePos = turn_askForNoisePos.matcher(message);
+		Matcher askForNoisePos = pTURNaskForNoisePos.matcher(message);
 		Matcher turnEnd = turn_End.matcher(message);
-		Matcher askForLightsPos = turn_askForLightsPos.matcher(message);
-		Matcher discard = turn_discard.matcher(message);
+		Matcher askForLightsPos = pTURNaskForLightsPos.matcher(message);
+		Matcher discard = pTURNdiscard.matcher(message);
 		Matcher playOrDiscard = turn_playOrDiscard.matcher(message);
-		Matcher escaped = turn_escaped.matcher(message);
-		Matcher failedEscape = turn_failedEscape.matcher(message);
+		Matcher escaped = pTURNescaped.matcher(message);
+		Matcher failedEscape = pTURNfailedEscape.matcher(message);
 		
 		if (turnEnd.matches()) {
 			notMyTurn();
@@ -368,15 +368,15 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	/**This method is invoked by processMessage(String message)*/
 	private boolean processEvent (String message) throws RemoteException {
 		
-		Matcher eventNoise = event_Noise.matcher(message);
-		Matcher eventObject = event_ObjectUsed.matcher(message);
-		Matcher eventAttack = event_Attack.matcher(message);
-		Matcher eventDeath = event_Death.matcher(message);
-		Matcher eventEndGame = event_EndGame.matcher(message);
-		Matcher eventFoundPlr = event_PlayerLocated.matcher(message);
-		Matcher eventDefense = event_Defense.matcher(message);
-		Matcher endResults = event_EndOfResults.matcher(message);
-		Matcher eventPlayerEscaped = event_PlayerEscaped.matcher(message);
+		Matcher eventNoise = pEVENTnoise.matcher(message);
+		Matcher eventObject = pEVENTobjectUsed.matcher(message);
+		Matcher eventAttack = pEVENTattack.matcher(message);
+		Matcher eventDeath = pEVENTdeath.matcher(message);
+		Matcher eventEndGame = pEVENTendGame.matcher(message);
+		Matcher eventFoundPlr = pEVENTplayerLocated.matcher(message);
+		Matcher eventDefense = pEVENTdefense.matcher(message);
+		Matcher endResults = pEVENTendOfResults.matcher(message);
+		Matcher eventPlayerEscaped = pEVENTPlayerEscaped.matcher(message);
 		
 		if (eventObject.matches()) {
 			String playerName = eventObject.group(1);
@@ -431,9 +431,9 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	/**This method is invoked by processMessage(String message)*/
 	private boolean processException(String message) throws RemoteException {
 		
-		Matcher moveCanNotEnter = exception_1.matcher(message);
-		Matcher moveUnreachable = exception_2.matcher(message);
-		Matcher wrongCard = exception_3.matcher(message);
+		Matcher moveCanNotEnter = pEXCEPTIONcanNotEnter.matcher(message);
+		Matcher moveUnreachable = pEXCEPTIONdestUnreachable.matcher(message);
+		Matcher wrongCard = pEXCEPTIONwrongCard.matcher(message);
 		
 		if (moveCanNotEnter.matches() || moveUnreachable.matches()) {
 			showMovementException(message);
