@@ -111,7 +111,7 @@ public class GameMaster implements Runnable {
 		gameRunning = false;
 		gameFinished = false;
 		timeoutTicking = new AtomicBoolean(false);
-		verifiedWakeupNotifier = new AtomicBoolean(false);
+		verifiedWakeupNotifier = new AtomicBoolean(true);
 	}
 	
 	
@@ -127,7 +127,6 @@ public class GameMaster implements Runnable {
 			} catch (InterruptedException e) {
 			}
 		} while (!verifiedWakeupNotifier.get());
-		verifiedWakeupNotifier.set(false);
 		
 		if (numPlayers >= GameMaster.MINPLAYERS) {  // someone disconnected in the meantime? no? good.
 			timeoutTicking.set(false);
