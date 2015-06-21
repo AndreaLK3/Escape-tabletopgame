@@ -24,8 +24,6 @@ public class ClientInitializerGUISocket extends ClientInitializerGUI {
 	
 	private static Thread connectionThread;
 	
-	private static JDialog pleaseWait;
-	
 	private static Relay relay;
 	
 	private static UpdaterSwing updater;
