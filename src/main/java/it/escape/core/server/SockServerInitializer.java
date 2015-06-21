@@ -47,7 +47,7 @@ public class SockServerInitializer {
 			server.run();
 			
 		} catch (IOException e) {
-			LOGGER.log(Level.WARNING, "Unsuccessful server startup, trying again with a different port...", e.getMessage());
+			LOGGER.log(Level.WARNING, "Unsuccessful server startup, trying again with a different port...", e);
 			retry_start(e);
 		}
 	}
