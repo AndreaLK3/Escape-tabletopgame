@@ -483,8 +483,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	//Using the RMI connection, these methods are invoked directly through RMI
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#setMap(java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#setMap(java.lang.String) */
 	@Override
 	public void setMap(String mapname) {
 		LOGGER.finer("Setting map to " +mapname);
@@ -492,8 +491,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#startReadingMotd()
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#startReadingMotd() */
 	@Override
 	public void setWholeMOTD(String text) throws RemoteException {
 		LOGGER.finer("ServerSocketCore sent the motd");
@@ -502,16 +500,14 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#visualizeChatMsg(java.lang.String, java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#visualizeChatMsg(java.lang.String, java.lang.String) */
 	@Override
 	public void visualizeChatMsg(String author, String msg) throws RemoteException {
 		view.newChatMessage(author, msg);
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#setStartETA(java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#setStartETA(java.lang.String) */
 	@Override
 	public void setStartETA(String message) throws RemoteException {
 		LOGGER.finer("Setting game start ETA");
@@ -525,8 +521,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	//da processInfo(message)
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#startTurn(int, java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#startTurn(int, java.lang.String) */
 	@Override
 	public void startTurn(int turnNumber, String playerName) throws RemoteException {
 		LOGGER.finer("Someone's turn");
@@ -539,8 +534,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#renamePlayer(java.lang.String, java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#renamePlayer(java.lang.String, java.lang.String) */
 	@Override
 	public void renamePlayer(String previousName, String changedName) throws RemoteException {
 		LOGGER.finer("Someone renamed himself");
@@ -549,8 +543,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#renameMyself(java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#renameMyself(java.lang.String) */
 	@Override
 	public void renameMyself(String myNewName) throws RemoteException {
 		LOGGER.finer("Read player name from server: " +myNewName);
@@ -562,8 +555,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#setMyPosition(java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#setMyPosition(java.lang.String) */
 	@Override
 	public void setMyPosition(String myPos) throws RemoteException {
 		LOGGER.finer("Read player position from server: [" + myPos + "]");
@@ -572,8 +564,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#setMyTeam(java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#setMyTeam(java.lang.String) */
 	@Override
 	public void setMyTeam(String teamName) throws RemoteException {
 		LOGGER.finer("Read team name from server");
@@ -583,8 +574,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#drawnCard(java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#drawnCard(java.lang.String) */
 	@Override
 	public void drawnCard(String cardClassName) throws RemoteException {
 		LOGGER.finer("ServerSocketCore reported new object card " + cardClassName);
@@ -595,17 +585,16 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#discardedCard(java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#discardedCard(java.lang.String) */
 	@Override
 	public void discardedCard(String cardName) throws RemoteException {
 		model.getMyPlayerState().removeCard(cardName);
+		LOGGER.finer("I (should) have removed the " + cardName + "card from my hand of cards the model");
 		model.finishedUpdating();
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#playerDisconnected(java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#playerDisconnected(java.lang.String) */
 	@Override
 	public void playerDisconnected(String playerName) throws RemoteException {
 		model.getSpecificPlayerState(playerName).setMyStatus(CurrentPlayerStatus.DISCONNECTED);
@@ -673,8 +662,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#askForMovement()
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#askForMovement() */
 	@Override
 	public void askForMovement() throws RemoteException {
 		LOGGER.finer("ServerSocketCore asked to move");
@@ -683,8 +671,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#askForYesNo(java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#askForYesNo(java.lang.String) */
 	@Override
 	public void askForYesNo(String question) throws RemoteException {
 		LOGGER.finer("ServerSocketCore asked yes/no question");
@@ -692,8 +679,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#askForNoisePosition()
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#askForNoisePosition() */
 	@Override
 	public void askForNoisePosition() throws RemoteException {
 		LOGGER.finer("ServerSocketCore asked to place a noise");
@@ -702,8 +688,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#askForLightsPosition()
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#askForLightsPosition() */
 	@Override
 	public void askForLightsPosition() throws RemoteException {
 		LOGGER.finer("ServerSocketCore asked where to turn the Lights on");
@@ -712,8 +697,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#whichObjectCard()
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#whichObjectCard() */
 	@Override
 	public void askWhichObjectCard() throws RemoteException {
 		LOGGER.finer("ServerSocketCore asked an object card");
@@ -721,8 +705,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#haveToDiscard()
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#haveToDiscard() */
 	@Override
 	public void haveToDiscard() throws RemoteException {
 		LOGGER.finer("ServerSocketCore asked to discard a card");
@@ -730,8 +713,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#askPlayOrDiscard(java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#askPlayOrDiscard(java.lang.String) */
 	@Override
 	public void askPlayOrDiscard(String question) throws RemoteException {
 		LOGGER.finer("ServerSocketCore asked to play or discard a card");
@@ -754,13 +736,13 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		if(isMe(playerName)) { 	//if it's me
 			String cardName = getCardGUIKey(cardClassName);
 			model.getMyPlayerState().removeCard(cardName);	//remove the card from my hand in the Client
+			LOGGER.finer("I (should) have removed the " + cardName + "card from my hand of cards the model");
 			model.finishedUpdating();
 		}
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#eventAttack(java.lang.String, java.lang.String, java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#eventAttack(java.lang.String, java.lang.String, java.lang.String) */
 	@Override
 	public void eventAttack(String attacker, String location) throws RemoteException {
 		if (!isMe(attacker)) {
@@ -775,8 +757,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#eventNoise(java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#eventNoise(java.lang.String) */
 	@Override
 	public void eventNoise(String location) throws RemoteException {
 		model.getNowPlaying().setLastNoiseLocation(location);
@@ -786,8 +767,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#eventDeath(java.lang.String, java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#eventDeath(java.lang.String, java.lang.String) */
 	@Override
 	public void eventDeath(String playerKilled) throws RemoteException {
 		String message = String.format(StringRes.getString("messaging.playerDied"),	playerKilled);
@@ -802,8 +782,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#eventEndGame()
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#eventEndGame() */
 	@Override
 	public void eventEndGame() throws RemoteException {
 		model.setGameStatus(GameStatus.FINISHED);
@@ -811,8 +790,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#endResults()
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#endResults() */
 	@Override
 	public void endResults() throws RemoteException {
 		LOGGER.finer("ServerSocketCore sent results, printing recap screen");
@@ -820,8 +798,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#eventFoundPlayer(java.lang.String, java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#eventFoundPlayer(java.lang.String, java.lang.String) */
 	@Override
 	public void eventFoundPlayer(String playerName, String location) throws RemoteException {
 		if (!isMe(playerName)) { // it's not me
@@ -833,8 +810,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#eventDefense(java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#eventDefense(java.lang.String) */
 	@Override
 	public void eventDefense(String location) throws RemoteException {
 		String message = String.format(StringRes.getString("messaging.playerDefended"),
@@ -857,8 +833,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	//da processException(msg)
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#showMovementException(java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#showMovementException(java.lang.String) */
 	@Override
 	public void showMovementException(String exceptionMessage) throws RemoteException { 
 		LOGGER.finer("ServerSocketCore reported : movement is impossible." );
@@ -868,8 +843,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#showWrongCardException(java.lang.String)
-	 */
+	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#showWrongCardException(java.lang.String) */
 	@Override
 	public void showWrongCardException(String exceptionMessage) throws RemoteException {
 		LOGGER.finer("ServerSocketCore reported : that Card can't be played now." );

@@ -315,7 +315,7 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 	/**This method is invoked by the UpdaterSwing when the ServerSocketCore requires 
 	 * the name of an ObjectCard*/
 	public void relayObjectCard() { 
-		doRelayObjectCard = true;
+		buttonHandler.setDoRelayObjectCard(true);
 		showCardsButton.doClick();
 	}
 

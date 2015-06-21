@@ -4,6 +4,7 @@ import it.escape.core.client.controller.Relay;
 import it.escape.core.client.controller.gui.ActionSendChat;
 import it.escape.core.client.controller.gui.MouseOnMapCell;
 import it.escape.core.client.controller.gui.NameListener;
+import it.escape.core.client.controller.gui.ObjectCardsButtonListener;
 import it.escape.core.client.controller.gui.UpdaterSwing;
 import it.escape.core.client.model.GameStatus;
 import it.escape.core.client.view.gui.maplabel.MapViewer;
@@ -91,16 +92,14 @@ public abstract class DumbSwingView extends JFrame {
 	protected JButton buttonDisconnect;
 	
 	protected ObjectCardsPanel objectCardsPanel;
-	protected String chosenObjectCard;
+	
+	protected transient Relay relayRef;
 	
 	protected PlayerPanel playerPanels[] = new PlayerPanel[MAXPLAYERS];
 	
 	/**Note: this reference is made transient, since JFrame is serializable but the feature is not used. */
 	protected transient NameListener myNameListener;
-	protected transient ButtonHandler buttonHandler;
-	protected transient Relay relayRef;
-	
-	protected boolean doRelayObjectCard;
+	protected transient ObjectCardsButtonListener buttonHandler;
 	
 	protected int currentRow = 1;
 	
@@ -115,7 +114,8 @@ public abstract class DumbSwingView extends JFrame {
    		super(string);
    		this.relayRef = relayRef;
    		myNameListener = new NameListener(relayRef);
-   		buttonHandler = new ButtonHandler();
+   		objectCardsPanel = new ObjectCardsPanel();
+   		buttonHandler = new ObjectCardsButtonListener(objectCardsPanel, relayRef);
    		setLayout(new GridBagLayout());
    		constraints = new GridBagConstraints();
    		
@@ -130,7 +130,7 @@ public abstract class DumbSwingView extends JFrame {
    		initializeButtons();
    		setLabelsOpaque();
    		
-   		objectCardsPanel = new ObjectCardsPanel();
+
    		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    		setSize(950, 600);
 		setVisible(true);
@@ -417,46 +417,7 @@ public abstract class DumbSwingView extends JFrame {
 	}
 	
 	
-	/**This private inner class listens to the JButton ShowCardsButton.
-	 * 1) When the user clicks it, it shows a dialog with objectCardsPanel,
-	 * which contains the object Cards currently owned.
-	 * 2) When the Updater "clicks" it, because the ServerSocketCore requires an Object Card, 
-	 * it shows a dialog with the playable objectCards, and,
-	 * depending on the user's choice, a String with the CardName is obtained and sent to the Relay.
-	 * @author andrea, michele*/
-	private class ButtonHandler implements ActionListener {
-
-		public void actionPerformed(ActionEvent event) {
-			if (event.getSource() == showCardsButton) {
-				new Thread(
-					new Runnable() {
-						public void run() {
-							if (doRelayObjectCard) {
-								chosenObjectCard = null;
-								do {
-								JOptionPane.showConfirmDialog(null, objectCardsPanel.getPlayableButtonsAsArray(), 
-										"Your object cards", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
-								chosenObjectCard = objectCardsPanel.getChosenCardName();
-								if (chosenObjectCard == null){
-									JOptionPane.showMessageDialog(null, "You haven't chosen any card.");
-								}
-								else {
-									JOptionPane.showMessageDialog(null, "You have chosen the " + chosenObjectCard  + " card.");
-								}
-								}while(chosenObjectCard == null);	//note: the user must choose a valid object card name
-																			//(even an unplayable one).
-								relayRef.relayMessage(chosenObjectCard);	//This line sends the name of the chosen objectCard to the ServerSocketCore
-								doRelayObjectCard = false;					//This line resets the variable.
-							}
-							else {
-								JOptionPane.showConfirmDialog(null, objectCardsPanel.getButtonsAsArray(), 
-											"Your object cards", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
-							}
-							}
-						}).start();
-			}
-		}
-	}
+	
 	
 	private class ActionDisconnectButton implements ActionListener {
 

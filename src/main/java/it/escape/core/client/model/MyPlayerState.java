@@ -10,8 +10,7 @@ import java.util.List;
  * It must (yet) be updated by the UpdaterSwing in client.controller.
  */
 public class MyPlayerState extends PlayerState {
-	
-	
+		
 	private String myTeam;
 	
 	private List<String> objectCards;
