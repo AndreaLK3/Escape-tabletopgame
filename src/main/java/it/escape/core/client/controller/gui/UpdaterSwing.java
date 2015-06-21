@@ -11,7 +11,7 @@ import it.escape.core.server.model.game.exceptions.PlayerCanNotEnterException;
 import it.escape.core.server.model.game.exceptions.WrongCardException;
 import it.escape.tools.strings.FormatToPattern;
 import it.escape.tools.strings.StringRes;
-import it.escape.tools.utils.LogHelper;
+import it.escape.tools.utils.LogHelper; 
 
 import java.rmi.RemoteException;
 import java.util.Observable;
