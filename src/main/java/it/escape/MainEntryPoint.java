@@ -70,10 +70,10 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 				ClientInitializerCLISocket.start(globals);
 			}
 		} else if (globals.isStartInTextServer()) {
-			if (globals.isStartInTextRMIMode()) {
-				new RMIServerInitializer().startRMIServer(globals);
-			} else if (globals.isStartInTextComboMode()) {
+			if (globals.isStartInTextComboMode()) {
 				new SockServerInitializer().startSocketServer(globals);
+				new RMIServerInitializer().startRMIServer(globals);
+			} else if (globals.isStartInTextRMIMode()) {
 				new RMIServerInitializer().startRMIServer(globals);
 			} else {
 				new SockServerInitializer().startSocketServer(globals);
