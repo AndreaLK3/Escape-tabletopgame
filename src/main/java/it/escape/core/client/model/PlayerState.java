@@ -64,8 +64,13 @@ public class PlayerState {
 	}
 
 
-	public void setMyStatus(CurrentPlayerStatus myStatus) {
-		this.myStatus = myStatus;
+	/**This functions updates the CurrentPlayerStatus, if and *only if* the priority
+	 * level of the proposed status is > than the priority level of the current status.*/
+	public void setMyStatus(CurrentPlayerStatus proposedStatus) {
+		if (proposedStatus.getPriorityLevel() > myStatus.getPriorityLevel()){
+			this.myStatus = proposedStatus;
+		}
+		return;
 	}
 	
 	public CurrentPlayerStatus getMyStatus() {
