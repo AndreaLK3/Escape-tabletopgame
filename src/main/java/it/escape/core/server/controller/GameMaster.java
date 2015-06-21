@@ -134,7 +134,8 @@ public class GameMaster implements Runnable {
 			startGameAndWait();
 			LOGGER.fine("GameMaster tasks completed, thread will now stop");
 		} else {
-			// TODO: logging / inform users
+			// TODO: inform users
+			LOGGER.fine("Failed to start, not enught players");
 			ownThread = null;  // one last thing: erase the reference, so that the thread will be dead for good
 			timeoutTicking.set(false);
 		}
