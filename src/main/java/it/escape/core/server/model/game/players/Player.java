@@ -89,9 +89,9 @@ public abstract class Player implements PlayerActionInterface {
 	}
 	
 
-	/**This method checks if the Player has playable cards in his hand
+	/**This method checks if the Player has playable cards in his hand.
 	 * It is invoked by the TurnHandlerHuman to decide if we have to ask the User to play an ObjectCard or not.
-	 * It also check the hasMoved variable of the Player to know which cards to look for.
+	 * Note: it also checks the hasMoved variable of the Player to know which cards to look for.
 	 * @return boolean */
 	public boolean hasPlayableCards() {
 		String playableBeforeMoveCardNames[] = {"teleport", "lights", "sedatives","adrenaline"};
