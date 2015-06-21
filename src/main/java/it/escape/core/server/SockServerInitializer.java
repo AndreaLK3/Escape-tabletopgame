@@ -4,6 +4,7 @@ import it.escape.core.server.view.sockspecific.ServerSocketCore;
 import it.escape.tools.GlobalSettings;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /** Our ServerSocketCore is actually composed of 2 classes:
@@ -46,7 +47,7 @@ public class SockServerInitializer {
 			server.run();
 			
 		} catch (IOException e) {
-			LOGGER.warning("Unsuccessfule server startup, trying again with a different port...");
+			LOGGER.log(Level.WARNING, "Unsuccessful server startup, trying again with a different port...", e.getMessage());
 			retry_start(e);
 		}
 	}
