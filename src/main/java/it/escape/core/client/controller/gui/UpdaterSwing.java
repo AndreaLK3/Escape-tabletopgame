@@ -75,10 +75,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern pEXCEPTIONwrongCard;
 
 	
-
-
-	
-
+	/**The constructor*/
 	public UpdaterSwing(ModelForGUI model) {
 		super();
 		LogHelper.setDefaultOptions(LOGGER);

@@ -85,7 +85,7 @@ public class Terminal implements DisconnectedCallbackInterface, UpdaterCLItoTerm
 			} else {
 				out.println(String.format(
 						StringRes.getString("client.text.error.format.objectcard"),
-						StringRes.getString("messaging.validCards")));
+						StringRes.getString("client.text.validCards")));
 			}
 		} else if (stateManager.getCurrentState() == TurnInputStates.POSITION) {  // predisposed to read a coordinate
 			if (relayRef.checkPositionFormat(userInput)) {
