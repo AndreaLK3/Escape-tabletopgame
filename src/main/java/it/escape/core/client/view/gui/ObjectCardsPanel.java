@@ -1,13 +1,8 @@
 package it.escape.core.client.view.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,19 +90,6 @@ public class ObjectCardsPanel extends JPanel {
 		return buttonsArray;
 	}
 	
-	/**Returns an array of JToggleButtons, that correspond to the Playable cards currently owned.
-	 * The array is used inside a JDialog in the View */
-	public JToggleButton[] getPlayableButtonsAsArray() {
-		int x = 0;
-		JToggleButton buttonsArray[] = new JToggleButton[NUMCARDTYPES];
-		for (JToggleButton b : objectCardsButtons) {
-			if (!(b.getText().equalsIgnoreCase("attack")) && !(b.getText().equalsIgnoreCase("defense"))) {
-				buttonsArray[x]=b;
-			}
-			x++;
-		}
-		return buttonsArray;
-	}
 	
 	public String getChosenCardName() {
 		return chosenCardName;

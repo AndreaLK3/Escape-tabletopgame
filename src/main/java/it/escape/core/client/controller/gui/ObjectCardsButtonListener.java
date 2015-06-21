@@ -43,7 +43,7 @@ public class ObjectCardsButtonListener implements ActionListener{
 							if (doRelayObjectCard) {
 								chosenObjectCard = null;
 								do {
-								JOptionPane.showConfirmDialog(null, objectCardsPanel.getPlayableButtonsAsArray(), 
+								JOptionPane.showConfirmDialog(null, objectCardsPanel.getButtonsAsArray(), 
 										"Your object cards", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
 								chosenObjectCard = objectCardsPanel.getChosenCardName();
 								if (chosenObjectCard == null){

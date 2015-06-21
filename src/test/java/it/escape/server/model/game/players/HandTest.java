@@ -1,7 +1,7 @@
 package it.escape.server.model.game.players;
 
-import static org.junit.Assert.*;
-import it.escape.core.server.model.game.cards.ObjectCard;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import it.escape.core.server.model.game.cards.objectcards.AttackCard;
 import it.escape.core.server.model.game.cards.objectcards.LightsCard;
 import it.escape.core.server.model.game.cards.objectcards.TeleportCard;

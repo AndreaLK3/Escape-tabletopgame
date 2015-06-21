@@ -3,8 +3,6 @@ package it.escape.core.server;
 import it.escape.core.server.controller.GameMaster;
 import it.escape.core.server.controller.UserMessagesReporterSocket;
 import it.escape.core.server.model.Announcer;
-import it.escape.core.server.model.AnnouncerRMIBroadcast;
-import it.escape.core.server.model.AnnouncerStrings;
 import it.escape.core.server.model.SuperAnnouncer;
 import it.escape.core.server.model.game.players.Player;
 import it.escape.core.server.view.MessagingChannelInterface;

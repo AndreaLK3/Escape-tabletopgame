@@ -5,7 +5,6 @@ import it.escape.core.server.controller.game.actions.MapActionInterface;
 import it.escape.core.server.controller.game.actions.playercommands.Attack;
 import it.escape.core.server.model.game.players.Alien;
 import it.escape.core.server.model.game.players.Player;
-import it.escape.tools.strings.StringRes;
 
 public class TurnHandlerAlien extends TurnHandler{
 	
