@@ -30,10 +30,13 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 	
 	private DisconnectedCallbackInterface disconnectCallback;
 	
+	private boolean expectConnectionAlive;
+	
 	public ProxyToServer(ClientRemoteInterface self,
 			ServerRemoteInterface server) {
 		this.self = self;
 		this.server = server;
+		expectConnectionAlive = true;
 	}
 	
 	public void bindDisconnCallback(
@@ -42,10 +45,12 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 	}
 	
 	private void notifyDisconnected() {
+		expectConnectionAlive = false;
 		disconnectCallback.disconnected();
 	}
 	
 	public void killConnection() {
+		expectConnectionAlive = false;
 		unregisterClient();
 	}
 
@@ -60,7 +65,9 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			registerClient(self);
 		} catch (RemoteException e) {
 			notifyDisconnected();
-			LOGGER.log(Level.WARNING, "Cannot register the client", e);
+			if (expectConnectionAlive) {
+				LOGGER.log(Level.WARNING, "Cannot register the client", e);
+			}
 		}
 	}
 
@@ -69,7 +76,9 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			unregisterClient(self);
 		} catch (RemoteException e) {
 			notifyDisconnected();
-			LOGGER.log(Level.WARNING, "Cannot unregister the client", e);
+			if (expectConnectionAlive) {
+				LOGGER.log(Level.WARNING, "Cannot unregister the client", e);
+			}
 		}
 	}
 
@@ -78,7 +87,9 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			rename(message, self);
 		} catch (RemoteException e) {
 			notifyDisconnected();
-			LOGGER.log(Level.WARNING, "Cannot rename", e);
+			if (expectConnectionAlive) {
+				LOGGER.log(Level.WARNING, "Cannot rename", e);
+			}
 		}
 	}
 
@@ -87,7 +98,9 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			globalChat(message, self);
 		} catch (RemoteException e) {
 			notifyDisconnected();
-			LOGGER.log(Level.WARNING, "Cannot send chat message", e);
+			if (expectConnectionAlive) {
+				LOGGER.log(Level.WARNING, "Cannot send chat message", e);
+			}
 		}
 	}
 
@@ -96,7 +109,9 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			whoAmI(self);
 		} catch (RemoteException e) {
 			notifyDisconnected();
-			LOGGER.log(Level.WARNING, "Cannot send whoami", e);
+			if (expectConnectionAlive) {
+				LOGGER.log(Level.WARNING, "Cannot send whoami", e);
+			}
 		}
 	}
 
@@ -105,7 +120,9 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			whereAmI(self);
 		} catch (RemoteException e) {
 			notifyDisconnected();
-			LOGGER.log(Level.WARNING, "Cannot send whereami", e);
+			if (expectConnectionAlive) {
+				LOGGER.log(Level.WARNING, "Cannot send whereami", e);
+			}
 		}
 	}
 
@@ -114,7 +131,9 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			setAnswer(answer, self);
 		} catch (RemoteException e) {
 			notifyDisconnected();
-			LOGGER.log(Level.WARNING, "Cannot set the answer", e);
+			if (expectConnectionAlive) {
+				LOGGER.log(Level.WARNING, "Cannot set the answer", e);
+			}
 		}
 	}
 	
@@ -123,7 +142,9 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			pong(self);
 		} catch (RemoteException e) {
 			notifyDisconnected();
-			LOGGER.log(Level.WARNING, "Cannot pong the server", e);
+			if (expectConnectionAlive) {
+				LOGGER.log(Level.WARNING, "Cannot pong the server", e);
+			}
 		}
 	}
 	

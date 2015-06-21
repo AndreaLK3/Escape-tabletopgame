@@ -69,6 +69,7 @@ public class Terminal implements DisconnectedCallbackInterface, UpdaterCLItoTerm
 				checkAndSend();
 			}
 		}
+		out.println(); // newline, nice for shell users
 	}
 	
 	private void checkAndSend() {
