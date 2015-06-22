@@ -1,4 +1,4 @@
-package it.escape;
+package it.escape.tools;
 
 import java.util.Observable;
 

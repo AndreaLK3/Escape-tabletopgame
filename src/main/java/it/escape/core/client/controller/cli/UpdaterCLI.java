@@ -1,7 +1,7 @@
 package it.escape.core.client.controller.cli;
 
-import it.escape.MessageCarrier;
 import it.escape.core.client.controller.Updater;
+import it.escape.tools.MessageCarrier;
 
 import java.util.Observable;
 import java.util.Observer;

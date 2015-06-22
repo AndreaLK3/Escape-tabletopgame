@@ -1,8 +1,8 @@
 package it.escape.core.server.controller;
 
-import it.escape.MessageCarrier;
 import it.escape.core.server.controller.game.actions.PlayerActionInterface;
 import it.escape.core.server.model.Announcer;
+import it.escape.tools.MessageCarrier;
 import it.escape.tools.strings.FormatToPattern;
 import it.escape.tools.strings.StringRes;
 import it.escape.tools.utils.LogHelper;

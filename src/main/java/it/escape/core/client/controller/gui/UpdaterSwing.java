@@ -1,6 +1,5 @@
 package it.escape.core.client.controller.gui;
 
-import it.escape.MessageCarrier;
 import it.escape.core.client.BindUpdaterInterface;
 import it.escape.core.client.controller.Updater;
 import it.escape.core.client.model.CurrentPlayerStatus;
@@ -10,6 +9,7 @@ import it.escape.core.client.model.PlayerState;
 import it.escape.core.server.model.game.exceptions.DestinationUnreachableException;
 import it.escape.core.server.model.game.exceptions.PlayerCanNotEnterException;
 import it.escape.core.server.model.game.exceptions.WrongCardException;
+import it.escape.tools.MessageCarrier;
 import it.escape.tools.strings.FormatToPattern;
 import it.escape.tools.strings.StringRes;
 import it.escape.tools.utils.LogHelper; 

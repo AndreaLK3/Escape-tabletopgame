@@ -1,6 +1,6 @@
 package it.escape.server.view;
 
-import it.escape.MessageCarrier;
+import it.escape.tools.MessageCarrier;
 
 import java.util.Observable;
 import java.util.Observer;

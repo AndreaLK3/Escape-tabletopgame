@@ -1,7 +1,7 @@
 package it.escape.core.server.view;
 
-import it.escape.MessageCarrier;
 import it.escape.core.server.controller.MessagingHead;
+import it.escape.tools.MessageCarrier;
 import it.escape.tools.utils.LogHelper;
 
 import java.util.ArrayList;
