@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html><head>
+
 <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>EFTAIOS help</title></head><body><big><big><big>Escape From The Aliens In Outer Space</big></big></big><br>
 User's manual<br>
 <br>
@@ -7,7 +8,8 @@ This manual only deals with the digital version of the game, for general rules<b
 and / or information about the tabletop version, visit:<br>
 <a href="http://www.escapefromthealiensinouterspace.com/">http://www.escapefromthealiensinouterspace.com/</a><br>
 <br>
-<big>Client operations, aka Play the Actual game<br>
+<h4><big><big>Client operations, aka Play the Actual game</big></big></h4>
+<big>
 <small style="text-decoration: underline;">Preparations</small><br>
 </big>
 <ol>
@@ -49,12 +51,125 @@ time, you may lose the rest of your turn<br>
 </span>The game abandon is permanent, meaning that you can not disconnect and the reconnect again<br>
 and continue the game; disconnected characters won't be removed from the map, but will not<br>
 figure among the winners.<br>
+<small><br></small>
+<h4><small>
+</small><big><big>Server operations</big></big></h4>
+
+<big>
+<small style="text-decoration: underline;">Preparations<br>
+</small></big>
+<ol>
+  <li>For the server, it's important to set the right <span style="font-weight: bold;">networking mode</span></li>
+  <ul>
+    <li>Choose Socket, RMI or Socket + RMI from the Server Settings row, in the main menu</li>
+    <li>Please note that the network mode chosen here will influence how the port will be used</li>
+  </ul>
+  <li>If you want to use a custom <span style="font-weight: bold;">port</span> (1337 is fine most of the times, though) for incoming connections, input it in the "port field", then hit the "set port" button</li>
+  <ul>
+    <li>NOTE: if you are using RMI, the registry port (1099) will be listening, too.</li>
+    <li>OTHER NOTE: if you are using RMI + Socket, RMI will take over the displayed port (i.e. 1337), then Socket will try to listen on the next avaible one (i.e. 1338)</li>
+  </ul>
+  <li>Click "<span style="font-weight: bold;">Start Server</span>", and the server will be up and running in a few seconds.</li>
+  <li>Now you may want to communicate your ip/hostname to your users, and let the game begin!<br>
+  </li>
+</ol>
+<ul>
+  <li>To allow others to connect, you may want to open the chosen ports on your <span style="font-weight: bold;">firewall</span>, the exact procedure vary between different operating systems.</li>
+</ul>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; NOTE: we don't recommend opening
+the registry port (1099), as it could compromise the security of your
+system.<br>
+<ul>
+  <li>You may also want to allow connections from the whole internet
+(and not just your LAN). To do so, you must configure your
+router/gateway to forward said ports; again, the exact <span style="font-weight: bold;">port-forwarding</span> procedure vary between different machines. If you have trouble with port forwarding, these online tools can be helpful: <a href="http://www.yougetsignal.com/">http://www.yougetsignal.com/</a><br>
+  </li>
+</ul>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; NOTE: we don't recommend forwarding the registry port, either.<br>
+<br style="text-decoration: underline;">
+<span style="text-decoration: underline;">The main interface</span><br>
+The server interface is rough, and is intended to simply display the <span style="font-weight: bold;">server's logs</span>, be it from the terminal<br>
+or inside a window.<br>
+The window does also display the server uptime, and offers buttons to:<br>
+Stop the server<br>
+Dump the logs (the file will show up in your working directory, usually the same as the executable .jar)<br>
 <br>
-<small><br>
-</small>
-<big>Server operations<br>
-<small>To do</small><br>
-</big><span style="text-decoration: underline;"></span>
-
-
+The server process will always try to go down gracefully (whether you stop it via gui or by sending a SIGINT),<br>
+by stopping all the games and then disconnecting all the users.<br>
+<br>
+The server will automatically join new users to the same game; if said
+game is full / already running, a new game instance will be created,
+new users will be routed here, and so on.<br>
+The actual match will also start a fixed amount of time (default: 60
+seconds, but it's customizable) after the minimum number of players is
+met (2 players).<br>
+<br>
+<h4><big><big>Command line parameters</big></big></h4>
+<h4><span style="text-decoration: underline;"></span></h4>
+The application is intended to work in <span style="font-weight: bold;">headless environments</span> as well, but you need to use command line parameters to correctly set it up:<br>
+<table style="text-align: left; width: 100%;" border="0" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 276px;">--gm-timeout [milliseconds]<br>
+      </td>
+      <td style="vertical-align: top; width: 757px;">Set the duration after which the game will automatically start, given a minimum number of players waiting in the game room<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 276px;">--turn-duration [milliseconds]</td>
+      <td style="vertical-align: top; width: 757px;">Set the absolute
+duration of a player's turn. When this time runs out, the computer will
+automatically concude the turn, in place of the user. The default is 60 seconds.<br>
+Note: using this option is not encouraged outside testing/debugging sessions.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 276px;">--port [port number]<br>
+      </td>
+      <td style="vertical-align: top; width: 757px;">Set the port to connect to / to listen on, just like the gui menu does<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 276px;">--server-address [ip / hostname]<br>
+      </td>
+      <td style="vertical-align: top; width: 757px;">(Client only): set
+the default address to connect to (you don't have to choose it here,
+the cli will ask it anyway when you start the client)<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 276px;"><span style="color: red;">--cli-client</span><br>
+      </td>
+      <td style="vertical-align: top; width: 757px;">quickly start in command line client mode, bypassing the graphical menu<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 276px;"><span style="color: red;">--cli-server</span><br>
+      </td>
+      <td style="vertical-align: top; width: 757px;">quickly start in command line server mode, bypassing the graphical menu</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 276px;">--net-rmi<br>
+      </td>
+      <td style="vertical-align: top; width: 757px;">use RMI instead of the default socket, on both the textual client and server<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 276px;">--net-combo<br>
+      </td>
+      <td style="vertical-align: top; width: 757px;">(Server-only): use RMI and Socket simultaneously<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">--map-rotation [comma-separated map names]<br>
+      </td>
+      <td style="vertical-align: top;">Set which game maps to play,
+instead of the default (Galilei). The avaible maps may vary based on
+your version of the program. Subsequent game instances will be played
+on subsequent maps on the list, the list is roll-over.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+(red parameters are mandatory and mutually exclusive)<br>
 </body></html>
