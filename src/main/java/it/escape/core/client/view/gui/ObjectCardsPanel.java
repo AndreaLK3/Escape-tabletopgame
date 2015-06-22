@@ -23,10 +23,10 @@ public class ObjectCardsPanel extends JPanel {
 
 	private final static int NUMCARDTYPES = 6;
 	
-	private List<JToggleButton> objectCardsButtons;
+	private transient List<JToggleButton> objectCardsButtons;
 	private ButtonGroup group;
 
-	private ItemListener radioListener;
+	private transient ItemListener radioListener;
 	private String chosenCardName;
 	
 	

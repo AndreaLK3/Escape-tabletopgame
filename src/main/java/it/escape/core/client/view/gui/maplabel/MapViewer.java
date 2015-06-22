@@ -61,29 +61,29 @@ public class MapViewer extends JLabel {
 	
 	private int totalHeight;
 	
-	private MapLoader map;
+	private transient MapLoader map;
 	
-	private Image background = null;
+	private transient Image background = null;
 	
-	private Icon playerHere;
+	private transient Icon playerHere;
 	
-	private Icon cellHighlight;
+	private transient Icon cellHighlight;
 	
 	private JLabel highlightOverlay;
 	
 	private JLabel playerHereOverlay;
 	
-	private MouseListener submitMouseAction;
+	private transient MouseListener submitMouseAction;
 	
-	private List<MouseListener> cellListeners;
+	private transient List<MouseListener> cellListeners;
 	
-	private NoiseMarkManager noiseManager;
+	private transient NoiseMarkManager noiseManager;
 	
-	private OtherPlayerMarker strangerManager;
+	private transient OtherPlayerMarker strangerManager;
 	
-	private AttackMarkManager attackManager;
+	private transient AttackMarkManager attackManager;
 	
-	private KillMarkManager bonesManager;
+	private transient KillMarkManager bonesManager;
 	
 	public MapViewer(int cellWidth, int cellHeight) throws BadJsonFileException, IOException {
 		super();

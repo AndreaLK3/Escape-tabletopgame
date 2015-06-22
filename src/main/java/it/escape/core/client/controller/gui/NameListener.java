@@ -15,7 +15,7 @@ public class NameListener implements ActionListener, Serializable {
 
 	private static final long serialVersionUID = 12L;
 	
-	Relay relay;
+	private transient Relay relay;
 	
 	public NameListener(Relay relay) {
 		this.relay = relay; 

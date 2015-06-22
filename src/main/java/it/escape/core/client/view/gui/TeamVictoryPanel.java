@@ -19,9 +19,9 @@ public class TeamVictoryPanel extends JPanel {
 
 	private GridBagConstraints teamPanelconstraints;
 	
-	private JLabel label1_team;
-	private JLabel label2_winners;
-	private JLabel label3_losers;
+	private JLabel label1team;
+	private JLabel label2winners;
+	private JLabel label3losers;
 	private JTextArea teamStatusArea;
 	private JTextArea winnersArea;
 	private JTextArea losersArea;
@@ -33,10 +33,10 @@ public class TeamVictoryPanel extends JPanel {
 	}
 	
 	public void initializeTeamPanel(String teamName) {
-		label1_team = new JLabel(teamName+": ");
+		label1team = new JLabel(teamName+": ");
 		teamPanelconstraints.gridx=0;
 		teamPanelconstraints.gridy=0;
-		add(label1_team,teamPanelconstraints);
+		add(label1team,teamPanelconstraints);
 		
 		teamStatusArea = new JTextArea();
 		teamStatusArea.setEditable(false);
@@ -44,11 +44,11 @@ public class TeamVictoryPanel extends JPanel {
 		teamPanelconstraints.gridy=0;
 		add(teamStatusArea,teamPanelconstraints);
 		
-		label2_winners = new JLabel("Winners: ");
+		label2winners = new JLabel("Winners: ");
 		teamPanelconstraints.gridx=0;
 		teamPanelconstraints.gridy=1;
 		teamPanelconstraints.gridwidth=2;
-		add(label2_winners,teamPanelconstraints);
+		add(label2winners,teamPanelconstraints);
 		
 		winnersArea = new JTextArea();
 		winnersArea.setEditable(false);

@@ -39,6 +39,7 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 		expectConnectionAlive = true;
 	}
 	
+	@Override
 	public void bindDisconnCallback(
 			DisconnectedCallbackInterface disconnectCallback) {
 		this.disconnectCallback = disconnectCallback;
@@ -49,17 +50,20 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 		disconnectCallback.disconnected();
 	}
 	
+	@Override
 	public void killConnection() {
 		expectConnectionAlive = false;
 		unregisterClient();
 	}
 
+	@Override
 	public void sendMessage(String msg) {
 		setAnswer(msg);
 	}
 
 	// encapsule and enrich the inherited methods
 	
+
 	public void registerClient() {
 		try {
 			registerClient(self);
@@ -71,6 +75,7 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 		}
 	}
 
+
 	public void unregisterClient() {
 		try {
 			unregisterClient(self);
@@ -81,6 +86,7 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			}
 		}
 	}
+
 
 	public void rename(String message) {
 		try {
@@ -104,6 +110,7 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 		}
 	}
 
+
 	public void whoAmI() {
 		try {
 			whoAmI(self);
@@ -114,6 +121,7 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			}
 		}
 	}
+
 
 	public void whereAmI() {
 		try {
@@ -126,6 +134,7 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 		}
 	}
 
+
 	public void setAnswer(String answer) {
 		try {
 			setAnswer(answer, self);
@@ -136,7 +145,8 @@ public class ProxyToServer implements ServerRemoteInterface, ClientChannelInterf
 			}
 		}
 	}
-	
+
+
 	public void pong(){
 		try {
 			pong(self);

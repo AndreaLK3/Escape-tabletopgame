@@ -12,8 +12,8 @@ public final class AlphaToIntHelper {
 	
 	// range usato solo per la conversione dei simboli, non ha relazione con la
 	// dimensione della mappa
-	private final char RANGE_START = 'A';
-	private final char RANGE_END = 'Z';
+	private final static char RANGESTART = 'A';
+	private final static char RANGEEND = 'Z';
 
 	public AlphaToIntHelper(String rawValue) {
 		this.rawValue = rawValue;
@@ -24,7 +24,7 @@ public final class AlphaToIntHelper {
 	 * @return intero corrispondente nell'alfabeto A-Z
 	 */
 	private int asciiToInt(char lettera) {
-		return (int) lettera - RANGE_START;
+		return (int) lettera - RANGESTART;
 	}
 	/**
 	 * 
@@ -32,7 +32,7 @@ public final class AlphaToIntHelper {
 	 */
 	public int convert() {
 		int total = 0;
-		int range = RANGE_END - RANGE_START;
+		int range = RANGEEND - RANGESTART;
 		
 		for (int i = 0; i < rawValue.length(); i++) {
 			int curr = asciiToInt(rawValue.charAt(i));
