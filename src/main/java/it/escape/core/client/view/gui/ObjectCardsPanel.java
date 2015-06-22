@@ -1,5 +1,7 @@
 package it.escape.core.client.view.gui;
 
+import it.escape.tools.utils.swing.ImageScaler;
+
 import java.awt.Image;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;

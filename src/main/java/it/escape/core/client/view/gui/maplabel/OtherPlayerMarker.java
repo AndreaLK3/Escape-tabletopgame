@@ -1,6 +1,6 @@
 package it.escape.core.client.view.gui.maplabel;
 
-import it.escape.core.client.view.gui.ImageScaler;
+import it.escape.tools.utils.swing.ImageScaler;
 
 import java.util.ArrayList;
 import java.util.List;

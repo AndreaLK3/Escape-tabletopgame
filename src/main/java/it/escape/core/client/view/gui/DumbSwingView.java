@@ -8,6 +8,7 @@ import it.escape.core.client.model.GameStatus;
 import it.escape.core.client.view.gui.maplabel.MapViewer;
 import it.escape.core.server.model.game.exceptions.BadJsonFileException;
 import it.escape.tools.utils.FilesHelper;
+import it.escape.tools.utils.swing.ImageScaler;
 
 import java.awt.Color;
 import java.awt.Dimension;

@@ -13,6 +13,7 @@ import it.escape.core.client.view.gui.maplabel.MapViewer;
 import it.escape.core.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.core.server.model.game.exceptions.BadJsonFileException;
 import it.escape.core.server.model.game.gamemap.positioning.CoordinatesConverter;
+import it.escape.tools.utils.swing.ImageScaler;
 import it.escape.tools.utils.synchrolaunch.SwingSynchroLauncher;
 import it.escape.tools.utils.synchrolaunch.SynchroLaunchInterface;
 

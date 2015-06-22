@@ -1,6 +1,5 @@
 package it.escape.core.client.view.gui.maplabel;
 
-import it.escape.core.client.view.gui.ImageScaler;
 import it.escape.core.server.model.game.exceptions.BadCoordinatesException;
 import it.escape.core.server.model.game.exceptions.BadJsonFileException;
 import it.escape.core.server.model.game.gamemap.Cell;
@@ -14,6 +13,7 @@ import it.escape.core.server.model.game.gamemap.positioning.Position2D;
 import it.escape.core.server.model.game.players.PlayerTeams;
 import it.escape.tools.strings.StringRes;
 import it.escape.tools.utils.FilesHelper;
+import it.escape.tools.utils.swing.ImageScaler;
 
 import java.awt.Color;
 import java.awt.Dimension;

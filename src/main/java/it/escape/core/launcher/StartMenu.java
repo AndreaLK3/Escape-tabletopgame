@@ -1,7 +1,5 @@
 package it.escape.core.launcher;
 
-import it.escape.core.client.view.gui.ImageAutoFit;
-import it.escape.core.client.view.gui.ImageScaler;
 import it.escape.core.launcher.menucontroller.ActionAcceptNewPortNumber;
 import it.escape.core.launcher.menucontroller.ActionPrintHelp;
 import it.escape.core.launcher.menucontroller.ActionQuit;
@@ -13,6 +11,8 @@ import it.escape.core.launcher.menucontroller.StartSubsystemsInterface;
 import it.escape.core.server.view.rmispecific.ServerRMICore;
 import it.escape.tools.GlobalSettings;
 import it.escape.tools.strings.StringRes;
+import it.escape.tools.utils.swing.ImageAutoFit;
+import it.escape.tools.utils.swing.ImageScaler;
 
 import java.awt.Color;
 import java.awt.EventQueue;
