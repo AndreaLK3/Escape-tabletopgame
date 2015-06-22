@@ -85,6 +85,8 @@ public class MapViewer extends JLabel {
 	
 	private transient KillMarkManager bonesManager;
 	
+	private transient ClosedHatchManager closedManager;
+	
 	public MapViewer(int cellWidth, int cellHeight) throws BadJsonFileException, IOException {
 		super();
 		this.cellWidth = cellWidth;
@@ -123,6 +125,7 @@ public class MapViewer extends JLabel {
 		strangerManager = new OtherPlayerMarker(this);
 		attackManager = new AttackMarkManager();
 		bonesManager = new KillMarkManager();
+		closedManager = new ClosedHatchManager();
 	}
 	
 	private void initialize() {
@@ -377,6 +380,10 @@ public class MapViewer extends JLabel {
 	
 	public void clearBonesMarkers() {
 		bonesManager.clearBones(this);
+	}
+	
+	public void addClosedHatch(String location) {
+		closedManager.addClosedHatch(location, this);
 	}
 	
 	public int getTotalWidth() {

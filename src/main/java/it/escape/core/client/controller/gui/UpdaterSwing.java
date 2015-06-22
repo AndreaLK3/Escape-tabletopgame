@@ -902,7 +902,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	public void eventEscapePodUnavailable(String location)
 			throws RemoteException {
 		LOGGER.finer("Server reported : escape pod " + location + " is disabled." );
-		// TODO display a red icon on the map
+		view.addClosedHatch(location);
+		view.focusOnLocation(location, 0);
 	}
 	
 }

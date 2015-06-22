@@ -348,6 +348,9 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 	public void clearBonesFromMap() {
 		((MapViewer)label7Map).clearBonesMarkers();
 	}
+	public void addClosedHatch(String location) {
+		((MapViewer)label7Map).addClosedHatch(location);
+	}
 	public void focusOnLocation(final String coord, final int waitBefore) {
 		new Thread(
 				new Runnable() {

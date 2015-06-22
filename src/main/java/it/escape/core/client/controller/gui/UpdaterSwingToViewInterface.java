@@ -54,4 +54,6 @@ public interface UpdaterSwingToViewInterface {
 	
 	public void clearBonesFromMap();
 	
+	public void addClosedHatch(String location);
+	
 }
