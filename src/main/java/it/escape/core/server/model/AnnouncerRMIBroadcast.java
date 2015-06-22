@@ -56,7 +56,11 @@ public class AnnouncerRMIBroadcast implements Announcer {
 	@Override
 	public void announcePlayerDisconnected(PlayerActionInterface player) {
 		for (ClientRemoteInterface client : subscribed) {
-			//TODO: do something
+			try {
+			client.playerDisconnected(player.getName());
+			} catch (RemoteException e) {
+				LOG.log(Level.WARNING, "cannot announce player disconnection", e);
+			}
 		}
 
 	}
