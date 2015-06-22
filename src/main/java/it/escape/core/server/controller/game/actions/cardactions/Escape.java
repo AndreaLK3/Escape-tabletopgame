@@ -18,6 +18,7 @@ public class Escape implements CardAction {
 			currentPlayer.setEscaped();
 			UserMessagesReporter.getReporterInstance(currentPlayer).reportSuccessfulEscape();
 			Shorthand.announcer(currentPlayer).announceEscape(currentPlayer);
+			Shorthand.announcer(currentPlayer).announceEscapePodUnavailable(map.getPlayerAlphaNumPosition(currentPlayer));
 	}
 
 	public boolean hasObjectCard() {
