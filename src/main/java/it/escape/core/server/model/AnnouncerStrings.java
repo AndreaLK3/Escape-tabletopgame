@@ -26,6 +26,17 @@ public class AnnouncerStrings extends Observable implements Announcer {
 		
 	}
 	
+	
+	/* (non-Javadoc)
+	 * @see it.escape.core.server.model.Announcer#announce(java.lang.String)
+	 */
+	@Override
+	public void announce(String message) {
+		this.message = message;
+		setChanged();
+		notifyObservers();
+	}
+	
 	/* (non-Javadoc)
 	 * @see it.escape.core.server.model.Announcer#announcePlayerConnected(int, int)
 	 */
@@ -101,15 +112,7 @@ public class AnnouncerStrings extends Observable implements Announcer {
 		announce(msg);
 	}
 	
-	/* (non-Javadoc)
-	 * @see it.escape.core.server.model.Announcer#announce(java.lang.String)
-	 */
-	@Override
-	public void announce(String message) {
-		this.message = message;
-		setChanged();
-		notifyObservers();
-	}
+	
 
 	/* (non-Javadoc)
 	 * @see it.escape.core.server.model.Announcer#getMessage()
