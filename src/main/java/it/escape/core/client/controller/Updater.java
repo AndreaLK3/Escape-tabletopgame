@@ -31,7 +31,7 @@ public abstract class Updater implements Observer {
 
 	public abstract void update(Observable arg0, Object arg1);
 	
-	protected abstract void processMessage(String message) throws RemoteException;
+	public abstract void processMessage(String message) throws RemoteException;
 	
 	protected void initPatterns() {
 		input_ObjectCard = new FormatToPattern(StringRes.getString("messaging.askWhichObjectCard")).convert();

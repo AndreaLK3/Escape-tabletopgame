@@ -155,4 +155,9 @@ public class Terminal implements DisconnectedCallbackInterface, UpdaterCLItoTerm
 		visualizeMessage(StringRes.getString("client.text.disconnectByServer"));
 		running = false;
 	}
+	
+	public String buildAndGetPrompt() {
+		buildPrompt();
+		return prompt;
+	}
 }

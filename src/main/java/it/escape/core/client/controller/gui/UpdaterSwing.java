@@ -156,7 +156,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 *(info, TurnRequests, events, exceptions) 
 	 * @throws RemoteException */
 	@Override
-	protected void processMessage(String message) throws RemoteException {
+	public void processMessage(String message) throws RemoteException {
 		Matcher map = setGameMap.matcher(message);
 		Matcher startmotd = getMOTDstart.matcher(message);
 		Matcher gameStartETA = startInXSeconds.matcher(message);

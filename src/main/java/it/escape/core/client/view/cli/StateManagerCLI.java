@@ -27,6 +27,7 @@ public class StateManagerCLI implements StateManagerCLIInterface {
 	
 	public void setNotMyTurn() {
 		myTurn = false;
+		currentState = TurnInputStates.FREE;
 	}
 	
 	public boolean isMyTurn() {

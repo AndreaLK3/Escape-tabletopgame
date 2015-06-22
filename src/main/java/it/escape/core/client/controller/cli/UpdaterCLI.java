@@ -47,7 +47,7 @@ public class UpdaterCLI extends Updater implements Observer {
 	 * If it does, it sets the appropriate TurnInputState.
 	 * @param message
 	 */
-	protected void processMessage(String message) {
+	public void processMessage(String message) {
 		Matcher objectRequired = input_ObjectCard.matcher(message);
 		Matcher positionRequired = input_Position.matcher(message);
 		Matcher yesnoRequired = input_YesNo.matcher(message);
