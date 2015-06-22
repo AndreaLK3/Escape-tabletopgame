@@ -1,7 +1,6 @@
 package it.escape.core.server.controller;
 
 import it.escape.core.server.controller.game.actions.playercommands.MoveCommand;
-import it.escape.core.server.model.game.gamemap.positioning.CoordinatesConverter;
 import it.escape.core.server.view.MessagingChannelInterface;
 import it.escape.core.server.view.MessagingChannelStrings;
 import it.escape.tools.strings.StringRes;

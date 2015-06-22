@@ -24,13 +24,13 @@ public class PathFinder {
 	
 	private PositionCubic dest;
 	
-	private List<List> fringes;
+	private List<List<Cell>> fringes;
 
 	public PathFinder(MapPathfinderInterface map, Player curPlayer, PositionCubic dest) {
 		this.map = map;
 		this.curPlayer = curPlayer;
 		this.dest = dest;
-		fringes = new ArrayList<List>();
+		fringes = new ArrayList<List<Cell>>();
 	}
 
 	public void calculateRoute() throws CellNotExistsException {

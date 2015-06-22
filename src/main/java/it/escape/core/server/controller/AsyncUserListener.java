@@ -1,7 +1,6 @@
 package it.escape.core.server.controller;
 
 import it.escape.core.server.controller.game.actions.PlayerActionInterface;
-import it.escape.core.server.model.Announcer;
 import it.escape.tools.MessageCarrier;
 import it.escape.tools.strings.FormatToPattern;
 import it.escape.tools.strings.StringRes;
@@ -34,14 +33,11 @@ public class AsyncUserListener implements Observer{
 	
 	private UserMessagesReporter privateUMR;
 	
-	private Announcer announcer;
-	
 	private GameMaster gameMaster;
 	
-	public AsyncUserListener(PlayerActionInterface subject, Announcer announcer, UserMessagesReporter myUMR, GameMaster gameMaster) {
+	public AsyncUserListener(PlayerActionInterface subject, UserMessagesReporter myUMR, GameMaster gameMaster) {
 		LogHelper.setDefaultOptions(LOG);
 		this.subject = subject;
-		this.announcer = announcer;
 		this.privateUMR = myUMR;
 		this.gameMaster = gameMaster;
 		rename = new FormatToPattern(StringRes.getString("messaging.renameMyself")).convert();

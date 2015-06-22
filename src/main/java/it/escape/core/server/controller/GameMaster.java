@@ -175,7 +175,7 @@ public class GameMaster implements Runnable {
 		map.addNewPlayer(newP, newP.getTeam());  // tell the map to place our player
 		UserMessagesReporter.bindPlayer(newP, interfaceWithUser);  // bind him to its command interface
 		UserMessagesReporter.getReporterInstance(interfaceWithUser).bindAnnouncer(announcer);  // the player will also use our game-announcer
-		AsyncUserListener listener = new AsyncUserListener(newP, announcer, UserMessagesReporter.getReporterInstance(interfaceWithUser), this);
+		AsyncUserListener listener = new AsyncUserListener(newP, UserMessagesReporter.getReporterInstance(interfaceWithUser), this);
 		listOfPlayers.add(newP);  // add him to our players list
 		interfaceWithUser.addObserver(listener);
 		listeners.add(listener);

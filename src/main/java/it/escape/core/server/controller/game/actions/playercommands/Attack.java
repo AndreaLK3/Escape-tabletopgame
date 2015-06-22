@@ -5,7 +5,6 @@ import it.escape.core.server.controller.UserMessagesReporter;
 import it.escape.core.server.controller.game.actions.MapActionInterface;
 import it.escape.core.server.controller.game.actions.PlayerActionInterface;
 import it.escape.core.server.model.game.gamemap.positioning.PositionCubic;
-import it.escape.tools.strings.StringRes;
 
 import java.util.List;
 

@@ -76,7 +76,7 @@ public class TimeController implements Runnable {
 	public TimeController(List<Player> turnOrder, GlobalSettings locals) {
 		LogHelper.setDefaultOptions(LOGGER);
 		this.locals = locals;
-		TIMEOUT = locals.getGameTurnDuration();
+		TIMEOUT = this.locals.getGameTurnDuration();
 		this.turnOrder = turnOrder;
 		nowPlaying = 0;
 		this.runGame = true;

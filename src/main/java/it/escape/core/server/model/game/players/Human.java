@@ -1,7 +1,6 @@
 package it.escape.core.server.model.game.players;
 
 import it.escape.core.server.controller.game.actions.HumanActionInterface;
-import it.escape.core.server.model.game.cards.ObjectCard;
 import it.escape.core.server.model.game.exceptions.CardNotPresentException;
 import it.escape.tools.strings.StringRes;
 

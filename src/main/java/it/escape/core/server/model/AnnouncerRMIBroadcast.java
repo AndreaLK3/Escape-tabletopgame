@@ -1,7 +1,6 @@
 package it.escape.core.server.model;
 
 import it.escape.core.client.connection.rmi.ClientRemoteInterface;
-import it.escape.core.client.controller.gui.UpdaterSwing;
 import it.escape.core.server.controller.game.actions.PlayerActionInterface;
 import it.escape.core.server.model.game.cards.ObjectCard;
 import it.escape.core.server.model.game.gamemap.positioning.CoordinatesConverter;

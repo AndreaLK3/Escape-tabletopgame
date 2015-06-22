@@ -1,13 +1,12 @@
 package it.escape.core.server.controller;
 
-import java.rmi.RemoteException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import it.escape.core.server.controller.game.actions.playercommands.MoveCommand;
 import it.escape.core.server.view.MessagingChannelInterface;
 import it.escape.core.server.view.MessagingChannelRMI;
 import it.escape.tools.strings.StringRes;
+
+import java.rmi.RemoteException;
+import java.util.logging.Level;
 
 public class UserMessagesReporterRMI extends UserMessagesReporter {
 	
