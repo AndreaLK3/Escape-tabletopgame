@@ -1,7 +1,7 @@
 package it.escape.core.client.controller.gui;
 
+import it.escape.MessageCarrier;
 import it.escape.core.client.BindUpdaterInterface;
-import it.escape.core.client.controller.MessageCarrier;
 import it.escape.core.client.controller.Updater;
 import it.escape.core.client.model.CurrentPlayerStatus;
 import it.escape.core.client.model.GameStatus;

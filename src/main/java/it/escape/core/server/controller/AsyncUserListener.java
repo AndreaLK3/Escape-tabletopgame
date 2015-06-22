@@ -1,8 +1,8 @@
 package it.escape.core.server.controller;
 
+import it.escape.MessageCarrier;
 import it.escape.core.server.controller.game.actions.PlayerActionInterface;
 import it.escape.core.server.model.Announcer;
-import it.escape.core.server.view.sockspecific.AsyncMessagingObservable;
 import it.escape.tools.strings.FormatToPattern;
 import it.escape.tools.strings.StringRes;
 import it.escape.tools.utils.LogHelper;
@@ -97,8 +97,8 @@ public class AsyncUserListener implements Observer{
 	}
 
 	public void update(Observable arg0, Object arg1) {
-		if (arg0 instanceof AsyncMessagingObservable) {
-			AsyncMessagingObservable msg = (AsyncMessagingObservable) arg0;
+		if (arg0 instanceof MessageCarrier) {
+			MessageCarrier msg = (MessageCarrier) arg0;
 			processMessage(msg.getMessage());
 		}
 	}

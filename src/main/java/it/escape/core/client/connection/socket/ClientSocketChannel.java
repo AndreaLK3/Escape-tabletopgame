@@ -1,9 +1,9 @@
 package it.escape.core.client.connection.socket;
 
+import it.escape.MessageCarrier;
 import it.escape.core.client.connection.BindDisconnectCallbackInterface;
 import it.escape.core.client.connection.DisconnectedCallbackInterface;
 import it.escape.core.client.controller.ClientChannelInterface;
-import it.escape.core.client.controller.MessageCarrier;
 import it.escape.core.client.controller.gui.UpdaterSwing;
 
 import java.io.IOException;

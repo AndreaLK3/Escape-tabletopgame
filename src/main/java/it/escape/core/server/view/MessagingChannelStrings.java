@@ -1,7 +1,7 @@
 package it.escape.core.server.view;
 
+import it.escape.MessageCarrier;
 import it.escape.core.server.controller.MessagingHead;
-import it.escape.core.server.view.sockspecific.AsyncMessagingObservable;
 import it.escape.tools.utils.LogHelper;
 
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class MessagingChannelStrings extends Observable implements MessagingHead
 	private boolean inputProvided;
 	
 	// MessagingChannelStrings is simply a proxy to this Observable
-	private AsyncMessagingObservable asyncInterface;
+	private MessageCarrier asyncInterface;
 	
 	public MessagingChannelStrings() {
 		LogHelper.setDefaultOptions(LOGGER);
@@ -64,7 +64,7 @@ public class MessagingChannelStrings extends Observable implements MessagingHead
 		clientToServerQueue = new ConcurrentLinkedQueue<String>();
 		override = new AtomicBoolean();
 		connectionAlive = new AtomicBoolean();
-		asyncInterface = new AsyncMessagingObservable();
+		asyncInterface = new MessageCarrier();
 		override.set(false);
 		connectionAlive.set(true);
 		inputProvided = false;

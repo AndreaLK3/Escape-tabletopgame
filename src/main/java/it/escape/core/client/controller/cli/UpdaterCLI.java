@@ -1,6 +1,6 @@
 package it.escape.core.client.controller.cli;
 
-import it.escape.core.client.controller.MessageCarrier;
+import it.escape.MessageCarrier;
 import it.escape.core.client.controller.Updater;
 
 import java.util.Observable;

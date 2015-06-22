@@ -1,6 +1,6 @@
 package it.escape.server.view;
 
-import it.escape.core.server.view.sockspecific.AsyncMessagingObservable;
+import it.escape.MessageCarrier;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -13,8 +13,8 @@ public class TestingInterfaceObserver implements Observer {
 	}
 
 	public void update(Observable o, Object arg) {
-		if (o instanceof AsyncMessagingObservable) {
-			AsyncMessagingObservable a = (AsyncMessagingObservable) o;
+		if (o instanceof MessageCarrier) {
+			MessageCarrier a = (MessageCarrier) o;
 			last_message = a.getMessage();
 		}
 	}
