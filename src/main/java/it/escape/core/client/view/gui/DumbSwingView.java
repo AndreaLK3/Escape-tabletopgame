@@ -4,7 +4,6 @@ import it.escape.core.client.controller.Relay;
 import it.escape.core.client.controller.gui.ActionSendChat;
 import it.escape.core.client.controller.gui.MouseOnMapCell;
 import it.escape.core.client.controller.gui.NameListener;
-import it.escape.core.client.controller.gui.ObjectCardsButtonListener;
 import it.escape.core.client.model.GameStatus;
 import it.escape.core.client.view.gui.maplabel.MapViewer;
 import it.escape.core.server.model.game.exceptions.BadJsonFileException;

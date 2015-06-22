@@ -177,7 +177,7 @@ public class UserMessagesReporterSocket extends UserMessagesReporter {
 		interfaceWithUser.writeToClient(StringRes.getString("messaging.ownedCards"));
 		interfaceWithUser.writeToClient(thePlayer.getMyHand().getAllCardNamesAsString());
 		interfaceWithUser.setDefaultOption("none");
-		interfaceWithUser.setContext(Arrays.asList("attack","defense","teleport", "lights", "sedatives", "adrenaline"));
+		interfaceWithUser.setContext(Arrays.asList("attack","defense","teleport", "lights", "sedatives", "adrenaline", "noCard"));
 		return interfaceWithUser.readFromClient();
 	}
 

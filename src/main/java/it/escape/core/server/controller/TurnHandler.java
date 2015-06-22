@@ -107,7 +107,7 @@ public abstract class TurnHandler {
 				objectCard = currentPlayer.drawCard(key);  // card is removed from the player's hand	
 				endObjectCard = true;
 				
-			} catch (CardNotPresentException e) {	//CardNotExistingException
+			} catch (CardNotPresentException e) {
 				LOGGER.finer(e.getClass().getSimpleName() + " " + e.getMessage());
 				endObjectCard = false;
 			}

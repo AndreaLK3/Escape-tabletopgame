@@ -1,7 +1,6 @@
-package it.escape.core.client.controller.gui;
+package it.escape.core.client.view.gui;
 
 import it.escape.core.client.controller.Relay;
-import it.escape.core.client.view.gui.ObjectCardsPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,7 +30,7 @@ public class ObjectCardsButtonListener implements ActionListener{
 		this.objectCardsPanel = objectCardsPanel;
 		this.relayRef = relayRef;
 		doRelayObjectCard = false;
-		chosenObjectCard = null;
+		chosenObjectCard = "noCard";
 		
 	}
 	
@@ -41,19 +40,16 @@ public class ObjectCardsButtonListener implements ActionListener{
 					new Runnable() {
 						public void run() {
 							if (doRelayObjectCard) {
-								chosenObjectCard = null;
-								do {
+								chosenObjectCard = "noCard";
 								JOptionPane.showConfirmDialog(null, objectCardsPanel.getButtonsAsArray(), 
 										"Your object cards", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
 								chosenObjectCard = objectCardsPanel.getChosenCardName();
-								if (chosenObjectCard == null){
+								if ("noCard".equalsIgnoreCase(chosenObjectCard)){
 									JOptionPane.showMessageDialog(null, "You haven't chosen any card.");
 								}
 								else {
 									JOptionPane.showMessageDialog(null, "You have chosen the " + chosenObjectCard  + " card.");
 								}
-								}while(chosenObjectCard == null);	//note: the user must choose a valid object card name
-																			//(even an unplayable one).
 								relayRef.relayMessage(chosenObjectCard);	//This line sends the name of the chosen objectCard to the ServerSocketCore
 								doRelayObjectCard = false;					//This line resets the variable.
 							}
