@@ -51,11 +51,11 @@ public class MapViewer extends JLabel {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final int cell_z = 0;
+	private static final int cell_z = 2;
 	
-	private static final int noise_z = 2;
+	private static final int noise_z = 1;
 	
-	private static final int overlays_z = 3;
+	private static final int overlays_z = 0;
 	
 	private int totalWidth;
 	
@@ -111,13 +111,17 @@ public class MapViewer extends JLabel {
 		setPreferredSize(new Dimension(totalWidth, totalHeight));
 		
 		drawCells();
-		setComponentZOrder(playerHereOverlay, overlays_z);
-		setComponentZOrder(highlightOverlay, overlays_z);
+		resetOverlayLabelZ();
 		repaint();
 		
 		if (runAfterDraw != null) {
 			new Thread(runAfterDraw).start();
 		}
+	}
+	
+	private void resetOverlayLabelZ() {
+		setComponentZOrder(playerHereOverlay, overlays_z);
+		setComponentZOrder(highlightOverlay, overlays_z);
 	}
 	
 	private void initOverlayManagers() {
@@ -348,6 +352,7 @@ public class MapViewer extends JLabel {
 	
 	public void addNoiseMarker(String location) {
 		noiseManager.addNoise(location, this);
+		resetOverlayLabelZ();
 	}
 	
 	public void clearNoiseMarkers() {
@@ -356,6 +361,7 @@ public class MapViewer extends JLabel {
 	
 	public void addOtherPlayerMarker(String location, String name) {
 		strangerManager.addPlayer(location, name, this);
+		resetOverlayLabelZ();
 	}
 	
 	public void removeSpecificPlayer(String name) {
@@ -368,6 +374,7 @@ public class MapViewer extends JLabel {
 	
 	public void addAttackMarker(String location) {
 		attackManager.addFight(location, this);
+		resetOverlayLabelZ();
 	}
 	
 	public void clearAttackMarkers() {
@@ -376,6 +383,7 @@ public class MapViewer extends JLabel {
 	
 	public void addBonesMarker(String location) {
 		bonesManager.addBones(location, this);
+		resetOverlayLabelZ();
 	}
 	
 	public void clearBonesMarkers() {
@@ -384,6 +392,7 @@ public class MapViewer extends JLabel {
 	
 	public void addClosedHatch(String location) {
 		closedManager.addClosedHatch(location, this);
+		resetOverlayLabelZ();
 	}
 	
 	public int getTotalWidth() {
