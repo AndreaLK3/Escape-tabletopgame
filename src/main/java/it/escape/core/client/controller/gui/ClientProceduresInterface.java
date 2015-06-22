@@ -94,5 +94,5 @@ public interface ClientProceduresInterface {
 
 	public abstract void youDefended() throws RemoteException;
 	
-	
+	public abstract void eventEscapePodUnavailable(String location) throws RemoteException;
 }

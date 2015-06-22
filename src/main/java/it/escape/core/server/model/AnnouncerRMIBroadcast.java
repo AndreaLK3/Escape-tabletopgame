@@ -267,4 +267,15 @@ public class AnnouncerRMIBroadcast implements Announcer {
 		}
 	}
 
+	@Override
+	public void announceEscapePodUnavailable(String position) {
+		for (ClientRemoteInterface client : subscribed) {
+			try {
+				client.eventEscapePodUnavailable(position);
+			} catch (RemoteException e) {
+				LOG.log(Level.WARNING, "cannot announce escape pod unavailable", e);
+			}
+		}
+	}
+
 }

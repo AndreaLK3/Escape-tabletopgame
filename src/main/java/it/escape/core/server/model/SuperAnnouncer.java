@@ -228,4 +228,14 @@ public class SuperAnnouncer implements Announcer {
 		}
 	}
 
+	@Override
+	public void announceEscapePodUnavailable(String position) {
+		if (rmiAnnouncer != null) {
+			rmiAnnouncer.announceEscapePodUnavailable(position);
+		}
+		if (socketAnnouncer != null) {
+			socketAnnouncer.announceEscapePodUnavailable(position);
+		}
+	}
+
 }

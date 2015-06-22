@@ -70,6 +70,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	private Pattern pEVENTendOfResults;
 	
 	private Pattern pEVENTPlayerEscaped;
+	private Pattern pEVENTPodUnavailable;
 	
 	private Pattern pEXCEPTIONcanNotEnter;
 	private Pattern pEXCEPTIONdestUnreachable;
@@ -125,6 +126,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		pTURNdiscard = new FormatToPattern(StringRes.getString("messaging.tooManyCardsAlien")).convert();
 		pTURNescaped = new FormatToPattern(StringRes.getString("messaging.EscapedSuccessfully")).convert();
 		pTURNfailedEscape = new FormatToPattern(StringRes.getString("messaging.EscapeHatchDoesNotWork")).convert();
+		pEVENTPodUnavailable = new FormatToPattern(StringRes.getString("messaging.EscapeHatchDisabled")).convert();
 		
 		pEVENTobjectUsed = new FormatToPattern(StringRes.getString("messaging.playerIsUsingObjCard")).convert();
 		pEVENTnoise = new FormatToPattern(StringRes.getString("messaging.noise")).convert();
@@ -169,7 +171,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				setMap(mapname);
 				
 			} else if (startmotd.matches()) {
-				LOGGER.finer("ServerSocketCore has begun writing motd");
+				LOGGER.finer("Server has begun writing motd");
 				readingMotd = true;
 				
 			} else if (chatMsg.matches()) {
@@ -375,6 +377,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher eventDefense = pEVENTdefense.matcher(message);
 		Matcher endResults = pEVENTendOfResults.matcher(message);
 		Matcher eventPlayerEscaped = pEVENTPlayerEscaped.matcher(message);
+		Matcher eventHatchDisabled = pEVENTPodUnavailable.matcher(message);
 		
 		if (eventObject.matches()) {
 			String playerName = eventObject.group(1);
@@ -417,11 +420,18 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		} else if (eventDefense.matches()) {
 			String location = eventDefense.group(1);
 			eventDefense(location);
+			return true;
+			
+		} else if (eventPlayerEscaped.matches()) {
+			String playerName = eventPlayerEscaped.group(1);
+			eventPlayerEscaped(playerName);
+			return true;
+			
+		} else if (eventHatchDisabled.matches()) {
+			String location = eventHatchDisabled.group(1);
+			eventEscapePodUnavailable(location);
+			return true;
 		}
-		 else if (eventPlayerEscaped.matches()) {
-				String playerName = eventPlayerEscaped.group(1);
-				eventPlayerEscaped(playerName);
-			}
 		
 		return false;
 	}
@@ -465,7 +475,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher endmotd = getMOTDend.matcher(message);
 		if (readingMotd) {
 			if (endmotd.matches()) {
-				LOGGER.finer("ServerSocketCore has stopped writing motd");
+				LOGGER.finer("Server has stopped writing motd");
 				readingMotd = false;
 				view.displayServerMOTD(loadedMotd);
 			} else {
@@ -495,7 +505,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#startReadingMotd() */
 	@Override
 	public void setWholeMOTD(String text) throws RemoteException {
-		LOGGER.finer("ServerSocketCore sent the motd");
+		LOGGER.finer("Server sent the motd");
 		loadedMotd = text;
 		view.displayServerMOTD(loadedMotd);
 	}
@@ -578,7 +588,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#drawnCard(java.lang.String) */
 	@Override
 	public void drawnCard(String cardClassName) throws RemoteException {
-		LOGGER.finer("ServerSocketCore reported new object card " + cardClassName);
+		LOGGER.finer("Server reported new object card " + cardClassName);
 		String cardKey = getCardGUIKey(cardClassName);
 		model.getMyPlayerState().addCard(cardKey);
 		model.finishedUpdating();
@@ -611,7 +621,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void setWinners(String team, String winnersNames) throws RemoteException {
-		LOGGER.finer("ServerSocketCore listed the winners");
+		LOGGER.finer("Server listed the winners");
 		model.getVictoryState().addWinners(team, winnersNames);
 		model.finalRefreshPlayerStatus();
 		model.finishedUpdating();
@@ -622,7 +632,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 */
 	@Override
 	public void setLoserTeam(String teamName) throws RemoteException {
-		LOGGER.finer("ServerSocketCore listed the losers");
+		LOGGER.finer("Server listed the losers");
 		model.getVictoryState().setTeamDefeated(teamName);
 		model.finalRefreshPlayerStatus();
 		model.finishedUpdating();
@@ -679,7 +689,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#askForMovement() */
 	@Override
 	public void askForMovement() throws RemoteException {
-		LOGGER.finer("ServerSocketCore asked to move");
+		LOGGER.finer("Server asked to move");
 		view.notifyUser("Please move your character: click where you want to go");
 		view.bindPositionSender();
 	}
@@ -688,7 +698,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#askForYesNo(java.lang.String) */
 	@Override
 	public void askForYesNo(String question) throws RemoteException {
-		LOGGER.finer("ServerSocketCore asked yes/no question");
+		LOGGER.finer("Server asked yes/no question");
 		view.relayYesNoDialog(question);
 	}
 	
@@ -696,7 +706,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#askForNoisePosition() */
 	@Override
 	public void askForNoisePosition() throws RemoteException {
-		LOGGER.finer("ServerSocketCore asked to place a noise");
+		LOGGER.finer("Server asked to place a noise");
 		view.notifyUser("Select the sector you want to make a noise in");
 		view.bindPositionSender();
 	}
@@ -705,7 +715,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#askForLightsPosition() */
 	@Override
 	public void askForLightsPosition() throws RemoteException {
-		LOGGER.finer("ServerSocketCore asked where to turn the Lights on");
+		LOGGER.finer("Server asked where to turn the Lights on");
 		view.notifyUser("Select the sector where you want to turn the lights on");
 		view.bindPositionSender();
 	}
@@ -714,7 +724,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#whichObjectCard() */
 	@Override
 	public void askWhichObjectCard() throws RemoteException {
-		LOGGER.finer("ServerSocketCore asked an object card");
+		LOGGER.finer("Server asked an object card");
 		view.relayObjectCard();
 	}
 	
@@ -722,7 +732,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#haveToDiscard() */
 	@Override
 	public void haveToDiscard() throws RemoteException {
-		LOGGER.finer("ServerSocketCore asked to discard a card");
+		LOGGER.finer("Server asked to discard a card");
 		view.relayObjectCard();
 	}
 	
@@ -730,7 +740,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#askPlayOrDiscard(java.lang.String) */
 	@Override
 	public void askPlayOrDiscard(String question) throws RemoteException {
-		LOGGER.finer("ServerSocketCore asked to play or discard a card");
+		LOGGER.finer("Server asked to play or discard a card");
 		view.relayYesNoDialog(question, "play", "discard");
 	}
 	
@@ -807,7 +817,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#endResults() */
 	@Override
 	public void endResults() throws RemoteException {
-		LOGGER.finer("ServerSocketCore sent results, printing recap screen");
+		LOGGER.finer("Server sent results, printing recap screen");
 		view.spawnVictoryRecap(model);
 	}
 	
@@ -850,7 +860,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#showMovementException(java.lang.String) */
 	@Override
 	public void showMovementException(String exceptionMessage) throws RemoteException { 
-		LOGGER.finer("ServerSocketCore reported : movement is impossible." );
+		LOGGER.finer("Server reported : movement is impossible." );
 		view.notifyUser(exceptionMessage);
 		//Since the ServerSocketCore sends the String "You have to move your character on the map" again,
 		//it is not necessary to invoke askForMovement
@@ -860,7 +870,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#showWrongCardException(java.lang.String) */
 	@Override
 	public void showWrongCardException(String exceptionMessage) throws RemoteException {
-		LOGGER.finer("ServerSocketCore reported : that Card can't be played now." );
+		LOGGER.finer("Server reported : that Card can't be played now." );
 		view.notifyUser(exceptionMessage);
 		//Since the ServerSocketCore sends the String with the question "Do you want to play an Object Card?" again,
 		//it is not necessary to invoke askForObjectCard
@@ -886,6 +896,13 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		view.notifyUser(message);
 		model.getMyPlayerState().removeCard("defense");
 		model.finishedUpdating();
+	}
+
+	@Override
+	public void eventEscapePodUnavailable(String location)
+			throws RemoteException {
+		LOGGER.finer("Server reported : escape pod " + location + " is disabled." );
+		// TODO display a red icon on the map
 	}
 	
 }

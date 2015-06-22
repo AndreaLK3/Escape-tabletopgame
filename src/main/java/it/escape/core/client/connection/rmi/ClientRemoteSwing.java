@@ -256,14 +256,16 @@ public class ClientRemoteSwing extends RMIPingBack implements ClientRemoteInterf
 		return id;
 	}
 
-
-
 	@Override
 	public void youDefended() throws RemoteException {
 		updaterSwing.youDefended();
 		
 	}
-	
 
+	@Override
+	public void eventEscapePodUnavailable(String location)
+			throws RemoteException {
+		updaterSwing.eventEscapePodUnavailable(location);
+	}
 
 }

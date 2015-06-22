@@ -55,5 +55,6 @@ public interface Announcer {
 
 	public void announceGameStartETA(int seconds);
 	
+	public void announceEscapePodUnavailable(String position);
 
 }

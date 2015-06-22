@@ -301,4 +301,12 @@ public class ClientRemoteTerminal extends RMIPingBack implements ClientRemoteInt
 		
 	}
 
+	@Override
+	public void eventEscapePodUnavailable(String location)
+			throws RemoteException {
+		String message = String.format(StringRes.getString("messaging.EscapeHatchDisabled"),
+				location);
+		terminal.visualizeMessage(message);
+	}
+
 }

@@ -225,4 +225,11 @@ public class AnnouncerStrings extends Observable implements Announcer {
 				playerName);
 		announce(newmsg);
 	}
+
+	@Override
+	public void announceEscapePodUnavailable(String position) {
+		String newmsg = String.format(StringRes.getString("messaging.EscapeHatchDisabled"),
+				position);
+		announce(newmsg);
+	}
 }
