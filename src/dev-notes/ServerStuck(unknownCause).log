@@ -1,0 +1,566 @@
+Jun 22, 2015 12:18:09 PM it.escape.core.server.view.sockspecific.ServerSocketCore <init>
+INFO: ServerSocketCore is now listening on port 1337
+Jun 22, 2015 12:18:22 PM it.escape.core.server.view.sockspecific.ServerSocketCore registerConnection
+FINER: New connection registered
+Jun 22, 2015 12:18:22 PM it.escape.core.server.view.sockspecific.ServerSocketCore run
+INFO: A new user connected from /127.0.0.1
+Jun 22, 2015 12:18:23 PM it.escape.core.server.Master newPlayerHasConnected
+INFO: Creating new gamemaster (id=0)
+Jun 22, 2015 12:18:23 PM it.escape.core.server.Master newPlayerHasConnected
+INFO: Routing user to existing gamemaster (id=0)
+Jun 22, 2015 12:18:23 PM it.escape.core.server.controller.AsyncUserListener <init>
+FINE: Async listener for user Guest-0-1632 has been  created
+Jun 22, 2015 12:19:07 PM it.escape.core.server.view.sockspecific.ServerSocketCore registerConnection
+FINER: New connection registered
+Jun 22, 2015 12:19:07 PM it.escape.core.server.view.sockspecific.ServerSocketCore run
+INFO: A new user connected from /127.0.0.1
+Jun 22, 2015 12:19:07 PM it.escape.core.server.Master newPlayerHasConnected
+INFO: Routing user to existing gamemaster (id=0)
+Jun 22, 2015 12:19:07 PM it.escape.core.server.controller.AsyncUserListener <init>
+FINE: Async listener for user Guest-0-973 has been  created
+Jun 22, 2015 12:19:07 PM it.escape.core.server.controller.GameMaster run
+FINE: Minimum player number met, starting in 60 seconds
+Jun 22, 2015 12:19:16 PM it.escape.core.server.view.sockspecific.ServerSocketCore registerConnection
+FINER: New connection registered
+Jun 22, 2015 12:19:16 PM it.escape.core.server.view.sockspecific.ServerSocketCore run
+INFO: A new user connected from /127.0.0.1
+Jun 22, 2015 12:19:16 PM it.escape.core.server.Master newPlayerHasConnected
+INFO: Routing user to existing gamemaster (id=0)
+Jun 22, 2015 12:19:16 PM it.escape.core.server.controller.AsyncUserListener <init>
+FINE: Async listener for user Guest-0-934 has been  created
+Jun 22, 2015 12:19:17 PM it.escape.core.server.view.sockspecific.ServerSocketCore registerConnection
+FINER: New connection registered
+Jun 22, 2015 12:19:17 PM it.escape.core.server.view.sockspecific.ServerSocketCore run
+INFO: A new user connected from /127.0.0.1
+Jun 22, 2015 12:19:17 PM it.escape.core.server.Master newPlayerHasConnected
+INFO: Routing user to existing gamemaster (id=0)
+Jun 22, 2015 12:19:17 PM it.escape.core.server.controller.AsyncUserListener <init>
+FINE: Async listener for user Guest-0-9274 has been  created
+Jun 22, 2015 12:20:08 PM it.escape.core.server.controller.GameMaster startGameAndWait
+INFO: Starting a new game
+Jun 22, 2015 12:20:08 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Whoami message detected
+Jun 22, 2015 12:20:08 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Whoami message detected
+Jun 22, 2015 12:20:08 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Whoami message detected
+Jun 22, 2015 12:20:08 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Whoami message detected
+Jun 22, 2015 12:20:08 PM it.escape.core.server.controller.TimeController run
+FINE: Started time-controller thread
+Jun 22, 2015 12:20:08 PM it.escape.core.server.controller.ExecutiveController run
+FINE: Started executive-controller thread
+Jun 22, 2015 12:20:08 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 22, 2015 12:20:08 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 22, 2015 12:20:08 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 22, 2015 12:20:08 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Executing turn sequence
+Jun 22, 2015 12:20:08 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering initialization phase
+Jun 22, 2015 12:20:08 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering pre-movement phase
+Jun 22, 2015 12:20:08 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering movement phase
+Jun 22, 2015 12:20:21 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Rename command detected
+Jun 22, 2015 12:20:21 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:20:21 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Whoami message detected
+Jun 22, 2015 12:20:21 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:20:21 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:20:21 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:20:25 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:20:25 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering landing phase
+Jun 22, 2015 12:20:25 PM it.escape.core.server.controller.TurnHandler commonLandingLogic
+FINER: UmanoPrimo has drawn: NoiseHereWithObject
+Jun 22, 2015 12:20:25 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering post-movement phase
+Jun 22, 2015 12:20:25 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 22, 2015 12:20:25 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
+Jun 22, 2015 12:20:25 PM it.escape.core.server.controller.TimeController mainLoop
+FINER: Awaken
+Jun 22, 2015 12:20:25 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 22, 2015 12:20:25 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 22, 2015 12:20:25 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 22, 2015 12:20:25 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Executing turn sequence
+Jun 22, 2015 12:20:25 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering initialization phase
+Jun 22, 2015 12:20:26 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering pre-movement phase
+Jun 22, 2015 12:20:26 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering movement phase
+Jun 22, 2015 12:20:40 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Rename command detected
+Jun 22, 2015 12:20:40 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:20:40 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Whoami message detected
+Jun 22, 2015 12:20:40 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:20:40 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:20:40 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:20:41 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:20:41 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering landing phase
+Jun 22, 2015 12:20:42 PM it.escape.core.server.controller.TurnHandler commonLandingLogic
+FINER: UmanoSecondo has drawn: NoCardAction
+Jun 22, 2015 12:20:42 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering post-movement phase
+Jun 22, 2015 12:20:42 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 22, 2015 12:20:42 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
+Jun 22, 2015 12:20:42 PM it.escape.core.server.controller.TimeController mainLoop
+FINER: Awaken
+Jun 22, 2015 12:20:42 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 22, 2015 12:20:42 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 22, 2015 12:20:42 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 22, 2015 12:20:42 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Executing turn sequence
+Jun 22, 2015 12:20:42 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering initialization phase
+Jun 22, 2015 12:20:42 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering pre-movement phase
+Jun 22, 2015 12:20:43 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering movement phase
+Jun 22, 2015 12:20:55 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Rename command detected
+Jun 22, 2015 12:20:55 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:20:55 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Whoami message detected
+Jun 22, 2015 12:20:56 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:20:56 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:20:56 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:21:00 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:21:00 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering landing phase
+Jun 22, 2015 12:21:02 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:21:02 PM it.escape.core.server.controller.TurnHandler commonLandingLogic
+FINER: AlienoPrimo has drawn: SilenceWithObject
+Jun 22, 2015 12:21:02 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering post-movement phase
+Jun 22, 2015 12:21:02 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 22, 2015 12:21:02 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
+Jun 22, 2015 12:21:02 PM it.escape.core.server.controller.TimeController mainLoop
+FINER: Awaken
+Jun 22, 2015 12:21:02 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 22, 2015 12:21:02 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 22, 2015 12:21:02 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 22, 2015 12:21:02 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Executing turn sequence
+Jun 22, 2015 12:21:02 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering initialization phase
+Jun 22, 2015 12:21:02 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering pre-movement phase
+Jun 22, 2015 12:21:02 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering movement phase
+Jun 22, 2015 12:21:09 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:21:09 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:21:09 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering landing phase
+Jun 22, 2015 12:21:11 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:21:11 PM it.escape.core.server.controller.TurnHandler commonLandingLogic
+FINER: Guest-0-1632 has drawn: NoCardAction
+Jun 22, 2015 12:21:11 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering post-movement phase
+Jun 22, 2015 12:21:11 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 22, 2015 12:21:11 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
+Jun 22, 2015 12:21:11 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 22, 2015 12:21:11 PM it.escape.core.server.controller.TimeController mainLoop
+FINER: Awaken
+Jun 22, 2015 12:21:11 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 22, 2015 12:21:11 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 22, 2015 12:21:11 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Executing turn sequence
+Jun 22, 2015 12:21:11 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering initialization phase
+Jun 22, 2015 12:21:11 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering pre-movement phase
+Jun 22, 2015 12:21:14 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:21:14 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering movement phase
+Jun 22, 2015 12:21:20 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Rename command detected
+Jun 22, 2015 12:21:20 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Whoami message detected
+Jun 22, 2015 12:21:22 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Rename command detected
+Jun 22, 2015 12:21:22 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Whoami message detected
+Jun 22, 2015 12:21:34 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Rename command detected
+Jun 22, 2015 12:21:34 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:21:34 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Whoami message detected
+Jun 22, 2015 12:21:34 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:21:37 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:21:37 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering landing phase
+Jun 22, 2015 12:21:37 PM it.escape.core.server.controller.TurnHandler commonLandingLogic
+FINER: Kirk has drawn: NoiseHere
+Jun 22, 2015 12:21:37 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering post-movement phase
+Jun 22, 2015 12:21:37 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 22, 2015 12:21:37 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
+Jun 22, 2015 12:21:37 PM it.escape.core.server.controller.TimeController mainLoop
+FINER: Awaken
+Jun 22, 2015 12:21:37 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 22, 2015 12:21:37 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 22, 2015 12:21:37 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 22, 2015 12:21:37 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Executing turn sequence
+Jun 22, 2015 12:21:37 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering initialization phase
+Jun 22, 2015 12:21:37 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering pre-movement phase
+Jun 22, 2015 12:21:37 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering movement phase
+Jun 22, 2015 12:21:46 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Rename command detected
+Jun 22, 2015 12:21:46 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:21:46 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:21:46 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Whoami message detected
+Jun 22, 2015 12:21:46 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:21:48 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:21:48 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering landing phase
+Jun 22, 2015 12:21:48 PM it.escape.core.server.controller.TurnHandler commonLandingLogic
+FINER: Spock has drawn: NoCardAction
+Jun 22, 2015 12:21:48 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering post-movement phase
+Jun 22, 2015 12:21:48 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 22, 2015 12:21:48 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
+Jun 22, 2015 12:21:48 PM it.escape.core.server.controller.TimeController mainLoop
+FINER: Awaken
+Jun 22, 2015 12:21:48 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 22, 2015 12:21:48 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 22, 2015 12:21:48 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 22, 2015 12:21:48 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Executing turn sequence
+Jun 22, 2015 12:21:48 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering initialization phase
+Jun 22, 2015 12:21:48 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering pre-movement phase
+Jun 22, 2015 12:21:48 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering movement phase
+Jun 22, 2015 12:22:01 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:22:01 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering landing phase
+Jun 22, 2015 12:22:02 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:22:02 PM it.escape.core.server.controller.TurnHandler commonLandingLogic
+FINER: AlienoPrimo has drawn: Silence
+Jun 22, 2015 12:22:02 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering post-movement phase
+Jun 22, 2015 12:22:02 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 22, 2015 12:22:02 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
+Jun 22, 2015 12:22:02 PM it.escape.core.server.controller.TimeController mainLoop
+FINER: Awaken
+Jun 22, 2015 12:22:02 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 22, 2015 12:22:02 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 22, 2015 12:22:02 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 22, 2015 12:22:02 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Executing turn sequence
+Jun 22, 2015 12:22:02 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering initialization phase
+Jun 22, 2015 12:22:02 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering pre-movement phase
+Jun 22, 2015 12:22:02 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering movement phase
+Jun 22, 2015 12:22:17 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:22:17 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:22:17 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:22:17 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:22:17 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:22:17 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering landing phase
+Jun 22, 2015 12:22:18 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:22:18 PM it.escape.core.server.controller.TurnHandler commonLandingLogic
+FINER: AlienoSecondo has drawn: NoCardAction
+Jun 22, 2015 12:22:18 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering post-movement phase
+Jun 22, 2015 12:22:18 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 22, 2015 12:22:18 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
+Jun 22, 2015 12:22:18 PM it.escape.core.server.controller.TimeController mainLoop
+FINER: Awaken
+Jun 22, 2015 12:22:18 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 22, 2015 12:22:18 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 22, 2015 12:22:18 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 22, 2015 12:22:18 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Executing turn sequence
+Jun 22, 2015 12:22:18 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering initialization phase
+Jun 22, 2015 12:22:19 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering pre-movement phase
+Jun 22, 2015 12:22:20 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:22:20 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering movement phase
+Jun 22, 2015 12:22:31 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:22:31 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering landing phase
+Jun 22, 2015 12:22:31 PM it.escape.core.server.controller.TurnHandler commonLandingLogic
+FINER: Kirk has drawn: Silence
+Jun 22, 2015 12:22:31 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering post-movement phase
+Jun 22, 2015 12:22:31 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 22, 2015 12:22:31 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
+Jun 22, 2015 12:22:31 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 22, 2015 12:22:31 PM it.escape.core.server.controller.TimeController mainLoop
+FINER: Awaken
+Jun 22, 2015 12:22:32 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 22, 2015 12:22:32 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 22, 2015 12:22:32 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Executing turn sequence
+Jun 22, 2015 12:22:32 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering initialization phase
+Jun 22, 2015 12:22:32 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering pre-movement phase
+Jun 22, 2015 12:22:32 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering movement phase
+Jun 22, 2015 12:22:36 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:22:36 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering landing phase
+Jun 22, 2015 12:22:36 PM it.escape.core.server.controller.TurnHandler commonLandingLogic
+FINER: Spock has drawn: NoiseAnywhereWithObject
+Jun 22, 2015 12:22:40 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:22:40 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering post-movement phase
+Jun 22, 2015 12:22:42 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:22:42 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 22, 2015 12:22:42 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
+Jun 22, 2015 12:22:42 PM it.escape.core.server.controller.TimeController mainLoop
+FINER: Awaken
+Jun 22, 2015 12:22:42 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 22, 2015 12:22:42 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 22, 2015 12:22:42 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 22, 2015 12:22:42 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Executing turn sequence
+Jun 22, 2015 12:22:42 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering initialization phase
+Jun 22, 2015 12:22:42 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering pre-movement phase
+Jun 22, 2015 12:22:42 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering movement phase
+Jun 22, 2015 12:22:49 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:22:49 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering landing phase
+Jun 22, 2015 12:22:50 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:22:50 PM it.escape.core.server.controller.TurnHandler commonLandingLogic
+FINER: AlienoPrimo has drawn: NoCardAction
+Jun 22, 2015 12:22:50 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering post-movement phase
+Jun 22, 2015 12:22:50 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 22, 2015 12:22:50 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
+Jun 22, 2015 12:22:50 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 22, 2015 12:22:50 PM it.escape.core.server.controller.TimeController mainLoop
+FINER: Awaken
+Jun 22, 2015 12:22:50 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 22, 2015 12:22:50 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 22, 2015 12:22:50 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Executing turn sequence
+Jun 22, 2015 12:22:50 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering initialization phase
+Jun 22, 2015 12:22:50 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering pre-movement phase
+Jun 22, 2015 12:22:50 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering movement phase
+Jun 22, 2015 12:22:54 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:22:54 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering landing phase
+Jun 22, 2015 12:22:55 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:22:55 PM it.escape.core.server.controller.TurnHandler commonLandingLogic
+FINER: AlienoSecondo has drawn: NoCardAction
+Jun 22, 2015 12:22:55 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering post-movement phase
+Jun 22, 2015 12:22:55 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 22, 2015 12:22:55 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
+Jun 22, 2015 12:22:55 PM it.escape.core.server.controller.TimeController mainLoop
+FINER: Awaken
+Jun 22, 2015 12:22:55 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 22, 2015 12:22:55 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 22, 2015 12:22:55 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 22, 2015 12:22:55 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Executing turn sequence
+Jun 22, 2015 12:22:55 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering initialization phase
+Jun 22, 2015 12:22:55 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering pre-movement phase
+Jun 22, 2015 12:22:57 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:22:57 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering movement phase
+Jun 22, 2015 12:23:01 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:23:01 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering landing phase
+Jun 22, 2015 12:23:01 PM it.escape.core.server.controller.TurnHandler commonLandingLogic
+FINER: Kirk has drawn: SilenceWithObject
+Jun 22, 2015 12:23:01 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering post-movement phase
+Jun 22, 2015 12:23:01 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 22, 2015 12:23:01 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
+Jun 22, 2015 12:23:01 PM it.escape.core.server.controller.TimeController mainLoop
+FINER: Awaken
+Jun 22, 2015 12:23:01 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 22, 2015 12:23:01 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 22, 2015 12:23:01 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 22, 2015 12:23:01 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Executing turn sequence
+Jun 22, 2015 12:23:01 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering initialization phase
+Jun 22, 2015 12:23:01 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering pre-movement phase
+Jun 22, 2015 12:23:05 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:23:05 PM it.escape.core.server.controller.UserMessagesReporterSocket askWhichObjectCard
+FINER: ServerSocketCore is asking which object card the user intends to play/discard
+Jun 22, 2015 12:23:17 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 22, 2015 12:24:01 PM it.escape.core.server.controller.TimeController mainLoop
+FINER: Awaken
+Jun 22, 2015 12:24:01 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Timeout hit, the turn will now be concluded automatically
+Jun 22, 2015 12:24:01 PM it.escape.core.server.controller.UserMessagesReporterSocket fillinDefaultOnce
+FINER: Overriding default once...
+Jun 22, 2015 12:24:01 PM it.escape.core.server.view.MessagingChannelStrings overrideDefaultOption
+FINE: Overriding with default: "none"
+Jun 22, 2015 12:24:01 PM it.escape.core.server.controller.UserMessagesReporter fillinDefaultAlways
+FINE: authomatic Override is set to true
+Jun 22, 2015 12:24:01 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINE: Reading end of the override mechanism was triggered
+Jun 22, 2015 12:24:01 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering movement phase
+Jun 22, 2015 12:24:01 PM it.escape.core.server.controller.UserMessagesReporterSocket askForMovement
+FINER: automaticOverriding: return MoveCommand(L10)
+Jun 22, 2015 12:24:01 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering landing phase
+Jun 22, 2015 12:24:01 PM it.escape.core.server.controller.TurnHandler commonLandingLogic
+FINER: Spock has drawn: NoiseHere
+Jun 22, 2015 12:24:01 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 22, 2015 12:24:01 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering post-movement phase
+Jun 22, 2015 12:24:01 PM it.escape.core.server.controller.UserMessagesReporterSocket askForYesNoChoice
+FINER: automaticOverriding: return false
+Jun 22, 2015 12:24:02 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 22, 2015 12:24:02 PM it.escape.core.server.controller.UserMessagesReporter stopFillingDefault
+FINE: authomatic Override is set to false
+Jun 22, 2015 12:24:02 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
+Jun 22, 2015 12:25:14 PM it.escape.core.server.view.sockspecific.Connection hasDisconnected
+WARNING: Lost connection to /127.0.0.1
+Jun 22, 2015 12:25:14 PM it.escape.core.server.view.sockspecific.ServerSocketCore unregisterConnection
+FINER: Connection unregistered
+Jun 22, 2015 12:26:37 PM it.escape.core.server.controller.GameMaster handlePlayerDisconnect
+INFO: Team disconnected. Terminating game.

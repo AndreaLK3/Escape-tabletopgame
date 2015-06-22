@@ -44,7 +44,7 @@ public class ObjectCardsPanel extends JPanel {
 		for (String cardName : cards) {
 			addCardButton(cardName);
 		}
-		chosenCardName = null;
+		chosenCardName = "noCard";
 	
 	}
 	
