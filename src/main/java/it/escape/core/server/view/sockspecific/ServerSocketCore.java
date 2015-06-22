@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 
 
 /**This class handles the creation of the TCP connections when the clients connect.
- * (n: We could make it a Singleton...)
  */
 public class ServerSocketCore implements ServerInterface{
 	

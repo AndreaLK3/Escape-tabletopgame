@@ -28,7 +28,6 @@ import java.util.logging.Logger;
  * RMI server implementation. It exposes methods to be called by specific
  * clients; a client will identify itself when calling such methods.
  * @author michele
- *
  */
 public class ServerRMICore implements ServerRemoteInterface {
 	
@@ -43,6 +42,26 @@ public class ServerRMICore implements ServerRemoteInterface {
 	
 	private PingSender pinger;
 	
+	private static ServerRMICore serverInstance = null;
+	
+	
+	/**Constructor for the object; it's private, since the object is a singleton*/
+	private ServerRMICore(GlobalSettings locals) {
+		this.locals = locals;
+		clientsList = new ArrayList<MessagingChannelRMI>();
+	}
+	
+
+	public static ServerRMICore getServerInstance(GlobalSettings locals) {
+		if (serverInstance == null) {
+			serverInstance = new ServerRMICore(locals);
+		}
+		return serverInstance;
+	}
+	
+	
+	
+	/**Finds the MessagingChannelRMI corresponding to a ClientRemote object*/
 	public MessagingChannelRMI findChannel(ClientRemoteInterface client) {
 		for (MessagingChannelRMI c : clientsList) {
 			try {
@@ -186,8 +205,8 @@ public class ServerRMICore implements ServerRemoteInterface {
 		}
 	}
 	
-	/**This method sets up the Registry and creates and exposes the ServerSocketCore Remote Object;
-	 *  after the ServerSocketCore invoked this, the clients using RMI will be able to invoke functions.
+	/**This method sets up the Registry and creates and exposes the ServerRMICore Remote Object;
+	 *  after the ServerRMICore class invoked this, the clients using RMI will be able to invoke functions.
 	 * @throws RemoteException 
 	 * @throws MalformedURLException */
 	public static void initializer(GlobalSettings locals) throws RemoteException, MalformedURLException {
@@ -196,18 +215,13 @@ public class ServerRMICore implements ServerRemoteInterface {
 		LOGGER.info("Creating local registry");
 		LocateRegistry.createRegistry(REGISRTY_PORT);
 		LOGGER.info("Created RMI registry on port " + REGISRTY_PORT);
-		ServerRemoteInterface server = new ServerRMICore(locals);
+		ServerRemoteInterface server = getServerInstance(locals);
 		UnicastRemoteObject.exportObject(server, locals.getServerPort());
 		LOGGER.info("Exported server interface");
 		Naming.rebind("//localhost/ServerSocketCore", server);
 		LOGGER.info("ServerSocketCore interface bound to name: \"" + "//localhost/ServerSocketCore" + "\"");
 	}
 	
-	/**Constructor for the object*/
-	public ServerRMICore(GlobalSettings locals) {
-		this.locals = locals;
-		clientsList = new ArrayList<MessagingChannelRMI>();
-	}
 	
 	private void tryStartPinging() {
 		if (clientsList.size() > 0 && pinger == null) {
