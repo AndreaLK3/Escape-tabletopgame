@@ -15,4 +15,6 @@ public interface PlayerActionInterface {
 	public void die();
 	
 	public void changeName(String newname);
+	
+	public void attackEndedSuccessfully();
 }

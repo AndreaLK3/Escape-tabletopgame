@@ -71,4 +71,9 @@ public class Human extends Player implements HumanActionInterface {
 		}
 		
 	}
+
+	@Override
+	public void attackEndedSuccessfully() {
+		// do nothing, as this doesn't matter to humans
+	}
 }

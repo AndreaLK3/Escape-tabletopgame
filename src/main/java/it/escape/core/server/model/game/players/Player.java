@@ -157,16 +157,17 @@ public abstract class Player implements PlayerActionInterface {
 
 	public void setHasAttacked() {
 		hasAttacked = true;
-	};
+	}
 	
 	public boolean hasAttacked() {
 		return hasAttacked;
-	};
+	}
+	
+	public abstract void attackEndedSuccessfully();
 	
 	public boolean isUserIdle() {
 		return userIdle;
 	}
-
 
 	public void setUserIdle(boolean userIdle) {
 		this.userIdle = userIdle;

@@ -27,6 +27,7 @@ public class Attack {
 				if (p.isAlive() && !p.equals(currentPlayer)) {
 					p.die();
 					if (!p.isAlive()) {
+						currentPlayer.attackEndedSuccessfully();
 						Shorthand.announcer(currentPlayer).announceDeath(p);
 					} else {
 						Shorthand.announcer(currentPlayer).announceDefense(myPos);
