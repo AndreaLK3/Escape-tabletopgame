@@ -6,6 +6,7 @@ import it.escape.core.client.controller.Updater;
 import it.escape.core.client.model.CurrentPlayerStatus;
 import it.escape.core.client.model.GameStatus;
 import it.escape.core.client.model.ModelForGUI;
+import it.escape.core.client.model.PlayerState;
 import it.escape.core.server.model.game.exceptions.DestinationUnreachableException;
 import it.escape.core.server.model.game.exceptions.PlayerCanNotEnterException;
 import it.escape.core.server.model.game.exceptions.WrongCardException;
@@ -597,7 +598,11 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#playerDisconnected(java.lang.String) */
 	@Override
 	public void playerDisconnected(String playerName) throws RemoteException {
-		model.getSpecificPlayerState(playerName).setMyStatus(CurrentPlayerStatus.DISCONNECTED);
+		PlayerState playerState = model.getSpecificPlayerState(playerName);
+		if (playerState!=null) {
+			playerState.setMyStatus(CurrentPlayerStatus.DISCONNECTED);
+		}
+		model.aPlayerDisconnected();
 		model.finishedUpdating();
 	}
 	
@@ -625,12 +630,21 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	
 	@Override
 	public void playerConnected(int current, int maximum) throws RemoteException {
-		// TODO show something
+		updatePlayersConnected(current, maximum);
 	}
 
 	@Override
 	public void playersInLobby(int current, int maximum) throws RemoteException {
-		// TODO show something
+		updatePlayersConnected(current, maximum);
+	}
+	
+	/**Updates the variables in the model that hold the number of players currently connected, and
+	 * the maximum number of players allowed*/
+	private void updatePlayersConnected(int current, int maximum){
+		model.getMyPlayerState().setMyStatus(CurrentPlayerStatus.CONNECTED);
+		model.setPlayersConnected(current);
+		model.setMaxPlayers(maximum);
+		model.finishedUpdating();
 	}
 	
 	//da processTurnRequest(msg)

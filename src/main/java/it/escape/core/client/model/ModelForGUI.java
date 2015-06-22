@@ -6,6 +6,8 @@ import java.util.Observable;
 
 public class ModelForGUI extends Observable {
 	
+	private int maxPlayers;
+	
 	private MyPlayerState myPlayerState;
 	
 	private List<PlayerState> playerStates;
@@ -17,6 +19,8 @@ public class ModelForGUI extends Observable {
 	private VictoryState victoryState;
 	
 	private int turnNumber;
+	
+	private int playersConnected;
 
 	public ModelForGUI() {
 		super();
@@ -25,6 +29,8 @@ public class ModelForGUI extends Observable {
 		victoryState = new VictoryState();
 		nowPlaying = null;
 		setTurnNumber(0);
+		setPlayersConnected(0);
+		maxPlayers = 8;
 		setGameStatus(GameStatus.WAITING_FOR_PLAYERS);
 	}
 
@@ -165,6 +171,26 @@ public class ModelForGUI extends Observable {
 
 	public VictoryState getVictoryState() {
 		return victoryState;
+	}
+
+	public void setMaxPlayers(int maxPlayers) {
+		this.maxPlayers = maxPlayers;
+	}
+
+	public int getMaxPlayers() {
+		return maxPlayers;
+	}
+
+	public int getPlayersConnected() {
+		return playersConnected;
+	}
+
+	public void setPlayersConnected(int playersConnected) {
+		this.playersConnected = playersConnected;
+	}
+	
+	public void aPlayerDisconnected () {
+		playersConnected--;
 	}
 	
 }
