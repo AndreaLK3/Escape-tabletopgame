@@ -4,7 +4,6 @@ import it.escape.core.server.model.game.gamemap.positioning.PositionCubic;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 
 public class MatcherPos3D extends BaseMatcher<Object> {
 

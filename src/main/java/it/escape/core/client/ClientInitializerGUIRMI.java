@@ -9,15 +9,8 @@ import it.escape.core.client.controller.gui.UpdaterSwing;
 import it.escape.core.client.model.ModelForGUI;
 import it.escape.core.client.view.gui.SmartSwingView;
 import it.escape.tools.GlobalSettings;
-import it.escape.tools.utils.FilesHelper;
 
-import java.io.IOException;
 import java.util.concurrent.locks.ReentrantLock;
-
-import javax.annotation.PostConstruct;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 
 public class ClientInitializerGUIRMI extends ClientInitializerGUI{
 	

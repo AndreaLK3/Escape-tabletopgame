@@ -1,12 +1,10 @@
 package it.escape.core.client.connection.rmi;
 
-import java.rmi.RemoteException;
-
 import it.escape.core.client.controller.cli.StateManagerCLIInterface;
 import it.escape.core.client.view.cli.Terminal;
-import it.escape.core.server.controller.GameMaster;
-import it.escape.core.server.model.game.players.JoinPlayerList;
 import it.escape.tools.strings.StringRes;
+
+import java.rmi.RemoteException;
 
 /**This class implements the ClientRemoteInterface. 
  * This object is exposed to the ServerSocketCore.

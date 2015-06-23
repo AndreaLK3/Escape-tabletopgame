@@ -1,6 +1,5 @@
 package it.escape.core.launcher.menucontroller;
 
-import it.escape.core.server.swinglogviewer.Monitor;
 import it.escape.tools.strings.StringRes;
 
 import java.awt.event.ActionEvent;

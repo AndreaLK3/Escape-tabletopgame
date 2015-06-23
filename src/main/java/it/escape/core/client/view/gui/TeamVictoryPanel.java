@@ -1,9 +1,6 @@
 package it.escape.core.client.view.gui;
 
-import it.escape.core.server.model.game.players.PlayerTeams;
-
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.List;

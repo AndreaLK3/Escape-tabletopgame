@@ -3,7 +3,6 @@ package it.escape.core.client.connection.socket;
 import it.escape.core.client.connection.BindDisconnectCallbackInterface;
 import it.escape.core.client.connection.DisconnectedCallbackInterface;
 import it.escape.core.client.controller.ClientChannelInterface;
-import it.escape.core.client.controller.gui.UpdaterSwing;
 import it.escape.tools.MessageCarrier;
 
 import java.io.IOException;

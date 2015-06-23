@@ -3,7 +3,6 @@ package it.escape.core.client.connection.rmi;
 import it.escape.core.client.controller.cli.StateManagerCLIInterface;
 import it.escape.core.client.controller.gui.ClientProceduresInterface;
 import it.escape.core.client.view.cli.Terminal;
-import it.escape.core.server.SockServerInitializer;
 import it.escape.core.server.view.rmispecific.ServerRemoteInterface;
 import it.escape.tools.GlobalSettings;
 
