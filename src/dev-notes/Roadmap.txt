@@ -1,28 +1,16 @@
 Current tasks:
 
-(AL):
+1) Provare se funziona l'applicazione / l'override, su SOcket/RMI e Text/Swing
+[both]
 
-) (Client-side, Swing)
-	Update Object cards quando sono scartate
-	Dialogo - play Object Card - deve essere possibile tornare indietro
-	non resettare lo stato da WINNER ad ALIVE (es. se c'è l'avviso di inizio turno)
-	v. funzione in Swing per gerarchia degli stati (es. interi - livelli di priorità)
+2) Aggiungere dei test in giro (e commentare quelli e quelli che ci sono)
+[both]
 
+3)Organizzare/completare i diagrammi delle classi per Server e Client
+[Client -MM] [Server - AL]
 
-) RMI - funzionamento - testo
-  RMI - Disconnessione
-
-
-Diagrammi Classi per i package del Server
-
-Diagrammi Classi per i package del Client
-
-
-
-
-) Aggiungere test ( e commentarli)
-
-) Sistemare un numero considerevole di issues e cicli di Sonar
+4)Sistemare issues in Sonar
+[both]
 
 (MM): riguardo a sonar & "Exception handlers should preserve the original exception":
 il formato che lui vuole è questo:
@@ -30,10 +18,13 @@ LOGGER.log(Level.WARNING, "Cannot report game start ETA", e);
 ^^^^^^                                                    ^
 qualunque nome va bene qui         non basta stamparla, bisogna passarla come parametro
 
-) Preparare il Documento di presentazione con : lista dei Design pattern utilizzati, 
-+  breve commento e diagrammi di sequenza (aggiornati) e diagrammi delle classi per ciascuna parte del progetto 
+5) Diagrammi di sequenza: Carte Oggetto, RMI, Socket
+[AL]
 
+6) Finire documento sui Pattern
+[MM]
 
+7) Finire il documento di struttura e mettere tutto assieme in un bel pdf
 
 
 
@@ -73,6 +64,8 @@ Occorre solo fare un po' di partite / logs per verificare la cosa.
 
 
 
+) RMI - funzionamento - testo
+  RMI - Disconnessione
 
 
 
