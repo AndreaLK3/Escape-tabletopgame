@@ -25,9 +25,9 @@ public class VictoryState {
 	}
 	
 	public void setTeamDefeated(String name) {
-		if (name.equals(PlayerTeams.HUMANS.toString())) {
+		if (name.equalsIgnoreCase(PlayerTeams.HUMANS.toString())) {
 			humansDefeated = true;
-		} else if (name.equals(PlayerTeams.ALIENS.toString())) {
+		} else if (name.equalsIgnoreCase(PlayerTeams.ALIENS.toString())) {
 			aliensDefeated = true;
 		}
 	}
