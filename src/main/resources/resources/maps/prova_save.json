@@ -1,0 +1,61 @@
+{
+  "cells": [
+    {
+      "position": "A05",
+      "tipo": "sicura"
+    },
+    {
+      "position": "A06",
+      "tipo": "sicura"
+    },
+    {
+      "position": "A07",
+      "tipo": "sicura"
+    },
+    {
+      "position": "A08",
+      "tipo": "sicura"
+    },
+    {
+      "position": "A09",
+      "tipo": "sicura"
+    },
+    {
+      "position": "A01",
+      "tipo": "pericolosa"
+    },
+    {
+      "position": "A02",
+      "tipo": "pericolosa"
+    },
+    {
+      "position": "A03",
+      "tipo": "pericolosa"
+    },
+    {
+      "position": "B05",
+      "tipo": "partenzaUmani"
+    },
+    {
+      "position": "C06",
+      "tipo": "partenzaAlieni"
+    },
+    {
+      "position": "A01",
+      "tipo": "scialuppa"
+    },
+    {
+      "position": "A09",
+      "tipo": "scialuppa"
+    },
+    {
+      "position": "B06",
+      "tipo": "scialuppa"
+    }
+  ],
+  "mapInfo": {
+    "height": 10,
+    "name": "prova_save",
+    "width": 3
+  }
+}
