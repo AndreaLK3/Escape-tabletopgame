@@ -94,26 +94,39 @@ public abstract class Player implements PlayerActionInterface {
 	 * Note: it also checks the hasMoved variable of the Player to know which cards to look for.
 	 * @return boolean */
 	public boolean hasPlayableCards() {
-		String playableBeforeMoveCardNames[] = {"teleport", "lights", "sedatives","adrenaline"};
-		String playableAfterMoveCardNames[] = {"teleport", "lights"};
 		
 		if (myHand.isEmpty()) {
 			return false;
 		}
 		else {
 			if (!hasMoved) {                                                 //if the player has not moved yet
-				for (int i=0; i<playableBeforeMoveCardNames.length ; i++) {	      //for each of the playable cards' names
-					if (myHand.getCardFromString(playableBeforeMoveCardNames[i])!=null) {  //if there is a corresponding card
-						return true;
-					}
-				}
+				return hasCardsPlayableBeforeMove();
 			}
 			else {                                                             //if the player has already moved
-				for (int i=0; i<playableAfterMoveCardNames.length ; i++) {			//for each of the playable cards' names
-					if (myHand.getCardFromString(playableAfterMoveCardNames[i])!=null) {   //if there is a corresponding card
-						return true;
-					}
-				}
+				return hasCardsPlayableAfterMove();
+			}
+		}
+	}
+	
+	/**Private method, invoked by hasPlayableCards(). The name is self-explanatory.*/
+	private boolean hasCardsPlayableBeforeMove() {
+		String playableBeforeMoveCardNames[] = {"teleport", "lights", "sedatives","adrenaline"};
+		
+		for (int i=0; i<playableBeforeMoveCardNames.length ; i++) {	      //for each of the playable cards' names
+			if (myHand.getCardFromString(playableBeforeMoveCardNames[i])!=null) {  //if there is a corresponding card
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**Private method, invoked by hasPlayableCards(). The name is self-explanatory.*/
+	private boolean hasCardsPlayableAfterMove() {
+		String playableAfterMoveCardNames[] = {"teleport", "lights"};
+		
+		for (int i=0; i<playableAfterMoveCardNames.length ; i++) {			//for each of the playable cards' names
+			if (myHand.getCardFromString(playableAfterMoveCardNames[i])!=null) {   //if there is a corresponding card
+				return true;
 			}
 		}
 		return false;
