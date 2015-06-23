@@ -1,0 +1,10 @@
+Jun 23, 2015 3:27:20 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 23, 2015 3:27:20 PM it.escape.core.server.controller.UserMessagesReporterSocket askForYesNoChoice
+FINER: automaticOverriding: return false
+Jun 23, 2015 3:27:20 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 23, 2015 3:27:20 PM it.escape.core.server.controller.UserMessagesReporter stopFillingDefault
+FINE: authomatic Override is set to false
+Jun 23, 2015 3:27:20 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
