@@ -45,7 +45,8 @@ public class ClientRemoteTerminal extends RMIPingBack implements ClientRemoteInt
 	}
 
 	@Override
-	public void setStartETA(String message) throws RemoteException {
+	public void setStartETA(int seconds) throws RemoteException {
+		String message = String.format(StringRes.getString("messaging.gameStartETA"), seconds);
 		terminal.visualizeMessage(message);
 	}
 

@@ -180,7 +180,8 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 				visualizeChatMsg(author, msg);
 				
 			} else if (gameStartETA.matches()) {
-				setStartETA(message);
+				int time = Integer.parseInt(gameStartETA.group(1));
+				setStartETA(time);
 				
 			}
 			processInfo(message);
@@ -520,12 +521,12 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	/* (non-Javadoc)
 	 * @see it.escape.core.client.controller.gui.ClientProceduresInterface#setStartETA(java.lang.String) */
 	@Override
-	public void setStartETA(String message) throws RemoteException {
+	public void setStartETA(int seconds) throws RemoteException {
 		LOGGER.finer("Setting game start ETA");
 		model.setGameStatus(GameStatus.GOING_TO_START);
 		model.getMyPlayerState().setMyStatus(CurrentPlayerStatus.CONNECTED);
 		model.finishedUpdating();
-		view.setTurnStatusString(message);
+		view.setTurnStatusTimer(StringRes.getString("messaging.gameStartETA"), seconds);
 	}
 	
 	

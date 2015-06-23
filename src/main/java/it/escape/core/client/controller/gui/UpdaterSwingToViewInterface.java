@@ -14,6 +14,8 @@ public interface UpdaterSwingToViewInterface {
 	
 	public void setTurnStatusString(String status);
 	
+	public void setTurnStatusTimer(String format, int length);
+	
 	public void newChatMessage(String username, String message);
 	
 	public void discoverMyName();

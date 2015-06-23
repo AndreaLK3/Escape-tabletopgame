@@ -39,8 +39,8 @@ public class ClientRemoteSwing extends RMIPingBack implements ClientRemoteInterf
 	}
 
 	@Override
-	public void setStartETA(String message) throws RemoteException {
-		updaterSwing.setStartETA(message);
+	public void setStartETA(int seconds) throws RemoteException {
+		updaterSwing.setStartETA(seconds);
 
 	}
 

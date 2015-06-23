@@ -17,7 +17,7 @@ public interface ClientProceduresInterface {
 
 	public abstract void visualizeChatMsg(String author, String msg) throws RemoteException;
 
-	public abstract void setStartETA(String message) throws RemoteException;
+	public abstract void setStartETA(int seconds) throws RemoteException;
 
 	public abstract void startTurn(int turnNumber, String playerName) throws RemoteException;
 

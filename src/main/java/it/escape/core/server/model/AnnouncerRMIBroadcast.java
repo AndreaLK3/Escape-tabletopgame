@@ -245,10 +245,9 @@ public class AnnouncerRMIBroadcast implements Announcer {
 
 	@Override
 	public void announceGameStartETA(int seconds) {
-		String message = String.format(	StringRes.getString("messaging.gameStartETA"),seconds);
 		for (ClientRemoteInterface client : subscribed) {
 			try {
-				client.setStartETA(message);
+				client.setStartETA(seconds);
 			} catch (RemoteException e) {
 				LOG.log(Level.WARNING, "cannot announce game start ETA", e);
 			}

@@ -216,6 +216,10 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 		}).start();
 	}
 
+	public void setTurnStatusTimer(String format, int length) {
+		new Thread(new SimpleVisualTimer(serverField, format, length)).start();
+	}
+	
 	public void setTurnStatusString(String status) {
 		serverField.setText(status);
 	}
