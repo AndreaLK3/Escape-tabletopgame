@@ -18,6 +18,7 @@ import it.escape.core.server.model.game.players.Player;
 import it.escape.core.server.model.game.players.PlayerTeams;
 import it.escape.tools.strings.StringRes;
 import it.escape.tools.utils.FilesHelper;
+import it.escape.tools.utils.LogHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,8 +26,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.logging.Logger;
 
 public class GameMap implements MapActionInterface, MapPathfinderInterface {
+	
+	private static final Logger LOGGER = Logger.getLogger( GameMap.class.getName() );
 	
 	private Map<String, Cell> cells;		//this hashmap stores pairs such as: <A3,Cell(2,3,5)>
 	
@@ -43,6 +48,7 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	/** Constructor
 	 * @throws MalformedStartingCells */
 	public GameMap(String filename) throws BadJsonFileException, IOException, MalformedStartingCells {
+		LogHelper.setDefaultOptions(LOGGER);
 		cells = new HashMap<String,Cell>();
 		playersPositions = new HashMap<Player, Cell>();
 		loadMapFromResourceFile(filename);
@@ -122,8 +128,40 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	 * @throws CellNotExistsException 
 	 * @throws PlayerCanNotEnterException */
 	public CellAction move(PlayerActionInterface curPlayer , String destination) throws BadCoordinatesException, DestinationUnreachableException, CellNotExistsException, PlayerCanNotEnterException {
-		PositionCubic dest3D = CoordinatesConverter.fromAlphaNumToCubic(destination);
+		if (destination.equals(StringRes.getString("model.move.randomCoordinate"))) {
+			PositionCubic dest3D = getPlayerPosition(curPlayer);
+			return moveRandomly(curPlayer, dest3D);
+		}
+		else {
+			PositionCubic dest3D = CoordinatesConverter.fromAlphaNumToCubic(destination);
+			return move(curPlayer, dest3D);
+		}
 		
+	}
+	
+	public CellAction moveRandomly(PlayerActionInterface curPlayer, PositionCubic start) throws CellNotExistsException {
+		boolean done = false;
+		CellAction action = null;
+		Random rand = new Random();
+		List<PositionCubic> possibilities = getNeighborPositions(start);
+		while (!done) {
+			PositionCubic destination = possibilities.get(rand.nextInt(possibilities.size()));
+			LOGGER.finer("Moving to random position: " + destination.toString());
+			try {
+				action = move(curPlayer, destination);
+				done = true;
+			} catch (CellNotExistsException e) {
+				done = false;
+			} catch (PlayerCanNotEnterException e) {
+				done = false;
+			} catch (DestinationUnreachableException e) {
+				done = false;
+			}
+		}
+		return action;
+	}
+	
+	private CellAction move(PlayerActionInterface curPlayer , PositionCubic dest3D) throws CellNotExistsException, PlayerCanNotEnterException, DestinationUnreachableException {
 		if (!dest3D.equals(getPlayerPosition((Player)curPlayer))) {
 			// if the destination is the cell we're in, we can bypass all this
 			if (!cellExists(dest3D)) {
@@ -136,6 +174,8 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 			if (!destinationReachable((Player)curPlayer, dest3D)) {
 				throw new DestinationUnreachableException(StringRes.getString("messaging.exceptions.destinationUnreachable"));
 			}
+		} else {
+			throw new DestinationUnreachableException();
 		}
 			
 		updatePlayerPosition(curPlayer, dest3D);

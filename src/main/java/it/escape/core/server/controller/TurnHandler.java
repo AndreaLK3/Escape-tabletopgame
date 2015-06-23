@@ -162,7 +162,8 @@ public abstract class TurnHandler {
 	 */
 	public void turnMove() {
 		do {
-				moveCommand = reporter.askForMovement(map.getPlayerAlphaNumPosition(currentPlayer));
+				String defaultOpt = StringRes.getString("model.move.randomCoordinate");
+				moveCommand = reporter.askForMovement(defaultOpt);
 				try {
 					cellAction = moveCommand.execute(currentPlayer, map);
 					correctInput = true;
