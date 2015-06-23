@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html><head>
 
+
 <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>EFTAIOS help</title></head><body><big><big><big>Escape From The Aliens In Outer Space</big></big></big><br>
 User's manual<br>
 <br>
@@ -50,8 +51,20 @@ time, you may lose the rest of your turn<br>
 <span style="text-decoration: underline;">Disconnection<br>
 </span>The game abandon is permanent, meaning that you can not disconnect and the reconnect again<br>
 and continue the game; disconnected characters won't be removed from the map, but will not<br>
-figure among the winners.<br>
-<small><br></small>
+figure among the winners.<small><br>
+</small>
+<h4><big><big>Notable differences from the tabletop version, aka The House Rules<br>
+</big></big></h4>
+<ol>
+  <li>The game will also end when all the aliens are dead; in this case, all the humans will be considered winners</li>
+  <li>If a player lost his turn (waited too long), the server will take
+over and end the turn in his behalf, by moving the player around
+randomly and choosing the dumbest option avaible when prompted (i.e.
+don't play cards, discard the first card in the hand, make noise and
+lights in the player's own sector). <br>
+  </li>
+</ol>
+
 <h4><small>
 </small><big><big>Server operations</big></big></h4>
 
@@ -67,7 +80,10 @@ figure among the winners.<br>
   <li>If you want to use a custom <span style="font-weight: bold;">port</span> (1337 is fine most of the times, though) for incoming connections, input it in the "port field", then hit the "set port" button</li>
   <ul>
     <li>NOTE: if you are using RMI, the registry port (1099) will be listening, too.</li>
-    <li>OTHER NOTE: if you are using RMI + Socket, RMI will take over the displayed port (i.e. 1337), then Socket will try to listen on the next avaible one (i.e. 1338)</li>
+    <li>OTHER
+NOTE: if you are using RMI + Socket, RMI will take over the displayed
+port (i.e. 1337), then Socket will try to listen on the next avaible
+one (i.e. 1338)</li>
   </ul>
   <li>Click "<span style="font-weight: bold;">Start Server</span>", and the server will be up and running in a few seconds.</li>
   <li>Now you may want to communicate your ip/hostname to your users, and let the game begin!<br>

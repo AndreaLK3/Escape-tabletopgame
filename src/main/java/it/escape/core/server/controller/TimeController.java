@@ -113,7 +113,7 @@ public class TimeController implements Runnable {
 					 * The timeout will prevent the thread from stalling if
 					 * executor fires its notify "too soon"
 					 */
-					wait(100);
+					wait();
 				} catch (InterruptedException e) {
 				}
 			}
