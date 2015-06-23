@@ -31,12 +31,7 @@ public class VictoryChecker {
 		}
 	}
 	
-	/**
-	 * determine if the current game condition is a "victory condition":
-	 * 1) all humans must be either dead or escaped
-	 * @return
-	 */
-	public boolean isVictoryCondition() {
+	public boolean isWinByEscape() {
 		int positiveMatches = 0;
 		
 		for (Human h : humans) {
@@ -46,12 +41,33 @@ public class VictoryChecker {
 				positiveMatches++;
 			}
 		}
-		
 		if (positiveMatches == humans.size()) {
 			return true;
 		}
-		
 		return false;
+	}
+	
+	public boolean isWinByAlienVanquished() {
+		int positiveMatches = 0;
+		
+		for (Alien a : aliens) {
+			if (!a.isAlive()) {
+				positiveMatches++;
+			}
+		}
+		if (positiveMatches == aliens.size()) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * determine if the current game condition is a "victory condition":
+	 * 1) all humans must be either dead or escaped
+	 * @return
+	 */
+	public boolean isVictoryCondition() {
+		return (isWinByEscape() || isWinByAlienVanquished());
 	}
 	
 	/** This method checks if all the players of a team have disconnected. 
@@ -112,24 +128,26 @@ public class VictoryChecker {
 		return false;
 	}
 	
-	/**
-	 * the entire human team wins if every single human
-	 * manages to escape
-	 * @return
-	 */
-	public boolean allHumansWin() {
+	public boolean allHumansEscaped() {
 		int positiveMatches = 0;
-		
 		for (Human h : humans) {
 			if (h.hasEscaped()) {
 				positiveMatches++;
 			}
 		}
-		
 		if (positiveMatches == humans.size()) {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * the entire human team wins if every single human
+	 * manages to escape OR all the aliens are dead
+	 * @return
+	 */
+	public boolean allHumansWin() {
+		return (allHumansEscaped() || isWinByAlienVanquished());
 	}
 	
 	/**
