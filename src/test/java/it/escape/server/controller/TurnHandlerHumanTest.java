@@ -37,6 +37,8 @@ public class TurnHandlerHumanTest {
 		turnHandlerHuman = new TurnHandlerHuman(currentPlayer, map, deck);
 	}
 	
+	/**Test: Before the movement, the player must be able to play only: Sedatives, Adrenaline, Teleport, Lights.
+	 * After the movement, the player must be able to play only: Teleport, Lights.*/
 	@Test
 	public void testCanPlayObjectCard() {
 		
@@ -60,11 +62,9 @@ public class TurnHandlerHumanTest {
 		assertTrue(turnHandlerHuman.canPlayObjectCard(new TeleportCard()));
 		assertTrue(turnHandlerHuman.canPlayObjectCard(new LightsCard()));
 		
-		
-		
-		
 	}
 	
+	/**Private method to give the cards to the Player's Hand.*/
 	private void acquireCards(Player player) {
 		 player.getMyHand().addCard(new AttackCard());;
 		 player.getMyHand().addCard(new DefenseCard());

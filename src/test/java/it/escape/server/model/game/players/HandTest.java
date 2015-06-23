@@ -27,6 +27,7 @@ public class HandTest {
 	}
 
 	
+	/**Test: get the name of the card in the i-th position*/
 	@Test
 	public void testGetCardName() {
 		assertEquals ("teleport", hand.getCardName(0));
@@ -35,6 +36,7 @@ public class HandTest {
 	}
 	
 	
+	/**Test: Get the names of the currently owned cards as elements on an Array of Strings.*/
 	@Test
 	public void testGetAllCardNames() {
 		String expectedNames[] = {"teleport","attack","lights"};
@@ -47,6 +49,7 @@ public class HandTest {
 	}
 	
 	
+	/**Tests the mechanism for writing the currently owned cards in only one String.*/
 	@Test
 	public void testGetAllCardNamesAsString() {
 		String expectedString = "teleport - attack - lights - ";
@@ -54,7 +57,8 @@ public class HandTest {
 		assertTrue(expectedString.equals(returnedString));
 	}
 	
-
+	
+	/**Test: Giving the card name, getting a reference to the ObjectCard.*/
 	@Test
 	public void testGetCardFromString() {
 		assertTrue(hand.getCardFromString("teleport") instanceof TeleportCard );

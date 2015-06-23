@@ -119,15 +119,13 @@ public abstract class Player implements PlayerActionInterface {
 		return false;
 	}
 	
-	/**
-	 * extract and return a card from the player's hand
+	/**Extract and return a card from the player's hand
 	 * a card matching "key" is selected.
 	 * The card is removed from the player's hand
-	 * If no valid card is found, the method will return null.
+	 * If no valid card is found, the method will throw a CardNotPresentException.
 	 * @param key
 	 * @return
-	 * @throws CardNotPresentException 
-	 */
+	 * @throws CardNotPresentException */
 	public ObjectCard drawCard(String key) throws CardNotPresentException {
 		ObjectCard theCard;
 		
@@ -163,6 +161,8 @@ public abstract class Player implements PlayerActionInterface {
 		return hasAttacked;
 	}
 	
+	/**For the Human, this method doesn't do anything. 
+	 * For the Alien, this method rises the movement range from 2 cells to 3 cells.*/
 	public abstract void attackEndedSuccessfully();
 	
 	public boolean isUserIdle() {
