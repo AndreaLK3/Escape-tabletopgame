@@ -20,6 +20,9 @@ public class ClientInitializerGUI {
 	
 	protected static GlobalSettings locals;
 	
+	/**The constructor (it doesn't really do anything, since we use only the static members of this class*/
+	public ClientInitializerGUI() {}
+	
 	protected static void openProgressDialog() {
 		JOptionPane optionPane;
 		try {

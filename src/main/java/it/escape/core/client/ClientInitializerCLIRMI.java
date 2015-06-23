@@ -32,8 +32,11 @@ public class ClientInitializerCLIRMI {
 	
 	private static Terminal view;
 	
-	public static void start(GlobalSettings Locals) {
-		locals = Locals;
+	/**The constructor (it doesn't really do anything meaningful, since we use only the static members of this class*/
+	public ClientInitializerCLIRMI() {}
+	
+	public static void start(GlobalSettings localSettings) {
+		locals = localSettings;
 		enterServerAddress();
 		
 		stateManager = new StateManagerCLI();

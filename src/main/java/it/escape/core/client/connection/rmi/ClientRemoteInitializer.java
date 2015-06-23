@@ -34,6 +34,9 @@ public class ClientRemoteInitializer {
 	
 	private static ClientRemoteInterface client;
 	
+	/**The constructor; it doesn't do anything, since we use only static members of this class.*/
+	public ClientRemoteInitializer() {}
+	
 	/**This method, invoked by ClientInitializerGUIRMI, stores the reference
 	 * to the UpdaterSwing object.*/
 	public static void setSwingMode(ClientProceduresInterface updater) {

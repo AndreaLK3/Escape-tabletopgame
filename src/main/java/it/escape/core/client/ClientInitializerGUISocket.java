@@ -25,9 +25,9 @@ public class ClientInitializerGUISocket extends ClientInitializerGUI {
 	
 	private static ModelForGUI model;
 	
-	public static void start(GlobalSettings Locals) {
+	public static void start(GlobalSettings localSettings) {
 		ReentrantLock finalPhase = new ReentrantLock();
-		locals = Locals;
+		locals = localSettings;
 		openProgressDialog();
 		
 		try {
@@ -37,11 +37,10 @@ public class ClientInitializerGUISocket extends ClientInitializerGUI {
 					locals.getServerPort());
 			
 			pleaseWait.dispose();  // remove the "connecting..." dialog
+			
 			// initialize other stuff, like the controller
-			relay = new RelayForSocket((ClientChannelInterface) connection);
-			model = new ModelForGUI();
-			updater = new UpdaterSwing(model);
-			connection.addObserver(updater);
+			bindReferences();
+			
 			// start the view
 			SmartSwingView.synchronousLaunch((BindUpdaterInterface)updater, relay, model, finalPhase, connection);
 			
@@ -54,6 +53,7 @@ public class ClientInitializerGUISocket extends ClientInitializerGUI {
 			try {
 				connectionThread.join();
 			} catch (InterruptedException e) {
+				popupError("(Minor: unexpected interruption during shutdown)");
 			}
 			
 		} catch (UnknownHostException e) {
@@ -63,6 +63,14 @@ public class ClientInitializerGUISocket extends ClientInitializerGUI {
 			pleaseWait.dispose();
 			popupError("Cannot connect to the server");
 		}
+	}
+	
+	
+	private static void bindReferences() {
+		relay = new RelayForSocket((ClientChannelInterface) connection);
+		model = new ModelForGUI();
+		updater = new UpdaterSwing(model);
+		connection.addObserver(updater);
 	}
 	
 	

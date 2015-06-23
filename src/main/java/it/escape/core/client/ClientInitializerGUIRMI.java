@@ -22,9 +22,9 @@ public class ClientInitializerGUIRMI extends ClientInitializerGUI{
 	
 	private static ModelForGUI model;
 	
-	public static void start(GlobalSettings Locals) {
+	public static void start(GlobalSettings localSettings) {
 		ReentrantLock finalPhase = new ReentrantLock();
-		locals = Locals;
+		locals = localSettings;
 		openProgressDialog();
 		
 		model = new ModelForGUI();

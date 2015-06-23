@@ -34,8 +34,11 @@ public class ClientInitializerCLISocket {
 	
 	private static GlobalSettings locals;
 	
-	public static void start(GlobalSettings Locals) {
-		locals = Locals;
+	/**The constructor (it doesn't really do anything, since we use only the static members of this class*/
+	public ClientInitializerCLISocket() {}
+	
+	public static void start(GlobalSettings localSettings) {
+		locals = localSettings;
 		enterServerAddress();
 		try {
 			connection = new ClientSocketChannel(

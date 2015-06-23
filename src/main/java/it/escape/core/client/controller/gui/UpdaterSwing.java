@@ -17,6 +17,7 @@ import it.escape.tools.utils.LogHelper;
 import java.rmi.RemoteException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -95,7 +96,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 			try {
 				processMessage(msg.getMessage());
 			} catch (RemoteException e) {
-				LOGGER.severe("RemoteException was thrown while RMI was NOT supposed to be running: " + e.getMessage());
+				LOGGER.log(Level.SEVERE, "RemoteException was thrown while RMI was NOT supposed to be running: " + e);
 			}
 		}
 	}
