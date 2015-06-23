@@ -135,7 +135,7 @@ public class Monitor extends JFrame {
 	public static void synchronousLaunch(final boolean rmi, final boolean sock, final StartMenuInterface startMenu) {
 		SwingSynchroLauncher.synchronousLaunch(new SynchroLaunchInterface() {
 			public void run() {
-				new Monitor("ServerSocketCore log",rmi,sock, startMenu).redirectLog();
+				new Monitor("Server log",rmi,sock, startMenu).redirectLog();
 			}});
 	}
 }
