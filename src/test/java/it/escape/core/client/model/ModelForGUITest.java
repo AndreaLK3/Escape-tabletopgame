@@ -1,6 +1,11 @@
 package it.escape.core.client.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -55,9 +60,31 @@ public class ModelForGUITest {
 	}
 	
 	
+	/**Initialization: Add several playerstates, and then set their status as winners/losers
+	 * using the method addWinners(...) in VictoryState. 
+	 * Test: the method finalRefreshPlayerStatus must update correctly the status of each player
+	 * (in the game, they will be displayed by the Swing GUI).*/
 	@Test
 	public void testFinalRefreshPlayerStatus() {
+		String playerNames[] = {"Alice, Bob, Charles","Xylo, Ypre, Zondag"};
+		for (String name : playerNames) {
+			model.updatePlayerExists(name);
+		}
+		VictoryState finalState = model.getVictoryState();
+		List<PlayerState> playerStates = model.getPlayerStates();
 		
+		finalState.addWinners("humans","Alice, Bob");
+		finalState.addWinners("aliens", "Zondag");
+		
+		model.finalRefreshPlayerStatus();
+		
+		for (PlayerState p : playerStates) {
+			if (finalState.getAlienWinners().contains(p.getMyName()) || finalState.getHumanWinners().contains(p.getMyName())) {
+				assertEquals(CurrentPlayerStatus.WINNER, p.getMyStatus());
+			} else {
+				assertEquals(CurrentPlayerStatus.LOSER, p.getMyStatus());
+			}
+		}
 	}
 
 }
