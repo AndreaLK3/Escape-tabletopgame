@@ -27,6 +27,7 @@ public class ObjectCardsPanel extends JPanel {
 	private ButtonGroup group;
 
 	private transient ItemListener radioListener;
+
 	private String chosenCardName;
 	
 	
@@ -80,7 +81,8 @@ public class ObjectCardsPanel extends JPanel {
 		return null;
 	}
 	
-	/**Returns an array of JToggleButtons, that correspond to the cards currently owned.
+	/**Returns an array of JToggleButtons. These JToggleButtons correspond to the cards currently owned, 
+	 * which are stored in a private list.
 	 * The array is used inside a JDialog in the View */
 	public JToggleButton[] getButtonsAsArray() {
 		int x = 0;
@@ -117,6 +119,12 @@ public class ObjectCardsPanel extends JPanel {
 				}
 			}
 		}
+	}
+	
+	/**This getter method is not actually used in the application.
+	 * It is here because it is used in the tests.*/
+	public ItemListener getRadioListener() {
+		return radioListener;
 	}
 	
 
