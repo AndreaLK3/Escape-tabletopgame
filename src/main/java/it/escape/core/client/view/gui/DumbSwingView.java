@@ -355,7 +355,7 @@ public abstract class DumbSwingView extends JFrame {
 		label13CardNotify.setVisible(false);
    		constraints.gridx = 0;
 		constraints.gridy = 14;
-		constraints.weightx = 1;
+		constraints.weightx = left_panels;
 		add(label13CardNotify, constraints);
 		resetConstraints(constraints);
    	}
