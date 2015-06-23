@@ -188,25 +188,20 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
    	//(They are invoked by the UpdaterSwing)
 
 	public void setGameMap(final String name) {
-		EventQueue.invokeLater(
-				new Runnable() {
-					public void run() {
-						try {
-							((MapViewer)label7Map).setMap(
-									name,
-									new Runnable() { public void run() {
-										try {
-											Thread.sleep(100);
-										} catch (InterruptedException e) {
-										}
-										scrollMap(0.5, 0.5);}}
-									);
-						} catch (BadJsonFileException e) {
-							
-						} catch (IOException e) {
-							
-						} 
-					}});
+		SwingSynchroLauncher.synchronousLaunch(new SynchroLaunchInterface() {
+			public void run() {
+				try {
+					((MapViewer)label7Map).setMap(name, null);
+				} catch (BadJsonFileException e) {
+				} catch (IOException e) {
+				} 
+			}});
+		mapScrollPane.setMaximumSize(mapScrollPane.getPreferredSize());
+		try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+		}
+		scrollMap(0.5, 0.5);
 	}
 
 	/**This method uses a new thread to show the welcoming Dialog. */

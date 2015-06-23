@@ -60,6 +60,9 @@ public abstract class DumbSwingView extends JFrame {
 	
 	protected static final int CONN_ICON_SIZE = 20;
   	
+	private static final double left_panels = 0.5;
+	private static final double map_panel = 1.0;
+	
 	protected GridBagConstraints constraints;
    	
 	protected JLabel label0ServerStatus;
@@ -192,7 +195,7 @@ public abstract class DumbSwingView extends JFrame {
 	
 	}
 	
-	/** Creation method: the map, on the upper right part of the screen*/
+	/** Creation method: the map, on the middle right part of the screen*/
 	protected void initializeMap() {
 
 		try {
@@ -206,11 +209,10 @@ public abstract class DumbSwingView extends JFrame {
 		}
 		((MapViewer)label7Map).addCellListener(new MouseOnMapCell((MapViewer)label7Map));
 		mapScrollPane = new JScrollPane(label7Map);
-		mapScrollPane.setPreferredSize(new Dimension(400,400));
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.gridx = 1;
 		constraints.gridy = 1;
-		constraints.weightx = 1;
+		constraints.weightx = map_panel;
 		constraints.weighty = 1;
 		constraints.gridwidth = 1;
 		constraints.gridheight = 13;
@@ -375,7 +377,7 @@ public abstract class DumbSwingView extends JFrame {
    	 * @param panel 	 */
    	private void addSidePanel(JPanel panel) {
    		constraints.fill = GridBagConstraints.BOTH;
-		constraints.weightx = 0.4;
+		constraints.weightx = left_panels;
 		constraints.gridx = 0;
 		constraints.gridy = currentRow;
 		currentRow++;
