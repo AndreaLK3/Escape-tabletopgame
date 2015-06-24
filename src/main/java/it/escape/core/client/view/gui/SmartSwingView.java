@@ -377,6 +377,7 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 						(null, resultsPanel, "End of the Game! Here are the results", JOptionPane.INFORMATION_MESSAGE);
 				} 
 			});
+		allowQuit();
 	}
 	
 	/**This method creates panels with the final results for each team, depending on the results in VictoryState*/
