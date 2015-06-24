@@ -16,15 +16,6 @@ public class TeleportCard implements Card, ObjectCard{
 	public String toString() {
 		return ("ObjectCard : " + getClass().getSimpleName());
 	}
-	
-	@Override
-	public boolean equals(Object other) {
-		if (other instanceof TeleportCard) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+
 
 }

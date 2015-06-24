@@ -16,16 +16,6 @@ public class AttackCard implements ObjectCard, Card {
 	public String toString() {
 		return ("ObjectCard : " + getClass().getSimpleName());
 	}
-	
-	@Override
-	public boolean equals(Object other) {
-		if (other instanceof AttackCard) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
 
 
 }

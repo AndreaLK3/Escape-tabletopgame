@@ -17,15 +17,5 @@ public class LightsCard  implements Card, ObjectCard{
 		return ("ObjectCard : " + getClass().getSimpleName());
 	}
 	
-	@Override
-	public boolean equals(Object other) {
-		if (other instanceof LightsCard) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
 
 }

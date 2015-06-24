@@ -11,13 +11,4 @@ public class NoiseAnywhereCardWithObject implements Card,SectorCard {
 		return new NoiseAnywhereWithObject();		
 	}
 	
-	@Override
-	public boolean equals(Object other) {
-		if (other instanceof NoiseAnywhereCardWithObject) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
 }

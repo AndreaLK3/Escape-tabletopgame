@@ -11,15 +11,6 @@ public class NoiseAnywhereCard implements Card, SectorCard {
 	public CardAction getCardAction() {
 		return new NoiseAnywhere();		
 	}
-	
-	@Override
-	public boolean equals(Object other) {
-		if (other instanceof NoiseAnywhereCard) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+
 
 }
