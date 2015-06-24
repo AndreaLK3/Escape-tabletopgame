@@ -1,5 +1,6 @@
 package it.escape.core.client.view.gui;
 
+import it.escape.CliParser;
 import it.escape.core.client.BindUpdaterInterface;
 import it.escape.core.client.connection.BindDisconnectCallbackInterface;
 import it.escape.core.client.connection.DisconnectedCallbackInterface;
@@ -24,6 +25,8 @@ import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -45,6 +48,8 @@ import javax.swing.JPanel;
  */
 public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewInterface, Observer, DisconnectedCallbackInterface{
 
+	private static final Logger LOGGER = Logger.getLogger( SmartSwingView.class.getName() );
+	
 	private static final long serialVersionUID = 1L;
 	
 	private ReentrantLock finalPhase;
@@ -74,6 +79,7 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 	/**
 	 * Called when a server-initiated disconnect is detected
 	 */
+   	@Override
 	public void disconnected() {
 		label0ServerStatus.setIcon(new ImageIcon(ImageScaler.resizeImage("resources/artwork/misc/wrong.png", CONN_ICON_SIZE, CONN_ICON_SIZE)));
 		label0ServerStatus.setToolTipText("Closed by remote");
@@ -109,12 +115,13 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 	private void focusOnLocationInstantly(String coord) {
 		try {
 			int pos[] = ((MapViewer)label7Map).cellToPixels(CoordinatesConverter.fromAlphaNumToOddq(coord));
-			int correct_X = ((MapViewer)label7Map).getCellWidth() / 2;
-			int correct_Y = ((MapViewer)label7Map).getCellHeight() / 2;
-			int map_x = ((MapViewer)label7Map).getTotalWidth();
-			int map_y = ((MapViewer)label7Map).getTotalHeight();
-			scrollMap((double) (pos[0] + correct_X) / map_x, (double) (pos[1] + correct_Y) / map_y);
+			int correctX = ((MapViewer)label7Map).getCellWidth() / 2;
+			int correctY = ((MapViewer)label7Map).getCellHeight() / 2;
+			int mapX = ((MapViewer)label7Map).getTotalWidth();
+			int mapY = ((MapViewer)label7Map).getTotalHeight();
+			scrollMap((double) (pos[0] + correctX) / mapX, (double) (pos[1] + correctY) / mapY);
 		} catch (BadCoordinatesException e) {
+			LOGGER.log(Level.WARNING, "Focus on map location failed", e);
 		}
 	}
 
@@ -193,7 +200,9 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 				try {
 					((MapViewer)label7Map).setMap(name, null);
 				} catch (BadJsonFileException e) {
+					LOGGER.log(Level.WARNING, "Error while reading Json file", e);
 				} catch (IOException e) {
+					LOGGER.log(Level.WARNING, "Error in communicating with the server", e);
 				} 
 			}});
 		mapScrollPane.setMaximumSize(mapScrollPane.getPreferredSize());
@@ -216,10 +225,12 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 		}).start();
 	}
 
+	@Override
 	public void setTurnStatusTimer(String format, int length) {
 		new Thread(new SimpleVisualTimer(serverField, format, length)).start();
 	}
 	
+	@Override
 	public void setTurnStatusString(String status) {
 		serverField.setText(status);
 	}
@@ -234,6 +245,7 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 					try {
 						Thread.sleep(duration);
 					} catch (InterruptedException e) {
+						LOGGER.log(Level.FINE,"unexpected interruption", e);
 					}
 					label13CardNotify.setVisible(false);
 			}}).start();
@@ -255,15 +267,18 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 		// TODO: magari aggiungere un'icona 'new message' da qualche parte
 	}
 
+	@Override
 	public void discoverMyName() {
 		relayRef.sendWhoami();
 	}
 
+	@Override
 	public void bindPositionSender() {
 		ClickSendPositionListener listener = new ClickSendPositionListener(relayRef, this);
 		((MapViewer)label7Map).addCellListener(listener);
 	}
 	
+	@Override
 	public void unbindPositionSender(ClickSendPositionListener listener) {
 		((MapViewer)label7Map).removeCellListener(listener);
 	}
@@ -320,33 +335,43 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 		showCardsButton.doClick();
 	}
 
+	@Override
 	public void addNoiseToMap(String location) {
 		((MapViewer)label7Map).addNoiseMarker(location);
 	}
+	@Override
 	public void clearNoisesFromMap() {
 		((MapViewer)label7Map).clearNoiseMarkers();
 	}
+	@Override
 	public void addOtherPlayerToMap(String location, String name) {
 		((MapViewer)label7Map).addOtherPlayerMarker(location, name);
 	}
+	@Override
 	public void removeOtherPlayerFromMap(String name) {
 		((MapViewer)label7Map).removeSpecificPlayer(name);
 	}
+	@Override
 	public void clearOtherPlayersFromMap() {
 		((MapViewer)label7Map).clearOtherPlayerMarkers();
 	}
+	@Override
 	public void addAttackToMap(String location) {
 		((MapViewer)label7Map).addAttackMarker(location);
 	}
+	@Override
 	public void clearAttacksFromMap() {
 		((MapViewer)label7Map).clearAttackMarkers();
 	}
+	@Override
 	public void addBonesToMap(String location) {
 		((MapViewer)label7Map).addBonesMarker(location);
 	}
+	@Override
 	public void clearBonesFromMap() {
 		((MapViewer)label7Map).clearBonesMarkers();
 	}
+	@Override
 	public void addClosedHatch(String location) {
 		((MapViewer)label7Map).addClosedHatch(location);
 	}
@@ -357,6 +382,7 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 						try {
 							Thread.sleep(waitBefore);
 						} catch (InterruptedException e) {
+							LOGGER.log(Level.FINE, "unexpected interruption", e);
 						}
 						focusOnLocationInstantly(coord);
 					}}).start();
