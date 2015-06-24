@@ -22,8 +22,6 @@ public class ClientInitializerCLIRMI {
 	
 	private static Relay relay;
 	
-	private static UpdaterCLI updater;
-	
 	private static StateManagerCLI stateManager;
 	
 	private static Scanner in = new Scanner(System.in);
@@ -50,8 +48,6 @@ public class ClientInitializerCLIRMI {
 		relay = new RelayForRMI((ClientChannelInterface) remoteServer);
 		remoteServer.bindDisconnCallback(view);
 		view.bindRelay(relay);
-		
-		updater = new UpdaterCLI(stateManager, view);
 		
 		// register to server and start the actual communication
 		ClientRemoteInitializer.postponedStart();
