@@ -14,19 +14,13 @@ import it.escape.tools.strings.StringRes;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class ClientInitializerCLIRMI {
+public class ClientInitializerCLIRMI extends ClientInitializerCLI{
 	
 	private static ProxyToServer remoteServer;
-	
-	private static GlobalSettings locals;
 	
 	private static Relay relay;
 	
 	private static StateManagerCLI stateManager;
-	
-	private static Scanner in = new Scanner(System.in);
-	
-	private static PrintStream out = System.out;
 	
 	private static Terminal view;
 	
@@ -58,13 +52,4 @@ public class ClientInitializerCLIRMI {
 		ClientRemoteInitializer.stopRMI();
 	}
 	
-	private static void enterServerAddress() {
-		out.println(String.format(
-				StringRes.getString("client.text.enterServerAddress"),
-				locals.getDestinationServerAddress()));
-		String input = in.nextLine();
-		if (!"".equals(input)) {
-			locals.setDestinationServerAddress(input);
-		}
-	}
 }

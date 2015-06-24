@@ -16,7 +16,7 @@ import java.io.PrintStream;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-public class ClientInitializerCLISocket {
+public class ClientInitializerCLISocket extends ClientInitializerCLI {
 	
 	private static ClientSocketChannel connection;
 	
@@ -27,12 +27,6 @@ public class ClientInitializerCLISocket {
 	private static UpdaterCLI updater;
 	
 	private static Terminal view;
-	
-	private static Scanner in = new Scanner(System.in);
-	
-	private static PrintStream out = System.out;
-	
-	private static GlobalSettings locals;
 	
 	/**The constructor (it doesn't really do anything, since we use only the static members of this class*/
 	public ClientInitializerCLISocket() {}
@@ -58,16 +52,6 @@ public class ClientInitializerCLISocket {
 			out.println("Error: unknown host");
 		} catch (IOException e) {
 			out.println("Error: " + e.getMessage());
-		}
-	}
-	
-	private static void enterServerAddress() {
-		out.println(String.format(
-				StringRes.getString("client.text.enterServerAddress"),
-				locals.getDestinationServerAddress()));
-		String input = in.nextLine();
-		if (!"".equals(input)) {
-			locals.setDestinationServerAddress(input);
 		}
 	}
 }
