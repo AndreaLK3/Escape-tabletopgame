@@ -8,6 +8,7 @@ import it.escape.core.server.model.game.gamemap.positioning.PositionCubic;
 
 public class Teleport implements ObjectCardAction {
 
+	@Override
 	public void execute(HumanActionInterface currentHuman, MapActionInterface map) {
 		PositionCubic c = map.getStartHumans();
 		map.updatePlayerPosition(currentHuman, c);

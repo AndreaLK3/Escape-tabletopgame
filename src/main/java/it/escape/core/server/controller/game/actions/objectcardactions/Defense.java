@@ -6,9 +6,9 @@ import it.escape.core.server.controller.game.actions.ObjectCardAction;
 
 public class Defense implements ObjectCardAction {
 
-	//n: the card is automatically triggered by an attack
+	@Override
 	public void execute(HumanActionInterface currentPlayer, MapActionInterface map) {
-		
+		//n: it doesn't do anything, since the card is automatically triggered by an attack
 	}
 
 }

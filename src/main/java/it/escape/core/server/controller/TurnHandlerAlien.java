@@ -21,7 +21,9 @@ public class TurnHandlerAlien extends TurnHandler{
 	}
 	
 	@Override
-	public void turnBeforeMove() {}
+	public void turnBeforeMove() {
+		//empty, since the alien doesn't do anything in this phase}
+	}
 
 
 	@Override

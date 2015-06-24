@@ -8,6 +8,7 @@ import it.escape.tools.strings.StringRes;
 import it.escape.tools.utils.LogHelper;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -23,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class ExecutiveController implements Runnable {
 	
-	protected static final Logger LOGGER = Logger.getLogger( ExecutiveController.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( ExecutiveController.class.getName() );
 	
 	private Player currentPlayer;
 	
@@ -69,6 +70,7 @@ public class ExecutiveController implements Runnable {
 				LOGGER.finer("sleeping");
 				wait();  // wait to be awakened by startTurn() or endGame()
 			} catch (InterruptedException e) {
+				LOGGER.log(Level.FINE, "unexpected interruption", e);
 			}
 			sleeping.set(false);
 			LOGGER.finer(StringRes.getString("controller.executor.awaken"));

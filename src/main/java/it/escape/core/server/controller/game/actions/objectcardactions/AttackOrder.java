@@ -8,6 +8,7 @@ import it.escape.core.server.controller.game.actions.playercommands.Attack;
 
 public class AttackOrder implements ObjectCardAction {
 
+	@Override
 	public void execute(HumanActionInterface currentPlayer, MapActionInterface map) {
 		new Attack().execute((PlayerActionInterface) currentPlayer, map);
 	}

@@ -6,7 +6,8 @@ import it.escape.core.server.controller.game.actions.MapActionInterface;
 import it.escape.core.server.controller.game.actions.PlayerActionInterface;
 
 public class NoCardAction implements CardAction {
-
+   
+	@Override
 	public void execute(PlayerActionInterface currentPlayer, MapActionInterface map, DecksHandlerInterface deck) {
 		
 	}

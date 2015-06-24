@@ -11,6 +11,9 @@ import it.escape.core.server.view.MessagingChannelInterface;
  */
 public class Shorthand {
 	
+	/**The constructor; it is not used, since we use only static members of this class.*/
+	public Shorthand() {}
+	
 	public static Announcer announcer(MessagingChannelInterface interfaceWithUser) {
 		return UserMessagesReporter.getReporterInstance(interfaceWithUser).getAnnouncer();
 	}

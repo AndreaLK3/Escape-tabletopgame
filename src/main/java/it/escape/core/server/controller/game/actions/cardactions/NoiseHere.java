@@ -8,6 +8,7 @@ import it.escape.core.server.controller.game.actions.PlayerActionInterface;
 
 public class NoiseHere implements CardAction{
 
+	@Override
 	public void execute(PlayerActionInterface currentPlayer, MapActionInterface map, DecksHandlerInterface deck) {
 		String location = map.getPlayerAlphaNumPosition(currentPlayer);
 		
@@ -15,6 +16,7 @@ public class NoiseHere implements CardAction{
 
 	}
 
+	@Override
 	public boolean hasObjectCard() {
 		return false;
 	}

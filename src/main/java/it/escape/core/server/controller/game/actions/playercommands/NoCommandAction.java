@@ -7,8 +7,7 @@ import it.escape.core.server.controller.game.actions.PlayerCommand;
 
 public class NoCommandAction implements PlayerCommand {
 
-	public CellAction execute(PlayerActionInterface currentPlayer, MapActionInterface map) throws Exception {
-		
+	public CellAction execute(PlayerActionInterface currentPlayer, MapActionInterface map) {
 		return null;
 	}
 

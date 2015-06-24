@@ -9,6 +9,7 @@ import it.escape.core.server.controller.game.actions.PlayerActionInterface;
 
 public class NoiseAnywhere implements CardAction{
 
+	@Override
 	public void execute(PlayerActionInterface currentPlayer, MapActionInterface map, DecksHandlerInterface deck) {
 			UserMessagesReporter reporter = UserMessagesReporter.getReporterInstance(currentPlayer);
 			
@@ -17,6 +18,7 @@ public class NoiseAnywhere implements CardAction{
 			Shorthand.announcer(currentPlayer).announceNoise(location);
 	}
 
+	@Override
 	public boolean hasObjectCard() {
 		return false;
 	}

@@ -10,7 +10,7 @@ import it.escape.tools.strings.StringRes;
 
 public class CanNotEscape  implements CardAction{
 
-
+    @Override
 	public void execute(PlayerActionInterface currentPlayer, MapActionInterface map, DecksHandlerInterface deck) {
 		UserMessagesReporter.getReporterInstance(currentPlayer).
 			relayMessage(StringRes.getString("messaging.EscapeHatchDoesNotWork"));

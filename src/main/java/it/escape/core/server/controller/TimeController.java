@@ -6,6 +6,7 @@ import it.escape.tools.strings.StringRes;
 import it.escape.tools.utils.LogHelper;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -68,6 +69,7 @@ public class TimeController implements Runnable {
 			try {
 				Thread.sleep(SYNCHRO_SCAN_TIME);
 			} catch (InterruptedException e) {
+				LOGGER.log(Level.FINEST, "unexpected interruption", e);
 			}
 			asleep = executorRef.isAsleep();
 		}
@@ -98,6 +100,7 @@ public class TimeController implements Runnable {
 			try {
 				wait(TIMEOUT);  // wait for it to end
 			} catch (InterruptedException e) {
+				LOGGER.log(Level.FINEST, "unexpected interruption", e);
 			}
 			LOGGER.finer("Awaken");
 			
@@ -115,6 +118,7 @@ public class TimeController implements Runnable {
 					 */
 					wait();
 				} catch (InterruptedException e) {
+					LOGGER.log(Level.FINEST, "unexpected interruption", e);
 				}
 			}
 			if (!runGame) {

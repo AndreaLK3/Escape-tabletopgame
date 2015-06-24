@@ -1,5 +1,6 @@
 package it.escape.core.server.controller.game.actions.objectcardactions;
 
+import it.escape.core.server.controller.AsyncUserListener;
 import it.escape.core.server.controller.Shorthand;
 import it.escape.core.server.controller.UserMessagesReporter;
 import it.escape.core.server.controller.game.actions.HumanActionInterface;
@@ -14,9 +15,14 @@ import it.escape.tools.strings.StringRes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Lights implements ObjectCardAction {
+	
+	private static final Logger LOGGER = Logger.getLogger( Lights.class.getName() );
 
+	@Override
 	public void execute(HumanActionInterface currentHuman, MapActionInterface map) {
 		PlayerActionInterface currentPlayer = (PlayerActionInterface) currentHuman;
 		String posAlphaNum;
@@ -35,13 +41,14 @@ public class Lights implements ObjectCardAction {
 			catch (BadCoordinatesException e) {
 				UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(
 						StringRes.getString("messaging.exceptions.badCoordinatesFormat"));
-				//NOTE: It would be better to transfer the format check either to the client or to the UMR 
 				correctInput = false;
+				LOGGER.log(Level.FINER, "bad coordinates format", e);
 			}
 			catch (CellNotExistsException e) {
 				UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(
 						StringRes.getString("messaging.exceptions.cellNotExists"));
 				correctInput=false;
+				LOGGER.log(Level.FINER, "cell doesn't exist on the map", e);
 			}
 		} while (!correctInput);	
 		

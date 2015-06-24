@@ -6,6 +6,7 @@ import it.escape.core.server.controller.game.actions.ObjectCardAction;
 
 public class Sedatives implements ObjectCardAction {
 
+	@Override
 	public void execute(HumanActionInterface currentPlayer, MapActionInterface map) {
 		currentPlayer.setSedatives();
 	}

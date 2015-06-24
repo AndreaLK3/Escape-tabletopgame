@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**Responsibilities:
@@ -81,9 +82,9 @@ public class GameMaster implements Runnable {
 	
 	private final GlobalSettings locals;
 
-	private final int WAIT_TIMEOUT;
+	private final int timeoutToBegin;
 	
-	private int started_countdown;
+	private int startedCountdown;
 	
 	private final static int USERID_RANDOMIZE = 10000;
 	
@@ -98,7 +99,7 @@ public class GameMaster implements Runnable {
 		this.map = map;
 		this.locals = locals;
 		this.announcer = announcer;
-		WAIT_TIMEOUT = this.locals.getGameMasterTimeout();
+		timeoutToBegin = this.locals.getGameMasterTimeout();
 		decksHandler = new DecksHandler();
 		listOfPlayers = new ArrayList<Player>();
 		listeners = new ArrayList<AsyncUserListener>();
@@ -117,13 +118,13 @@ public class GameMaster implements Runnable {
 	
 	public synchronized void run() {
 		timeoutTicking.set(true);
-		started_countdown = (int) System.currentTimeMillis();
-		LOGGER.fine(String.format(StringRes.getString("controller.gamemaster.gameStartTimeout"), WAIT_TIMEOUT/1000));
-		announcer.announceGameStartETA(WAIT_TIMEOUT / 1000);
+		startedCountdown = (int) System.currentTimeMillis();
+		LOGGER.fine(String.format(StringRes.getString("controller.gamemaster.gameStartTimeout"), timeoutToBegin/1000));
+		announcer.announceGameStartETA(timeoutToBegin / 1000);
 		
 		do {
 			try {
-				wait(WAIT_TIMEOUT);
+				wait(timeoutToBegin);
 			} catch (InterruptedException e) {
 			}
 		} while (!verifiedWakeupNotifier.get());
@@ -244,6 +245,7 @@ public class GameMaster implements Runnable {
 			try {
 				ownThread.join();  // wait for the thread to actually terminate
 			} catch (InterruptedException e) {
+				LOGGER.log(Level.FINER, "unexpected interruption", e);
 			}
 			LOGGER.fine("Game terminated.");
 		} else {
@@ -314,8 +316,8 @@ public class GameMaster implements Runnable {
 	}
 	
 	private int getStartGameETA() {
-		int passed = (int) System.currentTimeMillis() - started_countdown;
-		return (WAIT_TIMEOUT/1000) - (passed/1000);
+		int passed = (int) System.currentTimeMillis() - startedCountdown;
+		return (timeoutToBegin/1000) - (passed/1000);
 	}
 	
 	/** used to check if there the game managed by this gamemaster is running
@@ -400,10 +402,12 @@ public class GameMaster implements Runnable {
 		try {
 			timerThread.join();
 		} catch (InterruptedException e) {
+			LOGGER.log(Level.FINER, "unexpected interruption", e);
 		}
 		try {
 			executorThread.join();
 		} catch (InterruptedException e) {
+			LOGGER.log(Level.FINER, "unexpected interruption", e);
 		}
 		gameRunning = false;
 		gameFinished = true;
