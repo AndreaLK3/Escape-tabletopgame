@@ -12,4 +12,13 @@ public class SilenceCardWithObject implements SectorCard, Card {
 		
 	}
 
+	@Override
+	public boolean equals(Object other) {
+		if (other instanceof SilenceCardWithObject) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }

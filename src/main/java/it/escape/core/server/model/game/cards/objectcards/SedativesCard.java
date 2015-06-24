@@ -16,5 +16,15 @@ public class SedativesCard implements ObjectCard,Card {
 		return ("ObjectCard : " + getClass().getSimpleName());
 	}
 
+	
+	@Override
+	public boolean equals(Object other) {
+		if (other instanceof SedativesCard) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
 }

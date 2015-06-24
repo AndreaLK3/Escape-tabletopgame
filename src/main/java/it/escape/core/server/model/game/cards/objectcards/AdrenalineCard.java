@@ -17,5 +17,15 @@ public class AdrenalineCard implements ObjectCard, Card{
 		return ("ObjectCard : " + getClass().getSimpleName());
 	}
 
+	@Override
+	public boolean equals(Object other) {
+		if (other instanceof AdrenalineCard) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 
 }

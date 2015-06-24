@@ -16,4 +16,13 @@ public class DefenseCard implements ObjectCard, Card {
 		return ("ObjectCard : " + getClass().getSimpleName());
 	}
 
+	@Override
+	public boolean equals(Object other) {
+		if (other instanceof DefenseCard) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }

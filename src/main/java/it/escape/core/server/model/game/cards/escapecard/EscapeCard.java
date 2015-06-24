@@ -33,6 +33,16 @@ public class EscapeCard implements SectorCard,Card {
 			return new CanNotEscape();
 	}
 	
+	@Override
+	public boolean equals(Object other) {
+		if (other instanceof EscapeCard) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	
 
 }

@@ -16,6 +16,16 @@ public class LightsCard  implements Card, ObjectCard{
 	public String toString() {
 		return ("ObjectCard : " + getClass().getSimpleName());
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (other instanceof LightsCard) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
 
 }

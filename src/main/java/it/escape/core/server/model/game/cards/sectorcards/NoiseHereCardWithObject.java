@@ -11,4 +11,14 @@ public class NoiseHereCardWithObject implements Card,SectorCard {
 		return new NoiseHereWithObject();
 	}
 	
+	@Override
+	public boolean equals(Object other) {
+		if (other instanceof NoiseHereCardWithObject) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 }
