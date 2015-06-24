@@ -69,26 +69,26 @@ public class TurnHandlerHuman extends TurnHandler {
 	/**This method checks if a Player is actually allowed to play a 
 	 * certain ObjectCard, depending on the current phase of the turn.
 	 * It is currently public for testing purposes*/
-	public boolean canPlayObjectCard(ObjectCard objectCard) {
+	public boolean canPlayObjectCard(ObjectCard candidateObjectCard) {
 		
 		if (currentPlayer.HasMoved()) {		//after the move
-			return canPlayObjectCardAfterMove();
+			return canPlayObjectCardAfterMove(candidateObjectCard);
 		} else {	//before the move
-			return canPlayObjectCardBeforeMove();	
+			return canPlayObjectCardBeforeMove(candidateObjectCard);	
 		}
 	}
 	
-	private boolean canPlayObjectCardBeforeMove() {
-		if ( objectCard instanceof SedativesCard || objectCard instanceof AdrenalineCard 
-				|| objectCard instanceof TeleportCard || objectCard instanceof LightsCard) {
+	private boolean canPlayObjectCardBeforeMove(ObjectCard candidateObjectCard) {
+		if ( candidateObjectCard instanceof SedativesCard || candidateObjectCard instanceof AdrenalineCard 
+				|| candidateObjectCard instanceof TeleportCard || candidateObjectCard instanceof LightsCard) {
 				return true;
 			} else {
 				return false;
 			}
 	}
 	
-	private boolean canPlayObjectCardAfterMove() {
-		if (objectCard instanceof TeleportCard || objectCard instanceof LightsCard) {
+	private boolean canPlayObjectCardAfterMove(ObjectCard candidateObjectCard) {
+		if (candidateObjectCard instanceof TeleportCard || candidateObjectCard instanceof LightsCard) {
 			return true;
 		} else {
 			return false;
