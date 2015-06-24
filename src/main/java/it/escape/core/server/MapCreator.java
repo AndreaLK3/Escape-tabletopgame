@@ -1,6 +1,7 @@
 package it.escape.core.server;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.escape.core.server.model.game.exceptions.BadJsonFileException;
@@ -11,7 +12,7 @@ import it.escape.tools.utils.LogHelper;
 
 public class MapCreator {
 	
-	protected static final Logger log = Logger.getLogger( MapCreator.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( MapCreator.class.getName() );
 	
 	private String[] maprotation;
 	private int current;
@@ -24,7 +25,7 @@ public class MapCreator {
 	 * @param maprotation array of map names, consecutive GameMaster will run consecutive maps
 	 */
 	public MapCreator(String[] maprotation) {
-		LogHelper.setDefaultOptions(log);
+		LogHelper.setDefaultOptions(LOGGER);
 		this.maprotation = maprotation;
 		current = -1;
 		if (maprotation.length == 0) {
@@ -55,10 +56,13 @@ public class MapCreator {
 			return new GameMap(mapfile);
 			
 		} catch (BadJsonFileException e) {
+			LOGGER.log(Level.SEVERE, "Bad Json map file", e);
 			crash(e.getMessage());
 		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, "IO Exception in creating the map (v.file)", e);
 			crash(e.getMessage());
 		} catch (MalformedStartingCells e) {
+			LOGGER.log(Level.SEVERE, "Bad Json map file - error:starting cells", e);
 			crash(e.getMessage());
 		}
 		
@@ -66,7 +70,6 @@ public class MapCreator {
 	}
 	
 	private void crash(String message) {
-		log.severe(message);
 		throw new AssertionError();
 	}
 

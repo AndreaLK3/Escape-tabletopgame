@@ -55,7 +55,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 				LOGGER.log(Level.WARNING, "Cannot ask 'yes or no'", e);
 			}
 			String answer = interfaceWithUser.getAnswer();
-			if (answer.equals("yes")) {
+			if ("yes".equals(answer)) {
 				return true;
 			}
 			return false;
@@ -82,7 +82,7 @@ public class UserMessagesReporterRMI extends UserMessagesReporter {
 				LOGGER.log(Level.WARNING, "Cannot ask 'play or discard'", e);
 			}
 			String answer = interfaceWithUser.getAnswer();
-			if (answer.equals("play")) {
+			if ("play".equals(answer)) {
 				return true;
 			}
 			return false;

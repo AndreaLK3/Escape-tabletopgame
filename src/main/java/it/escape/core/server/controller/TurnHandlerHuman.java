@@ -29,7 +29,7 @@ public class TurnHandlerHuman extends TurnHandler {
 		do {
 			try {
 				String key = reporter.askWhichObjectCard(defaultChoice);
-				if (key.equals("none")) {  // only used by the override mechanism
+				if ("none".equals(key)) {  // only used by the override mechanism
 					return;
 				}
 				objectCard = currentPlayer.drawCard(key);  // this card is removed from the player's hand									   			
@@ -72,24 +72,29 @@ public class TurnHandlerHuman extends TurnHandler {
 	public boolean canPlayObjectCard(ObjectCard objectCard) {
 		
 		if (currentPlayer.HasMoved()) {		//after the move
-			if (objectCard instanceof TeleportCard || objectCard instanceof LightsCard) {
-				return true;
-			} else {
-				return false;
-			}
+			return canPlayObjectCardAfterMove();
 		} else {	//before the move
-			if ( objectCard instanceof SedativesCard || objectCard instanceof AdrenalineCard 
+			return canPlayObjectCardBeforeMove();	
+		}
+	}
+	
+	private boolean canPlayObjectCardBeforeMove() {
+		if ( objectCard instanceof SedativesCard || objectCard instanceof AdrenalineCard 
 				|| objectCard instanceof TeleportCard || objectCard instanceof LightsCard) {
 				return true;
 			} else {
 				return false;
 			}
-				
+	}
+	
+	private boolean canPlayObjectCardAfterMove() {
+		if (objectCard instanceof TeleportCard || objectCard instanceof LightsCard) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 	
-	
-	//discardObjectCard is defined inside the superclass TurnHandler, since it is the same for Humans and Aliens;
 	
 	
 	@Override

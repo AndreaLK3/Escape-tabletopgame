@@ -35,10 +35,15 @@ public class Master {
 	private static GameMaster currentGameMaster = null;
 	private static MapCreator mapCreator;
 	private static GlobalSettings locals = null;
-		
-	public static void newPlayerHasConnected(MessagingChannelInterface interfaceWithUser, GlobalSettings Locals) {
+	
+	/**The constructor; unused, since we use only static members of the class.*/
+	public Master() {
+	}
+	
+	
+	public static void newPlayerHasConnected(MessagingChannelInterface interfaceWithUser, GlobalSettings settings) {
 		if (locals == null) {
-			locals = Locals;
+			locals = settings;
 		}
 		reaper();
 		if (currentGameMaster == null) {

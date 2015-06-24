@@ -136,7 +136,9 @@ public class AnnouncerRMIBroadcast implements Announcer {
 
 	/**Currently not used in the AnnouncerRMI; it is here because it is needed in the interface implementation*/
 	@Override
-	public void announce(String message) {}
+	public void announce(String message) {
+		//unused in AnnouncerRMI
+	}
 
 	@Override
 	public void announcePlayerPosition(PlayerActionInterface p,	PositionCubic position) {
@@ -173,7 +175,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 				client.eventEndGame();
 			} catch (RemoteException e) {
 				LOG.log(Level.WARNING, "cannot announce game end", e);
-			};
+			}
 		}
 
 	}
@@ -225,7 +227,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 				client.renamePlayer(oldname, newname);
 			} catch (RemoteException e) {
 				LOG.log(Level.WARNING, "cannot announce player name", e);
-			};
+			}
 		}
 
 	}
@@ -259,7 +261,7 @@ public class AnnouncerRMIBroadcast implements Announcer {
 	public void announceNewTurn(int turnNumber, String playerName) {
 		for (ClientRemoteInterface client : subscribed) {
 			try {
-				client.startTurn(turnNumber, playerName);;
+				client.startTurn(turnNumber, playerName);
 			} catch (RemoteException e) {
 				LOG.log(Level.WARNING, "cannot announce game start ETA", e);
 			}
