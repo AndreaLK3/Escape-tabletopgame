@@ -17,9 +17,9 @@ public class ActionAcceptNewPortNumber implements ActionListener {
 	
 	private Pattern validInt = Pattern.compile("[0-9]+");
 	
-	private static final int minimumPort = 1;
+	private static final int MINIMUMPORT = 1;
 	
-	private static final int maximumPort = 65535;
+	private static final int MAXIMUMPORT = 65535;
 
 	public ActionAcceptNewPortNumber(JTextField field, GlobalSettings locals) {
 		this.field = field;
@@ -31,7 +31,7 @@ public class ActionAcceptNewPortNumber implements ActionListener {
 		if (validInt.matcher(newPort).matches()) {
 			try {
 				int newPortInt = Integer.parseInt(newPort);
-				if (newPortInt < minimumPort || newPortInt > maximumPort) {
+				if (newPortInt < MINIMUMPORT || newPortInt > MAXIMUMPORT) {
 					throw new NumberFormatException();
 				}
 				locals.setServerPort(newPortInt);
@@ -60,7 +60,7 @@ public class ActionAcceptNewPortNumber implements ActionListener {
 	
 	private void outOfRange() {
 		JOptionPane.showMessageDialog(null,
-			    "Please enter an integer in the interval [" + minimumPort + "," + maximumPort + "]",
+			    "Please enter an integer in the interval [" + MINIMUMPORT + "," + MAXIMUMPORT + "]",
 			    "Error!",
 			    JOptionPane.WARNING_MESSAGE);
 	}

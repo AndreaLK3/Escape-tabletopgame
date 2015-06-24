@@ -41,9 +41,9 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 
 	private static final long serialVersionUID = 1L;
 	
-	private GlobalSettings locals;
+	private transient GlobalSettings locals;
 	
-	private StartSubsystemsInterface starter;
+	private transient  StartSubsystemsInterface starter;
 	
 	private static final int ICON_SIZE = 24;
 	
@@ -76,9 +76,9 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 	
 	private int growMenu;
 	
-	private LauncherState stateForClient;
+	private transient LauncherState stateForClient;
 	
-	private LauncherState stateForServer;
+	private transient LauncherState stateForServer;
 	
 	public StartMenu(String string, GlobalSettings locals, StartSubsystemsInterface starter) {
    		super(string);
@@ -174,7 +174,7 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		if (icon != null) {
 			bt.setIcon(icon);
 		}
-		//bt.setBackground(new Color(255, 0, 0));
+		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = growMenu;
@@ -182,7 +182,7 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		c.ipady = 0;
 		c.weightx = 1;
 		c.weighty = 0;
-		//c.anchor = GridBagConstraints.PAGE_START;
+		
 		add(bt,c);
 		growMenu += 1;
 		return bt;
@@ -255,6 +255,7 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		return bt;
 	}
 	
+	@Override
 	public void tbiMessage() {
 		JOptionPane.showMessageDialog(null,
 		    "This feature is currently *not* implemented",
@@ -262,18 +263,22 @@ public class StartMenu extends JFrame implements StartMenuInterface {
 		    JOptionPane.WARNING_MESSAGE);
 	}
 	
+	@Override
 	public void closeMenu() {
 		this.setVisible(false);
 	}
 	
+	@Override
 	public void closeProgram() {
 		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
 	
+	@Override
 	public GlobalSettings getLocalSettings() {
 		return locals;
 	}
 	
+	@Override
 	public StartSubsystemsInterface getStarter() {
 		return starter;
 	}

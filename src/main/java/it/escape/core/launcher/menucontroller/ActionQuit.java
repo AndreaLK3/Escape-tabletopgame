@@ -13,6 +13,7 @@ public class ActionQuit implements ActionListener {
 		this.startMenu = startMenu;
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (StringRes.getString("launcher.button.quit").equals(e.getActionCommand())) {
 			startMenu.closeProgram();

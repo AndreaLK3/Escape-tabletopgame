@@ -16,6 +16,7 @@ public class ActionStartClient implements ActionListener {
 		this.startMenu = startMenu;
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (StringRes.getString("launcher.button.client").equals(e.getActionCommand())) {
 			chooseClient();
