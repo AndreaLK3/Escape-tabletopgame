@@ -7,6 +7,7 @@ import it.escape.core.server.model.game.cards.ObjectCard;
 
 public class SedativesCard implements ObjectCard,Card {
 
+	@Override
 	public ObjectCardAction getObjectAction() {
 		return new Sedatives();
 	}

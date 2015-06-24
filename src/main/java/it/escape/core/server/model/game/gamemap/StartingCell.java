@@ -7,6 +7,7 @@ import it.escape.core.server.model.game.players.Player;
 import it.escape.core.server.model.game.players.PlayerTeams;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**This class defines the starting cells, one for each player type (Humans, Aliens)
  * The starting cell are implemented as singletons: 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  */
 public class StartingCell extends Cell {
 		
-		private static ArrayList<StartingCell> startCells = new ArrayList<StartingCell>();
+		private static List<StartingCell> startCells = new ArrayList<StartingCell>();
 		
 		PlayerTeams type;
 
@@ -37,7 +38,6 @@ public class StartingCell extends Cell {
 				}
 			}
 				
-			
 			 newStart= new StartingCell(position, type);
 			 startCells.add(newStart);
 			 return newStart;

@@ -7,8 +7,8 @@ import it.escape.core.server.model.game.cards.ObjectCard;
 
 public class TeleportCard implements Card, ObjectCard{
 
+	@Override
 	public ObjectCardAction getObjectAction() {
-	
 		return new Teleport();
 	}
 	

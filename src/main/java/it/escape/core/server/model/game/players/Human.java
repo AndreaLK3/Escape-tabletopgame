@@ -65,7 +65,7 @@ public class Human extends Player implements HumanActionInterface {
 	public void die() {
 		try {
 			drawCard(StringRes.getString("cardKeys.defense"));
-			log.fine(StringRes.getString("messaging.playerDefended"));
+			LOGGER.fine(StringRes.getString("messaging.playerDefended"));
 		} catch (CardNotPresentException e) {
 			setAlive(false);
 		}

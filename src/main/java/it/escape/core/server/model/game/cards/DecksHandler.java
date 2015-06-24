@@ -13,22 +13,23 @@ public class DecksHandler implements DecksHandlerInterface{
 	private SectorDeck sDeck;
 	private ObjectDeck oDeck;
 	
-	private static DecksHandler decksHandlerInstance;
-	
 	public DecksHandler() {
 		eDeck = new EscapeDeck();
 		sDeck = new SectorDeck();
 		oDeck = new ObjectDeck();
 	}
 
+	@Override
 	public SectorCard drawSectorCard() {
 		return (SectorCard)sDeck.drawCard();
 	}
 
+	@Override
 	public ObjectCard drawObjectCard() {
 		return (ObjectCard)oDeck.drawCard();
 	}
 
+	@Override
 	public SectorCard drawEscapeCard() {
 		return (SectorCard)eDeck.drawCard();
 	}

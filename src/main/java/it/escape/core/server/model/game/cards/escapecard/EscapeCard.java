@@ -26,6 +26,7 @@ public class EscapeCard implements SectorCard,Card {
 		
 	}
 
+	@Override
 	public CardAction getCardAction() {
 		if (color.equals(EscapeCardColor.GREEN))
 			return new Escape();

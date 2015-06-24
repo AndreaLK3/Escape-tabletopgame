@@ -7,9 +7,9 @@ import it.escape.core.server.model.game.cards.SectorCard;
 
 public class SilenceCardWithObject implements SectorCard, Card {
 
+	@Override
 	public CardAction getCardAction() {
 		return new SilenceWithObject();
-		
 	}
 
 }

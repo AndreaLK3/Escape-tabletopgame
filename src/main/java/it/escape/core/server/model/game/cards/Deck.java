@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * @author andrea
  */
 public class Deck {
-	protected static final Logger log = Logger.getLogger( Deck.class.getName() );
+	protected static final Logger LOGGER = Logger.getLogger( Deck.class.getName() );
 
 	protected List<Card> theDeck = new ArrayList<Card>();
 	private int counter;
@@ -45,7 +45,7 @@ public class Deck {
 			counter--;
 			return temp;}
 		catch (ArrayIndexOutOfBoundsException var1) {
-			log.fine("This deck of cards is empty! It must be reshuffled anew");
+			LOGGER.finest("This deck of cards is empty! It must be reshuffled anew" + var1.getMessage());
 			this.shuffleDeck();
 			return this.drawCard();
 		}
@@ -61,7 +61,7 @@ public class Deck {
 	}
 
 	public Deck() {
-		LogHelper.setDefaultOptions(log);
+		LogHelper.setDefaultOptions(LOGGER);
 	}
 
 	/**

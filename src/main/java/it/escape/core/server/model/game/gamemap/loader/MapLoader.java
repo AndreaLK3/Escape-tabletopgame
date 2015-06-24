@@ -60,9 +60,9 @@ public class MapLoader implements Iterable<Cell> {
 			mapSize = new Position2D(mapInfo.getInt(StringRes.getString("mapfile.json.info.width"))
 					, mapInfo.getInt(StringRes.getString("mapfile.json.info.height")));
 			
-			JSONArray Cellrr = root.getJSONArray(StringRes.getString("mapfile.json.cells.arrname"));
-			for (int i = 0; i < Cellrr.length(); i++) {
-				listaCelle.add( (new CellGenerator( Cellrr.getJSONObject(i) )).convert() );
+			JSONArray cellArray = root.getJSONArray(StringRes.getString("mapfile.json.cells.arrname"));
+			for (int i = 0; i < cellArray.length(); i++) {
+				listaCelle.add( (new CellGenerator( cellArray.getJSONObject(i) )).convert() );
 			}
 			
 		} catch (JSONException e) {

@@ -198,13 +198,16 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 		}
 	}
 	
+	@Override
 	public Cell getPlayerCell(Player player) {
 		return playersPositions.get(player);
 	}
 	
+	@Override
 	public PositionCubic getPlayerPosition(PlayerActionInterface player) {
 		return playersPositions.get((Player)player).getPosition();
 	}
+	@Override
 	public String getPlayerAlphaNumPosition(PlayerActionInterface player) {
 		return CoordinatesConverter.fromCubicToAlphaNum(getPlayerPosition((Player)player));
 	}
@@ -213,8 +216,8 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	 * invoked by GameMaster, add a player (human or alien)
 	 * to the game, setting its position to the respective starting cell
 	 * @param player
-	 * @param team
-	 */
+	 * @param team*/
+	@Override
 	public void addNewPlayer(PlayerActionInterface player, PlayerTeams team) {
 		Cell startIn = null;
 		if (team == PlayerTeams.HUMANS) {
@@ -229,8 +232,8 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 	 * Returns a list of all player standing in a certain position.
 	 * It is assumed that a cell does exist in said position.
 	 * @param pos
-	 * @return
-	 */
+	 * @return */
+	@Override
 	public List<PlayerActionInterface> getPlayersByPosition(PositionCubic pos) {
 		List<PlayerActionInterface> ret = new ArrayList<PlayerActionInterface>();
 		Iterator<Map.Entry<Player,Cell>> mapIterator = playersPositions.entrySet().iterator();
@@ -245,19 +248,18 @@ public class GameMap implements MapActionInterface, MapPathfinderInterface {
 		return ret;
 	}
 
+	@Override
 	public PositionCubic getStartHumans() {
 		return startHumans.getPosition();
 	}
 	
 	/**Given the position, returns a Cell)
 	 * n: REQUIRES : cellExists returns true*/
+	@Override
 	public Cell getCell(PositionCubic pos3D) {
 		return cells.get(CoordinatesConverter.fromCubicToAlphaNum(pos3D));
 	}
 	
-	private Cell getCell(String posAlphaNum) {
-		return cells.get(posAlphaNum);
-	}
 
 	/**Check if a Cell exists on the map; returns boolean)*/
 	public boolean cellExists(PositionCubic position) {

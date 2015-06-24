@@ -4,7 +4,13 @@ import java.io.FileNotFoundException;
 
 import it.escape.tools.utils.FilesHelper;
 
-public class qdgenMain {
+public class QDGenMain {
+	
+	/**The constructor; unused, since we use only static methods of this class.*/
+	public QDGenMain() {
+	}
+	
+	
 	public static void main(String[] args) {
 		CommandLine cmd = new CommandLine();
 		System.out.println("Quick and Dirty Map Generator");

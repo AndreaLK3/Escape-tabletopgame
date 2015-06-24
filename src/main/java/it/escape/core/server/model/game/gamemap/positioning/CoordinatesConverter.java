@@ -18,8 +18,11 @@ public class CoordinatesConverter {
 	
 	public static final Pattern PATTERN_DOPRETTIFY = Pattern.compile("([A-Z]+)([0-9])");
 	
+	/**The constructor; unused, since we use only static methods of this class.*/
+	public CoordinatesConverter() {
+	}
+	
 	/**
-	 * 
 	 * @param posC , posizione in coordinate cubiche, es: (1,3,4)
 	 * @return nuovo oggetto Position2D, posizione con coordinate bidimensionali, es: (2,12)
 	 */

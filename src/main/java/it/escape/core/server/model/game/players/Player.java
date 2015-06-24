@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public abstract class Player implements PlayerActionInterface {
 	
-	protected static final Logger log = Logger.getLogger( Player.class.getName() );
+	protected static final Logger LOGGER = Logger.getLogger( Player.class.getName() );
 	protected boolean userIdle;
 	protected int maxRange;
 	protected boolean hasMoved;
@@ -23,7 +23,7 @@ public abstract class Player implements PlayerActionInterface {
 	
 	
 	public Player (String name) {
-		LogHelper.setDefaultOptions(log);
+		LogHelper.setDefaultOptions(LOGGER);
 		this.name = name;
 		alive = true;
 		myHand = new Hand();

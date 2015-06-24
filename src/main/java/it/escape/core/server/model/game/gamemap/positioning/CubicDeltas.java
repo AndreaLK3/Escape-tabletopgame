@@ -12,6 +12,10 @@ import java.util.List;
  */
 public class CubicDeltas {
 	
+	/**The constructor; unused, since we use only static methods of this class.*/
+	public CubicDeltas() {
+	}
+	
 	public static List<PositionCubic> getDeltas() {
 		List<PositionCubic> ret = new ArrayList<PositionCubic>();
 		ret.add(new PositionCubic(1, -1, 0));

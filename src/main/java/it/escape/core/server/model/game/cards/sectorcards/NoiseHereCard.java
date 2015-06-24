@@ -7,7 +7,7 @@ import it.escape.core.server.model.game.cards.SectorCard;
 
 public class NoiseHereCard implements Card,SectorCard {
 
-	
+	@Override
 	public CardAction getCardAction() {
 		return new NoiseHere();
 	}

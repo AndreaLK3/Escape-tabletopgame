@@ -7,8 +7,8 @@ import it.escape.core.server.model.game.cards.ObjectCard;
 
 public class AttackCard implements ObjectCard, Card {
 
+	@Override
 	public ObjectCardAction getObjectAction() {
-		
 		return new AttackOrder();
 	}
 
