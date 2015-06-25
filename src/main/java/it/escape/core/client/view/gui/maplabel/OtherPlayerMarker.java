@@ -2,6 +2,7 @@ package it.escape.core.client.view.gui.maplabel;
 
 import it.escape.tools.utils.swing.ImageScaler;
 
+import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class OtherPlayerMarker extends MarkerManager {
+	
+	private static final int VANISH_DELAY = 5000;
 	
 	public OtherPlayerMarker(MapViewer parent) {
 		super();
@@ -42,7 +45,17 @@ public class OtherPlayerMarker extends MarkerManager {
 		}
 	}
 
-	public void clearPlayers(MapViewer parent) {
-		super.clearMarkers(parent);
+	public void clearPlayers(final MapViewer parent) {
+		final OtherPlayerMarker caller = this;
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Thread.sleep(VANISH_DELAY);
+				} catch (InterruptedException e) {
+				}
+				caller.clearMarkers(parent);
+			}
+		});
+		
 	}
 }
