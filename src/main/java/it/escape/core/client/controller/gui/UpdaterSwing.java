@@ -692,7 +692,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	@Override
 	public void askForMovement() throws RemoteException {
 		LOGGER.finer("Server asked to move");
-		view.notifyUser("Please move your character: click where you want to go");
+		view.notifyUser(model.getNowPlaying().getMyName() +" , please move your character: click where you want to go");
 		view.bindPositionSender();
 	}
 	
