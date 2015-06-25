@@ -83,11 +83,11 @@ public abstract class TurnHandler {
 	}
 	
 	private void hailPlayer() {
-		if (currentPlayer.isAlive() && !mustNotMove()) {
+		if (currentPlayer.isAlive() && !mustNotMove() && !currentPlayer.isUserIdle()) {
 			UserMessagesReporter.getReporterInstance(currentPlayer).reportStartMyTurn(
 					currentPlayer.getName(),
 					CoordinatesConverter.fromCubicToAlphaNum(map.getPlayerPosition(currentPlayer)));
-		} else {
+		} else if (!currentPlayer.isAlive()) {
 			UserMessagesReporter.getReporterInstance(currentPlayer).relayMessage(String.format(
 					StringRes.getString("messaging.hail.deadPlayer"),
 					currentPlayer.getName()));
@@ -95,7 +95,9 @@ public abstract class TurnHandler {
 	}
 	
 	private void farewellPlayer() {
-		UserMessagesReporter.getReporterInstance(currentPlayer).reportEndTurn();
+		if (!currentPlayer.isUserIdle()) {
+			UserMessagesReporter.getReporterInstance(currentPlayer).reportEndTurn();
+		}
 	}
 	
 	protected void discardObjectCard() {
