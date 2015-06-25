@@ -21,7 +21,7 @@ public class PingSender implements Runnable {
 	
 	private static final Logger LOGGER = Logger.getLogger( ServerRMICore.class.getName() );
 	
-	private static final int SLEEP = 2000;
+	private static final int SLEEP = 3000;
 	
 	private boolean running = true;
 	

@@ -1,6 +1,7 @@
 package it.escape.core.client.view.gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.List;
@@ -49,6 +50,7 @@ public class TeamVictoryPanel extends JPanel {
 		
 		winnersArea = new JTextArea();
 		winnersArea.setEditable(false);
+		winnersArea.setPreferredSize(new Dimension (100,30));
 		teamPanelconstraints.gridx=0;
 		teamPanelconstraints.gridy=2;
 		teamPanelconstraints.gridwidth=2;

@@ -1,0 +1,417 @@
+Jun 25, 2015 12:11:53 PM it.escape.core.server.view.rmispecific.ServerRMICore unregisterClient
+INFO: Client Proxy[ClientRemoteInterface,RemoteObjectInvocationHandler[UnicastRef [liveRef: [endpoint:[10.0.2.15:57935](remote),objID:[-c196a2c:14e2a3261da:-7fff, -6976138720138095472]]]]] unregistered
+Jun 25, 2015 12:11:53 PM it.escape.core.server.controller.GameMaster run
+FINE: GameMaster tasks completed, thread will now stop
+Jun 25, 2015 12:12:49 PM it.escape.core.server.Master reaper
+FINE: Deleting old unused gamemaster
+Jun 25, 2015 12:12:49 PM it.escape.core.server.Master newPlayerHasConnected
+INFO: Creating new gamemaster (id=2)
+Jun 25, 2015 12:12:49 PM it.escape.core.server.Master newPlayerHasConnected
+INFO: Routing user to existing gamemaster (id=2)
+Jun 25, 2015 12:12:49 PM it.escape.core.server.controller.AsyncUserListener <init>
+FINE: Async listener for user Guest-2-2552 has been  created
+This feature won't actually be used, as we are on RMI
+Jun 25, 2015 12:12:55 PM it.escape.core.server.view.rmispecific.ServerRMICore registerClient
+INFO: Client Proxy[ClientRemoteInterface,RemoteObjectInvocationHandler[UnicastRef [liveRef: [endpoint:[10.0.2.15:34047](remote),objID:[-6d1a60de:14e2a349d5f:-7fff, 8190492329373008836]]]]] registered
+Jun 25, 2015 12:12:55 PM it.escape.core.server.view.rmispecific.ServerRMICore tryStartPinging
+INFO: Started pinger thread
+Jun 25, 2015 12:13:00 PM it.escape.core.server.view.sockspecific.ServerSocketCore registerConnection
+FINER: New connection registered
+Jun 25, 2015 12:13:00 PM it.escape.core.server.view.sockspecific.ServerSocketCore run
+INFO: A new user connected from /127.0.0.1
+Jun 25, 2015 12:13:00 PM it.escape.core.server.Master newPlayerHasConnected
+INFO: Routing user to existing gamemaster (id=2)
+Jun 25, 2015 12:13:00 PM it.escape.core.server.controller.AsyncUserListener <init>
+FINE: Async listener for user Guest-2-7407 has been  created
+Jun 25, 2015 12:13:00 PM it.escape.core.server.controller.GameMaster run
+FINE: Minimum player number met, starting in 60 seconds
+Jun 25, 2015 12:13:14 PM it.escape.core.server.Master newPlayerHasConnected
+INFO: Routing user to existing gamemaster (id=2)
+Jun 25, 2015 12:13:14 PM it.escape.core.server.controller.AsyncUserListener <init>
+FINE: Async listener for user Guest-2-4998 has been  created
+This feature won't actually be used, as we are on RMI
+Jun 25, 2015 12:13:15 PM it.escape.core.server.view.rmispecific.PingSender checkAnswers
+WARNING: client Proxy[ClientRemoteInterface,RemoteObjectInvocationHandler[UnicastRef [liveRef: [endpoint:[10.0.2.15:55336](remote),objID:[67a73729:14e2a350001:-7fff, -4407136793827769592]]]]] didn't ping back
+Jun 25, 2015 12:13:15 PM it.escape.core.server.controller.GameMaster handlePlayerDisconnect
+INFO: Player disconnected while the game was not up
+Jun 25, 2015 12:13:22 PM it.escape.core.server.view.rmispecific.ServerRMICore registerClient
+INFO: Client Proxy[ClientRemoteInterface,RemoteObjectInvocationHandler[UnicastRef [liveRef: [endpoint:[10.0.2.15:55336](remote),objID:[67a73729:14e2a350001:-7fff, -4407136793827769592]]]]] registered
+Jun 25, 2015 12:13:37 PM it.escape.core.server.Master newPlayerHasConnected
+INFO: Routing user to existing gamemaster (id=2)
+Jun 25, 2015 12:13:37 PM it.escape.core.server.controller.AsyncUserListener <init>
+FINE: Async listener for user Guest-2-1234 has been  created
+This feature won't actually be used, as we are on RMI
+Jun 25, 2015 12:13:38 PM it.escape.core.server.view.rmispecific.PingSender checkAnswers
+WARNING: client Proxy[ClientRemoteInterface,RemoteObjectInvocationHandler[UnicastRef [liveRef: [endpoint:[10.0.2.15:51305](remote),objID:[-25158fd1:14e2a355aa2:-7fff, -928484599102701714]]]]] didn't ping back
+Jun 25, 2015 12:13:38 PM it.escape.core.server.controller.GameMaster handlePlayerDisconnect
+INFO: Player disconnected while the game was not up
+Jun 25, 2015 12:13:42 PM it.escape.core.server.view.rmispecific.ServerRMICore registerClient
+INFO: Client Proxy[ClientRemoteInterface,RemoteObjectInvocationHandler[UnicastRef [liveRef: [endpoint:[10.0.2.15:51305](remote),objID:[-25158fd1:14e2a355aa2:-7fff, -928484599102701714]]]]] registered
+Jun 25, 2015 12:14:00 PM it.escape.core.server.view.rmispecific.ServerRMICore whoAmI
+INFO: Client Proxy[ClientRemoteInterface,RemoteObjectInvocationHandler[UnicastRef [liveRef: [endpoint:[10.0.2.15:34047](remote),objID:[-6d1a60de:14e2a349d5f:-7fff, 8190492329373008836]]]]] sent whoami
+Jun 25, 2015 12:14:00 PM it.escape.core.server.controller.GameMaster startGameAndWait
+INFO: Starting a new game
+Jun 25, 2015 12:14:00 PM it.escape.core.server.controller.ExecutiveController run
+FINE: Started executive-controller thread
+Jun 25, 2015 12:14:00 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 25, 2015 12:14:00 PM it.escape.core.server.controller.TimeController run
+FINE: Started time-controller thread
+Jun 25, 2015 12:14:00 PM it.escape.core.server.controller.AsyncUserListener processMessage
+FINER: Whoami message detected
+Jun 25, 2015 12:14:00 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 25, 2015 12:14:00 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 25, 2015 12:14:00 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Executing turn sequence
+Jun 25, 2015 12:14:00 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering initialization phase
+Jun 25, 2015 12:14:00 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering pre-movement phase
+Jun 25, 2015 12:14:00 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering movement phase
+Jun 25, 2015 12:14:13 PM it.escape.core.server.view.rmispecific.ServerRMICore setAnswer
+INFO: Client Proxy[ClientRemoteInterface,RemoteObjectInvocationHandler[UnicastRef [liveRef: [endpoint:[10.0.2.15:34047](remote),objID:[-6d1a60de:14e2a349d5f:-7fff, 8190492329373008836]]]]] sent answer: K05
+Jun 25, 2015 12:14:13 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering landing phase
+Jun 25, 2015 12:14:14 PM it.escape.core.server.view.rmispecific.ServerRMICore setAnswer
+INFO: Client Proxy[ClientRemoteInterface,RemoteObjectInvocationHandler[UnicastRef [liveRef: [endpoint:[10.0.2.15:34047](remote),objID:[-6d1a60de:14e2a349d5f:-7fff, 8190492329373008836]]]]] sent answer: no
+Jun 25, 2015 12:14:14 PM it.escape.core.server.controller.TurnHandler commonLandingLogic
+FINER: Guest-2-2552 has drawn: NoCardAction
+Jun 25, 2015 12:14:14 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering post-movement phase
+Jun 25, 2015 12:14:14 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 25, 2015 12:14:14 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
+Jun 25, 2015 12:14:14 PM it.escape.core.server.controller.TimeController mainLoop
+FINER: Awaken
+Jun 25, 2015 12:14:14 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 25, 2015 12:14:14 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 25, 2015 12:14:14 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 25, 2015 12:14:14 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Executing turn sequence
+Jun 25, 2015 12:14:14 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering initialization phase
+Jun 25, 2015 12:14:14 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering pre-movement phase
+Jun 25, 2015 12:14:14 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering movement phase
+Jun 25, 2015 12:14:36 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 25, 2015 12:14:36 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINER: I am extracting a String from the ClientToServer queue
+Jun 25, 2015 12:14:36 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering landing phase
+Jun 25, 2015 12:14:36 PM it.escape.core.server.controller.TurnHandler commonLandingLogic
+FINER: Guest-2-7407 has drawn: NoCardAction
+Jun 25, 2015 12:14:36 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering post-movement phase
+Jun 25, 2015 12:14:36 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 25, 2015 12:14:36 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
+Jun 25, 2015 12:14:36 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 25, 2015 12:14:36 PM it.escape.core.server.controller.TimeController mainLoop
+FINER: Awaken
+Jun 25, 2015 12:14:37 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 25, 2015 12:14:37 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 25, 2015 12:14:37 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Executing turn sequence
+Jun 25, 2015 12:14:37 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering initialization phase
+Jun 25, 2015 12:14:37 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering pre-movement phase
+Jun 25, 2015 12:14:37 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering movement phase
+Jun 25, 2015 12:14:47 PM it.escape.core.server.view.rmispecific.ServerRMICore setAnswer
+INFO: Client Proxy[ClientRemoteInterface,RemoteObjectInvocationHandler[UnicastRef [liveRef: [endpoint:[10.0.2.15:34047](remote),objID:[-6d1a60de:14e2a349d5f:-7fff, 8190492329373008836]]]]] sent answer: M05
+Jun 25, 2015 12:14:47 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering landing phase
+Jun 25, 2015 12:14:48 PM it.escape.core.server.view.rmispecific.ServerRMICore setAnswer
+INFO: Client Proxy[ClientRemoteInterface,RemoteObjectInvocationHandler[UnicastRef [liveRef: [endpoint:[10.0.2.15:34047](remote),objID:[-6d1a60de:14e2a349d5f:-7fff, 8190492329373008836]]]]] sent answer: yes
+Jun 25, 2015 12:14:49 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering post-movement phase
+Jun 25, 2015 12:14:49 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 25, 2015 12:14:49 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
+Jun 25, 2015 12:14:49 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 25, 2015 12:14:49 PM it.escape.core.server.controller.TimeController mainLoop
+FINER: Awaken
+Jun 25, 2015 12:14:49 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Issuing startTurn command
+Jun 25, 2015 12:14:49 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 25, 2015 12:14:49 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Executing turn sequence
+Jun 25, 2015 12:14:49 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering initialization phase
+Jun 25, 2015 12:14:49 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering pre-movement phase
+Jun 25, 2015 12:14:49 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering movement phase
+Jun 25, 2015 12:15:32 PM it.escape.core.server.model.AnnouncerRMIBroadcast announcePlayerDisconnected
+WARNING: cannot announce player disconnection
+java.rmi.ConnectException: Connection refused to host: 10.0.2.15; nested exception is: 
+	java.net.ConnectException: Connection refused
+	at sun.rmi.transport.tcp.TCPEndpoint.newSocket(TCPEndpoint.java:619)
+	at sun.rmi.transport.tcp.TCPChannel.createConnection(TCPChannel.java:216)
+	at sun.rmi.transport.tcp.TCPChannel.newConnection(TCPChannel.java:202)
+	at sun.rmi.server.UnicastRef.invoke(UnicastRef.java:129)
+	at java.rmi.server.RemoteObjectInvocationHandler.invokeRemoteMethod(RemoteObjectInvocationHandler.java:194)
+	at java.rmi.server.RemoteObjectInvocationHandler.invoke(RemoteObjectInvocationHandler.java:148)
+	at com.sun.proxy.$Proxy1.playerDisconnected(Unknown Source)
+	at it.escape.core.server.model.AnnouncerRMIBroadcast.announcePlayerDisconnected(AnnouncerRMIBroadcast.java:59)
+	at it.escape.core.server.model.SuperAnnouncer.announcePlayerDisconnected(SuperAnnouncer.java:61)
+	at it.escape.core.server.controller.GameMaster.handlePlayerDisconnect(GameMaster.java:218)
+	at it.escape.core.server.Master.playerHasDisconnected(Master.java:107)
+	at it.escape.core.server.view.sockspecific.Connection.hasDisconnected(Connection.java:78)
+	at it.escape.core.server.view.sockspecific.Connection.run(Connection.java:57)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.net.ConnectException: Connection refused
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:339)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:200)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:182)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:579)
+	at java.net.Socket.connect(Socket.java:528)
+	at java.net.Socket.<init>(Socket.java:425)
+	at java.net.Socket.<init>(Socket.java:208)
+	at sun.rmi.transport.proxy.RMIDirectSocketFactory.createSocket(RMIDirectSocketFactory.java:40)
+	at sun.rmi.transport.proxy.RMIMasterSocketFactory.createSocket(RMIMasterSocketFactory.java:147)
+	at sun.rmi.transport.tcp.TCPEndpoint.newSocket(TCPEndpoint.java:613)
+	... 13 more
+
+Jun 25, 2015 12:15:32 PM it.escape.core.server.controller.GameMaster handlePlayerDisconnect
+INFO: Too few players left. Terminating game.
+Jun 25, 2015 12:15:32 PM it.escape.core.server.controller.TimeController mainLoop
+FINER: Awaken
+Jun 25, 2015 12:15:32 PM it.escape.core.server.controller.TimeController mainLoop
+FINE: Timeout hit, the turn will now be concluded automatically
+Jun 25, 2015 12:15:32 PM it.escape.core.server.controller.UserMessagesReporterSocket fillinDefaultOnce
+FINER: Overriding default once...
+Jun 25, 2015 12:15:32 PM it.escape.core.server.view.sockspecific.Connection hasDisconnected
+WARNING: Lost connection to /127.0.0.1
+Jun 25, 2015 12:15:32 PM it.escape.core.server.view.sockspecific.ServerSocketCore unregisterConnection
+FINER: Connection unregistered
+Jun 25, 2015 12:15:32 PM it.escape.core.server.view.MessagingChannelStrings overrideDefaultOption
+FINE: Overriding with default: "RANDOM"
+Jun 25, 2015 12:15:32 PM it.escape.core.server.view.MessagingChannelStrings readingFromClient
+FINE: Reading end of the override mechanism was triggered
+Jun 25, 2015 12:15:32 PM it.escape.core.server.model.game.gamemap.GameMap moveRandomly
+FINER: Moving to random position: PositionCubic=[13,-15,2]
+Jun 25, 2015 12:15:32 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering landing phase
+Jun 25, 2015 12:15:32 PM it.escape.core.server.controller.UserMessagesReporter fillinDefaultAlways
+FINE: authomatic Override is set to true
+Jun 25, 2015 12:15:32 PM it.escape.core.server.controller.TurnHandler commonLandingLogic
+FINER: Guest-2-7407 has drawn: NoiseHere
+Jun 25, 2015 12:15:33 PM it.escape.core.server.model.AnnouncerRMIBroadcast announceNoise
+WARNING: cannot announce noise
+java.rmi.ConnectException: Connection refused to host: 10.0.2.15; nested exception is: 
+	java.net.ConnectException: Connection refused
+	at sun.rmi.transport.tcp.TCPEndpoint.newSocket(TCPEndpoint.java:619)
+	at sun.rmi.transport.tcp.TCPChannel.createConnection(TCPChannel.java:216)
+	at sun.rmi.transport.tcp.TCPChannel.newConnection(TCPChannel.java:202)
+	at sun.rmi.server.UnicastRef.invoke(UnicastRef.java:129)
+	at java.rmi.server.RemoteObjectInvocationHandler.invokeRemoteMethod(RemoteObjectInvocationHandler.java:194)
+	at java.rmi.server.RemoteObjectInvocationHandler.invoke(RemoteObjectInvocationHandler.java:148)
+	at com.sun.proxy.$Proxy1.eventNoise(Unknown Source)
+	at it.escape.core.server.model.AnnouncerRMIBroadcast.announceNoise(AnnouncerRMIBroadcast.java:88)
+	at it.escape.core.server.model.SuperAnnouncer.announceNoise(SuperAnnouncer.java:82)
+	at it.escape.core.server.controller.game.actions.cardactions.NoiseHere.execute(NoiseHere.java:15)
+	at it.escape.core.server.controller.TurnHandler.commonLandingLogic(TurnHandler.java:127)
+	at it.escape.core.server.controller.TurnHandlerHuman.turnLand(TurnHandlerHuman.java:131)
+	at it.escape.core.server.controller.TurnHandler.executeTurnSequence(TurnHandler.java:73)
+	at it.escape.core.server.controller.ExecutiveController.gameTurn(ExecutiveController.java:97)
+	at it.escape.core.server.controller.ExecutiveController.gameLoop(ExecutiveController.java:78)
+	at it.escape.core.server.controller.ExecutiveController.run(ExecutiveController.java:59)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.net.ConnectException: Connection refused
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:339)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:200)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:182)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:579)
+	at java.net.Socket.connect(Socket.java:528)
+	at java.net.Socket.<init>(Socket.java:425)
+	at java.net.Socket.<init>(Socket.java:208)
+	at sun.rmi.transport.proxy.RMIDirectSocketFactory.createSocket(RMIDirectSocketFactory.java:40)
+	at sun.rmi.transport.proxy.RMIMasterSocketFactory.createSocket(RMIMasterSocketFactory.java:147)
+	at sun.rmi.transport.tcp.TCPEndpoint.newSocket(TCPEndpoint.java:613)
+	... 16 more
+
+Jun 25, 2015 12:15:33 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering post-movement phase
+Jun 25, 2015 12:15:33 PM it.escape.core.server.controller.TurnHandler executeTurnSequence
+FINER: entering de-initialization phase
+Jun 25, 2015 12:15:33 PM it.escape.core.server.controller.UserMessagesReporter stopFillingDefault
+FINE: authomatic Override is set to false
+Jun 25, 2015 12:15:33 PM it.escape.core.server.controller.ExecutiveController gameTurn
+FINE: Turn sequence completed
+Jun 25, 2015 12:15:33 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: sleeping
+Jun 25, 2015 12:15:33 PM it.escape.core.server.controller.TimeController run
+FINE: Time-controller finished its work
+Jun 25, 2015 12:15:33 PM it.escape.core.server.controller.ExecutiveController gameLoop
+FINER: Awakened by TimeController
+Jun 25, 2015 12:15:33 PM it.escape.core.server.controller.ExecutiveController run
+FINE: Executive-controller finished its work
+Jun 25, 2015 12:15:33 PM it.escape.core.server.controller.GameMaster startGameAndWait
+INFO: The game ended correctly
+Jun 25, 2015 12:15:33 PM it.escape.core.server.model.AnnouncerRMIBroadcast announceGameEnd
+WARNING: cannot announce game end
+java.rmi.ConnectException: Connection refused to host: 10.0.2.15; nested exception is: 
+	java.net.ConnectException: Connection refused
+	at sun.rmi.transport.tcp.TCPEndpoint.newSocket(TCPEndpoint.java:619)
+	at sun.rmi.transport.tcp.TCPChannel.createConnection(TCPChannel.java:216)
+	at sun.rmi.transport.tcp.TCPChannel.newConnection(TCPChannel.java:202)
+	at sun.rmi.server.UnicastRef.invoke(UnicastRef.java:129)
+	at java.rmi.server.RemoteObjectInvocationHandler.invokeRemoteMethod(RemoteObjectInvocationHandler.java:194)
+	at java.rmi.server.RemoteObjectInvocationHandler.invoke(RemoteObjectInvocationHandler.java:148)
+	at com.sun.proxy.$Proxy1.eventEndGame(Unknown Source)
+	at it.escape.core.server.model.AnnouncerRMIBroadcast.announceGameEnd(AnnouncerRMIBroadcast.java:175)
+	at it.escape.core.server.model.SuperAnnouncer.announceGameEnd(SuperAnnouncer.java:154)
+	at it.escape.core.server.controller.GameMaster.finalVictoryCheck(GameMaster.java:420)
+	at it.escape.core.server.controller.GameMaster.startGameAndWait(GameMaster.java:158)
+	at it.escape.core.server.controller.GameMaster.run(GameMaster.java:134)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.net.ConnectException: Connection refused
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:339)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:200)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:182)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:579)
+	at java.net.Socket.connect(Socket.java:528)
+	at java.net.Socket.<init>(Socket.java:425)
+	at java.net.Socket.<init>(Socket.java:208)
+	at sun.rmi.transport.proxy.RMIDirectSocketFactory.createSocket(RMIDirectSocketFactory.java:40)
+	at sun.rmi.transport.proxy.RMIMasterSocketFactory.createSocket(RMIMasterSocketFactory.java:147)
+	at sun.rmi.transport.tcp.TCPEndpoint.newSocket(TCPEndpoint.java:613)
+	... 12 more
+
+Jun 25, 2015 12:15:33 PM it.escape.core.server.controller.VictoryAnnounce totalAlienWin
+FINE: Announcing total victory of team ALIENS, winners: Guest-2-2552
+Jun 25, 2015 12:15:33 PM it.escape.core.server.model.AnnouncerRMIBroadcast announceTeamDefeat
+WARNING: cannot announce loser team
+java.rmi.ConnectException: Connection refused to host: 10.0.2.15; nested exception is: 
+	java.net.ConnectException: Connection refused
+	at sun.rmi.transport.tcp.TCPEndpoint.newSocket(TCPEndpoint.java:619)
+	at sun.rmi.transport.tcp.TCPChannel.createConnection(TCPChannel.java:216)
+	at sun.rmi.transport.tcp.TCPChannel.newConnection(TCPChannel.java:202)
+	at sun.rmi.server.UnicastRef.invoke(UnicastRef.java:129)
+	at java.rmi.server.RemoteObjectInvocationHandler.invokeRemoteMethod(RemoteObjectInvocationHandler.java:194)
+	at java.rmi.server.RemoteObjectInvocationHandler.invoke(RemoteObjectInvocationHandler.java:148)
+	at com.sun.proxy.$Proxy1.setLoserTeam(Unknown Source)
+	at it.escape.core.server.model.AnnouncerRMIBroadcast.announceTeamDefeat(AnnouncerRMIBroadcast.java:215)
+	at it.escape.core.server.model.SuperAnnouncer.announceTeamDefeat(SuperAnnouncer.java:184)
+	at it.escape.core.server.controller.VictoryAnnounce.totalAlienWin(VictoryAnnounce.java:43)
+	at it.escape.core.server.controller.GameMaster.finalVictoryCheck(GameMaster.java:423)
+	at it.escape.core.server.controller.GameMaster.startGameAndWait(GameMaster.java:158)
+	at it.escape.core.server.controller.GameMaster.run(GameMaster.java:134)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.net.ConnectException: Connection refused
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:339)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:200)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:182)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:579)
+	at java.net.Socket.connect(Socket.java:528)
+	at java.net.Socket.<init>(Socket.java:425)
+	at java.net.Socket.<init>(Socket.java:208)
+	at sun.rmi.transport.proxy.RMIDirectSocketFactory.createSocket(RMIDirectSocketFactory.java:40)
+	at sun.rmi.transport.proxy.RMIMasterSocketFactory.createSocket(RMIMasterSocketFactory.java:147)
+	at sun.rmi.transport.tcp.TCPEndpoint.newSocket(TCPEndpoint.java:613)
+	... 13 more
+
+Jun 25, 2015 12:15:33 PM it.escape.core.server.model.AnnouncerRMIBroadcast announceTeamVictory
+WARNING: cannot announce winner team
+java.rmi.ConnectException: Connection refused to host: 10.0.2.15; nested exception is: 
+	java.net.ConnectException: Connection refused
+	at sun.rmi.transport.tcp.TCPEndpoint.newSocket(TCPEndpoint.java:619)
+	at sun.rmi.transport.tcp.TCPChannel.createConnection(TCPChannel.java:216)
+	at sun.rmi.transport.tcp.TCPChannel.newConnection(TCPChannel.java:202)
+	at sun.rmi.server.UnicastRef.invoke(UnicastRef.java:129)
+	at java.rmi.server.RemoteObjectInvocationHandler.invokeRemoteMethod(RemoteObjectInvocationHandler.java:194)
+	at java.rmi.server.RemoteObjectInvocationHandler.invoke(RemoteObjectInvocationHandler.java:148)
+	at com.sun.proxy.$Proxy1.setWinners(Unknown Source)
+	at it.escape.core.server.model.AnnouncerRMIBroadcast.announceTeamVictory(AnnouncerRMIBroadcast.java:201)
+	at it.escape.core.server.model.SuperAnnouncer.announceTeamVictory(SuperAnnouncer.java:174)
+	at it.escape.core.server.controller.VictoryAnnounce.totalAlienWin(VictoryAnnounce.java:45)
+	at it.escape.core.server.controller.GameMaster.finalVictoryCheck(GameMaster.java:423)
+	at it.escape.core.server.controller.GameMaster.startGameAndWait(GameMaster.java:158)
+	at it.escape.core.server.controller.GameMaster.run(GameMaster.java:134)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.net.ConnectException: Connection refused
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:339)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:200)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:182)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:579)
+	at java.net.Socket.connect(Socket.java:528)
+	at java.net.Socket.<init>(Socket.java:425)
+	at java.net.Socket.<init>(Socket.java:208)
+	at sun.rmi.transport.proxy.RMIDirectSocketFactory.createSocket(RMIDirectSocketFactory.java:40)
+	at sun.rmi.transport.proxy.RMIMasterSocketFactory.createSocket(RMIMasterSocketFactory.java:147)
+	at sun.rmi.transport.tcp.TCPEndpoint.newSocket(TCPEndpoint.java:613)
+	... 13 more
+
+Exception in thread "Thread-21" java.lang.IllegalMonitorStateException
+	at java.util.concurrent.locks.ReentrantLock$Sync.tryRelease(ReentrantLock.java:155)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.release(AbstractQueuedSynchronizer.java:1260)
+	at java.util.concurrent.locks.ReentrantLock.unlock(ReentrantLock.java:460)
+	at it.escape.core.client.view.gui.SmartSwingView.allowQuit(SmartSwingView.java:76)
+	at it.escape.core.client.view.gui.SmartSwingView.spawnVictoryRecap(SmartSwingView.java:406)
+	at it.escape.core.client.controller.gui.UpdaterSwing.endResults(UpdaterSwing.java:823)
+	at it.escape.core.client.connection.rmi.ClientRemoteSwing.endResults(ClientRemoteSwing.java:194)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:322)
+	at sun.rmi.transport.Transport$2.run(Transport.java:202)
+	at sun.rmi.transport.Transport$2.run(Transport.java:199)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.Transport.serviceCall(Transport.java:198)
+	at sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:567)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.access$400(TCPTransport.java:619)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler$1.run(TCPTransport.java:684)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler$1.run(TCPTransport.java:681)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:681)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+	at sun.rmi.transport.StreamRemoteCall.exceptionReceivedFromServer(StreamRemoteCall.java:275)
+	at sun.rmi.transport.StreamRemoteCall.executeCall(StreamRemoteCall.java:252)
+	at sun.rmi.server.UnicastRef.invoke(UnicastRef.java:161)
+	at java.rmi.server.RemoteObjectInvocationHandler.invokeRemoteMethod(RemoteObjectInvocationHandler.java:194)
+	at java.rmi.server.RemoteObjectInvocationHandler.invoke(RemoteObjectInvocationHandler.java:148)
+	at com.sun.proxy.$Proxy1.endResults(Unknown Source)
+	at it.escape.core.server.model.AnnouncerRMIBroadcast.announceEndOfResults(AnnouncerRMIBroadcast.java:187)
+	at it.escape.core.server.model.SuperAnnouncer.announceEndOfResults(SuperAnnouncer.java:164)
+	at it.escape.core.server.controller.GameMaster.finalVictoryCheck(GameMaster.java:435)
+	at it.escape.core.server.controller.GameMaster.startGameAndWait(GameMaster.java:158)
+	at it.escape.core.server.controller.GameMaster.run(GameMaster.java:134)
+	at java.lang.Thread.run(Thread.java:745)
+Jun 25, 2015 12:15:39 PM it.escape.core.server.view.rmispecific.PingSender sendPings
+WARNING: client Proxy[ClientRemoteInterface,RemoteObjectInvocationHandler[UnicastRef [liveRef: [endpoint:[10.0.2.15:34047](remote),objID:[-6d1a60de:14e2a349d5f:-7fff, 8190492329373008836]]]]] can't be pinged
+Jun 25, 2015 12:15:39 PM it.escape.core.server.view.rmispecific.ServerRMICore tryStopPinging
+INFO: Stopped pinger thread
+
+
