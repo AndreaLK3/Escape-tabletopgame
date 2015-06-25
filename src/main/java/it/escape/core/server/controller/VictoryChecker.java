@@ -47,6 +47,11 @@ public class VictoryChecker {
 		return false;
 	}
 	
+	/**
+	 * Not really used in the game.
+	 * Returns true if all the aliens are dead.
+	 * @return
+	 */
 	public boolean isWinByAlienVanquished() {
 		int positiveMatches = 0;
 		
@@ -67,7 +72,7 @@ public class VictoryChecker {
 	 * @return
 	 */
 	public boolean isVictoryCondition() {
-		return (isWinByEscape() || isWinByAlienVanquished());
+		return isWinByEscape();
 	}
 	
 	/** This method checks if all the players of a team have disconnected. 
@@ -147,7 +152,7 @@ public class VictoryChecker {
 	 * @return
 	 */
 	public boolean allHumansWin() {
-		return (allHumansEscaped() || isWinByAlienVanquished());
+		return allHumansEscaped();
 	}
 	
 	/**
