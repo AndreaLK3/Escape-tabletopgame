@@ -71,8 +71,8 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 			}
 		} else if (globals.isStartInTextServer()) {
 			if (globals.isStartInTextComboMode()) {
-				new SockServerInitializer().startSocketServer(globals);
 				new RMIServerInitializer().startRMIServer(globals);
+				new SockServerInitializer().startSocketServer(globals);
 			} else if (globals.isStartInTextRMIMode()) {
 				new RMIServerInitializer().startRMIServer(globals);
 			} else {

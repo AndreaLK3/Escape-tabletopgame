@@ -26,7 +26,7 @@ public class PlayerState {
 	
 	public PlayerState(String myName) {
 		setMyName(myName);
-		myStatus = CurrentPlayerStatus.DISCONNECTED;
+		myStatus = CurrentPlayerStatus.CONNECTED;
 		lastNoiseLocation = noNoise;
 	}
 	
@@ -71,6 +71,13 @@ public class PlayerState {
 			this.myStatus = proposedStatus;
 		}
 		return;
+	}
+	
+	/**
+	 * Set as disconnected, bypassing the priority level
+	 */
+	public void disconnected() {
+		this.myStatus = CurrentPlayerStatus.DISCONNECTED;
 	}
 	
 	public CurrentPlayerStatus getMyStatus() {

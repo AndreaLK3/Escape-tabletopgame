@@ -449,4 +449,8 @@ public class GameMaster implements Runnable {
 		return announcer;
 	}
 	
+	public int getID() {
+		return id;
+	}
+	
 }

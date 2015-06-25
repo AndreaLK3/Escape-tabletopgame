@@ -612,7 +612,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 	public void playerDisconnected(String playerName) throws RemoteException {
 		PlayerState playerState = model.getSpecificPlayerState(playerName);
 		if (playerState!=null) {
-			playerState.setMyStatus(CurrentPlayerStatus.DISCONNECTED);
+			playerState.disconnected();
 		}
 		model.aPlayerDisconnected();
 		model.finishedUpdating();

@@ -104,6 +104,7 @@ public class Master {
 		Player offender = getPlayer(interfaceWithUser);
 		GameMaster gm = getGameMasterOfPlayer(offender);
 		if (gm != null) {
+			LOG.info("Removing player from gamemaster (id=" + gm.getID() + ")");
 			gm.handlePlayerDisconnect(offender);
 		}
 	}
