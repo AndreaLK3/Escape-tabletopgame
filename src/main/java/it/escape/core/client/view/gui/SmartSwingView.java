@@ -67,10 +67,9 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
    	}
    	
    	/**
-   	 * To be called when we have finished all our work,
-   	 * including displaying the winners.
-   	 * It allows the program to stop when the connection
-   	 * falls.
+   	 * Allows the program to stop when the connection falls.
+   	 * Not actually needed, since the user will simply close the window.
+   	 * The function is here for future developements
    	 */
    	private void allowQuit() {
    		SwingSynchroLauncher.synchronousLaunch(new SynchroLaunchInterface() {
