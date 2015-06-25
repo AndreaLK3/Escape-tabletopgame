@@ -37,7 +37,8 @@ public class CliParser {
 			StringRes.getString("cliparser.option.long.textclient"),
 			StringRes.getString("cliparser.option.long.textserver"),
 			StringRes.getString("cliparser.option.long.netrmi"),
-			StringRes.getString("cliparser.option.long.netcomboserver")
+			StringRes.getString("cliparser.option.long.netcomboserver"),
+			StringRes.getString("cliparser.option.long.htmlhelp")
 			);
 
 	public CliParser(String[] arrayOptions) {
@@ -72,6 +73,8 @@ public class CliParser {
 			globals.setStartInTextRMIMode(true);
 		} else if (opt.equals(StringRes.getString("cliparser.option.long.netcomboserver"))) {
 			globals.setStartInTextComboMode(true);
+		} else if (opt.equals(StringRes.getString("cliparser.option.long.htmlhelp"))) {
+			globals.setImmediatelySaveHTMLHelp(true);
 		} 
 	}
 	

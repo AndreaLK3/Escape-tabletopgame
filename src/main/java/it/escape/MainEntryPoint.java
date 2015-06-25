@@ -12,6 +12,7 @@ import it.escape.core.server.SockServerInitializer;
 import it.escape.core.server.swinglogviewer.Monitor;
 import it.escape.tools.GlobalSettings;
 import it.escape.tools.strings.StringRes;
+import it.escape.tools.utils.HelpFile;
 
 import java.awt.HeadlessException;
 import java.io.PrintStream;
@@ -63,6 +64,9 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 	
 	
 	private void initialize() {
+		if (globals.isImmediatelySaveHTMLHelp()) {
+			HelpFile.extractHelpFile();
+		}
 		if (globals.isStartInTextClient()) {
 			if (globals.isStartInTextRMIMode()) {
 				ClientInitializerCLIRMI.start(globals);
@@ -88,7 +92,8 @@ public class MainEntryPoint implements StartSubsystemsInterface {
 						StringRes.getString("cliparser.option.long.textclient"),
 						StringRes.getString("cliparser.option.long.textserver"),
 						StringRes.getString("cliparser.option.long.netrmi"),
-						StringRes.getString("cliparser.option.long.netcomboserver")
+						StringRes.getString("cliparser.option.long.netcomboserver"),
+						StringRes.getString("cliparser.option.long.htmlhelp")
 						));
 			}
 		}

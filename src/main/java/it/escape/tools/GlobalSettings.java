@@ -18,31 +18,33 @@ public class GlobalSettings {
 	
 	private final Logger LOG = Logger.getLogger( GlobalSettings.class.getName() );
 	
-	private int serverPort = 1337;
+	private int ServerPort = 1337;
 	
-	private int gameMasterTimeout = 60000;
+	private int GameMasterTimeout = 60000;
 	
-	private int gameTurnDuration = 60000;
+	private int GameTurnDuration = 60000;
 
-	private boolean startInTextClient = false;
+	private boolean StartInTextClient = false;
 	
-	private boolean startInTextServer = false;
+	private boolean StartInTextServer = false;
 	
-	private boolean startInTextRMIMode = false;
+	private boolean StartInTextRMIMode = false;
 	
-	private boolean startInTextComboMode = false;
+	private boolean StartInTextComboMode = false;
 	
-	private String destinationServerAddress = "localhost";
+	private boolean ImmediatelySaveHTMLHelp = false;
 	
-	private String[] mapRotation = {"Galilei"};
+	private String DestinationServerAddress = "localhost";
+	
+	private String[] Maprotation = {"Galilei"};
 	
 	public GlobalSettings(GlobalSettings old) {
 		LogHelper.setDefaultOptions(LOG);
-		serverPort = old.getServerPort();
-		gameMasterTimeout = old.getGameMasterTimeout();
-		startInTextClient = old.isStartInTextClient();
-		startInTextServer = old.isStartInTextServer();
-		destinationServerAddress = old.getDestinationServerAddress();
+		ServerPort = old.getServerPort();
+		GameMasterTimeout = old.getGameMasterTimeout();
+		StartInTextClient = old.isStartInTextClient();
+		StartInTextServer = old.isStartInTextServer();
+		DestinationServerAddress = old.getDestinationServerAddress();
 	}
 	
 	public GlobalSettings() {
@@ -50,89 +52,98 @@ public class GlobalSettings {
 	}
 
 	public int getServerPort() {
-		return serverPort;
+		return ServerPort;
 	}
 
-	public void setServerPort(int newServerPort) {
-		LOG.finer("Setting ServerPort to " + newServerPort + " (default: " + serverPort + ")");
-		serverPort = newServerPort;
+	public void setServerPort(int serverPort) {
+		LOG.finer("Setting ServerPort to " + serverPort + " (default: " + ServerPort + ")");
+		ServerPort = serverPort;
 	}
 
 	public int getGameMasterTimeout() {
-		return gameMasterTimeout;
+		return GameMasterTimeout;
 	}
 
-	public void setGameMasterTimeout(int newGameMasterTimeout) {
-		LOG.finer("Setting GameMasterTimeout to " + newGameMasterTimeout + " (default: " + gameMasterTimeout + ")");
-		gameMasterTimeout = newGameMasterTimeout;
+	public void setGameMasterTimeout(int gameMasterTimeout) {
+		LOG.finer("Setting GameMasterTimeout to " + gameMasterTimeout + " (default: " + GameMasterTimeout + ")");
+		GameMasterTimeout = gameMasterTimeout;
 	}
 
 	public boolean isStartInTextClient() {
-		return startInTextClient;
+		return StartInTextClient;
 	}
 
-	public void setStartInTextClient(boolean setStartInTextClient) {
-		startInTextClient = setStartInTextClient;
+	public void setStartInTextClient(boolean startInTextClient) {
+		StartInTextClient = startInTextClient;
 	}
 
 	public boolean isStartInTextServer() {
-		return startInTextServer;
+		return StartInTextServer;
 	}
 
-	public void setStartInTextServer(boolean setStartInTextServer) {
-		startInTextServer = setStartInTextServer;
+	public void setStartInTextServer(boolean startInTextServer) {
+		StartInTextServer = startInTextServer;
 	}
 
 	public String getDestinationServerAddress() {
-		return destinationServerAddress;
+		return DestinationServerAddress;
 	}
 
-	public void setDestinationServerAddress(String newDestinationServerAddress) {
-		LOG.finer("Setting DestinationServerAddress to " + newDestinationServerAddress + " (default: " + destinationServerAddress + ")");
-		destinationServerAddress = newDestinationServerAddress;
+	public void setDestinationServerAddress(
+			String destinationServerAddress) {
+		LOG.finer("Setting DestinationServerAddress to " + destinationServerAddress + " (default: " + DestinationServerAddress + ")");
+		DestinationServerAddress = destinationServerAddress;
 	}
 
 	public boolean isStartInTextComboMode() {
-		return startInTextComboMode;
+		return StartInTextComboMode;
 	}
 
-	public void setStartInTextComboMode(boolean setStartInTextComboMode) {
-		startInTextComboMode = setStartInTextComboMode;
+	public void setStartInTextComboMode(boolean startInTextComboMode) {
+		StartInTextComboMode = startInTextComboMode;
 	}
 
 	public boolean isStartInTextRMIMode() {
-		return startInTextRMIMode;
+		return StartInTextRMIMode;
 	}
 
-	public void setStartInTextRMIMode(boolean setStartInTextRMIMode) {
-		startInTextRMIMode = setStartInTextRMIMode;
+	public void setStartInTextRMIMode(boolean startInTextRMIMode) {
+		StartInTextRMIMode = startInTextRMIMode;
 	}
 
 	public int getGameTurnDuration() {
-		return gameTurnDuration;
+		return GameTurnDuration;
 	}
 
-	public void setGameTurnDuration(int newGameTurnDuration) {
-		LOG.finer("Setting GameTurnDuration to " + newGameTurnDuration + " (default: " + gameTurnDuration + ")");
-		gameTurnDuration = newGameTurnDuration;
+	public void setGameTurnDuration(int gameTurnDuration) {
+		LOG.finer("Setting GameTurnDuration to " + gameTurnDuration + " (default: " + GameTurnDuration + ")");
+		GameTurnDuration = gameTurnDuration;
 	}
 
 	public String[] getMaprotation() {
-		return mapRotation;
+		return Maprotation;
 	}
 
-	public void setMaprotation(String[] newMapRotation) {
+	public void setMaprotation(String[] maprotation) {
 		StringBuilder rot = new StringBuilder();
 		rot.append("Setting maprotation to:\n");
-		for (String name : newMapRotation) {
+		for (String name : maprotation) {
 			rot.append(name + "\n");
 		}
 		rot.append("Default maprotation was:\n");
-		for (String name : this.mapRotation) {
+		for (String name : this.Maprotation) {
 			rot.append(name + "\n");
 		}
 		LOG.finer(rot.toString());
-		this.mapRotation = newMapRotation;
+		this.Maprotation = maprotation;
+	}
+
+	public boolean isImmediatelySaveHTMLHelp() {
+		return ImmediatelySaveHTMLHelp;
+	}
+
+	public void setImmediatelySaveHTMLHelp(boolean immediatelyOpenHTMLHelp) {
+		ImmediatelySaveHTMLHelp = immediatelyOpenHTMLHelp;
 	}
 	
 	
