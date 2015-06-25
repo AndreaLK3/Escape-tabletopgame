@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  */
 public abstract class UserMessagesReporter {
 
-	protected static final Logger LOGGER = Logger.getLogger( UserMessagesReporter.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( UserMessagesReporter.class.getName() );
 	
 	protected static List<UserMessagesReporter> reportersList = new ArrayList<UserMessagesReporter>();
 	

@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * @author andrea
  */
 public class Deck {
-	protected static final Logger LOGGER = Logger.getLogger( Deck.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( Deck.class.getName() );
 
 	protected List<Card> theDeck = new ArrayList<Card>();
 	private int counter;

@@ -9,7 +9,7 @@ import it.escape.tools.utils.LogHelper;
 
 public abstract class Cell {
 	
-	protected static final Logger log = Logger.getLogger( Cell.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( Cell.class.getName() );
 	
 	protected PositionCubic position;
 	
@@ -18,7 +18,7 @@ public abstract class Cell {
 	}
 	
 	public Cell(PositionCubic position) {
-		LogHelper.setDefaultOptions(log);
+		LogHelper.setDefaultOptions(LOGGER);
 		this.position = position;
 	}
 	

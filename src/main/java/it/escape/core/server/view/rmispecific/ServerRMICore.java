@@ -32,7 +32,7 @@ import java.util.logging.Logger;
  */
 public class ServerRMICore implements ServerRemoteInterface {
 	
-	protected static final Logger LOGGER = Logger.getLogger( ServerRMICore.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( ServerRMICore.class.getName() );
 	
 	public static final int REGISRTY_PORT = 1099;
 

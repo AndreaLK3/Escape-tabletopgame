@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public abstract class Player implements PlayerActionInterface {
 	
-	protected static final Logger LOGGER = Logger.getLogger( Player.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( Player.class.getName() );
 	protected boolean userIdle;
 	protected int maxRange;
 	protected boolean hasMoved;

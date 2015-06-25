@@ -6,6 +6,7 @@ import it.escape.core.server.view.MessagingChannelStrings;
 import it.escape.tools.strings.StringRes;
 
 import java.util.Arrays;
+import java.util.logging.Logger;
 
 /** 
  * This class is located at the border of the controller package,
@@ -19,6 +20,8 @@ import java.util.Arrays;
  * @author andrea
  */
 public class UserMessagesReporterSocket extends UserMessagesReporter {
+	
+	private static final Logger LOGGER = Logger.getLogger( UserMessagesReporterSocket.class.getName() );
 		
 	private MessagingChannelStrings interfaceWithUser;
 	

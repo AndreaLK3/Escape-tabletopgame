@@ -7,8 +7,11 @@ import it.escape.tools.strings.StringRes;
 
 import java.rmi.RemoteException;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserMessagesReporterRMI extends UserMessagesReporter {
+	
+	private static final Logger LOGGER = Logger.getLogger( UserMessagesReporterRMI.class.getName() );
 	
 	private MessagingChannelRMI interfaceWithUser;
 	

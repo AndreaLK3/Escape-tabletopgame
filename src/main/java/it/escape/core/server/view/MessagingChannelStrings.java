@@ -40,7 +40,7 @@ import java.util.regex.Pattern;
  */
 public class MessagingChannelStrings extends Observable implements MessagingHead, MessagingTail, MessagingChannelInterface {
 	
-	protected static final Logger LOGGER = Logger.getLogger( MessagingChannelStrings.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( MessagingChannelStrings.class.getName() );
 	
 	private Queue<String> serverToClientQueue;
 	private Queue<String> clientToServerQueue;

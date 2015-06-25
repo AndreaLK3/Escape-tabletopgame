@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class TimeController implements Runnable {
 	
-	protected static final Logger LOGGER = Logger.getLogger( TimeController.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( TimeController.class.getName() );
 	
 	private final int TIMEOUT;
 	

@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 public class Connection implements Observer, Runnable {
 	
-	protected static final Logger log = Logger.getLogger( Connection.class.getName() );
+	private static final Logger log = Logger.getLogger( Connection.class.getName() );
 	
 	private Socket clientSocket;
 	

@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 import java.util.logging.Logger;
 
 public class RMIServerInitializer {
-protected static final Logger log = Logger.getLogger( RMIServerInitializer.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( RMIServerInitializer.class.getName() );
 	
 	private GlobalSettings locals;
 
@@ -34,7 +34,7 @@ protected static final Logger log = Logger.getLogger( RMIServerInitializer.class
 	 * @param message
 	 */
 	private void crash(String message) {
-		log.severe(message);
+		LOGGER.severe(message);
 		throw new AssertionError();
 	}
 }

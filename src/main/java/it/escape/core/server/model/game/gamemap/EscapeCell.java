@@ -1,5 +1,7 @@
 package it.escape.core.server.model.game.gamemap;
 
+import java.util.logging.Logger;
+
 import it.escape.core.server.controller.game.actions.CellAction;
 import it.escape.core.server.controller.game.actions.cellactions.GetEscapeCardAction;
 import it.escape.core.server.controller.game.actions.cellactions.NoCellAction;
@@ -14,6 +16,8 @@ import it.escape.core.server.model.game.players.Player;
  * @author andrea
  */
 public class EscapeCell extends Cell {
+	
+	private static final Logger LOGGER = Logger.getLogger( EscapeCell.class.getName() );
 	
 	private boolean alreadyUsed;
 	
@@ -32,7 +36,7 @@ public class EscapeCell extends Cell {
 		if (player instanceof Human) {
 			return true;
 		} else {
-			log.info("An alien can't use an escape shuttle!");
+			LOGGER.info("An alien can't use an escape shuttle!");
 			return false;
 			}
 	}

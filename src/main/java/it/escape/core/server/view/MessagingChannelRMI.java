@@ -22,7 +22,7 @@ import it.escape.tools.utils.LogHelper;
  */
 public class MessagingChannelRMI implements MessagingChannelInterface {
 	
-	protected static final Logger LOGGER = Logger.getLogger( MessagingChannelRMI.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( MessagingChannelRMI.class.getName() );
 	
 	private ClientRemoteInterface client;
 	

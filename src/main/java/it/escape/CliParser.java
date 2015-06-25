@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class CliParser {
 	
-	protected static final Logger LOG = Logger.getLogger( CliParser.class.getName() );
+	private static final Logger LOG = Logger.getLogger( CliParser.class.getName() );
 	
 	private List<String> rawOptions;
 	

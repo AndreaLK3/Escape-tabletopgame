@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class ServerSocketCore implements ServerInterface{
 	
-	private static final Logger log = Logger.getLogger( ServerSocketCore.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( ServerSocketCore.class.getName() );
 	
 	private GlobalSettings locals;
 	
@@ -42,12 +42,12 @@ public class ServerSocketCore implements ServerInterface{
 	 * @throws IOException
 	 */
 	private ServerSocketCore(GlobalSettings locals) throws IOException {
-		LogHelper.setDefaultOptions(log);
+		LogHelper.setDefaultOptions(LOGGER);
 		this.locals = locals;
 		PORT = this.locals.getServerPort();
 		SingleShutdownHook.setHook(new Thread(new ServerShutdownHook()));
 		this.serverSocket = new ServerSocket(PORT);
-		log.info("ServerSocketCore is now listening on port " + PORT);
+		LOGGER.info("ServerSocketCore is now listening on port " + PORT);
 	}
 	
 	/**This is the main server loop: it listens to the incoming Socket connections, 
@@ -58,10 +58,10 @@ public class ServerSocketCore implements ServerInterface{
 				Socket newSocket = serverSocket.accept();
 				Connection c = new Connection(newSocket, this);
 				registerConnection(c);
-				log.info("A new user connected from " + newSocket.getInetAddress().toString());
+				LOGGER.info("A new user connected from " + newSocket.getInetAddress().toString());
 				new Thread(c).start();
 			} catch (IOException e) {
-				log.severe("Connection error!");
+				LOGGER.severe("Connection error!");
 			}
 		}
 	}
@@ -72,12 +72,12 @@ public class ServerSocketCore implements ServerInterface{
 	
 	private synchronized void registerConnection(Connection c){
 		connections.add(c);
-		log.finer(StringRes.getString("view.server.connectionRegistered"));
+		LOGGER.finer(StringRes.getString("view.server.connectionRegistered"));
 	}
 
 	public void unregisterConnection(Connection connection) {
 		connections.remove(connection);
-		log.finer(StringRes.getString("view.server.connectionUnregistered"));
+		LOGGER.finer(StringRes.getString("view.server.connectionUnregistered"));
 	}
 }
 

@@ -1,11 +1,15 @@
 package it.escape.core.server.model.game.players;
 
+import java.util.logging.Logger;
+
 import it.escape.core.server.controller.game.actions.HumanActionInterface;
 import it.escape.core.server.model.game.exceptions.CardNotPresentException;
 import it.escape.tools.strings.StringRes;
 
 
 public class Human extends Player implements HumanActionInterface {
+	
+	private static final Logger LOGGER = Logger.getLogger( Human.class.getName() );
 	
 	private final static int HUMANSMAXRANGE = 1;
 	private final static int ADRENALINERANGE = 2;

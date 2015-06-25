@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * There is only one Master that handles all the connections and redirects the user to the gameMasters.]*/
 public class SockServerInitializer {
 	
-	protected static final Logger LOGGER = Logger.getLogger( SockServerInitializer.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( SockServerInitializer.class.getName() );
 	
 	private GlobalSettings locals;
 	
