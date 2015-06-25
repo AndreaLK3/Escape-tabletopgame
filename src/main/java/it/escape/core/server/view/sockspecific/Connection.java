@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 public class Connection implements Observer, Runnable {
 	
-	private static final Logger log = Logger.getLogger( Connection.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( Connection.class.getName() );
 	
 	private Socket clientSocket;
 	
@@ -32,7 +32,7 @@ public class Connection implements Observer, Runnable {
 	private AnnouncerStrings announcer;
 
 	public Connection(Socket clientSocket, ServerInterface server) {
-		LogHelper.setDefaultOptions(log);
+		LogHelper.setDefaultOptions(LOGGER);
 		this.clientSocket = clientSocket;
 		this.running = true;
 		this.server = server;
@@ -63,12 +63,12 @@ public class Connection implements Observer, Runnable {
 				clientSocket.close();
 				//LOGGER.info("Closed connection to " + clientSocket.getInetAddress().toString());
 			} catch (IOException e) {
-				log.severe("Cannot close the connection");
+				LOGGER.severe("Cannot close the connection");
 			}
 			
 			server.unregisterConnection(this);  // unregister from the connections list
 		} catch (IOException e) {
-			log.severe("Cannot establish connection");
+			LOGGER.severe("Cannot establish connection");
 		}
 	}
 	
@@ -78,7 +78,7 @@ public class Connection implements Observer, Runnable {
 		Master.playerHasDisconnected(messagingInterface);
 		
 		running = false;
-		log.warning("Lost connection to " + clientSocket.getInetAddress().toString());
+		LOGGER.warning("Lost connection to " + clientSocket.getInetAddress().toString());
 		// the connection thread will now terminate
 	}
 	
@@ -93,7 +93,7 @@ public class Connection implements Observer, Runnable {
 					StringRes.getString("messaging.motd.end")
 					);
 		} catch (IOException e) {
-			log.warning(StringRes.getString("view.connection.cantWelcome"));
+			LOGGER.warning(StringRes.getString("view.connection.cantWelcome"));
 		} 
 	}
 
@@ -105,7 +105,7 @@ public class Connection implements Observer, Runnable {
 				out = new PrintStream(clientSocket.getOutputStream());
 				out.println(a.getMessage());
 			} catch (IOException e) {
-				log.warning(StringRes.getString("view.connection.cantAnnounce"));
+				LOGGER.warning(StringRes.getString("view.connection.cantAnnounce"));
 			}
 		}
 	}

@@ -1,6 +1,5 @@
 package it.escape.core.client.view.gui;
 
-import it.escape.CliParser;
 import it.escape.core.client.BindUpdaterInterface;
 import it.escape.core.client.connection.BindDisconnectCallbackInterface;
 import it.escape.core.client.connection.DisconnectedCallbackInterface;

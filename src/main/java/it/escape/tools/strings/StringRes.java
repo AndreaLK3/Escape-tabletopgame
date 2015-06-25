@@ -14,9 +14,9 @@ import java.util.Properties;
  */
 public class StringRes {
 	
-	public static final String noFile = "Strings file not found";
+	public static final String NOFILE = "Strings file not found";
 	
-	public static final String noKey = "String not found";
+	public static final String NOKEY = "String not found";
 	
 	private static Properties res = null;
 	
@@ -31,17 +31,17 @@ public class StringRes {
 			try {
 				loadProperties();
 			} catch (IOException e) {
-				return noFile;
+				return NOFILE;
 			}
 		}
 		try {
 			String found = res.getProperty(key);
 			if (found == null) {
-				return noKey;
+				return NOKEY;
 			}
 			return found;
 		} catch (MissingResourceException e) {
-			return noKey;
+			return NOKEY;
 		}
 	}
 }

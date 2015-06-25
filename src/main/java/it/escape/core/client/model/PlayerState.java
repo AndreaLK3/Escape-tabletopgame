@@ -16,18 +16,18 @@ public class PlayerState {
 	protected String lastNoiseLocation;
 	
 	// value to initialize lastNoiseLocation to
-	protected static final String noNoise = StringRes.getString("client.applogic.unknownCoordinates");
+	protected static final String NONOISE = StringRes.getString("client.applogic.unknownCoordinates");
 
 	public PlayerState() {
 		this.myName = "Unknown";
 		myStatus = CurrentPlayerStatus.DISCONNECTED;
-		lastNoiseLocation = noNoise;
+		lastNoiseLocation = NONOISE;
 	}
 	
 	public PlayerState(String myName) {
 		setMyName(myName);
 		myStatus = CurrentPlayerStatus.CONNECTED;
-		lastNoiseLocation = noNoise;
+		lastNoiseLocation = NONOISE;
 	}
 	
 	public PlayerState(String myName, CurrentPlayerStatus status) {

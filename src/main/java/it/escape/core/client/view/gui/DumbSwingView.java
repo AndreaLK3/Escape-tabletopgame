@@ -58,8 +58,8 @@ public abstract class DumbSwingView extends JFrame {
 	
 	protected static final int CONN_ICON_SIZE = 20;
   	
-	private static final double left_panels = 0.5;
-	private static final double map_panel = 1.0;
+	private static final double LEFT_PANELS = 0.5;
+	private static final double MAP_PANEL = 1.0;
 	
 	protected GridBagConstraints constraints;
    	
@@ -210,7 +210,7 @@ public abstract class DumbSwingView extends JFrame {
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.gridx = 1;
 		constraints.gridy = 1;
-		constraints.weightx = map_panel;
+		constraints.weightx = MAP_PANEL;
 		constraints.weighty = 1;
 		constraints.gridwidth = 1;
 		constraints.gridheight = 13;
@@ -353,7 +353,7 @@ public abstract class DumbSwingView extends JFrame {
 		label13CardNotify.setVisible(false);
    		constraints.gridx = 0;
 		constraints.gridy = 14;
-		constraints.weightx = left_panels;
+		constraints.weightx = LEFT_PANELS;
 		add(label13CardNotify, constraints);
 		resetConstraints(constraints);
    	}
@@ -375,7 +375,7 @@ public abstract class DumbSwingView extends JFrame {
    	 * @param panel 	 */
    	private void addSidePanel(JPanel panel) {
    		constraints.fill = GridBagConstraints.BOTH;
-		constraints.weightx = left_panels;
+		constraints.weightx = LEFT_PANELS;
 		constraints.gridx = 0;
 		constraints.gridy = currentRow;
 		currentRow++;

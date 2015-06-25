@@ -9,7 +9,7 @@ public class StringResTest {
 	@Test
 	public void test() {
 		assertEquals("This is a test", StringRes.getString("tests.getMe.one"));
-		assertEquals(StringRes.noKey, StringRes.getString("I have no idea"));
+		assertEquals(StringRes.NOKEY, StringRes.getString("I have no idea"));
 	}
 
 }
