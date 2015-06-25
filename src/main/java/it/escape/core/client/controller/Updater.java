@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
 
 public abstract class Updater implements Observer {  
 
-	protected Pattern input_ObjectCard;
-	protected Pattern input_Position;
-	protected Pattern input_YesNo;
+	protected Pattern inputObjectCard;
+	protected Pattern inputPosition;
+	protected Pattern inputYesNo;
 	protected Pattern turn_Start;
 	protected Pattern turn_End;
 	protected Pattern turn_playOrDiscard;
@@ -34,9 +34,9 @@ public abstract class Updater implements Observer {
 	public abstract void processMessage(String message) throws RemoteException;
 	
 	protected void initPatterns() {
-		input_ObjectCard = new FormatToPattern(StringRes.getString("messaging.askWhichObjectCard")).convert();
-		input_Position = new FormatToPattern(StringRes.getString("messaging.askForPosition")).convert();
-		input_YesNo = Pattern.compile(String.format(
+		inputObjectCard = new FormatToPattern(StringRes.getString("messaging.askWhichObjectCard")).convert();
+		inputPosition = new FormatToPattern(StringRes.getString("messaging.askForPosition")).convert();
+		inputYesNo = Pattern.compile(String.format(
 				StringRes.getString("messaging.askBinaryChoice"),
 				"yes",
 				"no"));

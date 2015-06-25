@@ -25,7 +25,7 @@ public class TimeController implements Runnable {
 	
 	private static final Logger LOGGER = Logger.getLogger( TimeController.class.getName() );
 	
-	private final int TIMEOUT;
+	private final int theTIMEOUT;
 	
 	private final static int SYNCHRO_SCAN_TIME = 10;
 	
@@ -78,7 +78,7 @@ public class TimeController implements Runnable {
 	public TimeController(List<Player> turnOrder, GlobalSettings locals) {
 		LogHelper.setDefaultOptions(LOGGER);
 		this.locals = locals;
-		TIMEOUT = this.locals.getGameTurnDuration();
+		theTIMEOUT = this.locals.getGameTurnDuration();
 		this.turnOrder = turnOrder;
 		nowPlaying = 0;
 		this.runGame = true;
@@ -98,7 +98,7 @@ public class TimeController implements Runnable {
 			executorRef.startTurn(current);  // run current player's turn
 			
 			try {
-				wait(TIMEOUT);  // wait for it to end
+				wait(theTIMEOUT);  // wait for it to end
 			} catch (InterruptedException e) {
 				LOGGER.log(Level.FINEST, "unexpected interruption", e);
 			}

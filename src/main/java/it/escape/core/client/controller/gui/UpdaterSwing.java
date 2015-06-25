@@ -307,7 +307,7 @@ public class UpdaterSwing extends Updater implements Observer, BindUpdaterInterf
 		Matcher movement = pTURNmovement.matcher(message);
 		Matcher askForAttack = pTURNaskForAttack.matcher(message);
 		Matcher askForObject = pTURNaskForObject.matcher(message);
-		Matcher whichobjectCard = input_ObjectCard.matcher(message);
+		Matcher whichobjectCard = inputObjectCard.matcher(message);
 		Matcher askForNoisePos = pTURNaskForNoisePos.matcher(message);
 		Matcher turnEnd = turn_End.matcher(message);
 		Matcher askForLightsPos = pTURNaskForLightsPos.matcher(message);

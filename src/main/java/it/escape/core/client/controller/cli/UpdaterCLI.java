@@ -48,9 +48,9 @@ public class UpdaterCLI extends Updater implements Observer {
 	 * @param message
 	 */
 	public void processMessage(String message) {
-		Matcher objectRequired = input_ObjectCard.matcher(message);
-		Matcher positionRequired = input_Position.matcher(message);
-		Matcher yesnoRequired = input_YesNo.matcher(message);
+		Matcher objectRequired = inputObjectCard.matcher(message);
+		Matcher positionRequired = inputPosition.matcher(message);
+		Matcher yesnoRequired = inputYesNo.matcher(message);
 		Matcher turnstart = turn_Start.matcher(message);
 		Matcher turnend = turn_End.matcher(message);
 		Matcher playvsdiscard = turn_playOrDiscard.matcher(message);

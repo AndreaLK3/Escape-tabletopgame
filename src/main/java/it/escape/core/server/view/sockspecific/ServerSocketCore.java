@@ -24,7 +24,7 @@ public class ServerSocketCore implements ServerInterface{
 	
 	private static ServerSocketCore serverInstance = null;
 	private static List<Connection> connections = new ArrayList<Connection>();
-	private final int PORT;
+	private final int thePORT;
 	private ServerSocket serverSocket;
 	
 	public static ServerSocketCore createServerInstance(GlobalSettings locals) throws IOException {
@@ -44,10 +44,10 @@ public class ServerSocketCore implements ServerInterface{
 	private ServerSocketCore(GlobalSettings locals) throws IOException {
 		LogHelper.setDefaultOptions(LOGGER);
 		this.locals = locals;
-		PORT = this.locals.getServerPort();
+		thePORT = this.locals.getServerPort();
 		SingleShutdownHook.setHook(new Thread(new ServerShutdownHook()));
-		this.serverSocket = new ServerSocket(PORT);
-		LOGGER.info("ServerSocketCore is now listening on port " + PORT);
+		this.serverSocket = new ServerSocket(thePORT);
+		LOGGER.info("ServerSocketCore is now listening on port " + thePORT);
 	}
 	
 	/**This is the main server loop: it listens to the incoming Socket connections, 

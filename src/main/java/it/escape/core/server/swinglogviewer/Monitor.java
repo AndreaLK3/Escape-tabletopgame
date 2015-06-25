@@ -39,7 +39,7 @@ public class Monitor extends JFrame {
 	
 	private JTextArea messages;
 	
-	private StartMenuInterface startMenu;
+	private transient StartMenuInterface startMenu;
 
 	public Monitor(String string, boolean rmi, boolean sock, StartMenuInterface startMenu) {
 		super(string);

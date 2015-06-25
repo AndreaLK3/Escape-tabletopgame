@@ -14,7 +14,7 @@ public class TeleportCard implements Card, ObjectCard{
 	
 	@Override
 	public String toString() {
-		return ("ObjectCard : " + getClass().getSimpleName());
+		return "ObjectCard : " + getClass().getSimpleName();
 	}
 
 

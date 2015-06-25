@@ -14,7 +14,7 @@ public class AdrenalineCard implements ObjectCard, Card{
 
 	@Override
 	public String toString() {
-		return ("ObjectCard : " + getClass().getSimpleName());
+		return "ObjectCard : " + getClass().getSimpleName();
 	}	
 
 }
