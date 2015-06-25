@@ -73,7 +73,11 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
    	 * falls.
    	 */
    	private synchronized void allowQuit() {
-   		finalPhase.unlock();
+   		SwingSynchroLauncher.synchronousLaunch(new SynchroLaunchInterface() {
+			public void run() {
+				finalPhase.unlock();  // the locker thread is EDT, so we'll unlock from EDT.
+			}
+		});
    	}
    	
 	/**
