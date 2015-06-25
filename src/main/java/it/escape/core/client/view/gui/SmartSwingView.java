@@ -72,7 +72,7 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
    	 * It allows the program to stop when the connection
    	 * falls.
    	 */
-   	private synchronized void allowQuit() {
+   	private void allowQuit() {
    		SwingSynchroLauncher.synchronousLaunch(new SynchroLaunchInterface() {
 			public void run() {
 				finalPhase.unlock();  // the locker thread is EDT, so we'll unlock from EDT.
@@ -407,7 +407,6 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
 						(null, resultsPanel, "End of the Game! Here are the results", JOptionPane.INFORMATION_MESSAGE);
 				} 
 			});
-		allowQuit();
 	}
 	
 	/**This method creates panels with the final results for each team, depending on the results in VictoryState*/
