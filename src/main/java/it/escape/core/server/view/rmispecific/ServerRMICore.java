@@ -13,6 +13,7 @@ import it.escape.tools.GlobalSettings;
 import it.escape.tools.strings.StringRes;
 import it.escape.tools.utils.FilesHelper;
 import it.escape.tools.utils.LogHelper;
+import it.escape.tools.utils.SingleShutdownHook;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -211,7 +212,7 @@ public class ServerRMICore implements ServerRemoteInterface {
 	 * @throws MalformedURLException */
 	public static void initializer(GlobalSettings locals) throws RemoteException, MalformedURLException {
 		LogHelper.setDefaultOptions(LOGGER);
-		Runtime.getRuntime().addShutdownHook(new Thread(new ServerShutdownHook()));
+		SingleShutdownHook.setHook(new Thread(new ServerShutdownHook()));
 		LOGGER.info("Creating local registry");
 		LocateRegistry.createRegistry(REGISRTY_PORT);
 		LOGGER.info("Created RMI registry on port " + REGISRTY_PORT);

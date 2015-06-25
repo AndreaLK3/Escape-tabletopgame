@@ -72,7 +72,7 @@ public class SmartSwingView extends DumbSwingView implements UpdaterSwingToViewI
    	 * It allows the program to stop when the connection
    	 * falls.
    	 */
-   	private void allowQuit() {
+   	private synchronized void allowQuit() {
    		finalPhase.unlock();
    	}
    	

@@ -4,6 +4,7 @@ import it.escape.core.server.ServerShutdownHook;
 import it.escape.tools.GlobalSettings;
 import it.escape.tools.strings.StringRes;
 import it.escape.tools.utils.LogHelper;
+import it.escape.tools.utils.SingleShutdownHook;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -44,7 +45,7 @@ public class ServerSocketCore implements ServerInterface{
 		LogHelper.setDefaultOptions(log);
 		this.locals = locals;
 		PORT = this.locals.getServerPort();
-		Runtime.getRuntime().addShutdownHook(new Thread(new ServerShutdownHook()));
+		SingleShutdownHook.setHook(new Thread(new ServerShutdownHook()));
 		this.serverSocket = new ServerSocket(PORT);
 		log.info("ServerSocketCore is now listening on port " + PORT);
 	}
